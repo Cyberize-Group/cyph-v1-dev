@@ -50,7 +50,7 @@ checked today. **This is not full pilot certification.**
 
 ## TOMORROW'S RESUME (2026-10-11)
 1. Open a fresh Claude Code session in this clone on `pilot-setup` and choose factory option `2`. Then read `RECOVERY.md` and this report.
-2. **Cursor:** check compatibility and show its startup behavior (does it show the choice box first, and does it honor the shared `CLAUDE.md` over the local file?).
+2. **Cursor:** Tony tests it himself with a free Cursor Hobby account, in a **separate guest test clone** (not this factory clone). Check compatibility and show its startup behavior (does it show the choice box first, and does it honor the shared `CLAUDE.md`?). The live check is **pending**. No installation or account setup happened on 10 Oct. *(Updated 15:35: this replaces the earlier plan for Frank to run the first test. That plan was never written in these records.)*
 3. **Windsurf:** add and test its entry file only if that tool will be used. (The old `WINDSURF.md` was deleted on 2026-08-11.)
 4. **Guest kit:** install the actual approved VIK into `vibe_docs/`. Do not rebuild the kit from summaries.
 5. Continue guest onboarding and the pilot setup step by step with Tony.

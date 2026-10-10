@@ -4,11 +4,11 @@
 > Updated after every plan completion. If this file is stale, the session log in
 > `agent_docs/SESSIONS/` is the fallback source of truth.
 
-**Last updated:** 2026-10-10 15:30 — **End-of-day checkpoint on `pilot-setup` @ `66140fa` · COMMIT/PUSH PENDING (Tony)**
+**Last updated:** 2026-10-10 15:35 — **End-of-day checkpoint committed by Tony as `d80991c` and pushed to `origin/pilot-setup` · 15:35 Cursor amendment COMMIT/PUSH PENDING (Tony)**
 **Verified:** origin `Cyberize-Group/cyph-v1-dev`, HEAD `66140fa`, no upstream yet (`pilot-setup` not on origin). `CLAUDE.local.md` ignored + untracked, body == `CLAUDE.eng.md`, keep it in this clone.
 **Proven today (Claude Code path only, not full pilot certification):** boxed numbered choice first → `2` → ACTIVE with "Guest mode" escape → Step 0 · "Guest mode" with local file present → pause + manual move-out guidance, file not moved. Choice-first stays mandatory every fresh session.
-**Checkpoint files (uncommitted):** this file, `CHANGELOG.md`, `agent_docs/SESSIONS/session_2026-10-10.md`, `agent_docs/RESPONSES/response_2026-10-10_153048_eod-checkpoint.md`.
-**Tomorrow:** resume on `pilot-setup` with option 2 → Cursor compatibility + startup demo → Windsurf entry (only if used) → install the actual approved VIK into `vibe_docs/` (no reconstruction) → guest onboarding and pilot setup step by step with Tony.
+**Checkpoint files (in `d80991c`; 15:35 amendment uncommitted):** this file, `CHANGELOG.md`, `agent_docs/SESSIONS/session_2026-10-10.md`, `agent_docs/RESPONSES/response_2026-10-10_153048_eod-checkpoint.md`.
+**Tomorrow:** resume on `pilot-setup` with option 2 → Cursor compatibility + startup demo (**Tony tests it himself on a free Cursor Hobby account, in a separate guest test clone; live check pending; no install or account setup on 10 Oct**; replaces the earlier plan for Frank to run the first test) → Windsurf entry (only if used) → install the actual approved VIK into `vibe_docs/` (no reconstruction) → guest onboarding and pilot setup step by step with Tony.
 **Separate pending (not complete):** GitHub protections · guest permissions · Supabase setup. The BIM/RRM backlog below is historical, not authorized work.
 
 **Prior block (15:11):** **Last updated:** 2026-10-10 15:11 — **Choice-first startup correction COMPLETE (uncommitted) on `pilot-setup` @ `77ab0d2`**
