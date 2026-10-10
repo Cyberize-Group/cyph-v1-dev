@@ -4,7 +4,14 @@
 > Updated after every plan completion. If this file is stale, the session log in
 > `agent_docs/SESSIONS/` is the fallback source of truth.
 
-**Last updated:** 2026-10-10 15:11 — **Choice-first startup correction COMPLETE (uncommitted) on `pilot-setup` @ `77ab0d2`**
+**Last updated:** 2026-10-10 15:30 — **End-of-day checkpoint on `pilot-setup` @ `66140fa` · COMMIT/PUSH PENDING (Tony)**
+**Verified:** origin `Cyberize-Group/cyph-v1-dev`, HEAD `66140fa`, no upstream yet (`pilot-setup` not on origin). `CLAUDE.local.md` ignored + untracked, body == `CLAUDE.eng.md`, keep it in this clone.
+**Proven today (Claude Code path only, not full pilot certification):** boxed numbered choice first → `2` → ACTIVE with "Guest mode" escape → Step 0 · "Guest mode" with local file present → pause + manual move-out guidance, file not moved. Choice-first stays mandatory every fresh session.
+**Checkpoint files (uncommitted):** this file, `CHANGELOG.md`, `agent_docs/SESSIONS/session_2026-10-10.md`, `agent_docs/RESPONSES/response_2026-10-10_153048_eod-checkpoint.md`.
+**Tomorrow:** resume on `pilot-setup` with option 2 → Cursor compatibility + startup demo → Windsurf entry (only if used) → install the actual approved VIK into `vibe_docs/` (no reconstruction) → guest onboarding and pilot setup step by step with Tony.
+**Separate pending (not complete):** GitHub protections · guest permissions · Supabase setup. The BIM/RRM backlog below is historical, not authorized work.
+
+**Prior block (15:11):** **Last updated:** 2026-10-10 15:11 — **Choice-first startup correction COMPLETE (uncommitted) on `pilot-setup` @ `77ab0d2`**
 **Uncommitted:** `CLAUDE.md`, `CLAUDE.eng.md`, `agent_docs/FACTORY_SESSION_SETUP.md`, session log (session 5), `response_2026-10-10_151100_choice-first-startup.md`, this file, `CHANGELOG.md`.
 **Live evidence E (session 5):** boxed ACTIVE banner rendered; choice-first behavior failed (auto-selected factory, Step 0 ran, record written). Corrected in docs only; not yet live-verified.
 **Pending (Director):** review and commit · manual refresh of `CLAUDE.local.md` with the new declaration (steps in the report) · fresh-session checks 1–4 in the report.

@@ -3,6 +3,13 @@
 > Documentation/playbook change log per CLAUDE.md Changelog Protocol.
 > `[CC]` = Claude Code · `[TS]` = Tony Stark manual edits.
 
+## 2026-10-10 09:30 UTC — [CC] Claude Code
+
+- **Updated:** `RECOVERY.md`. New top block for the end-of-day checkpoint and tomorrow's resume steps.
+- **Updated:** `agent_docs/SESSIONS/session_2026-10-10.md`. Session 7 checkpoint entry with the Director-observed startup and Guest mode results, plus the end-of-day state.
+- **Created:** `agent_docs/RESPONSES/response_2026-10-10_153048_eod-checkpoint.md`. Checkpoint report and Git handoff.
+- **Reason:** Director brief "end-of-day checkpoint for 10 October 2026". Records only; commit and push are pending (Tony).
+
 ## 2026-10-10 09:11 UTC — [CC] Claude Code
 
 - **Updated:** `CLAUDE.md`. Every fresh session now shows the 1/2 workflow box first and waits, even with `CLAUDE.local.md` present; nothing runs or is written before the answer. The local file is a readiness check and never selects engineering. Option 1 with the local file present explains it is already loaded and requires move-out plus a fresh session.
