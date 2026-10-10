@@ -4,7 +4,13 @@
 > Updated after every plan completion. If this file is stale, the session log in
 > `agent_docs/SESSIONS/` is the fallback source of truth.
 
-**Last updated:** 2026-10-10 14:54 — **Pilot status · banner boxes COMPLETE (uncommitted) on `pilot-setup` @ `f865ecd`**
+**Last updated:** 2026-10-10 15:11 — **Choice-first startup correction COMPLETE (uncommitted) on `pilot-setup` @ `77ab0d2`**
+**Uncommitted:** `CLAUDE.md`, `CLAUDE.eng.md`, `agent_docs/FACTORY_SESSION_SETUP.md`, session log (session 5), `response_2026-10-10_151100_choice-first-startup.md`, this file, `CHANGELOG.md`.
+**Live evidence E (session 5):** boxed ACTIVE banner rendered; choice-first behavior failed (auto-selected factory, Step 0 ran, record written). Corrected in docs only; not yet live-verified.
+**Pending (Director):** review and commit · manual refresh of `CLAUDE.local.md` with the new declaration (steps in the report) · fresh-session checks 1–4 in the report.
+**Next step:** Director refreshes the local file, commits, then runs a fresh session and says "hi".
+
+**Prior block (14:54):** **Last updated:** 2026-10-10 14:54 — **Pilot status · banner boxes COMPLETE (uncommitted) on `pilot-setup` @ `f865ecd`**
 **Committed checkpoint:** `f865ecd` (startup rules in the shared `CLAUDE.md`).
 **Uncommitted:** the ASCII-boxed startup banners in `CLAUDE.md`, the session 3 and session 4 log entries, two RESPONSES records (`…142050_startup-check.md`, `…145357_banner-boxes-evidence.md`), this file and `CHANGELOG.md`.
 **Launch evidence (Director-observed, not agent-run, pre-boxes):** factory active with records written (A) · temporary clone "hi" → question (B) · option 2 → setup required, paused, no local file created per the AI (C) · "Guest mode" → guest banner, paused because the kit is missing (D).

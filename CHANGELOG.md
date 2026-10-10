@@ -3,6 +3,13 @@
 > Documentation/playbook change log per CLAUDE.md Changelog Protocol.
 > `[CC]` = Claude Code · `[TS]` = Tony Stark manual edits.
 
+## 2026-10-10 09:11 UTC — [CC] Claude Code
+
+- **Updated:** `CLAUDE.md`. Every fresh session now shows the 1/2 workflow box first and waits, even with `CLAUDE.local.md` present; nothing runs or is written before the answer. The local file is a readiness check and never selects engineering. Option 1 with the local file present explains it is already loaded and requires move-out plus a fresh session.
+- **Updated:** `CLAUDE.eng.md`. Session Start Step 0 is gated on option 2.
+- **Updated:** `agent_docs/FACTORY_SESSION_SETUP.md`. New declaration text (readiness, not selection) and notes on the startup question.
+- **Reason:** Director brief "correct the startup workflow" after live observation E (banner rendered, choice-first failed). Report: `agent_docs/RESPONSES/response_2026-10-10_151100_choice-first-startup.md`.
+
 ## 2026-10-10 08:54 UTC — [CC] Claude Code
 
 - **Updated:** `CLAUDE.md`. The four startup banners (workflow selection with options 1/2, guest, factory setup required, factory active) are now plain-ASCII boxes 60 columns wide. Added a rule to show them in a code block. Meaning and workflow decisions are unchanged, and "Guest mode" stays in both engineering boxes.

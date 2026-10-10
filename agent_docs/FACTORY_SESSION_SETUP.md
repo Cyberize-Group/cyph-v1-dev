@@ -19,10 +19,10 @@ root `CLAUDE.md` uses it to recognise a factory session.
 
 ```markdown
 > **FACTORY SESSION DECLARATION** — local file, git-ignored, never committed.
-> This `CLAUDE.local.md` marks this clone as a factory workstation. Under the shared root
-> `CLAUDE.md`, that makes this a factory session: follow the engineering instructions below.
-> The guest-only rules in `CLAUDE.md` do not apply here. The role describes which
-> instructions to follow. It grants no access or permissions.
+> This `CLAUDE.local.md` marks this clone as ready for factory engineering. It does not
+> select the workflow: every session first asks the workflow question in the shared root
+> `CLAUDE.md`. Follow the engineering instructions below only after the Director chooses
+> option 2. They describe which instructions to follow and grant no access or permissions.
 > Source: a copy of the tracked engineering master `CLAUDE.eng.md`. Where the text below says
 > "CLAUDE.md (this file)" or "protocols", it means that master. To refresh this file, see
 > `agent_docs/FACTORY_SESSION_SETUP.md`.
@@ -32,15 +32,16 @@ root `CLAUDE.md` uses it to recognise a factory session.
 
 To check, run `git check-ignore -v CLAUDE.local.md`. It should print the `.gitignore` rule.
 
-The declaration is required. Without it, the shared `CLAUDE.md` does not treat the
-session as factory. Setup is manual: Claude never creates or edits this file.
+The declaration is required. Without it, option 2 at startup shows SETUP REQUIRED instead
+of starting engineering. Setup is manual: Claude never creates or edits this file.
 
 Then start a **fresh** Claude Code session. The local file loads only at startup.
 
 ## Between sessions
 
 `CLAUDE.local.md` stays on disk, and every new session in this clone loads it. Nothing
-needs to be repeated.
+needs to be repeated. Each session still opens with the workflow question; answer `2` to
+start engineering. The file alone never selects engineering.
 
 ## After the master changes
 

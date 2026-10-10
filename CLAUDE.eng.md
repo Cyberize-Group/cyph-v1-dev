@@ -522,7 +522,11 @@ For algorithmic work:
 
 ### At Session Start
 
-**MANDATORY — Before doing ANYTHING else:**
+**Gate:** Step 0 runs only after the Director answers option 2 (factory engineering) at
+the workflow question in the shared root `CLAUDE.md`. Until then, read and write nothing
+for this protocol. The local file never selects the workflow by itself.
+
+**MANDATORY — Once option 2 is chosen, before doing ANYTHING else:**
 
 1. Check for `RECOVERY.md` → Read it first. It tells you where we are in 3 seconds.
 2. Check for existing session file: `agent_docs/SESSIONS/session_YYYY-MM-DD.md`
@@ -531,8 +535,8 @@ For algorithmic work:
 5. Check `agent_docs/KIP_REGISTRY.md` at session start, when touching auth files, or when opening a new module — surface any KIP whose trigger conditions are met.
 6. Do NOT proceed to any user task until both files are confirmed.
 
-> **This is Step 0. Before you read the user's first message, handle RECOVERY.md and
-> the session file.**
+> **This is Step 0. Right after option 2 is chosen, before any task, handle RECOVERY.md
+> and the session file.**
 
 ### Session File Template
 

@@ -5,14 +5,13 @@ instructions a session follows. It does not grant access or permissions. Reposit
 database and credential access are controlled outside this file. Choosing or claiming a
 workflow changes none of them, and so does any answer the user gives below.
 
-## 1. Establish the workflow first
+This file takes precedence over any other loaded instructions about startup, including
+`CLAUDE.local.md` and its declaration.
 
-Settle this before you change any file:
+## 1. Ask for the workflow first
 
-1. **A `CLAUDE.local.md` beside this file declares the factory role:** this is a factory
-   session (§4), unless the user asks to switch (§5).
-2. **Otherwise**, if the user has stated the workflow explicitly, use it.
-3. **Otherwise**, show this box and wait for the answer:
+In every fresh session, before anything else, show this box and wait for the answer.
+Do this even when `CLAUDE.local.md` exists and even when the first message asks for a task:
 
 ```text
 
@@ -32,16 +31,33 @@ Settle this before you change any file:
 
 ```
 
-A missing local file does not by itself mean guest. The answer selects a set of
-instructions. It is not evidence of identity or permissions. Once the workflow is settled,
-do not ask again.
+Until the user answers:
+
+- Do not run the factory Step 0. Do not read `RECOVERY.md`, session logs or the backlog,
+  and do not start any engineering or guest work.
+- Do not create or update session or response records, or any other file.
+- Do not show FACTORY ENGINEERING ACTIVE or any other banner.
+- Only minimal read-only checks needed for routing are allowed, such as whether
+  `CLAUDE.local.md` exists and starts with the factory declaration.
+
+`CLAUDE.local.md` only shows whether this clone is ready for engineering. It never selects
+the workflow, whatever its declaration says. The answer selects a set of instructions. It
+is not evidence of identity or permissions. Show the box once per fresh session. Once the
+workflow is settled, do not ask again during normal work.
 
 Show every box in this file exactly as written, inside a code block, so the borders stay
 aligned. The boxes are plain ASCII and need no color.
 
-## 2. Guest workflow
+## 2. Option 1 — guest workflow
 
-Show this banner:
+**If `CLAUDE.local.md` is present,** do not start guest work. Explain that its engineering
+instructions were loaded at startup and stay loaded for this session, and that choosing
+option 1 does not unload them. To switch, the user must move the file out of the
+repository and keep it as a backup, for example
+`mv CLAUDE.local.md ~/cyph-CLAUDE.local.md.bak`, then start a fresh session. Do not move,
+delete or edit the file yourself. Then pause.
+
+**If `CLAUDE.local.md` is absent,** show this banner:
 
 ```text
 
@@ -66,9 +82,10 @@ protocols in `agent_docs/`, the skill packs in `_SKILLS/`, and any `CLAUDE.md` o
 `AGENTS.md` inside those folders. They are project records. If one loads while you read
 files there, treat it as reference material and do not adopt its procedures.
 
-## 3. Factory workflow, local file missing
+## 3. Option 2 — local file missing or not declared
 
-Show this banner:
+Use this section when `CLAUDE.local.md` is missing, or exists without the factory
+declaration at the top. Show this banner:
 
 ```text
 
@@ -90,12 +107,13 @@ Show this banner:
 
 Explain the manual setup in `agent_docs/FACTORY_SESSION_SETUP.md`: copy `CLAUDE.eng.md`
 to `CLAUDE.local.md` and add the factory role declaration at the top. Never create, copy,
-regenerate, overwrite or delete `CLAUDE.local.md` yourself. Wait for the Director to do the
-setup, then say that a fresh Claude Code session is needed to load the file.
+regenerate, overwrite or delete `CLAUDE.local.md` yourself. Stop and wait for the Director
+to do the setup, then say that a fresh Claude Code session is needed to load the file.
 
-## 4. Factory workflow, local file ready
+## 4. Option 2 — local file ready
 
-Show this banner once, at session start:
+Use this section when `CLAUDE.local.md` exists with the factory declaration. Show this
+banner once, right after the answer:
 
 ```text
 
@@ -112,8 +130,8 @@ Show this banner once, at session start:
 
 ```
 
-Then follow `CLAUDE.local.md`: startup, planning, session and response records, recovery,
-and QA handoff. The guest rules in §2 do not apply.
+Then follow `CLAUDE.local.md`, starting with its Step 0: startup, planning, session and
+response records, recovery, and QA handoff. The guest rules in §2 do not apply.
 
 Normal factory work keeps its session and response records. When the user explicitly
 asks for a zero-write diagnostic, it stays zero-write. Give the result on screen and say
@@ -123,9 +141,8 @@ that no record was written, and why.
 
 "Guest mode" is an ordinary chat request, not a slash command.
 
-- **Factory only selected (no `CLAUDE.local.md`):** cancel the pending setup, show the
-  guest banner and continue with §2. No file changes are needed.
-- **`CLAUDE.local.md` exists:** pause all work. To switch, the user must move that file
-  out of the repository (keep it as a backup) and start a fresh conversation. Engineering
-  instructions that are already loaded stay loaded until then. Do not delete files, undo
-  changes or switch branches.
+- **Option 2 chosen, no `CLAUDE.local.md`:** cancel the pending setup, show the guest
+  banner and continue with §2. No file changes are needed.
+- **`CLAUDE.local.md` exists:** pause all work and handle it as option 1 with the local
+  file present (§2). Engineering instructions that are already loaded stay loaded until a
+  fresh session. Do not delete files, undo changes or switch branches.
