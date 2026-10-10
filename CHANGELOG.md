@@ -9,7 +9,8 @@
 - **Updated:** `agent_docs/SESSIONS/session_2026-10-10.md`. Session 7 checkpoint entry with the Director-observed startup and Guest mode results, plus the end-of-day state.
 - **Created:** `agent_docs/RESPONSES/response_2026-10-10_153048_eod-checkpoint.md`. Checkpoint report and Git handoff.
 - **Updated (09:35 UTC):** the same three files. The first Cursor test is now Tony's own, on a free Hobby account in a separate guest test clone, still pending. This replaces the earlier plan for Frank to run it.
-- **Reason:** Director brief "end-of-day checkpoint for 10 October 2026", plus a Director follow-up on the Cursor test owner. Records only; commit and push are pending (Tony).
+- **Updated (09:39 UTC):** the same three files. Added the guest rehearsal plan (Bibo as guest proposer, Tony as admin, reviewer and merger; protect and test `main` before guest write access). Pending, not started.
+- **Reason:** Director brief "end-of-day checkpoint for 10 October 2026", plus Director follow-ups on the Cursor test owner and the guest rehearsal. Records only; commit and push are pending (Tony).
 
 ## 2026-10-10 09:11 UTC — [CC] Claude Code
 

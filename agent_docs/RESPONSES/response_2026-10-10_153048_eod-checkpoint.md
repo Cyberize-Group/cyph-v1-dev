@@ -54,8 +54,24 @@ checked today. **This is not full pilot certification.**
 3. **Windsurf:** add and test its entry file only if that tool will be used. (The old `WINDSURF.md` was deleted on 2026-08-11.)
 4. **Guest kit:** install the actual approved VIK into `vibe_docs/`. Do not rebuild the kit from summaries.
 5. Continue guest onboarding and the pilot setup step by step with Tony.
-6. **Separate pending work, not complete:** GitHub branch protections, guest repository permissions, Supabase setup.
+6. **Separate pending work, not complete:** GitHub branch protections, guest repository permissions, Supabase setup. The protection and guest-access steps are now ordered in the guest rehearsal plan below.
 7. The imported BIM/RRM backlog in `RECOVERY.md` is historical. It is not newly authorized work.
+
+## GUEST REHEARSAL PLAN (Director direction, 15:39) — PENDING, NOT STARTED
+
+**Roles:** **Bibo** acts as the guest proposer, standing in for Frank's workflow. **Tony** stays factory admin, reviewer and merger.
+
+**Order for tomorrow** (main must be protected before any guest gets write access):
+1. **Protect `main`** (Tony, GitHub admin): set up branch protection on `main` (for example: require a pull request, block force pushes and branch deletion).
+2. **Show the protection works** (Tony): a direct push to `main` is rejected and a change can only land through a pull request. Record the evidence.
+3. **Give Bibo write access** (Tony), only after steps 1–2 pass. This is the invitation step and it has not happened.
+4. **Git login as Bibo:** Bibo signs in to GitHub on the test machine, so commits and pushes show as Bibo, not Tony.
+5. **Separate guest clone:** a fresh clone with no `CLAUDE.local.md`, kept apart from this factory clone.
+6. **Cursor free-account test** in that guest clone: does it show the choice box, and does option 1 run the guest workflow (it needs the approved VIK in `vibe_docs/`)?
+
+**Open question for Tony:** the 15:35 update says Tony tests Cursor on his own free Hobby account, but this direction plans the test "as Bibo." Which Cursor account will be used, and who operates it?
+
+**Not done on 10 Oct:** no invitations, no account or permission changes, no protection settings, no installs. Nothing in this plan is complete.
 
 ## GIT HANDOFF (Tony runs these; agent will not)
 
