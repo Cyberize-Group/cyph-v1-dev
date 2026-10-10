@@ -3,6 +3,18 @@
 > Documentation/playbook change log per CLAUDE.md Changelog Protocol.
 > `[CC]` = Claude Code · `[TS]` = Tony Stark manual edits.
 
+## 2026-10-10 08:12 UTC — [CC] Claude Code
+
+- **Updated:** `CLAUDE.md`. It now settles the workflow at startup: the local file, else an explicit statement, else a two-option question. It shows the guest, setup-required and factory-active banners, handles "Guest mode" in both directions, and keeps a zero-write diagnostic zero-write. It grants no permissions.
+- **Updated:** `agent_docs/FACTORY_SESSION_SETUP.md`. Added that the declaration is required, that setup is manual, that a fresh session is needed, and a "Leaving factory mode" section.
+- **Reason:** Director brief "factory documentation update" (session 2). Report: `agent_docs/RESPONSES/response_2026-10-10_141203_workflow-startup-rules.md`.
+
+## 2026-10-10 06:23 UTC — [CC] Claude Code
+
+- **Updated:** `CLAUDE.md`. It is now a concise shared entry: factory sessions follow `CLAUDE.local.md` and guests follow the `vibe_docs/` handoff (pending). It has no import and grants no permissions.
+- **Added:** `.gitignore` (`/CLAUDE.local.md`) and `agent_docs/FACTORY_SESSION_SETUP.md`. `CLAUDE.eng.md` (Tony's engineering master) is preserved unchanged, and the local copy now starts with a factory-role declaration.
+- **Reason:** Director brief "guest/factory instruction split" on `pilot-setup`.
+
 ## 2026-10-02 05:16 UTC — [CC] Claude Code
 
 - **RRM-004-CYBER-PHARMA — merge SHAs recorded** (docs only, `main`): closeout `2e3eac9` and merge `a474a19` written to the map scoreboard and a v1.0.6 status line (RRM campaign COMPLETE), ledger R-009, RRM-004 `EXECUTION_LOG.md`, `README.md` and DC-7 (adopt/amend/drop still pending). `RECOVERY.md` points to BIM-004.

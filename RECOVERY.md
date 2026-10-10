@@ -4,7 +4,17 @@
 > Updated after every plan completion. If this file is stale, the session log in
 > `agent_docs/SESSIONS/` is the fallback source of truth.
 
-**Last updated:** 2026-10-02 11:16 — **RRM-004-CYBER-PHARMA · CLOSED — GATE Q PASS (QA Lead JARVIS, 2026-10-02, 31/31 product ACs, zero repair rounds) · MERGED TO `main` · RRM CAMPAIGN COMPLETE**
+**Last updated:** 2026-10-10 14:12 — **Workflow startup rules · COMPLETE (uncommitted) on `pilot-setup` @ `297a011`**
+**Last action:** the shared `CLAUDE.md` now establishes the workflow at startup (banners, the two-option question, "Guest mode" handling, zero-write diagnostics), and `FACTORY_SESSION_SETUP.md` now covers a fresh session and leaving factory mode. `CLAUDE.eng.md`, `CLAUDE.local.md` and `.gitignore` are unchanged. Report: `agent_docs/RESPONSES/response_2026-10-10_141203_workflow-startup-rules.md`.
+**Pending (Director):** review and commit · six fresh-session launch checks (listed in the report) · `vibe_docs/` guest kit.
+**Next step:** Director runs the launch checks in fresh sessions.
+
+**Prior block (12:24):** **Last updated:** 2026-10-10 12:24 — **Guest/factory instruction split · COMPLETE (uncommitted) on `pilot-setup` @ `297a011`**
+**Last action:** root `CLAUDE.md` is now the shared entry. `CLAUDE.eng.md` is the tracked engineering master. `CLAUDE.local.md` is the git-ignored factory copy with a role declaration. Also added `/CLAUDE.local.md` to the restored `.gitignore` (12:52), and added `agent_docs/FACTORY_SESSION_SETUP.md`. Report: `agent_docs/RESPONSES/response_2026-10-10_122343_guest-factory-split.md`. Session log: `agent_docs/SESSIONS/session_2026-10-10.md`.
+**Pending (Director):** commit · live launch checks (factory and guest) per the report · VIK v0.3 / `vibe_docs/` guest handoff (not available locally).
+**Next step:** Director runs the two launch checks. Guest onboarding stays pending until the handoff files land.
+
+**Prior state (2026-10-02, source repo):** **Last updated:** 2026-10-02 11:16 — **RRM-004-CYBER-PHARMA · CLOSED — GATE Q PASS (QA Lead JARVIS, 2026-10-02, 31/31 product ACs, zero repair rounds) · MERGED TO `main` · RRM CAMPAIGN COMPLETE**
 **Branch:** `main` @ `a474a19` (`--no-ff` merge of `qa/phase-3-rrm004`, pushed). **Certified candidate:** `2fbc72f1f514049255f2b94054bd11cc77cbd158` · QA HEAD `6b6cad6` · evidence `0463086` · closeout `2e3eac9` · merge `a474a19` · baseline `649c36d` · pack `d3ea7f7`. Product diff `2fbc72f..a474a19` empty.
 **Last action:** SHA-recording touch on `main` (docs only): closeout/merge SHAs written to map scoreboard + v1.0.6 status, ledger R-009, RRM-004 `EXECUTION_LOG.md` Closeout, README, DC-7. Session log: `agent_docs/SESSIONS/session_2026-10-02.md`.
 **Pilot:** QAM **PARTIAL SUCCESS** (Q1 recorded Q-stop → A-15); Q2 one-shot succeeded (10m08s body, 0 Director touches). Certificate `agent_docs/ACTIONS/RRM-004-CYBER-PHARMA/QAM/QAM_CERTIFICATION.md`.
