@@ -1,0 +1,210 @@
+# RRM CAMPAIGN JOURNAL — FFM REVIEW REWORK
+
+**Project:** Cyber Pharma v1 · **Campaign:** RRM (Phase 3, inserted) · **Started:** 2026-09-20 · **Owner:** Architect (Fable) for Architect entries; SOL for QA-logged entries; Tony is the merge point.
+**Rules (same as `PHASE_3_CAMPAIGN_JOURNAL.md`):** two-seat append-only; narrative, never rewritten; one Architect entry and one QA-logged (Sol) entry per module at closeout; a friction log filed by the Architect from Director observations; doctrine-level rulings are distilled separately into `CYBER_PHARMA_P3_DOCTRINE_JOURNAL.md` for doc-stack intake (this file is the ore, not the sync input).
+
+---
+
+### RRM CAMPAIGN — intake closed 2026-09-20 (Architect)
+
+- **Playbook prescribed:** HQ RRM_PLAYBOOK v0.1 — Architect inventories reviews and specimens, reconciles against current source, proposes one disposition per material finding, Director rules, Architect authors the executable module from the kit. Recon before writing is mandatory; reports about old code cannot establish today's defect by themselves.
+- **Actually happened:** Package received 17 Sep (HQ operating model, playbook, reviewer candidate, kit, both review archives). Both reviews read end to end 18 Sep; 21 raw findings deduplicated to ~17 topics; first disposition proposal same day, with the Owed-KPI formula traced to the legacy demo extraction (`TONY_DEMO_04`) rather than invented. Director supplied repo facts (same repo except FIX-001 and the BIM migrations) and the Phase 3 records. Claudy recon (skill `stark-recon-skill-v1.1`, augmented by a nine-lane Architect prompt) landed as Revision 2 on 18 Sep: 17 claims VERIFIED on disk, F5/F7 CHANGED (closed by FIX-001), four details moved; the reviews had targeted the **sibling** repo `cyber-pharma-dev-v1`, so commit equivalence is unprovable and disk re-verification became the basis of record. Recon also read the certified BIM-003 wrappers and found they **mirror** the mock's KPI equality and null-PBM drop by contract — two "mock bugs" became Phase 5 contract rulings. Director ran `pg_get_functiondef` on the dev database 20 Sep: the installed `handle_new_user()` assigns role from signup metadata (A-002 live); chain 0001–0047 does not replace it. Director issued final rulings D1–D7 the same day, amending five of the Architect's seven proposals: remove public signup and Moose outright rather than harden; disclosure approved; dependencies inside the campaign; Report control retained exactly; numbered naming; future-removal gate superseded. Architect's first packet was a single module with five stages; Director corrected the shape to the factory grammar — a campaign map listing one module per bounded scope, a journal, and one pack per module under `ACTIONS/`. Campaign map v1.0 (four modules) and RRM-001 pack authored 20 Sep.
+- **Divergence + why:** (1) The Architect assumed "one review cycle = one module" and stacked four kinds of work into stages; the factory's unit of certification is the module, and four proofs with four rollback stories are four modules. Rule: **decompose by proof type and rollback boundary, exactly as BIM decomposition does.** (2) Review claims were treated as applicable until disk said otherwise — correct; three of 21 would have been false work without recon. (3) Certified backend contracts had ratified frontend mock behavior; the Architect nearly proposed changing the mock alone. Rule: **read the certified contracts before classifying a mock finding.** (4) A live backend exposure surfaced inside a frontend intake; it was routed out as three separately-evidenced items (application removal / Supabase containment / trigger migration) rather than absorbed. (5) The Phase-2.1 specs on disk are v1.0; the code cites v1.3/v1.4 never located. Nullable `pbm` was settled from Frank's Ruling 5 (unmatched → Take Action is a real state) instead of a version hunt — behavior question answered, document question dropped.
+- **Gate Q cycles:** n/a (intake).
+- **Handoff friction:** the HQ package's `00_START_HERE` read order worked. The Architect's first pack put a register file inside `ACTIONS/` and would have confused engineers who only expect module folders there. Astra's export lacked the 47 migrations, so its two SQL findings were about legacy files, not the canonical chain — reviewer manifests must state which trees were excluded. Fable's F5/F7 were already closed by FIX-001 four days before the review was written — reviews of a sibling checkout lag the working repo.
+- **Director overhead:** repo-state briefing; two dashboard reads (trigger body, signup/confirmation settings); five rulings plus the seven money rules in one sitting; one shape correction; branch already cut (`phase-3-rrm-ffm`, to be renamed).
+- **Time shape:** 17 Sep package → 18 Sep proposal + recon → 20 Sep rulings + campaign authoring. Three sessions.
+- **Keep:** disk re-verification with file:line as the equivalence evidence · dedupe before counting · trace finding IDs end to end (F/A → R → module → AC) · read certified contracts during intake · route out-of-scope exposures with named owners and distinct evidence · the Architect proposes, the Director rules, scope comes only from rulings.
+- **Change:** author RRMs as a campaign from the first proposal · reviewer manifests state excluded trees · recon prompt asks for certified-contract cross-checks by default.
+- **Drop:** "one module with five stages" as an RRM shape · any statement that a review commit matches the working repo without proof · "already resolved" without a regression AC.
+- **Doctrine-harvest seeds:** RRM decomposition rule (proof type × rollback boundary) · certified-contract-before-classification · three-evidence-item pattern for exposures found outside the module's reach · sibling-repo reviews need disk reconciliation, not SHA matching.
+
+### Friction log — RRM intake (Director-observed, filed by Architect)
+
+- 2026-09-18 — Reviews targeted `cyber-pharma-dev-v1`; working repo is `cyber-pharma-dev-v1-phase-3`. `f1113177` absent. Resolved by disk re-verification.
+- 2026-09-18 — Phase-2.1 specs dropped on disk were v1.0; later versions cited by code not located. Resolved by ruling on the behavior (E-03).
+- 2026-09-18 — Claudy recon deviated from the literal "unset env" instruction because `.env.local` auto-loads; used blank-string overrides instead and said so. Correct behavior.
+- 2026-09-20 — Director confirmed A-002 live via `pg_get_functiondef`. Containment (dashboard toggle) separated from correction (migration).
+- 2026-09-20 — First packet shape rejected: single module, five stages, register file inside `ACTIONS/`. Rebuilt as campaign map + journal + one pack per module.
+
+---
+
+### Entry template (one Architect entry + one QA-logged (Sol) entry per module at closeout)
+
+**`### RRM-00N-CYBER-PHARMA — closed <date> (Architect)`**
+- **Playbook prescribed:** · **Actually happened:** · **Divergence + why:** · **Gate Q cycles:** · **Handoff friction:** · **Director overhead:** · **Time shape:** · **Keep:** · **Change:** · **Drop:** · **Doctrine-harvest seeds:**
+
+**`### RRM-00N-CYBER-PHARMA — QA engagement closed <date> (QA-logged (Sol))`** — same headings, SOL's seat, never edited by the Architect.
+
+**`### Friction log — RRM-00N (Director-observed, filed by Architect)`** — dated one-liners.
+
+---
+
+### RRM-001-CYBER-PHARMA — closed 2026-09-22 (Architect)
+
+- Playbook prescribed: pack → Plan Mode → Director rulings on disk → two build stages each green/reported/committed → handoff of execution log + unchanged acceptance spec + QA handoff → Director cuts qa/ line → QA Lead plans, QA Executor executes, repairs on the QA line → Gate Q → bounded cleanup → Architect closeout → Director --no-ff merge.
+- Actually happened: Pack committed 88e2c33 on 2026-09-20; Plan Mode surfaced eleven contradictions (three blocking: CTA hrefs vs byte-identity, adminDemo's own addMember vs a literal-zero grep, comment-only "moose" hits in preserved files) — all ruled the same day as A-02…A-11 and applied by the Engineer, none by hand. S1 removed the 14-file operator portal, flag wiring and the Moose-only admin client (route count 22→18); the Engineer added a Server-Action-ID probe (AC-103b) that proved the five historical action IDs are absent and rejected, and caught that the .next/server grep matched the Supabase SDK's own admin class (A-12). S2 removed public signup, the register tab and the login GET probe (18→17); three "Start free trial" links now land on /auth per A-03. QA entry 2026-09-21: the governing QA bodies were never repo-local (Director doc-repo copy + PROVENANCE, E-11) and AC-304's logout destination was an Architect drafting error ("/" vs baseline /auth, A-13/E-10). Gate Q PASS 2026-09-22 at cad164d, zero rework, evidence successor 9ab95e5 with empty product diff.
+- Divergence + why: (1) First packet was one module with five stages; Director corrected to a four-module campaign — decompose by proof type and rollback boundary. (2) P1's HEAD check cited a literal baseline SHA and would have blocked on the pack commit itself; reference "the pack commit's parent". (3) Pack allowed-files omitted root-protocol files (session log, CHANGELOG, RESPONSES); root CLAUDE.md wins (A-10). (4) Governing QA bodies assumed repo-local; they are Director-held. (5) One frozen AC stated a destination the baseline never had; erratum, no product change.
+- Gate Q cycles: 1 — PASS.
+- Handoff friction: rulings initially handed to the Director as paste-by-hand rows; corrected to Engineer-applied docs-only prompts. Authenticated QA matrix (two roles × routes × two viewports × two themes × logout/redirect) was executed manually and cost Director time.
+- Director overhead: seven rulings + seven money rules in one sitting; branch rename; ~6 stage/closeout commits; one QA-branch cut; governing-doc copy; the manual auth matrix; DA-2 still owed.
+- Time shape: intake 17–20 Sep (three sessions); pack + plan + S1 + S2 all on 20 Sep; QA 21–22 Sep; closeout 22 Sep.
+- Keep: disk re-verification with file:line as review equivalence · Plan Mode contradictions ruled before any deletion · Server-Action-ID probe as the direct proof of "unreachable" · three separately-evidenced items (removal / containment / correction) for an exposure the module cannot fix · Engineer-applied rulings, Director-only commits.
+- Change: pack templates carry root-protocol files in allowed lists and "pack commit's parent" as the HEAD check · QA/GOVERNING/ is a Director copy step with PROVENANCE.md · authenticated QA matrices run under Playwright (repeated role/route/viewport/theme/logout/redirect/screenshot/trace), Director supplies browser-only credentials when needed and performs one ADMIN and one MEMBER visual spot-check; repetitive manual matrix execution is not routine Director work — recorded as an evidence-based campaign lesson and a candidate QA playbook amendment.
+- Drop: literal-zero greps against build output without an SDK-aware pass test · "copy the playbook from the repo" instructions · manual auth matrices as the default.
+- Doctrine-harvest seeds: RRM decomposition rule · pack-commit-parent HEAD check · root-protocol precedence over packs · Director-held governing bodies · Playwright for authenticated QA matrices · removal-as-repair with unreachability proof.
+
+### RRM-001-CYBER-PHARMA — QA engagement closed 2026-09-22 (QA-logged (QA Lead))
+
+[entry to be supplied by the QA Lead; not authored by another seat]
+
+### Friction log — RRM-001 (Director-observed, filed by Architect)
+
+- 2026-09-20 — P1's HEAD check cited a literal baseline SHA and would have blocked on the pack commit itself; ruled A-01, corrected by A-02 to "the pack commit's parent".
+- 2026-09-20 — Rulings first handed to the Director as paste-by-hand addendum rows; corrected to Engineer-applied docs-only prompts, Director commits only.
+- 2026-09-21 — Governing QA bodies (QA_PLAYBOOK v1.1, WEB_FACTORY_P1_DOCTRINE_JOURNAL v0.3) were never repo-local; Director copied them into `QA/GOVERNING/` with provenance, original source revision unavailable (E-11).
+- 2026-09-21 — AC-304 named `/` as the logout destination; the baseline lands on `/auth`. Architect drafting error, ruled A-13 / E-10, no product change.
+- 2026-09-22 — The authenticated AC-304 matrix (two roles × routes × two viewports × two themes × logout/redirect) was executed manually and cost Director time; Playwright recorded as the candidate QA playbook amendment.
+
+### RRM-002-CYBER-PHARMA — closed 2026-09-28 (Architect)
+
+- Playbook prescribed: pack → Plan Mode with a report-only fixture audit → Director rules every audit row → Engineer applies rulings as docs-only rows → S1 disclosure, S2 ruled corrections → handoff → Director cuts qa/ line → QA Lead plans, QA Executor runs an agent-driven browser matrix → Gate Q → cleanup → closeout → merge.
+- Actually happened: Pack authored 23 Sep with every RRM-001 lesson applied (no literal baseline SHA; root-protocol files allowed; governing snapshot copied from RRM-001 with provenance; seats by position). Plan Mode the same day found the pack assumed `round2` was exported (it was private in the frozen service), found the ledger errata placeholder sitting above real rows, and — the material finding — proved 149 of 150 mock claims fail the Director's rule 3 (expected = qty × rate + $10.64). Ruled flag-only: fixture regeneration is BIM-004 seed scope (E-13); method labels MAC/NADAC need Frank's brand/generic authority (rider R3); status vocabulary vs Ruling 5 → Phase 5 (E-14). One correction ruled (E-12: a single comment line). S1 built the Summary disclosure with object-identity filter tags and derived-expectation tests (14 new tests, expected $20.27 never hard-coded); S2 applied the one comment. Handoff 23 Sep. QA 28 Sep: the QA Executor pinned, derived the value independently, raced the slow-summary/filter-change path in a real browser, ran a 16-state authenticated matrix (ADMIN/MEMBER × desktop/375px × light/dark × default/named-PBM) via adaptive Playwright, stopped for credential entry only. The run was interrupted once by a paused free replica with drifted test identities (QA-F01, environment). Gate Q PASS at 34e6fb6, zero defects, zero repair rounds.
+- Divergence + why: (1) Spec assumed a helper's export status; verify-then-write applies to helpers, not only tables and counts. (2) The audit produced exactly one correction and eleven flags — correct outcome: the demo predates the rules, and money is regenerated with real rates, never patched by hand. (3) `repair.diff` over the literal baseline..candidate range swept in Director docs commits; the handoff had to point at the `-- src/` subset. (4) QA environment readiness was discovered mid-run; became the field note and RRM-003's mandatory preflight. (5) The Engineer omitted staging blocks on two stages; the Architect supplied them — pack prompts now say "end with a selective staging block" explicitly.
+- Gate Q cycles: 1 — PASS.
+- Handoff friction: Ubuntu VM clipboard failure cost a session (bounce open-vm-tools; fallback http.server). Director asked for one command per block after a long one-liner — adopted as the norm.
+- Director overhead: twelve audit rulings in one sitting; five commits; QA-branch cut; credential entry in the QA Executor's browser; one environment authorization when the replica was paused.
+- Time shape: pack + plan + P1b + S1 + S2 + P3 all on 23 Sep (one working day); QA 28 Sep (two-part run); closeout 28 Sep.
+- Keep: report-then-rule audits · derived expectations in tests · same-filters tagging as the staleness guard · precision premise recorded and carried to BIM-005 · agent-driven Playwright QA with Director-only credential entry · flag-only with owner and gate instead of manufactured fixes.
+- Change: mandatory machine-checkable environment preflight before any autonomous run (Engineering and QA) · repair.diff produced for the product subset · prompts end with an explicit staging-block instruction · RRM-003 runs as a controlled one-shot with enumerated stop conditions and declared Director checkpoints.
+- Drop: manual role × viewport × theme matrices · assuming private helpers are importable · re-running passing evidence after a resolved environment interruption.
+- Doctrine-harvest seeds: verify-then-write for helpers and exports · mock fixtures obey locked business rules or carry a written disclaimer until regenerated · environment preflight as a gate, not a checklist · one-shot = prepared authority package + one session + enumerated stops + one handoff.
+
+### RRM-002-CYBER-PHARMA — QA engagement closed 2026-09-28 (QA-logged (QA Lead))
+
+# RRM-002 — SOL QA Campaign Journal Entry
+
+## QA seat — Gate Q closeout, 2026-09-28
+
+- **Module:** RRM-002-CYBER-PHARMA — Ledger Truth.
+- **Certified candidate:** `34e6fb6fd8c4e5c6610f4b0f49177abcb6cc0731`.
+- **Verdict:** Gate Q PASS.
+- **Acceptance:** All frozen RRM-002 criteria accepted; no product defect, release blocker, or repair round.
+- **Independent proof:** $20.27 fixture derivation; stale-result race; repeated Clear Filters; two fresh 17-route builds; TypeScript; ESLint; 31 Jest suites / 144 tests; authenticated ADMIN and MEMBER browser matrix across desktop/375px, light/dark, and default/named-PBM states.
+- **Environment event:** The paused/drifted free replica was classified as a resolved Environment / Setup Issue. The Director authorized the base CyberPharma authentication environment for the read-only walk.
+- **Scope protection:** All 150 fixture rows and money values remained byte-identical to baseline; only the ruled E-12 comment changed. Deferred money-rule items retained their existing owners and future gates.
+- **Factory lesson — keep:** Adaptive Playwright execution converted a manual role × viewport × theme × filter matrix into repeatable agent-run evidence while the Director handled credentials only.
+- **Factory lesson — change:** Add a mandatory machine-checkable preflight for external-service availability, target environment, test identities, role readiness, browser tooling, and Director checkpoints before Cody starts.
+- **Factory lesson — drop:** Do not rerun passing evidence or reopen product work because of a resolved environment interruption.
+- **QAM implication:** RRM-002 is strong production evidence for a prepared one-shot QA module, but it was a two-part run because environment readiness was discovered late. Preflight is the difference between agent capability and a true one-shot operation.
+- **Closeout:** Authorized for bounded QA cleanup and Architect closeout. This entry does not certify Gate D or deployment.
+
+### Friction log — RRM-002 (Director-observed, filed by Architect)
+
+- 2026-09-23 — `round2` not exported from the frozen service; ruled A-01 (exported from `format.ts` with the identical expression).
+- 2026-09-23 — Ledger errata placeholder `E-10…` sat above the real E-10/E-11 rows; removed under A-02, next free erratum E-12.
+- 2026-09-23 — Ubuntu VM clipboard failure cost a session (bounce open-vm-tools; fallback http.server).
+- 2026-09-23 — One-command-per-block adopted as the norm after a long one-liner.
+- 2026-09-28 — Free replica paused and test identities drifted (QA-F01); QA completed on the Director-authorized base environment.
+- 2026-09-28 — `repair.diff` over the literal baseline..candidate range swept in Director docs commits; the product subset is `-- src/`.
+
+### RRM-003-CYBER-PHARMA — closed 2026-09-29 (Architect)
+
+- **Module:** RRM-003-CYBER-PHARMA — Access, Cache, Hygiene, Docs. Controlled one-shot Engineering pilot (QA Lead field note 2026-09-28).
+- **Commits:** pack `a59f069` · P1b rulings `6655f95` · candidate (single P2 commit) `21ea108bb27b965ddc5edae29dc3b1d6971ae576` · QA HEAD `1a94277` · closeout `7309a2f` · merge to `main` `649c36d` (`--no-ff`, 2026-09-29). Baseline `3d2e655` (RRM-002 merge).
+- **Verdict:** Gate Q PASS, 26/26 ACs, zero repair rounds (QA Lead, 2026-09-29).
+- **Engineering pilot metrics:** P2 wall-clock 11m54s (preflight 1m18s · S1 3m21s · S2 0m44s · S3 3m20s · handoff 2m53s) · 67 checks · 3 self-repairs, all in new test code, zero in product code · 0 Director touches between P2 start and the staging block · 0 stop conditions · preflight 17/17 PASS at P2 · 3 new suites / 20 tests (31/144 → 34/164).
+- **Rulings:** A-01…A-14 (PF-05 own-protocol files; standalone static copy; nested-Escape guard; AC-401/AC-306 overlap erratum). Ledger E-16 (OBS-1 `protectPage` → Phase 8), E-17 (QA target substitution), E-18 (QA-F02 Enter on PBM trigger → accessibility backlog).
+- **QA observations for the campaign:** QA active time 74m55s across two segments; 8 Director touches (1 environment ruling + 7 browser sign-ins) because the pack named SCRATCH accounts that did not exist; the Enter-key observation cost diagnostic reruns. Both are pack-authoring failures, not agent failures: the QA target and the test identities must be verified at authoring and declared in the checkpoints, and a known-instrument probe (Enter vs Space on native buttons) belongs in the QA preflight.
+- **Factory lesson — keep:** machine-checkable preflight as a gate; enumerated stop conditions; declared checkpoints with none inside the build; one selective staging block; the Engineer copying the governing QA snapshot with provenance.
+- **Factory lesson — change:** the QA side gets the same treatment in RRM-004 — a QA preflight that queries the accounts and the browser engine, enumerated QA stop conditions, a declared credential checkpoint with a one-sign-in-per-role target, and the plan authored by the QA seat from an Engineer-supplied manifest (the QAM pilot).
+- **Factory lesson — drop:** preflight rows that assert what the environment *should* have (PF-14's bare standalone, RRM-003 A-02) instead of measuring what it does; naming an environment in a checkpoint without verifying it exists.
+- **Closeout:** merged; RRM-004 (dependencies + QAM pilot) authored from this merge.
+
+### RRM-003-CYBER-PHARMA — QA engagement closed 2026-09-29 (QA-logged (QA Lead))
+
+[entry to be supplied by the QA Lead; not authored by another seat]
+
+### Friction log — RRM-003 (Director-observed, filed by Architect)
+
+- 2026-09-28 — PF-05 at P1 held the Engineer's own root-protocol files; ruled A-01 (P1 exception, P2 literal).
+- 2026-09-28 — Bare `node .next/standalone/server.js` 404s `/_next/static`; the "before" capture measured Next's 404 header. Ruled A-02: copy `.next/static` and `public/` into standalone before boot; every capture records the status line.
+- 2026-09-28 — Nested Escape order held in jsdom but not in production (`document`-level listener); ruled A-06 (`if (e.defaultPrevented) return;` guard).
+- 2026-09-28 — Director's pack commit accidentally deleted `agent_docs/PHASE_2.1` and `PHASE_2.2`; restored with `git checkout 3d2e655 -- …` before P1.
+- 2026-09-28 — AC-401's preserved-path list overlapped AC-306's banner files; erratum via A-13.
+- 2026-09-28 — Staging block not run before the QA branch was cut; recovered with `git add -A` then commit on the engineering branch.
+- 2026-09-29 — QA sandbox (`bwrap`) failed before external commands; reviewed escalation worked.
+- 2026-09-29 — DC-4 named SCRATCH; no SCRATCH accounts existed. Director authorized main development Supabase, login-only (E-17); seven sign-ins across diagnosis and reruns.
+- 2026-09-29 — `curl -X HEAD` exit 18 on the header probe; corrected to `curl -I`.
+- 2026-09-29 — Enter on the focused, closed PBM trigger swallowed; Space works. Non-blocking (E-18); origin check scheduled for RRM-004 Plan Mode.
+- 2026-09-29 — Architect's service unavailable at closeout; the Director handed the QA Lead's certification to the Engineer as the closeout instruction; the Architect's journal entry lands here, in RRM-004 P0.
+
+### RRM-004-CYBER-PHARMA — closed 2026-10-02 (Architect)
+
+- **Module:** RRM-004-CYBER-PHARMA — Dependencies. One-shot Engineering (second consecutive) + first QAM pilot on the QA side.
+- **Commits:** pack d3ea7f7 · P1b fe74dd9 · candidate 2fbc72f1f514049255f2b94054bd11cc77cbd158 · QAM v1.1 overlay + P2b errata (A-09…A-12) on the engineering branch before the QA cut · QA HEAD 6b6cad6 · evidence 0463086 · closeout and merge: Director. Baseline 649c36d (RRM-003 merge).
+- **Product:** next 16.2.12 → 16.3.7, eslint-config-next in lockstep, sharp 0.35.3 → 0.35.5 (libvips package 1.3.2 → 1.3.4, libheif 1.23.1 → 1.23.5 read from installed metadata — the instrument shown to move); npm audit 7 → 0 under DD-1 sweep; 59 lockfile moves, zero outside the allowed families; Cloudinary remotePatterns removed (DD-2), optimizer refuses the host with the attributable body; RRM-003's cache header survived byte-identical and re-measured; 17 routes, 34/164, 0/35.
+- **Verdict:** Gate Q PASS, 31 product ACs, zero repair rounds (QA Lead 2026-10-02). Pilot: PARTIAL SUCCESS under the charter's recorded-Q-stop rule — Q1 raised a contract/scope stop, resolved by A-15 and Q1b, exactly the kind of catch the recon stop exists for.
+- **Engineering metrics:** P2 11m15s, 80 checks, 0 stops, 0 self-repairs, 0 Director touches; every number equal to the P1 dry run and the authoring-time run.
+- **QA metrics:** Q2 body 10m08s (release elapsed 17m21s, excluding Q1 and its resolution); 0 Director interventions in Q2; 1 automated sign-in per role from .env.qa.local; 28 browser cells; Q5 value-scan before deletion, env file and auth state deleted with proof, post-deletion scan 0. RRM-003 comparison: 74m55s active, 8 Director touches, 7 human sign-ins.
+- **Factory lesson — keep:** recon before execution; plan drafted by the QA seat and approved by the QA Lead; credentials by env file, never by keyboard; indexed handoff zips under QAM/HANDOFFS/; two verdicts never mixed.
+- **Factory lesson — change:** resolve scope exceptions before Q1 (the A-15 stop was authoring debt, not Executor failure); make both CLAUDE.md and AGENTS.md reliable model-neutral entry points by design; the mid-flight QA/→QAM/ overlay cost one git mv and one docs-only prompt and must never be needed again — the QAM/ folder ships in the pack from BIM-004 on.
+- **Factory lesson — drop:** manual file hunting; Director browser matrices.
+- **Campaign:** RRM-004 is the last module. With the Director's merge the RRM campaign closes (four modules, four Gate Q passes, zero repair rounds) and the backend campaign resumes at BIM-004. DA-2 (Supabase signup OFF) status at campaign close: NOT YET.
+- **Closeout:** merge pending (Director). 10X Lab export: QAM/QAM_PILOT_RESULTS.md plus the Architect's QAM pilot journal.
+
+### RRM-004-CYBER-PHARMA — QA engagement closed 2026-10-02 (QA-logged (QA Lead))
+
+Transcribed by the Engineer at P5 from the QA Lead's letter of 2026-10-02
+
+QA LEAD DECISION
+Gate Q: PASS for the tested product candidate.
+QA Cleanup: ACCEPTED.
+Product repair: NONE REQUIRED.
+Released to Architect closeout.
+
+PRODUCT VERDICT
+Accept the final matrix: 31 product ACs PASS, zero unresolved product failures or blockers.
+
+Supporting results:
+- 34 Jest suites / 164 tests passed; zero skipped.
+- TypeScript: zero errors.
+- ESLint: zero errors, 35 warnings.
+- Independent builds, dependency/advisory checks, image optimization, remote-image rejection, cache checks and protected-path comparisons passed.
+- 28 browser coverage cells passed, including automated ADMIN/MEMBER authentication.
+- Q5 scanned credential values before deletion, verified .env.qa.local removal, confirmed absence of authentication state and QA servers, and completed post-deletion scanning with zero leaks.
+
+Qualifications:
+- AC-501–504 include verification of historical engineering records; do not relabel those historical actions as independently witnessed.
+- Certification covers the contracted local QA scope. It is not deployment certification, every-platform validation or proof of untested image formats.
+- The later Next release remains informational under the approved P1 cutoff.
+- No product repair/retest cycle occurred; the pilot does not demonstrate that capability.
+
+SEPARATE QAM PILOT VERDICT
+AC-701–709: accepted PASS.
+AC-710: PASS through this QA Lead review and certification.
+
+Pilot classification: PARTIAL SUCCESS under the charter’s recorded-Q-stop rule.
+Reason: Q1 raised a contract/scope stop, resolved through A-15 and Q1b. Preserve that history.
+
+Q2 one-shot execution itself SUCCEEDED:
+- Zero Director interventions during Q2.
+- One automated sign-in per role.
+- Zero Q2 enumerated or unenumerated stops.
+- A QA helper correction was handled and documented independently.
+- Measurement body: 10m08s; reported release elapsed: 17m21s.
+These figures exclude earlier preparation and Q1 resolution. Do not claim an end-to-end 10-minute QA process.
+
+KEEP: recon before execution, independently approved plan, automated role coverage, indexed handoff ZIPs and bounded cleanup.
+CHANGE: resolve scope exceptions before Q1; make both CLAUDE.md and AGENTS.md reliable, model-neutral entry points in future module designs; standardize exports directly under QAM/HANDOFFS/.
+DROP: manual file hunting and repetitive Director browser matrices.
+These are 10X Lab findings, not automatic changes to production QA doctrine. Do not retrofit new architecture during this closeout.
+
+### Friction log — RRM-004 (Director-observed, filed by Architect)
+
+- 2026-09-30 — P1 found the instrument's export-path bug (require('…/versions.json') throws; '…/versions' reads the same file); ruled A-03.
+- 2026-09-30 — The QA Lead's QAM rulings arrived while P2 was running; the pack's QA/ lane became QAM/ by a tracked git mv plus a docs-only errata prompt (P2b, A-09…A-12). Frozen files were not rewritten.
+- 2026-09-30 — A Markdown table-cell pipe (\|) was misread as a shell escape; v1.1 writes every piped command as a plain line.
+- 2026-10-01 — Q1 raised a contract/scope stop; resolved by A-15 and Q1b before Q2: AC-403's literal allowed-file list omitted five already-authorized predecessor closeout/journal hunks (`a93393d`, `ee4a049`) and the twelve `_OLD/` archive moves (`1eb9c04`).
+- 2026-10-01 — One QA helper self-correction during Q2, documented by the Executor: Q2-SR01, the AC-103/107 metadata read used the non-exported `sharp/package.json` (exit 1); the helper was corrected to read the installed JSON from disk, failure preserved under `evidence/deps/attempts/metadata_01/`.
+- 2026-10-02 — A later Next patch was published after the P1 cutoff; informational only under the approved targets.
