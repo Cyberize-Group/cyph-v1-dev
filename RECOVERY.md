@@ -4,7 +4,14 @@
 > Updated after every plan completion. If this file is stale, the session log in
 > `agent_docs/SESSIONS/` is the fallback source of truth.
 
-**Last updated:** 2026-10-10 14:12 — **Workflow startup rules · COMPLETE (uncommitted) on `pilot-setup` @ `297a011`**
+**Last updated:** 2026-10-10 14:54 — **Pilot status · banner boxes COMPLETE (uncommitted) on `pilot-setup` @ `f865ecd`**
+**Committed checkpoint:** `f865ecd` (startup rules in the shared `CLAUDE.md`).
+**Uncommitted:** the ASCII-boxed startup banners in `CLAUDE.md`, the session 3 and session 4 log entries, two RESPONSES records (`…142050_startup-check.md`, `…145357_banner-boxes-evidence.md`), this file and `CHANGELOG.md`.
+**Launch evidence (Director-observed, not agent-run, pre-boxes):** factory active with records written (A) · temporary clone "hi" → question (B) · option 2 → setup required, paused, no local file created per the AI (C) · "Guest mode" → guest banner, paused because the kit is missing (D).
+**Pending (Director):** review and commit · remaining live checks: filesystem verification of the temporary clone, return-to-guest with the local file present, Cursor behavior, completed guest onboarding (needs `vibe_docs/`), the new boxes rendered live.
+**Next step:** Director commits, then runs the remaining live checks. The copied project backlog below (BIM-004 etc.) is historical. It is not authorized pilot work.
+
+**Prior block (14:12):** **Last updated:** 2026-10-10 14:12 — **Workflow startup rules · COMPLETE (uncommitted) on `pilot-setup` @ `297a011`**
 **Last action:** the shared `CLAUDE.md` now establishes the workflow at startup (banners, the two-option question, "Guest mode" handling, zero-write diagnostics), and `FACTORY_SESSION_SETUP.md` now covers a fresh session and leaving factory mode. `CLAUDE.eng.md`, `CLAUDE.local.md` and `.gitignore` are unchanged. Report: `agent_docs/RESPONSES/response_2026-10-10_141203_workflow-startup-rules.md`.
 **Pending (Director):** review and commit · six fresh-session launch checks (listed in the report) · `vibe_docs/` guest kit.
 **Next step:** Director runs the launch checks in fresh sessions.

@@ -3,6 +3,12 @@
 > Documentation/playbook change log per CLAUDE.md Changelog Protocol.
 > `[CC]` = Claude Code · `[TS]` = Tony Stark manual edits.
 
+## 2026-10-10 08:54 UTC — [CC] Claude Code
+
+- **Updated:** `CLAUDE.md`. The four startup banners (workflow selection with options 1/2, guest, factory setup required, factory active) are now plain-ASCII boxes 60 columns wide. Added a rule to show them in a code block. Meaning and workflow decisions are unchanged, and "Guest mode" stays in both engineering boxes.
+- **Recorded:** Director-observed launch checks A–D in the session log, `RECOVERY.md` and the report. Remaining live checks are listed and not marked complete.
+- **Reason:** Director brief "startup banner update and evidence recording". Report: `agent_docs/RESPONSES/response_2026-10-10_145357_banner-boxes-evidence.md`.
+
 ## 2026-10-10 08:12 UTC — [CC] Claude Code
 
 - **Updated:** `CLAUDE.md`. It now settles the workflow at startup: the local file, else an explicit statement, else a two-option question. It shows the guest, setup-required and factory-active banners, handles "Guest mode" in both directions, and keeps a zero-write diagnostic zero-write. It grants no permissions.

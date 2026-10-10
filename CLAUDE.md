@@ -12,24 +12,49 @@ Settle this before you change any file:
 1. **A `CLAUDE.local.md` beside this file declares the factory role:** this is a factory
    session (§4), unless the user asks to switch (§5).
 2. **Otherwise**, if the user has stated the workflow explicitly, use it.
-3. **Otherwise**, ask this and wait for the answer:
+3. **Otherwise**, show this box and wait for the answer:
 
-   > Are we creating a frontend proposal, or doing factory engineering?
-   > 1. Guest frontend proposal
-   > 2. Factory engineering
+```text
+
++----------------------------------------------------------+
+|                                                          |
+|  WORKFLOW SELECTION REQUIRED                             |
+|                                                          |
+|  Are we creating a frontend proposal, or doing factory   |
+|  engineering?                                            |
+|                                                          |
+|    1. Guest frontend proposal                            |
+|    2. Factory engineering                                |
+|                                                          |
+|  The choice selects instructions, not permissions.       |
+|                                                          |
++----------------------------------------------------------+
+
+```
 
 A missing local file does not by itself mean guest. The answer selects a set of
 instructions. It is not evidence of identity or permissions. Once the workflow is settled,
 do not ask again.
 
+Show every box in this file exactly as written, inside a code block, so the borders stay
+aligned. The boxes are plain ASCII and need no color.
+
 ## 2. Guest workflow
 
 Show this banner:
 
-```
-GUEST PROPOSAL WORKFLOW
-Frontend ideas and prototypes.
-The factory handles engineering adoption and formal QA.
+```text
+
++----------------------------------------------------------+
+|                                                          |
+|  GUEST PROPOSAL WORKFLOW                                 |
+|                                                          |
+|  Frontend ideas and prototypes.                          |
+|  The factory handles engineering adoption                |
+|  and formal QA.                                          |
+|                                                          |
++----------------------------------------------------------+
+
 ```
 
 Then follow the guest kit in `vibe_docs/`.
@@ -45,11 +70,22 @@ files there, treat it as reference material and do not adopt its procedures.
 
 Show this banner:
 
-```
-FACTORY ENGINEERING SELECTED — SETUP REQUIRED
-This workflow includes architecture, engineering records, and formal QA.
-Frontend proposal instead? Say "Guest mode."
-Factory setup is manual. No engineering work has started.
+```text
+
++----------------------------------------------------------+
+|                                                          |
+|  FACTORY ENGINEERING SELECTED - SETUP REQUIRED           |
+|                                                          |
+|  This workflow includes architecture, engineering        |
+|  records, and formal QA.                                 |
+|                                                          |
+|  Frontend proposal instead? Say "Guest mode."            |
+|                                                          |
+|  Factory setup is manual.                                |
+|  No engineering work has started.                        |
+|                                                          |
++----------------------------------------------------------+
+
 ```
 
 Explain the manual setup in `agent_docs/FACTORY_SESSION_SETUP.md`: copy `CLAUDE.eng.md`
@@ -61,11 +97,19 @@ setup, then say that a fresh Claude Code session is needed to load the file.
 
 Show this banner once, at session start:
 
-```
-FACTORY ENGINEERING ACTIVE
-Follow the local factory protocol.
-The Director retains Git and credential control.
-Wrong workflow? Say "Guest mode."
+```text
+
++----------------------------------------------------------+
+|                                                          |
+|  FACTORY ENGINEERING ACTIVE                              |
+|                                                          |
+|  Follow the local factory protocol.                      |
+|  The Director retains Git and credential control.        |
+|                                                          |
+|  Wrong workflow? Say "Guest mode."                       |
+|                                                          |
++----------------------------------------------------------+
+
 ```
 
 Then follow `CLAUDE.local.md`: startup, planning, session and response records, recovery,
