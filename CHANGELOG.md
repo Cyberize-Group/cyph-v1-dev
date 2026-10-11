@@ -3,6 +3,40 @@
 > Documentation/playbook change log per CLAUDE.md Changelog Protocol.
 > `[CC]` = Claude Code · `[TS]` = Tony Stark manual edits.
 
+## 2026-10-10 09:30 UTC — [CC] Claude Code
+
+- **Updated:** `RECOVERY.md`. New top block for the end-of-day checkpoint and tomorrow's resume steps.
+- **Updated:** `agent_docs/SESSIONS/session_2026-10-10.md`. Session 7 checkpoint entry with the Director-observed startup and Guest mode results, plus the end-of-day state.
+- **Created:** `agent_docs/RESPONSES/response_2026-10-10_153048_eod-checkpoint.md`. Checkpoint report and Git handoff.
+- **Updated (09:35 UTC):** the same three files. The first Cursor test is now Tony's own, on a free Hobby account in a separate guest test clone, still pending. This replaces the earlier plan for Frank to run it.
+- **Updated (09:39 UTC):** the same three files. Added the guest rehearsal plan (Bibo as guest proposer, Tony as admin, reviewer and merger; protect and test `main` before guest write access). Pending, not started.
+- **Reason:** Director brief "end-of-day checkpoint for 10 October 2026", plus Director follow-ups on the Cursor test owner and the guest rehearsal. Records only; commit and push are pending (Tony).
+
+## 2026-10-10 09:11 UTC — [CC] Claude Code
+
+- **Updated:** `CLAUDE.md`. Every fresh session now shows the 1/2 workflow box first and waits, even with `CLAUDE.local.md` present; nothing runs or is written before the answer. The local file is a readiness check and never selects engineering. Option 1 with the local file present explains it is already loaded and requires move-out plus a fresh session.
+- **Updated:** `CLAUDE.eng.md`. Session Start Step 0 is gated on option 2.
+- **Updated:** `agent_docs/FACTORY_SESSION_SETUP.md`. New declaration text (readiness, not selection) and notes on the startup question.
+- **Reason:** Director brief "correct the startup workflow" after live observation E (banner rendered, choice-first failed). Report: `agent_docs/RESPONSES/response_2026-10-10_151100_choice-first-startup.md`.
+
+## 2026-10-10 08:54 UTC — [CC] Claude Code
+
+- **Updated:** `CLAUDE.md`. The four startup banners (workflow selection with options 1/2, guest, factory setup required, factory active) are now plain-ASCII boxes 60 columns wide. Added a rule to show them in a code block. Meaning and workflow decisions are unchanged, and "Guest mode" stays in both engineering boxes.
+- **Recorded:** Director-observed launch checks A–D in the session log, `RECOVERY.md` and the report. Remaining live checks are listed and not marked complete.
+- **Reason:** Director brief "startup banner update and evidence recording". Report: `agent_docs/RESPONSES/response_2026-10-10_145357_banner-boxes-evidence.md`.
+
+## 2026-10-10 08:12 UTC — [CC] Claude Code
+
+- **Updated:** `CLAUDE.md`. It now settles the workflow at startup: the local file, else an explicit statement, else a two-option question. It shows the guest, setup-required and factory-active banners, handles "Guest mode" in both directions, and keeps a zero-write diagnostic zero-write. It grants no permissions.
+- **Updated:** `agent_docs/FACTORY_SESSION_SETUP.md`. Added that the declaration is required, that setup is manual, that a fresh session is needed, and a "Leaving factory mode" section.
+- **Reason:** Director brief "factory documentation update" (session 2). Report: `agent_docs/RESPONSES/response_2026-10-10_141203_workflow-startup-rules.md`.
+
+## 2026-10-10 06:23 UTC — [CC] Claude Code
+
+- **Updated:** `CLAUDE.md`. It is now a concise shared entry: factory sessions follow `CLAUDE.local.md` and guests follow the `vibe_docs/` handoff (pending). It has no import and grants no permissions.
+- **Added:** `.gitignore` (`/CLAUDE.local.md`) and `agent_docs/FACTORY_SESSION_SETUP.md`. `CLAUDE.eng.md` (Tony's engineering master) is preserved unchanged, and the local copy now starts with a factory-role declaration.
+- **Reason:** Director brief "guest/factory instruction split" on `pilot-setup`.
+
 ## 2026-10-02 05:16 UTC — [CC] Claude Code
 
 - **RRM-004-CYBER-PHARMA — merge SHAs recorded** (docs only, `main`): closeout `2e3eac9` and merge `a474a19` written to the map scoreboard and a v1.0.6 status line (RRM campaign COMPLETE), ledger R-009, RRM-004 `EXECUTION_LOG.md`, `README.md` and DC-7 (adopt/amend/drop still pending). `RECOVERY.md` points to BIM-004.

@@ -4,7 +4,38 @@
 > Updated after every plan completion. If this file is stale, the session log in
 > `agent_docs/SESSIONS/` is the fallback source of truth.
 
-**Last updated:** 2026-10-02 11:16 — **RRM-004-CYBER-PHARMA · CLOSED — GATE Q PASS (QA Lead JARVIS, 2026-10-02, 31/31 product ACs, zero repair rounds) · MERGED TO `main` · RRM CAMPAIGN COMPLETE**
+**Last updated:** 2026-10-10 15:35 — **End-of-day checkpoint committed by Tony as `d80991c` and pushed to `origin/pilot-setup`; 15:35 Cursor amendment committed and pushed as `4e2391b` · 15:39 guest-rehearsal amendment COMMIT/PUSH PENDING (Tony)**
+**Verified:** origin `Cyberize-Group/cyph-v1-dev`, HEAD `66140fa`, no upstream yet (`pilot-setup` not on origin). `CLAUDE.local.md` ignored + untracked, body == `CLAUDE.eng.md`, keep it in this clone.
+**Proven today (Claude Code path only, not full pilot certification):** boxed numbered choice first → `2` → ACTIVE with "Guest mode" escape → Step 0 · "Guest mode" with local file present → pause + manual move-out guidance, file not moved. Choice-first stays mandatory every fresh session.
+**Checkpoint files (in `d80991c` and `4e2391b`; 15:39 amendment uncommitted):** this file, `CHANGELOG.md`, `agent_docs/SESSIONS/session_2026-10-10.md`, `agent_docs/RESPONSES/response_2026-10-10_153048_eod-checkpoint.md`.
+**Tomorrow:** resume on `pilot-setup` with option 2 → Cursor compatibility + startup demo (**Tony tests it himself on a free Cursor Hobby account, in a separate guest test clone; live check pending; no install or account setup on 10 Oct**; replaces the earlier plan for Frank to run the first test) → Windsurf entry (only if used) → install the actual approved VIK into `vibe_docs/` (no reconstruction) → guest onboarding and pilot setup step by step with Tony.
+**Guest rehearsal (15:39, pending, not started):** Bibo is the guest proposer (stands in for Frank's workflow); Tony is admin, reviewer and merger. Order: protect `main` → show the protection works → give Bibo write access → Git login as Bibo → separate guest clone → Cursor free-account test. **Open:** whose Cursor account (Tony's Hobby account per 15:35, or Bibo's)? No invitations or account changes on 10 Oct.
+**Separate pending (not complete):** GitHub protections · guest permissions · Supabase setup. The BIM/RRM backlog below is historical, not authorized work.
+
+**Prior block (15:11):** **Last updated:** 2026-10-10 15:11 — **Choice-first startup correction COMPLETE (uncommitted) on `pilot-setup` @ `77ab0d2`**
+**Uncommitted:** `CLAUDE.md`, `CLAUDE.eng.md`, `agent_docs/FACTORY_SESSION_SETUP.md`, session log (session 5), `response_2026-10-10_151100_choice-first-startup.md`, this file, `CHANGELOG.md`.
+**Live evidence E (session 5):** boxed ACTIVE banner rendered; choice-first behavior failed (auto-selected factory, Step 0 ran, record written). Corrected in docs only; not yet live-verified.
+**Pending (Director):** review and commit · manual refresh of `CLAUDE.local.md` with the new declaration (steps in the report) · fresh-session checks 1–4 in the report.
+**Next step:** Director refreshes the local file, commits, then runs a fresh session and says "hi".
+
+**Prior block (14:54):** **Last updated:** 2026-10-10 14:54 — **Pilot status · banner boxes COMPLETE (uncommitted) on `pilot-setup` @ `f865ecd`**
+**Committed checkpoint:** `f865ecd` (startup rules in the shared `CLAUDE.md`).
+**Uncommitted:** the ASCII-boxed startup banners in `CLAUDE.md`, the session 3 and session 4 log entries, two RESPONSES records (`…142050_startup-check.md`, `…145357_banner-boxes-evidence.md`), this file and `CHANGELOG.md`.
+**Launch evidence (Director-observed, not agent-run, pre-boxes):** factory active with records written (A) · temporary clone "hi" → question (B) · option 2 → setup required, paused, no local file created per the AI (C) · "Guest mode" → guest banner, paused because the kit is missing (D).
+**Pending (Director):** review and commit · remaining live checks: filesystem verification of the temporary clone, return-to-guest with the local file present, Cursor behavior, completed guest onboarding (needs `vibe_docs/`), the new boxes rendered live.
+**Next step:** Director commits, then runs the remaining live checks. The copied project backlog below (BIM-004 etc.) is historical. It is not authorized pilot work.
+
+**Prior block (14:12):** **Last updated:** 2026-10-10 14:12 — **Workflow startup rules · COMPLETE (uncommitted) on `pilot-setup` @ `297a011`**
+**Last action:** the shared `CLAUDE.md` now establishes the workflow at startup (banners, the two-option question, "Guest mode" handling, zero-write diagnostics), and `FACTORY_SESSION_SETUP.md` now covers a fresh session and leaving factory mode. `CLAUDE.eng.md`, `CLAUDE.local.md` and `.gitignore` are unchanged. Report: `agent_docs/RESPONSES/response_2026-10-10_141203_workflow-startup-rules.md`.
+**Pending (Director):** review and commit · six fresh-session launch checks (listed in the report) · `vibe_docs/` guest kit.
+**Next step:** Director runs the launch checks in fresh sessions.
+
+**Prior block (12:24):** **Last updated:** 2026-10-10 12:24 — **Guest/factory instruction split · COMPLETE (uncommitted) on `pilot-setup` @ `297a011`**
+**Last action:** root `CLAUDE.md` is now the shared entry. `CLAUDE.eng.md` is the tracked engineering master. `CLAUDE.local.md` is the git-ignored factory copy with a role declaration. Also added `/CLAUDE.local.md` to the restored `.gitignore` (12:52), and added `agent_docs/FACTORY_SESSION_SETUP.md`. Report: `agent_docs/RESPONSES/response_2026-10-10_122343_guest-factory-split.md`. Session log: `agent_docs/SESSIONS/session_2026-10-10.md`.
+**Pending (Director):** commit · live launch checks (factory and guest) per the report · VIK v0.3 / `vibe_docs/` guest handoff (not available locally).
+**Next step:** Director runs the two launch checks. Guest onboarding stays pending until the handoff files land.
+
+**Prior state (2026-10-02, source repo):** **Last updated:** 2026-10-02 11:16 — **RRM-004-CYBER-PHARMA · CLOSED — GATE Q PASS (QA Lead JARVIS, 2026-10-02, 31/31 product ACs, zero repair rounds) · MERGED TO `main` · RRM CAMPAIGN COMPLETE**
 **Branch:** `main` @ `a474a19` (`--no-ff` merge of `qa/phase-3-rrm004`, pushed). **Certified candidate:** `2fbc72f1f514049255f2b94054bd11cc77cbd158` · QA HEAD `6b6cad6` · evidence `0463086` · closeout `2e3eac9` · merge `a474a19` · baseline `649c36d` · pack `d3ea7f7`. Product diff `2fbc72f..a474a19` empty.
 **Last action:** SHA-recording touch on `main` (docs only): closeout/merge SHAs written to map scoreboard + v1.0.6 status, ledger R-009, RRM-004 `EXECUTION_LOG.md` Closeout, README, DC-7. Session log: `agent_docs/SESSIONS/session_2026-10-02.md`.
 **Pilot:** QAM **PARTIAL SUCCESS** (Q1 recorded Q-stop → A-15); Q2 one-shot succeeded (10m08s body, 0 Director touches). Certificate `agent_docs/ACTIONS/RRM-004-CYBER-PHARMA/QAM/QAM_CERTIFICATION.md`.
