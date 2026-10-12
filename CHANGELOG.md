@@ -3,6 +3,29 @@
 > Documentation/playbook change log per CLAUDE.md Changelog Protocol.
 > `[CC]` = Claude Code · `[TS]` = Tony Stark manual edits.
 
+## 2026-10-12 11:15 UTC — [CC] Claude Code
+
+- **Updated:** `vibe_docs/START_HERE.md` (isolation status stated as observed, not promised; `npm ci` wording), `vibe_docs/GUEST_AI_RULES.md` (handoff NO permits the setup/login rehearsal, stop before proposal edits), `.env.pilot.example` (comment "Coach" → "Tony"; names and values unchanged), `agent_docs/VIK/ADAPTATIONS.md` (A18–A21).
+- **Updated:** `RECOVERY.md`, `agent_docs/SESSIONS/session_2026-10-12.md`; created `response_2026-10-12_171557_vik-cleanup-and-commit.md` with the staging, commit and push commands.
+- **Reason:** Director review accepted with a four-item documentation cleanup. External handoff ready stays NO. Commit and push are Tony's.
+
+## 2026-10-12 10:58 UTC — [CC] Claude Code
+
+- **Created:** `vibe_docs/START_HERE.md`, `vibe_docs/GUEST_AI_RULES.md` (the kit's `AGENTS.md`, renamed), `.github/PULL_REQUEST_TEMPLATE/vibe_proposal.md`. VIK v0.3 installed with 17 adaptations (public repo, admin account, Cursor, automatic choice-first startup, shared pilot database, baseline from Tony's handoff message, actual protected paths). Ledger: `agent_docs/VIK/ADAPTATIONS.md`.
+- **Created (verbatim):** `agent_docs/VIK/00_PACKAGE_NOTE.md`, `.env.pilot.example` (names only).
+- **Updated:** `vibe_docs/README.md`. Now the guest entry: three status fields (Kit installed YES · Guest rehearsal authorized YES, setup/login only · External handoff ready NO), reading order, three rules. Setup steps live only in `START_HERE.md`.
+- **Updated:** `CLAUDE.md` §2. Reading order after option 1 and the three-field gate replace the single "Kit status" line. §1, §3, §4, §5 unchanged.
+- **Updated:** `RECOVERY.md`, `agent_docs/SESSIONS/session_2026-10-12.md`; created `response_2026-10-12_165824_vik-install-result.md`.
+- **Reason:** Director approval of the revised VIK installation plan with Corrections 1 (no self-referencing handoff SHA) and 2 (separate readiness fields). No CODEOWNERS, no application tests, lockfile and archive moves untouched. Commit pending (Tony).
+
+## 2026-10-12 10:34 UTC — [CC] Claude Code
+
+- **Updated:** `CLAUDE.md` §2 only. Option 1 now opens `vibe_docs/README.md` (pilot setup guide, not the VIK); proposal work is gated on the guide's "Kit status" line, not on the folder; assigned-branch check and guest scope added; enforcement stated as GitHub rules. §1, §3, §4, §5 and all boxes unchanged.
+- **Created:** `.cursor/rules/workflow-entry.mdc`. Cursor always-apply rule that points to the root `CLAUDE.md` and adds nothing (per cursor.com/docs/context/rules; Cursor does not document loading `CLAUDE.md`). Live Cursor behaviour not yet tested.
+- **Created:** `vibe_docs/README.md`. PILOT SETUP GUIDE: kit status NOT INSTALLED, environment setup with three public variables and an empty secret key, login rehearsal, branch and scope rules. Not the approved VIK.
+- **Updated:** `RECOVERY.md`, `agent_docs/SESSIONS/session_2026-10-12.md`. Created `agent_docs/RESPONSES/response_2026-10-12_155046_guest-onboarding-plan.md` (plan) and `response_2026-10-12_163426_guest-onboarding-impl.md` (implementation).
+- **Reason:** Director brief "prepare guest onboarding for the Cyber Pharma pilot", Track A approved with eight amendments. `package-lock.json`, the `_OLD/` archive moves, `CLAUDE.local.md` and `.env.local` untouched. Commit is pending (Tony).
+
 ## 2026-10-10 09:30 UTC — [CC] Claude Code
 
 - **Updated:** `RECOVERY.md`. New top block for the end-of-day checkpoint and tomorrow's resume steps.
