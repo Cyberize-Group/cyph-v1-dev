@@ -73,9 +73,25 @@ delete or edit the file yourself. Then pause.
 
 ```
 
-Then follow the guest kit in `vibe_docs/`.
-**Status: not installed.** If the kit is missing or incomplete, say that onboarding is not
-ready yet and pause. Do not write replacement kit files or substitute other documents.
+Then open `vibe_docs/README.md`, the guest entry, and follow its reading order:
+`vibe_docs/START_HERE.md` (for the person), then `vibe_docs/GUEST_AI_RULES.md` (for the
+AI, in full), then the assignment. Those files are the adapted guest kit (VIK v0.3). They
+load only here, after option 1.
+
+**Proposal work is gated on the status table, not on the folder.** `vibe_docs/README.md`
+carries three fields: Kit installed · Guest rehearsal authorized · External handoff ready.
+Setup and login rehearsal need the first two. Any application edit needs all three. While
+"External handoff ready" is NO, or any kit file is missing, say that proposal work is not
+authorized yet and pause before any frontend edit. Do not write replacement kit files or
+substitute other documents. Only the factory changes those fields.
+
+**Before any edit, confirm the assigned Git branch.** Run `git branch --show-current` and
+compare it with the branch the Director assigned. If no assignment is known, or the names
+differ, pause and ask. Never create, switch or delete branches.
+
+**Guest scope:** frontend proposals in the pilot environment. No merges to `main`, no
+database migrations, no cloud or account administration. These are workflow instructions.
+GitHub permissions and branch rules provide the enforcement; this file provides none.
 
 The factory procedures are not guest instructions. That covers `CLAUDE.eng.md`, the
 protocols in `agent_docs/`, the skill packs in `_SKILLS/`, and any `CLAUDE.md` or

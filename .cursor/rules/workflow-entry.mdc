@@ -1,0 +1,12 @@
+---
+description: Repository workflow entry. Read the root CLAUDE.md first and follow it.
+alwaysApply: true
+---
+
+Before doing anything in this repository, read `CLAUDE.md` at the repository root and
+follow it exactly. It begins with a workflow question shown in an ASCII box. Show that
+question first, in a code block, and wait for the answer. Do not read other project
+files, start work or write files until the user has answered.
+
+That file is the single canonical workflow instruction for every tool. This rule only
+points to it and adds nothing.

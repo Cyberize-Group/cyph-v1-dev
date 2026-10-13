@@ -4,7 +4,40 @@
 > Updated after every plan completion. If this file is stale, the session log in
 > `agent_docs/SESSIONS/` is the fallback source of truth.
 
-**Last updated:** 2026-10-10 15:35 — **End-of-day checkpoint committed by Tony as `d80991c` and pushed to `origin/pilot-setup`; 15:35 Cursor amendment committed and pushed as `4e2391b` · 15:39 guest-rehearsal amendment COMMIT/PUSH PENDING (Tony)**
+**Last updated:** 2026-10-12 17:15 — **Review ACCEPTED, cleanup COMPLETE, awaiting Tony's commit** on `vibe-pilot-setup` @ `2c9fd65`
+**Done:** four cleanup edits (isolation status honest, `npm ci` wording, handoff-NO permits setup/login, env comment "Tony"); ledger A18–A21. Commit/push commands in `agent_docs/RESPONSES/response_2026-10-12_171557_vik-cleanup-and-commit.md` §3 (19 paths; excludes `package-lock.json` and the six `_OLD/` archive moves; no `git add -A`).
+**Status fields:** Kit installed YES · Guest rehearsal authorized YES (setup/login) · External handoff ready **NO**.
+**Next step:** Tony stages, commits, pushes (`git push -u origin vibe-pilot-setup`), opens the PR to `main`, merges; rehearsals; readiness flip committed and merged; only then the baseline SHA and the handoff message.
+
+**Prior block (2026-10-12 16:58):** **Last updated:** 2026-10-12 16:58 — **VIK v0.3 INSTALLED (uncommitted) on `vibe-pilot-setup` @ `2c9fd65` (preparation checkpoint, not the handoff baseline)**
+**Done:** `vibe_docs/START_HERE.md` + `GUEST_AI_RULES.md` (adapted), `.github/PULL_REQUEST_TEMPLATE/vibe_proposal.md`, `.env.pilot.example` + `agent_docs/VIK/00_PACKAGE_NOTE.md` (verbatim), `agent_docs/VIK/ADAPTATIONS.md` (17 adaptations), `vibe_docs/README.md` = guest entry with status fields, `CLAUDE.md` §2 reading order + three-field gate. Report: `agent_docs/RESPONSES/response_2026-10-12_165824_vik-install-result.md`.
+**Status fields:** Kit installed YES · Guest rehearsal authorized YES (setup/login only) · External handoff ready **NO**.
+**Uncommitted, for the onboarding commit:** `CLAUDE.md`, `CHANGELOG.md`, `RECOVERY.md`, `.cursor/`, `.github/`, `.env.pilot.example`, `vibe_docs/`, `agent_docs/VIK/`, today's log, four reports. **Keep separate:** `package-lock.json` refresh and the `_OLD/` archive moves.
+**Pending (Director):** review adapted text · commit + merge to `main` (template only active there) · Cursor live test · Bibo clone setup/login · protected-`main` rejection tests · flip "External handoff ready" and **commit + merge that change first** · only then record the final handoff baseline SHA · send handoff message (baseline, branch, assignment, env lines privately).
+**Next step:** Tony's review.
+
+**Prior block (2026-10-12 16:45):** **Last updated:** 2026-10-12 16:45 — **VIK v0.3 inspected, revised install plan PENDING_APPROVAL** (`vibe-pilot-setup` @ `2c9fd65` + uncommitted Track A)
+**Source:** `~/Downloads/VIK_v0.3.zip` (outside the repo), SHA-256 `840d46c98e666faa2af74edb06b6a96766271a141873cce6314b5cefdebe998e`. Nothing installed. Report: `agent_docs/RESPONSES/response_2026-10-12_164541_vik-install-plan.md`.
+**Key deltas:** public repo · Bibo is admin · Cursor, no pasted kickoff, no obsolete model names · shared pilot DB, isolation evidence-based · kit `AGENTS.md` must not sit at root (→ `vibe_docs/GUEST_AI_RULES.md`) · PR template to `.github/PULL_REQUEST_TEMPLATE/vibe_proposal.md` · Node floor 20.9 (next 16.3.7) · `src/proxy.ts` not `src/middleware.ts` · no CODEOWNERS · handoff SHA ≠ `2c9fd65`, recorded after the kit commit is on `main`.
+**Pending (Director):** approve §4 (A1 rename, A9 template location, `.env.pilot.example` at root) · then install → review → flip Kit status → commit/merge → record handoff SHA.
+**Next step:** Tony's approval of the revised plan.
+
+**Prior block (2026-10-12 Track A):** **Last updated:** 2026-10-12 16:34 — **Guest onboarding Track A COMPLETE (uncommitted) on `vibe-pilot-setup` @ `2c9fd65`**
+**Done:** `CLAUDE.md` §2 → `vibe_docs/README.md` (PILOT SETUP GUIDE, not the VIK; Kit status **NOT INSTALLED** gates proposal work) · branch check + guest scope + enforcement sentence · `.cursor/rules/workflow-entry.mdc` (always-apply pointer to `CLAUDE.md`; live Cursor behaviour untested). Report: `agent_docs/RESPONSES/response_2026-10-12_163426_guest-onboarding-impl.md`.
+**Uncommitted, for the onboarding commit:** `CLAUDE.md`, `.cursor/rules/workflow-entry.mdc`, `vibe_docs/README.md`, `CHANGELOG.md`, `RECOVERY.md`, today's log and two reports. **Keep separate:** `package-lock.json` (npm install refresh) and the `_OLD/` archive moves.
+**Still blocked:** approved VIK v0.3 — Tony supplies; factory installs verbatim and flips Kit status.
+**Pending (Director):** commit · supply VIK · live Cursor test · Bibo's clone setup + login · protected-`main` rejection tests from Bibo's account (PR #1 merged after protection per Director; ruleset not agent-verified).
+**Next step:** Tony commits, then VIK handoff.
+
+**Prior block (2026-10-12 15:50):** **Last updated:** 2026-10-12 15:50 — **Guest onboarding plan PENDING_APPROVAL on `vibe-pilot-setup` @ `2c9fd65`** (= `origin/main`, PR #1 merged; branch has no upstream)
+**Report:** `agent_docs/RESPONSES/response_2026-10-12_155046_guest-onboarding-plan.md` · log `agent_docs/SESSIONS/session_2026-10-12.md`.
+**Pilot state (Director-reported, not agent-tested):** Supabase preview branch `vibe-pilot` created · this clone's `.env.local` set for the pilot (app host `cwdzijswchlwfvxxrlzb.supabase.co`, ignored + untracked) · Bibo's Auth user / admin role / profile provisioned · local login + Admin Portal access observed · Admin Portal "Demo · mock data" is by design (service-layer fixtures) · GitHub↔Supabase sync not configured · `main` protection unverified from this machine (`gh` unauthenticated).
+**Blocked:** approved VIK v0.3 still not found anywhere locally — Tony must supply the files.
+**Uncommitted (preserved, untouched):** six 10 Oct response records moved to `agent_docs/RESPONSES/_OLD/` · `package-lock.json` transitive refresh from an `npm install` at 15:27 today (`package.json` unchanged; Director decides: restore + `npm ci`, or commit separately) · today's log, report and this block.
+**Pending (Director):** approve Track A (CLAUDE.md §2 wiring + branch/scope rules, `.cursor/rules/workflow-entry.mdc`, thin `vibe_docs/README.md` yes/no) · supply VIK · lockfile decision · live Cursor test · GitHub protection + Bibo access · rehearsal per the report §7.
+**Next step:** Tony's plan approval, then execute Track A.
+
+**Prior block (2026-10-10 15:35):** **Last updated:** 2026-10-10 15:35 — **End-of-day checkpoint committed by Tony as `d80991c` and pushed to `origin/pilot-setup`; 15:35 Cursor amendment committed and pushed as `4e2391b` · 15:39 guest-rehearsal amendment COMMIT/PUSH PENDING (Tony)**
 **Verified:** origin `Cyberize-Group/cyph-v1-dev`, HEAD `66140fa`, no upstream yet (`pilot-setup` not on origin). `CLAUDE.local.md` ignored + untracked, body == `CLAUDE.eng.md`, keep it in this clone.
 **Proven today (Claude Code path only, not full pilot certification):** boxed numbered choice first → `2` → ACTIVE with "Guest mode" escape → Step 0 · "Guest mode" with local file present → pause + manual move-out guidance, file not moved. Choice-first stays mandatory every fresh session.
 **Checkpoint files (in `d80991c` and `4e2391b`; 15:39 amendment uncommitted):** this file, `CHANGELOG.md`, `agent_docs/SESSIONS/session_2026-10-10.md`, `agent_docs/RESPONSES/response_2026-10-10_153048_eod-checkpoint.md`.
