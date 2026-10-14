@@ -1,33 +1,25 @@
-# Cyber Pharma Pilot — Guest Entry (`vibe_docs/`)
+# Guest entry — VIK v0.3 round-two amendment
 
-> You are here because option 1 was chosen at the workflow question in the root `CLAUDE.md`.
-> This folder holds the guest kit: the Vibe Intake Kit (VIK) v0.3, adapted for this pilot.
-> The adaptations are listed in `agent_docs/VIK/ADAPTATIONS.md`.
+Enter only after option **1** at the shared workflow question in root `CLAUDE.md`.
 
-## Status
+| Field | Value |
+| --- | --- |
+| Kit installed | YES (VIK v0.3, 2026-10-12; round-two amendment 2026-10-14) |
+| Guest rehearsal authorized | YES — setup and login only |
+| External handoff ready | NO |
 
-| Field | Value | Meaning |
-| --- | --- | --- |
-| **Kit installed** | **YES** (2026-10-12) | The adapted VIK documents are in this folder. |
-| **Guest rehearsal authorized** | **YES** (setup and login only) | Bibo may clone, set up `.env.local`, run the app and log in. |
-| **External handoff ready** | **NO** | Proposal coding and the handoff message wait for Tony's explicit authorization after review. |
+**Evidence so far.** Round-one clean-clone installation and setup/login completed on a separate guest clone, based on the agent report and Tony's observations. The revised round-two installation/rehearsal remains pending. Repository permissions and deployment isolation remain unverified. The pilot database may be shared with other guests.
 
-While "External handoff ready" is NO, the guest AI helps with setup and login and stops before any application edit. These lines are changed only by the factory.
+These values are factory-owned. Installation and a successful login do not authorize application changes or submission.
 
-## Reading order
+Read `vibe_docs/START_HERE.md`, then all of `vibe_docs/GUEST_AI_RULES.md`, then the engineering-supplied starter message. Wait for that message if it has not arrived. Do not ask the guest to choose branch names, starting versions, packages or database settings.
 
-1. `vibe_docs/START_HERE.md` — for the person. Setup, login, how to send a proposal.
-2. `vibe_docs/GUEST_AI_RULES.md` — for the AI. Read it in full before doing anything else.
-3. The assignment, supplied by Tony with the handoff message.
+The starter message identifies the exact repository, approved baseline, assigned branch and permitted phase. The factory fills it after approving the relevant baseline; it contains no credentials. A guest can paste it once, and the AI handles permitted setup. Missing engineering details produce a short message for Cyberize Engineering.
 
-Supporting files: `.env.pilot.example` at the repo root (three variable names, no values) and the proposal form at `.github/PULL_REQUEST_TEMPLATE/vibe_proposal.md`, selected through the link in `START_HERE.md`.
+The only branch exception is initial preparation under `GUEST_AI_RULES.md`. It does not authorize additional branches, publication, merging or cloud changes. Branches share a working folder and may use the same pilot database; they are not separate security environments.
 
-## The three rules that apply from the first minute
+Proposal coding requires all three fields above AND an engineering-authorized session with allowed paths. Setup/login rehearsal creates no app edits, journal, commits, pushes or PR. A future proposal is intake for factory engineering; it is never directly merged into `main`.
 
-- **Assigned branch and baseline.** Both come from Tony's handoff message. The person creates the branch once at setup; the AI only verifies it. Missing or different → stop and ask. The AI never creates, switches or deletes branches.
-- **Scope.** Frontend proposals in the pilot environment. No merges to `main`, no database migrations, no dependency changes, no cloud or account administration. Proposal PRs are intake; the factory engineers them on its own branch and never merges a VPR directly.
-- **Enforcement.** These are workflow instructions. GitHub permissions and branch rules are what actually stop a wrong merge. Nothing in this folder enforces anything by itself.
+Claude Code is the next rehearsal tool. Preferred model/effort: Opus 5.5 / High, as specified by Cyberize Engineering. Record actual tool/model/effort without inventing values. Cursor has an installed entry bridge but awaits its own rehearsal. Codex entry support also requires its own verification. Do not label tools interchangeable or tested solely because their names appear here.
 
-## Tools
-
-In Claude Code the root `CLAUDE.md` loads automatically. In Cursor, `.cursor/rules/workflow-entry.mdc` points to the same file. Either way the session starts with the boxed workflow question. Answer `1`.
+Workflow instructions guide the AI. GitHub access/rules and application/database authorization enforce permissions. Selecting guest or factory mode does not grant any of those permissions.

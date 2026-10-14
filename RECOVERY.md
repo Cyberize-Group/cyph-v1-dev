@@ -4,7 +4,14 @@
 > Updated after every plan completion. If this file is stale, the session log in
 > `agent_docs/SESSIONS/` is the fallback source of truth.
 
-**Last updated:** 2026-10-12 17:15 — **Review ACCEPTED, cleanup COMPLETE, awaiting Tony's commit** on `vibe-pilot-setup` @ `2c9fd65`
+**Last updated:** 2026-10-14 13:33 — **Round-two VIK amendment COMPLETE (uncommitted) on `pilot/vik-round2-onboarding` @ `d2a0d13`** · External handoff ready **NO**
+**Done:** `CLAUDE.md` §2 narrow AI branch-prep authorization · guest README/START_HERE/GUEST_AI_RULES rewritten from the round-two pack (+ Director corrections) · starter template verbatim · VPR template contact/tool line · `next.config.js` `agentRules:false` (F04-proven in a disposable checkout; control run reproduces the generated block) · ledger R1–R8 + supersessions · evidence in `agent_docs/VIK/round2-evidence/`. Report: `agent_docs/RESPONSES/response_2026-10-14_133319_round2-vik-result.md`.
+**Findings for Tony:** (1) `src/instrumentation.ts` requires `SUPABASE_SECRET_KEY` → a three-value guest `.env.local` cannot start the app; decide before the next rehearsal · (2) 34 advisories, disposition pending, repairs = separate task · (3) dev-server must be stopped as a process tree (rules §5 updated).
+**Uncommitted:** 7 modified + `vibe_docs/STARTER_MESSAGE_TEMPLATE.txt` + `agent_docs/VIK/round2-evidence/` + today's log + report + CHANGELOG + this file. Director's 12:59 `_OLD/` moves (6 files) untouched, outside the amendment.
+**Pending:** Tony review → commit/PR/merge/sync → final SHA → fill starter → fresh-session G01–G06 → P01/P02/T01/R01.
+**Next step:** Tony's review.
+
+**Prior block (2026-10-12 17:15):** **Last updated:** 2026-10-12 17:15 — **Review ACCEPTED, cleanup COMPLETE, awaiting Tony's commit** on `vibe-pilot-setup` @ `2c9fd65`
 **Done:** four cleanup edits (isolation status honest, `npm ci` wording, handoff-NO permits setup/login, env comment "Tony"); ledger A18–A21. Commit/push commands in `agent_docs/RESPONSES/response_2026-10-12_171557_vik-cleanup-and-commit.md` §3 (19 paths; excludes `package-lock.json` and the six `_OLD/` archive moves; no `git add -A`).
 **Status fields:** Kit installed YES · Guest rehearsal authorized YES (setup/login) · External handoff ready **NO**.
 **Next step:** Tony stages, commits, pushes (`git push -u origin vibe-pilot-setup`), opens the PR to `main`, merges; rehearsals; readiness flip committed and merged; only then the baseline SHA and the handoff message.

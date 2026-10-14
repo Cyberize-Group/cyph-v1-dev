@@ -1,0 +1,91 @@
+F02 CONSISTENT INSTRUCTIONS — read-only pass, 2026-10-14T13:07:43+06:00
+Files: CLAUDE.md §2, vibe_docs/README.md, START_HERE.md, GUEST_AI_RULES.md, STARTER_MESSAGE_TEMPLATE.txt, .github/PULL_REQUEST_TEMPLATE/vibe_proposal.md, .cursor/rules/workflow-entry.mdc, agent_docs/VIK/ADAPTATIONS.md
+
+## 1. Branch exception count (expect: one authorization, in CLAUDE.md §2 + GUEST_AI_RULES §3; no human branch step)
+START_HERE: no branch commands/steps for the human ✓
+1
+19:## 3. Initial local branch preparation — narrow exception
+
+## 2. Old human-only rule gone from active docs
+none in active docs ✓ (historical ledger rows may retain it)
+
+## 3. Human receives no npm/branch/SHA decisions
+
+## 4. Cursor-only assumptions in active docs
+vibe_docs/README.md:23:Claude Code is the next rehearsal tool. Preferred model/effort: Opus 5.5 / High, as specified by Cyberize Engineering. Record actual tool
+
+## 5. Contact in guest-facing docs (Tony should not appear as contact)
+vibe_docs/GUEST_AI_RULES.md:72:Publication needs an explicit submission assignment naming the authenticated guest, push repository/remote, exact head branch and Cyberize-Group/cyph-v1-dev main as PR base. If that assignment is missing, prepare a local summary and stop before publication. Do not use Tony's identity. No merges, direct main updates, bypass, force pushes or cloud/account administration.
+11:**Evidence so far.** Round-one clean-clone installation and setup/login completed on a separate guest clone, based on
+
+## 6. Phase gates agree
+vibe_docs/README.md:9:| External handoff ready | NO |
+CLAUDE.md:82:carries three fields: Kit installed · Guest rehearsal authorized · External handoff ready.
+CLAUDE.md:84:"External handoff ready" is NO, or any kit file is missing, say that proposal work is not
+
+## 7. Placeholders: only engineering REQUIRED_ markers in the starter
+vibe_docs/STARTER_MESSAGE_TEMPLATE.txt:9:Assignment ID: REQUIRED_ENGINEERING_ASSIGNMENT_ID
+vibe_docs/STARTER_MESSAGE_TEMPLATE.txt:12:Approved baseline: REQUIRED_FULL_40_CHARACTER_POST_AMENDMENT_COMMIT_SHA
+
+## 8. Protected paths: every original never-touch path retained
+ok  supabase/\*\*
+ok  scripts/\*\*
+ok  .github/\*\*
+ok  package.json
+ok  package-lock.json
+ok  next.config.js
+ok  src/utils/supabase/\*\*
+ok  src/instrumentation.ts
+ok  src/proxy.ts
+ok  src/middleware.ts
+ok  src/services/\*\*
+ok  src/types/\*\*
+ok  public/\*\*
+ok  layout.tsx
+ok  src/__tests__/
+ok  agent_docs/\*\*
+ok  _SKILLS/\*\*
+ok  vibe_docs/\*\*
+ok  .cursor/\*\*
+ok  RECOVERY.md
+ok  CHANGELOG.md
+ok  .env\*
+ok  CLAUDE.md
+ok  CLAUDE.eng.md
+ok  CLAUDE.local.md
+ok  AGENTS.md
+
+## 9. Factory sections and selector unchanged vs HEAD
+unchanged ## 1\.
+unchanged ## 3\.
+unchanged ## 4\.
+unchanged ## 5\.
+@@ -78,2 +78,2 @@ Then open `vibe_docs/README.md`, the guest entry, and follow its reading order:
+@@ -88,3 +88,8 @@ substitute other documents. Only the factory changes those fields.
+60 
+
+## 10. Bridge content
+---
+description: Repository workflow entry. Read the root CLAUDE.md first and follow it.
+alwaysApply: true
+---
+
+Before doing anything in this repository, read `CLAUDE.md` at the repository root and
+follow it exactly. It begins with a workflow question shown in an ASCII box. Show that
+question first, in a code block, and wait for the answer. Do not read other project
+files, start work or write files until the user has answered.
+
+That file is the single canonical workflow instruction for every tool. This rule only
+points to it and adds nothing.
+
+## 11. Secret / hostname scan on changed files
+none ✓
+
+## 12. Reading order chain
+vibe_docs/README.md:15:Read `vibe_docs/START_HERE.md`, then all of `vibe_docs/GUEST_AI_RULES.md`, then the engineering-supplied starter mess
+vibe_docs/README.md:17:The starter message identifies the exact repository, approved baseline, assigned branch and permitted phase. The fact
+vibe_docs/README.md:19:The only branch exception is initial preparation under `GUEST_AI_RULES.md`. It does not authorize additional branches
+CLAUDE.md:76:Then open `vibe_docs/README.md`, the guest entry, and follow its reading order:
+CLAUDE.md:77:`vibe_docs/START_HERE.md` (for the person), then `vibe_docs/GUEST_AI_RULES.md` (for the
+CLAUDE.md:81:**Proposal work is gated on the status table, not on the folder.** `vibe_docs/README.md`
+CLAUDE.md:89:reading, follow `vibe_docs/GUEST_AI_RULES.md` and an Engineering-supplied starter message.

@@ -1,0 +1,236 @@
+F04 FRAMEWORK FIX — disposable checkout only, attempt 2, 2026-10-14T13:13:32+06:00
+Attempt 1 (13:11) is superseded: without any .env.local the instrumentation hook (src/instrumentation.ts) throws before next reaches the agent-rules step, so no run could exercise the writer; the '10 insertions' noted there was the overlay diff vs HEAD, not a generated block. That file was replaced by this one.
+This attempt uses a NONSECRET FIXTURE .env.local in the disposable checkout only (4 placeholder values: https://fixture.invalid, fixture-not-a-key ×2, http://localhost:3000). No factory settings were copied, read or moved. Login is not possible with fixtures and remains G04.
+Detection (node_modules/next/dist/compiled/@vercel/detect-agent): env CLAUDECODE/CLAUDE_CODE → 'claude'; CURSOR_TRACE_ID/CURSOR_AGENT → cursor; CODEX_*; AI_AGENT override. This environment: CLAUDECODE=1.
+next@16.3.7, node v22.14.0. FINDING: src/instrumentation.ts REQUIRED_ENV includes SUPABASE_SECRET_KEY (fail-closed) — a guest .env.local with only the three public values cannot start the app. Reported, not changed (src is protected).
+Baseline CLAUDE.md in this checkout = amended overlay (intentional candidate state), sha256 97b0ee37648ea3f8…
+
+### Run A1 — agentRules:false, agent env (CLAUDECODE set)
+-- A1
+   before:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent instr-files=[CLAUDE.eng.md CLAUDE.md ] tracked-diff-vs-HEAD-CLAUDE.md=+10/-5
+   log: Ready in 395ms Environment validated 
+   GET /auth -> HTTP 200 (fixture env; no real backend)
+   stopped: listener-on-3000=STILL-PRESENT owned-pid-alive=no
+   after:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent instr-files=[CLAUDE.eng.md CLAUDE.md ] tracked-diff-vs-HEAD-CLAUDE.md=+10/-5
+
+### Run A2 — repeat (stop, start again)
+-- A2
+   before:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent instr-files=[CLAUDE.eng.md CLAUDE.md ] tracked-diff-vs-HEAD-CLAUDE.md=+10/-5
+   log: Ready in 540ms 
+   GET /auth -> HTTP 200 (fixture env; no real backend)
+   stopped: listener-on-3000=STILL-PRESENT owned-pid-alive=no
+   after:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent instr-files=[CLAUDE.eng.md CLAUDE.md ] tracked-diff-vs-HEAD-CLAUDE.md=+10/-5
+
+### Run B — CONTROL: option removed in the checkout only, same agent env
+   config = HEAD version, agentRules occurrences: 0
+-- B
+   before:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent instr-files=[CLAUDE.eng.md CLAUDE.md ] tracked-diff-vs-HEAD-CLAUDE.md=+10/-5
+   log: Ready in 469ms 
+   GET /auth -> HTTP 200 (fixture env; no real backend)
+   stopped: listener-on-3000=STILL-PRESENT owned-pid-alive=no
+   after:
+   CLAUDE.md sha256=5c9f25c0bdf3f3ff AGENTS.md=absent instr-files=[CLAUDE.eng.md CLAUDE.md ] tracked-diff-vs-HEAD-CLAUDE.md=+20/-5
+   generated block check: markers present=1 AGENTS.md=absent
+   diff amended-CLAUDE.md -> after-control (preserved as evidence): 11 added lines
+      --- /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/CLAUDE.md	2026-10-14 13:06:12.490722040 +0600
+      +++ CLAUDE.md	2026-10-14 13:15:10.959670775 +0600
+      @@ -167,3 +167,13 @@
+       - **`CLAUDE.local.md` exists:** pause all work and handle it as option 1 with the local
+         file present (§2). Engineering instructions that are already loaded stay loaded until a
+         fresh session. Do not delete files, undo changes or switch branches.
+      +
+      +<!-- BEGIN:nextjs-agent-rules -->
+      +
+      +# This is NOT the Next.js you know
+      +
+      +This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+      +
+      +This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+      +
+      +<!-- END:nextjs-agent-rules -->
+   restore: CLAUDE.md back to amended overlay; AGENTS.md removed if created; config back to amended
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent instr-files=[CLAUDE.eng.md CLAUDE.md ] tracked-diff-vs-HEAD-CLAUDE.md=+10/-5
+
+### Run C — agentRules:false, detection env cleared (SIMULATED plain terminal)
+-- C
+   before:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent instr-files=[CLAUDE.eng.md CLAUDE.md ] tracked-diff-vs-HEAD-CLAUDE.md=+10/-5
+   log: Ready in 454ms 
+   GET /auth -> HTTP 200 (fixture env; no real backend)
+   stopped: listener-on-3000=STILL-PRESENT owned-pid-alive=no
+   after:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent instr-files=[CLAUDE.eng.md CLAUDE.md ] tracked-diff-vs-HEAD-CLAUDE.md=+10/-5
+
+### Run D — CONTROL 2: option removed AND detection cleared
+-- D
+   before:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent instr-files=[CLAUDE.eng.md CLAUDE.md ] tracked-diff-vs-HEAD-CLAUDE.md=+10/-5
+   log: Ready in 487ms 
+   GET /auth -> HTTP 200 (fixture env; no real backend)
+   stopped: listener-on-3000=STILL-PRESENT owned-pid-alive=no
+   after:
+   CLAUDE.md sha256=5c9f25c0bdf3f3ff AGENTS.md=absent instr-files=[CLAUDE.eng.md CLAUDE.md ] tracked-diff-vs-HEAD-CLAUDE.md=+20/-5
+   markers present=1
+
+### final: fixture .env.local removed; checkout state
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent instr-files=[CLAUDE.eng.md CLAUDE.md ] tracked-diff-vs-HEAD-CLAUDE.md=+10/-5
+ M .github/PULL_REQUEST_TEMPLATE/vibe_proposal.md
+ M CLAUDE.md
+ M agent_docs/VIK/ADAPTATIONS.md
+ M next.config.js
+ M vibe_docs/GUEST_AI_RULES.md
+ M vibe_docs/README.md
+ M vibe_docs/START_HERE.md
+?? vibe_docs/STARTER_MESSAGE_TEMPLATE.txt
+
+LIMITS: this agent environment (CLAUDECODE) and a cleared-env simulation only. Bibo's tool/OS, real login (G04), and fresh-agent behaviour (G01–G06) remain PENDING.
+
+### Attempt 2b — plain-terminal simulation redone, 2026-10-14T13:19:49+06:00: runs C and D above were invalid because AI_AGENT is also set in this session and @vercel/detect-agent honours it first. Cleared here: CLAUDECODE, CLAUDE_CODE, CLAUDE_CODE_ENTRYPOINT, AI_AGENT. Note on 'listener STILL-PRESENT' in attempt 2: a later check found no :3000 listener and no surviving process; the 10 s wait was too short for the forked server to exit, not an orphan.
+
+### Run C2 — agentRules:false, detection cleared
+-- C2 (AI_AGENT=unset CLAUDECODE=unset)
+   before:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+   log: Ready in 404ms Environment validated 
+   stopped: listener-on-3000=STILL-PRESENT owned-pid-alive=no
+   after:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+
+### Run D2 — option removed AND detection cleared
+-- D2 (AI_AGENT=unset CLAUDECODE=unset)
+   before:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+   log: Ready in 460ms 
+   stopped: listener-on-3000=STILL-PRESENT owned-pid-alive=no
+   after:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+
+### Run E — option removed, detection cleared, AI_AGENT=cursor (forced detection as a different agent name)
+-- E (AI_AGENT=cursor CLAUDECODE=unset)
+   before:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+   log: Ready in 459ms 
+   stopped: listener-on-3000=STILL-PRESENT owned-pid-alive=no
+   after:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+
+### final
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+ M CLAUDE.md
+ M next.config.js
+RESULT MATRIX: option=false → no write under any detection state (A1, A2, C2). option absent → write when an agent is detected (B: claude; E: cursor) and no write when no agent is detected (D2, if markers=0 above). Plain-terminal result is a simulation by env clearing, not a real separate terminal.
+
+### Attempt 2c — CORRECTION, 2026-10-14T13:23:24+06:00: the RESULT MATRIX line above was wrong about run E (it showed markers=0, i.e. no write). Cause suspected: the server was stopped before the generator step ran (the step runs after config/instrumentation load; my wait exited on 'Ready'). Runs D2 and E repeated with a fixed 20 s wait.
+
+### Run D3 — option removed, detection cleared
+-- D3 (AI_AGENT=unset CLAUDECODE=unset) fixed 20 s wait
+   before:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+   log: Ready in 393ms Environment validated 
+   stopped after 20s: listener-on-3000=STILL-PRESENT
+   after:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+
+### Run E2 — option removed, AI_AGENT=cursor (forced detection, other agent name)
+-- E2 (AI_AGENT=cursor CLAUDECODE=unset) fixed 20 s wait
+   before:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+   log: Ready in 532ms 
+   stopped after 20s: listener-on-3000=STILL-PRESENT
+   after:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+
+### Run A3 — option present (amended config), CLAUDECODE set, fixed 20 s wait (re-confirms the fix with the longer wait)
+-- A3 (AI_AGENT=claude-code_2-1-296_agent CLAUDECODE=1) fixed 20 s wait
+   before:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+   log: Ready in 482ms 
+   stopped after 20s: listener-on-3000=STILL-PRESENT
+   after:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+
+### final
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+ M CLAUDE.md
+ M next.config.js
+CORRECTED RESULT MATRIX: option=false → no write (A1, A2, A3 under CLAUDECODE; C2 with detection cleared). option absent → write with agent detected (B under CLAUDECODE; E2 if markers=1 above). option absent + no detection → see D3 (markers=0 expected). 'Plain terminal' remains an env-clearing simulation.
+
+### Attempt 3 — CLEAN SEQUENCE, 2026-10-14T13:26:45+06:00. Finding from attempts 2/2b/2c: my stop (kill npm + its direct children) left the forked next-server alive; later runs then started on :3001 and aborted with 'Another next dev server is already running' before the generator step, so runs A2, B(partly), C2, D2, D3, E, E2, A3 are NOT valid evidence. Orphans (all mine, cwd = this scratch checkout) terminated below. This sequence starts each server in its own process group and stops the whole group, verifying no listener and no checkout process before each run.
+orphans before: 3
+(attempt 3 restarted 2026-10-14T13:27:19+06:00: the first attempt-3 script terminated itself while killing orphans; kill now matches only node processes under the checkout's node_modules)
+orphans before: 3
+(attempt 3, third start 2026-10-14T13:27:51+06:00: previous two starts killed their own shell because pkill -f matched the script text; orphan selection is now by process cwd = checkout, node/next-server only)
+orphans before: 0 []
+orphans after kill: 0; listener-3000=free
+amended config agentRules occurrences: 1
+
+### 3-A1 option=false, CLAUDECODE set
+-- 3-A1 (AI_AGENT=claude-code_2-1-296_agent CLAUDECODE=1)
+   pre-check: listener-3000=free checkout-node-processes=0
+   before:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+   log: Local:         http://localhost:3000 Environment validated 
+   stop (pgid 3562493): listener-3000=gone checkout-node-processes=0
+   after:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+
+### 3-A2 option=false, CLAUDECODE set (repeat)
+-- 3-A2 (AI_AGENT=claude-code_2-1-296_agent CLAUDECODE=1)
+   pre-check: listener-3000=free checkout-node-processes=0
+   before:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+   log: Local:         http://localhost:3000 Environment validated 
+   stop (pgid 3562815): listener-3000=gone checkout-node-processes=0
+   after:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+
+### 3-B  option absent (HEAD config), CLAUDECODE set — CONTROL
+-- 3-B (AI_AGENT=claude-code_2-1-296_agent CLAUDECODE=1)
+   pre-check: listener-3000=free checkout-node-processes=0
+   before:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+   log: Local:         http://localhost:3000 Environment validated Generated CLAUDE.md for AI agents. Set `agentRules: false` in next.config to disable. 
+   stop (pgid 3563127): listener-3000=gone checkout-node-processes=0
+   after:
+   CLAUDE.md sha256=5c9f25c0bdf3f3ff AGENTS.md=absent markers=1
+   generated diff preserved: 11 added lines → round2-evidence/F04_control_generated_block.diff
+
+### 3-D  option absent, detection cleared — simulated plain terminal
+-- 3-D (AI_AGENT=unset CLAUDECODE=unset)
+   pre-check: listener-3000=free checkout-node-processes=0
+   before:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+   log: Local:         http://localhost:3000 Environment validated 
+   stop (pgid 3563431): listener-3000=gone checkout-node-processes=0
+   after:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+
+### 3-E  option absent, AI_AGENT=cursor
+-- 3-E (AI_AGENT=cursor CLAUDECODE=unset)
+   pre-check: listener-3000=free checkout-node-processes=0
+   before:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+   log: Local:         http://localhost:3000 Environment validated Generated CLAUDE.md for AI agents. Set `agentRules: false` in next.config to disable. 
+   stop (pgid 3563749): listener-3000=gone checkout-node-processes=0
+   after:
+   CLAUDE.md sha256=5c9f25c0bdf3f3ff AGENTS.md=absent markers=1
+
+### 3-C  option=false, detection cleared — simulated plain terminal with the fix
+-- 3-C (AI_AGENT=unset CLAUDECODE=unset)
+   pre-check: listener-3000=free checkout-node-processes=0
+   before:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+   log: Local:         http://localhost:3000 Environment validated 
+   stop (pgid 3564078): listener-3000=gone checkout-node-processes=0
+   after:
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+
+### final: fixture env removed; orphans=0; listener-3000=free
+   CLAUDE.md sha256=97b0ee37648ea3f8 AGENTS.md=absent markers=0
+ M CLAUDE.md
+ M next.config.js

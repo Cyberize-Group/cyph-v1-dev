@@ -75,8 +75,8 @@ delete or edit the file yourself. Then pause.
 
 Then open `vibe_docs/README.md`, the guest entry, and follow its reading order:
 `vibe_docs/START_HERE.md` (for the person), then `vibe_docs/GUEST_AI_RULES.md` (for the
-AI, in full), then the assignment. Those files are the adapted guest kit (VIK v0.3). They
-load only here, after option 1.
+AI, in full), then the assignment. Those files are the adapted guest kit (VIK v0.3, round-two
+amendment). They load only here, after option 1.
 
 **Proposal work is gated on the status table, not on the folder.** `vibe_docs/README.md`
 carries three fields: Kit installed · Guest rehearsal authorized · External handoff ready.
@@ -85,9 +85,14 @@ Setup and login rehearsal need the first two. Any application edit needs all thr
 authorized yet and pause before any frontend edit. Do not write replacement kit files or
 substitute other documents. Only the factory changes those fields.
 
-**Before any edit, confirm the assigned Git branch.** Run `git branch --show-current` and
-compare it with the branch the Director assigned. If no assignment is known, or the names
-differ, pause and ask. Never create, switch or delete branches.
+**Initial branch preparation is narrowly authorized.** After option 1 and complete guest-kit
+reading, follow `vibe_docs/GUEST_AI_RULES.md` and an Engineering-supplied starter message.
+When that message explicitly authorizes initial local preparation, the AI may create or
+switch to the exact assigned guest branch from the exact approved baseline, subject to
+those checks. Otherwise it only verifies the branch. Never invent an assignment, reset or
+discard work, create additional branches, delete branches, or infer permission to publish.
+Missing or conflicting engineering values produce a short Cyberize Engineering support
+message; do not ask the nontechnical guest to choose a branch or interpret a commit ID.
 
 **Guest scope:** frontend proposals in the pilot environment. No merges to `main`, no
 database migrations, no cloud or account administration. These are workflow instructions.
