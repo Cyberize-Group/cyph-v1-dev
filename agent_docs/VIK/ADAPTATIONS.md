@@ -98,3 +98,31 @@ Not changed: `.cursor/rules/workflow-entry.mdc` (points only to root `CLAUDE.md`
 | 12 Oct release sequence | handoff message built by hand after flipping readiness | starter-message release procedure in `STARTER_MESSAGE_TEMPLATE.txt`: merge → resolve final `main` SHA → fill every REQUIRED value → verify branch availability → send. Readiness flip still precedes the baseline |
 
 A1–A3, A5, A6, A8–A12, A14, A18, A21 remain in force.
+
+# Startup correction — Stage A (2026-10-14)
+
+**Director decision (2026-10-14 18:20):** guests may develop complete feature proposals, including new tables and migrations, in a designated sandbox. This is approved in principle; access and implementation are not yet authorized. Guests get no `SUPABASE_SECRET_KEY` and no service-role API key. Work that needs one stops and goes to Cyberize Engineering. **Implemented:** Stage A only (approved 18:52). Plan: `agent_docs/RESPONSES/response_2026-10-14_182943_feature-scope-sandbox-db-plan.md`. Result: `agent_docs/RESPONSES/response_2026-10-14_185835_stageA-startup-fix-result.md`.
+
+| # | File | Change | Reason |
+| --- | --- | --- | --- |
+| S1 | `src/instrumentation.ts` | `SUPABASE_SECRET_KEY` removed from `REQUIRED_ENV`, with a comment explaining why. The three public settings still fail closed when missing or blank | No runtime consumer, and the file's own rule is "add when consumed in code, not before" |
+| S2 | `src/utils/supabase/admin.ts` | Guard rejects whitespace-only URL or key (`?.trim()`); message and behaviour otherwise unchanged | The only privileged reader stays fail-closed, at least as strictly as the old boot check |
+| S3 | `src/__tests__/instrumentation.test.ts`, `src/__tests__/supabase-admin.test.ts` | New regression tests (14). They clear the placeholder secret that `jest.setup.ts` injects and restore the env after each test | Red against HEAD (7 fail), green with S1/S2 |
+| S4 | `agent_docs/VIK/sandbox-evidence/` | Stage A evidence: npm ci, control/fix/negative startup runs, checks, red/green tests, readers, diff | Disposable clone at `08bfa11`, nonsecret fixtures only |
+
+**Status of the round-two finding above.**
+- **Startup half: resolved by S1.** A disposable-clone fixture run shows that a guest `.env.local` with the three public values now boots. The guest kit already says that file "must not contain a service-role or secret key" (`GUEST_AI_RULES.md:44`), so the kit and app startup now agree. A real login is unverified until the guest rehearsal (G04).
+- **Sandbox-development half: still open.** Not implemented and not authorized:
+  - Stage B
+  - the migration runner
+  - the provisioning runbook
+  - the fourth readiness field
+  - the expanded guest rules
+  - any sandbox access
+
+  These remain proposals for the next review, and D1–D4 are open.
+- **Round one:** under the reported boot conditions, the app started on the guest VM. That indicates only that a nonempty value may have been available for `SUPABASE_SECRET_KEY` there. It does not show that the value was a real secret or where it came from. Its contents remain unknown, and the VM was not inspected or altered.
+
+| Superseded | Was | Now |
+| --- | --- | --- |
+| Earlier Director permission to supply the sandbox secret key (given outside this session) | Engineering could give a guest the sandbox secret key | Withdrawn. Guests get no secret or service-role key. No tracked file ever applied the permission |

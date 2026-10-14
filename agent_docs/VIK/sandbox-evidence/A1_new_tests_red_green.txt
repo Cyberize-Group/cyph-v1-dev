@@ -1,0 +1,27 @@
+New tests, green run with the Stage A source (disposable clone, SUPABASE_SECRET_KEY removed from env):
+__tests__/instrumentation.test.ts
+  passed  register (boot-time env validation) boots with the three public settings and no SUPABASE_SECRET_KEY
+  passed  register (boot-time env validation) fails closed when NEXT_PUBLIC_SUPABASE_URL is missing
+  passed  register (boot-time env validation) fails closed when NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY is missing
+  passed  register (boot-time env validation) fails closed when NEXT_PUBLIC_SITE_URL is missing
+  passed  register (boot-time env validation) fails closed when NEXT_PUBLIC_SUPABASE_URL is whitespace-only
+  passed  register (boot-time env validation) fails closed when NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY is whitespace-only
+  passed  register (boot-time env validation) fails closed when NEXT_PUBLIC_SITE_URL is whitespace-only
+__tests__/supabase-admin.test.ts
+  passed  createAdminClient (fail-closed) throws when SUPABASE_SECRET_KEY is unset
+  passed  createAdminClient (fail-closed) throws when SUPABASE_SECRET_KEY is blank ("")
+  passed  createAdminClient (fail-closed) throws when SUPABASE_SECRET_KEY is blank ("   ")
+  passed  createAdminClient (fail-closed) throws when SUPABASE_SECRET_KEY is blank ("\t\n")
+  passed  createAdminClient (fail-closed) throws when NEXT_PUBLIC_SUPABASE_URL is blank ("")
+  passed  createAdminClient (fail-closed) throws when NEXT_PUBLIC_SUPABASE_URL is blank ("   ")
+  passed  createAdminClient (fail-closed) creates the client when both values are present
+
+Red run: same tests against UNMODIFIED HEAD src/instrumentation.ts + src/utils/supabase/admin.ts (restored from git show HEAD:… in the clone, then re-synced):
+suites failed=2 tests failed=7 passed=7
+  FAILED  register (boot-time env validation) boots with the three public settings and no SUPABASE_SECRET_KEY
+  FAILED  register (boot-time env validation) fails closed when NEXT_PUBLIC_SUPABASE_URL is missing
+  FAILED  register (boot-time env validation) fails closed when NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY is missing
+  FAILED  register (boot-time env validation) fails closed when NEXT_PUBLIC_SITE_URL is missing
+  FAILED  createAdminClient (fail-closed) throws when SUPABASE_SECRET_KEY is blank ("   ")
+  FAILED  createAdminClient (fail-closed) throws when SUPABASE_SECRET_KEY is blank ("\t\n")
+  FAILED  createAdminClient (fail-closed) throws when NEXT_PUBLIC_SUPABASE_URL is blank ("   ")

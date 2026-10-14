@@ -1,0 +1,35 @@
+=== A2-2_fix_public_url_missing — 2026-10-14T18:54:34+06:00 — checkout <scratchpad>/stageA @ 08bfa11
+fixture .env.local names: NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY= NEXT_PUBLIC_SITE_URL= 
+fixture lines naming SUPABASE_SECRET_KEY: 0
+launching shell env SUPABASE_SECRET_KEY entries (before env -u): 0
+process group: 3714696
+HTTP GET / : 000
+--- processes in group (pid comm) and env-name counts from /proc/<pid>/environ:
+--- dev log (sanitized: fixture values only):
+
+> cyber-pharma@0.1.0 dev
+> next dev
+
+▲ Next.js 16.3.7 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://<lan-ip>:3000
+- Environments: .env.local
+✓ Ready in 381ms
+✓ Running next.config.js took 27ms
+Error: An error occurred while loading instrumentation hook: ❌ Missing required environment variables:
+  - NEXT_PUBLIC_SUPABASE_URL
+
+Set these in .env.local and restart the server.
+    at Module.register (src/instrumentation.ts:36:11)
+  34 |       "Set these in .env.local and restart the server.",
+  35 |     ].join("\n");
+> 36 |     throw new Error(message);
+     |           ^
+  37 |   }
+  38 |
+  39 |   console.log("✓ Environment validated");
+
+--- stop check: group alive=0 · node procs with cwd=checkout=0 · listeners on :3000=0
+--- tracked status after run:
+ M src/instrumentation.ts
+ M src/utils/supabase/admin.ts

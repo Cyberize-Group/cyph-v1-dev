@@ -1,0 +1,168 @@
+diff --git a/src/instrumentation.ts b/src/instrumentation.ts
+index 5fb3809..d84f7c0 100644
+--- a/src/instrumentation.ts
++++ b/src/instrumentation.ts
+@@ -4,6 +4,12 @@
+ // Naming convention: Supabase Q4-2025 update — `publishable` replaces `anon`,
+ // `secret` replaces `service_role`. See `.env.example` for current names.
+ //
++// SUPABASE_SECRET_KEY is deliberately NOT required at boot (Director decision,
++// 2026-10-14): no route, page, component or Server Action reads it. Its only
++// reader, createAdminClient() in src/utils/supabase/admin.ts, fails closed at
++// call time when the key is missing or blank. Add it back here when a runtime
++// consumer exists.
++//
+ // Phase-deferred additions (add when consumed in code, not before):
+ //   - Phase 6: GHL_WEBHOOK_SECRET (GoHighLevel webhook signing)
+ //   - Phase 7: STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, STRIPE_PRICE_*
+@@ -11,7 +17,6 @@
+ const REQUIRED_ENV = [
+   "NEXT_PUBLIC_SUPABASE_URL",
+   "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+-  "SUPABASE_SECRET_KEY",
+   "NEXT_PUBLIC_SITE_URL",
+ ] as const;
+ 
+diff --git a/src/utils/supabase/admin.ts b/src/utils/supabase/admin.ts
+index aec006e..4babf07 100644
+--- a/src/utils/supabase/admin.ts
++++ b/src/utils/supabase/admin.ts
+@@ -21,7 +21,7 @@ export const createAdminClient = () => {
+   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+   const supabaseServiceKey = process.env.SUPABASE_SECRET_KEY!
+ 
+-  if (!supabaseUrl || !supabaseServiceKey) {
++  if (!supabaseUrl?.trim() || !supabaseServiceKey?.trim()) {
+     throw new Error('Missing Supabase admin credentials')
+   }
+ 
+--- /dev/null
++++ b/src/__tests__/instrumentation.test.ts
+@@ -0,0 +1,59 @@
++import { register } from '@/instrumentation';
++
++// Boot-time env validation (src/instrumentation.ts). SUPABASE_SECRET_KEY is not a
++// boot requirement; the three public settings still fail closed.
++
++const PUBLIC_ENV = [
++  'NEXT_PUBLIC_SUPABASE_URL',
++  'NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY',
++  'NEXT_PUBLIC_SITE_URL',
++] as const;
++const TOUCHED_ENV = [...PUBLIC_ENV, 'SUPABASE_SECRET_KEY'] as const;
++
++function bootError(): string | null {
++  try {
++    register();
++    return null;
++  } catch (error) {
++    return (error as Error).message;
++  }
++}
++
++describe('register (boot-time env validation)', () => {
++  let savedEnv: Record<string, string | undefined>;
++
++  beforeEach(() => {
++    savedEnv = Object.fromEntries(TOUCHED_ENV.map((key) => [key, process.env[key]]));
++    // jest.setup.ts injects a placeholder secret; these tests need it absent.
++    delete process.env.SUPABASE_SECRET_KEY;
++    jest.spyOn(console, 'log').mockImplementation(() => {});
++  });
++
++  afterEach(() => {
++    for (const key of TOUCHED_ENV) {
++      if (savedEnv[key] === undefined) delete process.env[key];
++      else process.env[key] = savedEnv[key];
++    }
++    jest.restoreAllMocks();
++  });
++
++  it('boots with the three public settings and no SUPABASE_SECRET_KEY', () => {
++    expect('SUPABASE_SECRET_KEY' in process.env).toBe(false);
++    expect(bootError()).toBeNull();
++    expect(console.log).toHaveBeenCalledWith('✓ Environment validated');
++  });
++
++  it.each(PUBLIC_ENV)('fails closed when %s is missing', (key) => {
++    delete process.env[key];
++
++    const message = bootError();
++    expect(message).toContain(`  - ${key}`);
++    expect(message).not.toContain('SUPABASE_SECRET_KEY');
++  });
++
++  it.each(PUBLIC_ENV)('fails closed when %s is whitespace-only', (key) => {
++    process.env[key] = '   ';
++
++    expect(bootError()).toContain(`  - ${key}`);
++  });
++});
+--- /dev/null
++++ b/src/__tests__/supabase-admin.test.ts
+@@ -0,0 +1,65 @@
++jest.mock('@supabase/supabase-js', () => ({
++  createClient: jest.fn(() => ({ admin: true })),
++}));
++
++import { createClient } from '@supabase/supabase-js';
++import { createAdminClient } from '@/utils/supabase/admin';
++
++// createAdminClient is the only reader of SUPABASE_SECRET_KEY. With the key no
++// longer a boot requirement, this guard is the fail-closed point.
++
++const createClientMock = createClient as jest.MockedFunction<typeof createClient>;
++const TOUCHED_ENV = ['NEXT_PUBLIC_SUPABASE_URL', 'SUPABASE_SECRET_KEY'] as const;
++const FIXTURE_URL = 'https://fixture.invalid';
++const FIXTURE_KEY = 'fixture-not-a-key';
++
++describe('createAdminClient (fail-closed)', () => {
++  let savedEnv: Record<string, string | undefined>;
++
++  beforeEach(() => {
++    savedEnv = Object.fromEntries(TOUCHED_ENV.map((key) => [key, process.env[key]]));
++    // jest.setup.ts injects a placeholder secret; start every test without it.
++    delete process.env.SUPABASE_SECRET_KEY;
++    process.env.NEXT_PUBLIC_SUPABASE_URL = FIXTURE_URL;
++  });
++
++  afterEach(() => {
++    for (const key of TOUCHED_ENV) {
++      if (savedEnv[key] === undefined) delete process.env[key];
++      else process.env[key] = savedEnv[key];
++    }
++  });
++
++  it('throws when SUPABASE_SECRET_KEY is unset', () => {
++    expect('SUPABASE_SECRET_KEY' in process.env).toBe(false);
++    expect(() => createAdminClient()).toThrow('Missing Supabase admin credentials');
++    expect(createClientMock).not.toHaveBeenCalled();
++  });
++
++  it.each(['', '   ', '\t\n'])('throws when SUPABASE_SECRET_KEY is blank (%j)', (value) => {
++    process.env.SUPABASE_SECRET_KEY = value;
++
++    expect(() => createAdminClient()).toThrow('Missing Supabase admin credentials');
++    expect(createClientMock).not.toHaveBeenCalled();
++  });
++
++  it.each(['', '   '])('throws when NEXT_PUBLIC_SUPABASE_URL is blank (%j)', (value) => {
++    process.env.NEXT_PUBLIC_SUPABASE_URL = value;
++    process.env.SUPABASE_SECRET_KEY = FIXTURE_KEY;
++
++    expect(() => createAdminClient()).toThrow('Missing Supabase admin credentials');
++    expect(createClientMock).not.toHaveBeenCalled();
++  });
++
++  it('creates the client when both values are present', () => {
++    process.env.SUPABASE_SECRET_KEY = FIXTURE_KEY;
++
++    createAdminClient();
++
++    expect(createClientMock).toHaveBeenCalledWith(
++      FIXTURE_URL,
++      FIXTURE_KEY,
++      expect.objectContaining({ auth: { autoRefreshToken: false, persistSession: false } }),
++    );
++  });
++});
