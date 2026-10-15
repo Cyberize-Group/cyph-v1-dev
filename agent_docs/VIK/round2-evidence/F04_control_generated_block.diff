@@ -1,0 +1,16 @@
+--- /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/CLAUDE.md	2026-10-14 13:06:12.490722040 +0600
++++ CLAUDE.md	2026-10-14 13:28:48.109158567 +0600
+@@ -167,3 +167,13 @@
+ - **`CLAUDE.local.md` exists:** pause all work and handle it as option 1 with the local
+   file present (§2). Engineering instructions that are already loaded stay loaded until a
+   fresh session. Do not delete files, undo changes or switch branches.
++
++<!-- BEGIN:nextjs-agent-rules -->
++
++# This is NOT the Next.js you know
++
++This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
++
++This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
++
++<!-- END:nextjs-agent-rules -->

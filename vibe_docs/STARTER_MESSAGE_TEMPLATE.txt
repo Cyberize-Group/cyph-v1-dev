@@ -1,0 +1,36 @@
+ENGINEERING TEMPLATE — FILL BEFORE DELIVERY; NOT READY TO PASTE INTO A GUEST SESSION
+
+Release procedure: after revised kit/config merge, resolve the complete resulting main commit. Fill every REQUIRED value below and verify the assigned branch state. Send the finished message to the guest. Never ask the guest to fill technical values. Do not embed actual environment values, tokens, passwords or personal patient data.
+Use guest/bibo-rehearsal-r2 for this round only if Engineering confirms it is available. The old d2a0d13 baseline is round-one evidence, not the amended release.
+
+----- BEGIN FINISHED MESSAGE AFTER ENGINEERING FILLS IT -----
+Hello Vibe Cody. I am Bibo, a nontechnical pilot participant. This is Cyberize Engineering's setup/login rehearsal assignment. Please handle permitted technical setup yourself and give me one simple human action at a time.
+
+Assignment ID: REQUIRED_ENGINEERING_ASSIGNMENT_ID
+Phase: setup-login-rehearsal
+Repository: https://github.com/Cyberize-Group/cyph-v1-dev.git
+Approved baseline: REQUIRED_FULL_40_CHARACTER_POST_AMENDMENT_COMMIT_SHA
+Assigned local branch: guest/bibo-rehearsal-r2
+Initial branch creation/switch: authorized under the amended installed guest rules
+Publication: not authorized; local rehearsal only
+Application edits: none
+Tool: Claude Code
+Preferred model: Opus 5.5
+Preferred effort: High
+Expected human checks: test login, OwedBook, Profile, Admin Portal, Demo/mock marker
+Settings delivery: prepared .env.local supplied privately for me to place manually
+Login delivery: separate private test login
+Support contact: Cyberize Engineering
+
+If the workflow has not been selected, show the shared workflow question first and wait. After I select option 1, read the installed guest kit completely. Verify this assignment, then prepare the assigned branch, run the allowed installation, help me place the settings file and start the app under those rules. You may check settings-file metadata only; never open or print its contents. I will enter the login myself.
+
+Do not ask me to choose or interpret branches, version IDs, packages or database settings. If an engineering value is missing or installed rules conflict, preserve the workspace and give me a short forwarding message with the exact missing item. Do not ask me to override the rules. Tool permission prompts may still require my click; explain their purpose briefly.
+
+When setup/login checks finish, stop your server and provide the closeout required by the kit. Do not create a journal, app edits, commits, pushes or PR. Do not declare the external handoff ready.
+----- END MESSAGE -----
+
+ENGINEERING COMPLETENESS CHECK
+No REQUIRED markers remain. Baseline contains the revised instructions/configuration. Branch assignment is unique. Actor/phase/tool are correct. Private settings/login are prepared separately. No GitHub write access is implied by this message. Updated instructions are actually installed; this message alone does not supersede the original kit's prohibition on AI branch preparation.
+
+FUTURE FRANK HANDOFF
+Personalize name, verified tool, assignment ID, branch, baseline and phase after his answers and tool rehearsal. Do not simply replace Bibo with Frank and enable coding. If publication uses a fork, include verified upstream and fork owner/repository plus authorized push remote and PR base. Verify the authenticated publishing identity before any push. Supply allowed paths for proposal sessions, but do not require Frank to select a first feature during intake.

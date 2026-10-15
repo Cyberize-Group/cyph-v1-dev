@@ -60,3 +60,69 @@ Kept verbatim in substance: journal rule (`VIBE_JOURNAL.md`, appended before eve
 4. Tony authorizes the handoff; the factory sets "External handoff ready: YES"; **that change is committed and merged to `main`**.
 5. Only then does Tony record the final handoff baseline SHA (a `main` commit containing the kit, the fixes and the readiness flip) and send the handoff message: baseline SHA, branch name, assignment, three `.env.local` lines (privately).
 6. Bibo creates the branch from that baseline; the AI verifies it and records it in the VPR.
+
+---
+
+# Round-two amendment (2026-10-14)
+
+**Label:** VIK v0.3, round-two amendment. No new upstream VIK release exists. **Source:** `CYPH_ROUND2_AMENDMENT_PACK_2026-10-13.zip` (SHA-256 `e3ef46cc52f4462963412fe972da06e5571102a1cace852e22b4ff032d330043`, 18-file manifest verified), kept outside the repo. Candidate text was reconciled against the current files: `CLAUDE.md` and `README.md` matched the pack's review snapshot; `START_HERE.md` and `GUEST_AI_RULES.md` carried the 12 Oct cleanup (A19–A21), preserved in substance below.
+**Branch:** `pilot/vik-round2-onboarding` from `d2a0d13c8d3644a3171db4539ee0e59978381858` (round-one baseline, historical). The round-two handoff baseline is resolved by Engineering only after this amendment is merged; it is never written into these files.
+
+## Changes
+
+| # | File | Change | Reason / lesson |
+| --- | --- | --- | --- |
+| R1 | `CLAUDE.md` §2 | Kit label "round-two amendment"; the human-only branch-check paragraph replaced by a narrow initial-preparation authorization (AI may create/switch to the exact assigned branch from the exact approved baseline only when the starter message authorizes it; otherwise verify only; never reset, discard, create extra branches or infer publication). §1, §3, §4, §5 and all boxes unchanged | Lesson 3 |
+| R2 | `vibe_docs/README.md` | Rewritten: three readiness fields (unchanged values YES / YES setup+login / NO), evidence line (round-one install + setup/login completed per agent report and Tony; round-two rehearsal pending; permissions and deployment isolation unverified), local setup vs publication distinguished, complete starter required, single branch exception, tool status (Claude Code next; Cursor bridge installed but untested; Codex unverified) | Lessons 2, 5, 6, 10 |
+| R3 | `vibe_docs/START_HERE.md` | Rewritten as the short human journey: Hi → 1 → paste starter → place supplied `.env.local` beside `package.json` → log in → "close the rehearsal". No branch, SHA or install commands for the human. Contact: Cyberize Engineering. Public-repo note kept | Lessons 1, 4, 5, 9 |
+| R4 | `vibe_docs/GUEST_AI_RULES.md` | Rewritten (§1–§8): readiness/phase, complete assignment before setup, exact-baseline branch preparation with branch-state cases, install owned by the AI (`npm ci` only, no audit fix/upgrades), metadata-only `.env.local` check, owned dev-server lifecycle with instruction-file comparison after startup, inherited protected paths (+ Next config variants, `AGENTS.md`), future proposal/submission rules, support packet and closeout. Runtime facts added: Next 16.3.7 declares Node ≥ 20.9.0; factory verified runtime Node 22.14.0; round one used Node 24.16.0; other versions untested. §5 closeout: stop the whole process tree (`next dev` forks a `next-server` child; stopping `npm` alone leaves it listening), verify no listener and no project `next-server` process — observed during F04 validation | Lessons 1–4, 7–11 |
+| R5 | `vibe_docs/STARTER_MESSAGE_TEMPLATE.txt` | New, verbatim from the pack (`02_STARTER_MESSAGE_TEMPLATE.txt`). Engineering fills every REQUIRED value after the merge; never sent unfinished | Lesson 2 |
+| R6 | `.github/PULL_REQUEST_TEMPLATE/vibe_proposal.md` | Contact "Tony's message" → "the Cyberize Engineering assignment" (2 places); tool line → tool / model id / effort with "unknown" allowed. VPR fields, journal, checks, confirmations, intake footer unchanged | Lessons 5, 6 |
+| R7 | `next.config.js` | `agentRules: false` added inside the existing exported object with a two-line comment; module format and other keys unchanged. Installed `next@16.3.7` supports the key (config schema) and gates generation on it in `next dev`; this version has no block-removal path | Lesson 7 |
+| R8 | `agent_docs/VIK/round2-evidence/` | New: sanitized validation outputs (fixtures, startup hashes, install warnings, advisories, checks) | brief §5–6 |
+
+**Finding, not changed (protected `src/`):** `src/instrumentation.ts` fails closed unless `SUPABASE_SECRET_KEY` is set, together with the three public variables. A guest `.env.local` holding only the three public values cannot start the app. The Engineering-prepared file therefore has to satisfy startup validation, which conflicts with the kit's "no secret/service-role key" line. Resolution is an Engineering decision (relax validation to the three public names, since `admin.ts` has no consumers, or prepare the file differently); recorded in the round-two report.
+
+Not changed: `.cursor/rules/workflow-entry.mdc` (points only to root `CLAUDE.md`; no conflict found), `.env.pilot.example` (names-only reference), `CLAUDE.eng.md`, `CLAUDE.local.md`, `.env*`, `package.json`, `package-lock.json`, `src/**`, the round-one guest VM/clone. No root `AGENTS.md`, no CODEOWNERS, no new tooling.
+
+## Superseded by this amendment
+
+| Entry | Was | Now |
+| --- | --- | --- |
+| A4 | rehearsal tool is Cursor; report "Cursor / model shown" | Claude Code is the next rehearsal tool (preferred Opus 5.5 / High); report actual tool / model / effort; Cursor bridge installed, untested |
+| A7 | the human creates the branch from the baseline; the AI only verifies | the AI may prepare the exact assigned branch from the exact baseline under the narrow authorization in R1/R4; the human never runs branch commands |
+| A13 | "Tony" as the guest-facing contact | "Cyberize Engineering" in guest-facing text; Tony's name stays in internal and historical records |
+| A15 | the human creates `.env.local` by hand from three lines | Engineering prepares the file privately; the human places it beside `package.json`; the AI checks metadata only |
+| A16, A17 | 12 Oct README/readiness wording and the "nothing more" readiness sentence | R2 and R4 §1 |
+| A19, A20 | isolation-status and `npm ci` wording in `START_HERE.md` | substance moved to the README evidence line and R4 §4 |
+| 12 Oct release sequence | handoff message built by hand after flipping readiness | starter-message release procedure in `STARTER_MESSAGE_TEMPLATE.txt`: merge → resolve final `main` SHA → fill every REQUIRED value → verify branch availability → send. Readiness flip still precedes the baseline |
+
+A1–A3, A5, A6, A8–A12, A14, A18, A21 remain in force.
+
+# Startup correction — Stage A (2026-10-14)
+
+**Director decision (2026-10-14 18:20):** guests may develop complete feature proposals, including new tables and migrations, in a designated sandbox. This is approved in principle; access and implementation are not yet authorized. Guests get no `SUPABASE_SECRET_KEY` and no service-role API key. Work that needs one stops and goes to Cyberize Engineering. **Implemented:** Stage A only (approved 18:52). Plan: `agent_docs/RESPONSES/response_2026-10-14_182943_feature-scope-sandbox-db-plan.md`. Result: `agent_docs/RESPONSES/response_2026-10-14_185835_stageA-startup-fix-result.md`.
+
+| # | File | Change | Reason |
+| --- | --- | --- | --- |
+| S1 | `src/instrumentation.ts` | `SUPABASE_SECRET_KEY` removed from `REQUIRED_ENV`, with a comment explaining why. The three public settings still fail closed when missing or blank | No runtime consumer, and the file's own rule is "add when consumed in code, not before" |
+| S2 | `src/utils/supabase/admin.ts` | Guard rejects whitespace-only URL or key (`?.trim()`); message and behaviour otherwise unchanged | The only privileged reader stays fail-closed, at least as strictly as the old boot check |
+| S3 | `src/__tests__/instrumentation.test.ts`, `src/__tests__/supabase-admin.test.ts` | New regression tests (14). They clear the placeholder secret that `jest.setup.ts` injects and restore the env after each test | Red against HEAD (7 fail), green with S1/S2 |
+| S4 | `agent_docs/VIK/sandbox-evidence/` | Stage A evidence: npm ci, control/fix/negative startup runs, checks, red/green tests, readers, diff | Disposable clone at `08bfa11`, nonsecret fixtures only |
+
+**Status of the round-two finding above.**
+- **Startup half: resolved by S1.** A disposable-clone fixture run shows that a guest `.env.local` with the three public values now boots. The guest kit already says that file "must not contain a service-role or secret key" (`GUEST_AI_RULES.md:44`), so the kit and app startup now agree. A real login is unverified until the guest rehearsal (G04).
+- **Sandbox-development half: still open.** Not implemented and not authorized:
+  - Stage B
+  - the migration runner
+  - the provisioning runbook
+  - the fourth readiness field
+  - the expanded guest rules
+  - any sandbox access
+
+  These remain proposals for the next review, and D1–D4 are open.
+- **Round one:** under the reported boot conditions, the app started on the guest VM. That indicates only that a nonempty value may have been available for `SUPABASE_SECRET_KEY` there. It does not show that the value was a real secret or where it came from. Its contents remain unknown, and the VM was not inspected or altered.
+
+| Superseded | Was | Now |
+| --- | --- | --- |
+| Earlier Director permission to supply the sandbox secret key (given outside this session) | Engineering could give a guest the sandbox secret key | Withdrawn. Guests get no secret or service-role key. No tracked file ever applied the permission |

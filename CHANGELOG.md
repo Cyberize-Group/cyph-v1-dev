@@ -3,6 +3,18 @@
 > Documentation/playbook change log per CLAUDE.md Changelog Protocol.
 > `[CC]` = Claude Code · `[TS]` = Tony Stark manual edits.
 
+## 2026-10-14 12:58 UTC — [CC] Claude Code
+
+- **Updated:** `src/instrumentation.ts`: `SUPABASE_SECRET_KEY` removed from the boot requirements; the three public settings still fail closed. `src/utils/supabase/admin.ts`: the guard now also rejects whitespace-only values. `agent_docs/VIK/ADAPTATIONS.md`: Stage A section (S1–S4). The finding's startup half is resolved; its sandbox half is still open.
+- **Created:** `src/__tests__/instrumentation.test.ts`, `src/__tests__/supabase-admin.test.ts` (14 regression tests), `agent_docs/VIK/sandbox-evidence/` (Stage A evidence), `response_2026-10-14_185835_stageA-startup-fix-result.md`.
+- **Reason:** Director decision 18:20 (no secret/service-role key for guests); Stage A approved 18:52. Validated in a disposable clone at `08bfa11` with nonsecret fixtures. Real login is unverified (G04). Stage B, the migration runner, the provisioning runbook, the fourth field and the expanded guest rules are not implemented. External handoff ready stays NO.
+
+## 2026-10-14 07:33 UTC — [CC] Claude Code
+
+- **Updated:** `CLAUDE.md` §2 (narrow AI branch-preparation authorization; round-two label), `vibe_docs/README.md`, `vibe_docs/START_HERE.md`, `vibe_docs/GUEST_AI_RULES.md` (rewritten from the round-two pack with Director corrections), `.github/PULL_REQUEST_TEMPLATE/vibe_proposal.md` (Cyberize Engineering contact; tool/model/effort), `next.config.js` (`agentRules: false`), `agent_docs/VIK/ADAPTATIONS.md` (R1–R8, supersessions, findings).
+- **Created:** `vibe_docs/STARTER_MESSAGE_TEMPLATE.txt` (verbatim engineering template), `agent_docs/VIK/round2-evidence/` (F02–F05, checks, baseline lint, diff), `response_2026-10-14_133319_round2-vik-result.md`.
+- **Reason:** VIK v0.3 round-two amendment per `CYPH_ROUND2_AMENDMENT_PACK_2026-10-13.zip`. Validation in scratch fixtures and a disposable checkout only. External handoff ready stays NO. Commit, merge and release are Tony's.
+
 ## 2026-10-12 11:15 UTC — [CC] Claude Code
 
 - **Updated:** `vibe_docs/START_HERE.md` (isolation status stated as observed, not promised; `npm ci` wording), `vibe_docs/GUEST_AI_RULES.md` (handoff NO permits the setup/login rehearsal, stop before proposal edits), `.env.pilot.example` (comment "Coach" → "Tony"; names and values unchanged), `agent_docs/VIK/ADAPTATIONS.md` (A18–A21).

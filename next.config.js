@@ -2,6 +2,9 @@
 const nextConfig = {
   output: "standalone",
   reactStrictMode: true,
+  // Do not let `next dev` write the managed agent-rules block into CLAUDE.md / AGENTS.md
+  // (root CLAUDE.md is the protected workflow entry; VIK round-two amendment, 2026-10-14).
+  agentRules: false,
   async headers() {
     return [
       {

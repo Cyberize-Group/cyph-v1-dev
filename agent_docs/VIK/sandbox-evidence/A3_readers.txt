@@ -1,0 +1,32 @@
+A3 READERS OF SUPABASE_SECRET_KEY — 2026-10-14T18:56:38+06:00 — factory tree (HEAD 08bfa11 + Stage A, uncommitted)
+### src/ (excluding tests)
+src/instrumentation.ts:7:// SUPABASE_SECRET_KEY is deliberately NOT required at boot (Director decision,
+src/utils/supabase/admin.ts:22:  const supabaseServiceKey = process.env.SUPABASE_SECRET_KEY!
+### src/__tests__
+src/__tests__/jest.setup.ts:3:process.env.SUPABASE_SECRET_KEY = process.env.SUPABASE_SECRET_KEY || 'service-role-key';
+src/__tests__/instrumentation.test.ts:3:// Boot-time env validation (src/instrumentation.ts). SUPABASE_SECRET_KEY is not a
+src/__tests__/instrumentation.test.ts:11:const TOUCHED_ENV = [...PUBLIC_ENV, 'SUPABASE_SECRET_KEY'] as const;
+src/__tests__/instrumentation.test.ts:28:    delete process.env.SUPABASE_SECRET_KEY;
+src/__tests__/instrumentation.test.ts:40:  it('boots with the three public settings and no SUPABASE_SECRET_KEY', () => {
+src/__tests__/instrumentation.test.ts:41:    expect('SUPABASE_SECRET_KEY' in process.env).toBe(false);
+src/__tests__/instrumentation.test.ts:51:    expect(message).not.toContain('SUPABASE_SECRET_KEY');
+src/__tests__/supabase-admin.test.ts:8:// createAdminClient is the only reader of SUPABASE_SECRET_KEY. With the key no
+src/__tests__/supabase-admin.test.ts:12:const TOUCHED_ENV = ['NEXT_PUBLIC_SUPABASE_URL', 'SUPABASE_SECRET_KEY'] as const;
+src/__tests__/supabase-admin.test.ts:22:    delete process.env.SUPABASE_SECRET_KEY;
+src/__tests__/supabase-admin.test.ts:33:  it('throws when SUPABASE_SECRET_KEY is unset', () => {
+src/__tests__/supabase-admin.test.ts:34:    expect('SUPABASE_SECRET_KEY' in process.env).toBe(false);
+src/__tests__/supabase-admin.test.ts:39:  it.each(['', '   ', '\t\n'])('throws when SUPABASE_SECRET_KEY is blank (%j)', (value) => {
+src/__tests__/supabase-admin.test.ts:40:    process.env.SUPABASE_SECRET_KEY = value;
+src/__tests__/supabase-admin.test.ts:48:    process.env.SUPABASE_SECRET_KEY = FIXTURE_KEY;
+src/__tests__/supabase-admin.test.ts:55:    process.env.SUPABASE_SECRET_KEY = FIXTURE_KEY;
+### imports of the admin client
+src/instrumentation.ts:9:// reader, createAdminClient() in src/utils/supabase/admin.ts, fails closed at
+src/__tests__/supabase-admin.test.ts:6:import { createAdminClient } from '@/utils/supabase/admin';
+src/__tests__/supabase-admin.test.ts:8:// createAdminClient is the only reader of SUPABASE_SECRET_KEY. With the key no
+src/__tests__/supabase-admin.test.ts:16:describe('createAdminClient (fail-closed)', () => {
+src/__tests__/supabase-admin.test.ts:35:    expect(() => createAdminClient()).toThrow('Missing Supabase admin credentials');
+src/__tests__/supabase-admin.test.ts:42:    expect(() => createAdminClient()).toThrow('Missing Supabase admin credentials');
+src/__tests__/supabase-admin.test.ts:50:    expect(() => createAdminClient()).toThrow('Missing Supabase admin credentials');
+src/__tests__/supabase-admin.test.ts:57:    createAdminClient();
+### scripts/ (factory tooling, unchanged)
+scripts/rls-harness/lib/env.mjs

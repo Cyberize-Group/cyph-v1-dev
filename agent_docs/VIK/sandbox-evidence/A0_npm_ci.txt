@@ -1,0 +1,11 @@
+npm ci — disposable clone of the factory repo at 08bfa11 (<scratchpad>/stageA); run 2026-10-14 ~18:53 +06, summarized 18:57
+node v22.14.0 · npm 10.9.2 · exit=0 (19s) · package.json/package-lock.json unchanged after install (git diff --quiet)
+--- last lines:
+
+To address all issues possible (including breaking changes), run:
+  npm audit fix --force
+
+Some issues need review, and may require choosing
+a different dependency.
+
+Run `npm audit` for details.

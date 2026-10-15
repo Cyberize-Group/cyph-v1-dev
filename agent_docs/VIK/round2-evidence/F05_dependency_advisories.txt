@@ -1,0 +1,44 @@
+F05 DEPENDENCY SCOPE — read-only `npm audit --json` in the disposable checkout, 2026-10-14T13:09:36
+Install: `npm ci` exit 0, 854 packages added / 855 audited in 25s, package.json + package-lock.json unchanged (git status empty). Node v22.14.0, npm 10.9.2.
+No `npm audit fix`, no upgrades, no lockfile regeneration. Count below is the audit tool's number at this run, not an exploitability finding.
+
+Summary: {'info': 0, 'low': 0, 'moderate': 24, 'high': 9, 'critical': 1, 'total': 34}
+
+| severity | package | affected range | exposure | path | advisory | fix available |
+|---|---|---|---|---|---|---|
+| critical | handlebars | 3.0.0 - 4.7.9 | dev | transitive | Handlebars: JavaScript Injection via Unsafe Inline Embedding of Precompiled Templates (GHSA-xw65-4hp5-5hc7); Handlebars: JavaScript Injection via AST  | yes |
+| high | @next/eslint-plugin-next | >=14.3.0-canary.0 | dev | transitive | via: fast-glob | eslint-config-next@14.2.35 (semver-major) |
+| high | braces | * | runtime | transitive | braces vulnerable to stack-exhaustion denial of service through deeply nested patterns (GHSA-vfj7-8cjw-p6xm) | eslint-config-next@14.2.35 (semver-major) |
+| high | chokidar | 2.0.0 - 3.6.0 | runtime | transitive | via: braces | none |
+| high | eslint-config-next | >=14.3.0-canary.0 | dev | direct | via: @next/eslint-plugin-next | eslint-config-next@14.2.35 (semver-major) |
+| high | fast-glob | * | runtime | transitive | via: micromatch | eslint-config-next@14.2.35 (semver-major) |
+| high | micromatch | >=0.2.0 | runtime | transitive | via: braces | eslint-config-next@14.2.35 (semver-major) |
+| high | next | 16.0.0 - 16.3.7 | runtime | direct | Next.js: Pending `use cache` fill can leak Draft Mode content into regular responses and persisted pages (GHSA-3w37-wq28-93x7); Next.js has cache pois | next@16.4.0 |
+| high | source-map-js | 1.0.0 - 1.2.1 | runtime | transitive | source-map-js allows event-loop denial of service through indexed source-map section offsets (GHSA-68fv-2mgg-jv7q) | yes |
+| high | tailwindcss | <=0.0.0-oxide-insiders.ff2c25f || 0.5.0 - 3.4.19 | runtime | direct | via: chokidar, fast-glob, micromatch, postcss-nested, postcss-selector-parser | none |
+| moderate | @istanbuljs/load-nyc-config | * | dev | transitive | via: js-yaml | ts-jest@29.1.2 (semver-major) |
+| moderate | @jest/core | >=25.1.0 | dev | transitive | via: @jest/reporters, @jest/transform, jest-config, jest-resolve-dependencies, jest-runner, jest-runtime, jest-snapshot | jest@25.0.0 (semver-major) |
+| moderate | @jest/expect | * | dev | transitive | via: jest-snapshot | jest@25.0.0 (semver-major) |
+| moderate | @jest/globals | >=28.0.0-alpha.0 | dev | transitive | via: @jest/expect | jest@25.0.0 (semver-major) |
+| moderate | @jest/reporters | >=25.1.0 | dev | transitive | via: @jest/transform | yes |
+| moderate | @jest/transform | >=25.1.0 | dev | transitive | via: babel-plugin-istanbul | ts-jest@29.1.2 (semver-major) |
+| moderate | @tailwindcss/typography | <=0.4.0 || >=0.5.0-alpha.1 | runtime | direct | via: postcss-selector-parser, tailwindcss | @tailwindcss/typography@0.5.4 (semver-major) |
+| moderate | argparse | 1.0.0 - 1.0.10 | dev | transitive | via: sprintf-js | ts-jest@29.1.2 (semver-major) |
+| moderate | babel-jest | >=25.1.0 | dev | transitive | via: @jest/transform, babel-plugin-istanbul | ts-jest@29.1.2 (semver-major) |
+| moderate | babel-plugin-istanbul | >=6.0.0-beta.0 | dev | transitive | via: @istanbuljs/load-nyc-config | ts-jest@29.1.2 (semver-major) |
+| moderate | jest | >=25.1.0 | dev | direct | via: @jest/core, jest-cli | jest@25.0.0 (semver-major) |
+| moderate | jest-circus | >=25.2.4 | dev | transitive | via: @jest/expect, jest-runtime, jest-snapshot | yes |
+| moderate | jest-cli | >=25.1.0 | dev | transitive | via: @jest/core, jest-config | yes |
+| moderate | jest-config | >=25.1.0 | runtime | transitive | via: babel-jest, jest-circus, jest-runner | yes |
+| moderate | jest-resolve-dependencies | >=27.0.0-next.0 | dev | transitive | via: jest-snapshot | yes |
+| moderate | jest-runner | >=25.1.0 | dev | transitive | via: @jest/transform, jest-runtime | jest@25.0.0 (semver-major) |
+| moderate | jest-runtime | >=25.1.0 | dev | transitive | via: @jest/globals, @jest/transform, jest-snapshot | jest@25.0.0 (semver-major) |
+| moderate | jest-snapshot | >=27.0.0-next.0 | dev | transitive | via: @jest/transform | jest@25.0.0 (semver-major) |
+| moderate | js-yaml | 3.2.7 - 3.15.2 | dev | transitive | via: argparse | ts-jest@29.1.2 (semver-major) |
+| moderate | postcss-nested | 2.0.3 - 6.2.0 | runtime | transitive | via: postcss-selector-parser | yes |
+| moderate | postcss-selector-parser | <7.1.6 | runtime | transitive | PostCSS: Quadratic complexity in flat selector parsing allows CPU exhaustion (GHSA-rj75-hqrm-r3gf) | none |
+| moderate | sprintf-js | * | dev | transitive | sprintf-js vulnerable to denial of service through unbounded precision specifiers (GHSA-hp3w-g68c-fv3c) | ts-jest@29.1.2 (semver-major) |
+| moderate | tailwindcss-animate | * | runtime | direct | via: tailwindcss | none |
+| moderate | ts-jest | >=25.10.0-alpha.1 | dev | direct | via: @jest/transform, babel-jest, jest | ts-jest@29.1.2 (semver-major) |
+
+Exposure = lockfile flag of the package itself (dev = devDependencies tree; runtime = ships in the app's dependency tree). Exposure does not equal reachability; disposition per row is an Engineering decision in the report.

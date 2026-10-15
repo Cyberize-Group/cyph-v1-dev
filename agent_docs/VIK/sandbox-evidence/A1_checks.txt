@@ -1,0 +1,105 @@
+A1 CHECKS — 2026-10-14T18:54:50+06:00 — checkout @ 08bfa11 + Stage A overlay; fixture .env.local = 3 public names; SUPABASE_SECRET_KEY removed from env (env -u)
+### npm run lint
+exit=0 (7s)
+  47 |   useEffect(() => {
+> 48 |     setDraft(filters);
+     |     ^^^^^^^^ Avoid calling setState() directly within an effect
+  49 |   }, [filters]);
+  50 |
+  51 |   // "N filters active" reflects the APPLIED (committed) set, not the draft  react-hooks/set-state-in-effect
+<scratchpad>/stageA/src/components/owedbook/OwedBookScreen.tsx
+   79:5  warning  Error: Calling setState synchronously within an effect can trigger cascading renders
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+<scratchpad>/stageA/src/components/owedbook/OwedBookScreen.tsx:79:5
+  77 |   // A new filter set resets to the first page.
+  78 |   useEffect(() => {
+> 79 |     setPage(1);
+     |     ^^^^^^^ Avoid calling setState() directly within an effect
+  80 |   }, [filters]);
+  81 |
+  82 |   // KPI tiles react to the filter set  react-hooks/set-state-in-effect
+  105:5  warning  Error: Calling setState synchronously within an effect can trigger cascading renders
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+<scratchpad>/stageA/src/components/owedbook/OwedBookScreen.tsx:105:5
+  103 |   useEffect(() => {
+  104 |     let cancelled = false;
+> 105 |     setLoading(true);
+      |     ^^^^^^^^^^ Avoid calling setState() directly within an effect
+  106 |     setError(null);
+  107 |     (async () => {
+  108 |       try {           react-hooks/set-state-in-effect
+<scratchpad>/stageA/src/components/ui/command.tsx
+  35:24  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+<scratchpad>/stageA/src/components/ui/use-toast.ts
+  21:7  warning  'actionTypes' is assigned a value but only used as a type. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+<scratchpad>/stageA/src/utils/supabase/server.ts
+  6:44  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+✖ 35 problems (0 errors, 35 warnings)
+
+### ./node_modules/.bin/tsc --noEmit
+exit=0 (7s)
+
+### npm test -- --ci
+exit=0 (6s)
+> cyber-pharma@0.1.0 test
+> jest --ci
+Test Suites: 36 passed, 36 total
+Tests:       178 passed, 178 total
+Snapshots:   0 total
+Time:        5.916 s
+Ran all test suites.
+
+### npx jest --ci --verbose src/__tests__/instrumentation.test.ts src/__tests__/supabase-admin.test.ts
+exit=0 (1s)
+Test Suites: 2 passed, 2 total
+Tests:       14 passed, 14 total
+Snapshots:   0 total
+Time:        0.604 s, estimated 1 s
+Ran all test suites matching src/__tests__/instrumentation.test.ts|src/__tests__/supabase-admin.test.ts.
+
+### npm run build
+exit=0 (24s)
+> cyber-pharma@0.1.0 build
+> next build
+▲ Next.js 16.3.7 (Turbopack)
+- Environments: .env.local
+✓ Running next.config.js took 16ms
+  Creating an optimized production build ...
+✓ Compiled successfully in 10.2s
+  Running TypeScript ...
+  Finished TypeScript in 7.3s ...
+  Collecting page data using 3 workers ...
+  Generating static pages using 3 workers (0/15) ...
+  Generating static pages using 3 workers (3/15) 
+  Generating static pages using 3 workers (7/15) 
+  Generating static pages using 3 workers (11/15) 
+✓ Generating static pages using 3 workers (15/15) in 454ms
+  Finalizing page optimization ...
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ƒ /access-denied
+├ ƒ /admin-portal
+├ ƒ /admin-portal/audit
+├ ƒ /admin-portal/billing
+├ ƒ /admin-portal/settings
+├ ƒ /admin-portal/stores/[id]
+├ ƒ /admin-portal/stores/[id]/invite
+├ ƒ /api/auth/confirm
+├ ƒ /api/auth/login
+├ ƒ /api/auth/logout
+├ ○ /auth
+├ ○ /error
+├ ○ /icon.png
+├ ƒ /owedbook
+└ ƒ /profile
+ƒ Proxy (Middleware)
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
