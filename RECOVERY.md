@@ -4,7 +4,13 @@
 > Updated after every plan completion. If this file is stale, the session log in
 > `agent_docs/SESSIONS/` is the fallback source of truth.
 
-**Last updated:** 2026-10-14 18:58 — **Stage A startup fix COMPLETE (uncommitted)** on `pilot/vik-round2-onboarding` @ `08bfa11` · External handoff ready **NO**
+**Last updated:** 2026-10-15 11:29 — **PR #3 (Draft) review package delivered for JARVIS** · External handoff ready **NO**
+**PR #3:** base `main` @ `d2a0d13c8d3644a3171db4539ee0e59978381858` · head `pilot/vik-round2-onboarding` @ `0de73039d312ff49b2a61120f79c0d05521c1522` (2 commits: `08bfa11` round two, `0de7303` Stage A) · 42 files.
+**ZIP:** `/home/moose/Downloads/CYPH_PR3_REVIEW_2026-10-15.zip` (SHA-256 `0037f010…6d97d85`) · report `agent_docs/RESPONSES/response_2026-10-15_112948_pr3-review-package.md`.
+**Pending (Director):** JARVIS review · QA-gate decision for PR #3 (installed System Test unmet until G04; Gate Q by analogy for the code) · merge · final SHA → starter → G01–G06 · advisories disposition · sandbox proposals + D1–D4.
+**Next step:** JARVIS review.
+
+**Prior block (2026-10-14):** **Last updated:** 2026-10-14 18:58 — **Stage A startup fix COMPLETE (uncommitted)** on `pilot/vik-round2-onboarding` @ `08bfa11` · External handoff ready **NO**
 **Done:** `SUPABASE_SECRET_KEY` removed from the boot list (`src/instrumentation.ts`); `createAdminClient` rejects blank or whitespace values; 14 regression tests. A disposable clone with three nonsecret public values boots (control at HEAD fails); secret absent from the file and the process environment; jest 36/178, lint 0 errors, tsc, build OK. Report: `agent_docs/RESPONSES/response_2026-10-14_185835_stageA-startup-fix-result.md`.
 **Not authorized / pending review:** sandbox development (approved in principle only). Stage B, migration runner, provisioning runbook, fourth readiness field, expanded guest rules, D1–D4.
 **Round one (corrected):** startup indicates only that a nonempty value may have been available under the reported conditions; contents unknown; VM untouched.
