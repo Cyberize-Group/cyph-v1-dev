@@ -1,0 +1,31 @@
+=== A2-1_fix_three_values — 2026-10-14T18:54:10+06:00 — checkout <scratchpad>/stageA @ 08bfa11
+fixture .env.local names: NEXT_PUBLIC_SUPABASE_URL= NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY= NEXT_PUBLIC_SITE_URL= 
+fixture lines naming SUPABASE_SECRET_KEY: 0
+launching shell env SUPABASE_SECRET_KEY entries (before env -u): 0
+process group: 3714369
+HTTP GET / : 200
+--- processes in group (pid comm) and env-name counts from /proc/<pid>/environ:
+  pid=3714369 comm=npm run dev SUPABASE_SECRET_KEY=0 NEXT_PUBLIC_SUPABASE_URL=0
+  pid=3714383 comm=sh SUPABASE_SECRET_KEY=0 NEXT_PUBLIC_SUPABASE_URL=0
+  pid=3714384 comm=node SUPABASE_SECRET_KEY=0 NEXT_PUBLIC_SUPABASE_URL=0
+  pid=3714395 comm=next-server (v1 SUPABASE_SECRET_KEY=0 NEXT_PUBLIC_SUPABASE_URL=0
+  pid=3714432 comm=node SUPABASE_SECRET_KEY=0 NEXT_PUBLIC_SUPABASE_URL=1
+--- dev log (sanitized: fixture values only):
+
+> cyber-pharma@0.1.0 dev
+> next dev
+
+▲ Next.js 16.3.7 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://<lan-ip>:3000
+- Environments: .env.local
+✓ Ready in 401ms
+✓ Running next.config.js took 28ms
+✓ Environment validated
+
+○ Compiling / ...
+ GET / 200 in 6.0s (next.js: 5.4s, proxy.ts: 218ms, application-code: 429ms)
+--- stop check: group alive=0 · node procs with cwd=checkout=0 · listeners on :3000=0
+--- tracked status after run:
+ M src/instrumentation.ts
+ M src/utils/supabase/admin.ts

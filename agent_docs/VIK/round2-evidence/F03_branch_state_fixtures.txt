@@ -1,0 +1,65 @@
+F03 BRANCH STATE CASES — disposable scratch repos only, 2026-10-14T13:08:27+06:00
+Procedure: command-level model of GUEST_AI_RULES §3 (verify repo/op-in-progress/name/baseline/tree/branch; create or switch only on exact baseline + clean tree; never reset/stash/force).
+
+C1 clean main at baseline, branch absent
+RESULT: CREATED guest/bibo-rehearsal-r2 from b58e205fad16ea2426f3de9644b5fb169f1372d5
+   after: branch=guest/bibo-rehearsal-r2 HEAD=b58e205 status='' branches=[guest/bibo-rehearsal-r2 main ]
+   expect: CREATED, HEAD unchanged (b58e205fad16ea2426f3de9644b5fb169f1372d5)
+C2 already on assigned branch at baseline
+RESULT: CONTINUE already-on-branch-at-baseline; no mutation
+   after: branch=guest/bibo-rehearsal-r2 HEAD=b58e205 status='' branches=[guest/bibo-rehearsal-r2 main ]
+C3 clean main + existing local branch at baseline
+RESULT: SWITCHED existing-local-branch-at-baseline
+   after: branch=guest/bibo-rehearsal-r2 HEAD=b56179a status='' branches=[guest/bibo-rehearsal-r2 main ]
+C4a invalid SHA
+RESULT: STOP baseline-not-available 'deadbeefdeadbeefdeadbeefdeadbeefdeadbeef'; no mutation → Engineering packet
+   after: branch=main HEAD=b56179a status='' branches=[main ]
+C4b wrong repo (path missing)
+environment: line 47: cd: /tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/7b9f2aa7-ca45-4b07-ae92-b4c7959c45ca/scratchpad/f03/nope: No such file or directory
+RESULT: STOP wrong-repo (missing)
+C4c unfinished assignment (placeholder SHA)
+RESULT: STOP baseline-not-available 'REQUIRED_FULL_40_CHARACTER_POST_AMENDMENT_COMMIT_SHA'; no mutation → Engineering packet
+   after: branch=main HEAD=b56179a status='' branches=[main ]
+C4d invalid name
+RESULT: STOP invalid-branch-name 'guest/bad name'; no mutation
+   after: branch=main HEAD=b56179a status='' branches=[main ]
+C4e protected name
+RESULT: STOP protected-name 'main'; no mutation
+   after: branch=main HEAD=b56179a status='' branches=[main ]
+C5a unstaged work
+RESULT: STOP dirty-tree (staged/unstaged/untracked present); preserved, no mutation
+   after: branch=main HEAD=b56179a status=' M f|' branches=[main ]
+C5b staged work
+RESULT: STOP dirty-tree (staged/unstaged/untracked present); preserved, no mutation
+   after: branch=main HEAD=b56179a status='A  g|' branches=[main ]
+C5c untracked file
+RESULT: STOP dirty-tree (staged/unstaged/untracked present); preserved, no mutation
+   after: branch=main HEAD=b56179a status='?? u|' branches=[main ]
+C5d operation in progress (merge conflict)
+RESULT: STOP HEAD-differs-from-baseline (1ee3fb06c2cbb81086a0dfec780077705fc9d99f vs b56179a2efc240beaada9e69f096eca8dc7402fe); no checkout/reset
+   after: branch=main HEAD=1ee3fb0 status='' branches=[main other ]
+C5e assigned branch exists remotely, not locally
+RESULT: STOP branch-exists-remotely; needs resume assignment; no mutation
+   after: branch=main HEAD=b56179a status='' branches=[main ]
+C5f clean tree, HEAD != baseline
+RESULT: STOP HEAD-differs-from-baseline (b6921e1a74a50a0d5f98326a2ee004cdefc496df vs b56179a2efc240beaada9e69f096eca8dc7402fe); no checkout/reset
+   after: branch=main HEAD=b6921e1 status='' branches=[main ]
+C6 ignored pre-placed .env.local: metadata only
+   exists=yes size=33 ignored=yes tracked=no name=0
+.env.local 
+RESULT: CREATED guest/bibo-rehearsal-r2 from 7ae893c5f6987962e530759e200c67d89e783bca
+   after: branch=guest/bibo-rehearsal-r2 HEAD=7ae893c status='' branches=[guest/bibo-rehearsal-r2 main ]
+   .env.local sha before/after identical: 15eb92aaeb42 (content never read by the procedure)
+C7 resumed proposal with permitted work on assigned branch
+   ancestry: baseline-is-ancestor HEAD=ac03a43
+RESULT: STOP on-branch-but-tip-differs (ac03a43fbf2fb45e5a9177ad45ee8a5cf0f0b4e9); no reset
+   after: branch=guest/bibo-rehearsal-r2 HEAD=ac03a43 status='' branches=[guest/bibo-rehearsal-r2 main ]
+   expect: STOP tip-differs (fresh procedure) → resume path verifies ancestry and stays; no reset
+
+LIMIT: command-level model only. It does not prove an agent follows GUEST_AI_RULES §3; G-series fresh-agent cases remain PENDING.
+
+C5d (redo) operation in progress — real merge conflict
+   MERGE_HEAD=present status='UU f|'
+RESULT: STOP operation-in-progress; no mutation (procedure's first check)
+   after: branch=main HEAD=ad715b0 MERGE_HEAD=present status='UU f|'
+   note: the earlier C5d fixture merged cleanly and fell through to HEAD-differs; this redo exercises the in-progress branch of the procedure.

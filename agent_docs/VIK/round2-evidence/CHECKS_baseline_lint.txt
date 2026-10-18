@@ -1,0 +1,3 @@
+BASELINE LINT — pure HEAD d2a0d13c8d3644a3171db4539ee0e59978381858, no overlay, 2026-10-14T13:31:28+06:00
+exit=0 ; summary: ✖ 35 problems (0 errors, 35 warnings)
+warning rules:       9 react-hooks/set-state-in-effect;     23 @typescript-eslint/no-explicit-any;      3 @typescript-eslint/no-unused-vars;

@@ -2,9 +2,9 @@
 
 ## Proposal
 
-**Assignment:** <the assignment name or one line from Tony's message>
+**Assignment:** <the assignment ID or one line from the Cyberize Engineering assignment>
 
-**AI tool and model actually used:** <Cursor / <model Cursor shows as selected> · other / unknown — confirmed by user: yes/no>
+**AI tool, model and effort actually used:** <tool / model id / effort — for example Claude Code / claude-opus-5-5 / High; "unknown" for any part you cannot verify — confirmed by user: yes/no>
 
 **What problem does this solve for the pharmacy?**
 <one or two sentences, in the user's words>
@@ -17,7 +17,7 @@
 
 ## Commits
 
-**Baseline commit (the SHA from Tony's handoff message; the branch was created from it and the AI verified it with `git merge-base --is-ancestor`):** <40-character SHA>
+**Baseline commit (the SHA from the Cyberize Engineering assignment; the branch was created from it and the AI verified it with `git merge-base --is-ancestor`):** <40-character SHA>
 
 **Submitted commit (`git rev-parse HEAD` on this branch):** <40-character SHA>
 

@@ -4,7 +4,72 @@
 > Updated after every plan completion. If this file is stale, the session log in
 > `agent_docs/SESSIONS/` is the fallback source of truth.
 
-**Last updated:** 2026-10-12 17:15 — **Review ACCEPTED, cleanup COMPLETE, awaiting Tony's commit** on `vibe-pilot-setup` @ `2c9fd65`
+**Last updated:** 2026-10-18 13:36 — **Stage 2 prep COMPLETE; merge + Q5 with Tony** · JARVIS **PASS WITH FINDINGS** for candidate `0de7303` (limits recorded in `agent_docs/VIK/round2-rehearsal/00_STATUS.md`) · PR #3 Draft head `eda63ff` · External handoff ready **NO**
+**Blocker:** ruleset PROTECT MAIN needs 1 approving review (author can't self-approve) or Admin bypass; merge-commit only. Commands: `agent_docs/RESPONSES/response_2026-10-18_133628_stage2-merge-prep.md` §5.
+**Next step:** Tony commits/pushes records → `gh pr ready` → approval/bypass → merge commit → Q5 diff (exclude record paths + round2-rehearsal) → sends `origin/main` SHA + Q5 line. Then: ledger/README update, onboarding-improvement plan, T01 Cursor later stage.
+
+**Prior block (2026-10-18 12:45):** **Last updated:** 2026-10-18 12:45 — **G05 PASS ×3 recorded (supplied); final review package delivered** · candidate `0de7303`, PR #3 Draft head `eda63ff` (non-record diff empty) · External handoff ready **NO**
+**Package:** `~/Downloads/CYPH_PR3_FINAL_REVIEW_2026-10-18.zip` (SHA-256 `f3db3624…aea419`). Report: `agent_docs/RESPONSES/response_2026-10-18_124500_g05-consolidation-final-review-package.md`. Evidence: `agent_docs/VIK/round2-rehearsal/` (exemption accepted, sanitized only, diff review pending).
+**Recorded requirement:** auto-loaded Engineering assignment replaces the pasted starter — implementation pending.
+**Open:** JARVIS recommendation → Tony merge decision (Q4) → Q5 · missing raw evidence list in the package §3 · dependency/runtime disposition · sandbox deferred · P01/P02/T01/R01.
+**Next step:** JARVIS reviews the package; Tony decides on merge. Uncommitted records await Tony's diff review (no commit requested).
+
+**Prior block (2026-10-15 15:15):** **Last updated:** 2026-10-15 15:15 — **Bibo setup/login rehearsal at `0de7303` COMPLETE, closeout PASS recorded · G05 fixture clone pending** · PR #3 Draft, head `eda63ff` · External handoff ready **NO**
+**Closeout:** `agent_docs/RESPONSES/response_2026-10-15_151505_r1-closeout-CYPH-R2-BIBO-SETUP-01.md` (verbatim). Notes + command: `agent_docs/RESPONSES/response_2026-10-15_151505_r1-closeout-recorded-fx-clone.md`.
+**Open:** Q3 evidence gaps (G01/G02 observations, E3/E4 outputs, E5 grep, R2) · Node 24.16.0 acceptance · dependency finding (guest 33 vs factory 34; different peer conflict) · effort confirmation · evidence-folder exemption.
+**Issued to Tony:** fixture-clone command only (fingerprints of both existing clones + fail-stop clone to `~/NEXT.JS/cyph-v1-dev-r2-fx`).
+**Next step:** Tony sends the output → F-a → check → F-b → check → F-c → final comparison → JARVIS → Tony's merge decision.
+
+**Prior block (2026-10-15 14:46):** **Last updated:** 2026-10-15 14:46 — **Setup/login rehearsal at `0de7303` recorded SUCCESSFUL (Director adjudication) · G05 fixture prep IN PROGRESS** · PR #3 Draft, head `eda63ff` · External handoff ready **NO**
+**Evidence gap:** the run's evidence (E3 output, clone output, closeout, observations, R2 checks) has not reached the factory; not evaluated here; requested for `agent_docs/VIK/round2-rehearsal/` + JARVIS Q3.
+**Open:** 34 advisories + react-remove-scroll peer warning · evidence-folder record-path exemption (Director) · `vibe_docs/README.md` still says round-two rehearsal pending (update after Q4).
+**Issued to Tony:** fixture-clone command only (read-only fingerprint of `~/NEXT.JS/cyph-v1-dev-r2` + fail-stop clone to `~/NEXT.JS/cyph-v1-dev-r2-fx`). Messages F-a/F-b/F-c prepared. Report: `agent_docs/RESPONSES/response_2026-10-15_144616_g05-fixture-prep.md`.
+**Next step:** Tony sends the command output → F-a session → state check → F-b → check → F-c → final check → JARVIS → Tony's merge decision.
+
+**Prior block (2026-10-15 13:08):** **Last updated:** 2026-10-15 13:08 — **PR #3 pre-merge rehearsal APPROVED → IN PROGRESS (preparation)** · candidate `0de73039d312ff49b2a61120f79c0d05521c1522` · PR #3 Draft, head `eda63ff` (records-only) · External handoff ready **NO**
+**Decisions (13:02):** candidate `0de7303` · baseline disclosure kept · `CYPH-R2-BIBO-SETUP-01` · G05 F-a–F-c · JARVIS gives the QA recommendation on independent evidence; Tony makes the final merge decision.
+**Done:** factory checks pass (Draft; `guest/bibo-rehearsal-r2` absent; ancestry proven with `merge-base --is-ancestor`; tip = candidate + records only; Q1 evidence covers the candidate, no rerun). E4 corrected to fail-stop and tested in the scratchpad (5 stops + 1 pass).
+**Issued to Tony:** E3 only — Bibo VM read-only snapshot. Report: `agent_docs/RESPONSES/response_2026-10-15_130824_pr3-rehearsal-factory-checks-e3.md`. Plan: `agent_docs/RESPONSES/_OLD/response_2026-10-15_115917_pr3-premerge-rehearsal-plan.md`.
+**Pending:** Tony's E3 output → E4 fresh clone → E5/E6 private → fixture messages → separate go for R1. Director: exempt `agent_docs/VIK/round2-rehearsal/` as a record path for E1/Q5?
+**Next step:** Tony runs E3 on the Bibo VM and sends the output.
+
+**Prior block (2026-10-15 11:59):** **Last updated:** 2026-10-15 11:59 — **PR #3 pre-merge rehearsal plan PENDING_APPROVAL** · candidate `0de73039d312ff49b2a61120f79c0d05521c1522` · PR #3 Draft, head now `eda63ff` (records-only diff from candidate) · External handoff ready **NO**
+**Plan:** `agent_docs/RESPONSES/response_2026-10-15_115917_pr3-premerge-rehearsal-plan.md`.
+- Pre-merge candidate rehearsal = System Test, not a release.
+- Fresh clone `~/NEXT.JS/cyph-v1-dev-r2`, positioned (detached) at the candidate by Engineering.
+- New three-value `.env.local`, never copied from round one.
+- Starter filled (`CYPH-R2-BIBO-SETUP-01`, plus a "Baseline status" line).
+- Gate Q1–Q5: JARVIS independent review + G01–G04/G06 (G05 fixtures recommended) → Director adjudication → leave Draft/merge → post-merge tree check.
+
+**Pending (Director):** D1 candidate stays `0de7303` · D2 disclosure line · D3 gate + JARVIS designation · D4 G05 fixtures · D5 assignment ID · then E1–E7 · separate go for R1.
+**Next step:** Tony's review. Nothing run on the VM.
+
+**Prior block (2026-10-15 11:29):** **Last updated:** 2026-10-15 11:29 — **PR #3 (Draft) review package delivered for JARVIS** · External handoff ready **NO**
+**PR #3:** base `main` @ `d2a0d13c8d3644a3171db4539ee0e59978381858` · head `pilot/vik-round2-onboarding` @ `0de73039d312ff49b2a61120f79c0d05521c1522` (2 commits: `08bfa11` round two, `0de7303` Stage A) · 42 files.
+**ZIP:** `/home/moose/Downloads/CYPH_PR3_REVIEW_2026-10-15.zip` (SHA-256 `0037f010…6d97d85`) · report `agent_docs/RESPONSES/response_2026-10-15_112948_pr3-review-package.md`.
+**Pending (Director):** JARVIS review · QA-gate decision for PR #3 (installed System Test unmet until G04; Gate Q by analogy for the code) · merge · final SHA → starter → G01–G06 · advisories disposition · sandbox proposals + D1–D4.
+**Next step:** JARVIS review.
+
+**Prior block (2026-10-14):** **Last updated:** 2026-10-14 18:58 — **Stage A startup fix COMPLETE (uncommitted)** on `pilot/vik-round2-onboarding` @ `08bfa11` · External handoff ready **NO**
+**Done:** `SUPABASE_SECRET_KEY` removed from the boot list (`src/instrumentation.ts`); `createAdminClient` rejects blank or whitespace values; 14 regression tests. A disposable clone with three nonsecret public values boots (control at HEAD fails); secret absent from the file and the process environment; jest 36/178, lint 0 errors, tsc, build OK. Report: `agent_docs/RESPONSES/response_2026-10-14_185835_stageA-startup-fix-result.md`.
+**Not authorized / pending review:** sandbox development (approved in principle only). Stage B, migration runner, provisioning runbook, fourth readiness field, expanded guest rules, D1–D4.
+**Round one (corrected):** startup indicates only that a nonempty value may have been available under the reported conditions; contents unknown; VM untouched.
+**Next step:** Tony reviews and commits Stage A (commands in the report §6) → round-two merge → final SHA → G01–G06 (G04 = first real three-value login).
+
+**Prior block (2026-10-14 18:29):** **Last updated:** 2026-10-14 18:29 — **Feature-scope + sandbox DB plan PENDING_APPROVAL** on `pilot/vik-round2-onboarding` @ `08bfa11` (pushed; `origin/main` = `d2a0d13`) · External handoff ready **NO**
+**Director decision 18:20:** guests may build complete feature proposals incl. tables/migrations in their designated sandbox; no `SUPABASE_SECRET_KEY`/service-role key (earlier permission withdrawn).
+**Plan:** `agent_docs/RESPONSES/response_2026-10-14_182943_feature-scope-sandbox-db-plan.md` — boot-list fix in `src/instrumentation.ts` · per-guest sandbox + least-privilege role · rule changes C1–C11 + 4th README field (NO) · guest migrations under `vibe_proposals/<id>/migrations/` via new guarded script · Stage C cloud steps separate.
+**Pending (Director):** approve plan · D1 sandbox per guest? · D2 role vs `postgres` password · D3 new script · D4 round-one VM key value (rotate if real).
+**Next step:** Tony's approval. Nothing implemented.
+
+**Prior block (2026-10-14 13:33):** **Last updated:** 2026-10-14 13:33 — **Round-two VIK amendment COMPLETE (uncommitted) on `pilot/vik-round2-onboarding` @ `d2a0d13`** · External handoff ready **NO**
+**Done:** `CLAUDE.md` §2 narrow AI branch-prep authorization · guest README/START_HERE/GUEST_AI_RULES rewritten from the round-two pack (+ Director corrections) · starter template verbatim · VPR template contact/tool line · `next.config.js` `agentRules:false` (F04-proven in a disposable checkout; control run reproduces the generated block) · ledger R1–R8 + supersessions · evidence in `agent_docs/VIK/round2-evidence/`. Report: `agent_docs/RESPONSES/response_2026-10-14_133319_round2-vik-result.md`.
+**Findings for Tony:** (1) `src/instrumentation.ts` requires `SUPABASE_SECRET_KEY` → a three-value guest `.env.local` cannot start the app; decide before the next rehearsal · (2) 34 advisories, disposition pending, repairs = separate task · (3) dev-server must be stopped as a process tree (rules §5 updated).
+**Uncommitted:** 7 modified + `vibe_docs/STARTER_MESSAGE_TEMPLATE.txt` + `agent_docs/VIK/round2-evidence/` + today's log + report + CHANGELOG + this file. Director's 12:59 `_OLD/` moves (6 files) untouched, outside the amendment.
+**Pending:** Tony review → commit/PR/merge/sync → final SHA → fill starter → fresh-session G01–G06 → P01/P02/T01/R01.
+**Next step:** Tony's review.
+
+**Prior block (2026-10-12 17:15):** **Last updated:** 2026-10-12 17:15 — **Review ACCEPTED, cleanup COMPLETE, awaiting Tony's commit** on `vibe-pilot-setup` @ `2c9fd65`
 **Done:** four cleanup edits (isolation status honest, `npm ci` wording, handoff-NO permits setup/login, env comment "Tony"); ledger A18–A21. Commit/push commands in `agent_docs/RESPONSES/response_2026-10-12_171557_vik-cleanup-and-commit.md` §3 (19 paths; excludes `package-lock.json` and the six `_OLD/` archive moves; no `git add -A`).
 **Status fields:** Kit installed YES · Guest rehearsal authorized YES (setup/login) · External handoff ready **NO**.
 **Next step:** Tony stages, commits, pushes (`git push -u origin vibe-pilot-setup`), opens the PR to `main`, merges; rehearsals; readiness flip committed and merged; only then the baseline SHA and the handoff message.

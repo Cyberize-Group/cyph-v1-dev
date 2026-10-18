@@ -1,0 +1,62 @@
+PROJECT CHECKS — disposable checkout (HEAD d2a0d13 + amended overlay), 2026-10-14T13:09:51+06:00
+No .env.local present in this checkout (by instruction).
+
+### npm run lint
+exit=0  (7s)
+
+/tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/7b9f2aa7-ca45-4b07-ae92-b4c7959c45ca/scratchpad/checkout/src/components/ui/command.tsx
+  35:24  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/7b9f2aa7-ca45-4b07-ae92-b4c7959c45ca/scratchpad/checkout/src/components/ui/use-toast.ts
+  21:7  warning  'actionTypes' is assigned a value but only used as a type. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+/tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/7b9f2aa7-ca45-4b07-ae92-b4c7959c45ca/scratchpad/checkout/src/utils/supabase/server.ts
+  6:44  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+✖ 35 problems (0 errors, 35 warnings)
+
+
+### ./node_modules/.bin/tsc --noEmit
+exit=0  (7s)
+
+### npm test -- --ci
+exit=0  (7s)
+
+> cyber-pharma@0.1.0 test
+> jest --ci
+
+
+Test Suites: 34 passed, 34 total
+Tests:       164 passed, 164 total
+Snapshots:   0 total
+Time:        6.039 s
+Ran all test suites.
+
+### npm run build
+exit=0  (21s)
+├ ○ /auth
+├ ○ /error
+├ ○ /icon.png
+├ ƒ /owedbook
+└ ƒ /profile
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+
+### tracked status after checks
+ M .github/PULL_REQUEST_TEMPLATE/vibe_proposal.md
+ M CLAUDE.md
+ M agent_docs/VIK/ADAPTATIONS.md
+ M next.config.js
+ M vibe_docs/GUEST_AI_RULES.md
+ M vibe_docs/README.md
+ M vibe_docs/START_HERE.md
+?? audit.err
+?? audit.json
+?? check.out
+?? npm-ci.log
+?? vibe_docs/STARTER_MESSAGE_TEMPLATE.txt

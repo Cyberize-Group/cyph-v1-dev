@@ -21,7 +21,7 @@ export const createAdminClient = () => {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
   const supabaseServiceKey = process.env.SUPABASE_SECRET_KEY!
 
-  if (!supabaseUrl || !supabaseServiceKey) {
+  if (!supabaseUrl?.trim() || !supabaseServiceKey?.trim()) {
     throw new Error('Missing Supabase admin credentials')
   }
 
