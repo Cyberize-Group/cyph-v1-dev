@@ -1,3 +1,5 @@
+SUPERSEDED (Stage 3, 2026-10-19): the assignment is now delivered as the file VIBE_ASSIGNMENT.local.md, prepared from vibe_docs/ASSIGNMENT_FILE_TEMPLATE.md. This pasted form is accepted only when that file is absent, for one compatibility cycle, and is scheduled for removal in Stage 4.
+
 ENGINEERING TEMPLATE — FILL BEFORE DELIVERY; NOT READY TO PASTE INTO A GUEST SESSION
 
 Release procedure: after revised kit/config merge, resolve the complete resulting main commit. Fill every REQUIRED value below and verify the assigned branch state. Send the finished message to the guest. Never ask the guest to fill technical values. Do not embed actual environment values, tokens, passwords or personal patient data.

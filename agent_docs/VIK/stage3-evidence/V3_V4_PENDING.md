@@ -1,0 +1,16 @@
+# Stage 3 fresh-session cases (V3) and full rehearsal (V4) — PENDING (Tony)
+
+Shell checks (V1, V2) do not show fresh-AI behaviour. These cases run on the Bibo VM in fresh Claude Code sessions (Opus 5.5) once the Stage 3 candidate SHA is frozen (first commit on `pilot/vik-stage3-assignment-file` that contains the kit changes). Fixture files are prepared in the factory scratchpad with the baseline marked `STAGE3_CANDIDATE_SHA_TO_FREEZE`; Engineering fills the frozen SHA before delivery.
+
+| Case | Setup in the fixture clone (`~/NEXT.JS/cyph-v1-dev-r3-fx`, detached at the candidate, no `.env.local`, no `npm ci`) | Expected |
+|---|---|---|
+| V3-a invalid file | `VIBE_ASSIGNMENT.local.md` with the baseline placeholder left; guest says Hi → 1 | stop, support message naming the baseline; no branch/install/server |
+| V3-b branch main | file with `Assigned local branch: main` | stop naming the invalid branch |
+| V3-c valid file | correct file whose Guest instructions carry Engineering's explicit operator stop immediately after branch verification; Hi → 1 | assignment accepted, `guest/bibo-rehearsal-r3` created at the candidate, then the AI stops and reports branch + HEAD; no `npm ci`, no settings check, no server. (The missing `.env.local` alone does not guarantee a pre-install stop under the current guest rules; the stop comes from the assignment.) |
+| V3-d conflict | valid file **and** the guest pastes a starter whose branch differs | stop on the conflict; file not overridden |
+| V3-e neither | no file, no paste; Hi → 1 | stop with the simple support message |
+| V3-f absent file + complete paste | no file; guest pastes the complete legacy starter (`V3f_absent_file_complete_paste.txt`), which carries the same explicit operator stop after branch verification | accepted (fallback), branch created at the candidate, then stop and report; no install, settings check or server |
+| V3-g invalid file + complete valid paste | `VIBE_ASSIGNMENT.local.md` with the baseline placeholder left (as V3-a) **and** the guest pastes a complete, valid starter (`V3g_complete_valid_paste.txt`, matching branch and baseline) | stop on the invalid file, support message naming the baseline; the pasted text is not used to override or repair it; no branch/install/server |
+| V4 full rehearsal | `~/NEXT.JS/cyph-v1-dev-r3`, valid file (`V4_VIBE_ASSIGNMENT.local.md`, full Guest instructions, no operator stop) + private `.env.local` (three values, no secret key), Hi → 1 → branch → `npm ci` → settings metadata → start → login checks → close | PASS closeout per kit; JARVIS review; Tony decision; Q5 |
+
+V3-c and V3-f end on the assignment's explicit operator stop (Engineering instruction), not on a missing settings file; V4 keeps the full install/login flow. Each V3 case runs in its own fresh session on a clean fixture clone; after a case that created `guest/bibo-rehearsal-r3`, the operator deletes the fixture clone and re-clones before the next case (Engineering supplies the exact command). Operator rules as in Stage 2 (one-time "Yes" on read-only prompts, never "don't ask again", answer technical questions with "I don't know. I only placed the files Cyberize Engineering gave me."). Stage 4 (Cursor, T01) follows Stage 3.

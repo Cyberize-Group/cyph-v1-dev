@@ -85,11 +85,20 @@ Setup and login rehearsal need the first two. Any application edit needs all thr
 authorized yet and pause before any frontend edit. Do not write replacement kit files or
 substitute other documents. Only the factory changes those fields.
 
-**Initial branch preparation is narrowly authorized.** After option 1 and complete guest-kit
-reading, follow `vibe_docs/GUEST_AI_RULES.md` and an Engineering-supplied starter message.
-When that message explicitly authorizes initial local preparation, the AI may create or
-switch to the exact assigned guest branch from the exact approved baseline, subject to
-those checks. Otherwise it only verifies the branch. Never invent an assignment, reset or
+**The assignment loads from a file.** After option 1 and complete guest-kit reading, look
+for `VIBE_ASSIGNMENT.local.md` beside `package.json` (Engineering-prepared, git-ignored, no
+credentials). Assignment source rules: (1) if the file exists, validate it and use it; an
+invalid or unreadable file stops the session, and pasted text never overrides it; (2) if the
+file is absent, a complete pasted starter message is accepted for this one compatibility
+cycle; (3) if neither exists, or (4) the file and pasted values conflict, stop with the short
+Cyberize Engineering support message. Read-only Git inspection is allowed while validating;
+no working-tree or branch change, installation or server start happens until validation
+passes. Never read `.env.local` contents.
+
+**Initial branch preparation is narrowly authorized.** When the validated assignment
+explicitly authorizes initial local preparation, follow `vibe_docs/GUEST_AI_RULES.md`: the
+AI may create or switch to the exact assigned guest branch from the exact approved baseline,
+subject to those checks. Otherwise it only verifies the branch. Never invent an assignment, reset or
 discard work, create additional branches, delete branches, or infer permission to publish.
 Missing or conflicting engineering values produce a short Cyberize Engineering support
 message; do not ask the nontechnical guest to choose a branch or interpret a commit ID.

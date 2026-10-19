@@ -3,6 +3,17 @@
 > Documentation/playbook change log per CLAUDE.md Changelog Protocol.
 > `[CC]` = Claude Code · `[TS]` = Tony Stark manual edits.
 
+## 2026-10-19 07:45 UTC — [CC] Claude Code
+
+- **Updated:** `vibe_docs/START_HERE.md` (opening and next-session wording use the assignment-file flow; fallback kept), `vibe_docs/ASSIGNMENT_FILE_TEMPLATE.md` (baseline rule: merged baseline for external release, frozen Draft PR candidate only for an explicitly authorized internal rehearsal; placeholder and completeness check aligned), `agent_docs/VIK/stage3-evidence/V3_V4_PENDING.md` (new case V3-g invalid file + complete valid paste; V3-c/V3-f stop by explicit Engineering instruction after branch verification; V4 keeps the full flow), `agent_docs/VIK/ADAPTATIONS.md` (T10), `RECOVERY.md`, implementation report (dated correction: one combined commit).
+- **Reason:** JARVIS review of `CYPH_STAGE3_REVIEW_2026-10-19.zip` — implementation accepted with corrections 1–5 before candidate freeze; Stage 3 not certified, no merge approval. V3/V4 pending; External handoff ready stays NO.
+
+## 2026-10-19 06:05 UTC — [CC] Claude Code
+
+- **Updated:** `CLAUDE.md` §2, `vibe_docs/README.md`, `vibe_docs/START_HERE.md`, `vibe_docs/GUEST_AI_RULES.md` §2/§4, `vibe_docs/STARTER_MESSAGE_TEMPLATE.txt` (superseded header), `.gitignore` (`/VIBE_ASSIGNMENT.local.md`), `CLAUDE.eng.md` (Post-Merge Sync Rule), `agent_docs/VIK/ADAPTATIONS.md` (Stage 2 closure, Stage 3 T1–T9).
+- **Created:** `vibe_docs/ASSIGNMENT_FILE_TEMPLATE.md`, `agent_docs/VIK/stage3-evidence/`, `agent_docs/RESPONSES/response_2026-10-19_120500_stage3-implementation.md`.
+- **Reason:** Stage 3 — Engineering-prepared assignment file auto-loaded after Hi → 1 replaces the pasted starter (Director requirement 2026-10-18; JARVIS-corrected plan v2). Stage 2 (PR #3, merge `f4341c2`, Q5 PASS) recorded in the ledger and README. V3 fresh-session cases and the V4 rehearsal are pending; Stage 4 = Cursor. External handoff ready stays NO.
+
 ## 2026-10-14 12:58 UTC — [CC] Claude Code
 
 - **Updated:** `src/instrumentation.ts`: `SUPABASE_SECRET_KEY` removed from the boot requirements; the three public settings still fail closed. `src/utils/supabase/admin.ts`: the guard now also rejects whitespace-only values. `agent_docs/VIK/ADAPTATIONS.md`: Stage A section (S1–S4). The finding's startup half is resolved; its sandbox half is still open.

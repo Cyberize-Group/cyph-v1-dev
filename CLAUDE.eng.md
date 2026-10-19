@@ -264,6 +264,14 @@ approval to run git.**
 | Tell him the exact commands to run, so he can paste them | ✅ |
 | Run any mutating git command yourself | ❌ NEVER |
 
+### Post-Merge Sync Rule (Tony's standing rule, 2026-10-19)
+
+After EVERY PR merge: preserve pending work, then have Tony sync local `main` with
+`origin/main` and verify their full SHAs match. Merge closeout is incomplete until that
+verification succeeds. If it is blocked (pending edits, non-fast-forward, network), report it
+explicitly and preserve local work; never reset, stash or discard. Supply the sync commands;
+Tony runs them. This rule does not expand the guest assistant's Git permissions.
+
 ### The Reminder Duty
 
 Reminding is not optional — it is the counterpart to the ban. Surface a reminder when:

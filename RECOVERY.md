@@ -4,7 +4,32 @@
 > Updated after every plan completion. If this file is stale, the session log in
 > `agent_docs/SESSIONS/` is the fallback source of truth.
 
-**Last updated:** 2026-10-18 13:36 — **Stage 2 prep COMPLETE; merge + Q5 with Tony** · JARVIS **PASS WITH FINDINGS** for candidate `0de7303` (limits recorded in `agent_docs/VIK/round2-rehearsal/00_STATUS.md`) · PR #3 Draft head `eda63ff` · External handoff ready **NO**
+**Last updated:** 2026-10-19 13:45 — **JARVIS corrections 1–5 applied; ONE combined commit awaits Tony** on `pilot/vik-stage3-assignment-file` @ `f4341c2` · Stage 3 not certified · External handoff ready **NO**
+**Record:** `agent_docs/RESPONSES/response_2026-10-19_134500_stage3-jarvis-corrections.md` (diff + commit/push/Draft PR block). Commit guidance: one combined reviewed commit (JARVIS-accepted); the earlier two-commit plan in the records below is historical.
+**Next step:** Tony runs the commit block → push → Draft PR → that commit SHA is the frozen Stage 3 candidate → Engineering fills it into the V3/V4 fixtures → V3 (seven cases) + V4 on the Bibo VM → JARVIS → Tony merge → Q5 → post-merge sync rule. Tony also refreshes `CLAUDE.local.md`.
+
+**Prior block (2026-10-19 12:15):** **Last updated:** 2026-10-19 12:15 — **Stage 3 review package delivered to JARVIS; implementation uncommitted** on `pilot/vik-stage3-assignment-file` @ `f4341c2` · External handoff ready **NO**
+**ZIP:** `~/Downloads/CYPH_STAGE3_REVIEW_2026-10-19.zip` (`3b3be356…9ae1`). Grouping: one combined commit recommended. Record: `agent_docs/RESPONSES/response_2026-10-19_121543_stage3-review-package.md`.
+**Next step:** JARVIS review → Tony "approved for commit" + grouping choice → commit block → Draft PR → frozen candidate → V3/V4 on the Bibo VM.
+
+**Prior block (2026-10-19 12:05):** **Last updated:** 2026-10-19 12:05 — **Stage 3 IMPLEMENTED, uncommitted, on `pilot/vik-stage3-assignment-file` @ `f4341c2`** · V3/V4 PENDING (Tony) · External handoff ready **NO**
+**Report:** `agent_docs/RESPONSES/response_2026-10-19_120500_stage3-implementation.md`. Evidence: `agent_docs/VIK/stage3-evidence/`. Ledger T1–T9.
+**Next step:** Tony reviews the diff → "approved for commit" → two-commit block + Draft PR → frozen candidate → V3 fresh-session cases + V4 rehearsal on the Bibo VM → JARVIS → merge → Q5 → post-merge sync. Tony also refreshes `CLAUDE.local.md` (new Post-Merge Sync Rule). Stage 4 = Cursor T01.
+
+**Prior block (2026-10-19 10:45):** **Last updated:** 2026-10-19 10:45 — **Stage 3 plan v2 accepted in direction (JARVIS); awaiting Tony's branch prep** · `origin/main` = `f4341c2` · External handoff ready **NO**
+**Plan v2:** `agent_docs/RESPONSES/response_2026-10-19_104500_stage3-plan-v2.md` (source rules, V1–V4, fail-closed prep block). Stage 4 = Cursor T01.
+**Next step:** Tony runs the prep block → `PREP OK` → implementation on `pilot/vik-stage3-assignment-file` (commit 1 = pending records + stale docs).
+
+**Prior block (2026-10-19 10:08):** **Last updated:** 2026-10-19 10:08 — **Stage 3 plan PENDING_APPROVAL** (assignment file auto-load) · `origin/main` = `f4341c2`; local main unsynced · External handoff ready **NO**
+**Plan:** `agent_docs/RESPONSES/response_2026-10-19_100810_stage3-assignment-file-plan.md` · branch `pilot/vik-stage3-assignment-file` to carry Q5 records + stale docs + Stage 3 · Stage 4 = Cursor T01.
+**Next step:** Tony approves D1–D5 and runs the sync/branch block (§6).
+
+**Prior block (2026-10-18 14:18):** **Last updated:** 2026-10-18 14:18 — **PR #3 MERGED, Q5 PASS, Stage 2 COMPLETE** · `main` = merge commit `f4341c24559830d8488f9cf435f311c06a041d60` (Tony, authorized admin bypass; merge commit) · External handoff ready **NO**
+**Q5:** candidate `0de7303` vs merge commit, excluding RECOVERY/CHANGELOG/SESSIONS/RESPONSES/round2-rehearsal → empty. Record: `agent_docs/RESPONSES/response_2026-10-18_141848_q5-result.md`.
+**Uncommitted:** this file, session_2026-10-18, 00_STATUS.md, the Q5 record — need a records branch + PR (main is PR-only).
+**Next step:** Tony syncs local main → post-merge cycle: ADAPTATIONS ledger + README evidence line (plan) · onboarding-improvement plan · T01 Cursor later · dependency/runtime disposition · P01/P02 · R01 with baseline `f4341c24559830d8488f9cf435f311c06a041d60`.
+
+**Prior block (2026-10-18 13:36):** **Last updated:** 2026-10-18 13:36 — **Stage 2 prep COMPLETE; merge + Q5 with Tony** · JARVIS **PASS WITH FINDINGS** for candidate `0de7303` (limits recorded in `agent_docs/VIK/round2-rehearsal/00_STATUS.md`) · PR #3 Draft head `eda63ff` · External handoff ready **NO**
 **Blocker:** ruleset PROTECT MAIN needs 1 approving review (author can't self-approve) or Admin bypass; merge-commit only. Commands: `agent_docs/RESPONSES/response_2026-10-18_133628_stage2-merge-prep.md` §5.
 **Next step:** Tony commits/pushes records → `gh pr ready` → approval/bypass → merge commit → Q5 diff (exclude record paths + round2-rehearsal) → sends `origin/main` SHA + Q5 line. Then: ledger/README update, onboarding-improvement plan, T01 Cursor later stage.
 
