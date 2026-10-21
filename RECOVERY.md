@@ -4,7 +4,15 @@
 > Updated after every plan completion. If this file is stale, the session log in
 > `agent_docs/SESSIONS/` is the fallback source of truth.
 
-**Last updated:** 2026-10-19 13:45 — **JARVIS corrections 1–5 applied; ONE combined commit awaits Tony** on `pilot/vik-stage3-assignment-file` @ `f4341c2` · Stage 3 not certified · External handoff ready **NO**
+**Last updated:** 2026-10-21 09:40 — **Stage 3 Engineering closeout: READY FOR DIRECTOR MERGE REVIEW** · tested HEAD `6f4e004c8a1278458230fc6359844408f841956d` = Draft PR #4 head · External handoff ready **NO**
+**Results:** Bibo Zorin rehearsal 20 Oct, V3-a…g + V4 PASS (**Director-supplied**; no transcripts in records). Notes: runtime Node 24 and 33 audit findings = open follow-ups needing a decision (block the handoff flip, not the merge); demo marker Admin-Portal-only = intended; effort unverified = evidence limit. Record: `agent_docs/RESPONSES/response_2026-10-21_093116_stage3-closeout.md`.
+**Next step:** Tony runs the records commit block (report §7) → JARVIS QA recommendation → Director: evidence limits + follow-ups, `gh pr ready 4`, review or admin bypass, merge commit → Q5 → post-merge sync (refresh `CLAUDE.local.md` first). Pending later: T01 Cursor, GitHub contribution rehearsal (check VIK contribution lifecycle first), R01.
+
+**Prior block (2026-10-19 14:30):** **Last updated:** 2026-10-19 14:30 — **Stage 3 candidate FROZEN `6f4e004c8a1278458230fc6359844408f841956d` (Draft PR #4); Bibo VM V3/V4 handoff delivered** · Stage 3 not certified · External handoff ready **NO**
+**Handoff:** `/home/moose/Downloads/CYPH_STAGE3_BIBO_VM_HANDOFF_2026-10-19_142745.zip` (`c079aa65…f0f3`): case matrix (V3-a…g one clone each, V4 in `cyph-v1-dev-r3`), fail-closed clone block, frozen fixtures. Record: `agent_docs/RESPONSES/response_2026-10-19_143000_stage3-bibo-vm-handoff.md`.
+**Next step:** Tony runs the V3-a clone block on the VM → `S3 CLONE OK` → fixture placement command → fresh session Hi → 1 → transcript back → next case. After V3-a…g and V4: JARVIS review → Tony merge → Q5 → post-merge sync rule. Tony also refreshes `CLAUDE.local.md`.
+
+**Prior block (2026-10-19 13:45):** **Last updated:** 2026-10-19 13:45 — **JARVIS corrections 1–5 applied; ONE combined commit awaits Tony** on `pilot/vik-stage3-assignment-file` @ `f4341c2` · Stage 3 not certified · External handoff ready **NO**
 **Record:** `agent_docs/RESPONSES/response_2026-10-19_134500_stage3-jarvis-corrections.md` (diff + commit/push/Draft PR block). Commit guidance: one combined reviewed commit (JARVIS-accepted); the earlier two-commit plan in the records below is historical.
 **Next step:** Tony runs the commit block → push → Draft PR → that commit SHA is the frozen Stage 3 candidate → Engineering fills it into the V3/V4 fixtures → V3 (seven cases) + V4 on the Bibo VM → JARVIS → Tony merge → Q5 → post-merge sync rule. Tony also refreshes `CLAUDE.local.md`.
 
