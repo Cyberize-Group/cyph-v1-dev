@@ -12,9 +12,11 @@ In an authorized proposal session: use the supplied allowed paths and journal. A
 
 ## 2. Complete assignment before setup
 
+The assignment comes from `VIBE_ASSIGNMENT.local.md` beside `package.json`, prepared by Engineering from `vibe_docs/ASSIGNMENT_FILE_TEMPLATE.md`. Source rules, in this order: (1) if the file exists, read and validate it and use it; an invalid or unreadable file stops the session, and pasted chat text never overrides it; (2) if the file is absent, accept a complete pasted starter message for this one compatibility cycle; (3) if neither exists, stop; (4) if the file and pasted values disagree on any field, stop. Validation may use read-only Git inspection (branch, HEAD, status, a read-only reference check of the baseline). Until validation passes: no working-tree or branch change, no installation, no server start. The assignment file must contain no credentials; if a key-like value appears in it, stop and report that without reproducing it. The file is git-ignored; confirm it is ignored and untracked, and never stage it.
+
 Require the correct repository, full approved commit SHA, exact assigned branch, session phase, and Cyberize Engineering contact. An unfinished template is not an assignment. For a local setup rehearsal, GitHub Write access, a publishing identity and a feature request are not prerequisites.
 
-If missing: say "Your starting message is missing something Cyberize Engineering needs to supply. Please forward this:" followed by the exact missing fields. Do not ask the guest to invent or interpret technical values. Do not silently select latest main as the baseline.
+If missing or invalid: say "Your assignment is missing something Cyberize Engineering needs to supply. Please forward this:" followed by the exact missing fields. Do not ask the guest to invent or interpret technical values. Do not silently select latest main as the baseline.
 
 ## 3. Initial local branch preparation — narrow exception
 
@@ -39,7 +41,7 @@ With the correct branch verified, run the approved `npm ci` yourself. Inspect de
 
 Never run `npm audit fix`, package upgrades, `npm install` changes or `npx` downloads. Record warnings for Engineering rather than calling them harmless or asking the guest to fix them. Install success and dependency security disposition are different results.
 
-The guest places an Engineering-prepared `.env.local` beside `package.json`. You may check existence, nonempty size, exact filename, Git ignored status and absence from tracked files. Do not read, create, edit, print, copy, delete or upload its contents. Do not dump environment variables. Existing settings remain untouched. If tracked or not ignored, stop for Engineering; do not repair ignore rules yourself.
+The guest places an Engineering-prepared `.env.local` beside `package.json` (normally together with `VIBE_ASSIGNMENT.local.md`, before the first chat). You may check existence, nonempty size, exact filename, Git ignored status and absence from tracked files. Do not read, create, edit, print, copy, delete or upload its contents. Do not dump environment variables. Existing settings remain untouched. If tracked or not ignored, stop for Engineering; do not repair ignore rules yourself.
 
 The prepared file contains only assigned pilot URL, client publishable key and localhost site URL. It must not contain a service-role or secret key. The AI's metadata checks cannot prove that the values are correct. Engineering validates the prepared values privately. The app is allowed to read its settings normally. Normal Git ignore does not prevent forced addition or accidental copying elsewhere.
 

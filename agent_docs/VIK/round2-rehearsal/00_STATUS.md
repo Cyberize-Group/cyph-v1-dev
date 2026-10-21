@@ -28,3 +28,10 @@ Candidate `0de73039d312ff49b2a61120f79c0d05521c1522` · PR #3 Draft, head `eda63
 | Onboarding improvement: auto-loaded Engineering assignment replaces the pasted starter | required by the Director; implementation pending |
 
 Dependency findings open (34 factory / 33 guest advisories, peer conflicts); runtime policy (Node 24 vs 22) open; sandbox work deferred. Ledger `agent_docs/VIK/ADAPTATIONS.md` is updated only after the merge, so the candidate tree stays unchanged.
+
+## Q4/Q5 result (2026-10-18 14:18)
+
+- **Q4:** PR #3 merged by Tony at 2026-10-18 08:16:53Z using the **authorized admin bypass** of the "PROTECT MAIN" review rule. This was Tony's Director decision; no second reviewer approved. Merge method: merge commit.
+- **Merge commit:** `f4341c24559830d8488f9cf435f311c06a041d60` (parents `d2a0d13` main, `db5caf7` PR head). `origin/main` = that commit (verified by `ls-remote` and a read-only bare clone).
+- **Q5: PASS.** `git diff` candidate `0de73039d312ff49b2a61120f79c0d05521c1522` → merge commit, excluding only `RECOVERY.md`, `CHANGELOG.md`, `agent_docs/SESSIONS/`, `agent_docs/RESPONSES/`, `agent_docs/VIK/round2-rehearsal/`, is empty. The excluded paths account for all 17 changed files. The rehearsal evidence therefore applies to the merged `main`.
+- **Stage 2: COMPLETE.** Release baseline for later starters (R01): `f4341c24559830d8488f9cf435f311c06a041d60`. External handoff ready stays **NO**; T01 Cursor, P01/P02, dependency disposition, onboarding improvement and R01 remain later stages.

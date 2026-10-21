@@ -1,0 +1,13 @@
+V2 disposable checkout at f4341c2 + working .gitignore — 2026-10-19T12:01:27+06:00
+== check-ignore:
+.gitignore:42:/VIBE_ASSIGNMENT.local.md	VIBE_ASSIGNMENT.local.md
+.gitignore:28:.env*.local	.env.local
+== add -A dry-run (must list only .gitignore):
+add '.gitignore'
+== status --short (local files must not appear):
+ M .gitignore
+== status --ignored:
+!! .env.local
+!! VIBE_ASSIGNMENT.local.md
+== forced add is still possible (documented limit):
+add 'VIBE_ASSIGNMENT.local.md'

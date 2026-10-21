@@ -126,3 +126,26 @@ A1–A3, A5, A6, A8–A12, A14, A18, A21 remain in force.
 | Superseded | Was | Now |
 | --- | --- | --- |
 | Earlier Director permission to supply the sandbox secret key (given outside this session) | Engineering could give a guest the sandbox secret key | Withdrawn. Guests get no secret or service-role key. No tracked file ever applied the permission |
+
+# Stage 2 closure and Stage 3 assignment file (2026-10-19)
+
+**Stage 2 (PR #3) closed.** JARVIS: PASS WITH FINDINGS for candidate `0de73039d312ff49b2a61120f79c0d05521c1522` (limits: no supplied live three-value settings check, no full round-one preservation comparison, no transcripts/reading-order evidence, effort unknown). Tony merged PR #3 on 2026-10-18 with the authorized admin bypass (Director decision, not a second reviewer); merge commit `f4341c24559830d8488f9cf435f311c06a041d60`; Q5 tree comparison against the candidate PASS. Evidence: `agent_docs/VIK/round2-rehearsal/`.
+
+**Stage 3 (Director requirement 2026-10-18):** the guest-pasted technical starter is replaced by an Engineering-prepared assignment file loaded automatically after Hi → 1. Design and corrections: `agent_docs/RESPONSES/response_2026-10-19_104500_stage3-plan-v2.md`.
+
+| # | File | Change | Reason |
+| --- | --- | --- | --- |
+| T1 | `CLAUDE.md` §2 | "The assignment loads from a file" paragraph with the four source rules; branch-prep paragraph now keyed to the validated assignment | one rule set at the entry point |
+| T2 | `vibe_docs/README.md` | Evidence line updated (round two completed, merged `f4341c2`; Stage 3 rehearsal pending); assignment-file paragraph with the four source rules | README is the guest entry and status authority |
+| T3 | `vibe_docs/START_HERE.md` | Guest places two files before the first chat, says Hi, chooses 1; no pasting; temporary fallback sentence | nontechnical flow |
+| T4 | `vibe_docs/GUEST_AI_RULES.md` §2, §4 | Source rules, read-only Git validation allowed, no tree/branch/install/server change until validation passes, no credentials in the file, ignored/untracked check, never stage; §4 placement sentence; support sentence now says "assignment" | enforcement text for the AI |
+| T5 | `vibe_docs/ASSIGNMENT_FILE_TEMPLATE.md` (new) | Fields carried over from the starter plus "Baseline status" and "Guest instructions"; completeness check | Engineering fills it; no REQUIRED markers may remain |
+| T6 | `vibe_docs/STARTER_MESSAGE_TEMPLATE.txt` | Header marked SUPERSEDED; accepted only when the file is absent, one cycle; removal scheduled for Stage 4 | compatibility fallback |
+| T7 | `.gitignore` | `/VIBE_ASSIGNMENT.local.md` | file stays out of Git; forced add remains possible (documented limit, as for `.env.local`) |
+| T8 | `CLAUDE.eng.md` | Post-Merge Sync Rule (Tony's standing rule): preserve pending work, sync local `main` with `origin/main`, verify full SHAs; closeout incomplete until verified; blocked → report and preserve | factory instruction only; guest Git permissions unchanged. `CLAUDE.local.md` must be refreshed by Tony from the master |
+| T9 | `agent_docs/VIK/stage3-evidence/` (new) | V1 consistency, V2 disposable-checkout ignore/Git checks, V3/V4 pending cases | V1–V2 are shell checks; V3 fresh-session cases and V4 rehearsal are PENDING (Tony) |
+| T10 | `START_HERE.md`, `ASSIGNMENT_FILE_TEMPLATE.md`, `V3_V4_PENDING.md`, `RECOVERY.md`, implementation report | JARVIS corrections 1–5 (2026-10-19): START_HERE opening/next-session wording on the file flow; template baseline rule (external release = merged baseline; explicitly authorized internal rehearsal = frozen pre-merge candidate) with aligned placeholder/completeness check; V3-g added (invalid file + complete valid paste → stop); V3-c/V3-f stop by explicit Engineering instruction after branch verification, V4 keeps the full flow; one combined reviewed commit | review verdict: implementation accepted with corrections; Stage 3 not certified; no merge approval |
+
+Not changed: `src/**`, `package*.json`, `next.config.js`, `.env*`, `CLAUDE.local.md`, `supabase/**`, guest clones. No application test/build run (no application change).
+
+**Stages:** Stage 3 gate = V1–V2 (done), V3 + V4 (pending, Bibo VM), JARVIS review, Tony merge, Q5. **Stage 4 = Cursor (T01)**: internal Cursor preparation may start after Stage 3; Frank's intake answers shape his exact setup and do not block that preparation. Dependency findings and runtime policy remain open; External handoff ready stays NO.
