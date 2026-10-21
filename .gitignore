@@ -38,5 +38,5 @@ node_modules
 # factory-local Claude Code instructions (see agent_docs/FACTORY_SESSION_SETUP.md)
 /CLAUDE.local.md
 
-# guest assignment file prepared by Cyberize Engineering (see vibe_docs/README.md)
+# retired Stage 3 guest assignment file; still ignored so an old copy is never staged
 /VIBE_ASSIGNMENT.local.md

@@ -49,7 +49,7 @@ Kept verbatim in substance: journal rule (`VIBE_JOURNAL.md`, appended before eve
 | Field | Value | Set |
 | --- | --- | --- |
 | Kit installed | YES | 2026-10-12, this install |
-| Guest rehearsal authorized | YES, setup and login only | 2026-10-12, Director Correction 2 |
+| Guest rehearsal authorized | YES, setup and login only → **YES, local setup, login and frontend proposal work; no publishing** | 2026-10-12, Director Correction 2; widened 2026-10-21 (Stage 4, Director: local proposal work authorized, setup-only gate removed) |
 | External handoff ready | NO | awaits Tony's explicit authorization after review; the handoff message then carries the baseline SHA and branch name |
 
 ## Release sequence (fixed order)
@@ -160,3 +160,22 @@ Not changed: `src/**`, `package*.json`, `next.config.js`, `.env*`, `CLAUDE.local
 | T12 | `agent_docs/VIK/stage3-evidence/00_STATUS.md` (new), `V3_V4_PENDING.md` header | Results, JARVIS verdict, evidence limits, open findings, gates, next stages; plan marked executed | post-merge record, as for Stage 2 |
 
 **Next stages:** Coach Cowork compatibility trial (then rehearsal if supported) · Frank Cursor T01 (awaiting setup answers) · GitHub P01/P02 after the contribution-lifecycle check · R01. External handoff ready stays NO.
+
+# Stage 4 onboarding simplification (2026-10-21)
+
+**Director direction (2026-10-21, "Implement now"):** Clone → Open → Hi → 1 → the AI proposes a branch name → the guest accepts or changes it → the AI validates, creates and verifies the branch → "What would you like to change?". No assignment file, pasted starter, roster or extra approval machinery. Local frontend proposal work is authorized and the setup-only gate is removed. External handoff ready is unchanged (NO) and kept separate. Install, settings and server are handled when a preview needs them. This supersedes the D1–D8 plan (`response_2026-10-21_144856_stage4-onboarding-recon-plan.md`): the roster and transition gate are dropped.
+
+| # | File | Change | Reason |
+| --- | --- | --- | --- |
+| U1 | `CLAUDE.md` §2 | Gate = Kit installed + Guest rehearsal authorized; External handoff ready does not gate local work; no assignment file/starter; branch flow by reference to rules §2; scope adds "no push or PR in this kit" | single entry, short |
+| U2 | `vibe_docs/README.md` | Field value widened (local proposal work, no publishing); evidence line: Stage 3 flow retired, Stage 4 awaits Tony's manual test; flow summary | status authority |
+| U3 | `vibe_docs/START_HERE.md` | Rewritten: clone/open → Hi → 1 → accept or change the branch name → describe the idea; settings file only when a preview needs it; coming back; publishing not switched on | nontechnical flow |
+| U4 | `vibe_docs/GUEST_AI_RULES.md` | Rewritten. §2 entry-state table (resume `guest/` branches; stop on dirty `main`, other branch, detached HEAD or operation in progress), default name `guest/frank-<date>` (naming default only; Git author and GitHub identity untouched), slug + `check-ref-format`, collision suffix, create `--no-track` from `origin/main`, baseline recorded in `branch.<name>.vibeBaseline`. §3 proposal work and local checkpoint commits with journal. §4/§5 preview on demand (credential rules unchanged). §6 allowed paths `src/app/**`, `src/components/**` (minus api, (auth), providers, auth components, layouts) + protected list (+ `.gitignore`). §7 publishing closed. §8 support/closeout | enforcement text for the AI |
+| U5 | `vibe_docs/ASSIGNMENT_FILE_TEMPLATE.md`, `vibe_docs/STARTER_MESSAGE_TEMPLATE.txt` | Moved to `agent_docs/VIK/retired/` with a README | out of the guest kit, kept for the record |
+| U6 | `.gitignore` | Comment only: retired assignment file stays ignored | an old copy is never staged |
+| U7 | `.github/PULL_REQUEST_TEMPLATE/vibe_proposal.md` | "Assignment" → "Guest branch"; baseline = recorded `vibeBaseline`; scope question names rules §6 | no assignment exists |
+
+Not changed: `.cursor/rules/workflow-entry.mdc`, `src/**`, `package*.json`, `next.config.js`, `.env*`, `CLAUDE.local.md`, `CLAUDE.eng.md`, guest clones. Checks: path/section references, box lines identical to `HEAD`, no dangling references to retired files, §2 commands dry-run in a scratch repo. Test copy: `/home/moose/VIK_TEST/stage4_2026-10-21_160542/` (local bare origin).
+
+**Manual test (Tony, 2026-10-21): PASS** in the test copy at test-only commit `63bf94080ffb4198784cff5f2f218dd9c4e7123c` (kit edits on `697d8f3`). Hi → 1 → custom name → normalized name shown → confirmed → `guest/qa-my-lovely-branch-21oct2026` created at that commit → work area ready → "What would you like to change?". This verifies the local onboarding flow only. Preview/login and Windows/Cursor remain untested. Post-test polish (Director, no retest): default suggestion `guest/frank-<date>` instead of the Git user name. Open: runtime policy, 33 dependency findings, `CLAUDE.local.md` refresh, Windows/Cursor run.
+
