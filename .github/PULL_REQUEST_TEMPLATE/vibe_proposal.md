@@ -2,7 +2,7 @@
 
 ## Proposal
 
-**Assignment:** <the assignment ID or one line from the Cyberize Engineering assignment>
+**Guest branch:** <the `guest/` branch name>
 
 **AI tool, model and effort actually used:** <tool / model id / effort — for example Claude Code / claude-opus-5-5 / High; "unknown" for any part you cannot verify — confirmed by user: yes/no>
 
@@ -17,7 +17,7 @@
 
 ## Commits
 
-**Baseline commit (the SHA from the Cyberize Engineering assignment; the branch was created from it and the AI verified it with `git merge-base --is-ancestor`):** <40-character SHA>
+**Baseline commit (`origin/main` when the AI created the branch, recorded in `git config branch.<name>.vibeBaseline`; the AI verified it with `git merge-base --is-ancestor`):** <40-character SHA>
 
 **Submitted commit (`git rev-parse HEAD` on this branch):** <40-character SHA>
 
@@ -28,7 +28,7 @@
 **Files changed (all of them):**
 - <path>
 
-**Changed anything outside the assignment?** <no / yes — list each path and why>
+**Changed anything outside the allowed paths in `vibe_docs/GUEST_AI_RULES.md` §6?** <no / yes — list each path and why>
 
 **Checks:**
 | Check | Result |

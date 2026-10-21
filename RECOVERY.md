@@ -4,7 +4,20 @@
 > Updated after every plan completion. If this file is stale, the session log in
 > `agent_docs/SESSIONS/` is the fallback source of truth.
 
-**Last updated:** 2026-10-21 10:15 — **Stage 3 COMPLETE**: PR #4 merged `386ec443fb544035016457a580c19f4738f0a3d6` (Tony, authorized admin bypass), JARVIS PASS WITH FINDINGS, Q5 PASS, local/remote `main` synced · External handoff ready **NO**
+**Last updated:** 2026-10-21 16:34 — **Stage 4 manual onboarding test PASSED (Tony); commit block issued** · branch `pilot/vik-stage4-onboarding` @ `697d8f3` (uncommitted) · External handoff ready **NO**
+**Record:** `agent_docs/RESPONSES/response_2026-10-21_163400_stage4-test-pass-commit.md`. Polish: default suggestion `guest/frank-<date>`. Preview/login and Windows/Cursor still untested.
+**Next step:** Tony runs blocks A (commit, push, PR) → B (merge) → C (sync local `main`, tree check). Then refresh `CLAUDE.local.md`; Frank Windows run.
+
+**Prior block (2026-10-21 16:07):** **Last updated:** 2026-10-21 16:07 — **Stage 4 IMPLEMENTED (uncommitted), awaiting Tony's manual Hi → 1 test** · factory tree on `main` @ `697d8f3` · External handoff ready **NO**
+**Record:** `agent_docs/RESPONSES/response_2026-10-21_160700_stage4-implementation.md`. No assignment file or starter. The AI proposes, validates and creates a `guest/` branch from `origin/main`, then asks "What would you like to change?". Local frontend proposal work is authorized; publishing is closed.
+**Test copy:** `/home/moose/VIK_TEST/stage4_2026-10-21_160542/cyph-v1-dev` → `claude`.
+**Next step:** Tony: `git switch -c pilot/vik-stage4-onboarding` → manual test → on a pass, README evidence update + commit/push/PR/merge/sync commands.
+
+**Prior block (2026-10-21 14:55):** **Last updated:** 2026-10-21 14:55 — **Stage 4 (onboarding simplification) PLAN pending Director decisions D1–D8** · `main` = `origin/main` = `697d8f3bc0f6b2a44d98c4bf8acefe39b77fd25f` (Stage 3 closure merged via PR #5) · External handoff ready **NO**
+**Plan:** `agent_docs/RESPONSES/response_2026-10-21_144856_stage4-onboarding-recon-plan.md`: no assignment file or pasted starter; baseline = `origin/main` at setup, recorded in local branch config; `guest/<handle>/<topic>` names; entry-state table preserves work; roster-driven transition to proposal work; Zorin fixture tests L1–L10. Exploratory Windows event W01 recorded in today's session log.
+**Next step:** Director answers D1–D8 and approves → Tony creates `pilot/vik-stage4-onboarding` (block supplied then) → implementation → E1–E3 → independent L1–L10 → JARVIS → Director integration → fresh Windows clone run.
+
+**Prior block (2026-10-21 10:15):** **Last updated:** 2026-10-21 10:15 — **Stage 3 COMPLETE**: PR #4 merged `386ec443fb544035016457a580c19f4738f0a3d6` (Tony, authorized admin bypass), JARVIS PASS WITH FINDINGS, Q5 PASS, local/remote `main` synced · External handoff ready **NO**
 **Records:** post-merge ledger/status uncommitted on `main` working tree; Tony moves them to `records/vik-stage3-closure` with the block in `agent_docs/RESPONSES/response_2026-10-21_100335_stage3-closure-records.md`. Open: evidence limits, Node 24 vs 22, 33 dependency findings; `CLAUDE.local.md` refresh.
 **Next stages:** (1) Coach — Cowork compatibility trial, rehearsal only if supported · (2) Frank — Cursor T01, awaiting setup answers · (3) GitHub P01/P02 after the contribution-lifecycle check · (4) R01 release readiness.
 

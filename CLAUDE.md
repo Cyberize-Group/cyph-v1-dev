@@ -75,37 +75,31 @@ delete or edit the file yourself. Then pause.
 
 Then open `vibe_docs/README.md`, the guest entry, and follow its reading order:
 `vibe_docs/START_HERE.md` (for the person), then `vibe_docs/GUEST_AI_RULES.md` (for the
-AI, in full), then the assignment. Those files are the adapted guest kit (VIK v0.3, round-two
-amendment). They load only here, after option 1.
+AI, in full). Those files are the adapted guest kit (VIK v0.3, Stage 4 onboarding). They
+load only here, after option 1.
 
-**Proposal work is gated on the status table, not on the folder.** `vibe_docs/README.md`
+**Guest work is gated on the status table, not on the folder.** `vibe_docs/README.md`
 carries three fields: Kit installed · Guest rehearsal authorized · External handoff ready.
-Setup and login rehearsal need the first two. Any application edit needs all three. While
-"External handoff ready" is NO, or any kit file is missing, say that proposal work is not
-authorized yet and pause before any frontend edit. Do not write replacement kit files or
-substitute other documents. Only the factory changes those fields.
+Local setup and frontend proposal work need the first two to be YES. External handoff ready
+is the factory's release decision for outside guests; it does not gate local work. If a kit
+file is missing or either required field is not YES, say that guest work is not available
+yet and pause. Do not write replacement kit files or substitute other documents. Only the
+factory changes those fields.
 
-**The assignment loads from a file.** After option 1 and complete guest-kit reading, look
-for `VIBE_ASSIGNMENT.local.md` beside `package.json` (Engineering-prepared, git-ignored, no
-credentials). Assignment source rules: (1) if the file exists, validate it and use it; an
-invalid or unreadable file stops the session, and pasted text never overrides it; (2) if the
-file is absent, a complete pasted starter message is accepted for this one compatibility
-cycle; (3) if neither exists, or (4) the file and pasted values conflict, stop with the short
-Cyberize Engineering support message. Read-only Git inspection is allowed while validating;
-no working-tree or branch change, installation or server start happens until validation
-passes. Never read `.env.local` contents.
+**Everything the guest needs ships in this repository.** No assignment file or pasted
+starter message is needed. If an old one appears, ignore it and leave it untouched. After
+reading the kit, follow `vibe_docs/GUEST_AI_RULES.md` §2. The AI checks the workspace, then
+either resumes the guest's existing `guest/` branch or proposes a new branch name. The guest
+accepts it or gives another. The AI validates the name, creates the branch from the latest
+`origin/main` and verifies it, then asks what the guest would like to change. Never reset,
+stash or discard work, switch away from uncommitted work, delete branches or infer permission
+to publish. Never ask the guest to interpret a commit ID. Never read `.env.local` contents.
 
-**Initial branch preparation is narrowly authorized.** When the validated assignment
-explicitly authorizes initial local preparation, follow `vibe_docs/GUEST_AI_RULES.md`: the
-AI may create or switch to the exact assigned guest branch from the exact approved baseline,
-subject to those checks. Otherwise it only verifies the branch. Never invent an assignment, reset or
-discard work, create additional branches, delete branches, or infer permission to publish.
-Missing or conflicting engineering values produce a short Cyberize Engineering support
-message; do not ask the nontechnical guest to choose a branch or interpret a commit ID.
-
-**Guest scope:** frontend proposals in the pilot environment. No merges to `main`, no
-database migrations, no cloud or account administration. These are workflow instructions.
-GitHub permissions and branch rules provide the enforcement; this file provides none.
+**Guest scope:** local frontend proposals inside the allowed paths in
+`vibe_docs/GUEST_AI_RULES.md` §6. In this kit there is no push, pull request, merge to
+`main` or deployment. There are also no database migrations and no cloud or account
+administration. These are workflow instructions. GitHub permissions and branch rules
+provide the enforcement; this file provides none.
 
 The factory procedures are not guest instructions. That covers `CLAUDE.eng.md`, the
 protocols in `agent_docs/`, the skill packs in `_SKILLS/`, and any `CLAUDE.md` or

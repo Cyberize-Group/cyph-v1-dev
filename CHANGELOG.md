@@ -3,6 +3,12 @@
 > Documentation/playbook change log per CLAUDE.md Changelog Protocol.
 > `[CC]` = Claude Code · `[TS]` = Tony Stark manual edits.
 
+## 2026-10-21 10:06 UTC — [CC] Claude Code
+
+- **Updated:** `CLAUDE.md` §2, `vibe_docs/README.md`, `vibe_docs/START_HERE.md`, `vibe_docs/GUEST_AI_RULES.md` (rewritten), `.gitignore` (comment), `.github/PULL_REQUEST_TEMPLATE/vibe_proposal.md`, `agent_docs/VIK/ADAPTATIONS.md` (Stage 4, U1–U7).
+- **Moved:** `vibe_docs/ASSIGNMENT_FILE_TEMPLATE.md`, `vibe_docs/STARTER_MESSAGE_TEMPLATE.txt` → `agent_docs/VIK/retired/` (+ README).
+- **Reason:** Stage 4 (Director, "Implement now"): Hi → 1 → AI-proposed branch → guest accepts or changes it → validated branch from `origin/main` → frontend proposal work. No assignment file, starter or roster. Local proposal work authorized; publishing closed; External handoff ready stays NO. Tony's manual onboarding test PASSED (2026-10-21; local flow only, preview and Windows pending). Post-test polish: default branch suggestion `guest/frank-<date>` (naming only).
+
 ## 2026-10-21 04:10 UTC — [CC] Claude Code
 
 - **Updated:** `vibe_docs/README.md` (evidence sentence: Stage 3 rehearsed and merged; fields unchanged), `agent_docs/VIK/ADAPTATIONS.md` (Stage 3 closure, T11–T12), `agent_docs/VIK/stage3-evidence/V3_V4_PENDING.md` (header: executed).
