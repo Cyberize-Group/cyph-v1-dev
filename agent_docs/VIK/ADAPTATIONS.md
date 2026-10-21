@@ -149,3 +149,14 @@ A1–A3, A5, A6, A8–A12, A14, A18, A21 remain in force.
 Not changed: `src/**`, `package*.json`, `next.config.js`, `.env*`, `CLAUDE.local.md`, `supabase/**`, guest clones. No application test/build run (no application change).
 
 **Stages:** Stage 3 gate = V1–V2 (done), V3 + V4 (pending, Bibo VM), JARVIS review, Tony merge, Q5. **Stage 4 = Cursor (T01)**: internal Cursor preparation may start after Stage 3; Frank's intake answers shape his exact setup and do not block that preparation. Dependency findings and runtime policy remain open; External handoff ready stays NO.
+
+# Stage 3 closure (2026-10-21)
+
+**Stage 3 (PR #4) closed.** Bibo Zorin rehearsal on 2026-10-20 at tested candidate `6f4e004c8a1278458230fc6359844408f841956d`: V3-a…g and V4 PASS (Director-supplied). JARVIS: PASS WITH FINDINGS. Tony merged PR #4 on 2026-10-21 with the authorized admin bypass (Director decision, not a second reviewer); merge commit `386ec443fb544035016457a580c19f4738f0a3d6`; Q5 PASS; local and remote `main` synced. Evidence limits, open runtime/dependency findings and next stages: `agent_docs/VIK/stage3-evidence/00_STATUS.md`.
+
+| # | File | Change | Reason |
+| --- | --- | --- | --- |
+| T11 | `vibe_docs/README.md` | Evidence sentence: Stage 3 rehearsed and merged (was "rehearsal pending"); status fields unchanged | status authority must not stay stale |
+| T12 | `agent_docs/VIK/stage3-evidence/00_STATUS.md` (new), `V3_V4_PENDING.md` header | Results, JARVIS verdict, evidence limits, open findings, gates, next stages; plan marked executed | post-merge record, as for Stage 2 |
+
+**Next stages:** Coach Cowork compatibility trial (then rehearsal if supported) · Frank Cursor T01 (awaiting setup answers) · GitHub P01/P02 after the contribution-lifecycle check · R01. External handoff ready stays NO.
