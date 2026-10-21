@@ -3,6 +3,12 @@
 > Documentation/playbook change log per CLAUDE.md Changelog Protocol.
 > `[CC]` = Claude Code · `[TS]` = Tony Stark manual edits.
 
+## 2026-10-21 04:10 UTC — [CC] Claude Code
+
+- **Updated:** `vibe_docs/README.md` (evidence sentence: Stage 3 rehearsed and merged; fields unchanged), `agent_docs/VIK/ADAPTATIONS.md` (Stage 3 closure, T11–T12), `agent_docs/VIK/stage3-evidence/V3_V4_PENDING.md` (header: executed).
+- **Created:** `agent_docs/VIK/stage3-evidence/00_STATUS.md`.
+- **Reason:** Stage 3 closed: PR #4 merged (`386ec44`, admin bypass), JARVIS PASS WITH FINDINGS, Q5 PASS. Evidence limits and runtime/dependency findings stay open; External handoff ready stays NO.
+
 ## 2026-10-19 07:45 UTC — [CC] Claude Code
 
 - **Updated:** `vibe_docs/START_HERE.md` (opening and next-session wording use the assignment-file flow; fallback kept), `vibe_docs/ASSIGNMENT_FILE_TEMPLATE.md` (baseline rule: merged baseline for external release, frozen Draft PR candidate only for an explicitly authorized internal rehearsal; placeholder and completeness check aligned), `agent_docs/VIK/stage3-evidence/V3_V4_PENDING.md` (new case V3-g invalid file + complete valid paste; V3-c/V3-f stop by explicit Engineering instruction after branch verification; V4 keeps the full flow), `agent_docs/VIK/ADAPTATIONS.md` (T10), `RECOVERY.md`, implementation report (dated correction: one combined commit).

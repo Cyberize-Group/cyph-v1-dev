@@ -1,4 +1,6 @@
-# Stage 3 fresh-session cases (V3) and full rehearsal (V4) — PENDING (Tony)
+# Stage 3 fresh-session cases (V3) and full rehearsal (V4) — plan as tested
+
+> **Executed 2026-10-20 on the Bibo Zorin VM; results and evidence limits in `00_STATUS.md` (this folder).** The plan below is kept unchanged as tested.
 
 Shell checks (V1, V2) do not show fresh-AI behaviour. These cases run on the Bibo VM in fresh Claude Code sessions (Opus 5.5) once the Stage 3 candidate SHA is frozen (first commit on `pilot/vik-stage3-assignment-file` that contains the kit changes). Fixture files are prepared in the factory scratchpad with the baseline marked `STAGE3_CANDIDATE_SHA_TO_FREEZE`; Engineering fills the frozen SHA before delivery.
 
