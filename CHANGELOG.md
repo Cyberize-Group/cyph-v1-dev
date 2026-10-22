@@ -3,6 +3,12 @@
 > Documentation/playbook change log per CLAUDE.md Changelog Protocol.
 > `[CC]` = Claude Code · `[TS]` = Tony Stark manual edits.
 
+## 2026-10-22 05:17 UTC — [CC] Claude Code
+
+- **Created:** `vibe_docs/vibe-gh.sh` (guarded repo-local GitHub sign-in/credential/PR wrapper).
+- **Updated:** `vibe_docs/GUEST_AI_RULES.md` (§7 contribution; prohibitions removed), `CLAUDE.md` §2, `vibe_docs/README.md`, `vibe_docs/START_HERE.md`, `.github/PULL_REQUEST_TEMPLATE/vibe_proposal.md`, `agent_docs/VIK/ADAPTATIONS.md` (C1–C4; PR #6 merge).
+- **Reason:** Director: guest contribution on explicit request with isolated authentication and identity; merge Director-only; External handoff ready stays NO. Awaits Tony's manual test.
+
 ## 2026-10-21 10:06 UTC — [CC] Claude Code
 
 - **Updated:** `CLAUDE.md` §2, `vibe_docs/README.md`, `vibe_docs/START_HERE.md`, `vibe_docs/GUEST_AI_RULES.md` (rewritten), `.gitignore` (comment), `.github/PULL_REQUEST_TEMPLATE/vibe_proposal.md`, `agent_docs/VIK/ADAPTATIONS.md` (Stage 4, U1–U7).

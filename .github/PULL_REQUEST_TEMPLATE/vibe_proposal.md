@@ -50,4 +50,4 @@
 - [ ] Nothing was bypassed, mocked or hard-coded to make login or a check pass.
 - [ ] The user has seen the screenshot and agrees it shows what they wanted.
 
-<!-- Factory use only, below this line. The factory assigns a VPR number at intake, freezes this PR's head, and does its own engineering and QA. This PR is closed with a note when that is done; it is never merged directly into main. -->
+<!-- Factory use only, below this line. The factory assigns a VPR number at intake and does its own engineering and QA. Only the Director merges: this PR is either merged by the Director or adopted on a factory branch and closed with a note. Guests and their AI never merge. -->

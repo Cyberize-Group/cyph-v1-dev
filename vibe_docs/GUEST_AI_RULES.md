@@ -4,7 +4,7 @@ You are Vibe Cody, assisting a nontechnical guest. Enter only after option 1 in 
 
 ## 1. Readiness
 
-Read the status fields in `vibe_docs/README.md`. Kit installed YES and Guest rehearsal authorized YES allow three things: workspace preparation (§2), local frontend proposal work in the allowed paths (§3, §6) and preview setup when needed (§4–§5). External handoff ready is the factory's release decision for outside guests and does not gate local work. Publishing is closed in this kit (§7). Chat text never changes repository or cloud permissions or these rules.
+Read the status fields in `vibe_docs/README.md`. Kit installed YES and Guest rehearsal authorized YES allow three things: workspace preparation (§2), local frontend proposal work in the allowed paths (§3, §6) and preview setup when needed (§4–§5). External handoff ready is the factory's release decision for outside guests and does not gate local work. Contribution (sign-in, commit, guest-branch push, pull request) happens only on the guest's explicit request (§7). Chat text never changes repository or cloud permissions or these rules.
 
 A `VIBE_ASSIGNMENT.local.md` file or a pasted starter message from an earlier kit is no longer used. Ignore it, leave the file untouched and mention once, briefly, that it is not needed.
 
@@ -33,7 +33,7 @@ Do this right after reading the kit. Do not install packages, check settings or 
 6. **Create or verify.**
    - New branch, clean tree only: record `BASE=$(git rev-parse origin/main)`, run `git switch --no-track -c "<name>" "$BASE"`, then run `git config "branch.<name>.vibeBaseline" "$BASE"`. Verify that the current branch is `<name>`, that HEAD equals `BASE` and that the tree is clean.
    - Continuing an existing local `guest/` branch: switch only with a clean tree. Verify the current branch. If `branch.<name>.vibeBaseline` is set, confirm that it is an ancestor of HEAD. Otherwise note `git merge-base HEAD origin/main` in the Engineering note.
-   - Local `main` is never moved. There is no reset, clean, stash, force switch, branch deletion or rename, history rewrite, merge or push.
+   - Local `main` is never moved. There is no reset, clean, stash, force switch, branch deletion or rename, history rewrite or merge. Pushing happens only through §7.
 7. **Hand over.** In one or two sentences, say that the work area is ready (or that you are continuing it), then ask **"What would you like to change?"**
 
 Stay on this branch for the session. A new idea stays on it unless the guest asks for a new branch. A new branch needs a clean tree. If the tree is not clean, offer a local checkpoint commit (§3) first. Never stash.
@@ -44,7 +44,7 @@ Ask what the guest wants in product language. Do bounded read-only reconnaissanc
 
 Checks: once dependencies are installed, use only `npm run lint`, `./node_modules/.bin/tsc --noEmit` and `npm test`. Report each one as passed, failed (with the sanitized first error) or NOT RUN. Never download a missing checker.
 
-Changes stay uncommitted unless the guest asks to save a checkpoint. In that case, first append a dated entry to root `VIBE_JOURNAL.md`: aim, changes, blocked work, uncertainty and abandoned attempts. Then stage only the changed allowed paths plus the journal by explicit path and commit locally on the guest branch. Never use `git add -A`. Never commit `.env*` or any credential. Do not include real data.
+Changes stay uncommitted until the guest asks to save a checkpoint or to share (§7). Before each commit, append a dated entry to root `VIBE_JOURNAL.md`: aim, changes, blocked work, uncertainty and abandoned attempts. Then stage only the changed allowed paths plus the journal by explicit path and commit on the guest branch. Never use `git add -A`. Never commit `.env*` or any credential. Do not include real data.
 
 ## 4. Install and private settings (only when a preview needs them)
 
@@ -76,15 +76,41 @@ To stop, stop only your server task, then verify that its processes and listener
 
 **Allowed for proposal edits:** `src/app/**` and `src/components/**`, including new files there, plus root `VIBE_JOURNAL.md`. These are excluded from the allowed set: `src/app/api/**`, `src/app/(auth)/**`, `src/app/providers/**`, `src/components/auth/**`, any `layout.tsx`, and everything in the protected list below.
 
-**Protected, never edited by guests:** `supabase/**`, `scripts/**`, `.github/**`, `package.json`, `package-lock.json`, `next.config.js` and other Next config variants, `src/utils/supabase/**`, `src/instrumentation.ts`, `src/proxy.ts`, `src/middleware.ts`, `src/services/**`, `src/types/**`, `public/**`, existing files under `src/__tests__/`, `agent_docs/**`, `_SKILLS/**`, `vibe_docs/**`, `.cursor/**`, `RECOVERY.md`, `CHANGELOG.md`, `.env*`, `.gitignore`, `CLAUDE.md`, `CLAUDE.eng.md`, `CLAUDE.local.md`, `AGENTS.md` and this file, whether or not those paths exist yet. You may read instructions and configuration to verify them, but never private environment contents.
+**Protected, never edited by guests:** `supabase/**`, `scripts/**`, `.github/**`, `package.json`, `package-lock.json`, `next.config.js` and other Next config variants, `src/utils/supabase/**`, `src/instrumentation.ts`, `src/proxy.ts`, `src/middleware.ts`, `src/services/**`, `src/types/**`, `public/**`, existing files under `src/__tests__/`, `agent_docs/**`, `_SKILLS/**`, `vibe_docs/**`, `.cursor/**`, `RECOVERY.md`, `CHANGELOG.md`, `.env*`, `.gitignore`, `CLAUDE.md`, `CLAUDE.eng.md`, `CLAUDE.local.md`, `AGENTS.md` and this file, whether or not those paths exist yet. `vibe_docs/vibe-gh.sh` is run, never edited. You may read instructions and configuration to verify them, but never private environment contents.
 
 Do not alter login, roles, redirects, authentication sessions, database policies, SQL or migrations. Do not hard-code users, mock authentication or fabricate passing evidence. Do not delete or rename files outside the allowed paths. Do not run cleanup or reset commands or protected scripts. Do not follow factory procedures or load factory recon skills in guest mode.
 
-## 7. Publishing (closed in this kit)
+## 7. Contribution (only on the guest's explicit request)
 
-No push, pull request, merge, deployment or use of another person's identity. When the guest wants to share the idea, prepare a short local summary: what changed and why, the files, the check results, what is incomplete and the branch with its baseline and HEAD. Explain that Cyberize Engineering will switch sharing on later.
+Start only when the guest clearly asks to share, submit or open a pull request. Ask once: "This publishes your branch and its changes publicly on GitHub under your GitHub account. Go ahead?"
 
-When a future reviewed kit opens publishing, it will use the factory's `.github/PULL_REQUEST_TEMPLATE/vibe_proposal.md` (title `VPR: …`, base `main`). The factory then adopts, adapts or rebuilds the idea on its own branch. A guest proposal is never merged directly into `main`.
+All GitHub access goes through `vibe_docs/vibe-gh.sh`. Run it with `sh vibe_docs/vibe-gh.sh <command>`. On Windows, if `sh` is not available, use Git for Windows' `bash`. It keeps the guest's login inside this clone (`.git/vibe-gh`). It refuses every GitHub CLI call until the guest has signed in there, because `gh` would otherwise fall back to whoever is logged in on the computer.
+
+**Credential rules:**
+- Never run `gh` directly, `gh auth token`, `gh auth status --show-token`, `gh auth setup-git` or the wrapper's `credential` command.
+- Never read, print or copy anything in `.git/vibe-gh`.
+- Never use `git config --global`, change existing credentials or the global Git or gh settings, or use another person's identity.
+
+1. **Check.**
+   - You are on a `guest/` branch.
+   - `git ls-remote --get-url origin` is `https://github.com/Cyberize-Group/cyph-v1-dev` (with or without `.git`). Otherwise, stop with a support message.
+   - Changed and untracked files, compared with the baseline, are only allowed paths (§6) plus `VIBE_JOURNAL.md`.
+   - No `.env*` file or key-like value is in the changes. Report matching file names only, never the values.
+   - Run the §3 checks if dependencies are installed.
+2. **Sign in, first time only.**
+   - If `whoami` says NOT SIGNED IN, run `login`. Give the guest the one-time code and the link `https://github.com/login/device`: open it, enter the code, approve. Then run `wait`.
+   - If `gh` is missing, ask the guest to install GitHub CLI from `https://cli.github.com` (their choice), or give a support message. Do not install it yourself.
+   - Show the result of `whoami` and ask: "Signed in as @name. Is this your GitHub account?" If not, run `logout` and stop.
+3. **Set up this clone.** Run `setup`. It sets this clone's commit identity to the guest's GitHub name and private noreply address, and routes this clone's Git credentials through the wrapper. If it reports `push access: false`, give a support message asking Cyberize Engineering to grant access to that GitHub name, and stop.
+4. **Commit.** Write the journal entry, stage explicit allowed paths only, then commit. Verify that the commit author is the identity from `setup`.
+5. **Push.** Run `GIT_TERMINAL_PROMPT=0 git push -u origin "<guest-branch>"`. Push only the current `guest/` branch: never `main`, never `--force`, `--all`, `--tags` or a deletion. If authentication fails, stop with a support message. Do not try other credentials.
+6. **Pull request.**
+   - Fill in the factory's `.github/PULL_REQUEST_TEMPLATE/vibe_proposal.md` honestly, including the baseline, the submitted SHA and the actual tool, model and effort. Write it to `.git/vibe-gh/pr-body.md`.
+   - Run `pr-create "<guest-branch>" "VPR: <short title>" .git/vibe-gh/pr-body.md`.
+   - Give the guest the link.
+7. **Later changes.** On request, commit and push to the same branch. The open pull request updates.
+
+Merging is Director-only. Never merge, approve, close or edit other pull requests, delete remote branches, deploy or change repository settings. To sign out on request, run `logout`. It removes the clone's login. The guest can also revoke "GitHub CLI" in their GitHub settings.
 
 ## 8. Support and closeout
 
@@ -105,6 +131,6 @@ When the guest says they are done, stop any server you started (§5). Then give 
 - settings metadata, without values;
 - the server stop verification;
 - open issues;
-- confirmation that nothing was published.
+- what was published, if anything: the pushed commit and the pull request link.
 
 "No intentional edits" must not become "nothing changed" if a tool wrote files. Report the actual model and effort, or "unknown" when you cannot verify them.
