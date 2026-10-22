@@ -4,7 +4,11 @@
 > Updated after every plan completion. If this file is stale, the session log in
 > `agent_docs/SESSIONS/` is the fallback source of truth.
 
-**Last updated:** 2026-10-21 16:34 — **Stage 4 manual onboarding test PASSED (Tony); commit block issued** · branch `pilot/vik-stage4-onboarding` @ `697d8f3` (uncommitted) · External handoff ready **NO**
+**Last updated:** 2026-10-22 11:17 — **Guest contribution kit update on `pilot/vik-guest-contribution`; PR for Director merge** · Stage 4 merged (PR #6, `764e396`) · External handoff ready **NO**
+**Record:** `agent_docs/RESPONSES/response_2026-10-22_111700_guest-contribution.md`. The guest's explicit request → `vibe_docs/vibe-gh.sh` sign-in inside the clone → repo-local identity and credentials → commit → push the guest branch → VPR PR. Merging is Director-only. Incident 2026-10-22: global gh token exposed in session output, revoked by Tony.
+**Next step:** Tony's manual test with a real guest GitHub account → Director merge → sync `main`. Still pending: preview/login, Windows/Cursor, `CLAUDE.local.md` refresh.
+
+**Prior block (2026-10-21 16:34):** **Last updated:** 2026-10-21 16:34 — **Stage 4 manual onboarding test PASSED (Tony); commit block issued** · branch `pilot/vik-stage4-onboarding` @ `697d8f3` (uncommitted) · External handoff ready **NO**
 **Record:** `agent_docs/RESPONSES/response_2026-10-21_163400_stage4-test-pass-commit.md`. Polish: default suggestion `guest/frank-<date>`. Preview/login and Windows/Cursor still untested.
 **Next step:** Tony runs blocks A (commit, push, PR) → B (merge) → C (sync local `main`, tree check). Then refresh `CLAUDE.local.md`; Frank Windows run.
 

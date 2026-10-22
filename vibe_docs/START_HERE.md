@@ -2,7 +2,7 @@
 
 Your AI helper is called **Vibe Cody**. It handles the technical work. You describe what you would like the app to do and tell it what you see.
 
-Cyberize Engineering gives you access to the project. When you want to log in to a preview, they also give you a private settings file and a test login. Keep the settings file and password out of AI chat, screenshots and GitHub.
+Cyberize Engineering gives you access to the project. When you want to log in to a preview, they also give you a private settings file and a test login. To share your work, you need your own GitHub account with access to the project. Keep the settings file and password out of AI chat, screenshots and GitHub.
 
 ## Start here
 
@@ -26,9 +26,13 @@ When you are finished, say **stop the app**. Vibe Cody stops what it started and
 
 Open the same folder, start a new chat, say **Hi** and choose **1**. Vibe Cody finds your work area and continues where you left off. Your changes stay in place.
 
-## What happens to your idea
+## Sharing your idea
 
-For now, your changes stay on your computer. Sharing them with Cyberize Engineering is not switched on yet. When it is, your proposal becomes a starting point for the factory. The factory handles adoption and testing, and your proposal is never a direct change to the main app.
+When you are happy with a change, say **share my changes**. Vibe Cody asks you to confirm, because shared work is public on GitHub.
+
+The first time, it signs you in to GitHub. It shows a short code and a link. Open the link, enter the code and approve. Then confirm that the GitHub name it shows is yours. The sign-in stays inside this project folder and does not change anything else on your computer.
+
+Vibe Cody then saves your work, sends your branch to GitHub and opens a proposal (a pull request). It gives you the link. Cyberize Engineering reviews it, and only the Director merges. To share later changes, ask again; they are added to the same proposal. To sign out of this folder, say **sign me out of GitHub**.
 
 ## Getting help
 

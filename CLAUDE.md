@@ -92,13 +92,15 @@ reading the kit, follow `vibe_docs/GUEST_AI_RULES.md` §2. The AI checks the wor
 either resumes the guest's existing `guest/` branch or proposes a new branch name. The guest
 accepts it or gives another. The AI validates the name, creates the branch from the latest
 `origin/main` and verifies it, then asks what the guest would like to change. Never reset,
-stash or discard work, switch away from uncommitted work, delete branches or infer permission
-to publish. Never ask the guest to interpret a commit ID. Never read `.env.local` contents.
+stash or discard work, switch away from uncommitted work or delete branches. Publish only on
+the guest's explicit request. Never ask the guest to interpret a commit ID. Never read `.env.local` contents.
 
-**Guest scope:** local frontend proposals inside the allowed paths in
-`vibe_docs/GUEST_AI_RULES.md` §6. In this kit there is no push, pull request, merge to
-`main` or deployment. There are also no database migrations and no cloud or account
-administration. These are workflow instructions. GitHub permissions and branch rules
+**Guest scope:** frontend proposals inside the allowed paths in
+`vibe_docs/GUEST_AI_RULES.md` §6. On the guest's explicit request, the AI signs the guest in
+to GitHub inside this clone only, then commits, pushes the guest branch and opens a pull
+request (§7). Existing credentials and global settings stay untouched, and tokens are never
+shown. Merging is Director-only. There is no deployment, no database migration and no cloud
+or account administration. These are workflow instructions. GitHub permissions and branch rules
 provide the enforcement; this file provides none.
 
 The factory procedures are not guest instructions. That covers `CLAUDE.eng.md`, the

@@ -179,3 +179,18 @@ Not changed: `.cursor/rules/workflow-entry.mdc`, `src/**`, `package*.json`, `nex
 
 **Manual test (Tony, 2026-10-21): PASS** in the test copy at test-only commit `63bf94080ffb4198784cff5f2f218dd9c4e7123c` (kit edits on `697d8f3`). Hi → 1 → custom name → normalized name shown → confirmed → `guest/qa-my-lovely-branch-21oct2026` created at that commit → work area ready → "What would you like to change?". This verifies the local onboarding flow only. Preview/login and Windows/Cursor remain untested. Post-test polish (Director, no retest): default suggestion `guest/frank-<date>` instead of the Git user name. Open: runtime policy, 33 dependency findings, `CLAUDE.local.md` refresh, Windows/Cursor run.
 
+**Stage 4 merged:** PR #6 merged by Tony as `764e396a53e2faaf6b49eec607438427bf94b361`; local `main` synced (2026-10-21/22).
+
+# Guest contribution (2026-10-22)
+
+**Director direction:** guest contribution on the guest's explicit request: guided GitHub sign-in, isolated repository-local authentication and commit identity, commit, guest-branch push and PR creation. Existing credentials and global settings are preserved, secrets stay private, merging is Director-only, and conflicting guest prohibitions are removed. Keep it simple; Tony tests manually.
+
+| # | File | Change | Reason |
+| --- | --- | --- | --- |
+| C1 | `vibe_docs/vibe-gh.sh` (new) | Guarded wrapper: `login` (device-code web login, `--insecure-storage`, `GH_CONFIG_DIR=<git dir>/vibe-gh`, token env vars unset, global Git config sandboxed), `wait`, `whoami`, `setup` (repo-local `user.name`/noreply `user.email`; local `credential.helper` reset + wrapper), `credential` (Git only), `pr-create` (`guest/` heads only, base `main`), `logout`. Every gh call is refused unless the clone holds the guest's own login | gh falls back to the computer's keyring login when its config folder is empty (2026-10-22 incident) |
+| C2 | `vibe_docs/GUEST_AI_RULES.md` §1, §2, §3, §6, §7, §8 | §7 contribution flow (confirm → check → sign in → confirm account → setup → commit → push guest branch → PR → later pushes update it); credential prohibitions; publishing prohibitions removed; closeout reports what was published | enforcement text |
+| C3 | `CLAUDE.md` §2, `vibe_docs/README.md`, `vibe_docs/START_HERE.md` | Scope and field value now include contribution on explicit request; "Sharing your idea" for the guest; merge Director-only | single entry, guest wording |
+| C4 | `.github/PULL_REQUEST_TEMPLATE/vibe_proposal.md` | Factory note: only the Director merges (or adopts on a factory branch); head no longer frozen | aligns with later pushes |
+
+Checks: wrapper `sh -n`; a fake-`gh` scratch test (no real gh, no keyring) covered the following. Before login, 0 gh calls, refusals and an empty credential answer. After login, every call used the isolated folder with `GH_TOKEN` unset. Repo-local identity and helper were set, `git credential fill` routed through the wrapper rather than the global helper, the global config was unchanged and non-`guest/` PR heads were refused. A real GitHub sign-in, push and PR await Tony's manual test.
+
