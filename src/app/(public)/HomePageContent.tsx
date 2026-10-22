@@ -52,7 +52,7 @@ const HomePageContent = () => {
               <span className="inline-flex w-10 h-10 items-center justify-center border-2 border-border">
                 <Play className="h-3 w-3" fill="currentColor" />
               </span>
-              Book a demo
+              Schedule a demo
             </Link>
           </Button>
         </div>
