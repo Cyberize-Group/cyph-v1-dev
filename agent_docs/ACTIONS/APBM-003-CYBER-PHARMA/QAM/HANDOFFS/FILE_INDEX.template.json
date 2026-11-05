@@ -1,0 +1,20 @@
+{
+  "_label": "Instantiated 2026-11-05 by Friday from TEMPLATE SET v0.3 under QAM_PLAYBOOK v1.0 §13. Copy to FILE_INDEX.json inside each review package; one entry per member except FILE_INDEX.json itself. The ZIP's own SHA-256 is recorded outside the ZIP (external receipt).",
+  "package": "APBM-003-CYBER-PHARMA_<<PHASE>>_REVIEW_<<NN>>.zip",
+  "module_id": "APBM-003-CYBER-PHARMA",
+  "phase": "<<Q1 | Q2 | Q4 | STOP>>",
+  "attempt": "<<NN>>",
+  "produced_by": "Claudy (QA Executor) / <<runtime>>",
+  "produced_at": "<<YYYY-MM-DDTHH:MM:SS+06:00>>",
+  "candidate_sha": "<<full SHA or PENDING>>",
+  "qa_execution_head": "<<full SHA or NOT RECORDED>>",
+  "plan_sha256": "<<SHA-256 of the bound QAM_TEST_PLAN.md, or NOT RECORDED in Q1>>",
+  "hash_scope": "every member except FILE_INDEX.json",
+  "state_snapshot": "QAM_STATE.md in this package is the immutable pre-export snapshot; the completed ZIP's SHA-256 is recorded only in the external receipt (HANDOFFS/README.md) and the subsequent live QAM_STATE.md entry; the ZIP is never rebuilt to embed its own hash",
+  "privacy_scan": { "scanner": "<<name / version>>", "validated_with_synthetic_fixture_and_clean_control": "<<true | false>>", "hits": "<<safe count; locations resolved or quarantined; never values>>" },
+  "members": [
+    { "archive_path": "APBM-003-CYBER-PHARMA_<<PHASE>>_REVIEW_<<NN>>/REVIEW_START_HERE.md", "source_path": "QAM/HANDOFFS/REVIEW_START_HERE.md (filled copy)", "purpose": "entry note for the reviewer", "bytes": "<<n>>", "sha256": "<<hex>>" }
+  ],
+  "excluded": [ ".env.qa.local and all .env*", "auth state / cookies / tokens", "browser profiles and Playwright binaries", "node_modules, .next, caches", "Git internals", "raw authenticated traces", "tenant-table row exports beyond plan-named counts/hashes", "seed password material", "cloud descriptions containing secrets" ],
+  "missing_items_listed_in": "REVIEW_START_HERE.md §Not included"
+}
