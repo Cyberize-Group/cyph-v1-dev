@@ -1,3 +1,5 @@
+> **Proposed A01 alignment — DRAFT:** Read `../E2_AMENDMENT_A01.md` before this inherited draft. Its identity, exact file list, deferred customer writes, safe target/checkpoint rules and independent Gate Q/Gate D requirements replace contradictory proposals here only upon approval. No result, FINAL stamp or release is recorded.
+
 # QAM_ENTRY — `APBM-003-CYBER-PHARMA`
 
 > Instantiated from TEMPLATE SET v0.3 (`03_BUILD_METHODOLOGY/_templates/QAM/`, QA Lead accepted 2026-10-14) under QAM_PLAYBOOK v1.0 §§2, 5, 6, 7, 15. **Owner: Architect (Friday)**; resolved at packaging 2026-11-05. Canonical entry both `CLAUDE.md` and `AGENTS.md` point to. References authority; grants none. The dispatch table in §5 is a document instruction read by the arriving agent, not a dispatcher.
@@ -7,11 +9,11 @@
 | Field | Value |
 |---|---|
 | Module ID / type | `APBM-003-CYBER-PHARMA` / APBM (Application Phase Build Module, Phase 3 completion + Target One). Module-type adaptation: this QAM applies the **BIM** row of QAM_PLAYBOOK §16 (schema/RLS/tenant negatives/fixtures/allowed writes/rollback/regression) **plus** the FFM row (frontend states, responsive/keyboard, real auth) because Target One ships both |
-| Repository | `cyber-pharma-dev-v1-phase-3` (Director's checkout `~/nextjs/CYBER_PHARMA/cyber-pharma-dev-v1-phase-3`; remote per Director) |
+| Repository | `Cyberize-Group/cyph-v1-dev` (Director's checkout `/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev`; remote per Director) |
 | Module directory (repo-relative) | `agent_docs/ACTIONS/APBM-003-CYBER-PHARMA` — this QAM lives at `agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/` |
-| Engineering branch | `apbm-003-cyber-pharma` |
-| QA branch (continuing; Director creates it **at the completed engineering candidate commit** after the engineering handoff; Director-merged into `main`) | `qa/apbm-003-cyber-pharma` |
-| Baseline commit (full SHA) | NOT RECORDED — parent of the pack-installation commit (expected short `5234abe`); recorded by Cody at E1 and confirmed by the QA Executor in Q1 from read-only Git |
+| Engineering branch | `apbm-003` |
+| QA branch (continuing; Director creates it **at the completed engineering candidate commit** after the engineering handoff; Director-merged into `main`) | `qa/apbm-003` |
+| Baseline commit (full SHA) | `af2c7e5225d2d78925fd392e29a58b6bde830263` (verified pre-pack parent); E1 start `b23372d24d79b6460f746a191e824224ba5f8900`; `5234abe` unavailable |
 | Candidate (tested product identity) | `PENDING` — resolved by the QA Executor in Q1 from the Director's commit receipt / read-only Git evidence and reconciled against `QAM_MANIFEST.md` §2; never invented |
 | Playbook governing this QAM | QAM_PLAYBOOK v1.0 (Hub `03_BUILD_METHODOLOGY/QAM_PLAYBOOK.md`, dated 2026-10-18) — provenance in `GOVERNING/README.md` |
 | Seats | **QA Executor: Claudy** · QA Lead: the QA Lead seat (holder recorded in `QAM_APPROVAL.md` when it acts; never inferred from a model name) · Engineer: Cody · Architect: Friday · Chief Architect: JARVIS · Director: Tony. Cody and Claudy are deliberately reversed from previous engagements |
@@ -33,12 +35,14 @@ Frozen AC text is never changed by a plan edit (RUL-04). A contract question is 
 | Seat | May write | May not |
 |---|---|---|
 | QA Executor (Claudy) | `QAM_RECON_REPORT.md`, `QAM_EXECUTION_REPORT.md`, `AC_EVIDENCE_MATRIX.md`, `FINDINGS.md` §1 and §3.1, `QAM_CLEANUP_REPORT.md` execution rows, `evidence/**`, `AUTOMATION/**`, `HANDOFFS/**` (packages, filled `REVIEW_START_HERE.md` copies, `FILE_INDEX.json`, receipts table), `../EVIDENCE/deploy/GATE_D.md`. Executor-recorded parts of other seats' files: Result/Evidence cells of `QAM_PREFLIGHT.md`; `QAM_RISK_REQUIREMENTS.md` §3; the `QAM_TEST_PLAN.md` draft and the application of the QA Lead's **exact** amendments (§8); own dated entries in `QAM_STATE.md`. Transcription only when expressly instructed, attributed | product code, tests, contract files, Engineer's evidence, `QAM_MANIFEST.md`; composing any approval, disposition, retention decision or verdict; Git mutation; deployment |
-| Engineer (Cody) | `QAM_MANIFEST.md` (incl. §8 amendments), `HANDOFFS/ENGINEERING_HANDOFF.md`, own `QAM_STATE.md` entries; ruled repair paths on `qa/apbm-003-cyber-pharma` only | QA results, plan approval, dispositions, certificate |
+| Engineer (Cody) | `QAM_MANIFEST.md` (incl. §8 amendments), `HANDOFFS/ENGINEERING_HANDOFF.md`, own `QAM_STATE.md` entries; ruled repair paths on `qa/apbm-003` only | QA results, plan approval, dispositions, certificate |
 | QA Lead | `QAM_APPROVAL.md` decisions, `FINDINGS.md` §2 dispositions, retention/cleanup-acceptance in `QAM_CLEANUP_REPORT.md`, `QAM_CERTIFICATION.md`, `QAM_RISK_REQUIREMENTS.md` §1 adoption, own `QAM_STATE.md` entries | product changes; inventing evidence |
 | Architect (Friday) / Chief Architect (JARVIS) | this file, `QAM_PREFLIGHT.md` rows, `QAM_RISK_REQUIREMENTS.md` §2, `GOVERNING/`, `PARENT_ENTRY_ROUTING.md`, closeout instruction, own `QAM_STATE.md` entries | QA results; substituting an engineering-green result for independent QA |
 | Director (Tony) | release references in `QAM_APPROVAL.md` §3/§4; credential file `.env.qa.local`; all Git actions; risk decisions; the APPLY checkpoint; own `QAM_STATE.md` entries | — (does not have to perform repeatable UI checks) |
 
 **Protected paths (never written by any QA seat):** `src/**` (except nothing), `scripts/**` product code, `supabase/migrations/**`, `package.json`, lockfile, `next.config.*`, `tests/**` product tests, `RECOVERY.md`, `agent_docs/SESSIONS/**`, `agent_docs/AUTHORITY/**`, every historical module folder, `.env*` (the QA credential file is written by the Director only).
+**Sequence:** E2 ends with identified candidate and local deployment package, not deployment. Claudy independently plans and tests Gate Q against that candidate on `qa/apbm-003`; QA Lead certifies. Then Tony separately approves staging deployment of the certified candidate; Claudy verifies actual revision/digest and behavior in Gate D. Staging availability is not a Gate-Q prerequisite. Repaired product requires candidate re-binding and Gate-Q retest before deployment.
+
 **Permitted effects on targets:** SCRATCH — destructive QA authorized (from-scratch replay, seed reset, direct-read attacks, concurrent-admin attacks) under the plan; DEV — read-only plus bounded login/logout probes with the cast identities and the wrapper reads the plan declares (these create session and audit rows, acknowledged); STAGING — browser-only through the real app with cast identities (Gate D). Anything else is `STOP-AUTHORITY`.
 
 Authority rule (playbook §6): being pointed at this folder and asked to start authorizes **Q1 only**, within the declared scope.
@@ -60,7 +64,7 @@ Read, in order: `QAM_STATE.md` → this file → the contract and ruling lane (�
 | Recorded state in `QAM_STATE.md` | Next owner | What the arriving QA Executor does |
 |---|---|---|
 | `READY FOR ENGINEERING` | Engineer | Nothing to test yet. Report that engineering is pending and no handoff exists; do not run preflight against an unfinished candidate |
-| `ENGINEERING COMPLETE — AWAITING QA BRANCH` | Director | Report that the handoff exists and the Director has not yet committed the candidate and created `qa/apbm-003-cyber-pharma` at it. Do not start Q1 |
+| `ENGINEERING COMPLETE — AWAITING QA BRANCH` | Director | Report that the handoff exists and the Director has not yet committed the candidate and created `qa/apbm-003` at it. Do not start Q1 |
 | `READY FOR RECON` | QA Executor | Introduce the role briefly; run `QAM_PREFLIGHT.md`; resolve the candidate from the Director's receipt and reconcile it against the handoff inventory; write `QAM_RECON_REPORT.md`; draft `QAM_TEST_PLAN.md`; build the Q1 package; record `Q1 COMPLETE — AWAITING QA LEAD REVIEW`; stop |
 | `Q1 COMPLETE — AWAITING QA LEAD REVIEW` | QA Lead | Return the existing Q1 package and the decision needed. Do not rerun Q1 |
 | `Q1 AMENDMENTS REQUESTED` | QA Executor | Apply **only** the exact edits in `QAM_APPROVAL.md` §1; record in plan §8 with the diff; re-bind (new SHA-256); record `Q1 AMENDED — AWAITING QA LEAD BINDING`; return |
@@ -91,6 +95,6 @@ Cody completes `QAM_MANIFEST.md` (incl. the four-part change inventory) and `HAN
 
 ## 8. Reworks (conditional; same QA line; explicit handoffs)
 
-QA Lead adjudication → one consolidated repair instruction (JARVIS, in `../APBM_RULINGS.md` §C + `FINDINGS.md` §3.2) → Cody repairs on `qa/apbm-003-cyber-pharma` (one active writer; ownership transfer recorded in `HANDOFFS/QA_HANDOFF.md`) → Director commits → Claudy re-pins and retests (repair diff + affected ACs + full required regression). Findings consolidated into one repair assignment where practical; repeat only when evidence requires it. No disposable QA branches; no transfer back to the engineering branch.
+QA Lead adjudication → one consolidated repair instruction (JARVIS, in `../APBM_RULINGS.md` §C + `FINDINGS.md` §3.2) → Cody repairs on `qa/apbm-003` (one active writer; ownership transfer recorded in `HANDOFFS/QA_HANDOFF.md`) → Director commits → Claudy re-pins and retests (repair diff + affected ACs + full required regression). Findings consolidated into one repair assignment where practical; repeat only when evidence requires it. No disposable QA branches; no transfer back to the engineering branch.
 
 *Instantiated 2026-11-05 by Friday from TEMPLATE SET v0.3.*

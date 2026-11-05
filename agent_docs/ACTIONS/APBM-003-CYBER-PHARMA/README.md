@@ -2,13 +2,13 @@
 
 **What this is.** The module package (with its embedded QAM) that closes Phase 3 of the Cyber Pharma Eight-Phase Plan v3.0 and delivers **Target One**: OwedBook and the agreed admin read views on staging, reading real rows from the shared dev Supabase, where those rows are synthetic pharmacies. Phase 3's exit gate (Controlled Read Validation) passes inside this module.
 **Status at authoring (2026-11-05):** `READY FOR E1`. Not approved for E2. Contract text is DRAFT — CLAIM STATUS until E1 resolution. Plan v3.0 D-6 adoption pending (recorded, not inferred).
-**Install destination:** `agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/` in `cyber-pharma-dev-v1-phase-3`, on a new branch `apbm-003-cyber-pharma` cut from `main` (expected parent `5234abe`). Unpack the ZIP outside the repo, copy only this folder in, commit the pack with the Director's hands, confirm `git status` clean before "go".
+**Install destination:** `agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/` in `Cyberize-Group/cyph-v1-dev`, on a new branch `apbm-003` cut from `main` (verified pre-pack parent `af2c7e5225d2d78925fd392e29a58b6bde830263`; E1 start `b23372d24d79b6460f746a191e824224ba5f8900`; `5234abe` unavailable). Unpack the ZIP outside the repo, copy only this folder in, commit the pack with the Director's hands, confirm `git status` clean before "go".
 
 ## Seats
 Director **Tony** · Chief Architect **JARVIS** (he/him; reviews this pack) · Module Architect **Friday** (she/her; author) · **Engineering Executor Cody** · **QA Executor Claudy** · QA Lead (seat; holder recorded when it acts). Cody and Claudy are deliberately reversed from previous engagements.
 
 ## The four shots
-E1 Cody recon (`E1_RECON_MISSION.md`) → resolution (JARVIS stamps the contract FINAL; Director approves E2) → E2 Cody builds continuously with one declared Director stop (`APPLY_CHECKPOINT.md`) → Director commits the candidate and cuts `qa/apbm-003-cyber-pharma` → Q1 Claudy recon + test plan (`QAM/`) → QA Lead approval, Director release → Q2 Claudy executes → adjudication → conditional repair (Cody, same QA line) → certificate → cleanup → closeout → merge → Gate D on staging.
+E1 Cody recon (`E1_RECON_MISSION.md`) → resolution (JARVIS stamps the contract FINAL; Director approves E2) → E2 Cody builds continuously with one declared Director stop (`APPLY_CHECKPOINT.md`) → Director commits the candidate and cuts `qa/apbm-003` → Q1 Claudy recon + test plan (`QAM/`) → QA Lead approval, Director release → Q2 Claudy executes → adjudication → conditional repair (Cody, same QA line) → Gate Q certificate → separately approved deployment of that certified candidate → Gate D on actual deployed revision → cleanup/closeout and Director merge. E2 stage 8 prepares artifacts locally; no pre-Q deployment.
 
 ## File index
 | Path | Owner | Purpose |

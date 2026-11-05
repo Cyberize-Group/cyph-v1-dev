@@ -32,7 +32,9 @@
 | `user_businesses.role = 'member'` | "Store Worker" / "Member" |
 | `user_roles.superadmin` | never shown to customers; internal operator only |
 
-## 4. Gate D (independent, Claudy, after Gate Q)
+## 4. Gate D (independent, Claudy, after Gate Q and certified-candidate deployment)
+
+E2 delivers the candidate and deployment package locally. Claudy tests that identified candidate for Gate Q; QA Lead certifies. Tony then separately approves deployment of that certified product identity, and Gate D verifies the actual deployed revision. Staging is not a Gate-Q precondition.
 
 Verifies on the deployed revision: the running image is the certified candidate's build; sign-in works for each cast identity; supported reads return the right stores; role boundaries hold through the real browser; the limitations list matches what the screens actually do; no secret appears in the client bundle or response headers. Gate D is a separate claim from Gate Q (`../QAM/QAM_CERTIFICATION.md` §3) and is recorded in `../EVIDENCE/deploy/GATE_D.md` by the QA Executor with its own evidence.
 

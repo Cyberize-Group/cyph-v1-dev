@@ -10,10 +10,10 @@ A small index into authoritative records. References authority; grants none. Eac
 
 | Field | Value |
 |---|---|
-| Phase | `READY FOR E1` |
+| Phase | `E1 COMPLETE — AWAITING RESOLUTION`; A01 correction draft pending FINAL/release |
 | As of | 2026-11-05 · Asia/Dhaka (authoring) |
-| Branch / HEAD | `apbm-003-cyber-pharma` — NOT YET CUT (Director creates from `main` after installing the pack); HEAD NOT RECORDED |
-| Baseline | parent of the pack-installation commit; expected `5234abe`; full SHA NOT RECORDED (E1) |
+| Branch / HEAD | `apbm-003` / `b23372d24d79b6460f746a191e824224ba5f8900`; QA branch `qa/apbm-003` to be cut by Tony at candidate |
+| Baseline | `af2c7e5225d2d78925fd392e29a58b6bde830263` verified; E1 start `b23372d24d79b6460f746a191e824224ba5f8900`; `5234abe` unavailable |
 | Candidate | PENDING |
 | Contract identity | `APBM_ACCEPTANCE_SPEC.md` DRAFT — CLAIM STATUS; FINAL stamp NOT RECORDED |
 | Plan v3.0 adoption (D-6) | PENDING (recorded, not inferred) |
@@ -30,3 +30,17 @@ A small index into authoritative records. References authority; grants none. Eac
 | Date / time | Seat | From → To | Identity touched | Record |
 |---|---|---|---|---|
 | 2026-11-05 · Asia/Dhaka | Friday (Architect) | — → `READY FOR E1` | none | pack authored from plan v3.0 draft 3 + Director brief of 2026-11-05; QAM instantiated from template set v0.3 |
+
+## 2026-11-05T14:04:48.275219+00:00 — Cody — E1 COMPLETE — AWAITING RESOLUTION
+
+Director E1 override: repository Cyberize-Group/cyph-v1-dev; branch apbm-003; full HEAD b23372d24d79b6460f746a191e824224ba5f8900. Pack commit 7abd8a66886a6f3a26ffbc59ba6c8c929f84790d; actual pre-pack baseline af2c7e5225d2d78925fd392e29a58b6bde830263. 5234abe unavailable. This dated entry supersedes the authoring index for current dispatch; historical entries unchanged.
+
+Phase: **E1 COMPLETE — AWAITING RESOLUTION** (restricted recon complete with explicit runtime/target gaps). Latest engineering package: EVIDENCE/APBM-003-CYBER-PHARMA_E1_REVIEW_01.zip, receipt follows after packaging. Report EVIDENCE/E1/RECON_REPORT.md; proposed plan APBM_EXECUTION_PLAN.md. Contract remains DRAFT; D-6 and E2 approval NOT RECORDED. Next owner: JARVIS resolves F01–F16 and Tony records scope/targets/decisions before E2. No automatic resume or E2 effects permitted.
+
+### 2026-11-05T14:06:57.388945+00:00 — Cody — package receipt
+
+E1 COMPLETE — AWAITING RESOLUTION. Archive `EVIDENCE/APBM-003-CYBER-PHARMA_E1_REVIEW_01.zip`; SHA-256 `949262c1bf5fb3ab774de93de9bd5e3bda78d76ac01af0ac4d1f70ffd96f78b5`; 279809 bytes; 79 members. CRC and every indexed payload hash verified. Receipt: `EVIDENCE/E1_PACKAGE_RECEIPT.md`. This hash is deliberately not inside the ZIP. JARVIS review and Tony E2 decision pending; stop here.
+
+## 2026-11-05 — Cody — consolidated amendment review
+
+JARVIS acceptance of E1 reported by user. Current HEAD verified b23372d24d79b6460f746a191e824224ba5f8900; baseline af2c7e5225d2d78925fd392e29a58b6bde830263; 5234abe unavailable. E1 evidence preserved. E2_AMENDMENT_A01.md is DRAFT for review; E2 not released. Next owner Tony/JARVIS. No product, Git, database or cloud changes.

@@ -1,11 +1,5 @@
-# CODY_LAUNCH_PROMPT — E1 entry (the Director pastes this; operating rules live in the package)
+# E2 release routing — DRAFT
 
-Files that must be on disk and committed before pasting: the whole `agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/` folder on branch `apbm-003-cyber-pharma`; the engineering recon skill in the repo; `git status` clean.
+E1 is complete; do not restart recon. Repository Cyberize-Group/cyph-v1-dev; engineering apbm-003; QA qa/apbm-003 (Tony cuts at candidate). Baseline af2c7e5225d2d78925fd392e29a58b6bde830263; E1 start b23372d24d79b6460f746a191e824224ba5f8900; 5234abe unavailable.
 
-```
-You are Cody, the Engineering Executor for APBM-003-CYBER-PHARMA.
-Read agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_ENTRY.md, then APBM_STATE.md, and act only on the recorded state.
-The recorded state is READY FOR E1: run E1_RECON_MISSION.md in full — discover and use the repository's engineering recon skill first — and return the one E1 package it specifies.
-Read-only toward product, Git, every database and the cloud. Aggregate blockers; do not stop at the first missing document.
-Do not implement, migrate, seed, deploy or mutate Git. Stop for JARVIS's resolution and the Director's approval.
-```
+Use E2_RELEASE_MESSAGE.md only after its bracketed evidence/decision references are filled, JARVIS final-check/FINAL binding exists and Tony explicitly releases E2. Until then this pack remains draft. Follow APBM_STATE, APBM_ENTRY and E2_EXECUTION_INSTRUCTIONS; stage file ceilings are binding. No release is inferred from this template.

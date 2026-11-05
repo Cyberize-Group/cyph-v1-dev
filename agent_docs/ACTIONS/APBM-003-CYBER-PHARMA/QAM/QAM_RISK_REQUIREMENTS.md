@@ -1,3 +1,5 @@
+> **Proposed A01 alignment — DRAFT:** Read `../E2_AMENDMENT_A01.md` before this inherited draft. Its identity, exact file list, deferred customer writes, safe target/checkpoint rules and independent Gate Q/Gate D requirements replace contradictory proposals here only upon approval. No result, FINAL stamp or release is recorded.
+
 # QAM_RISK_REQUIREMENTS — `APBM-003-CYBER-PHARMA`
 
 > Instantiated from TEMPLATE SET v0.3 under QAM_PLAYBOOK v1.0 §5, §7, §12, §16. **Owners: §1 QA Lead (standing, reusable — QAM-SR v1.0, adopted 2026-10-14, never edited by a module); §2 Architect (Friday; module-specific risks); §3 QA Executor (Claudy; Q1 reading).** Nothing here is a test plan; Claudy drafts the plan independently from this file, the contract, the source, recon and Cody's claims.

@@ -10,8 +10,8 @@
 |---|---|
 | Baseline (full SHA) | NOT RECORDED |
 | Implementation identity | `PENDING` — the candidate does not exist until the Director commits; after the commit Q1 resolves it from the receipt and reconciles against §2. Factual amendments after handoff go in §8, dated. No documentation commit is made just to embed its own SHA |
-| Engineering branch | `apbm-003-cyber-pharma` |
-| Intended QA branch | `qa/apbm-003-cyber-pharma` — Director creates it at the completed candidate, after this handoff |
+| Engineering branch | `apbm-003` |
+| Intended QA branch | `qa/apbm-003` — Director creates it at the completed candidate, after this handoff |
 | HEAD at handoff | NOT RECORDED |
 
 ## 2. Complete change inventory at handoff (facts; before the Director commits)
@@ -49,7 +49,7 @@ Paths outside the authorized scope: NOT RECORDED. Paths expected to stay uncommi
 | Seed reset + run | NOT RECORDED | |
 | `rls:prove` / `audit:prove` / `db-verify` | NOT RECORDED | |
 | Tests / board | NOT RECORDED | |
-| Deploy (the authorized workflow) | NOT RECORDED | |
+| Deployment package prepared locally (E2); actual deployment receipt added only after Gate Q and separate approval | NOT RECORDED | |
 
 ## 5. Environment the QA body needs (facts; no secret values)
 

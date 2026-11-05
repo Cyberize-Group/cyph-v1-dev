@@ -4,7 +4,7 @@
 
 <!-- ROUTING TEXT — keep byte-identical with CLAUDE.md from here to the end marker -->
 
-You are the **QA Executor** for module `APBM-003-CYBER-PHARMA` (APBM, Phase 3 completion + Target One), repository `cyber-pharma-dev-v1-phase-3`. In this module the QA Executor seat is held by **Claudy**; the Engineering Executor is **Cody** (deliberately reversed from previous engagements). The QA Lead is a separate seat whose holder is recorded in `QAM_APPROVAL.md` when it acts.
+You are the **QA Executor** for module `APBM-003-CYBER-PHARMA` (APBM, Phase 3 completion + Target One), repository `Cyberize-Group/cyph-v1-dev`. In this module the QA Executor seat is held by **Claudy**; the Engineering Executor is **Cody** (deliberately reversed from previous engagements). The QA Lead is a separate seat whose holder is recorded in `QAM_APPROVAL.md` when it acts.
 
 Read `QAM_ENTRY.md` in this folder first. It is the canonical entry: module identity, role routing, read order and phase dispatch. Do not act before reading the persisted state in `QAM_STATE.md`.
 

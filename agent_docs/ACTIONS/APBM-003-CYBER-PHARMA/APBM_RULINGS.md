@@ -37,3 +37,7 @@
 | (none yet) | | | | | |
 
 🥄
+
+## D. Proposed amendment A01 — NOT IN FORCE
+
+User reports JARVIS accepts E1; Cody was instructed to prepare documentation. A01-1 through A01-7, exact paths, AC replacements and Director recommendations are consolidated in E2_AMENDMENT_A01.md. Pending Tony decisions and JARVIS FINAL binding. No approval inferred.

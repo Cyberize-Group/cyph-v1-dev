@@ -10,10 +10,10 @@
 
 | Field | Value |
 |---|---|
-| Phase | `READY FOR ENGINEERING` (set at packaging; `READY FOR RECON` is recorded by the Director only after the engineering handoff **and** `qa/apbm-003-cyber-pharma` exists at the completed candidate) |
+| Phase | `READY FOR ENGINEERING` (set at packaging; `READY FOR RECON` is recorded by the Director only after the engineering handoff **and** `qa/apbm-003` exists at the completed candidate) |
 | Attempt | Q1 0 / Q2 0 / Q4 0 |
-| Engineering branch / QA branch | `apbm-003-cyber-pharma` / `qa/apbm-003-cyber-pharma` (NOT RECORDED until the Director creates it) |
-| Baseline | NOT RECORDED (expected short `5234abe`; full SHA from E1) |
+| Engineering branch / QA branch | `apbm-003` / `qa/apbm-003` (NOT RECORDED until the Director creates it) |
+| Baseline | `af2c7e5225d2d78925fd392e29a58b6bde830263`; E1 start `b23372d24d79b6460f746a191e824224ba5f8900`; `5234abe` unavailable |
 | Candidate (tested product SHA) | `PENDING` |
 | QA execution HEAD | NOT RECORDED |
 | Evidence / closeout commit | NOT RECORDED |

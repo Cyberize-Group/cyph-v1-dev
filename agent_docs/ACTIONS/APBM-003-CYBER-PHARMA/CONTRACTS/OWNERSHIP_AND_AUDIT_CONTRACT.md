@@ -1,3 +1,5 @@
+> **Proposed A01 alignment — DRAFT:** Read `../E2_AMENDMENT_A01.md` before this inherited draft. Its identity, exact file list, deferred customer writes, safe target/checkpoint rules and independent Gate Q/Gate D requirements replace contradictory proposals here only upon approval. No result, FINAL stamp or release is recorded.
+
 # OWNERSHIP AND AUDIT CONTRACT — APBM-003-CYBER-PHARMA
 
 **Status:** DRAFT — CLAIM STATUS until E1 resolution stamps FINAL. Every table, column, function and policy name below is the name **reported** by the BIM-001..003 records; Cody verifies each against `supabase/migrations/0001`–`0047` and the catalog in E1 and lists every discrepancy. Nothing here is changed by a plan edit; corrections go to `../APBM_RULINGS.md` §C.

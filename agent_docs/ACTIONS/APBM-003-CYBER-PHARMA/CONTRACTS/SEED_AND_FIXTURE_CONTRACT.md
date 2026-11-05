@@ -1,3 +1,5 @@
+> **Proposed A01 alignment — DRAFT:** Read `../E2_AMENDMENT_A01.md` before this inherited draft. Its identity, exact file list, deferred customer writes, safe target/checkpoint rules and independent Gate Q/Gate D requirements replace contradictory proposals here only upon approval. No result, FINAL stamp or release is recorded.
+
 # SEED AND FIXTURE CONTRACT — APBM-003-CYBER-PHARMA
 
 **Status:** DRAFT — CLAIM STATUS until E1 resolution stamps FINAL. Counts marked `<<E1>>` are fixed from evidence at E1 resolution and then frozen.
@@ -43,7 +45,7 @@ Row counts: `<<E1>>` per store (enough for the pager to page: more than one page
 
 ## 4. Idempotency, reset and safe boundaries
 
-- `seed:reset` + `seed:run` on **SCRATCH** from scratch is the proof path; on **dev** the seed runs once at the APPLY checkpoint under Director authority and is re-runnable only through the same checkpoint procedure (never from a shell habit).
+- `seed:reset` + `seed:run` on **SCRATCH** from scratch is the proof path; on **dev** the seed runs once at the APPLY checkpoint under Director authority and is not re-run by reset; any later additive/repair seed needs a separately approved forward data plan and backup/restore rehearsal under APPLY_CHECKPOINT.md.
 - **Reset boundary**: tenant rows (`accounts`, `businesses`, `user_businesses`, `user_data`, `subscriptions`, `apa_*`, `pending_registrations`, `report_files`, reference slices, `system_config` rows the seed owns) and the seed identities. **Never** `audit_logs` (insert-only, TRUNCATE guarded — the seed must not even try), never `user_roles`/`profiles` rows of non-seed users, never Storage.
 - **"Reseed twice = identical state"** is graded as: identical canonical content hash over every seeded table **excluding** `audit_logs`, generated timestamps (`created_at`/`updated_at`), auth UUIDs and any surrogate ids; the comparison script defines the canonical projection and is itself an instrument QA attacks (change one seeded value → hash differs).
 - Audit rows produced by the seed carry `actor_role = service_role`, actor NULL; the expected count per run is recorded (`<<E1>>`) and QA checks it.

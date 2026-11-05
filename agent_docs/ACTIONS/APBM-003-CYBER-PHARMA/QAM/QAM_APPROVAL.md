@@ -27,7 +27,7 @@
 ## 3. Director release (Q2)
 | Field | Value |
 |---|---|
-| Records committed (files, commit SHA on `qa/apbm-003-cyber-pharma`) | NOT RECORDED |
+| Records committed (files, commit SHA on `qa/apbm-003`) | NOT RECORDED |
 | Release statement | NOT RECORDED |
 | Credential file created (`.env.qa.local`; keys by name) | NOT RECORDED |
 | Release source (Director, date, TZ) | NOT RECORDED |

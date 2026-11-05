@@ -35,7 +35,7 @@
 Reductions and why: NOT RECORDED. Sign-in strategy per SR-5. Actual sign-in counts recorded.
 
 ## 5. Stop conditions for execution
-QAM_PLAYBOOK §11 `STOP-*` table applies. Module-specific triggers: any evidence of a real (non-synthetic) record on any target (`STOP-PRIVACY`); DEV mutation by any QA step (`STOP-AUTHORITY`); candidate ≠ deployed revision (`STOP-IDENTITY`).
+QAM_PLAYBOOK §11 `STOP-*` table applies. Module-specific triggers: any evidence of a real (non-synthetic) record on any target (`STOP-PRIVACY`); undeclared DEV effects beyond bounded session/audited read probes (`STOP-AUTHORITY`); at Gate D only: candidate ≠ deployed revision (`STOP-IDENTITY`); no deployed revision required for Gate Q.
 
 ## 6. Cannot yet be tested
 | AC / area | Reason | Enabler | Owner |

@@ -22,7 +22,7 @@
 ## 2. Basis
 | AC group | Independent result (matrix) | Finding IDs and dispositions | Evidence / specimen | Limitation or ruling |
 |---|---|---|---|---|
-| AC-1xx schema/permissions · AC-2xx seed · AC-3xx read-audit (D-1(a)) · AC-4xx apply · AC-5xx reads/CRV · AC-6xx admin views · AC-7xx deploy · AC-8xx regression · AC-9xx handoff | NOT RECORDED | | | |
+| AC-1xx schema/permissions · AC-2xx seed · AC-3xx read-audit (D-1(a)) · AC-4xx apply · AC-5xx reads/CRV · AC-6xx admin views · AC-7xx deferred to post-deployment Gate D (not Gate-Q prerequisite) · AC-8xx regression · AC-9xx handoff | NOT RECORDED | | | |
 
 Evidence adequacy and rationale: NEEDS AUTHORING (QA Lead). Follow-up findings carried: NOT RECORDED. Known risk accepted: NOT RECORDED — Director authority: NOT RECORDED.
 
@@ -44,4 +44,4 @@ Evidence adequacy and rationale: NEEDS AUTHORING (QA Lead). Follow-up findings c
 | Governed clean-tree condition | NOT RECORDED | |
 | Released to Architect closeout (date, QA Lead) | NOT RECORDED | |
 
-After release: JARVIS directs bounded closeout (Cody); the Director commits, merges `qa/apbm-003-cyber-pharma` into `main` and pushes. A documentation-only successor is verified by the complete diff before the recorded identity is extended. This certificate does not certify a deployed revision.
+After release: JARVIS directs bounded closeout (Cody); the Director commits, merges `qa/apbm-003` into `main` and pushes. A documentation-only successor is verified by the complete diff before the recorded identity is extended. This certificate does not certify a deployed revision.

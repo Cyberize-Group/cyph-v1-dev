@@ -1,11 +1,14 @@
-# APBM_SKILLS_MANIFEST — APBM-003-CYBER-PHARMA
+# APBM_SKILLS_MANIFEST — E1 verified inventory
 
-**Owner:** Architect declares the need; Cody records verified facts at E1 (`NOT VERIFIED` until then). A manifest entry is not an installed, tested skill (ABM_PLAYBOOK §7).
+Owner: Cody records facts; architecture/deploy authority unchanged. See EVIDENCE/E1/skill_inventory.txt and skill_sources.txt.
 
-| Skill | Purpose in this module | Actual path | Version | Entry file / launch directory | Read / write scope | Activation evidence | Status |
-|---|---|---|---|---|---|---|---|
-| Engineering recon skill (name per repo) | E1 general recon: repo, runtime, DB, instructions | NOT VERIFIED — Director says it will be in the repo; Cody discovers at E1 §0 | NOT VERIFIED | NOT VERIFIED | read-only | NOT VERIFIED | GAP until E1 |
-| `stark-recon` / `stark-deploy` / Stark Supabase Setup (reported project skills) | may overlap with the above; Cody records what actually exists and which is the recon skill the Director means | NOT VERIFIED | | | | | GAP until E1 |
-| Agent-owned deployment procedure (`DEPLOYMENT_PLAYBOOK.md` + repo deploy scripts) | stage 8 | NOT VERIFIED | | | cloud, scoped, Director-authorized | | GAP until E1 |
+| Skill | Actual path | Version evidence | Capabilities / activation | Status |
+|---|---|---|---|---|
+| stark-recon | agent_docs/SKILLS/stark-recon-skill-v1.1/SKILL.md | SKILL version history 1.1, 2026-06-09 | General filesystem/doc drift, stack/auth/design/data, build/env checks, scaffold/packaging/nav predicates, evidence-labelled report. Applied to APBM E1; write-requiring/live probes recorded GAP under Director instruction; output in pack EVIDENCE/E1 | FOUND, READ, USED with stated scope override |
+| next-deploy-generate | agent_docs/SKILLS/stark-cloud-deploy-skills/next-deploy-generate/SKILL.md | child heading v2.0; family V3 release notes separate | Generates deployment files; not activated | PRESENT, not target-verified |
+| next-deploy-execute | agent_docs/SKILLS/stark-cloud-deploy-skills/next-deploy-execute/SKILL.md | child heading v2.0 | Guided Cloud Run deployment; not activated | PRESENT, no deployment authorized |
+| stark-kit-residue-cleaner | agent_docs/SKILLS/stark-kit-residue-cleaner-skill/SKILL.md | no explicit version established in SKILL header | Two-phase trace/approved cleanup; not activated | PRESENT |
+| Stark Supabase Setup | Searched repository skill inventory | not found as installed skill | No capabilities inferred | GAP, not required to invent substitute workflow |
+| DEPLOYMENT_PLAYBOOK / runnable deploy artifacts | Repository filename scan | absent | standalone Next config exists; actual deployment package does not | GAP, Tony/JARVIS before stage 8 |
 
-Rule: the skill's own SKILL.md governs its method; this pack supplies the APBM-specific questions and required outputs (`E1_RECON_MISSION.md`). Do not duplicate the skill's process in the report; do not invent capabilities.
+Launch directory: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev. b23372d relocated the old _SKILLS directory; old path references are stale. Recon method does not grant database mutations, credential access or deployment. No secret values retained in evidence.

@@ -1,8 +1,10 @@
+> **Proposed A01 alignment — DRAFT:** Read `../E2_AMENDMENT_A01.md` before this inherited draft. Its identity, exact file list, deferred customer writes, safe target/checkpoint rules and independent Gate Q/Gate D requirements replace contradictory proposals here only upon approval. No result, FINAL stamp or release is recorded.
+
 # QAM_PREFLIGHT — `APBM-003-CYBER-PHARMA` (executable readiness checks)
 
 > Instantiated from TEMPLATE SET v0.3 under QAM_PLAYBOOK v1.0 §5 and §8. **Owner: Architect (Friday) authors the rows; the QA Executor (Claudy) records only the Result and Evidence cells in Q1 and rechecks changeable rows at Q2/Q4 entry.** A row the Executor believes is wrong is a GAP/QUESTION in `QAM_RECON_REPORT.md` §4, not an edit. Every result starts `NOT RUN`.
 
-**Executor:** Claudy · **Run at:** NOT RECORDED · **Working directory:** repo root of the `qa/apbm-003-cyber-pharma` checkout · **Results file:** `evidence/preflight/<attempt>/PREFLIGHT_RESULTS.txt`
+**Executor:** Claudy · **Run at:** NOT RECORDED · **Working directory:** repo root of the `qa/apbm-003` checkout · **Results file:** `evidence/preflight/<attempt>/PREFLIGHT_RESULTS.txt`
 
 Q1 is read-only toward product and live business data. SCRATCH destructive work, DEV login probes and STAGING browser work are authorized only where a row says so and only in Q2 under the approved plan.
 
@@ -10,7 +12,7 @@ Q1 is read-only toward product and live business data. SCRATCH destructive work,
 
 | # | Check | Command (working dir) | Expected | Authorized effect | Result | Evidence |
 |---|---|---|---|---|---|---|
-| PF-1.1 | Repository and branch | `git rev-parse --abbrev-ref HEAD` | `qa/apbm-003-cyber-pharma` | read-only | NOT RUN | |
+| PF-1.1 | Repository and branch | `git rev-parse --abbrev-ref HEAD` | `qa/apbm-003` | read-only | NOT RUN | |
 | PF-1.2 | Full HEAD, baseline, candidate | `git rev-parse HEAD`; `git log --oneline <BASELINE>..HEAD` | candidate per Director receipt | read-only | NOT RUN | |
 | PF-1.3 | Tracked and untracked state | `git status --porcelain` | empty | read-only | NOT RUN | |
 | PF-1.4 | Candidate ancestry | `git merge-base --is-ancestor <CANDIDATE> HEAD` | exit 0 | read-only | NOT RUN | |
@@ -47,7 +49,7 @@ Q1 is read-only toward product and live business data. SCRATCH destructive work,
 |---|---|---|---|---|---|---|
 | PF-4.1 | SCRATCH resolved by project ref from `QA_SCRATCH_*` keys; unpaused; ready for a catalog query (an HTTP 200 proves nothing) | `select 1` via `QA_SCRATCH_DB_URL` | ref recorded; query returns | read-only | NOT RUN | |
 | PF-4.2 | DEV resolved by project ref (= `../EVIDENCE/apply/01_TARGET_IDENTITY.txt`); migration state = applied chain; cast present | read-only catalog query with `QA_DEV_*` publishable key through the app's own paths or a read-only probe the plan authorizes | matches apply evidence | read-only | NOT RUN | |
-| PF-4.3 | STAGING URL serves the candidate revision (image digest ↔ commit from `../EVIDENCE/deploy/`) | `curl -sI` + revision record | matches | read-only | NOT RUN | |
+| PF-4.3 | Gate D only, after Gate Q and separate deployment approval: verify actual Cloud Run revision/digest against certified candidate; not a Q1/Q2 prerequisite | revision/image provenance plus browser checks | exact match | bounded session/audit reads | NOT RUN | |
 | PF-4.4 | Cast identities exist on the target (E-17): `OWNER1`, `OWNER3`, `ADMIN_B2`, `ADMIN_B3`, `MEMBER_B1`, `MEMBER_B2B3`, `UNRELATED` (+ `OPERATOR` only if authorized) | Director-verified at the seed run; Executor confirms by a bounded login probe only in Q2 | exist | Q2: bounded login (creates session/audit rows, acknowledged) | NOT RUN | |
 | PF-4.5 | Suitable test data: per-store row counts and coverage per the FINAL `../CONTRACTS/SEED_AND_FIXTURE_CONTRACT.md` §3 | read-only counts through wrappers or the plan's authorized probe | matches | read-only | NOT RUN | |
 | PF-4.6 | `.env.qa.local` declared, **ignored and untracked**, schema valid, no values echoed | `git check-ignore -v .env.qa.local`; `git ls-files --error-unmatch .env.qa.local` (expect failure); key-name check | ignored; untracked; keys per `QAM_ENTRY.md` §4 | read-only; no values printed | NOT RUN | |

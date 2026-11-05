@@ -1,3 +1,5 @@
+> **DRAFT A01 review overlay:** `E2_AMENDMENT_A01.md` proposes the replacement contract and safe APPLY requirements. Not FINAL or released. Its revised AC-104/403/502 and checkpoint rules supersede contradictory draft prose for review.
+
 # APBM_ACCEPTANCE_SPEC — APBM-003-CYBER-PHARMA
 
 **Status:** **DRAFT — CLAIM STATUS.** Stamped FINAL by JARVIS at E1 resolution after every `<<E1>>` count and every reported name is replaced with disk evidence (BIM_PLAYBOOK §6 L1 rule 3; BIM-003 lesson: verify every "new"/"count" claim against disk before it enters an AC). After the stamp, this text is frozen; corrections go to `APBM_RULINGS.md` §C.
@@ -9,12 +11,12 @@
 
 | # | Prerequisite | Owner | Evidence |
 |---|---|---|---|
-| P-1 | Pack installed at `agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/`, committed on `apbm-003-cyber-pharma`, `git status` clean before "go" | Director | commit receipt |
+| P-1 | Pack installed at `agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/`, committed on `apbm-003`, `git status` clean before "go" | Director | commit receipt |
 | P-2 | SCRATCH credentials in `.env.local` (throwaway scope only) with their own env prefix (CF-8), rotated since last use | Director | `EVIDENCE/env/ENV_NOTE.md` (key names only) |
 | P-3 | DA-2: "Allow new users to sign up" OFF on DEV and SCRATCH, curl proof | Director | `EVIDENCE/apply/DA-2_SUPABASE_SIGNUP_DISABLED.md` |
 | P-4 | Recon skill present in the repo; path recorded | Director / Cody | `APBM_SKILLS_MANIFEST.md` |
 | P-5 | `.env.qa.local` declared, ignored, untracked, with the key names in `QAM/QAM_ENTRY.md` §4 (created before Q2 release) | Director | QAM preflight PF-4.6 |
-| P-6 | Deployment target approved (service, project, env var names) before stage 8 | Director | `EVIDENCE/deploy/TARGET_APPROVAL.md` |
+| P-6 | After Gate Q, separate staging approval binds certified candidate/digest, service/project/region, DEV backend and config names, authentication and rollback; not needed to execute Gate Q | Director | EVIDENCE/deploy/TARGET_APPROVAL.md |
 
 ## 1. Schema, permissions and trigger (AC-1xx) — proven on SCRATCH from a from-scratch replay; re-verified on DEV at the checkpoint
 
@@ -23,7 +25,7 @@
 | AC-101 | Migrations `0001`–`<<E1: last number>>` replay clean from an empty project; `0001`–`0047` are byte-identical to the baseline (`git diff <baseline> -- supabase/migrations/0001..0047` empty) | a second replay on the same project fails or no-ops exactly as `db:apply` semantics define (never a silent partial) | SCRATCH |
 | AC-102 | `is_owner_of_account(account_id)` exists, SECURITY DEFINER, `search_path` pinned, EXECUTE revoked from `anon`; `my_business_ids()` returns junction stores ∪ owned-account stores (OAC OD-1) | a user with no account and no junction gets an empty set | SCRATCH |
 | AC-103 | Exactly one permissive policy per operation on each tenant table E1 lists (no stacking); owner reach present on `businesses`, `user_businesses`, `subscriptions` (OAC OD-2); policy count = `<<E1>>` | `pg_policies` shows no table with two permissive policies for the same command | SCRATCH |
-| AC-104 | Billing fence (OAC OD-3): UPDATE on `accounts` / `subscriptions` succeeds only for the account owner and never changes an entitlement column from the client | store admin's UPDATE rejected; owner's UPDATE touching an entitlement column rejected | SCRATCH |
+| AC-104 | **A01 proposal:** customer account/subscription INSERT, UPDATE and DELETE are denied to owners, store admins and members; billing is read-only, entitlement changes remain trusted-server-only | Safe-field and entitlement-field attempts fail on SCRATCH with independent unchanged-row verification | SCRATCH |
 | AC-105 | `handle_new_user()` on the target assigns `member` regardless of signup metadata, copies `full_name`, is SECURITY DEFINER with pinned `search_path` (`pg_get_functiondef` matches the migration text) | a signup payload carrying `role: superadmin` lands as `member` | SCRATCH, then DEV (AC-404) |
 | AC-106 | Partial unique index enforces at most one `admin` per `business_id` (OAC OD-4) | second admin insert fails; update creating a second admin fails | SCRATCH |
 | AC-107 | `user_roles.superadmin` semantics unchanged: no new policy references `user_roles`; grep of the delta migrations for `user_roles` = 0 hits outside OD-7 | — | SCRATCH |
@@ -45,7 +47,7 @@
 | AC | Requirement | Negative / no-break | Where |
 |---|---|---|---|
 | AC-301 | Application half: `grep` (existence-checked) of `src/**` finds 0 occurrences of a direct `user_data` read (`from('user_data')`, raw SQL, or equivalent E1 enumerates); `services/owedbook.ts` calls only the four wrappers | — | repo |
-| AC-302 | Database half: with `OWNER3`, `ADMIN_B2` and `MEMBER_B1` tokens, a direct `select … from user_data` returns the permission error class E1 fixes (not an empty set); the same tokens' wrapper calls for their own stores succeed | service-role reads unchanged | SCRATCH |
+| AC-302 | **A01 proposal:** owner/admin/member direct user_data SELECT denied with measured permission-error class; same identities can call wrappers for permitted stores. Customer INSERT/UPDATE/DELETE also denied; seven legacy ALLOW mutation cases explicitly replaced by denial/unchanged-state checks on SCRATCH | Trusted service-role seed behavior unchanged; no relaxation of unrelated matrix cells | SCRATCH |
 | AC-303 | Owner reach through wrappers (D-4): `OWNER3` → `owedbook_rows(B2)` succeeds and lands a `read_page` row; `OWNER3` → `owedbook_rows(A1)` returns `'not a member of business'`; `UNRELATED` → any A or B store refused | — | SCRATCH |
 | AC-304 | Audit operation contract (OAC §4): for each listed operation the observed `read_page` count equals the contract's number, including a forced retry case | a count that differs is FAIL, not reinterpreted | SCRATCH → DEV |
 | AC-305 | Admin read paths (`<<E1: names>>`) are SECURITY DEFINER, membership/ownership-checked, each logging one `read_page` with the operation name; `UNRELATED` gets nothing | — | SCRATCH |
@@ -54,9 +56,9 @@
 
 | AC | Requirement | Where |
 |---|---|---|
-| AC-401 | Before apply: DEV identified by project ref; current migration state recorded (expected: the 2-table baseline, `user_roles` + `profiles`, 3 policies); backup taken and restore path rehearsed on a throwaway clone (`APPLY_CHECKPOINT.md` §2) | DEV |
-| AC-402 | Apply: only the forward chain via `db:apply` semantics (never reset), catalog check after the run: table count `<<E1>>`, policy count `<<E1>>`, helper + wrapper + audit function count `<<E1>>` | DEV |
-| AC-403 | Seed run once on DEV; cast present (AC-203 re-checked); `rls:prove` and `audit:prove` green against DEV with the QA env prefix | DEV |
+| AC-401 | DEV identity/current catalog and affected-state inventory verified; backup covers affected public/auth data, schema, grants and ledger; restore and forward-apply/seed/verifier rehearsal on disposable target demonstrated | DEV readiness + disposable rehearsal |
+| AC-402 | Tony applies only the verified inventory using rehearsed scripts/apply-forward.mjs design: target fencing, checksum ledger, unapplied files only, atomic migration+receipt per transaction; stop on partial failure per APPLY_CHECKPOINT. Post-apply catalog/ledger matches FINAL counts and definitions. Legacy db:apply is not a DEV command. | DEV |
+| AC-403 | Tony seeds once, verifies cast/counts, and runs rehearsed DEV-safe catalog verifier plus separately bounded authenticated read checks. Declare login/logout session effects and successful wrapper audit inserts; no business DML, reset, reseed-by-reset or destructive proof orchestrators in verifier. | DEV |
 | AC-404 | `handle_new_user()` on DEV matches the migration text (AC-105 re-check); DA-2 evidence file present | DEV |
 | AC-405 | E-4's default-ACL premise re-verified on DEV (what `authenticated`/`anon` can see by default on the new tables = nothing) | DEV |
 
@@ -65,7 +67,7 @@
 | AC | Requirement | Negative / no-break | Where |
 |---|---|---|---|
 | AC-501 | `services/owedbook.ts` imports nothing from `mocks/owedbook*` (grep = 0) in real mode; every method resolves to a wrapper call; the service contract (method names, return types `src/types/OwedBook.ts`) unchanged | mock mode still works behind its flag (kill switch) | repo |
-| AC-502 | Component diff: `git diff <baseline>..<candidate> -- src/components src/app` touches only the R-016 paths ruled in O-04 (`<<E1: list>>`), nothing else | — | repo |
+| AC-502 | **A01 proposal:** component/app delta is limited to the exact permitted paths in E2_AMENDMENT_A01.md, including tenant guard/navigation/store scope, R-016 and unavailable admin controls | Any additional path requires a recorded amendment; protected auth implementation remains byte-identical | repo |
 | AC-503 | `OWNER1` sees A1 only; `OWNER3` sees exactly B1, B2, B3 (B2 and B3 by ownership alone); `ADMIN_B2` sees B2 only; `MEMBER_B1` sees B1 only; `MEMBER_B2B3` sees B2 and B3; `UNRELATED` sees C1 only — across KPIs, all four tabs, filters, sort, pager and Summary | no cross-account row anywhere; the store picker offers only permitted stores | DEV + browser |
 | AC-504 | Every read in AC-503 lands audit rows per OAC §4 with the acting user's id, the business id and the operation | — | DEV |
 | AC-505 | Spoof: a request for a store outside the user's permitted set (edited parameter) is refused with the wrapper's refusal and renders the ruled error state, never another tenant's data | — | DEV |
