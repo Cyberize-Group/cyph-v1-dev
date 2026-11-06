@@ -1,0 +1,11 @@
+{
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "command": "apply",
+  "startedAt": "2026-11-05T15:17:02.882Z",
+  "committed": [
+    "0048_ownership.sql"
+  ],
+  "status": "PASS",
+  "lastCommitted": "0048_ownership.sql",
+  "finishedAt": "2026-11-05T15:17:05.878Z"
+}

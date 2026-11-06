@@ -14,6 +14,12 @@ export type Database = {
   }
   public: {
     Tables: {
+      system_config: {
+        Row: { id: string; key: string; state: string; value: number; effective_date: string; created_at: string }
+        Insert: { id?: string; key: string; state: string; value: number; effective_date: string; created_at?: string }
+        Update: { id?: string; key?: string; state?: string; value?: number; effective_date?: string; created_at?: string }
+        Relationships: []
+      }
       aac_reference: {
         Row: {
           aac: number | null
@@ -957,6 +963,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      is_owner_of_account: { Args: { acct: string }; Returns: boolean }
+      tenant_stores: { Args: never; Returns: { id: string; account_id: string; name: string; capability: string }[] }
+      admin_stores: { Args: { p_business_id?: string }; Returns: Json }
+      admin_members: { Args: { p_business_id: string }; Returns: Json }
+      admin_billing_status: { Args: { p_business_id: string }; Returns: Json }
+      admin_audit: { Args: { p_business_id: string; p_limit?: number; p_before?: number }; Returns: Json }
       is_account_member: { Args: { acct: string }; Returns: boolean }
       is_admin_of: { Args: { biz: string }; Returns: boolean }
       is_member_of: { Args: { biz: string }; Returns: boolean }

@@ -1,6 +1,6 @@
 {
-  "_comment": "BIM-002 expectation matrix. default DENY; every ALLOW is an explicit override earned by a landed policy. Baseline notes: user_roles.select and profiles.select/update are ALLOWED by the three PRE-EXISTING baseline policies (own row) \u2014 not by this module. Tenant payloads target store A1, so ownerB's DENY on A1 rows is the cross-tenant proof. BIM-003 (R-1): audit_logs.select is ALLOWED for junction ADMINS of a business whose rows were written (ownerA, ownerB); members (staffA, multiStore) stay DENY; every audit_logs write stays DENY.",
-  "phase": "X3-FINAL-all-policies",
+  "_comment": "APBM A01 approved delta: all direct claim access denied; audit viewer requires audited RPC. Other certified cells unchanged. See E2 EXPECTED_MATRIX_DELTA.json.",
+  "phase": "APBM-003",
   "identities": [
     "anon",
     "ownerA",
@@ -56,10 +56,10 @@
         "select": "ALLOW"
       },
       "user_data": {
-        "select": "ALLOW",
-        "insert": "ALLOW",
-        "update": "ALLOW",
-        "delete": "ALLOW"
+        "select": "DENY",
+        "insert": "DENY",
+        "update": "DENY",
+        "delete": "DENY"
       },
       "report_files": {
         "select": "ALLOW"
@@ -80,7 +80,7 @@
         "select": "ALLOW"
       },
       "audit_logs": {
-        "select": "ALLOW"
+        "select": "DENY"
       }
     },
     "staffA": {
@@ -104,9 +104,9 @@
         "select": "ALLOW"
       },
       "user_data": {
-        "select": "ALLOW",
-        "insert": "ALLOW",
-        "update": "ALLOW"
+        "select": "DENY",
+        "insert": "DENY",
+        "update": "DENY"
       },
       "report_files": {
         "select": "ALLOW"
@@ -148,7 +148,7 @@
         "select": "ALLOW"
       },
       "user_data": {
-        "select": "ALLOW"
+        "select": "DENY"
       },
       "report_files": {
         "select": "ALLOW"
@@ -169,7 +169,7 @@
         "select": "ALLOW"
       },
       "audit_logs": {
-        "select": "ALLOW"
+        "select": "DENY"
       }
     },
     "multiStore": {
@@ -193,9 +193,9 @@
         "select": "ALLOW"
       },
       "user_data": {
-        "select": "ALLOW",
-        "insert": "ALLOW",
-        "update": "ALLOW"
+        "select": "DENY",
+        "insert": "DENY",
+        "update": "DENY"
       },
       "report_files": {
         "select": "ALLOW"

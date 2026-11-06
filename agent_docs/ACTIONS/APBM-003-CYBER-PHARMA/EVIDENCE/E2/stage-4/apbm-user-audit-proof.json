@@ -1,0 +1,1019 @@
+{
+  "status": "PASS",
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "realUserCredentials": true,
+  "checks": [
+    {
+      "name": "OWNER1 tenant_stores scope allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 direct claim read 42501",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 direct audit read 42501",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 owedbook_kpis 8598cb0e-ab61-4d9f-a85e-2ee418480d19 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 owedbook_rows 8598cb0e-ab61-4d9f-a85e-2ee418480d19 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 owedbook_kpis 70f9f908-b30d-4f08-a982-55b5a48b4f95 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 owedbook_rows 70f9f908-b30d-4f08-a982-55b5a48b4f95 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 owedbook_kpis 523270bd-6a01-4079-aa27-75baf96adb64 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 owedbook_rows 523270bd-6a01-4079-aa27-75baf96adb64 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 owedbook_kpis dc85076e-6c67-4a2f-ae1d-09e305cd8cde deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 owedbook_rows dc85076e-6c67-4a2f-ae1d-09e305cd8cde deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 owedbook_kpis d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 owedbook_rows d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 owedbook_pbm_options 8598cb0e-ab61-4d9f-a85e-2ee418480d19 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 owedbook_summary 8598cb0e-ab61-4d9f-a85e-2ee418480d19 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 owedbook_rows 8598cb0e-ab61-4d9f-a85e-2ee418480d19 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 admin_stores 8598cb0e-ab61-4d9f-a85e-2ee418480d19 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 admin_stores d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 admin_members 8598cb0e-ab61-4d9f-a85e-2ee418480d19 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 admin_members d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 admin_billing_status 8598cb0e-ab61-4d9f-a85e-2ee418480d19 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 admin_billing_status d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 admin_audit 8598cb0e-ab61-4d9f-a85e-2ee418480d19 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER1 admin_audit d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 tenant_stores scope allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 direct claim read 42501",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 direct audit read 42501",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 owedbook_kpis 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 owedbook_rows 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 owedbook_kpis 70f9f908-b30d-4f08-a982-55b5a48b4f95 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 owedbook_rows 70f9f908-b30d-4f08-a982-55b5a48b4f95 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 owedbook_kpis 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 owedbook_rows 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 owedbook_kpis dc85076e-6c67-4a2f-ae1d-09e305cd8cde allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 owedbook_rows dc85076e-6c67-4a2f-ae1d-09e305cd8cde allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 owedbook_kpis d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 owedbook_rows d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 owedbook_pbm_options 70f9f908-b30d-4f08-a982-55b5a48b4f95 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 owedbook_summary 70f9f908-b30d-4f08-a982-55b5a48b4f95 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 owedbook_rows 70f9f908-b30d-4f08-a982-55b5a48b4f95 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 admin_stores 70f9f908-b30d-4f08-a982-55b5a48b4f95 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 admin_stores d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 admin_members 70f9f908-b30d-4f08-a982-55b5a48b4f95 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 admin_members d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 admin_billing_status 70f9f908-b30d-4f08-a982-55b5a48b4f95 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 admin_billing_status d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 admin_audit 70f9f908-b30d-4f08-a982-55b5a48b4f95 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 admin_audit d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 tenant_stores scope allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 direct claim read 42501",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 direct audit read 42501",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 owedbook_kpis 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 owedbook_rows 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 owedbook_kpis 70f9f908-b30d-4f08-a982-55b5a48b4f95 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 owedbook_rows 70f9f908-b30d-4f08-a982-55b5a48b4f95 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 owedbook_kpis 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 owedbook_rows 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 owedbook_kpis dc85076e-6c67-4a2f-ae1d-09e305cd8cde deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 owedbook_rows dc85076e-6c67-4a2f-ae1d-09e305cd8cde deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 owedbook_kpis d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 owedbook_rows d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 owedbook_pbm_options 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 owedbook_summary 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 owedbook_rows 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 admin_stores 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 admin_stores d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 admin_members 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 admin_members d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 admin_billing_status 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 admin_billing_status d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 admin_audit 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 admin_audit d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 tenant_stores scope allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 direct claim read 42501",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 direct audit read 42501",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 owedbook_kpis 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 owedbook_rows 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 owedbook_kpis 70f9f908-b30d-4f08-a982-55b5a48b4f95 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 owedbook_rows 70f9f908-b30d-4f08-a982-55b5a48b4f95 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 owedbook_kpis 523270bd-6a01-4079-aa27-75baf96adb64 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 owedbook_rows 523270bd-6a01-4079-aa27-75baf96adb64 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 owedbook_kpis dc85076e-6c67-4a2f-ae1d-09e305cd8cde allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 owedbook_rows dc85076e-6c67-4a2f-ae1d-09e305cd8cde allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 owedbook_kpis d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 owedbook_rows d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 owedbook_pbm_options dc85076e-6c67-4a2f-ae1d-09e305cd8cde allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 owedbook_summary dc85076e-6c67-4a2f-ae1d-09e305cd8cde allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 owedbook_rows dc85076e-6c67-4a2f-ae1d-09e305cd8cde allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 admin_stores dc85076e-6c67-4a2f-ae1d-09e305cd8cde allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 admin_stores d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 admin_members dc85076e-6c67-4a2f-ae1d-09e305cd8cde allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 admin_members d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 admin_billing_status dc85076e-6c67-4a2f-ae1d-09e305cd8cde allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 admin_billing_status d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 admin_audit dc85076e-6c67-4a2f-ae1d-09e305cd8cde allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B3 admin_audit d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 tenant_stores scope allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 direct claim read 42501",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 direct audit read 42501",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 owedbook_kpis 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 owedbook_rows 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 owedbook_kpis 70f9f908-b30d-4f08-a982-55b5a48b4f95 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 owedbook_rows 70f9f908-b30d-4f08-a982-55b5a48b4f95 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 owedbook_kpis 523270bd-6a01-4079-aa27-75baf96adb64 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 owedbook_rows 523270bd-6a01-4079-aa27-75baf96adb64 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 owedbook_kpis dc85076e-6c67-4a2f-ae1d-09e305cd8cde deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 owedbook_rows dc85076e-6c67-4a2f-ae1d-09e305cd8cde deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 owedbook_kpis d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 owedbook_rows d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 owedbook_pbm_options 70f9f908-b30d-4f08-a982-55b5a48b4f95 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 owedbook_summary 70f9f908-b30d-4f08-a982-55b5a48b4f95 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 owedbook_rows 70f9f908-b30d-4f08-a982-55b5a48b4f95 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 admin_stores 70f9f908-b30d-4f08-a982-55b5a48b4f95 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 admin_stores d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 admin_members 70f9f908-b30d-4f08-a982-55b5a48b4f95 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 admin_members d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 admin_billing_status 70f9f908-b30d-4f08-a982-55b5a48b4f95 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 admin_billing_status d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 admin_audit 70f9f908-b30d-4f08-a982-55b5a48b4f95 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 admin_audit d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 tenant_stores scope allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 direct claim read 42501",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 direct audit read 42501",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 owedbook_kpis 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 owedbook_rows 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 owedbook_kpis 70f9f908-b30d-4f08-a982-55b5a48b4f95 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 owedbook_rows 70f9f908-b30d-4f08-a982-55b5a48b4f95 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 owedbook_kpis 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 owedbook_rows 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 owedbook_kpis dc85076e-6c67-4a2f-ae1d-09e305cd8cde allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 owedbook_rows dc85076e-6c67-4a2f-ae1d-09e305cd8cde allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 owedbook_kpis d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 owedbook_rows d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 owedbook_pbm_options 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 owedbook_summary 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 owedbook_rows 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 admin_stores 523270bd-6a01-4079-aa27-75baf96adb64 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 admin_stores d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 admin_members 523270bd-6a01-4079-aa27-75baf96adb64 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 admin_members d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 admin_billing_status 523270bd-6a01-4079-aa27-75baf96adb64 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 admin_billing_status d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 admin_audit 523270bd-6a01-4079-aa27-75baf96adb64 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 admin_audit d1b77727-be10-4c25-a997-4341843da276 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED tenant_stores scope allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED direct claim read 42501",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED direct audit read 42501",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED owedbook_kpis 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED owedbook_rows 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED owedbook_kpis 70f9f908-b30d-4f08-a982-55b5a48b4f95 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED owedbook_rows 70f9f908-b30d-4f08-a982-55b5a48b4f95 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED owedbook_kpis 523270bd-6a01-4079-aa27-75baf96adb64 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED owedbook_rows 523270bd-6a01-4079-aa27-75baf96adb64 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED owedbook_kpis dc85076e-6c67-4a2f-ae1d-09e305cd8cde deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED owedbook_rows dc85076e-6c67-4a2f-ae1d-09e305cd8cde deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED owedbook_kpis d1b77727-be10-4c25-a997-4341843da276 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED owedbook_rows d1b77727-be10-4c25-a997-4341843da276 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED owedbook_pbm_options d1b77727-be10-4c25-a997-4341843da276 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED owedbook_summary d1b77727-be10-4c25-a997-4341843da276 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED owedbook_rows d1b77727-be10-4c25-a997-4341843da276 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED admin_stores d1b77727-be10-4c25-a997-4341843da276 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED admin_stores 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED admin_members d1b77727-be10-4c25-a997-4341843da276 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED admin_members 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED admin_billing_status d1b77727-be10-4c25-a997-4341843da276 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED admin_billing_status 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED admin_audit d1b77727-be10-4c25-a997-4341843da276 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED admin_audit 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 admin_stores scope allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 admin_stores scope allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 owedbook_kpis 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 owedbook_kpis 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "lost-response retry counts two commits",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 admin_audit 523270bd-6a01-4079-aa27-75baf96adb64 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "rolled-back successful wrapper appends zero committed events",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 user_data insert no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 user_data insert trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 user_data update no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 user_data update trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 user_data delete no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 user_data delete trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 accounts insert no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 accounts insert trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 accounts update no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 accounts update trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 accounts delete no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 accounts delete trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 subscriptions insert no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 subscriptions insert trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 subscriptions update no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 subscriptions update trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 subscriptions delete no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 subscriptions delete trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 user_data insert no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 user_data insert trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 user_data update no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 user_data update trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 user_data delete no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 user_data delete trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 accounts insert no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 accounts insert trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 accounts update no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 accounts update trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 accounts delete no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 accounts delete trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 subscriptions insert no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 subscriptions insert trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 subscriptions update no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 subscriptions update trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 subscriptions delete no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 subscriptions delete trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 user_data insert no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 user_data insert trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 user_data update no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 user_data update trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 user_data delete no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 user_data delete trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 accounts insert no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 accounts insert trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 accounts update no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 accounts update trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 accounts delete no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 accounts delete trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 subscriptions insert no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 subscriptions insert trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 subscriptions update no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 subscriptions update trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 subscriptions delete no RETURNING denied",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 subscriptions delete trusted unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 admin_audit 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 admin_audit 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "owner sees own account-scoped subscription insert",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 admin_audit 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "store admin cannot see NULL-business account events",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 admin_audit 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "context-only account claim excluded",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 owedbook_rows dc85076e-6c67-4a2f-ae1d-09e305cd8cde deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B2B3 owedbook_kpis 523270bd-6a01-4079-aa27-75baf96adb64 allow + exact audit",
+      "status": "PASS"
+    },
+    {
+      "name": "revocation uses unchanged real access token",
+      "status": "PASS"
+    },
+    {
+      "name": "audit immutable update",
+      "status": "PASS"
+    },
+    {
+      "name": "audit immutable delete",
+      "status": "PASS"
+    },
+    {
+      "name": "audit immutable truncate",
+      "status": "PASS"
+    },
+    {
+      "name": "second store admin rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "owner foreign key remains NO ACTION",
+      "status": "PASS"
+    },
+    {
+      "name": "anon tenant_stores scope deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "anon admin_stores 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "anon admin_members 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "anon admin_audit 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "anon admin_billing_status 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "anon owedbook_kpis 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "anon owedbook_rows 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "anon owedbook_pbm_options 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    },
+    {
+      "name": "anon owedbook_summary 8598cb0e-ab61-4d9f-a85e-2ee418480d19 deny + zero audit",
+      "status": "PASS"
+    }
+  ]
+}

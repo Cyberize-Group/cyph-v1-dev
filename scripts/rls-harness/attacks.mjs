@@ -4,13 +4,14 @@
 // service-role ground truth (Proto 06 F-4 corollary: "0 affected" is not proof
 // that nothing persisted — the database may simply have declined to tell you).
 import { readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
-import { loadEnv, harnessRoot, repoRoot, CAST_PASSWORD } from "./lib/env.mjs";
+import { evidencePath, assertScratch, loadEnv, CAST_PASSWORD } from "./lib/env.mjs";
 import { anonClient, serviceClient } from "./lib/db.mjs";
 import { verdictFromResult, ALLOW } from "./lib/verdict.mjs";
 
 const env = loadEnv();
-const m = JSON.parse(readFileSync(join(harnessRoot, "seed-map.json"), "utf8"));
+assertScratch(env);
+if (!CAST_PASSWORD) throw new Error("APBM_CAST_PASSWORD required for synthetic SCRATCH cast");
+const m = JSON.parse(readFileSync(evidencePath("seed-map.json"), "utf8"));
 const svc = serviceClient(env);
 const lines = [];
 const log = (s) => { lines.push(s); console.log(s); };
@@ -137,5 +138,5 @@ for (const [i, t] of ["accounts", "businesses", "user_businesses", "user_data", 
 
 log(`\n[attacks] ${cases} cases · ${breaches} breach(es) · ${gtMismatches} ground-truth mismatch(es) → ${breaches === 0 && gtMismatches === 0 ? "ALL DENIED, NOTHING PERSISTED" : "FAILURE"}`);
 const ts = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
-writeFileSync(join(repoRoot, "agent_docs/ACTIONS/BIM-002-CYBER-PHARMA/evidence", `X4_attacks_${ts}.log`), lines.join("\n") + "\n");
+writeFileSync(evidencePath(`X4_attacks_${ts}.log`), lines.join("\n") + "\n");
 process.exit(breaches === 0 && gtMismatches === 0 ? 0 : 3);

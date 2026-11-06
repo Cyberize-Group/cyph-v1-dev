@@ -1,0 +1,3931 @@
+{
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "transactionReadOnly": "on",
+  "snapshot": {
+    "columns": [
+      {
+        "table_name": "aac_reference",
+        "column_name": "id",
+        "ordinal_position": 1,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": "gen_random_uuid()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "aac_reference",
+        "column_name": "ndc",
+        "ordinal_position": 2,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "aac_reference",
+        "column_name": "aac_date",
+        "ordinal_position": 3,
+        "data_type": "date",
+        "udt_name": "date",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "aac_reference",
+        "column_name": "aac",
+        "ordinal_position": 4,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "aac_reference",
+        "column_name": "drug_name",
+        "ordinal_position": 5,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "aac_reference",
+        "column_name": "source_file",
+        "ordinal_position": 6,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "aac_reference",
+        "column_name": "imported_at",
+        "ordinal_position": 7,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "aac_reference",
+        "column_name": "dataset_version_id",
+        "ordinal_position": 8,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "aac_reference",
+        "column_name": "created_at",
+        "ordinal_position": 9,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "aac_reference",
+        "column_name": "updated_at",
+        "ordinal_position": 10,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "accounts",
+        "column_name": "id",
+        "ordinal_position": 1,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": "gen_random_uuid()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "accounts",
+        "column_name": "name",
+        "ordinal_position": 2,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "accounts",
+        "column_name": "owner_user_id",
+        "ordinal_position": 3,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "accounts",
+        "column_name": "created_at",
+        "ordinal_position": 4,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "accounts",
+        "column_name": "updated_at",
+        "ordinal_position": 5,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "apa_memberships",
+        "column_name": "id",
+        "ordinal_position": 1,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": "gen_random_uuid()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "apa_memberships",
+        "column_name": "license_number",
+        "ordinal_position": 2,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "apa_memberships",
+        "column_name": "membership",
+        "ordinal_position": 3,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "apa_memberships",
+        "column_name": "membership_expires",
+        "ordinal_position": 4,
+        "data_type": "date",
+        "udt_name": "date",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "apa_memberships",
+        "column_name": "first_name",
+        "ordinal_position": 5,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "apa_memberships",
+        "column_name": "last_name",
+        "ordinal_position": 6,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "apa_memberships",
+        "column_name": "discount_redeemed",
+        "ordinal_position": 7,
+        "data_type": "boolean",
+        "udt_name": "bool",
+        "is_nullable": "NO",
+        "column_default": "false",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "apa_memberships",
+        "column_name": "discount_redeemed_at",
+        "ordinal_position": 8,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "apa_memberships",
+        "column_name": "discount_redeemed_business_id",
+        "ordinal_position": 9,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "apa_memberships",
+        "column_name": "created_at",
+        "ordinal_position": 10,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "apa_memberships",
+        "column_name": "updated_at",
+        "ordinal_position": 11,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "audit_logs",
+        "column_name": "id",
+        "ordinal_position": 1,
+        "data_type": "bigint",
+        "udt_name": "int8",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "YES",
+        "identity_generation": "ALWAYS"
+      },
+      {
+        "table_name": "audit_logs",
+        "column_name": "occurred_at",
+        "ordinal_position": 2,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "audit_logs",
+        "column_name": "actor_user_id",
+        "ordinal_position": 3,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "audit_logs",
+        "column_name": "actor_role",
+        "ordinal_position": 4,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "audit_logs",
+        "column_name": "business_id",
+        "ordinal_position": 5,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "audit_logs",
+        "column_name": "table_name",
+        "ordinal_position": 6,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "audit_logs",
+        "column_name": "row_id",
+        "ordinal_position": 7,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "audit_logs",
+        "column_name": "action",
+        "ordinal_position": 8,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "audit_logs",
+        "column_name": "old_data",
+        "ordinal_position": 9,
+        "data_type": "jsonb",
+        "udt_name": "jsonb",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "audit_logs",
+        "column_name": "new_data",
+        "ordinal_position": 10,
+        "data_type": "jsonb",
+        "udt_name": "jsonb",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "audit_logs",
+        "column_name": "context",
+        "ordinal_position": 11,
+        "data_type": "jsonb",
+        "udt_name": "jsonb",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "id",
+        "ordinal_position": 1,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": "gen_random_uuid()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "account_id",
+        "ordinal_position": 2,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "ncpdp",
+        "ordinal_position": 3,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "npi",
+        "ordinal_position": 4,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "pharmacy_name",
+        "ordinal_position": 5,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "address",
+        "ordinal_position": 6,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "address_line2",
+        "ordinal_position": 7,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "city",
+        "ordinal_position": 8,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "state",
+        "ordinal_position": 9,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "zip",
+        "ordinal_position": 10,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "phone",
+        "ordinal_position": 11,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "fax",
+        "ordinal_position": 12,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "email",
+        "ordinal_position": 13,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "pharmacy_license_number",
+        "ordinal_position": 14,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "pharmacist_license",
+        "ordinal_position": 15,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "contact_person",
+        "ordinal_position": 16,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "contact_person_last_name",
+        "ordinal_position": 17,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "business_email",
+        "ordinal_position": 18,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "website_url",
+        "ordinal_position": 19,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "time_zone",
+        "ordinal_position": 20,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "preferred_contact_method",
+        "ordinal_position": 21,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "country",
+        "ordinal_position": 22,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "pharmacy_software_system",
+        "ordinal_position": 23,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "role_in_pharmacy",
+        "ordinal_position": 24,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "mobile_number",
+        "ordinal_position": 25,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "ghl_contact_id",
+        "ordinal_position": 26,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "ghl_company_id",
+        "ordinal_position": 27,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "date_of_registration",
+        "ordinal_position": 28,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "status",
+        "ordinal_position": 29,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": "'pending'::text",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "pharmacy_slug",
+        "ordinal_position": 30,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "stripe_customer_id",
+        "ordinal_position": 31,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "has_used_trial",
+        "ordinal_position": 32,
+        "data_type": "boolean",
+        "udt_name": "bool",
+        "is_nullable": "NO",
+        "column_default": "false",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "activation_key",
+        "ordinal_position": 33,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "created_at",
+        "ordinal_position": 34,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "businesses",
+        "column_name": "updated_at",
+        "ordinal_position": 35,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "ful_reference",
+        "column_name": "id",
+        "ordinal_position": 1,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": "gen_random_uuid()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "ful_reference",
+        "column_name": "ndc",
+        "ordinal_position": 2,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "ful_reference",
+        "column_name": "year",
+        "ordinal_position": 3,
+        "data_type": "integer",
+        "udt_name": "int4",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "ful_reference",
+        "column_name": "month",
+        "ordinal_position": 4,
+        "data_type": "integer",
+        "udt_name": "int4",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "ful_reference",
+        "column_name": "aca_ful",
+        "ordinal_position": 5,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "ful_reference",
+        "column_name": "drug_name",
+        "ordinal_position": 6,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "ful_reference",
+        "column_name": "source_file",
+        "ordinal_position": 7,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "ful_reference",
+        "column_name": "imported_at",
+        "ordinal_position": 8,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "ful_reference",
+        "column_name": "dataset_version_id",
+        "ordinal_position": 9,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "ful_reference",
+        "column_name": "created_at",
+        "ordinal_position": 10,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "ful_reference",
+        "column_name": "updated_at",
+        "ordinal_position": 11,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pbm_info",
+        "column_name": "id",
+        "ordinal_position": 1,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": "gen_random_uuid()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pbm_info",
+        "column_name": "bin",
+        "ordinal_position": 2,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pbm_info",
+        "column_name": "pbm_name",
+        "ordinal_position": 3,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pbm_info",
+        "column_name": "pcn",
+        "ordinal_position": 4,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pbm_info",
+        "column_name": "state",
+        "ordinal_position": 5,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pbm_info",
+        "column_name": "email",
+        "ordinal_position": 6,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pbm_info",
+        "column_name": "pbm_key",
+        "ordinal_position": 7,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pbm_info",
+        "column_name": "matching_type",
+        "ordinal_position": 8,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pbm_info",
+        "column_name": "source_file",
+        "ordinal_position": 9,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pbm_info",
+        "column_name": "imported_at",
+        "ordinal_position": 10,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pbm_info",
+        "column_name": "dataset_version_id",
+        "ordinal_position": 11,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pbm_info",
+        "column_name": "created_at",
+        "ordinal_position": 12,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pbm_info",
+        "column_name": "updated_at",
+        "ordinal_position": 13,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "id",
+        "ordinal_position": 1,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": "gen_random_uuid()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "ncpdp",
+        "ordinal_position": 2,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "npi",
+        "ordinal_position": 3,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "email",
+        "ordinal_position": 4,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "pharmacy_name",
+        "ordinal_position": 5,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "phone",
+        "ordinal_position": 6,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "address",
+        "ordinal_position": 7,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "address_line2",
+        "ordinal_position": 8,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "city",
+        "ordinal_position": 9,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "state",
+        "ordinal_position": 10,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "zip",
+        "ordinal_position": 11,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "fax",
+        "ordinal_position": 12,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "contact_person",
+        "ordinal_position": 13,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "contact_person_last_name",
+        "ordinal_position": 14,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "pharmacy_license_number",
+        "ordinal_position": 15,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "pharmacist_license",
+        "ordinal_position": 16,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "country",
+        "ordinal_position": 17,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "pharmacy_software_system",
+        "ordinal_position": 18,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "role_in_pharmacy",
+        "ordinal_position": 19,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "mobile_number",
+        "ordinal_position": 20,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "website_url",
+        "ordinal_position": 21,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "activation_key",
+        "ordinal_position": 22,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "desktop_username",
+        "ordinal_position": 23,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "is_desktop_converter",
+        "ordinal_position": 24,
+        "data_type": "boolean",
+        "udt_name": "bool",
+        "is_nullable": "NO",
+        "column_default": "false",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "business_id",
+        "ordinal_position": 25,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "status",
+        "ordinal_position": 26,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": "'pending_verification'::text",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "verified_by_user_id",
+        "ordinal_position": 27,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "verified_at",
+        "ordinal_position": 28,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "verification_notes",
+        "ordinal_position": 29,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "activation_token",
+        "ordinal_position": 30,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "activation_token_expires_at",
+        "ordinal_position": 31,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "activation_link_sent_at",
+        "ordinal_position": 32,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "created_at",
+        "ordinal_position": 33,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "pending_registrations",
+        "column_name": "updated_at",
+        "ordinal_position": 34,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "profiles",
+        "column_name": "id",
+        "ordinal_position": 1,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "profiles",
+        "column_name": "full_name",
+        "ordinal_position": 2,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "profiles",
+        "column_name": "email",
+        "ordinal_position": 3,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "profiles",
+        "column_name": "created_at",
+        "ordinal_position": 4,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "YES",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "reference_dataset_versions",
+        "column_name": "id",
+        "ordinal_position": 1,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": "gen_random_uuid()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "reference_dataset_versions",
+        "column_name": "dataset_name",
+        "ordinal_position": 2,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "reference_dataset_versions",
+        "column_name": "checksum",
+        "ordinal_position": 3,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "reference_dataset_versions",
+        "column_name": "row_count",
+        "ordinal_position": 4,
+        "data_type": "integer",
+        "udt_name": "int4",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "reference_dataset_versions",
+        "column_name": "latest_upload_at",
+        "ordinal_position": 5,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "reference_dataset_versions",
+        "column_name": "created_at",
+        "ordinal_position": 6,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "reference_dataset_versions",
+        "column_name": "updated_at",
+        "ordinal_position": 7,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "report_files",
+        "column_name": "id",
+        "ordinal_position": 1,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": "gen_random_uuid()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "report_files",
+        "column_name": "business_id",
+        "ordinal_position": 2,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "report_files",
+        "column_name": "file_name",
+        "ordinal_position": 3,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "report_files",
+        "column_name": "storage_path",
+        "ordinal_position": 4,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "report_files",
+        "column_name": "report_type",
+        "ordinal_position": 5,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "report_files",
+        "column_name": "generated_by_user_id",
+        "ordinal_position": 6,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "report_files",
+        "column_name": "generated_at",
+        "ordinal_position": 7,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "report_files",
+        "column_name": "created_at",
+        "ordinal_position": 8,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "report_files",
+        "column_name": "updated_at",
+        "ordinal_position": 9,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "subscriptions",
+        "column_name": "id",
+        "ordinal_position": 1,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": "gen_random_uuid()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "subscriptions",
+        "column_name": "account_id",
+        "ordinal_position": 2,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "subscriptions",
+        "column_name": "stripe_customer_id",
+        "ordinal_position": 3,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "subscriptions",
+        "column_name": "stripe_subscription_id",
+        "ordinal_position": 4,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "subscriptions",
+        "column_name": "stripe_checkout_session_id",
+        "ordinal_position": 5,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "subscriptions",
+        "column_name": "status",
+        "ordinal_position": 6,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "subscriptions",
+        "column_name": "promotion_code",
+        "ordinal_position": 7,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "subscriptions",
+        "column_name": "trial_end_date",
+        "ordinal_position": 8,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "subscriptions",
+        "column_name": "current_period_end",
+        "ordinal_position": 9,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "subscriptions",
+        "column_name": "cancel_at_period_end",
+        "ordinal_position": 10,
+        "data_type": "boolean",
+        "udt_name": "bool",
+        "is_nullable": "NO",
+        "column_default": "false",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "subscriptions",
+        "column_name": "created_at",
+        "ordinal_position": 11,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "subscriptions",
+        "column_name": "updated_at",
+        "ordinal_position": 12,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_businesses",
+        "column_name": "id",
+        "ordinal_position": 1,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": "gen_random_uuid()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_businesses",
+        "column_name": "user_id",
+        "ordinal_position": 2,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_businesses",
+        "column_name": "business_id",
+        "ordinal_position": 3,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_businesses",
+        "column_name": "role",
+        "ordinal_position": 4,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": "'member'::text",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_businesses",
+        "column_name": "is_primary",
+        "ordinal_position": 5,
+        "data_type": "boolean",
+        "udt_name": "bool",
+        "is_nullable": "NO",
+        "column_default": "false",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_businesses",
+        "column_name": "joined_at",
+        "ordinal_position": 6,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_businesses",
+        "column_name": "created_at",
+        "ordinal_position": 7,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_businesses",
+        "column_name": "updated_at",
+        "ordinal_position": 8,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "id",
+        "ordinal_position": 1,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": "gen_random_uuid()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "business_id",
+        "ordinal_position": 2,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "date_dispensed",
+        "ordinal_position": 3,
+        "data_type": "date",
+        "udt_name": "date",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "script",
+        "ordinal_position": 4,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "drug_name",
+        "ordinal_position": 5,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "drug_ndc",
+        "ordinal_position": 6,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "qty",
+        "ordinal_position": 7,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "insurance",
+        "ordinal_position": 8,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "source_file",
+        "ordinal_position": 9,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "status",
+        "ordinal_position": 10,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "bin",
+        "ordinal_position": 11,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "pcn",
+        "ordinal_position": 12,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "group_field",
+        "ordinal_position": 13,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "pbm_key",
+        "ordinal_position": 14,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "medicaid_rate",
+        "ordinal_position": 15,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "acq",
+        "ordinal_position": 16,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "acq_net",
+        "ordinal_position": 17,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "difference",
+        "ordinal_position": 18,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "total_paid",
+        "ordinal_position": 19,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "payment",
+        "ordinal_position": 20,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "new_paid",
+        "ordinal_position": 21,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "expected_paid",
+        "ordinal_position": 22,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "new_owed",
+        "ordinal_position": 23,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "owed",
+        "ordinal_position": 24,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "medicaid_method",
+        "ordinal_position": 25,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "customer_name",
+        "ordinal_position": 26,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "first_name",
+        "ordinal_position": 27,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "last_name",
+        "ordinal_position": 28,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "customer_id",
+        "ordinal_position": 29,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "day_supply",
+        "ordinal_position": 30,
+        "data_type": "integer",
+        "udt_name": "int4",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "authorization_number",
+        "ordinal_position": 31,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "customer_group_number",
+        "ordinal_position": 32,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "script_pcn",
+        "ordinal_position": 33,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "compound",
+        "ordinal_position": 34,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "drug_340b",
+        "ordinal_position": 35,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "drug_preferred_vendor",
+        "ordinal_position": 36,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "insurance_rejection_codes",
+        "ordinal_position": 37,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "primary_network_reimbursement_id",
+        "ordinal_position": 38,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "gpi",
+        "ordinal_position": 39,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "nadac",
+        "ordinal_position": 40,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "awp",
+        "ordinal_position": 41,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "payer_type",
+        "ordinal_position": 42,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "aac_date_used",
+        "ordinal_position": 43,
+        "data_type": "date",
+        "udt_name": "date",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "wac_date_used",
+        "ordinal_position": 44,
+        "data_type": "date",
+        "udt_name": "date",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "ful_year_used",
+        "ordinal_position": 45,
+        "data_type": "integer",
+        "udt_name": "int4",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "ful_month_used",
+        "ordinal_position": 46,
+        "data_type": "integer",
+        "udt_name": "int4",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "rate_source",
+        "ordinal_position": 47,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "medicaid_rate_calculated_at",
+        "ordinal_position": 48,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "medicaid_rate_original",
+        "ordinal_position": 49,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "created_at",
+        "ordinal_position": 50,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_data",
+        "column_name": "updated_at",
+        "ordinal_position": 51,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_roles",
+        "column_name": "id",
+        "ordinal_position": 1,
+        "data_type": "bigint",
+        "udt_name": "int8",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "YES",
+        "identity_generation": "ALWAYS"
+      },
+      {
+        "table_name": "user_roles",
+        "column_name": "user_id",
+        "ordinal_position": 2,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_roles",
+        "column_name": "role",
+        "ordinal_position": 3,
+        "data_type": "USER-DEFINED",
+        "udt_name": "app_role",
+        "is_nullable": "NO",
+        "column_default": "'member'::app_role",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_roles",
+        "column_name": "created_at",
+        "ordinal_position": 4,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "YES",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "wac_reference",
+        "column_name": "id",
+        "ordinal_position": 1,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": "gen_random_uuid()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "wac_reference",
+        "column_name": "ndc",
+        "ordinal_position": 2,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "wac_reference",
+        "column_name": "effective_date",
+        "ordinal_position": 3,
+        "data_type": "date",
+        "udt_name": "date",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "wac_reference",
+        "column_name": "wac",
+        "ordinal_position": 4,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "wac_reference",
+        "column_name": "pkg_size",
+        "ordinal_position": 5,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "wac_reference",
+        "column_name": "pkg_size_mult",
+        "ordinal_position": 6,
+        "data_type": "numeric",
+        "udt_name": "numeric",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "wac_reference",
+        "column_name": "generic_indicator",
+        "ordinal_position": 7,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "wac_reference",
+        "column_name": "drug_name",
+        "ordinal_position": 8,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "wac_reference",
+        "column_name": "source_file",
+        "ordinal_position": 9,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "wac_reference",
+        "column_name": "imported_at",
+        "ordinal_position": 10,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "wac_reference",
+        "column_name": "dataset_version_id",
+        "ordinal_position": 11,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "wac_reference",
+        "column_name": "created_at",
+        "ordinal_position": 12,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "wac_reference",
+        "column_name": "updated_at",
+        "ordinal_position": 13,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "NO",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      }
+    ],
+    "tables": [
+      {
+        "relname": "aac_reference",
+        "relkind": "r",
+        "relrowsecurity": true,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "relname": "accounts",
+        "relkind": "r",
+        "relrowsecurity": true,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=arwdDxtm/postgres,anon=rDxtm/postgres,authenticated=rDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "relname": "apa_memberships",
+        "relkind": "r",
+        "relrowsecurity": true,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "relname": "audit_logs",
+        "relkind": "r",
+        "relrowsecurity": true,
+        "relforcerowsecurity": true,
+        "owner": "postgres",
+        "relacl": "{postgres=arwdDxtm/postgres,anon=arDxtm/postgres,authenticated=arDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "relname": "audit_logs_id_seq",
+        "relkind": "S",
+        "relrowsecurity": false,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=rwU/postgres,anon=rwU/postgres,authenticated=rwU/postgres,service_role=rwU/postgres}"
+      },
+      {
+        "relname": "businesses",
+        "relkind": "r",
+        "relrowsecurity": true,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "relname": "ful_reference",
+        "relkind": "r",
+        "relrowsecurity": true,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "relname": "pbm_info",
+        "relkind": "r",
+        "relrowsecurity": true,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "relname": "pending_registrations",
+        "relkind": "r",
+        "relrowsecurity": true,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "relname": "profiles",
+        "relkind": "r",
+        "relrowsecurity": true,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "relname": "reference_dataset_versions",
+        "relkind": "r",
+        "relrowsecurity": true,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "relname": "report_files",
+        "relkind": "r",
+        "relrowsecurity": true,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "relname": "subscriptions",
+        "relkind": "r",
+        "relrowsecurity": true,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=arwdDxtm/postgres,anon=rDxtm/postgres,authenticated=rDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "relname": "user_businesses",
+        "relkind": "r",
+        "relrowsecurity": true,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "relname": "user_data",
+        "relkind": "r",
+        "relrowsecurity": true,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "relname": "user_roles",
+        "relkind": "r",
+        "relrowsecurity": true,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "relname": "user_roles_id_seq",
+        "relkind": "S",
+        "relrowsecurity": false,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=rwU/postgres,anon=rwU/postgres,authenticated=rwU/postgres,service_role=rwU/postgres}"
+      },
+      {
+        "relname": "wac_reference",
+        "relkind": "r",
+        "relrowsecurity": true,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      }
+    ],
+    "policies": [
+      {
+        "tablename": "aac_reference",
+        "policyname": "aac_reference_select_authenticated",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "SELECT",
+        "qual": "true",
+        "with_check": null
+      },
+      {
+        "tablename": "accounts",
+        "policyname": "account_select_member_or_owner",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "SELECT",
+        "qual": "(is_account_member(id) OR is_owner_of_account(id))",
+        "with_check": null
+      },
+      {
+        "tablename": "audit_logs",
+        "policyname": "audit_logs_select_admin",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "SELECT",
+        "qual": "is_admin_of(business_id)",
+        "with_check": null
+      },
+      {
+        "tablename": "businesses",
+        "policyname": "business_select_member_or_owner",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "SELECT",
+        "qual": "(id IN ( SELECT my_business_ids() AS my_business_ids))",
+        "with_check": null
+      },
+      {
+        "tablename": "businesses",
+        "policyname": "business_update_admin",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "UPDATE",
+        "qual": "is_admin_of(id)",
+        "with_check": "is_admin_of(id)"
+      },
+      {
+        "tablename": "ful_reference",
+        "policyname": "ful_reference_select_authenticated",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "SELECT",
+        "qual": "true",
+        "with_check": null
+      },
+      {
+        "tablename": "pbm_info",
+        "policyname": "pbm_info_select_authenticated",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "SELECT",
+        "qual": "true",
+        "with_check": null
+      },
+      {
+        "tablename": "profiles",
+        "policyname": "Profiles are updatable by owner or superadmins",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "UPDATE",
+        "qual": "((auth.uid() = id) OR (( SELECT user_roles.role\n   FROM user_roles\n  WHERE (user_roles.user_id = auth.uid())) = 'superadmin'::app_role))",
+        "with_check": null
+      },
+      {
+        "tablename": "profiles",
+        "policyname": "Profiles are viewable by owner or superadmins",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "SELECT",
+        "qual": "((auth.uid() = id) OR (( SELECT user_roles.role\n   FROM user_roles\n  WHERE (user_roles.user_id = auth.uid())) = 'superadmin'::app_role))",
+        "with_check": null
+      },
+      {
+        "tablename": "reference_dataset_versions",
+        "policyname": "reference_dataset_versions_select_authenticated",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "SELECT",
+        "qual": "true",
+        "with_check": null
+      },
+      {
+        "tablename": "report_files",
+        "policyname": "report_files_select_member",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "SELECT",
+        "qual": "(business_id IN ( SELECT my_business_ids() AS my_business_ids))",
+        "with_check": null
+      },
+      {
+        "tablename": "subscriptions",
+        "policyname": "subscription_select_member_or_owner",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "SELECT",
+        "qual": "(is_account_member(account_id) OR is_owner_of_account(account_id))",
+        "with_check": null
+      },
+      {
+        "tablename": "user_businesses",
+        "policyname": "user_business_select_self_or_owner",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "SELECT",
+        "qual": "((user_id = auth.uid()) OR (EXISTS ( SELECT 1\n   FROM businesses b\n  WHERE ((b.id = user_businesses.business_id) AND is_owner_of_account(b.account_id)))))",
+        "with_check": null
+      },
+      {
+        "tablename": "user_data",
+        "policyname": "user_data_delete_admin",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "DELETE",
+        "qual": "is_admin_of(business_id)",
+        "with_check": null
+      },
+      {
+        "tablename": "user_data",
+        "policyname": "user_data_insert_member",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "INSERT",
+        "qual": null,
+        "with_check": "is_member_of(business_id)"
+      },
+      {
+        "tablename": "user_data",
+        "policyname": "user_data_select_member",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "SELECT",
+        "qual": "(business_id IN ( SELECT my_business_ids() AS my_business_ids))",
+        "with_check": null
+      },
+      {
+        "tablename": "user_data",
+        "policyname": "user_data_update_member",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "UPDATE",
+        "qual": "is_member_of(business_id)",
+        "with_check": "is_member_of(business_id)"
+      },
+      {
+        "tablename": "user_roles",
+        "policyname": "Users can read their own role",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "SELECT",
+        "qual": "(auth.uid() = user_id)",
+        "with_check": null
+      },
+      {
+        "tablename": "wac_reference",
+        "policyname": "wac_reference_select_authenticated",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "SELECT",
+        "qual": "true",
+        "with_check": null
+      }
+    ],
+    "functions": [
+      {
+        "proname": "audit_logs_immutable",
+        "args": "",
+        "definition": "CREATE OR REPLACE FUNCTION public.audit_logs_immutable()\n RETURNS trigger\n LANGUAGE plpgsql\n SET search_path TO ''\nAS $function$\nbegin\n  raise exception 'audit_logs is append-only';\nend;\n$function$\n",
+        "owner": "postgres",
+        "proacl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "proname": "audit_write",
+        "args": "",
+        "definition": "CREATE OR REPLACE FUNCTION public.audit_write()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\ndeclare\n  j             jsonb;\n  v_old         jsonb;\n  v_new         jsonb;\n  v_business_id uuid;\n  v_context     jsonb;\n  v_role        text;\nbegin\n  if tg_op = 'DELETE' then\n    j := to_jsonb(old);  v_old := j;              v_new := null;\n  elsif tg_op = 'UPDATE' then\n    j := to_jsonb(new);  v_old := to_jsonb(old);  v_new := j;\n  else\n    j := to_jsonb(new);  v_old := null;           v_new := j;\n  end if;\n\n  if tg_table_name = 'businesses' then\n    v_business_id := (j ->> 'id')::uuid;\n    v_context     := null;\n  elsif j ? 'business_id' then\n    v_business_id := (j ->> 'business_id')::uuid;\n    v_context     := null;\n  else\n    v_business_id := null;                                              -- R-8\n    v_context     := jsonb_strip_nulls(jsonb_build_object('id', j ->> 'id', 'account_id', j ->> 'account_id'));\n  end if;\n\n  v_role := coalesce(\n    nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'role',\n    current_user::text\n  );\n\n  insert into public.audit_logs\n    (actor_user_id, actor_role, business_id, table_name, row_id, action, old_data, new_data, context)\n  values\n    (auth.uid(), v_role, v_business_id, tg_table_name, j ->> 'id', lower(tg_op), v_old, v_new, v_context);\n\n  return null;  -- AFTER trigger: the return value is ignored\nend;\n$function$\n",
+        "owner": "postgres",
+        "proacl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "proname": "handle_new_user",
+        "args": "",
+        "definition": "CREATE OR REPLACE FUNCTION public.handle_new_user()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\nDECLARE\n  assigned_role public.app_role;\nBEGIN\n  IF NEW.raw_user_meta_data ->> 'role' IS NOT NULL THEN\n    assigned_role := (NEW.raw_user_meta_data ->> 'role')::public.app_role;\n  ELSE\n    assigned_role := 'member'::public.app_role;\n  END IF;\n\n  INSERT INTO public.user_roles (user_id, role)\n  VALUES (NEW.id, assigned_role)\n  ON CONFLICT (user_id) DO NOTHING;\n\n  INSERT INTO public.profiles (id, email, full_name)\n  VALUES (\n    NEW.id,\n    NEW.email,\n    NEW.raw_user_meta_data ->> 'full_name'\n  )\n  ON CONFLICT (id) DO NOTHING;\n\n  RETURN NEW;\nEND;\n$function$\n",
+        "owner": "postgres",
+        "proacl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "proname": "is_account_member",
+        "args": "acct uuid",
+        "definition": "CREATE OR REPLACE FUNCTION public.is_account_member(acct uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\n  select exists (\n    select 1\n    from public.user_businesses ub\n    join public.businesses b on b.id = ub.business_id\n    where ub.user_id = auth.uid() and b.account_id = acct\n  );\n$function$\n",
+        "owner": "postgres",
+        "proacl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "proname": "is_admin_of",
+        "args": "biz uuid",
+        "definition": "CREATE OR REPLACE FUNCTION public.is_admin_of(biz uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\n  select exists (\n    select 1 from public.user_businesses ub\n    where ub.user_id = auth.uid() and ub.business_id = biz and ub.role = 'admin'\n  );\n$function$\n",
+        "owner": "postgres",
+        "proacl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "proname": "is_member_of",
+        "args": "biz uuid",
+        "definition": "CREATE OR REPLACE FUNCTION public.is_member_of(biz uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\n  select exists (\n    select 1 from public.user_businesses ub\n    where ub.user_id = auth.uid() and ub.business_id = biz\n  );\n$function$\n",
+        "owner": "postgres",
+        "proacl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "proname": "is_owner_of_account",
+        "args": "acct uuid",
+        "definition": "CREATE OR REPLACE FUNCTION public.is_owner_of_account(acct uuid)\n RETURNS boolean\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\n select exists(select 1 from public.accounts a where a.id=acct and a.owner_user_id=auth.uid());\n$function$\n",
+        "owner": "postgres",
+        "proacl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "proname": "my_business_ids",
+        "args": "",
+        "definition": "CREATE OR REPLACE FUNCTION public.my_business_ids()\n RETURNS SETOF uuid\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\n select ub.business_id from public.user_businesses ub where ub.user_id=auth.uid()\n union\n select b.id from public.businesses b where public.is_owner_of_account(b.account_id);\n$function$\n",
+        "owner": "postgres",
+        "proacl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "proname": "owedbook_kpis",
+        "args": "p_business_id uuid, p_from date, p_to date, p_pbms text[], p_filter text",
+        "definition": "CREATE OR REPLACE FUNCTION public.owedbook_kpis(p_business_id uuid, p_from date DEFAULT NULL::date, p_to date DEFAULT NULL::date, p_pbms text[] DEFAULT '{}'::text[], p_filter text DEFAULT NULL::text)\n RETURNS TABLE(commercial_underpaid numeric, commercial_scripts bigint, updated_difference numeric, owed numeric)\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nbegin\n  -- 1. membership (R-4): junction membership via the DEFINER set helper; NULL is not a member\n  if p_business_id is null or not (p_business_id in (select public.my_business_ids())) then\n    raise exception 'not a member of business';\n  end if;\n\n  -- 2. log-then-return (R-7): exactly one read_page row per call\n  insert into public.audit_logs\n    (actor_user_id, actor_role, business_id, table_name, row_id, action, old_data, new_data, context)\n  values (\n    auth.uid(),\n    coalesce(nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'role', current_user::text),\n    p_business_id, 'user_data', null, 'read_page', null, null,\n    jsonb_build_object(\n      'fn',      'owedbook_kpis',\n      'args',    jsonb_build_object('p_business_id', p_business_id, 'p_from', p_from, 'p_to', p_to,\n                                    'p_pbms', to_jsonb(p_pbms), 'p_filter', p_filter),\n      'filters', jsonb_build_object('from', p_from, 'to', p_to, 'pbms', to_jsonb(p_pbms), 'filter', p_filter)\n    )\n  );\n\n  -- 3. the read — explicit tenant fence, stored columns only\n  return query\n    select\n      round(coalesce(sum(ud.owed) filter (where ud.owed > 0), 0), 2)::numeric,\n      count(*)::bigint,\n      round(coalesce(sum(ud.difference), 0), 2)::numeric,\n      round(coalesce(sum(ud.owed) filter (where ud.owed > 0), 0), 2)::numeric\n    from public.user_data ud\n    where ud.business_id = p_business_id\n      and (p_from   is null or ud.date_dispensed >= p_from)\n      and (p_to     is null or ud.date_dispensed <= p_to)\n      and (coalesce(array_length(p_pbms, 1), 0) = 0 or ud.insurance = any (p_pbms))\n      and (p_filter is null or ud.status = p_filter);\nend;\n$function$\n",
+        "owner": "postgres",
+        "proacl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "proname": "owedbook_pbm_options",
+        "args": "p_business_id uuid",
+        "definition": "CREATE OR REPLACE FUNCTION public.owedbook_pbm_options(p_business_id uuid)\n RETURNS SETOF text\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nbegin\n  -- 1. membership (R-4)\n  if p_business_id is null or not (p_business_id in (select public.my_business_ids())) then\n    raise exception 'not a member of business';\n  end if;\n\n  -- 2. log-then-return (R-7)\n  insert into public.audit_logs\n    (actor_user_id, actor_role, business_id, table_name, row_id, action, old_data, new_data, context)\n  values (\n    auth.uid(),\n    coalesce(nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'role', current_user::text),\n    p_business_id, 'user_data', null, 'read_page', null, null,\n    jsonb_build_object(\n      'fn',   'owedbook_pbm_options',\n      'args', jsonb_build_object('p_business_id', p_business_id)\n    )\n  );\n\n  -- 3. the read — explicit tenant fence\n  return query\n    select distinct ud.insurance::text\n    from public.user_data ud\n    where ud.business_id = p_business_id\n      and ud.insurance is not null\n    order by 1;\nend;\n$function$\n",
+        "owner": "postgres",
+        "proacl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "proname": "owedbook_rows",
+        "args": "p_business_id uuid, p_tab text, p_from date, p_to date, p_pbms text[], p_filter text, p_page integer, p_limit integer",
+        "definition": "CREATE OR REPLACE FUNCTION public.owedbook_rows(p_business_id uuid, p_tab text, p_from date DEFAULT NULL::date, p_to date DEFAULT NULL::date, p_pbms text[] DEFAULT '{}'::text[], p_filter text DEFAULT NULL::text, p_page integer DEFAULT 1, p_limit integer DEFAULT 25)\n RETURNS jsonb\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\ndeclare\n  v_limit      integer := greatest(coalesce(p_limit, 25), 1);\n  v_req_page   integer := greatest(coalesce(p_page, 1), 1);\n  v_total      bigint;\n  v_page_count integer;\n  v_page       integer;\n  v_offset     integer;\n  v_rows       jsonb;\nbegin\n  -- 1. membership (R-4)\n  if p_business_id is null or not (p_business_id in (select public.my_business_ids())) then\n    raise exception 'not a member of business';\n  end if;\n  if p_tab is null or p_tab not in ('commercial_dollars', 'updated_commercial_payments', 'federal_dollars', 'summary') then\n    raise exception 'unknown tab: %', p_tab;\n  end if;\n\n  -- 2. log-then-return (R-7): one row per call, not per row returned — and BEFORE any read\n  --    (Brief §5). The row carries the REQUESTED page/limit/offset; the page actually served\n  --    after clamping (owedbook.ts:95-98) is in the returned envelope.\n  insert into public.audit_logs\n    (actor_user_id, actor_role, business_id, table_name, row_id, action, old_data, new_data, context)\n  values (\n    auth.uid(),\n    coalesce(nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'role', current_user::text),\n    p_business_id, 'user_data', null, 'read_page', null, null,\n    jsonb_build_object(\n      'fn',      'owedbook_rows',\n      'args',    jsonb_build_object('p_business_id', p_business_id, 'p_tab', p_tab, 'p_from', p_from, 'p_to', p_to,\n                                    'p_pbms', to_jsonb(p_pbms), 'p_filter', p_filter, 'p_page', p_page, 'p_limit', p_limit),\n      'page',    v_req_page,\n      'limit',   v_limit,\n      'offset',  (v_req_page - 1) * v_limit,\n      'filters', jsonb_build_object('from', p_from, 'to', p_to, 'pbms', to_jsonb(p_pbms), 'filter', p_filter, 'tab', p_tab)\n    )\n  );\n\n  -- 3. the read — pager arithmetic (owedbook.ts:95-98), then the page; explicit tenant fence\n  select count(*) into v_total\n  from public.user_data ud\n  where ud.business_id = p_business_id\n    and (p_from   is null or ud.date_dispensed >= p_from)\n    and (p_to     is null or ud.date_dispensed <= p_to)\n    and (coalesce(array_length(p_pbms, 1), 0) = 0 or ud.insurance = any (p_pbms))\n    and (p_filter is null or ud.status = p_filter)\n    and (p_tab <> 'updated_commercial_payments' or ud.new_paid is not null)\n    and (p_tab <> 'federal_dollars');                       -- federal_expected is NULL in v1 (A-3)\n  v_page_count := greatest(1, ceil(v_total::numeric / v_limit)::integer);\n  v_page       := least(v_req_page, v_page_count);\n  v_offset     := (v_page - 1) * v_limit;\n\n  -- OwedBookRow shape per A-3\n  select coalesce(jsonb_agg(r.row_obj), '[]'::jsonb) into v_rows\n  from (\n    select jsonb_build_object(\n             'id',                 ud.id::text,\n             'date',               ud.date_dispensed,\n             'script',             ud.script,\n             'qty',                ud.qty,\n             'pbm',                ud.insurance,\n             'status',             ud.status,\n             'report_file',        null::text,\n             'original_paid',      ud.total_paid,\n             'medicaid_rate',      ud.medicaid_rate,\n             'method',             ud.medicaid_method,\n             'expected',           ud.expected_paid,\n             'owed',               ud.owed,\n             'new_paid',           ud.new_paid,\n             'updated_difference', ud.difference,\n             'aac',                null::numeric,\n             'federal_expected',   null::numeric,\n             'federal_diff',       null::numeric\n           ) as row_obj\n    from public.user_data ud\n    where ud.business_id = p_business_id\n      and (p_from   is null or ud.date_dispensed >= p_from)\n      and (p_to     is null or ud.date_dispensed <= p_to)\n      and (coalesce(array_length(p_pbms, 1), 0) = 0 or ud.insurance = any (p_pbms))\n      and (p_filter is null or ud.status = p_filter)\n      and (p_tab <> 'updated_commercial_payments' or ud.new_paid is not null)\n      and (p_tab <> 'federal_dollars')\n    order by ud.date_dispensed desc nulls last, ud.id\n    offset v_offset limit v_limit\n  ) r;\n\n  return jsonb_build_object(\n    'rows',      v_rows,\n    'page',      v_page,\n    'pageCount', v_page_count,\n    'limit',     v_limit,\n    'total',     v_total\n  );\nend;\n$function$\n",
+        "owner": "postgres",
+        "proacl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "proname": "owedbook_summary",
+        "args": "p_business_id uuid, p_from date, p_to date, p_pbms text[], p_filter text",
+        "definition": "CREATE OR REPLACE FUNCTION public.owedbook_summary(p_business_id uuid, p_from date DEFAULT NULL::date, p_to date DEFAULT NULL::date, p_pbms text[] DEFAULT '{}'::text[], p_filter text DEFAULT NULL::text)\n RETURNS TABLE(pbm text, commercial_dollars numeric, federal_dollars numeric)\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nbegin\n  -- 1. membership (R-4)\n  if p_business_id is null or not (p_business_id in (select public.my_business_ids())) then\n    raise exception 'not a member of business';\n  end if;\n\n  -- 2. log-then-return (R-7)\n  insert into public.audit_logs\n    (actor_user_id, actor_role, business_id, table_name, row_id, action, old_data, new_data, context)\n  values (\n    auth.uid(),\n    coalesce(nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'role', current_user::text),\n    p_business_id, 'user_data', null, 'read_page', null, null,\n    jsonb_build_object(\n      'fn',      'owedbook_summary',\n      'args',    jsonb_build_object('p_business_id', p_business_id, 'p_from', p_from, 'p_to', p_to,\n                                    'p_pbms', to_jsonb(p_pbms), 'p_filter', p_filter),\n      'filters', jsonb_build_object('from', p_from, 'to', p_to, 'pbms', to_jsonb(p_pbms), 'filter', p_filter)\n    )\n  );\n\n  -- 3. the read — explicit tenant fence, grouped by PBM (insurance, A-3)\n  return query\n    select\n      ud.insurance::text,\n      round(coalesce(sum(ud.owed) filter (where ud.owed > 0), 0), 2)::numeric,\n      0::numeric                                            -- federal_diff is NULL in v1 (A-3)\n    from public.user_data ud\n    where ud.business_id = p_business_id\n      and ud.insurance is not null\n      and (p_from   is null or ud.date_dispensed >= p_from)\n      and (p_to     is null or ud.date_dispensed <= p_to)\n      and (coalesce(array_length(p_pbms, 1), 0) = 0 or ud.insurance = any (p_pbms))\n      and (p_filter is null or ud.status = p_filter)\n    group by ud.insurance\n    order by 2 desc, 1;\nend;\n$function$\n",
+        "owner": "postgres",
+        "proacl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "proname": "rls_auto_enable",
+        "args": "",
+        "definition": "CREATE OR REPLACE FUNCTION public.rls_auto_enable()\n RETURNS event_trigger\n LANGUAGE plpgsql\nAS $function$\nDECLARE\n  obj record;\nBEGIN\n  FOR obj IN\n    SELECT * FROM pg_event_trigger_ddl_commands() WHERE command_tag = 'CREATE TABLE'\n  LOOP\n    IF obj.schema_name = 'public' THEN\n      EXECUTE format('ALTER TABLE %s ENABLE ROW LEVEL SECURITY', obj.object_identity);\n    END IF;\n  END LOOP;\nEND;\n$function$\n",
+        "owner": "postgres",
+        "proacl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "proname": "update_updated_at",
+        "args": "",
+        "definition": "CREATE OR REPLACE FUNCTION public.update_updated_at()\n RETURNS trigger\n LANGUAGE plpgsql\nAS $function$\nbegin\n  new.updated_at = now();\n  return new;\nend;\n$function$\n",
+        "owner": "postgres",
+        "proacl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      }
+    ],
+    "constraints": [
+      {
+        "relname": "aac_reference",
+        "conname": "aac_reference_dataset_version_id_fkey",
+        "definition": "FOREIGN KEY (dataset_version_id) REFERENCES reference_dataset_versions(id)"
+      },
+      {
+        "relname": "aac_reference",
+        "conname": "aac_reference_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "relname": "aac_reference",
+        "conname": "uq_aac_reference_ndc_date",
+        "definition": "UNIQUE (ndc, aac_date)"
+      },
+      {
+        "relname": "accounts",
+        "conname": "accounts_owner_user_id_fkey",
+        "definition": "FOREIGN KEY (owner_user_id) REFERENCES auth.users(id)"
+      },
+      {
+        "relname": "accounts",
+        "conname": "accounts_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "relname": "apa_memberships",
+        "conname": "apa_memberships_license_number_key",
+        "definition": "UNIQUE (license_number)"
+      },
+      {
+        "relname": "apa_memberships",
+        "conname": "apa_memberships_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "relname": "audit_logs",
+        "conname": "audit_logs_action_check",
+        "definition": "CHECK ((action = ANY (ARRAY['insert'::text, 'update'::text, 'delete'::text, 'read_page'::text])))"
+      },
+      {
+        "relname": "audit_logs",
+        "conname": "audit_logs_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "relname": "businesses",
+        "conname": "businesses_account_id_fkey",
+        "definition": "FOREIGN KEY (account_id) REFERENCES accounts(id)"
+      },
+      {
+        "relname": "businesses",
+        "conname": "businesses_activation_key_key",
+        "definition": "UNIQUE (activation_key)"
+      },
+      {
+        "relname": "businesses",
+        "conname": "businesses_pharmacy_slug_key",
+        "definition": "UNIQUE (pharmacy_slug)"
+      },
+      {
+        "relname": "businesses",
+        "conname": "businesses_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "relname": "businesses",
+        "conname": "businesses_status_check",
+        "definition": "CHECK ((status = ANY (ARRAY['pending'::text, 'active'::text, 'suspended'::text])))"
+      },
+      {
+        "relname": "businesses",
+        "conname": "uq_businesses_ncpdp_npi",
+        "definition": "UNIQUE (ncpdp, npi)"
+      },
+      {
+        "relname": "ful_reference",
+        "conname": "ful_reference_dataset_version_id_fkey",
+        "definition": "FOREIGN KEY (dataset_version_id) REFERENCES reference_dataset_versions(id)"
+      },
+      {
+        "relname": "ful_reference",
+        "conname": "ful_reference_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "relname": "ful_reference",
+        "conname": "uq_ful_reference_ndc_year_month",
+        "definition": "UNIQUE (ndc, year, month)"
+      },
+      {
+        "relname": "pbm_info",
+        "conname": "pbm_info_dataset_version_id_fkey",
+        "definition": "FOREIGN KEY (dataset_version_id) REFERENCES reference_dataset_versions(id)"
+      },
+      {
+        "relname": "pbm_info",
+        "conname": "pbm_info_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "relname": "pending_registrations",
+        "conname": "pending_registrations_activation_token_key",
+        "definition": "UNIQUE (activation_token)"
+      },
+      {
+        "relname": "pending_registrations",
+        "conname": "pending_registrations_business_id_fkey",
+        "definition": "FOREIGN KEY (business_id) REFERENCES businesses(id)"
+      },
+      {
+        "relname": "pending_registrations",
+        "conname": "pending_registrations_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "relname": "pending_registrations",
+        "conname": "pending_registrations_status_check",
+        "definition": "CHECK ((status = ANY (ARRAY['pending_verification'::text, 'approved'::text, 'rejected'::text, 'expired'::text, 'completed'::text])))"
+      },
+      {
+        "relname": "pending_registrations",
+        "conname": "pending_registrations_verified_by_user_id_fkey",
+        "definition": "FOREIGN KEY (verified_by_user_id) REFERENCES auth.users(id)"
+      },
+      {
+        "relname": "pending_registrations",
+        "conname": "uq_pending_reg_email_business",
+        "definition": "UNIQUE (email, ncpdp, npi)"
+      },
+      {
+        "relname": "profiles",
+        "conname": "profiles_id_fkey",
+        "definition": "FOREIGN KEY (id) REFERENCES auth.users(id) ON DELETE CASCADE"
+      },
+      {
+        "relname": "profiles",
+        "conname": "profiles_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "relname": "reference_dataset_versions",
+        "conname": "reference_dataset_versions_dataset_name_key",
+        "definition": "UNIQUE (dataset_name)"
+      },
+      {
+        "relname": "reference_dataset_versions",
+        "conname": "reference_dataset_versions_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "relname": "report_files",
+        "conname": "report_files_business_id_fkey",
+        "definition": "FOREIGN KEY (business_id) REFERENCES businesses(id)"
+      },
+      {
+        "relname": "report_files",
+        "conname": "report_files_generated_by_user_id_fkey",
+        "definition": "FOREIGN KEY (generated_by_user_id) REFERENCES auth.users(id)"
+      },
+      {
+        "relname": "report_files",
+        "conname": "report_files_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "relname": "subscriptions",
+        "conname": "subscriptions_account_id_fkey",
+        "definition": "FOREIGN KEY (account_id) REFERENCES accounts(id)"
+      },
+      {
+        "relname": "subscriptions",
+        "conname": "subscriptions_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "relname": "subscriptions",
+        "conname": "subscriptions_status_check",
+        "definition": "CHECK ((status = ANY (ARRAY['active'::text, 'trialing'::text, 'past_due'::text, 'canceled'::text, 'unpaid'::text, 'incomplete'::text])))"
+      },
+      {
+        "relname": "subscriptions",
+        "conname": "subscriptions_stripe_subscription_id_key",
+        "definition": "UNIQUE (stripe_subscription_id)"
+      },
+      {
+        "relname": "user_businesses",
+        "conname": "uq_user_business",
+        "definition": "UNIQUE (user_id, business_id)"
+      },
+      {
+        "relname": "user_businesses",
+        "conname": "user_businesses_business_id_fkey",
+        "definition": "FOREIGN KEY (business_id) REFERENCES businesses(id) ON DELETE CASCADE"
+      },
+      {
+        "relname": "user_businesses",
+        "conname": "user_businesses_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "relname": "user_businesses",
+        "conname": "user_businesses_role_check",
+        "definition": "CHECK ((role = ANY (ARRAY['admin'::text, 'member'::text])))"
+      },
+      {
+        "relname": "user_businesses",
+        "conname": "user_businesses_user_id_fkey",
+        "definition": "FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE"
+      },
+      {
+        "relname": "user_data",
+        "conname": "user_data_business_id_fkey",
+        "definition": "FOREIGN KEY (business_id) REFERENCES businesses(id)"
+      },
+      {
+        "relname": "user_data",
+        "conname": "user_data_medicaid_method_check",
+        "definition": "CHECK ((medicaid_method = ANY (ARRAY['AAC'::text, 'FUL'::text, 'GWAC'::text, 'BWAC'::text, 'Take Action'::text, 'Manual Override'::text, 'Legacy'::text])))"
+      },
+      {
+        "relname": "user_data",
+        "conname": "user_data_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "relname": "user_roles",
+        "conname": "user_roles_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "relname": "user_roles",
+        "conname": "user_roles_user_id_fkey",
+        "definition": "FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE"
+      },
+      {
+        "relname": "user_roles",
+        "conname": "user_roles_user_id_key",
+        "definition": "UNIQUE (user_id)"
+      },
+      {
+        "relname": "wac_reference",
+        "conname": "uq_wac_reference_ndc_date",
+        "definition": "UNIQUE (ndc, effective_date)"
+      },
+      {
+        "relname": "wac_reference",
+        "conname": "wac_reference_dataset_version_id_fkey",
+        "definition": "FOREIGN KEY (dataset_version_id) REFERENCES reference_dataset_versions(id)"
+      },
+      {
+        "relname": "wac_reference",
+        "conname": "wac_reference_pkey",
+        "definition": "PRIMARY KEY (id)"
+      }
+    ],
+    "indexes": [
+      {
+        "tablename": "aac_reference",
+        "indexname": "aac_reference_pkey",
+        "indexdef": "CREATE UNIQUE INDEX aac_reference_pkey ON public.aac_reference USING btree (id)"
+      },
+      {
+        "tablename": "aac_reference",
+        "indexname": "uq_aac_reference_ndc_date",
+        "indexdef": "CREATE UNIQUE INDEX uq_aac_reference_ndc_date ON public.aac_reference USING btree (ndc, aac_date)"
+      },
+      {
+        "tablename": "accounts",
+        "indexname": "accounts_pkey",
+        "indexdef": "CREATE UNIQUE INDEX accounts_pkey ON public.accounts USING btree (id)"
+      },
+      {
+        "tablename": "apa_memberships",
+        "indexname": "apa_memberships_license_number_key",
+        "indexdef": "CREATE UNIQUE INDEX apa_memberships_license_number_key ON public.apa_memberships USING btree (license_number)"
+      },
+      {
+        "tablename": "apa_memberships",
+        "indexname": "apa_memberships_pkey",
+        "indexdef": "CREATE UNIQUE INDEX apa_memberships_pkey ON public.apa_memberships USING btree (id)"
+      },
+      {
+        "tablename": "audit_logs",
+        "indexname": "audit_logs_pkey",
+        "indexdef": "CREATE UNIQUE INDEX audit_logs_pkey ON public.audit_logs USING btree (id)"
+      },
+      {
+        "tablename": "audit_logs",
+        "indexname": "idx_audit_logs_business_occurred",
+        "indexdef": "CREATE INDEX idx_audit_logs_business_occurred ON public.audit_logs USING btree (business_id, occurred_at)"
+      },
+      {
+        "tablename": "audit_logs",
+        "indexname": "idx_audit_logs_occurred_at",
+        "indexdef": "CREATE INDEX idx_audit_logs_occurred_at ON public.audit_logs USING btree (occurred_at)"
+      },
+      {
+        "tablename": "audit_logs",
+        "indexname": "idx_audit_logs_table_row",
+        "indexdef": "CREATE INDEX idx_audit_logs_table_row ON public.audit_logs USING btree (table_name, row_id)"
+      },
+      {
+        "tablename": "businesses",
+        "indexname": "businesses_activation_key_key",
+        "indexdef": "CREATE UNIQUE INDEX businesses_activation_key_key ON public.businesses USING btree (activation_key)"
+      },
+      {
+        "tablename": "businesses",
+        "indexname": "businesses_pharmacy_slug_key",
+        "indexdef": "CREATE UNIQUE INDEX businesses_pharmacy_slug_key ON public.businesses USING btree (pharmacy_slug)"
+      },
+      {
+        "tablename": "businesses",
+        "indexname": "businesses_pkey",
+        "indexdef": "CREATE UNIQUE INDEX businesses_pkey ON public.businesses USING btree (id)"
+      },
+      {
+        "tablename": "businesses",
+        "indexname": "idx_businesses_account_id",
+        "indexdef": "CREATE INDEX idx_businesses_account_id ON public.businesses USING btree (account_id)"
+      },
+      {
+        "tablename": "businesses",
+        "indexname": "uq_businesses_ncpdp_npi",
+        "indexdef": "CREATE UNIQUE INDEX uq_businesses_ncpdp_npi ON public.businesses USING btree (ncpdp, npi)"
+      },
+      {
+        "tablename": "ful_reference",
+        "indexname": "ful_reference_pkey",
+        "indexdef": "CREATE UNIQUE INDEX ful_reference_pkey ON public.ful_reference USING btree (id)"
+      },
+      {
+        "tablename": "ful_reference",
+        "indexname": "uq_ful_reference_ndc_year_month",
+        "indexdef": "CREATE UNIQUE INDEX uq_ful_reference_ndc_year_month ON public.ful_reference USING btree (ndc, year, month)"
+      },
+      {
+        "tablename": "pbm_info",
+        "indexname": "pbm_info_pkey",
+        "indexdef": "CREATE UNIQUE INDEX pbm_info_pkey ON public.pbm_info USING btree (id)"
+      },
+      {
+        "tablename": "pending_registrations",
+        "indexname": "idx_pending_registrations_email",
+        "indexdef": "CREATE INDEX idx_pending_registrations_email ON public.pending_registrations USING btree (email)"
+      },
+      {
+        "tablename": "pending_registrations",
+        "indexname": "idx_pending_registrations_status",
+        "indexdef": "CREATE INDEX idx_pending_registrations_status ON public.pending_registrations USING btree (status)"
+      },
+      {
+        "tablename": "pending_registrations",
+        "indexname": "pending_registrations_activation_token_key",
+        "indexdef": "CREATE UNIQUE INDEX pending_registrations_activation_token_key ON public.pending_registrations USING btree (activation_token)"
+      },
+      {
+        "tablename": "pending_registrations",
+        "indexname": "pending_registrations_pkey",
+        "indexdef": "CREATE UNIQUE INDEX pending_registrations_pkey ON public.pending_registrations USING btree (id)"
+      },
+      {
+        "tablename": "pending_registrations",
+        "indexname": "uq_pending_reg_email_business",
+        "indexdef": "CREATE UNIQUE INDEX uq_pending_reg_email_business ON public.pending_registrations USING btree (email, ncpdp, npi)"
+      },
+      {
+        "tablename": "profiles",
+        "indexname": "profiles_pkey",
+        "indexdef": "CREATE UNIQUE INDEX profiles_pkey ON public.profiles USING btree (id)"
+      },
+      {
+        "tablename": "reference_dataset_versions",
+        "indexname": "reference_dataset_versions_dataset_name_key",
+        "indexdef": "CREATE UNIQUE INDEX reference_dataset_versions_dataset_name_key ON public.reference_dataset_versions USING btree (dataset_name)"
+      },
+      {
+        "tablename": "reference_dataset_versions",
+        "indexname": "reference_dataset_versions_pkey",
+        "indexdef": "CREATE UNIQUE INDEX reference_dataset_versions_pkey ON public.reference_dataset_versions USING btree (id)"
+      },
+      {
+        "tablename": "report_files",
+        "indexname": "idx_report_files_business_id",
+        "indexdef": "CREATE INDEX idx_report_files_business_id ON public.report_files USING btree (business_id)"
+      },
+      {
+        "tablename": "report_files",
+        "indexname": "report_files_pkey",
+        "indexdef": "CREATE UNIQUE INDEX report_files_pkey ON public.report_files USING btree (id)"
+      },
+      {
+        "tablename": "subscriptions",
+        "indexname": "idx_subscriptions_account_id",
+        "indexdef": "CREATE INDEX idx_subscriptions_account_id ON public.subscriptions USING btree (account_id)"
+      },
+      {
+        "tablename": "subscriptions",
+        "indexname": "subscriptions_pkey",
+        "indexdef": "CREATE UNIQUE INDEX subscriptions_pkey ON public.subscriptions USING btree (id)"
+      },
+      {
+        "tablename": "subscriptions",
+        "indexname": "subscriptions_stripe_subscription_id_key",
+        "indexdef": "CREATE UNIQUE INDEX subscriptions_stripe_subscription_id_key ON public.subscriptions USING btree (stripe_subscription_id)"
+      },
+      {
+        "tablename": "user_businesses",
+        "indexname": "idx_user_businesses_business_id",
+        "indexdef": "CREATE INDEX idx_user_businesses_business_id ON public.user_businesses USING btree (business_id)"
+      },
+      {
+        "tablename": "user_businesses",
+        "indexname": "idx_user_businesses_user_id",
+        "indexdef": "CREATE INDEX idx_user_businesses_user_id ON public.user_businesses USING btree (user_id)"
+      },
+      {
+        "tablename": "user_businesses",
+        "indexname": "uq_user_business",
+        "indexdef": "CREATE UNIQUE INDEX uq_user_business ON public.user_businesses USING btree (user_id, business_id)"
+      },
+      {
+        "tablename": "user_businesses",
+        "indexname": "user_businesses_one_admin",
+        "indexdef": "CREATE UNIQUE INDEX user_businesses_one_admin ON public.user_businesses USING btree (business_id) WHERE (role = 'admin'::text)"
+      },
+      {
+        "tablename": "user_businesses",
+        "indexname": "user_businesses_pkey",
+        "indexdef": "CREATE UNIQUE INDEX user_businesses_pkey ON public.user_businesses USING btree (id)"
+      },
+      {
+        "tablename": "user_data",
+        "indexname": "idx_user_data_business_id",
+        "indexdef": "CREATE INDEX idx_user_data_business_id ON public.user_data USING btree (business_id)"
+      },
+      {
+        "tablename": "user_data",
+        "indexname": "user_data_pkey",
+        "indexdef": "CREATE UNIQUE INDEX user_data_pkey ON public.user_data USING btree (id)"
+      },
+      {
+        "tablename": "user_roles",
+        "indexname": "user_roles_pkey",
+        "indexdef": "CREATE UNIQUE INDEX user_roles_pkey ON public.user_roles USING btree (id)"
+      },
+      {
+        "tablename": "user_roles",
+        "indexname": "user_roles_user_id_key",
+        "indexdef": "CREATE UNIQUE INDEX user_roles_user_id_key ON public.user_roles USING btree (user_id)"
+      },
+      {
+        "tablename": "wac_reference",
+        "indexname": "uq_wac_reference_ndc_date",
+        "indexdef": "CREATE UNIQUE INDEX uq_wac_reference_ndc_date ON public.wac_reference USING btree (ndc, effective_date)"
+      },
+      {
+        "tablename": "wac_reference",
+        "indexname": "wac_reference_pkey",
+        "indexdef": "CREATE UNIQUE INDEX wac_reference_pkey ON public.wac_reference USING btree (id)"
+      }
+    ],
+    "triggers": [
+      {
+        "relname": "aac_reference",
+        "tgname": "audit_write",
+        "definition": "CREATE TRIGGER audit_write AFTER INSERT OR DELETE OR UPDATE ON public.aac_reference FOR EACH ROW EXECUTE FUNCTION audit_write()"
+      },
+      {
+        "relname": "aac_reference",
+        "tgname": "set_updated_at",
+        "definition": "CREATE TRIGGER set_updated_at BEFORE UPDATE ON public.aac_reference FOR EACH ROW EXECUTE FUNCTION update_updated_at()"
+      },
+      {
+        "relname": "accounts",
+        "tgname": "audit_write",
+        "definition": "CREATE TRIGGER audit_write AFTER INSERT OR DELETE OR UPDATE ON public.accounts FOR EACH ROW EXECUTE FUNCTION audit_write()"
+      },
+      {
+        "relname": "accounts",
+        "tgname": "set_updated_at",
+        "definition": "CREATE TRIGGER set_updated_at BEFORE UPDATE ON public.accounts FOR EACH ROW EXECUTE FUNCTION update_updated_at()"
+      },
+      {
+        "relname": "apa_memberships",
+        "tgname": "audit_write",
+        "definition": "CREATE TRIGGER audit_write AFTER INSERT OR DELETE OR UPDATE ON public.apa_memberships FOR EACH ROW EXECUTE FUNCTION audit_write()"
+      },
+      {
+        "relname": "apa_memberships",
+        "tgname": "set_updated_at",
+        "definition": "CREATE TRIGGER set_updated_at BEFORE UPDATE ON public.apa_memberships FOR EACH ROW EXECUTE FUNCTION update_updated_at()"
+      },
+      {
+        "relname": "audit_logs",
+        "tgname": "audit_logs_immutable",
+        "definition": "CREATE TRIGGER audit_logs_immutable BEFORE DELETE OR UPDATE ON public.audit_logs FOR EACH ROW EXECUTE FUNCTION audit_logs_immutable()"
+      },
+      {
+        "relname": "audit_logs",
+        "tgname": "audit_logs_no_truncate",
+        "definition": "CREATE TRIGGER audit_logs_no_truncate BEFORE TRUNCATE ON public.audit_logs FOR EACH STATEMENT EXECUTE FUNCTION audit_logs_immutable()"
+      },
+      {
+        "relname": "businesses",
+        "tgname": "audit_write",
+        "definition": "CREATE TRIGGER audit_write AFTER INSERT OR DELETE OR UPDATE ON public.businesses FOR EACH ROW EXECUTE FUNCTION audit_write()"
+      },
+      {
+        "relname": "businesses",
+        "tgname": "set_updated_at",
+        "definition": "CREATE TRIGGER set_updated_at BEFORE UPDATE ON public.businesses FOR EACH ROW EXECUTE FUNCTION update_updated_at()"
+      },
+      {
+        "relname": "ful_reference",
+        "tgname": "audit_write",
+        "definition": "CREATE TRIGGER audit_write AFTER INSERT OR DELETE OR UPDATE ON public.ful_reference FOR EACH ROW EXECUTE FUNCTION audit_write()"
+      },
+      {
+        "relname": "ful_reference",
+        "tgname": "set_updated_at",
+        "definition": "CREATE TRIGGER set_updated_at BEFORE UPDATE ON public.ful_reference FOR EACH ROW EXECUTE FUNCTION update_updated_at()"
+      },
+      {
+        "relname": "pbm_info",
+        "tgname": "audit_write",
+        "definition": "CREATE TRIGGER audit_write AFTER INSERT OR DELETE OR UPDATE ON public.pbm_info FOR EACH ROW EXECUTE FUNCTION audit_write()"
+      },
+      {
+        "relname": "pbm_info",
+        "tgname": "set_updated_at",
+        "definition": "CREATE TRIGGER set_updated_at BEFORE UPDATE ON public.pbm_info FOR EACH ROW EXECUTE FUNCTION update_updated_at()"
+      },
+      {
+        "relname": "pending_registrations",
+        "tgname": "audit_write",
+        "definition": "CREATE TRIGGER audit_write AFTER INSERT OR DELETE OR UPDATE ON public.pending_registrations FOR EACH ROW EXECUTE FUNCTION audit_write()"
+      },
+      {
+        "relname": "pending_registrations",
+        "tgname": "set_updated_at",
+        "definition": "CREATE TRIGGER set_updated_at BEFORE UPDATE ON public.pending_registrations FOR EACH ROW EXECUTE FUNCTION update_updated_at()"
+      },
+      {
+        "relname": "reference_dataset_versions",
+        "tgname": "audit_write",
+        "definition": "CREATE TRIGGER audit_write AFTER INSERT OR DELETE OR UPDATE ON public.reference_dataset_versions FOR EACH ROW EXECUTE FUNCTION audit_write()"
+      },
+      {
+        "relname": "reference_dataset_versions",
+        "tgname": "set_updated_at",
+        "definition": "CREATE TRIGGER set_updated_at BEFORE UPDATE ON public.reference_dataset_versions FOR EACH ROW EXECUTE FUNCTION update_updated_at()"
+      },
+      {
+        "relname": "report_files",
+        "tgname": "audit_write",
+        "definition": "CREATE TRIGGER audit_write AFTER INSERT OR DELETE OR UPDATE ON public.report_files FOR EACH ROW EXECUTE FUNCTION audit_write()"
+      },
+      {
+        "relname": "report_files",
+        "tgname": "set_updated_at",
+        "definition": "CREATE TRIGGER set_updated_at BEFORE UPDATE ON public.report_files FOR EACH ROW EXECUTE FUNCTION update_updated_at()"
+      },
+      {
+        "relname": "subscriptions",
+        "tgname": "audit_write",
+        "definition": "CREATE TRIGGER audit_write AFTER INSERT OR DELETE OR UPDATE ON public.subscriptions FOR EACH ROW EXECUTE FUNCTION audit_write()"
+      },
+      {
+        "relname": "subscriptions",
+        "tgname": "set_updated_at",
+        "definition": "CREATE TRIGGER set_updated_at BEFORE UPDATE ON public.subscriptions FOR EACH ROW EXECUTE FUNCTION update_updated_at()"
+      },
+      {
+        "relname": "user_businesses",
+        "tgname": "audit_write",
+        "definition": "CREATE TRIGGER audit_write AFTER INSERT OR DELETE OR UPDATE ON public.user_businesses FOR EACH ROW EXECUTE FUNCTION audit_write()"
+      },
+      {
+        "relname": "user_businesses",
+        "tgname": "set_updated_at",
+        "definition": "CREATE TRIGGER set_updated_at BEFORE UPDATE ON public.user_businesses FOR EACH ROW EXECUTE FUNCTION update_updated_at()"
+      },
+      {
+        "relname": "user_data",
+        "tgname": "audit_write",
+        "definition": "CREATE TRIGGER audit_write AFTER INSERT OR DELETE OR UPDATE ON public.user_data FOR EACH ROW EXECUTE FUNCTION audit_write()"
+      },
+      {
+        "relname": "user_data",
+        "tgname": "set_updated_at",
+        "definition": "CREATE TRIGGER set_updated_at BEFORE UPDATE ON public.user_data FOR EACH ROW EXECUTE FUNCTION update_updated_at()"
+      },
+      {
+        "relname": "wac_reference",
+        "tgname": "audit_write",
+        "definition": "CREATE TRIGGER audit_write AFTER INSERT OR DELETE OR UPDATE ON public.wac_reference FOR EACH ROW EXECUTE FUNCTION audit_write()"
+      },
+      {
+        "relname": "wac_reference",
+        "tgname": "set_updated_at",
+        "definition": "CREATE TRIGGER set_updated_at BEFORE UPDATE ON public.wac_reference FOR EACH ROW EXECUTE FUNCTION update_updated_at()"
+      }
+    ],
+    "defaultACLs": [
+      {
+        "owner": "postgres",
+        "namespace": "public",
+        "defaclobjtype": "S",
+        "defaclacl": "{postgres=rwU/postgres,anon=rwU/postgres,authenticated=rwU/postgres,service_role=rwU/postgres}"
+      },
+      {
+        "owner": "postgres",
+        "namespace": "public",
+        "defaclobjtype": "f",
+        "defaclacl": "{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "owner": "postgres",
+        "namespace": "public",
+        "defaclobjtype": "r",
+        "defaclacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      }
+    ],
+    "enums": [
+      {
+        "typname": "app_role",
+        "enumlabel": "superadmin",
+        "enumsortorder": 1
+      },
+      {
+        "typname": "app_role",
+        "enumlabel": "admin",
+        "enumsortorder": 2
+      },
+      {
+        "typname": "app_role",
+        "enumlabel": "member",
+        "enumsortorder": 3
+      }
+    ]
+  },
+  "sha256": "8c66b519e6c5aca187c482cc5598f7e83bb3d18c31a7f657c33770dba119c56c",
+  "ledger": [
+    {
+      "name": "0001_baseline_acknowledge.sql",
+      "sha256": "c2eb94604534c8b787bf435579ab45e0ae87a768f9ff607e7a81621010264461",
+      "applied_at": "2026-11-05T15:14:39.461Z"
+    },
+    {
+      "name": "0002_accounts.sql",
+      "sha256": "46d39e8925b35e8af72c7a6509242facedb8b8062f306e6c2eb5f9e7a2fc7b11",
+      "applied_at": "2026-11-05T15:14:39.744Z"
+    },
+    {
+      "name": "0003_businesses.sql",
+      "sha256": "b7a4e193060e7d3df6d62c85f0fe189b6079a1ebea95ab8fe84c17169018591d",
+      "applied_at": "2026-11-05T15:14:39.977Z"
+    },
+    {
+      "name": "0004_user_businesses.sql",
+      "sha256": "5bda37d78efa2a53d436c0400319875aeb6ef3285243046c73afdab9e3420ecb",
+      "applied_at": "2026-11-05T15:14:40.262Z"
+    },
+    {
+      "name": "0005_pending_registrations.sql",
+      "sha256": "0634ef1cf5943f867e0d44c8a88e345f3a54fc7f534af969b0b913cb3ff116a2",
+      "applied_at": "2026-11-05T15:14:40.554Z"
+    },
+    {
+      "name": "0006_subscriptions.sql",
+      "sha256": "e6b98a6c4f3bbbedc00d8ec1a86f50d2ab529ff59d09bc74aa86ddcde1c386ed",
+      "applied_at": "2026-11-05T15:14:40.852Z"
+    },
+    {
+      "name": "0007_apa_memberships.sql",
+      "sha256": "f0196fd16467f20e37f16520cf79abf07e8dba8fd1c0744bde09bddddcf9d0bf",
+      "applied_at": "2026-11-05T15:14:41.104Z"
+    },
+    {
+      "name": "0008_reference_dataset_versions.sql",
+      "sha256": "c5335defa023d771546681cdade811a87b4ad13edf3b30b3182ad7d2a5fc1058",
+      "applied_at": "2026-11-05T15:14:41.333Z"
+    },
+    {
+      "name": "0009_aac_reference.sql",
+      "sha256": "dc1f94d22aa07c80b3f99ee3583004e586a928ee346e6382450906dc0a80f5ef",
+      "applied_at": "2026-11-05T15:14:41.563Z"
+    },
+    {
+      "name": "0010_wac_reference.sql",
+      "sha256": "6b0d8690fddc92f73ba74d6d63d8a49500673afbaf2d263b1cb97f9f654d2790",
+      "applied_at": "2026-11-05T15:14:41.790Z"
+    },
+    {
+      "name": "0011_ful_reference.sql",
+      "sha256": "a5beaa5942e54c553a104d207c91bb411cdb7236b88b71773843397252c23ce9",
+      "applied_at": "2026-11-05T15:14:42.017Z"
+    },
+    {
+      "name": "0012_pbm_info.sql",
+      "sha256": "7b9ff099bd6ad9fbc4af86decc0e05920d4e87cb68a590fbb4a7985a8722cab4",
+      "applied_at": "2026-11-05T15:14:42.240Z"
+    },
+    {
+      "name": "0013_user_data.sql",
+      "sha256": "621fb4b344ad2b0b2806fc5980975ef39bc1569609d3d59cad7b247cb578d338",
+      "applied_at": "2026-11-05T15:14:42.474Z"
+    },
+    {
+      "name": "0014_report_files.sql",
+      "sha256": "2512e555cf53c9f060d20f6490b77f95256e944e2a9ebed403810cb64099b1da",
+      "applied_at": "2026-11-05T15:14:42.763Z"
+    },
+    {
+      "name": "0015_audit_logs.sql",
+      "sha256": "610f588805c8cf8ad04b604923c4e7b67d895d75333152ecf9debeb24aea796f",
+      "applied_at": "2026-11-05T15:14:42.994Z"
+    },
+    {
+      "name": "0016_rls_helpers.sql",
+      "sha256": "8fd63a19e6f088ccb895da5d1c8d88a93aa588e3719701e1c5498858f0b24084",
+      "applied_at": "2026-11-05T15:14:43.268Z"
+    },
+    {
+      "name": "0017_rls_user_businesses.sql",
+      "sha256": "a3b062e2a08b662af705b5d01aef4241a4b5c475c3d2d584cd5afca727d035cf",
+      "applied_at": "2026-11-05T15:14:43.555Z"
+    },
+    {
+      "name": "0018_rls_accounts.sql",
+      "sha256": "643737798ebd9febbc64bc71a162eca4d7ca9e3ab86a479e499cf41abcce629e",
+      "applied_at": "2026-11-05T15:14:43.783Z"
+    },
+    {
+      "name": "0019_rls_businesses.sql",
+      "sha256": "0c95375a5d66d4080ba9b54c6ae13e5ce82e73d893de969953d50357ad466383",
+      "applied_at": "2026-11-05T15:14:44.008Z"
+    },
+    {
+      "name": "0020_rls_subscriptions.sql",
+      "sha256": "bd2b0605b117edde9af9c0b669bf35b6d861e5f8b937fb5802b2c799710f7242",
+      "applied_at": "2026-11-05T15:14:44.287Z"
+    },
+    {
+      "name": "0021_rls_user_data.sql",
+      "sha256": "d57d4970e2c017abcd22694f9be51fd0e7359bde27303e05fd453d685072ca6a",
+      "applied_at": "2026-11-05T15:14:44.507Z"
+    },
+    {
+      "name": "0022_rls_report_files.sql",
+      "sha256": "92cc3555eca51c63bcd8abc3b0594aeab840bca0fb61db1d571b2e147f6ab943",
+      "applied_at": "2026-11-05T15:14:44.787Z"
+    },
+    {
+      "name": "0023_rls_aac_reference.sql",
+      "sha256": "1792f0968291e378c2bd929fbdba8b06156cdd23892fedc09d21ecd445084124",
+      "applied_at": "2026-11-05T15:14:45.006Z"
+    },
+    {
+      "name": "0024_rls_wac_reference.sql",
+      "sha256": "2254d3a79b7a5d851545977c807467b26b02fca2d9c323cdf837a0b1e09de8df",
+      "applied_at": "2026-11-05T15:14:45.231Z"
+    },
+    {
+      "name": "0025_rls_ful_reference.sql",
+      "sha256": "9f0dadbcbe9797e6f3f396575fc497782ca9340f45e9f47f8e59e55a5fc93b2d",
+      "applied_at": "2026-11-05T15:14:45.453Z"
+    },
+    {
+      "name": "0026_rls_pbm_info.sql",
+      "sha256": "d821b2cb83b8f95e0aef23b77c592d2165f77245a09407acf453c56d0664641c",
+      "applied_at": "2026-11-05T15:14:45.674Z"
+    },
+    {
+      "name": "0027_rls_reference_dataset_versions.sql",
+      "sha256": "e2edec0090d4b019554efab3457a130d965fd3c3caa0c49897e8c56069400bb9",
+      "applied_at": "2026-11-05T15:14:45.893Z"
+    },
+    {
+      "name": "0028_audit_logs_reshape.sql",
+      "sha256": "b295ef59b9f55c981f7f446d1a90bd97ddcd604de023dfd9b438fcac34fd3899",
+      "applied_at": "2026-11-05T15:14:46.115Z"
+    },
+    {
+      "name": "0029_rls_audit_logs.sql",
+      "sha256": "41d25734bfc647ef411e5896d2b3b8dbf12efdd3451e8c9ab4ea5fdae2ad2226",
+      "applied_at": "2026-11-05T15:14:46.417Z"
+    },
+    {
+      "name": "0030_audit_write.sql",
+      "sha256": "e8ac2181c265d16e3b1253b5ba328ad7a86e5d2907e65a8e2e1890fe1d9f4f9f",
+      "applied_at": "2026-11-05T15:14:46.704Z"
+    },
+    {
+      "name": "0031_audit_stamp_businesses.sql",
+      "sha256": "d0126208f941ca7b147aacf95f14e69936933cddd5f2ee220f0a34af9dda15ab",
+      "applied_at": "2026-11-05T15:14:46.984Z"
+    },
+    {
+      "name": "0032_audit_stamp_user_businesses.sql",
+      "sha256": "7f405fcb74ad0f247e6c14cb8e5a1ddb2c87c81e01c7a720e2bb16fed87b0193",
+      "applied_at": "2026-11-05T15:14:47.210Z"
+    },
+    {
+      "name": "0033_audit_stamp_pending_registrations.sql",
+      "sha256": "3f583b40b90f6814bb5d5d39b892470018c0ddfd4dac985fd35e5d9d83e65fd6",
+      "applied_at": "2026-11-05T15:14:47.433Z"
+    },
+    {
+      "name": "0034_audit_stamp_user_data.sql",
+      "sha256": "26912146ac8dccf0a983ee3c644c24dece9bf4cd403e775ddd2ca6b2f6de944a",
+      "applied_at": "2026-11-05T15:14:47.658Z"
+    },
+    {
+      "name": "0035_audit_stamp_report_files.sql",
+      "sha256": "3ce3dcfdfed8744f9cd87893575c9e4a3ec24db614ec25ba51b9cc33874d4ab0",
+      "applied_at": "2026-11-05T15:14:47.879Z"
+    },
+    {
+      "name": "0036_audit_stamp_accounts.sql",
+      "sha256": "c285e8700e987051f79ed979489778e352efc26d3e3da0606853cfb1053ac982",
+      "applied_at": "2026-11-05T15:14:48.108Z"
+    },
+    {
+      "name": "0037_audit_stamp_subscriptions.sql",
+      "sha256": "61c6a3b1f7343ca9ecb7572a851ea3960f56407f5dcbdce8f648ace301afe7e9",
+      "applied_at": "2026-11-05T15:14:48.337Z"
+    },
+    {
+      "name": "0038_audit_stamp_apa_memberships.sql",
+      "sha256": "91b234c4cff90a0105f0a4604d8140f6ecbc0c18cf4b3636372d3394920a70d1",
+      "applied_at": "2026-11-05T15:14:48.561Z"
+    },
+    {
+      "name": "0039_audit_stamp_reference_dataset_versions.sql",
+      "sha256": "f3a338f73db5c0757b7b65e40128beb570f41ac059599fb55d0cede543e043e2",
+      "applied_at": "2026-11-05T15:14:48.785Z"
+    },
+    {
+      "name": "0040_audit_stamp_aac_reference.sql",
+      "sha256": "7de203f360b11de5f0c39b982fe8a8e6518d5fc4c96c4f0c8bb991ea075aa22b",
+      "applied_at": "2026-11-05T15:14:49.012Z"
+    },
+    {
+      "name": "0041_audit_stamp_wac_reference.sql",
+      "sha256": "5bfffc5696e7a2bb3b45387275c9aec045b0766c18e842b590bd51cc6c8a3402",
+      "applied_at": "2026-11-05T15:14:49.237Z"
+    },
+    {
+      "name": "0042_audit_stamp_ful_reference.sql",
+      "sha256": "ed85fc8c9db3722e260808965a7e0419d99e3817df0de13c27afdeb733e1c18f",
+      "applied_at": "2026-11-05T15:14:49.463Z"
+    },
+    {
+      "name": "0043_audit_stamp_pbm_info.sql",
+      "sha256": "358bd392053d1d77bf8835aa29594a7bc40cb267cb4bf929be63b5bf7ad00435",
+      "applied_at": "2026-11-05T15:14:49.686Z"
+    },
+    {
+      "name": "0044_owedbook_kpis.sql",
+      "sha256": "ef6799653f1182818f67b92d7731240f535992cbeb5cbebe0cc8c6d78fe25007",
+      "applied_at": "2026-11-05T15:14:49.912Z"
+    },
+    {
+      "name": "0045_owedbook_rows.sql",
+      "sha256": "346392f525ed33ed6786232972e2c07e26cfe91581cad551d27bbdd76be98a6d",
+      "applied_at": "2026-11-05T15:14:50.208Z"
+    },
+    {
+      "name": "0046_owedbook_summary.sql",
+      "sha256": "8bef6f5da5a8586ccbcdde85157846d3caea25fa9d3c65ce4daaa648e29dd209",
+      "applied_at": "2026-11-05T15:14:50.498Z"
+    },
+    {
+      "name": "0047_owedbook_pbm_options.sql",
+      "sha256": "40128d08ede7bc485c05a4cfda11d660a8ab6225e03dd9f53932267113be7977",
+      "applied_at": "2026-11-05T15:14:50.781Z"
+    },
+    {
+      "name": "0048_ownership.sql",
+      "sha256": "4fb42b38703102a812ea4d4626aaa2acc4f3ee47327fea6bffe06f071ba68086",
+      "applied_at": "2026-11-05T15:17:05.529Z"
+    }
+  ]
+}

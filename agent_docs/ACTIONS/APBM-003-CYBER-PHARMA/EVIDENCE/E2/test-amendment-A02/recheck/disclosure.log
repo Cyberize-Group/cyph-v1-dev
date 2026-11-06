@@ -1,0 +1,94 @@
+
+> cyber-pharma@0.1.0 test
+> jest --runInBand --no-cache --runTestsByPath src/__tests__/owedbook/OwedBookScreen.disclosure.test.tsx --json --outputFile=agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/E2/test-amendment-A02/recheck/disclosure-results.json
+
+  console.error
+    An update to OwedBookScreen inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      87 |       .then((k) => {
+      88 |         if (cancelled) return;
+    > 89 |         setKpis(k);
+         |         ^
+      90 |         setKpiFilters(filters);
+      91 |       })
+      92 |       .catch(() => {
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at src/components/owedbook/OwedBookScreen.tsx:89:9
+
+  console.error
+    An update to OwedBookScreen inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      88 |         if (cancelled) return;
+      89 |         setKpis(k);
+    > 90 |         setKpiFilters(filters);
+         |         ^
+      91 |       })
+      92 |       .catch(() => {
+      93 |         if (cancelled) return;
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at src/components/owedbook/OwedBookScreen.tsx:90:9
+
+  console.error
+    An update to OwedBookProvider inside a test was not wrapped in act(...).
+    
+    When testing, code that causes React state updates should be wrapped into act(...):
+    
+    act(() => {
+      /* fire events that update state */
+    });
+    /* assert on the output */
+    
+    This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      50 |     owedBookService
+      51 |       .getPbmOptions()
+    > 52 |       .then((o) => !cancelled && setPbmOptions(o))
+         |                                  ^
+      53 |       .catch(() => {});
+      54 |     return () => {
+      55 |       cancelled = true;
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at src/components/owedbook/OwedBookContext.tsx:52:34
+
+Test Suites: 1 passed, 1 total
+Tests:       8 passed, 8 total
+Snapshots:   0 total
+Time:        2.317 s
+Ran all test suites within paths "src/__tests__/owedbook/OwedBookScreen.disclosure.test.tsx".
+Test results written to: agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/E2/test-amendment-A02/recheck/disclosure-results.json

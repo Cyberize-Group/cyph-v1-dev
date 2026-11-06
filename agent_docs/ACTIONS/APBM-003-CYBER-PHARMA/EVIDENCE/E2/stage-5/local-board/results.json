@@ -1,0 +1,14 @@
+[
+  {
+    "check": "tsc",
+    "exit": 0
+  },
+  {
+    "check": "lint",
+    "exit": 0
+  },
+  {
+    "check": "jest",
+    "exit": 1
+  }
+]

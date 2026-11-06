@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "rows": 250,
+  "controls": [
+    {
+      "field": "expected_paid",
+      "poisonDetected": true
+    },
+    {
+      "field": "owed",
+      "poisonDetected": true
+    },
+    {
+      "field": "pbm_key",
+      "poisonDetected": true
+    },
+    {
+      "field": "medicaid_method",
+      "poisonDetected": true
+    },
+    {
+      "field": "medicaid_rate",
+      "poisonDetected": true
+    }
+  ]
+}

@@ -7,12 +7,13 @@
 // failure, and assert the identity we actually ran as. A silently-failed sign-in
 // reads as "0 rows" and would otherwise be scored as perfect isolation.
 import { readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
-import { loadEnv, harnessRoot, repoRoot, CAST_PASSWORD } from "./lib/env.mjs";
+import { evidencePath, assertScratch, loadEnv, CAST_PASSWORD } from "./lib/env.mjs";
 import { anonClient } from "./lib/db.mjs";
 
 const env = loadEnv();
-const seed = JSON.parse(readFileSync(join(harnessRoot, "seed-map.json"), "utf8"));
+assertScratch(env);
+if (!CAST_PASSWORD) throw new Error("APBM_CAST_PASSWORD required for synthetic SCRATCH cast");
+const seed = JSON.parse(readFileSync(evidencePath("seed-map.json"), "utf8"));
 const lines = [];
 const log = (s) => { lines.push(s); console.log(s); };
 
@@ -37,7 +38,10 @@ for (const who of seed.cast) {
     log(`  FAIL ${who.key}: session identity mismatch — signed in as ${session?.user?.id}, expected ${seed.users[who.key]}`);
     failures++; await c.auth.signOut(); continue;
   }
-  const { count } = await c.from("user_data").select("*", { count: "exact", head: true }); // F-2: counted, never inferred
+  const direct = await c.from("user_data").select("id").limit(1);
+  if(direct.error?.code!=="42501")throw new Error("direct-read fence not enforced");
+  const allowed=await c.rpc("my_business_ids");if(allowed.error)throw new Error("store scope RPC failed");
+  let count=0;for(const business of allowed.data){const r=await c.rpc("owedbook_kpis",{p_business_id:business});if(r.error)throw new Error("scoped KPI failed");count+=Number(r.data[0].commercial_scripts);}
   const { data: biz } = await c.from("businesses").select("pharmacy_name").order("pharmacy_name");
   const { data: acct } = await c.from("accounts").select("name").order("name");
   const e = EXPECT[who.key];
@@ -59,5 +63,5 @@ log(`  ${anonOk ? "ok  " : "FAIL"} ${"anon".padEnd(11)} rows=${anonRows} (expect
 
 log(`[scoping] ${failures === 0 ? "SCOPING EXACT" : `${failures} FAILURE(S)`}`);
 const ts = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
-writeFileSync(join(repoRoot, "agent_docs/ACTIONS/BIM-002-CYBER-PHARMA/evidence", `X4_scoping_${ts}.log`), lines.join("\n") + "\n");
+writeFileSync(evidencePath(`X4_scoping_${ts}.log`), lines.join("\n") + "\n");
 process.exit(failures === 0 ? 0 : 3);

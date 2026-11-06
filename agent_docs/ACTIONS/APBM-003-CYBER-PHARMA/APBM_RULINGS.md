@@ -41,3 +41,13 @@
 ## D. Proposed amendment A01 — NOT IN FORCE
 
 User reports JARVIS accepts E1; Cody was instructed to prepare documentation. A01-1 through A01-7, exact paths, AC replacements and Director recommendations are consolidated in E2_AMENDMENT_A01.md. Pending Tony decisions and JARVIS FINAL binding. No approval inferred.
+
+
+## A02 — Director-approved two-file test allowance — 2026-11-06
+
+Authority: Tony's current message explicitly adds exactly these files to the APBM-003 E2 ceiling:
+
+- `src/__tests__/services/owedbook.test.ts`
+- `src/__tests__/owedbook/OwedBookScreen.disclosure.test.tsx`
+
+This is an additive exception to A01's finite file list and its stage assignments: stage-5 checkpoint correction may update stale fixture expectations in these two files; stage 6 may update the KPI failure expectation when its approved UI behavior is implemented. Keep every test enabled and preserve coverage. Approved fixture volume remains 50 per store / 250 total, A1 mocks 50, three synthetic PBMs plus unmatched claims, federal v1 data NULL/empty. No production/UI change, DEV write, Git mutation or stage-6 execution is authorized by this correction. The contract remains draft under the already-recorded Director implementation release. Affected ACs: 205, 502, 507 (future stage 6), 803. Evidence and board: `EVIDENCE/E2/test-amendment-A02/`.

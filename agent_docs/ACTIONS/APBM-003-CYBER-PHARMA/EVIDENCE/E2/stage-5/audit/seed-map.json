@@ -1,0 +1,24 @@
+{
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "users": {
+    "OWNER1": "664ce131-518e-417c-a93f-98c473e83068",
+    "OWNER3": "731f75a4-dbbc-48c0-b309-e72e87830aeb",
+    "ADMIN_B2": "880facc8-f1d0-4105-aede-e99ea8772398",
+    "ADMIN_B3": "23f29613-eb10-4a7f-9be0-10300eff9dcc",
+    "MEMBER_B1": "0107f506-de7e-4343-a345-ef8a56a49e77",
+    "MEMBER_B2B3": "a7a8689b-047d-4df5-8621-64d3d8a4a46c",
+    "UNRELATED": "015ebc36-188b-452d-891d-102f1c1a6452"
+  },
+  "businesses": {
+    "A1": "8598cb0e-ab61-4d9f-a85e-2ee418480d19",
+    "B1": "70f9f908-b30d-4f08-a982-55b5a48b4f95",
+    "B2": "523270bd-6a01-4079-aa27-75baf96adb64",
+    "B3": "dc85076e-6c67-4a2f-ae1d-09e305cd8cde",
+    "C1": "d1b77727-be10-4c25-a997-4341843da276"
+  },
+  "accounts": {
+    "A": "a6d4b0a2-62fe-4dc0-ab57-5a2255d6b129",
+    "B": "fcb3c889-26ae-4e5e-a003-4b5186aab94b",
+    "C": "6d6c91c3-93fc-4d61-a2b7-234944ffd51a"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "commit": "01bd66d13b0951a0d0553f1fba0609c0f05e2855",
+  "algorithm": "SHA-256 of committed file bytes (not Git object id)",
+  "working_tree_matches": true,
+  "files": [
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_ACCEPTANCE_SPEC.md",
+      "sha256": "10795161de4a6e1304ae6ac57b0823d3bb2477e9d15897e6ebf0f924058dd74d"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_RULINGS.md",
+      "sha256": "b7b35f290fc82e48ef6929debb3bcfd02ac404574a8f8d6e8eb8b97407549eb4"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/E2_AMENDMENT_A01.md",
+      "sha256": "b0a45a078cf23f7fc3887a08f7dd74ae82f1f2937b7f28f1a685f06c5d82d49e"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/E2_EXECUTION_INSTRUCTIONS.md",
+      "sha256": "21ee409e20747d85fa1761bbf3f4c0bd730b2c623deef2e35fb356f394e56f60"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APPLY_CHECKPOINT.md",
+      "sha256": "56e805402e87a25471be5c9871c8ab655ccd524db4b3ff130a39d91b7b26cf34"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/E2_RELEASE_MESSAGE.md",
+      "sha256": "f0dc710e0b1674f1f7ec6cbb1e1bdf1f3fb36ee748fa346a62b998fed864c5eb"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/CONTRACTS/OWNERSHIP_AND_AUDIT_CONTRACT.md",
+      "sha256": "f71a48b7f7b2519c086ee11cd6bb3df9eb364573c28e1120473a8266cfd58a78"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/CONTRACTS/SEED_AND_FIXTURE_CONTRACT.md",
+      "sha256": "3fbcd12b873577ea3fe0f440b0ed07860d0dc812655a8752abd22533c6edb1f4"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/CONTRACTS/SUCCESSION_RECORD.md",
+      "sha256": "07ef12e5171390b62a79b8b248a19c3fb57d81381ad1c1ebdd45c57de01689ce"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/CONTRACTS/TARGET_ONE_RELEASE_CONTRACT.md",
+      "sha256": "3d7fb159ac936fcd85993678bc86a02cbb1ebd0248176df31098a308b0276610"
+    }
+  ]
+}

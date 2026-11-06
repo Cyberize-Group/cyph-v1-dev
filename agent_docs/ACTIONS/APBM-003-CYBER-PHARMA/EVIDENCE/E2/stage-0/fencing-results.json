@@ -1,0 +1,97 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "matching complete target accepted",
+      "status": "PASS"
+    },
+    {
+      "name": "missing RLS_REPLICA_DB_URL rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "missing RLS_REPLICA_SUPABASE_URL rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "missing RLS_REPLICA_PUBLISHABLE_KEY rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "missing RLS_REPLICA_SECRET_KEY rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "missing explicit prefix rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "mismatched SQL rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "mismatched API rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV-as-SCRATCH rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "same DEV target rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "secret key in user slot rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "unknown DB host rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "historical evidence rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "relative evidence rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "traversal evidence rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "filename traversal rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "label traversal rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "symlink output ancestor rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "symlink output file rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "prove.mjs rejects DEV before connection",
+      "status": "PASS"
+    },
+    {
+      "name": "audit-prove.mjs rejects DEV before connection",
+      "status": "PASS"
+    },
+    {
+      "name": "seed.mjs rejects DEV before connection",
+      "status": "PASS"
+    },
+    {
+      "name": "audit-catalog.mjs rejects DEV before connection",
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "realUser": true,
+  "owner": false,
+  "junctions": 0,
+  "tenantStores": [],
+  "myBusinessIds": [],
+  "claimReadDenied": true,
+  "restoredAfterProbe": true
+}

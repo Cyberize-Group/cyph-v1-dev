@@ -1,0 +1,40 @@
+{
+  "state": "E2 PAUSED \u2014 APPLY CHECKPOINT (Director)",
+  "head": "01bd66d13b0951a0d0553f1fba0609c0f05e2855",
+  "scratch": "ihgcsrypblqkwommrkgj",
+  "devTouched": false,
+  "fencingChecks": 23,
+  "legacyMatrixCells": 320,
+  "legacyAttacks": 28,
+  "realUserAuditChecks": 279,
+  "devSafeReadChecks": 154,
+  "publicTables": 17,
+  "policies": 15,
+  "publicFunctions": 19,
+  "claims": 250,
+  "seedAudits": 285,
+  "canonicalReseedMatch": true,
+  "partialFailureRecovery": "PASS",
+  "affectedDevBackupRestore": "PENDING Director evidence",
+  "localTests": {
+    "suitesPassed": 36,
+    "passed": 178,
+    "failed": 0,
+    "skipped": 0
+  },
+  "testScopeAmendment": "A02 APPROVED and implemented; exactly two test files; KPI behavior change deferred to stage 6",
+  "handoff": "DEV_APPLY_HANDOFF.md",
+  "localBoard": {
+    "build": "PASS",
+    "typecheck": "PASS",
+    "lint": "PASS (33 warnings, 0 errors)",
+    "jest": "PASS",
+    "evidence": "test-amendment-A02/recheck/BOARD_RESULTS.json"
+  },
+  "disclosureFirstRecheck": {
+    "passed": 8,
+    "failed": 0,
+    "kpiFallback": "PASS unchanged",
+    "evidence": "test-amendment-A02/recheck/DISCLOSURE_RUN.json"
+  }
+}

@@ -1,0 +1,50 @@
+[
+  {
+    "check": "build",
+    "command": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "exit": 0,
+    "seconds": 12.9
+  },
+  {
+    "check": "tsc",
+    "command": [
+      "node",
+      "node_modules/typescript/bin/tsc",
+      "--noEmit",
+      "--incremental",
+      "false"
+    ],
+    "exit": 0,
+    "seconds": 6.74
+  },
+  {
+    "check": "lint",
+    "command": [
+      "npm",
+      "run",
+      "lint",
+      "--",
+      "--no-cache"
+    ],
+    "exit": 0,
+    "seconds": 6.48
+  },
+  {
+    "check": "jest",
+    "command": [
+      "npm",
+      "test",
+      "--",
+      "--runInBand",
+      "--no-cache",
+      "--json",
+      "--outputFile=agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/E2/baseline/jest-results.json"
+    ],
+    "exit": 0,
+    "seconds": 10.01
+  }
+]

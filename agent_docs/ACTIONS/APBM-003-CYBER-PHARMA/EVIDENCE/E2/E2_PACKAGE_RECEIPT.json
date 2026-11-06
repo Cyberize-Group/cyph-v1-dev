@@ -1,0 +1,10 @@
+{
+  "path": "/home/moose/Downloads/APBM-003-E2-DEV-APPLY-REVIEW-01.zip",
+  "bytes": 542834,
+  "sha256": "2027a0f399f2787f1ea4dc15c1c5ef3c3d9f3d9de9f92990cb734b9ebcdb46e4",
+  "indexedFiles": 186,
+  "crcAndPayloadHashes": "PASS",
+  "credentialValueScan": "PASS",
+  "privateCredentialFilesIncluded": false,
+  "createdAt": "2026-11-05T15:58:36.160958+00:00"
+}

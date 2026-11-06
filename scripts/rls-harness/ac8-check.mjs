@@ -9,11 +9,11 @@
 // EXECUTE to anon explicitly, so the raw ACL is checked for BOTH a bare `=X/`
 // entry (PUBLIC) and an `anon=X` entry.
 import { writeFileSync } from "node:fs";
-import { join } from "node:path";
-import { loadEnv, repoRoot } from "./lib/env.mjs";
+import { evidencePath, assertScratch, loadEnv } from "./lib/env.mjs";
 import { pgClient } from "./lib/db.mjs";
 
 const HELPERS = [
+  ["is_owner_of_account", "is_owner_of_account(uuid)"],
   ["is_member_of", "is_member_of(uuid)"],
   ["is_admin_of", "is_admin_of(uuid)"],
   ["is_account_member", "is_account_member(uuid)"],
@@ -21,6 +21,7 @@ const HELPERS = [
 ];
 
 const env = loadEnv();
+assertScratch(env);
 const db = await pgClient(env);
 const lines = [];
 const log = (s) => { lines.push(s); console.log(s); };
@@ -61,6 +62,6 @@ await db.query("rollback");
 
 log(`[ac8] ${fails === 0 ? "AC8 GREEN" : `${fails} FAILURE(S)`}`);
 const ts = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
-writeFileSync(join(repoRoot, "agent_docs/ACTIONS/BIM-002-CYBER-PHARMA/evidence", `X5_ac8_fresh_${ts}.log`), lines.join("\n") + "\n");
+writeFileSync(evidencePath(`X5_ac8_fresh_${ts}.log`), lines.join("\n") + "\n");
 await db.end();
 process.exit(fails === 0 ? 0 : 3);

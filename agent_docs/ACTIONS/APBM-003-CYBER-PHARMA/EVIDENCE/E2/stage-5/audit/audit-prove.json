@@ -1,0 +1,39 @@
+{
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "status": "FAIL",
+  "results": [
+    {
+      "name": "fenced replay",
+      "exit": 0
+    },
+    {
+      "name": "legacy cast cleanup",
+      "exit": 0
+    },
+    {
+      "name": "seed slice reset",
+      "exit": 0
+    },
+    {
+      "name": "catalog",
+      "exit": 0
+    },
+    {
+      "name": "synthetic seed",
+      "exit": 0
+    },
+    {
+      "name": "seed arithmetic",
+      "exit": 0
+    },
+    {
+      "name": "real-user audit proof",
+      "exit": 0
+    },
+    {
+      "name": "DB structural oracle",
+      "exit": 3
+    }
+  ],
+  "credentialFile": "/tmp/apbm003-audit-333851-1793892973011.json"
+}

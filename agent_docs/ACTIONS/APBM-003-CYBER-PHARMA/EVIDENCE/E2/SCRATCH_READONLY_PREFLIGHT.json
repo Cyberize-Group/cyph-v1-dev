@@ -1,0 +1,142 @@
+{
+  "checkedAt": "2026-11-05T15:00:06.970Z",
+  "scope": "Read-only SCRATCH connection and catalog; no signup settings inspection or modification",
+  "keys": [
+    {
+      "name": "RLS_REPLICA_DB_URL",
+      "present": true
+    },
+    {
+      "name": "RLS_REPLICA_SUPABASE_URL",
+      "present": true
+    },
+    {
+      "name": "RLS_REPLICA_PUBLISHABLE_KEY",
+      "present": true
+    },
+    {
+      "name": "RLS_REPLICA_SECRET_KEY",
+      "present": true
+    }
+  ],
+  "sharedDevIdentityKey": "NEXT_PUBLIC_SUPABASE_URL",
+  "da2LaunchPrerequisite": "WAIVED by Director; settings untouched",
+  "identity": {
+    "scratchApiProjectRef": "ihgcsrypblqkwommrkgj",
+    "scratchSqlProjectRef": "ihgcsrypblqkwommrkgj",
+    "sharedDevProjectRef": "cwdzijswchlwfvxxrlzb",
+    "sqlApiMatch": true,
+    "distinctFromDev": true
+  },
+  "probes": [
+    {
+      "kind": "SQL",
+      "status": "PASS",
+      "mode": {
+        "transaction_read_only": "on",
+        "default_transaction_read_only": "off"
+      },
+      "catalog": {
+        "public_tables": 16,
+        "public_policies": 18,
+        "public_functions": 7,
+        "public_user_triggers": 14,
+        "system_config_present": false,
+        "supabase_migration_ledger_present": false
+      },
+      "tables": [
+        {
+          "name": "aac_reference",
+          "rls_enabled": true
+        },
+        {
+          "name": "accounts",
+          "rls_enabled": true
+        },
+        {
+          "name": "apa_memberships",
+          "rls_enabled": true
+        },
+        {
+          "name": "audit_logs",
+          "rls_enabled": true
+        },
+        {
+          "name": "businesses",
+          "rls_enabled": true
+        },
+        {
+          "name": "ful_reference",
+          "rls_enabled": true
+        },
+        {
+          "name": "pbm_info",
+          "rls_enabled": true
+        },
+        {
+          "name": "pending_registrations",
+          "rls_enabled": true
+        },
+        {
+          "name": "profiles",
+          "rls_enabled": true
+        },
+        {
+          "name": "reference_dataset_versions",
+          "rls_enabled": true
+        },
+        {
+          "name": "report_files",
+          "rls_enabled": true
+        },
+        {
+          "name": "subscriptions",
+          "rls_enabled": true
+        },
+        {
+          "name": "user_businesses",
+          "rls_enabled": true
+        },
+        {
+          "name": "user_data",
+          "rls_enabled": true
+        },
+        {
+          "name": "user_roles",
+          "rls_enabled": true
+        },
+        {
+          "name": "wac_reference",
+          "rls_enabled": true
+        }
+      ]
+    },
+    {
+      "kind": "Supabase API health GET",
+      "status": "PASS",
+      "httpStatus": 200,
+      "keyName": "RLS_REPLICA_PUBLISHABLE_KEY",
+      "secretKeyUsed": false
+    },
+    {
+      "kind": "Supabase REST schema GET",
+      "keyName": "RLS_REPLICA_PUBLISHABLE_KEY",
+      "httpStatus": 401,
+      "status": "BLOCKED"
+    },
+    {
+      "kind": "Supabase REST schema GET",
+      "keyName": "RLS_REPLICA_SECRET_KEY",
+      "httpStatus": 200,
+      "status": "PASS"
+    }
+  ],
+  "credentialRotation": "Not established by successful authentication; dated Director evidence still required",
+  "publishableSchemaDiagnostic": {
+    "httpStatus": 401,
+    "errorCode": null,
+    "permissionDenied": false,
+    "invalidApiKey": false,
+    "invalidJwt": false
+  }
+}

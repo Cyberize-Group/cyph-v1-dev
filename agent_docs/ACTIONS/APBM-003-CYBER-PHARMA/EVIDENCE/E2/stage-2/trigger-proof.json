@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "functionBodyMatches": true,
+  "attemptedMetadataRole": "superadmin",
+  "observedRole": "member",
+  "displayNameCopied": true,
+  "method": "Auth admin createUser invokes the same auth.users INSERT trigger; no public signup setting changed"
+}

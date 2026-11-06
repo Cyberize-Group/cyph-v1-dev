@@ -63,10 +63,13 @@ describe("OwedBookScreen disclosure — real mock service", () => {
   });
 
   it("AC-101 filtered: a date range isolating a null-PBM row shows that subset's derived value", async () => {
-    const range = { from: "2026-06-01", to: "2026-06-01" };
+    const unmatched = owedBookFixtures.find((r) => r.pbm === null && r.owed > 0);
+    expect(unmatched).toBeDefined();
+    const range = { from: unmatched!.date, to: unmatched!.date };
     const inRange = (r: OwedBookRow) => r.date >= range.from && r.date <= range.to;
     const unfiltered = expectedNote();
     const filtered = expectedNote(inRange);
+    expect(owedBookFixtures.some((r) => inRange(r) && r.pbm === null && r.owed > 0)).toBe(true);
     expect(filtered).not.toBe(unfiltered); // the range really narrows the set
 
     renderScreen({ ...range, pbms: [] });
@@ -135,12 +138,14 @@ describe("OwedBookScreen disclosure — injected responses (AC-103 same-filters 
 
   afterEach(() => jest.restoreAllMocks());
 
-  it("rejected getKpis: no note, ZERO_KPIS fallback unchanged", async () => {
+  // A02: retain the current stage-5 fallback assertion. Stage 6 must replace it
+  // with the approved truthful error-state assertion when that UI is implemented.
+  it("rejected getKpis: no note, current pre-stage-6 ZERO_KPIS fallback", async () => {
     jest.spyOn(owedBookService, "getKpis").mockRejectedValue(new Error("kpis down"));
     renderScreen();
     goTab("Summary");
     await skeletonGone();
-    await screen.findAllByText("OptumRx"); // summary rendered (DataTable paints table + card layouts)
+    await screen.findAllByText("SYNTHETIC PBM 1"); // summary rendered (DataTable paints table + card layouts)
     expect(screen.queryByTestId(NOTE)).not.toBeInTheDocument();
     expect(screen.getAllByText("$0.00").length).toBeGreaterThanOrEqual(3); // three money tiles at zero
   });
