@@ -138,16 +138,17 @@ describe("OwedBookScreen disclosure — injected responses (AC-103 same-filters 
 
   afterEach(() => jest.restoreAllMocks());
 
-  // A02: retain the current stage-5 fallback assertion. Stage 6 must replace it
-  // with the approved truthful error-state assertion when that UI is implemented.
-  it("rejected getKpis: no note, current pre-stage-6 ZERO_KPIS fallback", async () => {
+  // A02/Stage 6: failed KPI reads are unavailable, never fabricated zero tiles.
+  it("rejected getKpis: no note and an explicit unavailable KPI state", async () => {
     jest.spyOn(owedBookService, "getKpis").mockRejectedValue(new Error("kpis down"));
     renderScreen();
     goTab("Summary");
     await skeletonGone();
     await screen.findAllByText("SYNTHETIC PBM 1"); // summary rendered (DataTable paints table + card layouts)
     expect(screen.queryByTestId(NOTE)).not.toBeInTheDocument();
-    expect(screen.getAllByText("$0.00").length).toBeGreaterThanOrEqual(3); // three money tiles at zero
+    expect(screen.getByRole("alert")).toHaveTextContent("KPIs unavailable");
+    expect(screen.getByRole("button", { name: "Retry KPIs" })).toBeInTheDocument();
+    expect(screen.queryByText("Commercial Underpaid")).not.toBeInTheDocument();
   });
 
   it("loading: skeleton shows no note while the summary is pending", async () => {

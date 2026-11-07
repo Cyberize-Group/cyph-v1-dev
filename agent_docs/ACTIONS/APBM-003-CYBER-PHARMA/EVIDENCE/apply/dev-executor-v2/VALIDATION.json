@@ -1,0 +1,26 @@
+{
+  "status": "BLOCKED",
+  "executorAdaptation": "COMPLETE",
+  "localTests": {
+    "status": "PASS",
+    "count": 67
+  },
+  "readOnlyReleaseCheck": "EVIDENCE/apply/dev-executor-v2/dev-v2-check-1794037368529.json",
+  "specificFailedChecks": [
+    "SAVED_SIGNUP_DISABLED_SETTING_NOT_OBSERVED"
+  ],
+  "poolers": "Both identical working Session poolers; SQL/API ref yrsuwikjnbmvpznrgydb",
+  "signup": "Both uncached HTTP 200 settings reads report disable_signup=false; no waiver requested or recorded",
+  "managedACL": "Exactly three accepted entries retained; no other catalog exception",
+  "rehearsal": "Accepted prior synthetic proof reused; NOT repeated",
+  "backup": "Both retained hashes verified; all 30 tables and metadata match",
+  "fourAuthIndexes": "All exact, valid, ready, live; unchanged",
+  "lockPlan": "29 SHARE ROW EXCLUSIVE; provider-owned SELECT-only auth.schema_migrations ACCESS SHARE plus unchanged before/after fingerprints; maintenance excludes provider migrations",
+  "bundleSHA256": "8bdb753b4d227e4211c6ee1d0cb6a6c0048071a371e456444b0a7605cb1b0a5c",
+  "sharedDevWrites": false,
+  "gitMutations": false,
+  "checkedAt": "2026-11-07T07:43:37.812Z",
+  "executorErrorCode": "DEV_SIGNUP_CHECKPOINT_WAIVER_REQUIRED",
+  "signupEvidence": "EVIDENCE/apply/dev-executor-v2/DEV_SIGNUP_CHECKPOINT.json",
+  "nextAction": "Tony: open the Auth provider settings for yrsuwikjnbmvpznrgydb, turn off Allow new users to sign up, save, then request read-only recheck."
+}

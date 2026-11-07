@@ -16,12 +16,19 @@ export interface PillSpec {
 }
 
 export const memberStatusPill: Record<MemberAccountStatus, PillSpec> = {
+  unavailable: {tone: "neutral", label: "Account status unavailable"},
   active: { tone: "success", label: "Active" },
   invite_pending: { tone: "warning", label: "Invite pending" },
   suspended: { tone: "destructive", label: "Suspended" },
 };
 
 export const subscriptionPill: Record<SubscriptionStatus, PillSpec> = {
+  unavailable: {tone:"neutral",label:"Unavailable"},
+  trialing: {tone:"info",label:"Trialing"},
+  unpaid: {tone:"warning",label:"Unpaid"},
+  incomplete: {tone:"warning",label:"Incomplete"},
+  incomplete_expired: {tone:"neutral",label:"Incomplete expired"},
+  paused: {tone:"neutral",label:"Paused"},
   active: { tone: "success", label: "Active" },
   past_due: { tone: "warning", label: "Past-due" },
   canceled: { tone: "destructive", label: "Canceled" },
@@ -33,13 +40,14 @@ export const storeNeedsAttention = (s: OwnedStore): boolean =>
   s.status === "suspended" || s.subscriptionStatus !== "active";
 
 export const storeStatusPill = (s: OwnedStore): PillSpec =>
-  storeNeedsAttention(s)
+  s.status === "unavailable" ? {tone:"neutral",label:"Status unavailable"} : storeNeedsAttention(s)
     ? { tone: "warning", label: "Needs attention" }
     : { tone: "success", label: "Active" };
 
 // Sentence-case label per audit verb (the enum is the source; mockup wording
 // like "Sent invite" is cosmetic — the contract's vocab wins).
 export const auditActionLabel: Record<AuditAction, string> = {
+  read_page:"Viewed data", insert:"Created record", update:"Updated record", delete:"Deleted record",
   invited_member: "Invited member",
   resent_invite: "Resent invite",
   suspended_member: "Suspended member",

@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "completedReceiptImmutable": true,
+  "rehearsalRerunExit": 2,
+  "noDatabaseConnectionOnRepeat": true,
+  "unchangedSourceFiles": 56,
+  "syntaxChecks": [
+    "acl-controls.mjs",
+    "check-dev-auth-indexes.mjs",
+    "index-guard-test.mjs",
+    "inspect.mjs",
+    "postflight.mjs",
+    "rehearse.mjs"
+  ]
+}

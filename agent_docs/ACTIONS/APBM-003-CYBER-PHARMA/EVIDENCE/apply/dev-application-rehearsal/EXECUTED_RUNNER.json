@@ -1,0 +1,4 @@
+{
+  "executedSHA256": "511909a5003163642530828ad228538804b56d0723e6ef205bed2c01686d4d22",
+  "postRunEdit": "A local one-shot guard was subsequently added before initialization; completed evidence cannot be overwritten by rerunning."
+}

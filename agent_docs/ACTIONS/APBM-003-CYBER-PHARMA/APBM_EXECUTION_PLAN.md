@@ -56,3 +56,13 @@ Recommended milestones: resolve identity/scope/targets first; finish SCRATCH sta
 ## Factual E2 handoff owed later
 
 QAM/QAM_MANIFEST.md and QAM/HANDOFFS/ENGINEERING_HANDOFF.md, release contract §2, AC claims with evidence and full change inventory, E2 metrics, secure tester credential delivery outside repo. They are not filled with invented E1 acceptance results. E1 package is ready for JARVIS review; **no E2 approval or FINAL stamp recorded**.
+
+
+## 2026-11-06 — application-focused DEV APPLY amendment
+
+Director defers the four Auth indexes on SCRATCH and prohibits a new project/support ticket. Existing SCRATCH synthetic-start rehearsal is complete: see `EVIDENCE/apply/dev-application-rehearsal/HANDOFF.md` and `RESULT.json`. This replaces the full DEV clone/index-reproduction prerequisite for the application path; it does not certify real-backup restoration. Preserve all four existing DEV indexes with read-only definition/validity checks before and after each apply phase. Keep the three-entry managed-ACL decision separate and scoped, and obtain a DEV signup/checkpoint disposition (signup currently enabled). After those rulings and the local pooler correction, prepare the matching fail-closed DEV executor/receipt amendment and Tony-reviewed commands. Tony alone releases and executes DEV writes. Stage 6 remains passed on SCRATCH; independent Gate Q precedes approved deployment and Gate D. No pending copy-only edits are included.
+
+
+## 2026-11-06 — accepted ACL ruling and DEV executor v2
+
+JARVIS's exact-three-entry DEV default-ACL ruling is now recorded from Tony's instruction. Reuse the accepted narrow synthetic rehearsal; do not recreate Auth indexes or repeat rehearsal. Execute the separately reviewed v2 path in `EVIDENCE/apply/dev-executor-v2/HANDOFF.md`: read-only readiness and preservation capture → transaction bootstrap with all other baseline/index/data checks → 0047 before ledger → ledger 47 → forward 0048–0052 → additive test-account/role seed → effective grants/RLS and real-client Owner/RPC/denial proofs → final receipt. Disabled signup or explicit DEV-checkpoint waiver remains required; current signup is enabled. The final live proof satisfies the conditional ACL acceptance, not this preparation receipt. No shared DEV write authority granted to Cody.

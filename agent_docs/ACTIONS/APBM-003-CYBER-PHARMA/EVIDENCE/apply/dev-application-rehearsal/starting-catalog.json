@@ -1,0 +1,248 @@
+{
+  "snapshot": {
+    "columns": [
+      {
+        "table_name": "profiles",
+        "column_name": "id",
+        "ordinal_position": 1,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "profiles",
+        "column_name": "full_name",
+        "ordinal_position": 2,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "profiles",
+        "column_name": "email",
+        "ordinal_position": 3,
+        "data_type": "text",
+        "udt_name": "text",
+        "is_nullable": "YES",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "profiles",
+        "column_name": "created_at",
+        "ordinal_position": 4,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "YES",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_roles",
+        "column_name": "id",
+        "ordinal_position": 1,
+        "data_type": "bigint",
+        "udt_name": "int8",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "YES",
+        "identity_generation": "ALWAYS"
+      },
+      {
+        "table_name": "user_roles",
+        "column_name": "user_id",
+        "ordinal_position": 2,
+        "data_type": "uuid",
+        "udt_name": "uuid",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_roles",
+        "column_name": "role",
+        "ordinal_position": 3,
+        "data_type": "USER-DEFINED",
+        "udt_name": "app_role",
+        "is_nullable": "NO",
+        "column_default": "'member'::app_role",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "user_roles",
+        "column_name": "created_at",
+        "ordinal_position": 4,
+        "data_type": "timestamp with time zone",
+        "udt_name": "timestamptz",
+        "is_nullable": "YES",
+        "column_default": "now()",
+        "is_identity": "NO",
+        "identity_generation": null
+      }
+    ],
+    "tables": [
+      {
+        "relname": "profiles",
+        "relkind": "r",
+        "relrowsecurity": true,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "relname": "user_roles",
+        "relkind": "r",
+        "relrowsecurity": true,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "relname": "user_roles_id_seq",
+        "relkind": "S",
+        "relrowsecurity": false,
+        "relforcerowsecurity": false,
+        "owner": "postgres",
+        "relacl": "{postgres=rwU/postgres,anon=rwU/postgres,authenticated=rwU/postgres,service_role=rwU/postgres}"
+      }
+    ],
+    "policies": [
+      {
+        "tablename": "profiles",
+        "policyname": "Profiles are updatable by owner or superadmins",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "UPDATE",
+        "qual": "((auth.uid() = id) OR (( SELECT user_roles.role\n   FROM user_roles\n  WHERE (user_roles.user_id = auth.uid())) = 'superadmin'::app_role))",
+        "with_check": null
+      },
+      {
+        "tablename": "profiles",
+        "policyname": "Profiles are viewable by owner or superadmins",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "SELECT",
+        "qual": "((auth.uid() = id) OR (( SELECT user_roles.role\n   FROM user_roles\n  WHERE (user_roles.user_id = auth.uid())) = 'superadmin'::app_role))",
+        "with_check": null
+      },
+      {
+        "tablename": "user_roles",
+        "policyname": "Users can read their own role",
+        "permissive": "PERMISSIVE",
+        "roles": "{authenticated}",
+        "cmd": "SELECT",
+        "qual": "(auth.uid() = user_id)",
+        "with_check": null
+      }
+    ],
+    "functions": [
+      {
+        "proname": "handle_new_user",
+        "args": "",
+        "definition": "CREATE OR REPLACE FUNCTION public.handle_new_user()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public'\nAS $function$\r\nDECLARE\r\n  assigned_role public.app_role;\r\nBEGIN\r\n  -- Use metadata role if provided, otherwise default to 'member'\r\n  IF NEW.raw_user_meta_data ->> 'role' IS NOT NULL THEN\r\n    assigned_role := (NEW.raw_user_meta_data ->> 'role')::public.app_role;\r\n  ELSE\r\n    assigned_role := 'member'::public.app_role;\r\n  END IF;\r\n\r\n  -- Insert role row (skip if already exists — idempotent for retries)\r\n  INSERT INTO public.user_roles (user_id, role)\r\n  VALUES (NEW.id, assigned_role)\r\n  ON CONFLICT (user_id) DO NOTHING;\r\n\r\n  -- Insert profile row (idempotent)\r\n  INSERT INTO public.profiles (id, email, full_name)\r\n  VALUES (\r\n    NEW.id,\r\n    NEW.email,\r\n    NEW.raw_user_meta_data ->> 'full_name'\r\n  )\r\n  ON CONFLICT (id) DO NOTHING;\r\n\r\n  RETURN NEW;\r\nEND;\r\n$function$\n",
+        "owner": "postgres",
+        "proacl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "proname": "rls_auto_enable",
+        "args": "",
+        "definition": "CREATE OR REPLACE FUNCTION public.rls_auto_enable()\n RETURNS event_trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'pg_catalog'\nAS $function$\nDECLARE\n  cmd record;\nBEGIN\n  FOR cmd IN\n    SELECT *\n    FROM pg_event_trigger_ddl_commands()\n    WHERE command_tag IN ('CREATE TABLE', 'CREATE TABLE AS', 'SELECT INTO')\n      AND object_type IN ('table','partitioned table')\n  LOOP\n     IF cmd.schema_name IS NOT NULL AND cmd.schema_name IN ('public') AND cmd.schema_name NOT IN ('pg_catalog','information_schema') AND cmd.schema_name NOT LIKE 'pg_toast%' AND cmd.schema_name NOT LIKE 'pg_temp%' THEN\n      BEGIN\n        EXECUTE format('alter table if exists %s enable row level security', cmd.object_identity);\n        RAISE LOG 'rls_auto_enable: enabled RLS on %', cmd.object_identity;\n      EXCEPTION\n        WHEN OTHERS THEN\n          RAISE LOG 'rls_auto_enable: failed to enable RLS on %', cmd.object_identity;\n      END;\n     ELSE\n        RAISE LOG 'rls_auto_enable: skip % (either system schema or not in enforced list: %.)', cmd.object_identity, cmd.schema_name;\n     END IF;\n  END LOOP;\nEND;\n$function$\n",
+        "owner": "postgres",
+        "proacl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      }
+    ],
+    "constraints": [
+      {
+        "relname": "profiles",
+        "conname": "profiles_id_fkey",
+        "definition": "FOREIGN KEY (id) REFERENCES auth.users(id) ON DELETE CASCADE"
+      },
+      {
+        "relname": "profiles",
+        "conname": "profiles_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "relname": "user_roles",
+        "conname": "user_roles_pkey",
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "relname": "user_roles",
+        "conname": "user_roles_user_id_fkey",
+        "definition": "FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE"
+      },
+      {
+        "relname": "user_roles",
+        "conname": "user_roles_user_id_key",
+        "definition": "UNIQUE (user_id)"
+      }
+    ],
+    "indexes": [
+      {
+        "tablename": "profiles",
+        "indexname": "profiles_pkey",
+        "indexdef": "CREATE UNIQUE INDEX profiles_pkey ON public.profiles USING btree (id)"
+      },
+      {
+        "tablename": "user_roles",
+        "indexname": "user_roles_pkey",
+        "indexdef": "CREATE UNIQUE INDEX user_roles_pkey ON public.user_roles USING btree (id)"
+      },
+      {
+        "tablename": "user_roles",
+        "indexname": "user_roles_user_id_key",
+        "indexdef": "CREATE UNIQUE INDEX user_roles_user_id_key ON public.user_roles USING btree (user_id)"
+      }
+    ],
+    "triggers": [],
+    "defaultACLs": [
+      {
+        "owner": "postgres",
+        "namespace": "public",
+        "defaclobjtype": "S",
+        "defaclacl": "{postgres=rwU/postgres,anon=rwU/postgres,authenticated=rwU/postgres,service_role=rwU/postgres}"
+      },
+      {
+        "owner": "postgres",
+        "namespace": "public",
+        "defaclobjtype": "f",
+        "defaclacl": "{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "owner": "postgres",
+        "namespace": "public",
+        "defaclobjtype": "r",
+        "defaclacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      }
+    ],
+    "enums": [
+      {
+        "typname": "app_role",
+        "enumlabel": "superadmin",
+        "enumsortorder": 1
+      },
+      {
+        "typname": "app_role",
+        "enumlabel": "admin",
+        "enumsortorder": 2
+      },
+      {
+        "typname": "app_role",
+        "enumlabel": "member",
+        "enumsortorder": 3
+      }
+    ]
+  },
+  "sha256": "f33604c00b4a1363d7d1df8c7252475529d20c506af4ba9ac13df0619e40d56e"
+}

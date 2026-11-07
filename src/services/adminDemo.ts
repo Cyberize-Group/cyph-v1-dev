@@ -1,3 +1,4 @@
+import { isDemoMode, listTenantStores, readRpc, requireStore, unavailableMessage, type RpcClient } from "./tenantScope";
 import { useAdminDemoStore } from "@/store/useAdminDemoStore";
 import type {
   ActionResult,
@@ -93,7 +94,7 @@ export interface AuditService {
 
 // ── Audit (internal-ish: other services call append after a mutation) ─────────
 
-export const auditService: AuditService = {
+export const mockAuditService: AuditService = {
   /**
    * The owner's own action ledger (newest first).
    * BACKEND_SWAP_NOTES (Phase 7): SELECT FROM audit_log WHERE owner = me, RLS-scoped.
@@ -120,7 +121,7 @@ export const auditService: AuditService = {
 
 // ── Owner + stores ────────────────────────────────────────────────────────────
 
-export const ownerStoresService: OwnerStoresService = {
+export const mockOwnerStoresService: OwnerStoresService = {
   /**
    * The single logged-in owner. Owner-scoped: there is no ownerId parameter.
    * BACKEND_SWAP_NOTES (Phase 7): derive from the authed session, not a param.
@@ -168,7 +169,7 @@ export const ownerStoresService: OwnerStoresService = {
       memberCount: 0,
     };
     store().addStore(newStore);
-    await auditService.append({
+    await mockAuditService.append({
       action: "added_store",
       target: newStore.name,
       result: "done",
@@ -179,7 +180,7 @@ export const ownerStoresService: OwnerStoresService = {
 
 // ── Members (invite-only) ─────────────────────────────────────────────────────
 
-export const storeMemberService: StoreMemberService = {
+export const mockStoreMemberService: StoreMemberService = {
   /**
    * Roster for one store, optionally filtered by a name/email search.
    * BACKEND_SWAP_NOTES (Phase 7): SELECT members WHERE store = $1, RLS-scoped.
@@ -223,7 +224,7 @@ export const storeMemberService: StoreMemberService = {
       invitedAt: new Date().toISOString(),
     };
     store().addMember(member);
-    await auditService.append({
+    await mockAuditService.append({
       action: "invited_member",
       target: email,
       result: "done",
@@ -237,7 +238,7 @@ export const storeMemberService: StoreMemberService = {
    */
   async resendInvite(memberId) {
     const m = store().members.find((x) => x.memberId === memberId);
-    await auditService.append({
+    await mockAuditService.append({
       action: "resent_invite",
       target: memberLabel(m, memberId),
       result: "done",
@@ -252,7 +253,7 @@ export const storeMemberService: StoreMemberService = {
   async suspendMember(memberId) {
     const m = store().members.find((x) => x.memberId === memberId);
     store().setMemberStatus(memberId, "suspended");
-    await auditService.append({
+    await mockAuditService.append({
       action: "suspended_member",
       target: memberLabel(m, memberId),
       result: "done",
@@ -267,7 +268,7 @@ export const storeMemberService: StoreMemberService = {
   async unsuspendMember(memberId) {
     const m = store().members.find((x) => x.memberId === memberId);
     store().setMemberStatus(memberId, "active");
-    await auditService.append({
+    await mockAuditService.append({
       action: "unsuspended_member",
       target: memberLabel(m, memberId),
       result: "done",
@@ -281,7 +282,7 @@ export const storeMemberService: StoreMemberService = {
    */
   async sendRecovery(memberId) {
     const m = store().members.find((x) => x.memberId === memberId);
-    await auditService.append({
+    await mockAuditService.append({
       action: "sent_recovery",
       target: memberLabel(m, memberId),
       result: "done",
@@ -292,7 +293,7 @@ export const storeMemberService: StoreMemberService = {
 
 // ── Billing (VISUAL ONLY — never charges) ─────────────────────────────────────
 
-export const billingService: BillingService = {
+export const mockBillingService: BillingService = {
   /**
    * Per-store billing lines (display strings — demo, not real money).
    * BACKEND_SWAP_NOTES (Phase 7): join Stripe subscriptions; amounts become real.
@@ -322,7 +323,7 @@ export const billingService: BillingService = {
 
 // ── Settings (in-memory) ──────────────────────────────────────────────────────
 
-export const settingsService: SettingsService = {
+export const mockSettingsService: SettingsService = {
   /**
    * One store's pharmacy settings. Fails loud if missing (no silent null).
    * BACKEND_SWAP_NOTES (Phase 7): SELECT settings WHERE store = $1, RLS-scoped.
@@ -339,7 +340,7 @@ export const settingsService: SettingsService = {
    */
   async saveSettings(settings) {
     store().setSettings(settings);
-    await auditService.append({
+    await mockAuditService.append({
       action: "updated_settings",
       target: settings.pharmacyName,
       result: "done",
@@ -347,3 +348,77 @@ export const settingsService: SettingsService = {
     return { ok: true, message: "Settings saved" };
   },
 };
+
+// Real admin reads are capability-scoped server RPCs. No client business mutation.
+export function createAdminServices(client?: RpcClient) {
+  const unavailable = async (): Promise<ActionResult> => ({ ok: false, message: unavailableMessage });
+  const denied = async (): Promise<never> => { throw new Error(unavailableMessage); };
+  type StoreRecord = { id: string; name: string; ncpdp: string | null; npi: string | null; status: string; subscription_status: string | null; member_count: number };
+  const subscription = (value: string | null): OwnedStore["subscriptionStatus"] =>
+    ["active", "past_due", "canceled", "trialing", "unpaid", "incomplete", "incomplete_expired", "paused"].includes(value || "") ? value as OwnedStore["subscriptionStatus"] : "unavailable";
+  const mapStore = (s: StoreRecord): OwnedStore => ({ storeId: s.id, name: s.name, ncpdp: s.ncpdp ?? "Unavailable", npi: s.npi ?? "Unavailable", status: s.status === "active" || s.status === "suspended" ? s.status : "unavailable", subscriptionStatus: subscription(s.subscription_status), memberCount: Number(s.member_count) });
+  const stores: OwnerStoresService = {
+    async getOwner() {
+      const connection = (await import("@/utils/supabase/client")).createClient();
+      const {data, error} = await connection.auth.getUser();
+      if (error || !data.user) throw new Error("Sign in to view your stores.");
+      return { ownerId: data.user.id, name: data.user.user_metadata?.full_name || data.user.email || "Account", email: data.user.email || "", initials: initialsFrom(data.user.email || "Account") };
+    },
+    async listMyStores(params) {
+      const rows = (await readRpc<StoreRecord[]>("admin_stores", {}, client)).map(mapStore);
+      const search = params?.search?.trim().toLowerCase();
+      return search ? rows.filter(s => s.name.toLowerCase().includes(search)) : rows;
+    },
+    async getStore(id) {
+      const rows = await readRpc<StoreRecord[]>("admin_stores", {p_business_id: requireStore(id)}, client);
+      if (rows.length !== 1 || rows[0].id !== id) throw new Error("Store unavailable.");
+      return mapStore(rows[0]);
+    },
+    addStore: denied,
+  };
+  const members: StoreMemberService = {
+    async listMembers(id, params) {
+      const rows = await readRpc<{id:string;business_id:string;name:string|null;email:string|null;role:MemberRole}[]>("admin_members", {p_business_id: requireStore(id)}, client);
+      const mapped = rows.map(m => ({memberId:m.id,storeId:m.business_id,name:m.name || "",email:m.email || "Unavailable",initials:initialsFrom(m.name || m.email || "?"),role:m.role,accountStatus:"unavailable" as const}));
+      const q = params?.search?.trim().toLowerCase();
+      return q ? mapped.filter(m => (m.name+" "+m.email).toLowerCase().includes(q)) : mapped;
+    },
+    listPendingInvites: denied, inviteMember: unavailable, resendInvite: unavailable, suspendMember: unavailable, unsuspendMember: unavailable, sendRecovery: unavailable,
+  };
+  const billing: BillingService = {
+    async listBilling() {
+      const permitted = await stores.listMyStores();
+      return Promise.all(permitted.map(async s => {
+        const b = await readRpc<{account_id:string;subscriptions:{status:string;current_period_end:string|null}[]}>("admin_billing_status", {p_business_id:s.storeId}, client);
+        const latest = b.subscriptions.at(-1);
+        return {storeId:s.storeId,storeName:s.name,plan:"unavailable" as const,subscriptionStatus:subscription(latest?.status ?? null),amountLabel:"Price unavailable"};
+      }));
+    },
+    managePayment: unavailable, cancelSubscription: unavailable,
+  };
+  const audit: AuditService = {
+    async listAudit() {
+      const scope = (await listTenantStores(client)).filter(s => s.capability !== "member");
+      if (!scope.length) throw new Error("Audit access unavailable for this account.");
+      const seen = new Set<string>();
+      const selected = scope.filter(s => {const key=s.capability === "owner" ? s.account_id : s.id; if(seen.has(key)) return false; seen.add(key);return true;});
+      const results = await Promise.all(selected.map(s => readRpc<{rows:{id:number;occurred_at:string;action:AuditEntry["action"];table_name:string;business_id:string|null}[]}>("admin_audit", {p_business_id:s.id,p_limit:100}, client)));
+      return results.flatMap(r=>r.rows.map(a=>({id:String(a.id),occurredAt:a.occurred_at,action:a.action,target:a.table_name+" · "+(scope.find(s=>s.id===a.business_id)?.name || "Account event"),result:"done" as const}))).sort((a,b)=>b.occurredAt.localeCompare(a.occurredAt));
+    },
+    append: denied,
+  };
+  const settings: SettingsService = {
+    async getSettings(id) {const s=await stores.getStore(id);return {storeId:id,pharmacyName:s.name,contactPerson:"Unavailable",phone:"Unavailable",address:"Unavailable",pharmacySoftware:"Unavailable"};},
+    saveSettings: unavailable,
+  };
+  return {ownerStoresService:stores,storeMemberService:members,billingService:billing,auditService:audit,settingsService:settings};
+}
+const real = createAdminServices();
+function selectService<T extends object>(demo:T, live:T):T {
+  return new Proxy(demo,{get(target,key){return Reflect.get(isDemoMode()?target:live,key);}});
+}
+export const ownerStoresService = selectService(mockOwnerStoresService,real.ownerStoresService);
+export const storeMemberService = selectService(mockStoreMemberService,real.storeMemberService);
+export const billingService = selectService(mockBillingService,real.billingService);
+export const auditService = selectService(mockAuditService,real.auditService);
+export const settingsService = selectService(mockSettingsService,real.settingsService);

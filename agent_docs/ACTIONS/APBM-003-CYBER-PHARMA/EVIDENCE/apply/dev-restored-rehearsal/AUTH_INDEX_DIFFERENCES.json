@@ -1,0 +1,26 @@
+{
+  "missingOnScratch": [
+    {
+      "tablename": "users",
+      "indexname": "idx_users_created_at_desc",
+      "indexdef": "CREATE INDEX idx_users_created_at_desc ON auth.users USING btree (created_at DESC)"
+    },
+    {
+      "tablename": "users",
+      "indexname": "idx_users_email",
+      "indexdef": "CREATE INDEX idx_users_email ON auth.users USING btree (email)"
+    },
+    {
+      "tablename": "users",
+      "indexname": "idx_users_last_sign_in_at_desc",
+      "indexdef": "CREATE INDEX idx_users_last_sign_in_at_desc ON auth.users USING btree (last_sign_in_at DESC)"
+    },
+    {
+      "tablename": "users",
+      "indexname": "idx_users_name",
+      "indexdef": "CREATE INDEX idx_users_name ON auth.users USING btree (((raw_user_meta_data ->> 'name'::text))) WHERE ((raw_user_meta_data ->> 'name'::text) IS NOT NULL)"
+    }
+  ],
+  "extraOnScratch": [],
+  "changed": []
+}

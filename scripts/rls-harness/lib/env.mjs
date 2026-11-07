@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 export const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 export const harnessRoot = join(repoRoot, 'scripts/rls-harness');
 export const SCRATCH_REF = 'ihgcsrypblqkwommrkgj';
-export const DEV_REF = 'cwdzijswchlwfvxxrlzb';
+export const DEV_REF = 'yrsuwikjnbmvpznrgydb'; // CyberPharma_Dev_v1; the Vibe pilot is not a permitted DEV target.
 const logicalNames = ['DB_URL', 'SUPABASE_URL', 'PUBLISHABLE_KEY', 'SECRET_KEY'];
 const fail = message => { throw new Error(`FAIL-CLOSED: ${message}`); };
 export function apiRef(value) {

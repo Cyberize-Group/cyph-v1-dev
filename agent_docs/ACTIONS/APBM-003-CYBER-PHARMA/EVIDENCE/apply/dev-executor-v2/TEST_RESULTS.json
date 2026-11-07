@@ -1,0 +1,274 @@
+{
+  "status": "PASS",
+  "kind": "local synthetic tests; accepted SCRATCH rehearsal was NOT repeated",
+  "checks": [
+    {
+      "name": "DEV writes require Tony release",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV writes require maintenance confirmation",
+      "status": "PASS"
+    },
+    {
+      "name": "reject target ihgcsrypblqkwommrkgj",
+      "status": "PASS"
+    },
+    {
+      "name": "reject target cwdzijswchlwfvxxrlzb",
+      "status": "PASS"
+    },
+    {
+      "name": "reject mode fault",
+      "status": "PASS"
+    },
+    {
+      "name": "reject mode scratch-reset",
+      "status": "PASS"
+    },
+    {
+      "name": "reject mode reset",
+      "status": "PASS"
+    },
+    {
+      "name": "reject mode restore",
+      "status": "PASS"
+    },
+    {
+      "name": "authenticated probes need explicit release",
+      "status": "PASS"
+    },
+    {
+      "name": "partial-chain resume needs separate recovery release",
+      "status": "PASS"
+    },
+    {
+      "name": "reviewed bootstrap authorization",
+      "status": "PASS"
+    },
+    {
+      "name": "matching Session pooler variables accepted",
+      "status": "PASS"
+    },
+    {
+      "name": "direct SQL endpoint rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "transaction pooler rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "different pooler password/value rejected without exposure",
+      "status": "PASS"
+    },
+    {
+      "name": "missing pool variable rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "exact three DEV managed ACLs accepted",
+      "status": "PASS"
+    },
+    {
+      "name": "ACL reject missing all",
+      "status": "PASS"
+    },
+    {
+      "name": "ACL reject partial",
+      "status": "PASS"
+    },
+    {
+      "name": "ACL reject fourth",
+      "status": "PASS"
+    },
+    {
+      "name": "ACL reject duplicate",
+      "status": "PASS"
+    },
+    {
+      "name": "ACL reject changed payload",
+      "status": "PASS"
+    },
+    {
+      "name": "ACL reject postgres privileges",
+      "status": "PASS"
+    },
+    {
+      "name": "retain baseline check columns",
+      "status": "PASS"
+    },
+    {
+      "name": "retain baseline check tables",
+      "status": "PASS"
+    },
+    {
+      "name": "retain baseline check policies",
+      "status": "PASS"
+    },
+    {
+      "name": "retain baseline check functions",
+      "status": "PASS"
+    },
+    {
+      "name": "retain baseline check constraints",
+      "status": "PASS"
+    },
+    {
+      "name": "retain baseline check indexes",
+      "status": "PASS"
+    },
+    {
+      "name": "retain baseline check triggers",
+      "status": "PASS"
+    },
+    {
+      "name": "retain baseline check enums",
+      "status": "PASS"
+    },
+    {
+      "name": "disabled signup evidence accepted",
+      "status": "PASS"
+    },
+    {
+      "name": "enabled signup without waiver rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "launch-only waiver rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "explicit DEV checkpoint waiver accepted",
+      "status": "PASS"
+    },
+    {
+      "name": "additive rows preserve existing multiplicity",
+      "status": "PASS"
+    },
+    {
+      "name": "changed existing row rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "lost duplicate row rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "lost preserved table rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "all four expected Auth indexes verified",
+      "status": "PASS"
+    },
+    {
+      "name": "Auth index reject missing",
+      "status": "PASS"
+    },
+    {
+      "name": "Auth index reject invalid",
+      "status": "PASS"
+    },
+    {
+      "name": "Auth index reject not ready",
+      "status": "PASS"
+    },
+    {
+      "name": "Auth index reject not live",
+      "status": "PASS"
+    },
+    {
+      "name": "Auth index reject changed definition",
+      "status": "PASS"
+    },
+    {
+      "name": "Auth index reject extra index",
+      "status": "PASS"
+    },
+    {
+      "name": "transaction success",
+      "status": "PASS"
+    },
+    {
+      "name": "transaction before-fails",
+      "status": "PASS"
+    },
+    {
+      "name": "transaction sql-fails",
+      "status": "PASS"
+    },
+    {
+      "name": "transaction catalog-fails",
+      "status": "PASS"
+    },
+    {
+      "name": "transaction index-fails",
+      "status": "PASS"
+    },
+    {
+      "name": "transaction commit-unknown",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV SQL matches rehearsed application SQL operations",
+      "status": "PASS"
+    },
+    {
+      "name": "effective grants pass",
+      "status": "PASS"
+    },
+    {
+      "name": "effective grants extra-table-grant",
+      "status": "PASS"
+    },
+    {
+      "name": "effective grants missing-rpc-grant",
+      "status": "PASS"
+    },
+    {
+      "name": "effective grants missing-schema-usage",
+      "status": "PASS"
+    },
+    {
+      "name": "effective grants missing-row",
+      "status": "PASS"
+    },
+    {
+      "name": "effective grants rls-disabled",
+      "status": "PASS"
+    },
+    {
+      "name": "29 strong locks plus read-only provider history accepted",
+      "status": "PASS"
+    },
+    {
+      "name": "no other table may use the provider read-lock treatment",
+      "status": "PASS"
+    },
+    {
+      "name": "provider history must remain readable",
+      "status": "PASS"
+    },
+    {
+      "name": "missing preserved table still fails",
+      "status": "PASS"
+    },
+    {
+      "name": "accepted narrow proof reused without claiming restore",
+      "status": "PASS"
+    },
+    {
+      "name": "materialized expected catalog 47",
+      "status": "PASS"
+    },
+    {
+      "name": "materialized expected catalog 51",
+      "status": "PASS"
+    },
+    {
+      "name": "materialized expected catalog 52",
+      "status": "PASS"
+    }
+  ]
+}

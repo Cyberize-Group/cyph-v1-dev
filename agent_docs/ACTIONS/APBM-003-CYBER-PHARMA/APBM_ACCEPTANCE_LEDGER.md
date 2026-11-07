@@ -37,16 +37,16 @@ Director release supersedes the draft pre-coding FINAL gate. Counts/names are im
 | AC-403 | PENDING Director DEV APPLY prerequisites/receipt; no DEV operation performed. See EVIDENCE/E2/DEV_APPLY_HANDOFF.md. | NOT RUN by Claudy | NOT RECORDED |
 | AC-404 | PENDING Director DEV APPLY prerequisites/receipt; no DEV operation performed. See EVIDENCE/E2/DEV_APPLY_HANDOFF.md. | NOT RUN by Claudy | NOT RECORDED |
 | AC-405 | PENDING Director DEV APPLY prerequisites/receipt; no DEV operation performed. See EVIDENCE/E2/DEV_APPLY_HANDOFF.md. | NOT RUN by Claudy | NOT RECORDED |
-| AC-501 | PENDING stages 6–8 after Tony APPLY receipt; no completion claim. | NOT RUN by Claudy | NOT RECORDED |
-| AC-502 | PENDING stages 6–8 after Tony APPLY receipt; no completion claim. | NOT RUN by Claudy | NOT RECORDED |
-| AC-503 | PENDING stages 6–8 after Tony APPLY receipt; no completion claim. | NOT RUN by Claudy | NOT RECORDED |
-| AC-504 | PENDING stages 6–8 after Tony APPLY receipt; no completion claim. | NOT RUN by Claudy | NOT RECORDED |
-| AC-505 | PENDING stages 6–8 after Tony APPLY receipt; no completion claim. | NOT RUN by Claudy | NOT RECORDED |
-| AC-506 | PENDING stages 6–8 after Tony APPLY receipt; no completion claim. | NOT RUN by Claudy | NOT RECORDED |
-| AC-507 | PENDING stages 6–8 after Tony APPLY receipt; no completion claim. | NOT RUN by Claudy | NOT RECORDED |
-| AC-601 | PENDING stages 6–8 after Tony APPLY receipt; no completion claim. | NOT RUN by Claudy | NOT RECORDED |
-| AC-602 | PENDING stages 6–8 after Tony APPLY receipt; no completion claim. | NOT RUN by Claudy | NOT RECORDED |
-| AC-603 | PENDING stages 6–8 after Tony APPLY receipt; no completion claim. | NOT RUN by Claudy | NOT RECORDED |
+| AC-501 | CLAIM: real scoped RPC adapter plus explicit mock kill switch; service tests and live browser PASS on SCRATCH. Evidence: EVIDENCE/E2/stage-6/. | NOT RUN by Claudy | NOT RECORDED |
+| AC-502 | CLAIM: product edits restricted to Stage 6/A02 exact files; two additional copy files remain pending authorization. Evidence: EVIDENCE/E2/stage-6/. | NOT RUN by Claudy | NOT RECORDED |
+| AC-503 | CLAIM: seven-identity RPC scope board PASS; four-identity desktop browser plus Owner phone, all tabs, filters, sort, pager PASS on SCRATCH. Independent complete cast/browser Gate Q still pending. Evidence: EVIDENCE/E2/stage-6/. | NOT RUN by Claudy | NOT RECORDED |
+| AC-504 | CLAIM: real-user audited reads verified; 227 committed events across declared SCRATCH probes/browser runs. No DEV result claimed. Evidence: EVIDENCE/E2/stage-6/. | NOT RUN by Claudy | NOT RECORDED |
+| AC-505 | CLAIM: foreign-store RPC denied and forged request renders refusal in real browser; stale scope races PASS locally. Evidence: EVIDENCE/E2/stage-6/. | NOT RUN by Claudy | NOT RECORDED |
+| AC-506 | Protected auth paths unchanged; 58-file snapshot PASS. Staging/404 verification remains pending, not claimed. Evidence: EVIDENCE/E2/stage-6/. | NOT RUN by Claudy | NOT RECORDED |
+| AC-507 | CLAIM: KPI error never fabricated zeros, shared refresh and stale-response rejection PASS in component/browser checks. Evidence: EVIDENCE/E2/stage-6/. | NOT RUN by Claudy | NOT RECORDED |
+| AC-601 | CLAIM: real scoped Owner/admin stores, members, audit and billing status PASS on SCRATCH; inherited demo labels remain a scope gap. Evidence: EVIDENCE/E2/stage-6/. | NOT RUN by Claudy | NOT RECORDED |
+| AC-602 | CLAIM: real-mode writes unavailable, no mutation RPC, disabled UI; business seed hash unchanged. Mock-only BillingScreen copy needs amendment. Evidence: EVIDENCE/E2/stage-6/. | NOT RUN by Claudy | NOT RECORDED |
+| AC-603 | CLAIM: Owner/admin audited viewer PASS; member denial PASS on seven-user RPC board and browser route. Evidence: EVIDENCE/E2/stage-6/. | NOT RUN by Claudy | NOT RECORDED |
 | AC-701 | PENDING post-Gate-Q staging approval/deployment and separate Gate D. | NOT RUN by Claudy | NOT RECORDED |
 | AC-702 | PENDING post-Gate-Q staging approval/deployment and separate Gate D. | NOT RUN by Claudy | NOT RECORDED |
 | AC-703 | PENDING post-Gate-Q staging approval/deployment and separate Gate D. | NOT RUN by Claudy | NOT RECORDED |

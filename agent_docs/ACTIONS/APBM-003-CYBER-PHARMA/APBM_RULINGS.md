@@ -51,3 +51,23 @@ Authority: Tony's current message explicitly adds exactly these files to the APB
 - `src/__tests__/owedbook/OwedBookScreen.disclosure.test.tsx`
 
 This is an additive exception to A01's finite file list and its stage assignments: stage-5 checkpoint correction may update stale fixture expectations in these two files; stage 6 may update the KPI failure expectation when its approved UI behavior is implemented. Keep every test enabled and preserve coverage. Approved fixture volume remains 50 per store / 250 total, A1 mocks 50, three synthetic PBMs plus unmatched claims, federal v1 data NULL/empty. No production/UI change, DEV write, Git mutation or stage-6 execution is authorized by this correction. The contract remains draft under the already-recorded Director implementation release. Affected ACs: 205, 502, 507 (future stage 6), 803. Evidence and board: `EVIDENCE/E2/test-amendment-A02/`.
+
+
+## A03 — Director DEV project correction — 2026-11-06
+
+Director confirms CyberPharma_Dev_v1 `yrsuwikjnbmvpznrgydb` as DEV. `cwdzijswchlwfvxxrlzb` belongs to the Vibe Cody pilot and is excluded from DEV; SCRATCH remains `ihgcsrypblqkwommrkgj`. Authorization is to correct runner/handoff target fencing and perform a read-only preflight. No DEV APPLY, historical baseline initialization, seeding, authenticated probes or Git mutation is released. Exact product path changed: `scripts/rls-harness/lib/env.mjs`; no fallback or complete-prefix relaxation. Full findings: EVIDENCE/apply/dev-target-reconciliation/REPORT.md. Prior target labels in historical evidence remain historical, not current DEV authority.
+
+
+## A04 — Proposed DEV-specific baseline bootstrap — preparation only
+
+Director requests the smallest forward-only reconciliation to the approved 0047 baseline while preserving users, roles and data. Proposal lives only in EVIDENCE/apply/dev-baseline-bootstrap/. No historical migration edits, baseline fingerprint exception, managed-role membership change, authenticated probe, shared-DEV SQL write or ledger initialization is released. Exact reconciliation includes two existing function definitions and three supabase_admin-owned future-object ACL entries; managed-role privilege is a recorded blocker. Existing matched public objects/policies are preserved. See PROPOSAL.md for exact changes and the checks required before commit and before any APBM ledger initialization.
+
+
+## A05 — Director-authorized disposable-copy ACL exception evaluation
+
+Director authorizes read-only DEV backup and restore to confirmed disposable ihgcsrypblqkwommrkgj, followed by evaluation of only the three identified supabase_admin default ACL entries while retaining all other 0047 checks and proving effective app grants/RLS/RPC access. No shared-DEV exception or write is released. The evaluator and negative controls are in EVIDENCE/apply/dev-restored-rehearsal/. Restore is blocked by four missing auth.users indexes and absent owner/SET ROLE privileges; no broader exception is inferred. See that directory's HANDOFF.md for exact next action.
+
+
+## 2026-11-06T13:58:13.834974+00:00 — Director releases Stage 6 on existing SCRATCH
+
+Director explicitly authorizes Stage 6 using confirmed SCRATCH ihgcsrypblqkwommrkgj and existing synthetic fixtures. This supersedes the earlier DEV APPLY dependency for this stage only. Dev v1 yrsuwikjnbmvpznrgydb remains intended rollout target; shared DEV APPLY and restore rehearsal are deferred to DevOps, not marked complete or waived for rollout. No project creation, shared DEV writes, Git mutations or reset/reseed. Verify schema and real Owner access, implement the existing Stage 6 exact allowlist plus prior two-test amendment, run checks, continue independent work around specific blockers. Session/audit effects from SCRATCH authenticated reads are declared; preserve all backup and historical evidence. Stop at Stage 6 report.

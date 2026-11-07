@@ -1,4 +1,5 @@
 "use client";
+import { canAdminister, isDemoMode, listTenantStores } from "@/services/tenantScope";
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
@@ -31,6 +32,16 @@ interface NavbarProps {
 }
 
 const Navbar = ({ user, role }: NavbarProps) => {
+  const userId = user?.id;
+  const [tenantAccess, setTenantAccess] = useState<{userId:string;allowed:boolean}|null>(null);
+  useEffect(() => {
+    if (isDemoMode() || !userId) return;
+    let cancelled = false;
+    listTenantStores().then(stores => { if(!cancelled)setTenantAccess({userId,allowed:canAdminister(stores)}); }).catch(() => {if(!cancelled)setTenantAccess(null);});
+    return () => {cancelled=true;};
+  }, [userId]);
+  const hasAdminAccess = isDemoMode() ? role === AppRole.ADMIN : tenantAccess?.userId === user?.id && tenantAccess?.allowed === true;
+
   const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const supabase = createClient();
@@ -40,7 +51,7 @@ const Navbar = ({ user, role }: NavbarProps) => {
   // Profile. MEMBER → OwedBook · Profile. Never empty. Active is route-derived
   // via usePathname.
   const pathname = usePathname() ?? "";
-  const isAdmin = role === AppRole.ADMIN;
+  const isAdmin = hasAdminAccess;
 
   const navLinks = [
     { label: "OwedBook", href: "/owedbook" },

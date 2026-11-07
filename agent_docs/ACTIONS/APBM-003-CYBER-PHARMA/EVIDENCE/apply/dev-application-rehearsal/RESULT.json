@@ -1,0 +1,344 @@
+{
+  "kind": "SYNTHETIC_APPLICATION_REHEARSAL_NOT_DEV_RESTORE",
+  "status": "PASS",
+  "startedAt": "2026-11-06T15:00:36.964Z",
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "steps": [
+    {
+      "name": "remove-prior-synthetic-cast",
+      "status": "PASS"
+    },
+    {
+      "name": "init-ledger",
+      "status": "PASS"
+    },
+    {
+      "name": "verify-0047",
+      "status": "PASS"
+    },
+    {
+      "name": "forward-0048-0052",
+      "status": "PASS"
+    },
+    {
+      "name": "seed",
+      "status": "PASS"
+    },
+    {
+      "name": "seed-verify",
+      "status": "PASS"
+    },
+    {
+      "name": "owner",
+      "status": "PASS"
+    },
+    {
+      "name": "authenticated-verifier",
+      "status": "PASS"
+    }
+  ],
+  "limits": [
+    "No DEV backup restore; no actual DEV row recovery or provider clone parity proof",
+    "Four extra DEV Auth indexes absent on SCRATCH; no creation or omission on DEV authorized",
+    "Exactly three managed default ACL entries may be normalized on SCRATCH only; no DEV exception granted"
+  ],
+  "sourceFilesVerified": 56,
+  "applicationBootstrapSHA256": "e7cf5cff9f4cc8d2cffd197c81c80787e6cb70f5b6b2c7596d085897063f901c",
+  "strictOriginalBootstrapSHA256": "ccaa16a3701752a4895705e1dca5456d5eb3171b3c8750cc43001f9ff9b4b3e4",
+  "privateDirectory": "/tmp/apbm003-synthetic-rehearsal-1793977236976-bad3a1369c",
+  "scratchBackupSHA256": "9f8451f51194920ed4052201ceb085e486baee58e086fa40162df807543cdbb4",
+  "startingCatalogParity": {
+    "status": "PASS",
+    "normalizedSHA256": "f33604c00b4a1363d7d1df8c7252475529d20c506af4ba9ac13df0619e40d56e",
+    "excludedActualEntries": [],
+    "excludedExpectedEntries": [
+      "S",
+      "f",
+      "r"
+    ]
+  },
+  "fixture": {
+    "syntheticUsers": 5,
+    "syntheticProfiles": 5,
+    "syntheticRoles": [
+      "superadmin",
+      "admin",
+      "member",
+      "member",
+      "admin"
+    ],
+    "retainedUnrelatedScratchAuthUsers": 1,
+    "nativeLedger": "synthetic sentinel version 20261012053902; not provider metadata parity",
+    "preservedTables": 30
+  },
+  "bootstrapRollback": "PASS",
+  "baselineParity": {
+    "status": "PASS",
+    "normalizedSHA256": "f83deb44e94e4f4ca8ac3168120477aebaef1cd8d7af3ae8644085c3c05e22ec",
+    "excludedActualEntries": [],
+    "excludedExpectedEntries": []
+  },
+  "preservationBeforeLedger": "ALL_ROWS_AND_METADATA_EXACT",
+  "baseline": {
+    "tables": 16,
+    "policies": 19,
+    "functions": 13,
+    "newTablesEmpty": 14,
+    "ledgerAbsent": true
+  },
+  "completeParity": {
+    "status": "PASS",
+    "normalizedSHA256": "66782ff92213415443d428ade161b165e04a5aba29999453cb0ab34a7160d061",
+    "excludedActualEntries": [],
+    "excludedExpectedEntries": []
+  },
+  "forwardPreservation": "ALL_30_TABLES_AND_METADATA_EXACT",
+  "castCredentialFile": "/tmp/apbm003-application-cast-1793977304592.json",
+  "afterSeedPreservation": {
+    "auth.audit_log_entries": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.custom_oauth_providers": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.flow_state": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.identities": {
+      "preserved": 6,
+      "added": 7
+    },
+    "auth.instances": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.mfa_amr_claims": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.mfa_challenges": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.mfa_factors": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.mfa_recovery_code_sets": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.mfa_recovery_codes": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.oauth_authorizations": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.oauth_client_states": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.oauth_clients": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.oauth_consents": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.one_time_tokens": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.refresh_tokens": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.saml_providers": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.saml_relay_states": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.schema_migrations": {
+      "preserved": 82,
+      "added": 0
+    },
+    "auth.scim_tokens": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.scim_users": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.sessions": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.sso_domains": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.sso_providers": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.users": {
+      "preserved": 6,
+      "added": 7
+    },
+    "auth.webauthn_challenges": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.webauthn_credentials": {
+      "preserved": 0,
+      "added": 0
+    },
+    "public.profiles": {
+      "preserved": 5,
+      "added": 7
+    },
+    "public.user_roles": {
+      "preserved": 5,
+      "added": 7
+    },
+    "supabase_migrations.schema_migrations": {
+      "preserved": 1,
+      "added": 0
+    }
+  },
+  "afterProbesPreservation": {
+    "auth.audit_log_entries": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.custom_oauth_providers": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.flow_state": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.identities": {
+      "preserved": 6,
+      "added": 7
+    },
+    "auth.instances": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.mfa_amr_claims": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.mfa_challenges": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.mfa_factors": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.mfa_recovery_code_sets": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.mfa_recovery_codes": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.oauth_authorizations": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.oauth_client_states": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.oauth_clients": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.oauth_consents": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.one_time_tokens": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.refresh_tokens": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.saml_providers": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.saml_relay_states": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.schema_migrations": {
+      "preserved": 82,
+      "added": 0
+    },
+    "auth.scim_tokens": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.scim_users": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.sessions": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.sso_domains": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.sso_providers": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.users": {
+      "preserved": 6,
+      "added": 7
+    },
+    "auth.webauthn_challenges": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.webauthn_credentials": {
+      "preserved": 0,
+      "added": 0
+    },
+    "public.profiles": {
+      "preserved": 5,
+      "added": 7
+    },
+    "public.user_roles": {
+      "preserved": 5,
+      "added": 7
+    },
+    "supabase_migrations.schema_migrations": {
+      "preserved": 1,
+      "added": 0
+    }
+  },
+  "authIndexPreservation": "ALL_EXISTING_SCRATCH_AUTH_INDEXES_EXACT",
+  "declaredProbeEffects": "8 synthetic login/logout sessions, 52 audited read rows; seed 7 users/5 stores/250 claims/285 insert audit rows",
+  "finishedAt": "2026-11-06T15:02:40.230Z"
+}

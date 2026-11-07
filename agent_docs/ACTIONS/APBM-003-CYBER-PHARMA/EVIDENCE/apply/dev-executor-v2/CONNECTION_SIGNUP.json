@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-11-06T15:28:29.167Z",
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "variables": {
+    "APBM_DEV_DB_URL": {
+      "present": true,
+      "projectMatches": true,
+      "sessionPooler": true
+    },
+    "APBM_DEV_DB_POOL": {
+      "present": true,
+      "projectMatches": true,
+      "sessionPooler": true
+    }
+  },
+  "signup": {
+    "httpStatus": 200,
+    "disabled": false,
+    "rawBooleanKnown": true
+  },
+  "sameValue": true,
+  "apiProjectMatches": true
+}
