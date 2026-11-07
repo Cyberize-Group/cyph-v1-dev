@@ -69,6 +69,22 @@
 
 ## 3. Executor's reading (Q1) — contradictions and open risk questions (Claudy)
 
-NOT RECORDED (filled in Q1 without altering §1 or §2; contradictions go to `QAM_RECON_REPORT.md` §4 and, if grading depends on them, to `STOP-CONTRACT`).
+Recorded 2026-11-07 15:05 +06 by Claudy (Q1 attempt 01). §1 and §2 unaltered.
+
+| # | Reading | Where it lands |
+|---|---|---|
+| X-1 | MR-1/MR-2/MR-4/MR-10 are now the DB predicate risks of **0048–0051**; QA verifies the predicates on SCRATCH with all seven tokens (T-11, T-17–T-19) and the client-side scope on DEV through the browser (T-33, T-34). Engineering's 154-check board shares `env.mjs` with the product; QA writes its own probe. | plan T-17, T-33 |
+| X-2 | MR-3: the OAC §4 counts were never frozen (`<<E1>>`). QA derives dispatch counts from `OwedBookContext.tsx`/`OwedBookScreen.tsx` and grades those (T-20, T-37) — requires QA Lead acceptance (recon R-3). | recon R-3 |
+| X-3 | MR-5: DEV trigger text check is read-only SQL (T-31a); the **metadata-role signup attempt is run on SCRATCH only** (T-21). A live signup on DEV is refused as a potential write (recon R-11). | plan T-21, T-31 |
+| X-4 | MR-7/MR-8: comparator and money-rule instruments are the seed's own siblings; QA recomputes with independent code and attacks both (T-12, T-15). | plan |
+| X-5 | MR-9: component delta is inside the A01 list, but two files **outside** it still carry demo copy that is false in real mode (recon R-5). Not a drift in the MR-9 sense; a truthful-display gap awaiting a scope amendment. QA records it as a finding either way. | recon R-5, T-38 |
+| X-6 | MR-11: real-mode write services are a `Proxy` switching to a `live` object; T-36 verifies by table hashes, not by UI text. | plan T-36 |
+| X-7 | MR-13: receipt shows single-run ledger of 52 on the correct ref; QA re-reads ledger + checksums read-only (T-30). The receipt's `restoreVerified:false` contradicts AC-401's restore clause (recon R-6). | recon R-6 |
+| X-8 | MR-14: no deployment yet; the local analogue (bundle scan for SCRATCH refs and secret patterns on the QA build) is run as T-32. | plan T-32 |
+| X-9 | MR-15: cast existence is claimed by the receipt (auth.users +7); confirmed by bounded login in Q2 only. | PF-4.4 |
+| X-10 | SR-5 conflict: no `.env.qa.local`; all credentials exist under engineering prefixes and a `/tmp` 0600 cast file. Q2 cannot start under SR-5 until the Director creates the file (or rules an exception). QAM §4 also lacks a DEV SQL key needed for AC-4xx catalog reads. | recon R-4 |
+| X-11 | SR-7 / Director boundary: SCRATCH destructive work wipes the current Stage-6 fixtures (recon R-10); DEV effects are limited to login/logout + `read_page` rows and are counted. | plan "Writes required" |
+| X-12 | SR-10: the Director's manual smoke is a declared human check **H-1, deferred, not waived**; QA never marks it. | plan T-H1 |
+| X-13 | Protected-path rule vs repo protocol (`RECOVERY.md`, `SESSIONS/`) — contradiction recorded; `RECOVERY.md` left untouched. | recon R-7 |
 
 *Instantiated 2026-11-05 by Friday from TEMPLATE SET v0.3.*

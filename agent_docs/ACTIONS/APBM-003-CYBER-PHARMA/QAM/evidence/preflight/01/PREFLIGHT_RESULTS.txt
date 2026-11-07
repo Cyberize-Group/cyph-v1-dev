@@ -1,0 +1,51 @@
+QAM_PREFLIGHT results — APBM-003-CYBER-PHARMA — Q1 attempt 01
+Executor: Claudy (Claude Code, Fable 5.1) · Run at: 2026-11-07 14:36–14:43 +06 · Working dir: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev (qa/apbm-003)
+All checks read-only. No product, DB, auth or Git mutation. Raw outputs: ../../identity/01/, frontend_target_check.txt (this dir).
+
+BASELINE=af2c7e5225d2d78925fd392e29a58b6bde830263  CANDIDATE=308247a24e6ddd455842da5cd2e21541d7eae2c1 (Director release message + READY_308247a.json + RUN_CONTEXT.json)
+
+PF-1.1 PASS  branch qa/apbm-003
+PF-1.2 PASS  HEAD 308247a24e6ddd455842da5cd2e21541d7eae2c1 == candidate; log baseline..HEAD = 5 commits (7abd8a6, b23372d, 01bd66d, 49dec49, 308247a)
+PF-1.3 FAIL (expected empty)  69 inherited dirty paths at QA start, all under agent_docs/ (3 tracked M: APBM_JOURNAL.md, APBM_STATE.md, PHASE_3_CAMPAIGN_JOURNAL.md; 66 untracked under EVIDENCE/apply/** and RESPONSES/). 0 paths outside agent_docs/. Treated as INHERITED engineering material per Director instruction; preserved; not QA-generated. See identity/01/inherited_dirty_baseline_status.txt.
+PF-1.4 PASS  candidate is ancestor of HEAD (identical)
+PF-1.5 GAP   manifest §2 inventory is an unfilled template (NOT RECORDED). Reconciled instead against git diff --name-status BASELINE..CANDIDATE: 410 paths; 57 non-agent_docs product/test/script/migration paths; all 57 fall inside the A01 exact allowlist + A02 two test files + package.json scripts. Reconciliation against an Engineer inventory impossible → GAP (AC-901).
+PF-1.6 PASS  git diff CANDIDATE..HEAD empty (0 lines) → no product content beyond candidate
+PF-1.7 PASS  migrations 0001–0047 byte-identical to baseline (diff 0 lines)
+PF-1.8 PASS  src/proxy.ts, src/utils/supabase/**, src/app/api/auth/**, src/utils/app-role.ts, src/app/(auth)/** byte-identical to baseline (diff 0 lines)
+
+PF-2.1 FAIL (no FINAL stamp exists)  spec/contracts remain DRAFT — CLAIM STATUS. Hashes as read recorded in identity/01/contract_hashes_as_read.txt; SPEC, OAC, SFC, A01 match EVIDENCE/E2/COMMITTED_CONTRACT_HASHES.json (01bd66d); APBM_RULINGS.md differs (append-only entries A02–A05 + Stage-6 release added since). Director release of 2026-11-05T15:08 explicitly superseded the pre-coding FINAL stamp.
+PF-2.2 FAIL  18 `<<E1>>` placeholders remain: SPEC 8, SFC 5, OAC 5 (AC-101 last number, AC-103 policy count, AC-203 n users, AC-204 sample/PBMs/rows, AC-207 count, AC-305 names, OAC §4 all operation counts, AC-803 baseline numbers). Resolved values exist only as engineering claims in EVIDENCE/E2/IMPLEMENTED_OPERATION_PLAN.md. → grading basis decision needed (recon R-3).
+PF-2.3 PASS  QAM_ENTRY §3 read; protected paths and permitted effects understood. Discovery of QAM/CLAUDE.md in this runtime: the root CLAUDE.md + CLAUDE.local.md loaded; QAM/CLAUDE.md did NOT auto-load (reached via the fallback instruction / path). Recorded for PARENT_ENTRY_ROUTING checklist.
+PF-2.4 PARTIAL  GOVERNING rows resolve by name; 3 bodies have no hash (QA_PLAYBOOK, template set, BIM-003 contract "recorded at E1"); Hub bodies not available in this checkout.
+PF-2.5 FAIL  QAM_MANIFEST.md and HANDOFFS/ENGINEERING_HANDOFF.md are unfilled templates; no CLAIM rows; no four-part inventory. Engineering claims exist elsewhere: APBM_ACCEPTANCE_LEDGER.md (one row per AC), EVIDENCE/E2/stage-6/HANDOFF.md, EVIDENCE/E2/HANDOFF_SUMMARY.json. → engineering evidence gap, AC-901.
+PF-2.6 PARTIAL  Named files absent: EVIDENCE/apply/01_TARGET_IDENTITY.txt, DA-2_SUPABASE_SIGNUP_DISABLED.md, 03_BACKUP_RECORD.md. Equivalents present under different names: target identity + ledger + catalog in EVIDENCE/apply/DEV_V2_20261107T080333Z_1347924/ (RUN_CONTEXT.json, catalog.json, dev-v2-final-*.json), signup disposition in dev-v2-final (disabled:true at 08:13:48Z after BLOCKED at 07:43Z), backup hash in dev-v2-final.backup.sha256 (archive private, /tmp). Restore rehearsal: kind=SYNTHETIC_APPLICATION_REHEARSAL_NOT_DEV_RESTORE, restoreVerified=false (declared by engineering).
+
+PF-3.1 PASS  node v22.14.0, npm 10.9.2 (E1 COUNTS.md has no recorded versions → compared against Stage-6 run only)
+PF-3.2 NOT RUN in Q1 (npm ci is a write to node_modules; deferred to Q2 entry)
+PF-3.3 PASS  @playwright/test 1.59.1; chromium-1217 + headless shell present in ~/.cache/ms-playwright (shared cache, not AUTOMATION/ lane — note for SR/AUTOMATION rule)
+PF-3.4 PARTIAL  psql 17.11 present; supabase CLI absent (not needed: catalog via psql read-only)
+PF-3.5 PASS  QAM/evidence/ writable; git status shows new paths only under QAM/ and SESSIONS/ (QA lane)
+PF-3.6 PASS with note  no QA helper reads .env.local. Recon read KEY NAMES and project-ref substrings of .env.local only (no values) to answer the Director's stale-config question; recorded in frontend_target_check.txt.
+
+PF-4.1 BLOCKED  no QA_SCRATCH_* keys: .env.qa.local does not exist. SCRATCH credentials exist only under the engineering prefix RLS_REPLICA_* (ref ihgcsrypblqkwommrkgj). SR-5 forbids reuse without ruling.
+PF-4.2 PARTIAL  DEV ref yrsuwikjnbmvpznrgydb confirmed in receipt, .env.local APBM_DEV_/NEXT_PUBLIC_ (ref only) and built bundle. Live read-only catalog query not run (no QA credential; also QAM §4 lists no QA_DEV_DB_URL key — catalog checks AC-402/404/405 need a read-only SQL path).
+PF-4.3 N/A for Q1/Q2 (Gate D)
+PF-4.4 NOT RUN (Q2)  cast existence claimed by receipt (7 users added, auth.users 5→12). Bounded login probe in Q2.
+PF-4.5 PARTIAL  receipt seed-verify.json: user_data 250, 5 businesses, 3 accounts, 8 junctions, independent arithmetic 250/0 failures, identityFindings 0 — engineering evidence; QA re-derivation in Q2.
+PF-4.6 FAIL  .env.qa.local absent. Would be ignored by .gitignore:28 (.env*.local). Director creates before Q2 release.
+PF-4.7 PARTIAL  DEV signup: receipt says disabled:true at 2026-11-07T08:13:48Z via GET settings; earlier 07:43Z check was BLOCKED (false). No independent QA check yet (needs publishable key). No DA-2 file for SCRATCH.
+
+PF-5.1 PARTIAL  local standalone server listening 127.0.0.1:3137, /auth HTTP 200, /moose-portal 404; both themes exist (ThemeToggler light/dark). Playwright smoke not launched in Q1 (no browser runs authorized).
+PF-5.2 NOT RUN (Q2)  scanner scripts/seed/identity-scan.mjs located; fixture/control validation in Q2.
+PF-5.3 NOT RUN (Q2)
+PF-5.4 PASS  instruments located: scripts/rls-harness/prove.mjs, audit-prove.mjs, scripts/db-verify.mjs, scripts/seed/verify.mjs (comparator), scripts/seed/identity-scan.mjs, scripts/dev-verify.mjs, scripts/apply-forward.mjs; package.json scripts wired. Attack per class planned in QAM_TEST_PLAN §2.
+
+PF-6.1 PASS  dry run executed by building the Q1 package (see HANDOFFS/README.md receipt)
+PF-6.2 PASS  QAM_STATE.md readable; evidence lane durable on disk
+
+Frontend target (Director item 4): built bundle + standalone server contain 7 files referencing Dev v1 ref and 0 files referencing SCRATCH ref; BUILD_ID matches dev-manual-smoke/BUILD.json; .env.local NEXT_PUBLIC_SUPABASE_URL and APBM_DEV_SUPABASE_URL both resolve to Dev v1; RLS_REPLICA_* (SCRATCH) still present in .env.local for harness use. Stale SCRATCH build reported by Cody at 08:17Z was replaced before QA start. Running server is Cody's process (pid recorded in ss output), not QA-controlled → Q2 rebuilds under QA control before browser tests. Duplicate key APBM_DEV_DB_URL appears twice in .env.local (last-wins semantics; observation only).
+
+OUTCOME
+Blockers for Q2 (not Q1): PF-4.1/4.6 credential file; PF-4.2 read-only DEV SQL path; grading basis for 18 <<E1>> placeholders; QA Lead seat holder + Director release record (QAM_APPROVAL §1/§3).
+Readiness for Q1 planning: READY (planning proceeds on identity-resolved candidate 308247a).
+Rows to recheck at Q2 entry: PF-1.2, PF-1.3, PF-1.6, PF-3.2, PF-4.1, PF-4.2, PF-4.4, PF-4.6, PF-4.7, PF-5.1.

@@ -2,7 +2,9 @@
 
 > Instantiated 2026-11-05 by Friday from TEMPLATE SET v0.3 (QA Lead accepted 2026-10-14) under QAM_PLAYBOOK v1.0. **Owner: QA Executor (Claudy).** Adjudication is in `FINDINGS.md`; the verdict in `QAM_CERTIFICATION.md`, never here.
 
-**Executor:** Claudy / NOT RECORDED · **Recorded at:** NOT RECORDED · **Candidate:** NOT RECORDED · **QA execution HEAD:** NOT RECORDED · **Platform:** NOT RECORDED · **Plan SHA-256:** NOT RECORDED
+**Executor:** Claudy (Claude Code, Fable 5.1) · **Recorded at:** 2026-11-07 15:05 +06 (Q1: header only; every row stays NOT RUN until Q2) · **Candidate:** `308247a24e6ddd455842da5cd2e21541d7eae2c1` · **QA execution HEAD:** `308247a24e6ddd455842da5cd2e21541d7eae2c1` · **Platform:** Linux, node v22.14.0, Playwright 1.59.1 · **Plan SHA-256:** DRAFT, see `HANDOFFS/README.md`
+
+> **Director human check H-1 — manual app smoke: DEFERRED (Tony unwell), not waived, not PASS.** Recorded 2026-11-07 under the Director sequencing exception. QA never marks this row; the Director records it.
 
 Status vocabulary (observations): **PASS** · **FAIL** · **BLOCKED** (name the prerequisite) · **NOT RUN** (say why) · **ADJUDICATE** (contract question; cite the row). Every PASS or FAIL cites an evidence path. An unresolved discrepancy never becomes PASS by relabeling.
 

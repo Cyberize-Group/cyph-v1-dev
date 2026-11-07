@@ -38,3 +38,30 @@ The `QAM_STATE.md` inside a review ZIP is the immutable pre-export snapshot; the
 | Date / time | Seat | From → To | Identity touched | Record / receipt |
 |---|---|---|---|---|
 | 2026-11-05 · Asia/Dhaka | Architect (Friday) | — → `READY FOR ENGINEERING` | baseline NOT RECORDED | QAM instantiated from template set v0.3 (QAM_PLAYBOOK v1.0) |
+| 2026-11-07 14:30 · Asia/Dhaka | Director (Tony) via JARVIS (transcribed by Claudy, attributed) | `READY FOR ENGINEERING` → **Director sequencing exception: Q1 released now** | candidate `308247a24e6ddd455842da5cd2e21541d7eae2c1`; QA branch `qa/apbm-003` exists at candidate | Director ruling: independent QA before the manual smoke (Tony unwell); manual smoke DEFERRED, not waived, not PASS; final acceptance PENDING. `ENGINEERING COMPLETE — AWAITING QA BRANCH` / `READY FOR RECON` were never recorded by Cody/Director (recon R-1); this ruling is the authority for Q1 |
+| 2026-11-07 15:05 · Asia/Dhaka | QA Executor (Claudy) | Q1 recon → `Q1 COMPLETE — AWAITING QA LEAD REVIEW` | candidate = HEAD `308247a24e6ddd455842da5cd2e21541d7eae2c1`; plan SHA-256 in `HANDOFFS/README.md` receipt | `QAM_RECON_REPORT.md` (Q1/01), `QAM_TEST_PLAN.md` DRAFT, `QAM_PREFLIGHT.md` cells, `evidence/preflight/01`, `evidence/identity/01`; package `HANDOFFS/APBM-003-CYBER-PHARMA_Q1_REVIEW_01.zip` (hash in receipt) |
+
+## Current state — Executor entry 2026-11-07 15:05 +06 (latest entry wins)
+
+| Field | Value |
+|---|---|
+| Phase | `Q1 COMPLETE — AWAITING QA LEAD REVIEW` (entered under the Director's sequencing exception; see transition log) |
+| Attempt | Q1 1 / Q2 0 / Q4 0 |
+| Engineering branch / QA branch | `apbm-003` / `qa/apbm-003` (exists; disposable; never merged) |
+| Baseline | `af2c7e5225d2d78925fd392e29a58b6bde830263` |
+| Candidate (tested product SHA) | `308247a24e6ddd455842da5cd2e21541d7eae2c1` |
+| QA execution HEAD | `308247a24e6ddd455842da5cd2e21541d7eae2c1` (identical to candidate at Q1) |
+| Contract identity | DRAFT — CLAIM STATUS; hashes as read in `evidence/identity/01/contract_hashes_as_read.txt`; no FINAL stamp (Director release 2026-11-05 superseded it); A01 grading basis pending ruling (recon R-2/R-3) |
+| Plan identity (SHA-256 of `QAM_TEST_PLAN.md` DRAFT) | see `HANDOFFS/README.md` receipt row Q1/01 |
+| Approval record | NOT RECORDED (`QAM_APPROVAL.md` §1 empty) |
+| Release reference (Director) | NOT RECORDED (§3 empty; `.env.qa.local` absent) |
+| Latest package | `HANDOFFS/APBM-003-CYBER-PHARMA_Q1_REVIEW_01.zip` |
+| Latest package SHA-256 (external receipt) | `HANDOFFS/README.md` |
+| Active stop | none |
+| Director human checks | manual app smoke DEFERRED (not waived, not PASS); CRV pending Gate D |
+| Next owner | QA Lead (JARVIS) → Director |
+| Next permitted action | QA Lead: review Q1 package; approve / amend / hold in `QAM_APPROVAL.md` §1. Director: create `.env.qa.local` (keys per recon R-4), confirm R-10/R-11, record Q2 release in §3. **Q2 is not authorized by this entry.** |
+| 2026-11-07 14:56 · Asia/Dhaka | QA Executor (Claudy) | package receipt (live entry) | — | `APBM-003-CYBER-PHARMA_Q1_REVIEW_01.zip` · 65 members · SHA-256 `845de226ce1c3e8a608fa4a0649c3c4aa11c12b1eb09513b8ba66b3ed50770a9` · plan DRAFT SHA-256 `8bc53eba9a80cb716c954c2bd83d149d22650c17e0694901b549cd96aaaff8a9` |
+| 2026-11-07 16:20 · Asia/Dhaka | QA Executor (Claudy) | `Q1 COMPLETE — AWAITING QA LEAD REVIEW` → `Q1 AMENDED — AWAITING QA LEAD BINDING` | plan `QAM_TEST_PLAN.md` after AM-1…AM-6 SHA-256 `e8c4d5ac46635c2054e2d61073197db695ecd542a6281d4e561b0a6854bce061` (pre-amendment `8bc53eba…ff8a9`); candidate unchanged `308247a24e6ddd455842da5cd2e21541d7eae2c1` | QA Lead decision APPROVED WITH EXACT AMENDMENTS (`QAM_APPROVAL.md` §1, Friday, installed by the Director). AM-1…6 applied verbatim, recorded in plan §8. Q1b Part B: `AUTOMATION/make-qa-env.mjs` (Director-run; self-test 31/31, never run against real sources), `AUTOMATION/check-qa-env.sh` (run: inherited `.env.qa.local` is ignored+untracked but holds 4 undeclared keys / 21 missing → GAP, untouched), `evidence/env/01/*`, AM-7 draft `HANDOFFS/Q1b_AM-7_DRAFT.md` (not applied). **Next:** Lead records the amended hash in §2 → `APPROVED — NOT RELEASED`; Lead rules AM-7 and the §4/§2 key-name discrepancy; Director runs the generator (with `--force`, `--cast`, and a `--dev-db-source` choice), confirms R-10 / AM-6 posture, commits §C errata (R-2, R-6), records §3. **Q2 not authorized by this entry.** |
+| 2026-11-07 16:26 · Asia/Dhaka | QA Executor (Claudy) | package receipt (live entry) | — | `APBM-003-CYBER-PHARMA_Q1b_REVIEW_01.zip` · 17 members · SHA-256 `f26f407f7d1a641f890720fbf67adb100cb90ad67ea0408396ca0cf9c9473ed9` · plan after AM-1…6 SHA-256 `e8c4d5ac46635c2054e2d61073197db695ecd542a6281d4e561b0a6854bce061` |
+| 2026-11-07 16:54 · Asia/Dhaka | QA Executor (Claudy) | `Q1 AMENDED — AWAITING QA LEAD BINDING` (AM-7 applied; same state) | plan after AM-1…AM-7 SHA-256 `194538a7a7701c4b35aa731b17197f4e6ddb577d43ce4f7ac8bbdb383a5cfea4` (supersedes `e8c4d5ac…bce061`) | AM-7a/b applied to `QAM_PREFLIGHT.md` PF-3.6/PF-4.6 (Result/Evidence refreshed), AM-7c to plan §5, recorded in plan §8. Authority: Director instruction "Apply AM-7 as approved" (2026-11-07, chat); `QAM_APPROVAL.md` not yet updated by the Lead — the Lead records this hash in §2. §4-vs-§2 key-name discrepancy still open. |
