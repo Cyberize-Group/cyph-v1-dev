@@ -32,9 +32,12 @@
 
 ## C. Errata and post-freeze rulings (append below; never edit above)
 
-| ID | Date | Original observation (file:line / evidence) | Exact corrected interpretation | Authority | Affected ACs |
-|---|---|---|---|---|---|
-| (none yet) | | | | | |
+| ID | Erratum | Authority | Date | Effect |
+|---|---|---|---|---|
+| C-01 | `E2_AMENDMENT_A01.md` (rulings A01-1…A01-7 and its exact file list) is **in force** as the grading text for AC-104, AC-302, AC-403 and AC-502, and resolves the `<<E1>>` placeholders in the spec, OAC and SFC through the QA plan's derivation artifacts (QAM_APPROVAL AM-1). The §D "DRAFT / NOT IN FORCE" label is superseded. | Director (Tony); recorded on QA Lead request (recon R-2) | 2026-11-09 | QA grades against A01; no FINAL stamp is manufactured retroactively |
+| C-02 | AC-401's "restore … rehearsal on disposable target demonstrated" clause is **accepted as a limitation, not met**: the DEV APPLY receipt records `restoreVerified: false` (synthetic application rehearsal; SCRATCH lacks four `auth.users` indexes). QA grades AC-401's other clauses and records the restore clause as ACCEPTED LIMITATION. Carried to the Phase 8 production package. | Director (Tony); recon R-6 | 2026-11-09 | AC-401 cannot PASS in full; it is not FAIL |
+
+Transcribed by Cody on Director instruction, 2026-11-09; authored by Director/QA Lead per QAM_APPROVAL.md §3.
 
 🥄
 
