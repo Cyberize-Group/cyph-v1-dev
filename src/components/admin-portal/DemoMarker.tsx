@@ -1,3 +1,5 @@
+import { isDemoMode } from "@/services/tenantScope";
+
 // The one net-new visual in the Admin Portal Demo Shell (FFM §3): a "Demo ·
 // mock data" pill built ENTIRELY from the existing `--warning` token — no new
 // brand colors. Lives in CONTENT next to a page title, NEVER in the navbar
@@ -5,7 +7,7 @@
 const DemoMarker = () => {
   return (
     <span className="inline-flex items-center border border-warning/40 bg-warning/10 px-2 py-0.5 text-[11px] font-semibold tracking-wide text-warning">
-      Demo · mock data
+      {isDemoMode() ? "Demo · mock data" : "Synthetic test data"}
     </span>
   );
 };

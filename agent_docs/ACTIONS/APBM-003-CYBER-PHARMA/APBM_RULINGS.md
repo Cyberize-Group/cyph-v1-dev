@@ -39,6 +39,17 @@
 
 Transcribed by Cody on Director instruction, 2026-11-09; authored by Director/QA Lead per QAM_APPROVAL.md §3.
 
+**C-03 (scope amendment, A01 exact list):** add `src/components/admin-portal/DemoMarker.tsx` and `src/components/admin-portal/BillingScreen.tsx` to the permitted existing-file list for the purpose of F-01 only: in real mode, remove or replace the "Demo · mock data" pill and the "Visual only — no real charge is made in this demo" footer with truthful copy (e.g. "Synthetic test data" and "Billing actions unavailable in this release"); mock mode keeps its existing copy. No other behaviour change. Optional under the same ruling, Cody's discretion: F-05 one-line guard in `OwedBookContext.selectStore` (already-allowed file) — if taken, it is declared in the manifest §8 and retested under T-33.
+
+Authority: Director (Tony). Adjudication: Friday (QA Lead), 2026-11-09. Transcribed from `QAM/HANDOFFS/Q2_ADJUDICATION_01.md` §3 on Director instruction.
+
+| ID | Erratum | Authority | Date | Effect |
+|---|---|---|---|---|
+| C-04 | AC-404 SCRATCH half ruled **N/A for Target One**: SCRATCH `ihgcsrypblqkwommrkgj` is a disposable engineering target with no tester exposure; the DEV half (`disable_signup: true`, read-only GET) PASS stands. Finding F-08 closed. Supersedes the BLOCKED label in Q2 attempt 01 and the AM-6 conditional. | Director (Tony), 2026-11-09, on QA Lead adjudication | 2026-11-09 | AC-404 grades PASS (DEV) / N/A (SCRATCH) in Q4 without a signup attempt |
+| C-05 | Director risk acceptances for Target One: (a) **F-02** residual TRUNCATE/REFERENCES/TRIGGER grants to `anon`/`authenticated` (and INSERT/TRUNCATE/REFERENCES/TRIGGER on `audit_logs`) from the BIM-001 bootstrap default ACL — not reachable through PostgREST or the app; hardening migration `0053_privilege_hardening` scheduled for the next forward-migration module; (b) **F-04** local-transcript credential exposure — rotation of SCRATCH/DEV database passwords **deferred by the Director**; exposure confined to the Director's own machine; `.env.qa.local` remains valid; (c) **F-06** cross-tab sign-out delay — pre-existing, auth path protected, recorded in the TRC §2 tester limitations. | Director (Tony), 2026-11-09 | 2026-11-09 | None of (a)(b)(c) gates Gate Q; all three appear in `QAM_CERTIFICATION.md` limitations |
+
+transcribed by Cody from Q4_RELEASE_RECORDS_2026-11-09.md
+
 🥄
 
 ## D. Proposed amendment A01 — NOT IN FORCE

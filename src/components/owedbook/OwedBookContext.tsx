@@ -39,7 +39,7 @@ export const OwedBookProvider=({children}:{children:ReactNode})=>{
  },[service,request,scopeReady]);
  const applyFilters=useCallback((f:OwedBookFilters)=>{setFilters(f);setAppliedTick(t=>t+1);},[]);
  const clearFilters=useCallback(()=>applyFilters({pbms:[]}),[applyFilters]);
- const selectStore=useCallback((id:string)=>{if(!stores.some(s=>s.id===id))return;setStoreId(id);setFilters({pbms:[]});setOptions(null);setAppliedTick(t=>t+1);},[stores]);
+ const selectStore=useCallback((id:string)=>{if(id===storeId||!stores.some(s=>s.id===id))return;setStoreId(id);setFilters({pbms:[]});setOptions(null);setAppliedTick(t=>t+1);},[stores,storeId]);
  const refresh=useCallback(()=>setRefreshTick(t=>t+1),[]);
  return <OwedBookContext.Provider value={{filters,pbmOptions:scopeReady&&options?.request===request?options.values:[],applyFilters,clearFilters,appliedTick,service,stores,storeId,selectStore,scopeLoading,scopeError,scopeReady,optionsError:options?.request===request?options.error:null,refreshTick,refresh}}>{children}</OwedBookContext.Provider>;
 };

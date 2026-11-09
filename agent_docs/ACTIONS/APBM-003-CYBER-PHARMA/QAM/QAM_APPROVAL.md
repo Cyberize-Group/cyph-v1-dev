@@ -65,5 +65,8 @@
 | Date | QA Lead decision (retest scope approved; plan §7 SHA-256) | Repaired candidate (full SHA) | Director release for Q4 | Recorded by |
 |---|---|---|---|---|
 | | NOT RECORDED | | NOT RECORDED | |
+| 2026-11-09 | **Q4 retest scope APPROVED (Friday):** T-00 re-pin on the repaired candidate; T-01 full board; T-04 allowlist re-derived with C-03 (+ `OwedBookContext.tsx` if the F-05 guard was taken); T-38 labels; T-33 admin leg OWNER3 desktop + 375, light + dark; T-36 no-mutation; T-33 OwedBook leg OWNER3 only if `OwedBookContext.tsx` changed; T-50 records. AC-404 per C-04 (no signup attempt). Carried forward from Q2/01: all Group B SCRATCH evidence and all Group C DEV evidence not named above (repair diff must touch no migration, seed, harness or service file — verified at T-00; otherwise `STOP-CONTRACT`). Credential file: existing `.env.qa.local` valid per C-05(b); `check-qa-env.sh` must PASS at Q4 entry. Plan §7 is the bound plan's §7 (plan SHA `194538a7…cfea4`, unchanged). | `<Director fills after repair commit>` | `<Director fills: "Q4 released", date>` | Friday / Tony |
+
+transcribed by Cody from Q4_RELEASE_RECORDS_2026-11-09.md
 
 🥄

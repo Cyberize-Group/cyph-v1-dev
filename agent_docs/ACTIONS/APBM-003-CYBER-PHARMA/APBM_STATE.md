@@ -129,3 +129,18 @@ Tony directs reuse of the accepted 9:13 PM narrow handoff and reports JARVIS acc
 ## 2026-11-07T07:46:07.410279+00:00 — Cody — signup-disabled verification mismatch; scoped release package ready
 
 Tony reports public signup disabled on Dev v1 and requests no waiver. Fresh read-only v2 preflight plus uncached publishable/secret-key GET settings both return disable_signup=false for yrsuwikjnbmvpznrgydb (HTTP 200/DYNAMIC, 2026-11-07 07:43:38 UTC). Record BLOCKED, not disabled evidence: EVIDENCE/apply/dev-executor-v2/DEV_SIGNUP_CHECKPOINT.json. Both SQL variables are identical working Session poolers; all independent target, bundle, accepted narrow-rehearsal, exact-three-ACL, backup/30-table preservation, starting schema, lock privilege and four-index checks pass. No waiver requested/recorded, rehearsal repeated, signup attempt, shared DEV write or Git mutation. Next Tony action: confirm the project-specific global Allow new users to sign up switch is off and saved, then request recheck. Exact scoped Git and conditional apply commands: EVIDENCE/apply/dev-executor-v2/GIT_RELEASE_COMMANDS.md; the commit does not mark DEV APPLY complete.
+
+
+## 2026-11-07T08:19:20.836650+00:00 — Cody — APPLY COMPLETE; Tony manual smoke pending
+
+Director executed DEV APPLY against yrsuwikjnbmvpznrgydb from committed input 308247a24e6ddd455842da5cd2e21541d7eae2c1. Verified final receipt `EVIDENCE/apply/DEV_V2_20261107T080333Z_1347924/dev-v2-final-1794039263719.json`: PASS at 2026-11-07T08:14:23.719Z; ledger 52; exact accepted three ACL differences; all 30 original table fingerprints preserved with additive seed, all four Auth indexes unchanged; seven synthetic users/250 claims; 19 Owner and 154 client checks. Signup disabled. Conditional live DEV ACL acceptance satisfied. No fresh APPLY/migration/seed was executed by Cody.
+
+Frontend environment matches Dev v1 but old .next held SCRATCH URLs. Rebuilt locally with explicit real mode and Dev v1 URL/keys; active browser/server artifacts contain Dev v1 and zero SCRATCH references. Standalone server running locally on 127.0.0.1:3137; unauthenticated /auth HTTP 200. Details: EVIDENCE/apply/dev-manual-smoke/SMOKE.md. Tony manual smoke PENDING; independent QA/Gate Q NOT RELEASED, pending Tony smoke and subsequent handoff. Git retained by Tony.
+
+## 2026-11-07 — E2 COMPLETE — AWAITING QA BRANCH (historical; recorded 2026-11-09 by Cody)
+
+Completion record supplied retrospectively for the engineering handoff after Tony's DEV APPLY receipt and local real-mode rebuild. It does not backdate a commit, QA release, full restore proof or staging deployment. The factual receipt is `EVIDENCE/apply/DEV_V2_20261107T080333Z_1347924/dev-v2-final-1794039263719.json`; Stage 6 claims remain in `EVIDENCE/E2/stage-6/HANDOFF.md`. Stage 8 staging deployment did not occur; Gate D remains pending. The copy gap was subsequently ruled under C-03. Director-created QA branch now exists.
+
+## 2026-11-09 — REPAIR RULED — AWAITING COMMIT
+
+Cody completed the Director-requested C-03 real/mock label repair, took the optional F-05 current-store guard, and filled the engineering manifest/handoff and tester limitations on `qa/apbm-003`. Local board: typecheck PASS; lint 0 errors/34 warnings; Jest 39 suites/196 tests PASS, none skipped. No test file changed. Repaired candidate identity remains PENDING Director commit; Q4 is not released by this entry. Friday's exact release records were transcribed with Director placeholders intact. No database, credential, server, migration or Git changes performed. Next: Tony commits reviewed files and fills the repaired candidate/release cells; Friday records writer transfer to Claudy.

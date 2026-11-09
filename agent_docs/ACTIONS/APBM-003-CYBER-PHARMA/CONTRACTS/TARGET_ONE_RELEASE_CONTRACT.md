@@ -16,10 +16,10 @@
 
 | Item | Content |
 |---|---|
-| Staging address | NOT RECORDED (Cody fills at E2 from the verified target) |
+| Staging address | pending Gate D |
 | Accounts | the cast of `SEED_AND_FIXTURE_CONTRACT.md` §2, passwords delivered through a secure channel the Director chooses (never in this file, the repo, email body or chat) |
 | Scenarios | (a) sign in as `OWNER3`, open OwedBook, confirm B1/B2/B3 are the only stores offered and each shows rows; (b) sign in as `MEMBER_B1`, confirm only B1; (c) sign in as `UNRELATED`, confirm only C1; (d) walk KPIs, four tabs, filters, sort, pager, Summary on desktop and phone, both themes; (e) open the admin read views; (f) try every write control and confirm it says it is not available in this release |
-| Known limitations (the honest list) | Calculation values are prepared fixtures, not the engine · no payment, registration, invitations, Add Store (APBM-007) · no imports, no real claims (APBM-005; D-2) · no emails, no PDFs (APBM-006) · admin write actions unavailable (R-06) · Google OAuth not available · this is staging on synthetic data; nothing here is production or patient data |
+| Known limitations (the honest list) | Calculation values are prepared fixtures, not the engine · no payment, registration, invitations, Add Store (APBM-007) · no imports, no real claims (APBM-005; D-2) · no emails, no PDFs (APBM-006) · admin write actions unavailable (R-06) · Google OAuth not available · this is staging on synthetic data; nothing here is production or patient data · cross-tab sign-out takes effect on next navigation (F-06/C-05c) · restore rehearsal not demonstrated on DEV (AC-401/C-02) · residual non-DML grants pending `0053_privilege_hardening` (F-02/C-05a) |
 | Reset / support | how a tester asks for a reseed (Director-executed through `../APPLY_CHECKPOINT.md` §5 re-run procedure) |
 | Feedback route | one consolidated register (OW14): defects against the published scope · business corrections · preferences · new scope — triaged per plan v3.0 §5 |
 
