@@ -1,0 +1,11 @@
+{
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "serverMajor": 17,
+  "tools": {
+    "pg_dump": 17,
+    "pg_restore": 17
+  },
+  "checkedAt": "2026-11-06T10:35:36.391Z",
+  "mode": "check",
+  "status": "PASS"
+}

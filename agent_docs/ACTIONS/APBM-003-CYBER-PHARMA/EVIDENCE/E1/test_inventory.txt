@@ -1,0 +1,40 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+COMMAND: ["find", "src", "-type", "f", "(", "-name", "*.test.ts", "-o", "-name", "*.test.tsx", "-o", "-name", "*.spec.ts", "-o", "-name", "*.spec.tsx", ")"]
+EXIT: 0
+src/__tests__/auth/AuthPage.test.tsx
+src/__tests__/owedbook/OwedBookScreen.test.tsx
+src/__tests__/owedbook/StatusChip.test.tsx
+src/__tests__/owedbook/OwedBookScreen.disclosure.test.tsx
+src/__tests__/owedbook/SummaryUnattributedNote.test.tsx
+src/__tests__/owedbook/KpiTiles.test.tsx
+src/__tests__/owedbook/FilterRail.test.tsx
+src/__tests__/owedbook/drawer-apply.integration.test.tsx
+src/__tests__/instrumentation.test.ts
+src/__tests__/member/ProfileForm.test.tsx
+src/__tests__/admin-portal/AddStoreButton.test.tsx
+src/__tests__/admin-portal/MyStoresScreen.test.tsx
+src/__tests__/admin-portal/MemberRow.test.tsx
+src/__tests__/admin-portal/SettingsForm.test.tsx
+src/__tests__/admin-portal/InviteMemberForm.test.tsx
+src/__tests__/services/owedbook.test.ts
+src/__tests__/services/adminDemo.test.ts
+src/__tests__/mocks/adminDemo.seed.test.ts
+src/__tests__/common/DataTable.keyboard.test.tsx
+src/__tests__/common/DataTable.render.test.tsx
+src/__tests__/common/MultiSelect.focus.test.tsx
+src/__tests__/common/EmptyState.test.tsx
+src/__tests__/common/MultiSelect.test.tsx
+src/__tests__/common/DataTable.test.tsx
+src/__tests__/proxy.test.ts
+src/__tests__/actions.test.ts
+src/__tests__/global/Navbar.invariant.test.tsx
+src/__tests__/global/Navbar.mobile.test.tsx
+src/__tests__/global/MobileNav.test.tsx
+src/__tests__/global/UserMenu.test.tsx
+src/__tests__/global/Navbar.switcher.test.tsx
+src/__tests__/get-user-role.test.ts
+src/__tests__/supabase-admin.test.ts
+src/__tests__/layout/AdminSidebar.test.tsx
+src/__tests__/layout/AuthedShell.focus.test.tsx
+src/__tests__/layout/AuthedShell.test.tsx
+

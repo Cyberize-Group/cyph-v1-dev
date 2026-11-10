@@ -1,0 +1,8 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+UTC: 2026-11-05T13:53:33.449043+00:00
+COMMAND: ["git", "rev-parse", "--verify", "5234abe^{commit}"]
+EXIT: 128
+STDOUT:
+
+STDERR:
+fatal: Needed a single revision

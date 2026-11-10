@@ -1,0 +1,25 @@
+{
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "startedAt": "2026-11-06T06:50:55.509Z",
+  "credentialMapping": {
+    "APBM_DEV_DB_URL": "APBM_DEV_DB_POOL",
+    "APBM_DEV_SUPABASE_URL": "NEXT_PUBLIC_SUPABASE_URL",
+    "APBM_DEV_PUBLISHABLE_KEY": "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+    "APBM_DEV_SECRET_KEY": "SUPABASE_SECRET_KEY"
+  },
+  "declaredEffects": "SQL catalog/ledger SELECTs in read-only transactions; API health GET; no user sessions, RPCs, business reads or database writes",
+  "sql": "PASS",
+  "catalogSHA256": "da2a46ee54a85bcc8a9e4f54eb0f14106a68d4a336e3a165170f77b17620a07b",
+  "transactionReadOnly": "on",
+  "ledgerPresence": {
+    "apbm_ledger": false,
+    "supabase_ledger": true
+  },
+  "nativeMigrationVersions": [
+    "20261012053902"
+  ],
+  "api": "PASS",
+  "apiHttpStatus": 200,
+  "connectivity": "PASS",
+  "finishedAt": "2026-11-06T06:51:11.002Z"
+}

@@ -1,0 +1,422 @@
+{
+  "checkedAt": "2026-11-06T13:02:46.106Z",
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "directorReportedRestorePoint": "2026-11-06T07:37:54Z",
+  "referenceSnapshotFinishedAt": "2026-11-06T10:46:52.259Z",
+  "status": "PASS",
+  "effects": "SQL reads only; no Auth/API calls, imports, migrations, seed or ledger writes",
+  "backup": {
+    "dev-before.dump": {
+      "sha256": "1d33881a1b49f85d20ecee6514a56f94552055efd6dc19f58942b12316dda692",
+      "matchesReceipt": true,
+      "mode": "600"
+    },
+    "source-proof.private.json": {
+      "sha256": "da66a9e80edf45999acae890f4f933dee27d356d68c4bff260d21165012c2600",
+      "matchesReceipt": true,
+      "mode": "600"
+    }
+  },
+  "target": {
+    "sqlAndApiRefMatch": true,
+    "sqlVariable": "APBM_DEV_DB_POOL (explicit in-memory mapping)"
+  },
+  "connection": {
+    "read_only": "on",
+    "isolation": "repeatable read",
+    "server_version": "17.6",
+    "observed_at": "2026-11-06T13:02:49.373Z"
+  },
+  "publicCatalog": {
+    "beforeSHA256": "da2a46ee54a85bcc8a9e4f54eb0f14106a68d4a336e3a165170f77b17620a07b",
+    "afterSHA256": "da2a46ee54a85bcc8a9e4f54eb0f14106a68d4a336e3a165170f77b17620a07b",
+    "equal": true,
+    "sections": {
+      "columns": {
+        "equal": true,
+        "beforeCount": 8,
+        "afterCount": 8,
+        "removed": [],
+        "added": []
+      },
+      "tables": {
+        "equal": true,
+        "beforeCount": 3,
+        "afterCount": 3,
+        "removed": [],
+        "added": []
+      },
+      "policies": {
+        "equal": true,
+        "beforeCount": 3,
+        "afterCount": 3,
+        "removed": [],
+        "added": []
+      },
+      "functions": {
+        "equal": true,
+        "beforeCount": 2,
+        "afterCount": 2,
+        "removed": [],
+        "added": []
+      },
+      "constraints": {
+        "equal": true,
+        "beforeCount": 5,
+        "afterCount": 5,
+        "removed": [],
+        "added": []
+      },
+      "indexes": {
+        "equal": true,
+        "beforeCount": 3,
+        "afterCount": 3,
+        "removed": [],
+        "added": []
+      },
+      "triggers": {
+        "equal": true,
+        "beforeCount": 0,
+        "afterCount": 0,
+        "removed": [],
+        "added": []
+      },
+      "defaultACLs": {
+        "equal": true,
+        "beforeCount": 6,
+        "afterCount": 6,
+        "removed": [],
+        "added": []
+      },
+      "enums": {
+        "equal": true,
+        "beforeCount": 3,
+        "afterCount": 3,
+        "removed": [],
+        "added": []
+      }
+    }
+  },
+  "tables": {
+    "auth.audit_log_entries": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.custom_oauth_providers": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.flow_state": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.identities": {
+      "beforeCount": 5,
+      "afterCount": 5,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.instances": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.mfa_amr_claims": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.mfa_challenges": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.mfa_factors": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.mfa_recovery_code_sets": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.mfa_recovery_codes": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.oauth_authorizations": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.oauth_client_states": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.oauth_clients": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.oauth_consents": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.one_time_tokens": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.refresh_tokens": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.saml_providers": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.saml_relay_states": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.schema_migrations": {
+      "beforeCount": 82,
+      "afterCount": 82,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.scim_tokens": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.scim_users": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.sessions": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.sso_domains": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.sso_providers": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.users": {
+      "beforeCount": 5,
+      "afterCount": 5,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.webauthn_challenges": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "auth.webauthn_credentials": {
+      "beforeCount": 0,
+      "afterCount": 0,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "public.profiles": {
+      "beforeCount": 5,
+      "afterCount": 5,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "public.user_roles": {
+      "beforeCount": 5,
+      "afterCount": 5,
+      "equal": true,
+      "status": "MATCH"
+    },
+    "supabase_migrations.schema_migrations": {
+      "beforeCount": 1,
+      "afterCount": 1,
+      "equal": true,
+      "status": "MATCH"
+    }
+  },
+  "preservedMetadata": {
+    "userRolesSequence": {
+      "equal": true,
+      "beforeCount": 1,
+      "afterCount": 1
+    },
+    "sequenceSettings": {
+      "equal": true,
+      "beforeCount": 1,
+      "afterCount": 1
+    },
+    "authTriggers": {
+      "equal": true,
+      "beforeCount": 1,
+      "afterCount": 1
+    },
+    "eventTriggers": {
+      "equal": true,
+      "beforeCount": 7,
+      "afterCount": 7
+    },
+    "roles": {
+      "equal": true,
+      "beforeCount": 30,
+      "afterCount": 30
+    },
+    "memberships": {
+      "equal": true,
+      "beforeCount": 21,
+      "afterCount": 21
+    },
+    "globalDefaultACLs": {
+      "equal": true,
+      "beforeCount": 0,
+      "afterCount": 0
+    }
+  },
+  "authSequences": {
+    "equal": true,
+    "beforeCount": 1,
+    "afterCount": 1,
+    "removed": [],
+    "added": []
+  },
+  "authCatalog": {
+    "columns": {
+      "equal": true,
+      "beforeCount": 271,
+      "afterCount": 271,
+      "removed": [],
+      "added": []
+    },
+    "constraints": {
+      "equal": true,
+      "beforeCount": 110,
+      "afterCount": 110,
+      "removed": [],
+      "added": []
+    },
+    "triggers": {
+      "equal": true,
+      "beforeCount": 1,
+      "afterCount": 1,
+      "removed": [],
+      "added": []
+    },
+    "relations": {
+      "equal": true,
+      "beforeCount": 28,
+      "afterCount": 28,
+      "removed": [],
+      "added": []
+    },
+    "functions": {
+      "equal": true,
+      "beforeCount": 4,
+      "afterCount": 4,
+      "removed": [],
+      "added": []
+    },
+    "policies": {
+      "equal": true,
+      "beforeCount": 0,
+      "afterCount": 0,
+      "removed": [],
+      "added": []
+    },
+    "indexes": {
+      "equal": true,
+      "beforeCount": 111,
+      "afterCount": 111,
+      "removed": [],
+      "added": []
+    }
+  },
+  "requiredFourIndexes": [
+    {
+      "indexname": "idx_users_created_at_desc",
+      "present": true,
+      "definitionMatches": true,
+      "valid": true,
+      "ready": true,
+      "live": true,
+      "nonunique": true
+    },
+    {
+      "indexname": "idx_users_email",
+      "present": true,
+      "definitionMatches": true,
+      "valid": true,
+      "ready": true,
+      "live": true,
+      "nonunique": true
+    },
+    {
+      "indexname": "idx_users_last_sign_in_at_desc",
+      "present": true,
+      "definitionMatches": true,
+      "valid": true,
+      "ready": true,
+      "live": true,
+      "nonunique": true
+    },
+    {
+      "indexname": "idx_users_name",
+      "present": true,
+      "definitionMatches": true,
+      "valid": true,
+      "ready": true,
+      "live": true,
+      "nonunique": true
+    }
+  ],
+  "apbmLedgerPresent": false,
+  "summary": {
+    "tablesChecked": 30,
+    "tablesMatched": 30,
+    "tablesDifferent": []
+  },
+  "finishedAt": "2026-11-06T13:03:08.140Z"
+}

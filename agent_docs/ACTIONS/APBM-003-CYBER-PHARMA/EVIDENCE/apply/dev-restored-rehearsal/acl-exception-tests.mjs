@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';import {readFileSync,writeFileSync}from'node:fs';import{normalize,compare,allowed}from'./acl-exception.mjs';
+const live=JSON.parse(readFileSync(new URL('../dev-target-reconciliation/catalog.json',import.meta.url))).snapshot;const ctx={target:'scratch',projectRef:'ihgcsrypblqkwommrkgj'},checks=[];const test=(name,fn)=>{fn();checks.push({name,status:'PASS'});};
+test('only the three approved managed defaults may differ',()=>{const no=normalize(live,ctx).snapshot;assert.equal(compare(live,no,ctx).status,'PASS');});
+for(const ref of['yrsuwikjnbmvpznrgydb','cwdzijswchlwfvxxrlzb'])test('reject other project '+ref,()=>assert.throws(()=>normalize(live,{target:'scratch',projectRef:ref})));
+test('reject DEV mode',()=>assert.throws(()=>normalize(live,{target:'dev',projectRef:ctx.projectRef})));
+test('reject changed ACL privileges',()=>{const s=structuredClone(live);s.defaultACLs.find(r=>r.owner==='supabase_admin').defaclacl='{=X/supabase_admin}';assert.throws(()=>normalize(s,ctx));});
+test('reject fourth managed default',()=>{const s=structuredClone(live);s.defaultACLs.push({...allowed[0],defaclobjtype:'T'});assert.throws(()=>normalize(s,ctx));});
+test('reject partial exception set',()=>{const s=structuredClone(live);s.defaultACLs=s.defaultACLs.filter(r=>!(r.owner==='supabase_admin'&&r.defaclobjtype==='f'));assert.throws(()=>normalize(s,ctx));});
+for(const group of['columns','tables','policies','functions','constraints','indexes','triggers','enums'])test('reject other catalog change: '+group,()=>{const s=structuredClone(live);s[group].push({unapproved:true});assert.throws(()=>compare(s,live,ctx));});
+test('reject postgres defaults change',()=>{const s=structuredClone(live);s.defaultACLs.find(r=>r.owner==='postgres').defaclacl='{}';assert.throws(()=>compare(s,live,ctx));});
+writeFileSync(new URL('./ACL_EXCEPTION_TEST_RESULTS.json',import.meta.url),JSON.stringify({status:'PASS',kind:'local evaluator controls only; not a restored-copy baseline proof',checks},null,2)+'\n');console.log(`${checks.length} narrow ACL evaluator controls PASS`);

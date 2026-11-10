@@ -1,0 +1,12 @@
+{
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "serverMajor": 17,
+  "tools": {
+    "pg_dump": 16,
+    "pg_restore": 16
+  },
+  "checkedAt": "2026-11-06T09:47:06.552Z",
+  "mode": "check",
+  "status": "BLOCKED",
+  "reason": "MATCHING_MAJOR_BACKUP_TOOLS_REQUIRED"
+}

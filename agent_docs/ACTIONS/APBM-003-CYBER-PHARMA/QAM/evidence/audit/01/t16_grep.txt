@@ -1,0 +1,5 @@
+grep -n audit_logs scripts/seed/*.mjs:
+scripts/seed/reset.mjs:2:// Deletes only the deterministic APBM seed slice. Never touches audit_logs or non-seed users.
+scripts/seed/run.mjs:19: const before=(await db.query('select coalesce(max(id),0)::text id from public.audit_logs')).rows[0].id;
+scripts/seed/run.mjs:30: const audit=(await db.query("select count(*)::int count,count(*) filter(where actor_role='service_role' and actor_user_id is null)::int correctly_attributed from public.audit_logs where id>$1",[before])).rows[0];if(audit.count!==285||audit.correctly_attributed!==285)throw new Error('seed audit count/attribution mismatch');
+write statements touching audit_logs in scripts/seed (insert|update|delete|truncate audit_logs): 0

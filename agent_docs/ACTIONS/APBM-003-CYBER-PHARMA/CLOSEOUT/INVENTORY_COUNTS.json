@@ -1,0 +1,22 @@
+{
+  "tracked": 1674,
+  "nonignoredUntracked": 608,
+  "retainedRecordPaths": 1024,
+  "paginationPaths": 4,
+  "certifiedProductPaths": 3,
+  "inheritedChangedOrUntrackedLeftAlone": [
+    "agent_docs/RESPONSES/response_2026-11-06_125533_post-restore-comparison.md",
+    "agent_docs/RESPONSES/response_2026-11-06_131203_clone-safety-handoff.md",
+    "agent_docs/RESPONSES/response_2026-11-06_142444_stage6-handoff.md",
+    "agent_docs/RESPONSES/response_2026-11-06_144408_dev-apply-resume.md",
+    "agent_docs/RESPONSES/response_2026-11-06_151244_application-rehearsal.md",
+    "agent_docs/RESPONSES/response_2026-11-06_155930_dev-executor-v2.md",
+    "agent_docs/RESPONSES/response_2026-11-07_080113_dev-ready-308247a.md",
+    "agent_docs/RESPONSES/response_2026-11-07_081351_existing-apply-diagnostic.md",
+    "agent_docs/RESPONSES/response_2026-11-07_081939_dev-manual-smoke.md",
+    "agent_docs/RESPONSES/response_2026-11-09_103618_apbm003-qam-q2-execution.md",
+    "agent_docs/RESPONSES/response_2026-11-09_130100_apbm003-qam-q4-retest.md",
+    "agent_docs/RESPONSES/response_20261106_123846_apbm003-clone-review.md",
+    "agent_docs/SESSIONS/session_2026-11-07.md"
+  ]
+}

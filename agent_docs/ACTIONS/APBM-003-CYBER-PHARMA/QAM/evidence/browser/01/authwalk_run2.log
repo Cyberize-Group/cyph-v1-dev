@@ -1,0 +1,15 @@
+PASS T-39 OWNER3 hard refresh on /owedbook keeps the session 
+PASS T-39 OWNER3 /admin-portal reachable and survives refresh /admin-portal
+PASS T-39 OWNER3 /profile reachable and survives refresh /profile
+PASS T-39 OWNER3 logout → /auth (via UI menu: true) /auth
+FAIL T-39 OWNER3 cross-tab: second tab bounced to /auth after logout (NavAuthRefresh / SIGNED_OUT) /owedbook
+PASS T-39 OWNER3 protected route redirects to /auth after logout 
+PASS T-39 OWNER3 re-login works 
+PASS T-39 MEMBER_B1 hard refresh on /owedbook keeps the session 
+PASS T-39 MEMBER_B1 /admin-portal redirects to /owedbook and survives refresh /owedbook
+PASS T-39 MEMBER_B1 /profile reachable and survives refresh /profile
+PASS T-39 MEMBER_B1 logout → /auth (via UI menu: true) /auth
+FAIL T-39 MEMBER_B1 cross-tab: second tab bounced to /auth after logout (NavAuthRefresh / SIGNED_OUT) /owedbook
+PASS T-39 MEMBER_B1 protected route redirects to /auth after logout 
+PASS T-39 MEMBER_B1 re-login works 
+summary authwalk: 12 PASS / 2 FAIL; unexpected backend requests 0

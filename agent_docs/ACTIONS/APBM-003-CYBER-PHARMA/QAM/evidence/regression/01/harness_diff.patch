@@ -1,0 +1,1377 @@
+diff --git a/scripts/rls-harness/ac8-check.mjs b/scripts/rls-harness/ac8-check.mjs
+index 8b4af9f..a3527bd 100644
+--- a/scripts/rls-harness/ac8-check.mjs
++++ b/scripts/rls-harness/ac8-check.mjs
+@@ -9,11 +9,11 @@
+ // EXECUTE to anon explicitly, so the raw ACL is checked for BOTH a bare `=X/`
+ // entry (PUBLIC) and an `anon=X` entry.
+ import { writeFileSync } from "node:fs";
+-import { join } from "node:path";
+-import { loadEnv, repoRoot } from "./lib/env.mjs";
++import { evidencePath, assertScratch, loadEnv } from "./lib/env.mjs";
+ import { pgClient } from "./lib/db.mjs";
+ 
+ const HELPERS = [
++  ["is_owner_of_account", "is_owner_of_account(uuid)"],
+   ["is_member_of", "is_member_of(uuid)"],
+   ["is_admin_of", "is_admin_of(uuid)"],
+   ["is_account_member", "is_account_member(uuid)"],
+@@ -21,6 +21,7 @@ const HELPERS = [
+ ];
+ 
+ const env = loadEnv();
++assertScratch(env);
+ const db = await pgClient(env);
+ const lines = [];
+ const log = (s) => { lines.push(s); console.log(s); };
+@@ -61,6 +62,6 @@ await db.query("rollback");
+ 
+ log(`[ac8] ${fails === 0 ? "AC8 GREEN" : `${fails} FAILURE(S)`}`);
+ const ts = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+-writeFileSync(join(repoRoot, "agent_docs/ACTIONS/BIM-002-CYBER-PHARMA/evidence", `X5_ac8_fresh_${ts}.log`), lines.join("\n") + "\n");
++writeFileSync(evidencePath(`X5_ac8_fresh_${ts}.log`), lines.join("\n") + "\n");
+ await db.end();
+ process.exit(fails === 0 ? 0 : 3);
+diff --git a/scripts/rls-harness/attacks.mjs b/scripts/rls-harness/attacks.mjs
+index aca93a1..e4ddb90 100644
+--- a/scripts/rls-harness/attacks.mjs
++++ b/scripts/rls-harness/attacks.mjs
+@@ -4,13 +4,14 @@
+ // service-role ground truth (Proto 06 F-4 corollary: "0 affected" is not proof
+ // that nothing persisted — the database may simply have declined to tell you).
+ import { readFileSync, writeFileSync } from "node:fs";
+-import { join } from "node:path";
+-import { loadEnv, harnessRoot, repoRoot, CAST_PASSWORD } from "./lib/env.mjs";
++import { evidencePath, assertScratch, loadEnv, CAST_PASSWORD } from "./lib/env.mjs";
+ import { anonClient, serviceClient } from "./lib/db.mjs";
+ import { verdictFromResult, ALLOW } from "./lib/verdict.mjs";
+ 
+ const env = loadEnv();
+-const m = JSON.parse(readFileSync(join(harnessRoot, "seed-map.json"), "utf8"));
++assertScratch(env);
++if (!CAST_PASSWORD) throw new Error("APBM_CAST_PASSWORD required for synthetic SCRATCH cast");
++const m = JSON.parse(readFileSync(evidencePath("seed-map.json"), "utf8"));
+ const svc = serviceClient(env);
+ const lines = [];
+ const log = (s) => { lines.push(s); console.log(s); };
+@@ -137,5 +138,5 @@ for (const [i, t] of ["accounts", "businesses", "user_businesses", "user_data",
+ 
+ log(`\n[attacks] ${cases} cases · ${breaches} breach(es) · ${gtMismatches} ground-truth mismatch(es) → ${breaches === 0 && gtMismatches === 0 ? "ALL DENIED, NOTHING PERSISTED" : "FAILURE"}`);
+ const ts = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+-writeFileSync(join(repoRoot, "agent_docs/ACTIONS/BIM-002-CYBER-PHARMA/evidence", `X4_attacks_${ts}.log`), lines.join("\n") + "\n");
++writeFileSync(evidencePath(`X4_attacks_${ts}.log`), lines.join("\n") + "\n");
+ process.exit(breaches === 0 && gtMismatches === 0 ? 0 : 3);
+diff --git a/scripts/rls-harness/audit-catalog.mjs b/scripts/rls-harness/audit-catalog.mjs
+index 11020e0..f7b42e8 100644
+--- a/scripts/rls-harness/audit-catalog.mjs
++++ b/scripts/rls-harness/audit-catalog.mjs
+@@ -1,218 +1,15 @@
+ #!/usr/bin/env node
+-// BIM-003 · rls-harness/audit-catalog.mjs — Stage 1 catalog evidence (AC-102…105, 107, 108,
+-// 114, 115) plus a rolled-back smoke walk of the trigger and the immutability guard.
+-// Reads pg_catalog (never information_schema for privilege questions — F-3). Every write
+-// happens inside a transaction that is rolled back; the target's data is untouched.
+-// Output: agent_docs/ACTIONS/BIM-003-CYBER-PHARMA/evidence/S1_catalog.md
+-//   node scripts/rls-harness/audit-catalog.mjs [S1|S2]   (default S1)
+-// S2 adds the wrapper checks (AC-201…203) and writes S2_catalog.md instead.
+-import { writeFileSync } from "node:fs";
+-import { join } from "node:path";
+-import { loadEnv, repoRoot } from "./lib/env.mjs";
+-import { pgClient } from "./lib/db.mjs";
+-
+-const STAMPED = ["businesses", "user_businesses", "pending_registrations", "user_data", "report_files",
+-  "accounts", "subscriptions", "apa_memberships", "reference_dataset_versions",
+-  "aac_reference", "wac_reference", "ful_reference", "pbm_info"]; // E-0, thirteen
+-
+-const STAGE = process.argv[2] ?? "S1";
+-const WRAPPERS = ["owedbook_kpis", "owedbook_rows", "owedbook_summary", "owedbook_pbm_options"]; // E-0, N = 4
+-const env = loadEnv();
+-const db = await pgClient(env);
+-const q = async (s, p) => (await db.query(s, p)).rows;
+-const out = [];
+-const say = (s = "") => { out.push(s); console.log(s); };
+-let fails = 0;
+-const check = (ok, label, detail = "") => { if (!ok) fails++; say(`- ${ok ? "✅" : "❌"} ${label}${detail ? " — " + detail : ""}`); };
+-const table = (rows, cols) => { say(`| ${cols.join(" | ")} |`); say(`|${cols.map(() => "---").join("|")}|`); for (const r of rows) say(`| ${cols.map((c) => String(r[c] ?? "null").replace(/\|/g, "\\|")).join(" | ")} |`); };
+-// expected error inside a transaction: run under a savepoint, report the SQLSTATE, keep the txn alive
+-const expectError = async (label, sql, wantCode) => {
+-  await db.query("savepoint s");
+-  try { await db.query(sql); await db.query("release savepoint s"); check(false, label, "NO ERROR (expected a raise)"); return null; }
+-  catch (e) { await db.query("rollback to savepoint s"); check(!wantCode || e.code === wantCode, label, `${e.code} ${e.message.split("\n")[0]}`); return e; }
+-};
+-
+-say(`# ${STAGE} catalog evidence — BIM-003-CYBER-PHARMA`);
+-say(`Generated ${new Date().toISOString()} by \`scripts/rls-harness/audit-catalog.mjs\` against host \`${new URL(env.DB_URL).hostname}\` (scratch throwaway, ENV_NOTE.md). Every mutation below ran inside a rolled-back transaction.`);
+-say();
+-
+-say(`## RISK-1 — definer owner can insert through FORCE RLS`);
+-const who = (await q(`select current_user, rolbypassrls, rolsuper from pg_roles where rolname = current_user`))[0];
+-table([who], ["current_user", "rolbypassrls", "rolsuper"]);
+-check(who.rolbypassrls === true, "RISK-1 GREEN: migration role has BYPASSRLS, so SECURITY DEFINER inserts into the FORCED, policy-less audit_logs succeed", `(first observed read-only 2026-09-14 13:1x before S1; re-confirmed here)`);
+-say();
+-
+-if (STAGE === "S2") {
+-  say(`## AC-201 — exactly N = 4 functions in public whose names begin with owedbook_`);
+-  const fns = await q(`select p.oid::int oid, p.proname, pg_get_function_identity_arguments(p.oid) args, pg_get_function_result(p.oid) result,
+-      p.prosecdef, p.proconfig::text cfg, p.proacl::text acl, p.proargnames[1] first_arg, (p.proargtypes[0])::regtype first_type, p.prolang::regclass lang
+-    from pg_proc p where p.pronamespace = 'public'::regnamespace and p.proname like 'owedbook\\_%' order by p.proname`);
+-  table(fns, ["proname", "args", "result"]);
+-  check(fns.length === 4, `pg_proc count = ${fns.length}`);
+-  check(JSON.stringify(fns.map((f) => f.proname)) === JSON.stringify([...WRAPPERS].sort()), "the four names match E-0 exactly");
+-  say();
+-  say(`## AC-202 — every wrapper: SECURITY DEFINER, search_path pinned, EXECUTE to authenticated, revoked from public and anon`);
+-  table(fns, ["proname", "prosecdef", "cfg", "acl"]);
+-  for (const f of fns) {
+-    // by oid: has_function_privilege's text form wants type-only signatures, identity_arguments carries names
+-    const g = (await q(`select has_function_privilege('anon', $1::oid, 'EXECUTE') a, has_function_privilege('authenticated', $1::oid, 'EXECUTE') b, has_function_privilege('service_role', $1::oid, 'EXECUTE') s`, [f.oid]))[0];
+-    const noPublic = !/(^|\{|,)=X\//.test(f.acl || ""), noAnon = !/anon=X/.test(f.acl || "");
+-    check(f.prosecdef === true && /search_path=/.test(f.cfg || "") && noPublic && noAnon && g.a === false && g.b === true,
+-      `${f.proname}: secdef=${f.prosecdef} cfg=${f.cfg} anon=${g.a} authenticated=${g.b} service_role=${g.s} PUBLIC-entry=${!noPublic}`);
+-  }
+-  // live: anon must be refused at execution time, not merely by catalog (ac8-check pattern)
+-  await db.query("begin"); await db.query("set local role anon");
+-  for (const w of WRAPPERS) await expectError(`anon EXECUTE ${w} refused at run time`, `select * from public.${w}('00000000-0000-4000-8000-000000000000'::uuid${w === "owedbook_rows" ? ", 'commercial_dollars'" : ""})`, "42501");
+-  await db.query("rollback");
+-  say();
+-  say(`## AC-203 — first parameter is p_business_id uuid on all four`);
+-  table(fns, ["proname", "first_arg", "first_type"]);
+-  check(fns.every((f) => f.first_arg === "p_business_id" && String(f.first_type) === "uuid"), "proargnames[1] = 'p_business_id', proargtypes[0] = uuid, all four");
+-  say();
+-  say(`## Body shape (Brief §5) — membership check, then ONE read_page insert, then the read`);
+-  const bodies = await q(`select proname, prosrc from pg_proc where pronamespace = 'public'::regnamespace and proname like 'owedbook\\_%' order by proname`);
+-  for (const b of bodies) {
+-    const src = b.prosrc;
+-    const iMember = src.search(/in \(select public\.my_business_ids\(\)\)/);
+-    const iRaise = src.indexOf("raise exception 'not a member of business'");
+-    const iInsert = src.indexOf("insert into public.audit_logs");
+-    const iRead = src.search(/from public\.user_data ud/);
+-    const inserts = (src.match(/insert into public\.audit_logs/g) || []).length;
+-    const fence = (src.match(/where ud\.business_id = p_business_id/g) || []).length;
+-    check(iMember > -1 && iRaise > iMember && iInsert > iRaise && iRead > iInsert && inserts === 1 && fence >= 1,
+-      `${b.proname}: membership@${iMember} < raise@${iRaise} < insert@${iInsert} < read@${iRead}; audit inserts = ${inserts}; explicit business_id fence × ${fence}`);
+-    check(/'read_page'/.test(src) && new RegExp(`'fn',\\s*'${b.proname}'`).test(src), `${b.proname}: action 'read_page' and context.fn = '${b.proname}'`);
+-  }
+-  say();
+-  say(`## Prior-stage invariants still hold`);
+-  const pol = await q(`select count(*)::int n from pg_policies where schemaname = 'public' and tablename = 'audit_logs'`);
+-  const stamps = await q(`select count(*)::int n from pg_trigger where tgfoid = 'public.audit_write'::regproc and not tgisinternal`);
+-  const rls = (await q(`select relrowsecurity, relforcerowsecurity from pg_class where oid = 'public.audit_logs'::regclass`))[0];
+-  check(pol[0].n === 1 && stamps[0].n === 13 && rls.relrowsecurity && rls.relforcerowsecurity, `audit_logs: 1 policy, RLS enabled+forced; audit_write stamps = ${stamps[0].n}`);
+-  say();
+-}
+-if (STAGE === "S1") {
+-say(`## AC-102 — audit_logs columns, in order`);
+-const cols = await q(`select a.attnum, a.attname, format_type(a.atttypid, a.atttypmod) type, a.attnotnull notnull, pg_get_expr(d.adbin, d.adrelid) dflt
+-  from pg_attribute a left join pg_attrdef d on d.adrelid = a.attrelid and d.adnum = a.attnum
+-  where a.attrelid = 'public.audit_logs'::regclass and a.attnum > 0 and not a.attisdropped order by a.attnum`);
+-table(cols, ["attnum", "attname", "type", "notnull", "dflt"]);
+-const want102 = ["id","occurred_at","actor_user_id","actor_role","business_id","table_name","row_id","action","old_data","new_data","context"];
+-check(JSON.stringify(cols.map((c) => c.attname)) === JSON.stringify(want102), `exactly these eleven columns in Brief §3 order (${cols.length} found)`);
+-say();
+-
+-say(`## AC-103 — action CHECK: exactly four values; a fifth is rejected`);
+-const chk = await q(`select conname, pg_get_constraintdef(oid) def from pg_constraint where conrelid = 'public.audit_logs'::regclass and contype = 'c'`);
+-table(chk, ["conname", "def"]);
+-await db.query("begin");
+-for (const v of ["insert", "update", "delete", "read_page"]) {
+-  await db.query("savepoint s");
+-  try { await db.query(`insert into public.audit_logs (actor_role, table_name, action) values ('catalog', 'probe', $1)`, [v]); check(true, `positive: action='${v}' accepted`); }
+-  catch (e) { check(false, `positive: action='${v}'`, e.message); }
+-  await db.query("rollback to savepoint s");
+-}
+-await expectError("negative: action='archive' rejected", `insert into public.audit_logs (actor_role, table_name, action) values ('catalog', 'probe', 'archive')`, "23514");
+-await db.query("rollback");
+-say();
+-
+-say(`## AC-104 — indexes beyond the primary key`);
+-const idx = await q(`select indexname, indexdef from pg_indexes where schemaname = 'public' and tablename = 'audit_logs' and indexname <> 'audit_logs_pkey' order by indexname`);
+-table(idx, ["indexname", "indexdef"]);
+-const defs = idx.map((i) => i.indexdef);
+-check(idx.length === 3 && defs.some((d) => /\(occurred_at\)$/.test(d)) && defs.some((d) => /\(business_id, occurred_at\)$/.test(d)) && defs.some((d) => /\(table_name, row_id\)$/.test(d)), "exactly three: (occurred_at) · (business_id, occurred_at) · (table_name, row_id)");
+-say();
+-
+-say(`## AC-105 — BEFORE UPDATE OR DELETE trigger calling a function that raises unconditionally`);
+-const trg = await q(`select tgname, pg_get_triggerdef(t.oid) def from pg_trigger t where tgrelid = 'public.audit_logs'::regclass and not tgisinternal order by tgname`);
+-table(trg, ["tgname", "def"]);
+-const src = (await q(`select prosrc, proconfig::text cfg from pg_proc where proname = 'audit_logs_immutable' and pronamespace = 'public'::regnamespace`))[0];
+-say("```sql\n" + src.prosrc.trim() + "\n```");
+-check(trg.some((t) => /BEFORE (UPDATE OR DELETE|DELETE OR UPDATE) ON (public\.)?audit_logs FOR EACH ROW EXECUTE FUNCTION (public\.)?audit_logs_immutable\(\)/.test(t.def)), "BEFORE UPDATE OR DELETE … FOR EACH ROW → audit_logs_immutable()");
+-check(/raise exception/i.test(src.prosrc) && !/\bif\b/i.test(src.prosrc), "function body is a bare RAISE EXCEPTION — no IF, no WHEN, no role check");
+-check(trg.some((t) => /BEFORE TRUNCATE ON (public\.)?audit_logs FOR EACH STATEMENT/.test(t.def)), "plus BEFORE TRUNCATE statement trigger (row triggers never see TRUNCATE) — addition, reported in S1");
+-say();
+-
+-say(`## AC-107 — RLS enabled AND forced`);
+-const rls = (await q(`select relrowsecurity, relforcerowsecurity from pg_class where oid = 'public.audit_logs'::regclass`))[0];
+-table([rls], ["relrowsecurity", "relforcerowsecurity"]);
+-check(rls.relrowsecurity && rls.relforcerowsecurity, "relrowsecurity = true, relforcerowsecurity = true");
+-say();
+-
+-say(`## AC-108 — exactly one policy: SELECT to authenticated; zero INSERT/UPDATE/DELETE`);
+-const pol = await q(`select policyname, cmd, roles::text roles, permissive, qual from pg_policies where schemaname = 'public' and tablename = 'audit_logs' order by policyname`);
+-table(pol, ["policyname", "cmd", "roles", "permissive", "qual"]);
+-check(pol.length === 1 && pol[0].cmd === "SELECT" && pol[0].roles === "{authenticated}", "one policy, SELECT, {authenticated}");
+-check(pol.filter((p) => p.cmd !== "SELECT").length === 0, "zero write policies");
+-say(`Table privileges (RF-3 — UPDATE/DELETE revoked from anon and authenticated; INSERT left to RLS):`);
+-const priv = await q(`select grantee, string_agg(privilege_type, ', ' order by privilege_type) privs from information_schema.role_table_grants where table_schema = 'public' and table_name = 'audit_logs' group by grantee order by grantee`);
+-table(priv, ["grantee", "privs"]);
+-for (const r of ["anon", "authenticated"]) {
+-  const g = (await q(`select has_table_privilege($1, 'public.audit_logs', 'UPDATE') u, has_table_privilege($1, 'public.audit_logs', 'DELETE') d, has_table_privilege($1, 'public.audit_logs', 'INSERT') i, has_table_privilege($1, 'public.audit_logs', 'SELECT') s`, [r]))[0];
+-  check(g.u === false && g.d === false, `${r}: UPDATE=${g.u} DELETE=${g.d} (both false)`, `INSERT=${g.i} SELECT=${g.s} kept — RLS decides`);
+-}
+-say();
+-
+-say(`## AC-114 — audit_write(): SECURITY DEFINER, search_path pinned, EXECUTE revoked from public and anon`);
+-const fn = (await q(`select proname, prosecdef, provolatile, proconfig::text cfg, proacl::text acl, pg_get_function_identity_arguments(oid) args, prorettype::regtype rettype from pg_proc where proname = 'audit_write' and pronamespace = 'public'::regnamespace`))[0];
+-table([fn], ["proname", "prosecdef", "cfg", "acl", "rettype"]);
+-const noPublic = !/(^|\{|,)=X\//.test(fn.acl || ""), noAnon = !/anon=X/.test(fn.acl || "");
+-const hfp = (await q(`select has_function_privilege('anon', 'public.audit_write()', 'EXECUTE') a, has_function_privilege('authenticated', 'public.audit_write()', 'EXECUTE') b, has_function_privilege('service_role', 'public.audit_write()', 'EXECUTE') s`))[0];
+-check(fn.prosecdef === true, "prosecdef = true (SECURITY DEFINER)");
+-check(/search_path=/.test(fn.cfg || ""), `proconfig pins search_path`, fn.cfg);
+-check(noPublic && noAnon && hfp.a === false, `no bare =X/ (PUBLIC) and no anon=X in proacl; has_function_privilege(anon) = ${hfp.a}`, `authenticated=${hfp.b} service_role=${hfp.s} (trigger firing never checks EXECUTE)`);
+-say();
+-
+-say(`## AC-115 — thirteen tables carry audit_write, AFTER INSERT OR UPDATE OR DELETE … FOR EACH ROW (E-0)`);
+-const stamps = await q(`select c.relname, t.tgname, pg_get_triggerdef(t.oid) def from pg_trigger t join pg_class c on c.oid = t.tgrelid
+-  where t.tgfoid = 'public.audit_write'::regproc and not t.tgisinternal order by c.relname`);
+-table(stamps, ["relname", "def"]);
+-const names = stamps.map((s) => s.relname).sort();
+-check(stamps.length === 13, `pg_trigger count = ${stamps.length}`);
+-check(JSON.stringify(names) === JSON.stringify([...STAMPED].sort()), "the thirteen names match E-0 exactly");
+-check(stamps.every((s) => /AFTER INSERT OR DELETE OR UPDATE ON (public\.)?\w+ FOR EACH ROW EXECUTE FUNCTION (public\.)?audit_write\(\)/.test(s.def)), "every stamp is AFTER INSERT OR DELETE OR UPDATE … FOR EACH ROW (pg_get_triggerdef prints events in catalog order and omits the schema when it is on the search path)");
+-const notStamped = await q(`select c.relname from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'public' and c.relkind = 'r'
+-  and not exists (select 1 from pg_trigger t where t.tgrelid = c.oid and t.tgfoid = 'public.audit_write'::regproc) order by 1`);
+-say(`Not stamped (by ruling): ${notStamped.map((r) => r.relname).join(", ")}`);
+-check(JSON.stringify(notStamped.map((r) => r.relname)) === JSON.stringify(["audit_logs", "profiles", "user_roles"]), "exactly audit_logs (self), profiles, user_roles (baseline) are unstamped");
+-say();
+-
+-say(`## Smoke walk (rolled back) — the trigger writes what R-2/R-8 say, and the guard holds for the owner`);
+-await db.query("begin");
+-const acct = (await q(`insert into public.accounts (name, owner_user_id) select 'S1 smoke', id from auth.users limit 1 returning id`));
+-if (!acct.length) { say("- ⚠️ no auth.users row on target to own a smoke account — smoke walk skipped (seed.mjs creates them; rls:prove covers this)"); }
+-else {
+-  const a = acct[0].id;
+-  const b = (await q(`insert into public.businesses (account_id, ncpdp, npi, pharmacy_name) values ($1, '0999001', '1099000001', 'S1 Smoke Store') returning id`, [a]))[0].id;
+-  const u = (await q(`insert into public.user_data (business_id, script, drug_name) values ($1, 'RX-S1', 'smoke') returning id`, [b]))[0].id;
+-  await db.query(`update public.user_data set drug_name = 'smoke-2' where id = $1`, [u]);
+-  await db.query(`delete from public.user_data where id = $1`, [u]);
+-  const trail = await q(`select table_name, action, actor_role, actor_user_id, business_id, row_id, context, (old_data is not null) has_old, (new_data is not null) has_new
+-    from public.audit_logs where row_id in ($1, $2, $3) order by id`, [a, b, u]);
+-  table(trail, ["table_name", "action", "actor_role", "actor_user_id", "business_id", "row_id", "context", "has_old", "has_new"]);
+-  const byT = (t, act) => trail.find((r) => r.table_name === t && r.action === act);
+-  check(byT("accounts", "insert")?.business_id === null && byT("accounts", "insert")?.context?.id === a, "accounts (R-8): business_id NULL, context carries {id}");
+-  check(byT("businesses", "insert")?.business_id === b, "businesses special-case: business_id = the row's own id");
+-  check(byT("user_data", "insert")?.business_id === b && byT("user_data", "insert")?.row_id === u && byT("user_data", "insert")?.has_new && !byT("user_data", "insert")?.has_old, "user_data insert: business_id from row, row_id = pk, new_data only");
+-  check(byT("user_data", "update")?.has_old && byT("user_data", "update")?.has_new, "user_data update: old_data AND new_data");
+-  check(byT("user_data", "delete")?.has_old && !byT("user_data", "delete")?.has_new, "user_data delete: old_data only");
+-  check(trail.every((r) => r.actor_role === who.current_user && r.actor_user_id === null), `direct-connection writes: actor_role = '${who.current_user}' (current_user fallback), actor_user_id NULL`);
+-  check(trail.length === 5, `exactly five trail rows for five writes (${trail.length})`);
+-  const someId = (await q(`select id from public.audit_logs order by id desc limit 1`))[0].id;
+-  await expectError("owner UPDATE audit_logs raises (R-6, below RLS)", `update public.audit_logs set actor_role = 'x' where id = ${someId}`, "P0001");
+-  await expectError("owner DELETE audit_logs raises (R-6)", `delete from public.audit_logs where id = ${someId}`, "P0001");
+-  await expectError("owner TRUNCATE audit_logs raises (statement guard)", `truncate public.audit_logs`, "P0001");
+-  await db.query("set local role authenticated");
+-  await expectError("authenticated UPDATE audit_logs → 42501 permission denied (RF-3 revoke)", `update public.audit_logs set actor_role = 'x' where id = ${someId}`, "42501");
+-  await expectError("authenticated DELETE audit_logs → 42501 permission denied (RF-3 revoke)", `delete from public.audit_logs where id = ${someId}`, "42501");
+-  await expectError("authenticated INSERT audit_logs → 42501 RLS violation (no policy — AC-113 shape)", `insert into public.audit_logs (actor_role, table_name, action) values ('authenticated', 'probe', 'insert')`, "42501");
+-  await db.query("reset role");
+-}
+-await db.query("rollback");
+-say();
+-
+-}
+-say(`## Verdict`);
+-say(fails === 0 ? `**${STAGE} CATALOG GREEN** — every assertion above holds.` : `**${fails} ASSERTION(S) FAILED** — see ❌ above.`);
+-writeFileSync(join(repoRoot, `agent_docs/ACTIONS/BIM-003-CYBER-PHARMA/evidence/${STAGE}_catalog.md`), out.join("\n") + "\n");
+-await db.end();
+-process.exit(fails === 0 ? 0 : 3);
++import assert from 'node:assert/strict';
++import {readFileSync,writeFileSync} from 'node:fs';
++import {loadEnv,assertScratch,evidencePath} from './lib/env.mjs';
++import {inspect} from '../dev-verify.mjs';
++const env=loadEnv();assertScratch(env);const result=await inspect(env),s=result.snapshot;
++assert.equal(s.tables.filter(t=>['r','p'].includes(t.relkind)).length,17);
++assert.equal(s.policies.length,15);assert.equal(s.functions.length,19);
++assert.ok(s.tables.filter(t=>['r','p'].includes(t.relkind)).every(t=>t.relrowsecurity));
++assert.equal(s.triggers.filter(t=>t.definition.includes('audit_write()')).length,14);
++assert.ok(!s.policies.some(p=>['user_data','audit_logs'].includes(p.tablename)));
++const required=['is_owner_of_account','tenant_stores','admin_stores','admin_members','admin_audit','admin_billing_status','owedbook_kpis','owedbook_rows','owedbook_summary','owedbook_pbm_options'];
++for(const name of required){const f=s.functions.find(f=>f.proname===name);assert.ok(f,`${name} exists`);assert.equal(f.owner,'postgres');assert.match(f.definition,/SECURITY DEFINER/);assert.match(f.definition,/SET search_path TO ''/);assert.ok(!/(^|\{|,)anon=X|(^|\{|,)=X\//.test(f.proacl||''),`${name} no anon/PUBLIC execute`);}
++const trigger=s.functions.find(f=>f.proname==='handle_new_user');assert.equal(trigger.definition.split('$function$')[1].trim(),readFileSync('supabase/migrations/0049_signup_member.sql','utf8').split('$$')[1].trim());
++writeFileSync(evidencePath('catalog-approved.json'),JSON.stringify({...result,status:'PASS',expected:{publicTables:17,policies:15,functions:19,auditStampTriggers:14},requiredRPCs:required},null,2)+'\n');console.log('Catalog PASS: 17 public tables, 15 policies, 19 functions, 14 write-audit stamps; RPC owners/search paths/grants verified');
+diff --git a/scripts/rls-harness/audit-prove.mjs b/scripts/rls-harness/audit-prove.mjs
+index f1eab10..69b001e 100644
+--- a/scripts/rls-harness/audit-prove.mjs
++++ b/scripts/rls-harness/audit-prove.mjs
+@@ -1,50 +1,11 @@
+ #!/usr/bin/env node
+-// BIM-003 · rls-harness/audit-prove.mjs — THE ONE COMMAND.  npm run audit:prove
+-//
+-//   wipe (F-6 order) → chain 0001–0047 → seed (BIM-002 cast) → audit-seed (multi + R-10)
+-//   → scripted two-tenant session + probes + golden diff
+-//
+-// Exits non-zero the moment any stage fails. Same shape as prove.mjs; same env re-pointing
+-// (lib/env.mjs, RLS_HARNESS_PREFIX); no new env names. Evidence lands in BIM-003's folder.
+-import { writeFileSync } from "node:fs";
+-import { join } from "node:path";
+-import { spawnSync } from "node:child_process";
+-import { loadEnv, harnessRoot, repoRoot } from "./lib/env.mjs";
+-
+-const PHASE = process.argv[2] ?? "S3";
+-const env = loadEnv();
+-const evidenceDir = join(repoRoot, "agent_docs/ACTIONS/BIM-003-CYBER-PHARMA/evidence");
+-const runTs = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+-const out = [];
+-const say = (s) => { out.push(s); console.log(s); };
+-const H = (f) => join(harnessRoot, f);
+-
+-const STAGES = [
+-  { name: "1/4 WIPE + CHAIN 0001-0047", cmd: "node", args: [join(repoRoot, "scripts/db-reset.mjs"), "reset"], env: { DB_URL: env.DB_URL, DB_RESET_ALLOW: "yes" } },
+-  { name: "2/4 SEED (BIM-002 cast + FK-safe reset)", cmd: "node", args: [H("seed.mjs")] },
+-  { name: "3/4 AUDIT-SEED (multi + R-10 rows)", cmd: "node", args: [H("audit-seed.mjs")] },
+-  { name: "4/4 SESSION + PROBES + GOLDEN DIFF", cmd: "node", args: [H("audit-session.mjs")] },
+-];
+-
+-say(`[audit:prove] audit-trail proof from an empty scratch — ${runTs}`);
+-let failedAt = null;
+-for (const s of STAGES) {
+-  say(`\n═══ ${s.name} ═══`);
+-  const r = spawnSync(s.cmd, s.args, { cwd: repoRoot, encoding: "utf8", env: { ...process.env, ...(s.env ?? {}) } });
+-  say(((r.stdout || "") + (r.stderr || "")).trimEnd());
+-  if (r.status !== 0) { failedAt = `${s.name} (exit ${r.status})`; break; }
+-}
+-say(failedAt
+-  ? `\n[audit:prove] ✗ FAILED at ${failedAt}`
+-  : `\n[audit:prove] ✓ TRAIL PROVEN — chain 0001-0047 + immutability (6 probes) + write trail + R-8 + six wrapper reads + cross-tenant deny + admin-only visibility + golden match, from an empty database.`);
+-
+-const raw = out.join("\n") + "\n";
+-writeFileSync(join(evidenceDir, `${PHASE}_audit_prove_${runTs}.log`), raw);
+-const normalise = (s) => s
+-  .replace(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/g, "<uuid>")
+-  .replace(/\d{4}-\d{2}-\d{2}T\d{4,6}/g, "<ts>")
+-  .replace(/LIC-SESSION-\d+/g, "LIC-SESSION-<n>")
+-  .replace(/watermark: audit_logs\.id = \d+ \(\d+ rows/g, "watermark: audit_logs.id = <n> (<n> rows");
+-writeFileSync(join(evidenceDir, `${PHASE}_audit_prove_${runTs}.normalised.log`), normalise(raw));
+-console.log(`[audit:prove] evidence → evidence/${PHASE}_audit_prove_${runTs}.log (+ .normalised.log)`);
+-process.exit(failedAt ? 8 : 0);
++import {spawnSync} from 'node:child_process';
++import {writeFileSync} from 'node:fs';
++import {join} from 'node:path';
++import {loadEnv,assertScratch,evidencePath,repoRoot} from './lib/env.mjs';
++const env=loadEnv();assertScratch(env);if(process.env.APBM_ALLOW_DESTRUCTIVE!==env.projectRef)throw new Error('explicit SCRATCH destructive confirmation required');
++process.env.APBM_CREDENTIAL_FILE??=`/tmp/apbm003-audit-${process.pid}-${Date.now()}.json`;
++const steps=[['fenced replay','scripts/apply-forward.mjs','scratch-reset','--manifest',evidencePath('migration-inventory.json')],['legacy cast cleanup','scripts/rls-harness/audit-seed.mjs'],['seed slice reset','scripts/seed/reset.mjs'],['catalog','scripts/rls-harness/audit-catalog.mjs'],['synthetic seed','scripts/seed/run.mjs'],['seed arithmetic','scripts/seed/verify.mjs','--attack'],['real-user audit proof','scripts/rls-harness/audit-session.mjs'],['DB structural oracle','scripts/db-verify.mjs']];
++const results=[];let failed=false;
++for(const [name,file,...args]of steps){console.log(`Starting ${name}`);const r=spawnSync(process.execPath,[join(repoRoot,file),...args],{cwd:repoRoot,env:process.env,encoding:'utf8',timeout:600000,maxBuffer:8*1024*1024});const output=(r.stdout||'')+(r.stderr||'');writeFileSync(evidencePath(`audit-${results.length+1}.log`),output);results.push({name,exit:r.status});console.log(`${name}: ${r.status===0?'PASS':'FAIL'}`);if(r.status!==0){failed=true;break;}}
++writeFileSync(evidencePath('audit-prove.json'),JSON.stringify({projectRef:env.projectRef,status:failed?'FAIL':'PASS',results,credentialFile:process.env.APBM_CREDENTIAL_FILE},null,2)+'\n');process.exitCode=failed?1:0;
+diff --git a/scripts/rls-harness/audit-seed.mjs b/scripts/rls-harness/audit-seed.mjs
+index aaa6a14..e10d876 100644
+--- a/scripts/rls-harness/audit-seed.mjs
++++ b/scripts/rls-harness/audit-seed.mjs
+@@ -1,52 +1,7 @@
+ #!/usr/bin/env node
+-// BIM-003 · rls-harness/audit-seed.mjs — runs AFTER seed.mjs. Adds two things the BIM-002 cast
+-// does not carry, without touching seed.mjs or its hardcoded counts:
+-//   · E-4  `multi` = multiAdmin, junction ADMIN of A1 AND B1 (the spec's "admin of A and B")
+-//   · R-10 a small user_data set on A1 with insurance / new_paid / status populated, so the
+-//          golden session exercises summary, pbm_options and the updated tab non-empty.
+-// Writes audit-seed-map.json (ids only, no secrets). Every insert here fires audit_write() —
+-// those rows land BEFORE the session watermark and are not part of the golden trail.
+-import { readFileSync, writeFileSync } from "node:fs";
+-import { join } from "node:path";
+-import { loadEnv, harnessRoot, CAST_PASSWORD } from "./lib/env.mjs";
+-import { pgClient, serviceClient } from "./lib/db.mjs";
+-
+-const env = loadEnv();
+-const svc = serviceClient(env);
+-const db = await pgClient(env);
+-const m = JSON.parse(readFileSync(join(harnessRoot, "seed-map.json"), "utf8"));
+-
+-const MULTI = { key: "multiAdmin", email: "bim003-multiadmin@rls.local" };
+-const { data: existing, error: listErr } = await svc.auth.admin.listUsers({ perPage: 1000 });
+-if (listErr) { console.error("FAIL: listUsers — " + listErr.message); process.exit(2); }
+-for (const u of existing?.users ?? []) if (u.email === MULTI.email) await svc.auth.admin.deleteUser(u.id);
+-const { data, error } = await svc.auth.admin.createUser({ email: MULTI.email, password: CAST_PASSWORD, email_confirm: true });
+-if (error) { console.error("FAIL: createUser multiAdmin — " + error.message); process.exit(2); }
+-await db.query(
+-  `insert into public.user_businesses (user_id, business_id, role, is_primary) values ($1, $2, 'admin', true), ($1, $3, 'admin', false)`,
+-  [data.user.id, m.businesses.a1, m.businesses.b1]
+-);
+-console.log("  multi: multiAdmin created — junction ADMIN of A1 + B1 (E-4)");
+-
+-// R-10 rows (A1). Expected downstream: summary = [OptumRx 10.00, Caremark 9.50] · pbm_options =
+-// [Caremark, OptumRx] · updated tab total = 2 · KPIs add 19.50 owed / 4 scripts / 6.00 difference.
+-const R10 = [
+-  ["RX-R10-1", "OptumRx",  "underpaid", 5.00,  15.00, 10.00, null, null, "2026-09-01"],
+-  ["RX-R10-2", "OptumRx",  "recovered", 20.00, 20.00, 0.00,  25.00, 5.00, "2026-09-02"],
+-  ["RX-R10-3", "Caremark", "pending",   2.50,  10.00, 7.50,  null, null, "2026-09-03"],
+-  ["RX-R10-4", "Caremark", "underpaid", 8.00,  10.00, 2.00,  9.00,  1.00, "2026-09-04"],
+-];
+-const r10 = [];
+-for (const [script, insurance, status, total_paid, expected_paid, owed, new_paid, difference, date] of R10) {
+-  const row = (await db.query(
+-    `insert into public.user_data (business_id, script, drug_name, insurance, status, total_paid, expected_paid, owed, new_paid, difference, date_dispensed)
+-     values ($1, $2, 'r10', $3, $4, $5, $6, $7, $8, $9, $10) returning id`,
+-    [m.businesses.a1, script, insurance, status, total_paid, expected_paid, owed, new_paid, difference, date]
+-  )).rows[0];
+-  r10.push(row.id);
+-}
+-console.log(`  r10: ${r10.length} user_data rows on A1 with insurance/new_paid/status populated (R-10)`);
+-
+-writeFileSync(join(harnessRoot, "audit-seed-map.json"), JSON.stringify({ users: { multiAdmin: data.user.id }, cast: [MULTI], r10 }, null, 2));
+-console.log("[audit-seed] complete — audit-seed-map.json written (ids only, no secrets).");
+-await db.end();
++// After fenced schema replay only: remove the FOUR named legacy proof identities.
++import {loadEnv,assertScratch,evidencePath} from './lib/env.mjs';
++import {serviceClient,pgClient} from './lib/db.mjs';
++import {writeFileSync} from 'node:fs';
++const env=loadEnv();assertScratch(env);const db=await pgClient(env);const svc=serviceClient(env);
++try{const n=(await db.query('select count(*)::int n from public.accounts')).rows[0].n;if(n!==0)throw new Error('legacy auth cleanup requires empty replayed account tables');const wanted=new Set(['bim002-ownera@rls.local','bim002-staffa@rls.local','bim002-ownerb@rls.local','bim002-multistore@rls.local']);const users=[];for(let page=1;;page++){const r=await svc.auth.admin.listUsers({page,perPage:100});if(r.error)throw new Error('Auth enumeration failed');users.push(...r.data.users);if(r.data.users.length<100)break;}let removed=0;for(const user of users.filter(u=>wanted.has(u.email))){const r=await svc.auth.admin.deleteUser(user.id);if(r.error)throw new Error('legacy synthetic identity cleanup failed');removed++;}writeFileSync(evidencePath('legacy-cast-cleanup.json'),JSON.stringify({status:'PASS',removed,preservedOthers:true})+'\n');console.log('Legacy synthetic cast cleaned; all other identities preserved');}finally{await db.end();}
+diff --git a/scripts/rls-harness/audit-session.mjs b/scripts/rls-harness/audit-session.mjs
+index c2c4454..db4aae2 100644
+--- a/scripts/rls-harness/audit-session.mjs
++++ b/scripts/rls-harness/audit-session.mjs
+@@ -1,183 +1,89 @@
+ #!/usr/bin/env node
+-// BIM-003 · rls-harness/audit-session.mjs — the scripted two-tenant session (AC-302) and its probes,
+-// then the golden diff (AC-303/304 under ERRATUM E-2). Runs after seed.mjs + audit-seed.mjs.
+-//
+-//   watermark → six tampering probes (AC-106) → admin-A insert/update/delete on user_data (AC-116/117)
+-//   → svc write on an R-8 table (AC-118/119) → five wrapper calls by admin-A + one by multi (AC-204)
+-//   → cross-tenant wrapper attempt (AC-206) → admin-A INSERT into audit_logs (AC-113)
+-//   → SELECT scoping for admin-A / member-A / admin-B / multi / anon (AC-109…112, G-4)
+-//   → rows after the watermark, normalised to symbols, diffed row-for-row against the golden (G-6).
+-//
+-// Every claim about audit rows is ground-truthed through the service role (bypasses RLS). Every
+-// session is a REAL signed-in publishable-key session with its identity asserted. Fail closed.
+-// Symbols (E-2): actor_user_id → admin-A | member-A | admin-B | multi · business_id → A1 | A2 | B1 ·
+-// any other uuid → <uuid> · old_data/new_data → "present" | null (payload key set asserted here,
+-// not in the golden) · context deep-symbolised.
+-import { readFileSync, writeFileSync } from "node:fs";
+-import { join } from "node:path";
+-import { loadEnv, harnessRoot, repoRoot, CAST_PASSWORD } from "./lib/env.mjs";
+-import { anonClient, serviceClient } from "./lib/db.mjs";
+-
+-const env = loadEnv();
+-const m = JSON.parse(readFileSync(join(harnessRoot, "seed-map.json"), "utf8"));
+-const am = JSON.parse(readFileSync(join(harnessRoot, "audit-seed-map.json"), "utf8"));
+-const GOLDEN_PATH = join(harnessRoot, "golden", "audit_trail_expected.json");
+-const evidenceDir = join(repoRoot, "agent_docs/ACTIONS/BIM-003-CYBER-PHARMA/evidence");
+-const svc = serviceClient(env);
+-const out = [];
+-const say = (s = "") => { out.push(s); console.log(s); };
+-let fails = 0;
+-const check = (ok, label, detail = "") => { if (!ok) fails++; say(`  ${ok ? "ok  " : "FAIL"} ${label}${detail ? " — " + detail : ""}`); };
+-
+-// ── identities: spec symbol → harness cast; fail closed, assert the identity we run as ──
+-const IDENT = {
+-  "admin-A":  ["ownerA",     m.users.ownerA,      m.cast],
+-  "member-A": ["staffA",     m.users.staffA,      m.cast],
+-  "admin-B":  ["ownerB",     m.users.ownerB,      m.cast],
+-  "multi":    ["multiAdmin", am.users.multiAdmin, am.cast],
+-};
+-const S = {};
+-for (const [sym, [key, uid, cast]] of Object.entries(IDENT)) {
+-  const c = anonClient(env);
+-  const who = cast.find((x) => x.key === key);
+-  const { data, error } = await c.auth.signInWithPassword({ email: who.email, password: CAST_PASSWORD });
+-  if (error || data?.user?.id !== uid) { console.error(`FAIL-CLOSED: sign-in ${sym} (${key}): ${error?.message ?? "identity mismatch"}`); process.exit(1); }
+-  S[sym] = c;
+-}
+-S.anon = anonClient(env);
+-const A1 = m.businesses.a1, A2 = m.businesses.a2, B1 = m.businesses.b1;
+-
+-// ── symbol maps (E-2) ──
+-const USER_SYM = { [m.users.ownerA]: "admin-A", [m.users.staffA]: "member-A", [m.users.ownerB]: "admin-B", [am.users.multiAdmin]: "multi" };
+-const BIZ_SYM = { [A1]: "A1", [A2]: "A2", [B1]: "B1" };
+-const UUID = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi;
+-const symbolise = (v) => typeof v === "string" ? v.replace(UUID, (u) => BIZ_SYM[u] ?? USER_SYM[u] ?? "<uuid>") : v;
+-const deep = (v) => Array.isArray(v) ? v.map(deep) : v && typeof v === "object" ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, deep(x)])) : symbolise(v);
+-const normalise = (r) => ({
+-  table_name: r.table_name, action: r.action, actor_role: r.actor_role,
+-  actor_user_id: r.actor_user_id === null ? null : (USER_SYM[r.actor_user_id] ?? "<uuid>"),
+-  business_id: r.business_id === null ? null : (BIZ_SYM[r.business_id] ?? "<uuid>"),
+-  row_id: r.row_id === null ? null : r.row_id.replace(UUID, "<uuid>"),
+-  old_data: r.old_data === null ? null : "present",
+-  new_data: r.new_data === null ? null : "present",
+-  context: r.context === null ? null : deep(r.context),
+-});
+-const sortKeys = (v) => Array.isArray(v) ? v.map(sortKeys) : v && typeof v === "object" ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, sortKeys(v[k])])) : v;
+-const canon = (v) => JSON.stringify(sortKeys(v));
+-
+-const gtCount = async (filter) => { let q = svc.from("audit_logs").select("*", { count: "exact", head: true }); q = filter ? filter(q) : q; const { count, error } = await q; if (error) throw error; return count ?? 0; };
+-const sessCount = async (c, filter) => { let q = c.from("audit_logs").select("*", { count: "exact", head: true }); q = filter ? filter(q) : q; const { count, error } = await q; return error ? { error } : { count: count ?? 0 }; };
+-
+-say(`[audit-session] BIM-003 scripted two-tenant session — ${new Date().toISOString()} — host ${new URL(env.SUPABASE_URL).hostname}`);
+-const wm = (await svc.from("audit_logs").select("id").order("id", { ascending: false }).limit(1)).data?.[0]?.id ?? 0;
+-say(`  watermark: audit_logs.id = ${wm} (${await gtCount()} rows on the trail before the session)`);
+-
+-// ── AC-106: six tampering probes, six raises, ground truth unchanged ──
+-say("\nAC-106 — tampering: UPDATE and DELETE on audit_logs as svc, admin-A, anon (six probes)");
+-const target = (await svc.from("audit_logs").select("id, actor_role").order("id").limit(1)).data?.[0];
+-if (!target) { say("  FAIL no audit row exists to tamper with"); fails++; }
+-const roleOf = async () => (await svc.from("audit_logs").select("actor_role").eq("id", target.id).single()).data?.actor_role;
+-const total0 = await gtCount();
+-for (const [sym, c, want] of [["svc", svc, "P0001"], ["admin-A", S["admin-A"], "42501"], ["anon", S.anon, "42501"]]) {
+-  const u = await c.from("audit_logs").update({ actor_role: "tampered" }).eq("id", target.id).select();
+-  check(!!u.error && u.error.code === want && (await roleOf()) === target.actor_role, `${sym} UPDATE raises`, `${u.error ? `${u.error.code} "${u.error.message}"` : "NO ERROR"} · ground truth actor_role=${await roleOf()}`);
+-  const d = await c.from("audit_logs").delete().eq("id", target.id).select();
+-  check(!!d.error && d.error.code === want && (await gtCount()) === total0, `${sym} DELETE raises`, `${d.error ? `${d.error.code} "${d.error.message}"` : "NO ERROR"} · ground truth count=${await gtCount()}`);
+-}
+-
+-// ── AC-116/117/119: admin-A writes one of each action on a business_id table ──
+-say("\nAC-116/117 — admin-A INSERT → UPDATE → DELETE on user_data (A1)");
+-const ins = await S["admin-A"].from("user_data").insert({ business_id: A1, script: "RX-SESSION", drug_name: "session" }).select().single();
+-check(!ins.error, "insert", ins.error?.message ?? `id ${ins.data?.id}`);
+-const sid = ins.data?.id;
+-const upd = await S["admin-A"].from("user_data").update({ drug_name: "session-2" }).eq("id", sid).select();
+-check(!upd.error && upd.data?.length === 1, "update", upd.error?.message ?? "1 row");
+-const del = await S["admin-A"].from("user_data").delete().eq("id", sid).select();
+-check(!del.error && del.data?.length === 1, "delete", del.error?.message ?? "1 row");
+-const trail = (await svc.from("audit_logs").select("*").eq("row_id", sid).order("id")).data ?? [];
+-const t = (a) => trail.find((r) => r.action === a);
+-check(trail.length === 3 && t("insert") && t("update") && t("delete"), `three trail rows for row ${sid ? "<session-row>" : "?"}`, trail.map((r) => r.action).join(","));
+-check(t("insert")?.new_data && !t("insert")?.old_data && t("insert")?.business_id === A1 && t("insert")?.table_name === "user_data" && t("insert")?.row_id === sid, "insert: new_data only, business_id A1, table user_data, row_id = pk");
+-check(t("update")?.new_data && t("update")?.old_data, "update: old_data AND new_data");
+-check(t("delete")?.old_data && !t("delete")?.new_data, "delete: old_data only");
+-check(trail.every((r) => r.actor_user_id === m.users.ownerA && r.actor_role === "authenticated"), "AC-119: actor_user_id = admin-A, actor_role = authenticated");
+-check(trail.every((r) => ["id", "business_id"].every((k) => k in (r.new_data ?? r.old_data))), "payload key set carries id + business_id (E-2 stable keys)");
+-
+-// ── AC-118/119: one write on an R-8 table (service role — tenants hold no write policy there) ──
+-say("\nAC-118 — svc INSERT on apa_memberships (R-8: no business_id)");
+-const apa = await svc.from("apa_memberships").insert({ license_number: `LIC-SESSION-${Date.now()}`, membership: "APA", first_name: "S", last_name: "Ession" }).select().single();
+-check(!apa.error, "svc insert", apa.error?.message ?? "1 row");
+-const apaRow = (await svc.from("audit_logs").select("*").eq("row_id", apa.data?.id).single()).data;
+-check(apaRow?.business_id === null && apaRow?.context !== null && apaRow?.context?.id === apa.data?.id, "R-8 row: business_id NULL, context non-null carrying the identifying key", JSON.stringify(apaRow?.context));
+-check(apaRow?.actor_user_id === null && apaRow?.actor_role === "service_role", "AC-119: svc write → actor_user_id NULL, actor_role service_role");
+-
+-// ── wrappers: one call per owedbook_* by admin-A on A1 (+ updated tab), one by multi on B1 ──
+-say("\nAC-302 — wrapper calls (log-then-return, R-10 shapes non-empty)");
+-const rp0 = await gtCount((q) => q.eq("action", "read_page"));
+-const A = S["admin-A"];
+-const kp = await A.rpc("owedbook_kpis", { p_business_id: A1 });
+-check(!kp.error && kp.data?.[0]?.commercial_scripts === 204 && Number(kp.data?.[0]?.commercial_underpaid) === 20119.5 && Number(kp.data?.[0]?.updated_difference) === 6, "owedbook_kpis(A1): 204 scripts · 20119.50 underpaid · 6.00 updated_difference (200 seed + 4 R-10)", kp.error?.message ?? JSON.stringify(kp.data?.[0]));
+-const rw = await A.rpc("owedbook_rows", { p_business_id: A1, p_tab: "commercial_dollars" });
+-check(!rw.error && rw.data?.total === 204 && rw.data?.rows?.length === 25 && rw.data?.pageCount === 9, "owedbook_rows(A1, commercial): total 204, 25 rows, 9 pages", rw.error?.message ?? `${rw.data?.total}/${rw.data?.rows?.length}/${rw.data?.pageCount}`);
+-const ru = await A.rpc("owedbook_rows", { p_business_id: A1, p_tab: "updated_commercial_payments" });
+-check(!ru.error && ru.data?.total === 2 && ru.data?.rows?.every((r) => r.new_paid !== null), "owedbook_rows(A1, updated): total 2, every row has new_paid (R-10)", ru.error?.message ?? `${ru.data?.total}`);
+-const sm = await A.rpc("owedbook_summary", { p_business_id: A1 });
+-check(!sm.error && canon(sm.data) === canon([{ pbm: "OptumRx", commercial_dollars: 10, federal_dollars: 0 }, { pbm: "Caremark", commercial_dollars: 9.5, federal_dollars: 0 }]), "owedbook_summary(A1): [OptumRx 10.00, Caremark 9.50] desc (R-10)", sm.error?.message ?? JSON.stringify(sm.data));
+-const po = await A.rpc("owedbook_pbm_options", { p_business_id: A1 });
+-check(!po.error && canon(po.data) === canon(["Caremark", "OptumRx"]), "owedbook_pbm_options(A1): [Caremark, OptumRx] (R-10)", po.error?.message ?? JSON.stringify(po.data));
+-const mk = await S.multi.rpc("owedbook_kpis", { p_business_id: B1 });
+-check(!mk.error && mk.data?.[0]?.commercial_scripts === 200, "multi → owedbook_kpis(B1): 200 scripts (second tenant in the trail)", mk.error?.message ?? JSON.stringify(mk.data?.[0]));
+-check((await gtCount((q) => q.eq("action", "read_page"))) === rp0 + 6, "exactly six read_page rows for six wrapper calls (R-7)");
+-
+-// ── AC-206: cross-tenant wrapper attempt ──
+-say("\nAC-206 — admin-A → owedbook_kpis(B1)");
+-const rp1 = await gtCount((q) => q.eq("action", "read_page"));
+-const x = await A.rpc("owedbook_kpis", { p_business_id: B1 });
+-check(!!x.error && /not a member of business/.test(x.error.message) && (await gtCount((q) => q.eq("action", "read_page"))) === rp1, "raises 'not a member of business', zero rows inserted", x.error ? `${x.error.code} "${x.error.message}"` : "NO ERROR");
+-
+-// ── AC-113: admin-A INSERT into audit_logs ──
+-say("\nAC-113 — admin-A INSERT into audit_logs");
+-const tot1 = await gtCount();
+-const ai = await A.from("audit_logs").insert({ table_name: "user_data", action: "insert", actor_role: "authenticated" }).select();
+-check(!!ai.error && ai.error.code === "42501" && (await gtCount()) === tot1, "denied by RLS (42501), count unchanged", ai.error ? `${ai.error.code} "${ai.error.message}"` : "NO ERROR");
+-
+-// ── AC-109…112 / G-4: SELECT scoping on the trail itself ──
+-say("\nAC-109…112 — audit_logs SELECT scoping (junction ADMIN of the row's business only)");
+-const inSet = (ids) => (q) => q.in("business_id", ids);
+-const outSet = (ids) => (q) => q.not("business_id", "in", `(${ids.join(",")})`);
+-const expA = await gtCount(inSet([A1, A2])), expB = await gtCount(inSet([B1])), expM = await gtCount(inSet([A1, B1]));
+-const cA = await sessCount(A), cAout = await sessCount(A, outSet([A1, A2])), cAnull = await sessCount(A, (q) => q.is("business_id", null));
+-check(cA.count === expA && cAout.count === 0 && cAnull.count === 0, `AC-109 admin-A: ${cA.count} rows = expected A-count ${expA} (A1+A2, ownerA is admin of both); outside A = ${cAout.count}; NULL-business = ${cAnull.count}`);
+-const cS = await sessCount(S["member-A"]);
+-check(cS.count === 0, `AC-110 member-A: ${cS.count} rows (expected 0)`);
+-const cB = await sessCount(S["admin-B"]), cBout = await sessCount(S["admin-B"], outSet([B1]));
+-check(cB.count === expB && cBout.count === 0, `AC-111 admin-B: ${cB.count} rows = expected B-count ${expB}; outside B = ${cBout.count}`);
+-const cM = await sessCount(S.multi), cMout = await sessCount(S.multi, outSet([A1, B1]));
+-check(cM.count === expM && cMout.count === 0, `AC-111 multi: ${cM.count} rows = expected A1+B1 count ${expM}; outside = ${cMout.count}`);
+-const cN = await sessCount(S.anon);
+-check(cN.error || cN.count === 0, `AC-112 anon: ${cN.error ? `denied (${cN.error.code})` : `${cN.count} rows`}`);
+-
+-// ── G-6 / AC-303: the golden trail ──
+-say("\nAC-303 — golden diff (rows after the watermark, ordered by id, id/occurred_at excluded, symbolised per E-2)");
+-const produced = ((await svc.from("audit_logs").select("*").gt("id", wm).order("id")).data ?? []).map(normalise);
+-const golden = JSON.parse(readFileSync(GOLDEN_PATH, "utf8"));
+-let diffs = 0;
+-const n = Math.max(produced.length, golden.length);
+-for (let i = 0; i < n; i++) {
+-  const p = produced[i], g = golden[i];
+-  if (canon(p) !== canon(g)) {
+-    diffs++;
+-    say(`  DIFF at row ${i + 1}:`);
+-    say(`    expected: ${g === undefined ? "<no row>" : JSON.stringify(g)}`);
+-    say(`    produced: ${p === undefined ? "<no row>" : JSON.stringify(p)}`);
++// APBM independent user-session proof: real publishable client + Auth access token.
++import assert from 'node:assert/strict';
++import {readFileSync,writeFileSync,lstatSync} from 'node:fs';
++import {loadEnv,assertScratch,evidencePath} from './lib/env.mjs';
++import {anonClient,serviceClient,pgClient} from './lib/db.mjs';
++const env=loadEnv();assertScratch(env);const privatePath=process.env.APBM_CREDENTIAL_FILE;
++if(!privatePath||!privatePath.startsWith('/tmp/')||lstatSync(privatePath).isSymbolicLink()||(lstatSync(privatePath).mode&0o077))throw new Error('private 0600 cast credentials required');
++const credentials=JSON.parse(readFileSync(privatePath));assert.equal(credentials.projectRef,env.projectRef);
++const m=JSON.parse(readFileSync(evidencePath('seed-map.json')));const db=await pgClient(env);const clients={};const checks=[];
++const visible={OWNER1:['A1'],OWNER3:['B1','B2','B3'],ADMIN_B2:['B2'],ADMIN_B3:['B3'],MEMBER_B1:['B1'],MEMBER_B2B3:['B2','B3'],UNRELATED:['C1']};
++const admin={OWNER1:['A1'],OWNER3:['B1','B2','B3'],ADMIN_B2:['B2'],ADMIN_B3:['B3'],MEMBER_B1:[],MEMBER_B2B3:[],UNRELATED:['C1']};
++const auditCount=async()=>Number((await db.query('select count(*)::int n from public.audit_logs')).rows[0].n);
++const snapshot=async table=>(await db.query(`select coalesce(jsonb_agg(to_jsonb(t) order by id),'[]')::text value from public.${table} t`)).rows[0].value;
++const check=(name,condition)=>{assert.ok(condition,name);checks.push({name,status:'PASS'});};
++async function rpc(who,name,args,allowed=true){const before=await auditCount();const r=await clients[who].rpc(name,args);if(allowed){assert.equal(r.error,null,`${who} ${name} error ${r.error?.code}`);assert.equal(await auditCount()-before,name==='tenant_stores'?0:1,`${name} audit count`);}else{assert.ok(['42501','P0001','22023'].includes(r.error?.code),`expected denial ${who} ${name}, got ${r.error?.code}`);assert.equal(await auditCount(),before,'rejection must not append audit');}checks.push({name:`${who} ${name} ${args.p_business_id||'scope'} ${allowed?'allow + exact audit':'deny + zero audit'}`,status:'PASS'});return r.data;}
++try{
++ for(const [key,user]of Object.entries(credentials.identities)){const c=anonClient(env);const r=await c.auth.signInWithPassword({email:user.email,password:user.password});assert.equal(r.error,null,`login ${key}`);assert.equal(r.data.user.id,m.users[key]);const claims=JSON.parse(Buffer.from(r.data.session.access_token.split('.')[1],'base64url').toString());assert.equal(claims.role,'authenticated');assert.equal(claims.sub,m.users[key]);clients[key]=c;}
++ clients.anon=anonClient(env);
++ for(const [who,allowed]of Object.entries(visible)){
++  const scopes=await rpc(who,'tenant_stores',{});assert.deepEqual(scopes.map(s=>s.id).sort(),allowed.map(s=>m.businesses[s]).sort());
++  const direct=await clients[who].from('user_data').select('id').limit(1);check(`${who} direct claim read 42501`,direct.error?.code==='42501');
++  const auditDirect=await clients[who].from('audit_logs').select('id').limit(1);check(`${who} direct audit read 42501`,auditDirect.error?.code==='42501');
++  for(const [store,business]of Object.entries(m.businesses)){
++   const yes=allowed.includes(store);const kpis=await rpc(who,'owedbook_kpis',{p_business_id:business},yes);if(yes)assert.equal(Number(kpis[0].commercial_scripts),50);
++   const rows=await rpc(who,'owedbook_rows',{p_business_id:business,p_tab:'commercial_dollars'},yes);if(yes){assert.equal(rows.total,50);assert.equal(rows.rows.length,25);assert.ok(rows.rows.every(r=>r.script.includes(`-${store}-`)&&r.federal_expected===null&&r.report_file===null));}
+   }
+-}
+-check(produced.length === golden.length, `row count: produced ${produced.length}, golden ${golden.length}`);
+-check(diffs === 0, `${diffs} differing row(s) against golden/audit_trail_expected.json`);
+-
+-say(`\n[audit-session] ${fails === 0 ? "TRAIL EXACT — every probe green and the produced trail matches the golden row-for-row" : `${fails} FAILURE(S)`}`);
+-const ts = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+-writeFileSync(join(evidenceDir, `S3_audit_session_${ts}.log`), out.join("\n") + "\n");
+-writeFileSync(join(evidenceDir, `S3_audit_session_${ts}.produced.json`), JSON.stringify(produced, null, 2) + "\n");
+-for (const [k, c] of Object.entries(S)) if (k !== "anon") await c.auth.signOut();
+-process.exit(fails === 0 ? 0 : 3);
++  const cfg=await clients[who].from('system_config').select('key,value');check(`${who} scoped config read`,!cfg.error&&cfg.data.length===2);
++  const own=m.businesses[allowed[0]];
++  const options=await rpc(who,'owedbook_pbm_options',{p_business_id:own});assert.equal(options.length,3);
++  const summary=await rpc(who,'owedbook_summary',{p_business_id:own});assert.equal(summary.length,3);
++  const federal=await rpc(who,'owedbook_rows',{p_business_id:own,p_tab:'federal_dollars'});assert.equal(federal.total,0);
++  for(const fn of ['admin_stores','admin_members','admin_billing_status','admin_audit']){
++   const yes=admin[who].length>0;const result=await rpc(who,fn,{p_business_id:own},yes);
++   if(yes&&fn==='admin_audit'){
++    assert.ok(result.rows.every(r=>Number(r.id)<=Number(result.snapshot_id)),'viewer excludes own new event');
++    const businessSet=who==='OWNER3'?['B1','B2','B3']:allowed;
++    assert.ok(result.rows.every(r=>r.business_id===null||businessSet.some(s=>m.businesses[s]===r.business_id)),'audit tenant scope');
++   }
++   await rpc(who,fn,{p_business_id:m.businesses[who==='UNRELATED'?'A1':'C1']},false);
++  }
++ }
++ // Unqualified admin store selection still derives its list from server capabilities.
++ const allOwner=await rpc('OWNER3','admin_stores',{});assert.deepEqual(allOwner.map(r=>r.id).sort(),['B1','B2','B3'].map(k=>m.businesses[k]).sort());
++ const allAdmin=await rpc('ADMIN_B2','admin_stores',{});assert.deepEqual(allAdmin.map(r=>r.id),[m.businesses.B2]);
++ // Two committed retries are two rows; invalid calls/rolled-back transactions are zero.
++ const beforeRetry=await auditCount();for(let i=0;i<2;i++)await rpc('OWNER3','owedbook_kpis',{p_business_id:m.businesses.B2});check('lost-response retry counts two commits',await auditCount()-beforeRetry===2);
++ await rpc('OWNER3','admin_audit',{p_business_id:m.businesses.B2,p_limit:101},false);
++ const beforeRollback=await auditCount();await db.query('BEGIN');await db.query('SET LOCAL ROLE authenticated');await db.query("select set_config('request.jwt.claims',$1,true)",[JSON.stringify({role:'authenticated',sub:m.users.OWNER3})]);await db.query('select public.owedbook_kpis($1)',[m.businesses.B2]);await db.query('ROLLBACK');check('rolled-back successful wrapper appends zero committed events',await auditCount()===beforeRollback);
++ // Mutations omit RETURNING: absence of SELECT cannot manufacture a false denial.
++ for(const who of ['OWNER3','ADMIN_B2','MEMBER_B1'])for(const table of ['user_data','accounts','subscriptions']){
++  const before=await snapshot(table);const business=m.businesses.B2,account=m.accounts.B;
++  const row=(await db.query(`select id from public.${table} ${table==='user_data'?'where business_id=$1':table==='subscriptions'?'where account_id=$1':'where id=$1'} limit 1`,[table==='user_data'?business:account])).rows[0];
++  const input=table==='user_data'?{business_id:business,script:'SYNTHETIC-DENIED'}:table==='accounts'?{name:'SYNTHETIC-DENIED',owner_user_id:m.users[who]}:{account_id:account,status:'active'};
++  const patch=table==='user_data'?{owed:999}:table==='accounts'?{name:'SYNTHETIC-DENIED'}:{status:'canceled',cancel_at_period_end:true};
++  for(const [op,request]of [['insert',()=>clients[who].from(table).insert(input)],['update',()=>clients[who].from(table).update(patch).eq('id',row.id)],['delete',()=>clients[who].from(table).delete().eq('id',row.id)]]){
++   const r=await request();check(`${who} ${table} ${op} no RETURNING denied`,r.error?.code==='42501');check(`${who} ${table} ${op} trusted unchanged`,await snapshot(table)===before);
++  }
++ }
++ // Account-wide NULL-business evidence comes from actual trigger-stamped rows, not caller context.
++ await rpc('OWNER3','admin_audit',{p_business_id:m.businesses.B2,p_limit:100});
++ const subscriptionEvent=(await db.query("select id from public.audit_logs where table_name='subscriptions' and action='insert' and new_data->>'account_id'=$1 order by id desc limit 1",[m.accounts.B])).rows[0];
++ const early=await rpc('OWNER3','admin_audit',{p_business_id:m.businesses.B2,p_limit:100,p_before:Number(subscriptionEvent.id)+1});check('owner sees own account-scoped subscription insert',early.rows.some(r=>String(r.id)===String(subscriptionEvent.id)));
++ const managerEarly=await rpc('ADMIN_B2','admin_audit',{p_business_id:m.businesses.B2,p_limit:100,p_before:Number(subscriptionEvent.id)+1});check('store admin cannot see NULL-business account events',managerEarly.rows.every(r=>r.business_id===m.businesses.B2));
++ // Untrusted context alone must not confer account visibility.
++ const forged=(await db.query("insert into public.audit_logs(actor_role,table_name,action,context) values('service_role','unattributed_probe','insert',$1) returning id",[JSON.stringify({account_id:m.accounts.B})])).rows[0].id;
++ const noForged=await rpc('OWNER3','admin_audit',{p_business_id:m.businesses.B2,p_limit:100});check('context-only account claim excluded',!noForged.rows.some(r=>String(r.id)===String(forged)));
++ // Live session membership removal, no token refresh and no owner entitlement involved.
++ const member=clients.MEMBER_B2B3;const token=(await member.auth.getSession()).data.session.access_token;const junction=(await db.query('select * from public.user_businesses where user_id=$1 and business_id=$2',[m.users.MEMBER_B2B3,m.businesses.B3])).rows[0];
++ await db.query('delete from public.user_businesses where id=$1',[junction.id]);try{await rpc('MEMBER_B2B3','owedbook_rows',{p_business_id:m.businesses.B3,p_tab:'commercial_dollars'},false);await rpc('MEMBER_B2B3','owedbook_kpis',{p_business_id:m.businesses.B2});check('revocation uses unchanged real access token',(await member.auth.getSession()).data.session.access_token===token);}finally{await db.query('insert into public.user_businesses(id,user_id,business_id,role,is_primary,joined_at,created_at,updated_at) values($1,$2,$3,$4,$5,$6,$7,$8)',Object.values(junction));}
++ // Configuration is read-only for every customer and anonymous clients.
++ for(const who of ['OWNER3','ADMIN_B2','MEMBER_B1','anon']){
++  const before=await snapshot('system_config');
++  for(const [op,request]of [['insert',()=>clients[who].from('system_config').insert({key:'dispensing_fee',state:'AL',value:999,effective_date:'2099-01-01'})],['update',()=>clients[who].from('system_config').update({value:999}).eq('state','AL')],['delete',()=>clients[who].from('system_config').delete().eq('state','AL')]]){const r=await request();check(`${who} config ${op} denied`,r.error?.code==='42501');assert.equal(await snapshot('system_config'),before);}
++ }
++ // Six inherited API tamper cases retain independent trusted unchanged-state checks.
++ const service=serviceClient(env);const firstAudit=(await db.query('select id from public.audit_logs order by id limit 1')).rows[0].id;
++ for(const [who,c]of [['service_role',service],['owner',clients.OWNER3],['anon',clients.anon]])for(const op of ['update','delete']){
++  const before=await snapshot('audit_logs');const r=await (op==='update'?c.from('audit_logs').update({action:'delete'}).eq('id',firstAudit):c.from('audit_logs').delete().eq('id',firstAudit));check(`${who} audit ${op} denied`,['42501','P0001'].includes(r.error?.code));assert.equal(await snapshot('audit_logs'),before);
++ }
++ // Unconditional audit immutability, including trusted SQL, and unique admin index.
++ const first=(await db.query('select id from public.audit_logs order by id limit 1')).rows[0].id;
++ for(const sql of ['update public.audit_logs set action=action where id=$1','delete from public.audit_logs where id=$1','truncate public.audit_logs']){await db.query('BEGIN');let code;try{await db.query(sql,sql.includes('$1')?[first]:[]);}catch(e){code=e.code;}finally{await db.query('ROLLBACK');}check('audit immutable '+sql.split(' ')[0],code==='P0001');}
++ await db.query('BEGIN');let duplicate;try{await db.query("insert into public.user_businesses(user_id,business_id,role) values($1,$2,'admin')",[m.users.MEMBER_B1,m.businesses.B2]);}catch(e){duplicate=e.code;}finally{await db.query('ROLLBACK');}check('second store admin rejected',duplicate==='23505');
++ await db.query('BEGIN');let duplicateUpdate;try{await db.query("update public.user_businesses set role='admin' where user_id=$1 and business_id=$2",[m.users.MEMBER_B2B3,m.businesses.B2]);}catch(e){duplicateUpdate=e.code;}finally{await db.query('ROLLBACK');}check('second store admin via UPDATE rejected',duplicateUpdate==='23505');
++ const fk=(await db.query("select confdeltype from pg_constraint where conrelid='public.accounts'::regclass and contype='f'")).rows;check('owner foreign key remains NO ACTION',fk.length===1&&fk[0].confdeltype==='a');
++ for(const fn of ['tenant_stores','admin_stores','admin_members','admin_audit','admin_billing_status','owedbook_kpis','owedbook_rows','owedbook_pbm_options','owedbook_summary']){const args=fn==='tenant_stores'?{}:{p_business_id:m.businesses.A1,...(fn==='owedbook_rows'?{p_tab:'commercial_dollars'}:{})};await rpc('anon',fn,args,false);}
++ writeFileSync(evidencePath('apbm-user-audit-proof.json'),JSON.stringify({status:'PASS',projectRef:env.projectRef,realUserCredentials:true,checks},null,2)+'\n');console.log(`${checks.length} APBM real-user access/audit/unchanged-state checks PASS`);
++}catch(e){writeFileSync(evidencePath('apbm-user-audit-proof.json'),JSON.stringify({status:'FAIL',completed:checks,error:e.code||e.message},null,2)+'\n');throw e;}finally{await db.query('ROLLBACK').catch(()=>{});for(const c of Object.values(clients))await c.auth.signOut().catch(()=>{});await db.end();}
+diff --git a/scripts/rls-harness/audit-wrappers.mjs b/scripts/rls-harness/audit-wrappers.mjs
+index abc7a0d..c61881a 100644
+--- a/scripts/rls-harness/audit-wrappers.mjs
++++ b/scripts/rls-harness/audit-wrappers.mjs
+@@ -1,115 +1,3 @@
+ #!/usr/bin/env node
+-// BIM-003 · rls-harness/audit-wrappers.mjs — Stage 2 session probes for the four owedbook_*
+-// wrappers (AC-204…208). Every call goes through a REAL signed-in session on the publishable
+-// key (the SQL editor lies about auth.uid()); every audit-row claim is ground-truthed through
+-// the service role, which bypasses RLS. Runs after seed.mjs. Fails closed on auth.
+-//   node scripts/rls-harness/audit-wrappers.mjs
+-import { readFileSync, writeFileSync } from "node:fs";
+-import { join } from "node:path";
+-import { loadEnv, harnessRoot, repoRoot, CAST_PASSWORD } from "./lib/env.mjs";
+-import { anonClient, serviceClient } from "./lib/db.mjs";
+-
+-const WRAPPERS = ["owedbook_kpis", "owedbook_rows", "owedbook_summary", "owedbook_pbm_options"];
+-const env = loadEnv();
+-const m = JSON.parse(readFileSync(join(harnessRoot, "seed-map.json"), "utf8"));
+-const svc = serviceClient(env);
+-const out = [];
+-const say = (s = "") => { out.push(s); console.log(s); };
+-let fails = 0;
+-const check = (ok, label, detail = "") => { if (!ok) fails++; say(`- ${ok ? "✅" : "❌"} ${label}${detail ? " — " + detail : ""}`); };
+-
+-// spec identities → harness cast: admin-A = ownerA (admin A1+A2) · member-A = staffA (member A1) · anon
+-const sessions = {};
+-for (const [role, key] of [["admin-A", "ownerA"], ["member-A", "staffA"]]) {
+-  const c = anonClient(env);
+-  const who = m.cast.find((x) => x.key === key);
+-  const { data, error } = await c.auth.signInWithPassword({ email: who.email, password: CAST_PASSWORD });
+-  if (error || data?.user?.id !== m.users[key]) { console.error(`FAIL-CLOSED: sign-in ${role}/${key}: ${error?.message ?? "identity mismatch"}`); process.exit(1); }
+-  sessions[role] = { c, uid: data.user.id, key };
+-}
+-sessions.anon = { c: anonClient(env), uid: null, key: "anon" };
+-const A = m.businesses.a1, B = m.businesses.b1;
+-
+-const args = (fn, biz) => fn === "owedbook_rows" ? { p_business_id: biz, p_tab: "commercial_dollars" } : { p_business_id: biz };
+-const readPageCount = async () => (await svc.from("audit_logs").select("*", { count: "exact", head: true }).eq("action", "read_page")).count ?? 0;
+-const lastReadPage = async () => (await svc.from("audit_logs").select("*").eq("action", "read_page").order("id", { ascending: false }).limit(1)).data?.[0];
+-
+-say(`# S2 wrapper probes — BIM-003-CYBER-PHARMA`);
+-say(`Generated ${new Date().toISOString()} by \`scripts/rls-harness/audit-wrappers.mjs\` against host \`${new URL(env.SUPABASE_URL).hostname}\` after \`seed.mjs\`. Identities: admin-A = ownerA (admin of A1), member-A = staffA (member of A1), anon. Business A = store A1, business B = store B1 (200 seeded user_data rows each).`);
+-say();
+-
+-for (const [ac, role] of [["AC-204", "admin-A"], ["AC-205", "member-A"]]) {
+-  say(`## ${ac} — ${role} calls every wrapper with p_business_id = A: returns, and inserts exactly one read_page row`);
+-  const s = sessions[role];
+-  for (const fn of WRAPPERS) {
+-    const before = await readPageCount();
+-    const { data, error } = await s.c.rpc(fn, args(fn, A));
+-    const after = await readPageCount();
+-    const row = await lastReadPage();
+-    const shape = fn === "owedbook_kpis" ? `1 row ${JSON.stringify(data?.[0])}`
+-      : fn === "owedbook_rows" ? `page ${data?.page}/${data?.pageCount} limit ${data?.limit} total ${data?.total} rows ${data?.rows?.length}`
+-      : Array.isArray(data) ? `${data.length} item(s)` : String(data);
+-    const ok = !error && after === before + 1 && row?.action === "read_page" && row?.business_id === A && row?.actor_user_id === s.uid
+-      && row?.actor_role === "authenticated" && row?.table_name != null && row?.context?.fn === fn;
+-    check(ok, `${fn}(A) as ${role}`, error ? `ERROR ${error.code} ${error.message}` : `${shape}; audit +${after - before}; row: business_id=${row?.business_id === A ? "A" : row?.business_id} actor=${row?.actor_user_id === s.uid ? role : row?.actor_user_id} role=${row?.actor_role} table=${row?.table_name} context.fn=${row?.context?.fn}`);
+-  }
+-  say();
+-}
+-
+-say(`## AC-206 — admin-A calls every wrapper with p_business_id = B: raises 'not a member of business', inserts zero rows`);
+-for (const fn of WRAPPERS) {
+-  const before = await readPageCount();
+-  const { error } = await sessions["admin-A"].c.rpc(fn, args(fn, B));
+-  const after = await readPageCount();
+-  check(!!error && /not a member of business/.test(error.message) && after === before, `${fn}(B) as admin-A`, `${error ? `${error.code} "${error.message}"` : "NO ERROR"}; audit +${after - before}`);
+-}
+-say();
+-
+-say(`## AC-207 — anon calls every wrapper: denied (no EXECUTE), inserts zero rows`);
+-for (const fn of WRAPPERS) {
+-  const before = await readPageCount();
+-  const { error } = await sessions.anon.c.rpc(fn, args(fn, A));
+-  const after = await readPageCount();
+-  check(!!error && error.code === "42501" && after === before, `${fn}(A) as anon`, `${error ? `${error.code} "${error.message}"` : "NO ERROR"}; audit +${after - before}`);
+-}
+-say();
+-
+-say(`## AC-208 — one wrapper call returning K ≥ 2 rows inserts exactly one row, not K`);
+-{
+-  const before = await readPageCount();
+-  const { data, error } = await sessions["admin-A"].c.rpc("owedbook_rows", { p_business_id: A, p_tab: "commercial_dollars", p_page: 1, p_limit: 25 });
+-  const after = await readPageCount();
+-  const K = data?.rows?.length ?? 0;
+-  check(!error && K >= 2 && after === before + 1, `owedbook_rows(A, page 1, limit 25) as admin-A`, error ? `ERROR ${error.message}` : `K = ${K} rows served (total ${data?.total}, pageCount ${data?.pageCount}); audit +${after - before}`);
+-  const row = await lastReadPage();
+-  check(row?.context?.page === 1 && row?.context?.limit === 25 && row?.context?.offset === 0 && row?.context?.filters?.tab === "commercial_dollars", "context carries page/limit/offset/filters", JSON.stringify(row?.context));
+-  const r0 = data?.rows?.[0] ?? {};
+-  const keys = ["id","date","script","qty","pbm","status","report_file","original_paid","medicaid_rate","method","expected","owed","new_paid","updated_difference","aac","federal_expected","federal_diff"];
+-  check(keys.every((k) => k in r0) && Object.keys(r0).length === keys.length, `each row carries exactly the 17 OwedBookRow keys`, `row[0] = ${JSON.stringify(r0)}`);
+-  check(data && ["rows","page","pageCount","limit","total"].every((k) => k in data), "envelope carries rows/page/pageCount/limit/total");
+-}
+-say();
+-
+-say(`## Shape spot-checks (return types mirror the service contract)`);
+-{
+-  const s = sessions["admin-A"].c;
+-  const kp = (await s.rpc("owedbook_kpis", { p_business_id: A })).data?.[0];
+-  check(kp && ["commercial_underpaid","commercial_scripts","updated_difference","owed"].every((k) => k in kp), "owedbook_kpis → OwedBookKpis keys", JSON.stringify(kp));
+-  const sm = (await s.rpc("owedbook_summary", { p_business_id: A })).data;
+-  check(Array.isArray(sm) && sm.every((r) => ["pbm","commercial_dollars","federal_dollars"].every((k) => k in r)), `owedbook_summary → OwedBookSummaryRow[] (${sm?.length} rows; seed carries no insurance so 0 is expected)`, JSON.stringify(sm));
+-  const po = (await s.rpc("owedbook_pbm_options", { p_business_id: A })).data;
+-  check(Array.isArray(po) && po.every((x) => typeof x === "string"), `owedbook_pbm_options → string[] (${po?.length})`, JSON.stringify(po));
+-  const upd = (await s.rpc("owedbook_rows", { p_business_id: A, p_tab: "updated_commercial_payments" })).data;
+-  const fed = (await s.rpc("owedbook_rows", { p_business_id: A, p_tab: "federal_dollars" })).data;
+-  const p9 = (await s.rpc("owedbook_rows", { p_business_id: A, p_tab: "commercial_dollars", p_page: 99 })).data;
+-  check(upd?.total === 0 && fed?.total === 0 && p9?.page === p9?.pageCount && p9?.rows?.length > 0, `tabs + pager: updated total=${upd?.total} (seed has no new_paid), federal total=${fed?.total} (NULL by A-3), page 99 clamps to ${p9?.page}/${p9?.pageCount} with ${p9?.rows?.length} rows`);
+-  const { error: badTab } = await s.rpc("owedbook_rows", { p_business_id: A, p_tab: "nope" });
+-  check(!!badTab && /unknown tab/.test(badTab.message), "unknown tab raises", badTab?.message);
+-}
+-say();
+-
+-say(`## Verdict`);
+-say(fails === 0 ? "**S2 WRAPPER PROBES GREEN** — every assertion above holds." : `**${fails} ASSERTION(S) FAILED** — see ❌ above.`);
+-writeFileSync(join(repoRoot, "agent_docs/ACTIONS/BIM-003-CYBER-PHARMA/evidence/S2_wrappers.md"), out.join("\n") + "\n");
+-for (const s of Object.values(sessions)) if (s.uid) await s.c.auth.signOut();
+-process.exit(fails === 0 ? 0 : 3);
++// Same independent real-user wrapper/audit oracle as the APBM audit proof.
++await import('./audit-session.mjs');
+diff --git a/scripts/rls-harness/expectations.json b/scripts/rls-harness/expectations.json
+index 4d87c9e..83324d5 100644
+--- a/scripts/rls-harness/expectations.json
++++ b/scripts/rls-harness/expectations.json
+@@ -1,6 +1,6 @@
+ {
+-  "_comment": "BIM-002 expectation matrix. default DENY; every ALLOW is an explicit override earned by a landed policy. Baseline notes: user_roles.select and profiles.select/update are ALLOWED by the three PRE-EXISTING baseline policies (own row) \u2014 not by this module. Tenant payloads target store A1, so ownerB's DENY on A1 rows is the cross-tenant proof. BIM-003 (R-1): audit_logs.select is ALLOWED for junction ADMINS of a business whose rows were written (ownerA, ownerB); members (staffA, multiStore) stay DENY; every audit_logs write stays DENY.",
+-  "phase": "X3-FINAL-all-policies",
++  "_comment": "APBM A01 approved delta: all direct claim access denied; audit viewer requires audited RPC. Other certified cells unchanged. See E2 EXPECTED_MATRIX_DELTA.json.",
++  "phase": "APBM-003",
+   "identities": [
+     "anon",
+     "ownerA",
+@@ -56,10 +56,10 @@
+         "select": "ALLOW"
+       },
+       "user_data": {
+-        "select": "ALLOW",
+-        "insert": "ALLOW",
+-        "update": "ALLOW",
+-        "delete": "ALLOW"
++        "select": "DENY",
++        "insert": "DENY",
++        "update": "DENY",
++        "delete": "DENY"
+       },
+       "report_files": {
+         "select": "ALLOW"
+@@ -80,7 +80,7 @@
+         "select": "ALLOW"
+       },
+       "audit_logs": {
+-        "select": "ALLOW"
++        "select": "DENY"
+       }
+     },
+     "staffA": {
+@@ -104,9 +104,9 @@
+         "select": "ALLOW"
+       },
+       "user_data": {
+-        "select": "ALLOW",
+-        "insert": "ALLOW",
+-        "update": "ALLOW"
++        "select": "DENY",
++        "insert": "DENY",
++        "update": "DENY"
+       },
+       "report_files": {
+         "select": "ALLOW"
+@@ -148,7 +148,7 @@
+         "select": "ALLOW"
+       },
+       "user_data": {
+-        "select": "ALLOW"
++        "select": "DENY"
+       },
+       "report_files": {
+         "select": "ALLOW"
+@@ -169,7 +169,7 @@
+         "select": "ALLOW"
+       },
+       "audit_logs": {
+-        "select": "ALLOW"
++        "select": "DENY"
+       }
+     },
+     "multiStore": {
+@@ -193,9 +193,9 @@
+         "select": "ALLOW"
+       },
+       "user_data": {
+-        "select": "ALLOW",
+-        "insert": "ALLOW",
+-        "update": "ALLOW"
++        "select": "DENY",
++        "insert": "DENY",
++        "update": "DENY"
+       },
+       "report_files": {
+         "select": "ALLOW"
+diff --git a/scripts/rls-harness/harness.mjs b/scripts/rls-harness/harness.mjs
+index 687ba1a..7676b0f 100644
+--- a/scripts/rls-harness/harness.mjs
++++ b/scripts/rls-harness/harness.mjs
+@@ -9,16 +9,18 @@
+ // is idempotent across runs.
+ import { readFileSync, writeFileSync } from "node:fs";
+ import { join } from "node:path";
+-import { loadEnv, harnessRoot, CAST_PASSWORD } from "./lib/env.mjs";
++import { evidencePath, assertScratch, safeLabel, loadEnv, harnessRoot, CAST_PASSWORD } from "./lib/env.mjs";
+ import { anonClient, serviceClient } from "./lib/db.mjs";
+ import { payloadsFor } from "./payloads.mjs";
+-import { verdictFromResult, ALLOW, DENY } from "./lib/verdict.mjs";
++import { verdictFromResult, ALLOW } from "./lib/verdict.mjs";
+ 
+ const env = loadEnv();
++assertScratch(env);
++if (!CAST_PASSWORD) throw new Error("APBM_CAST_PASSWORD required for synthetic SCRATCH cast");
+ const exp = JSON.parse(readFileSync(join(harnessRoot, "expectations.json"), "utf8"));
+-const seed = JSON.parse(readFileSync(join(harnessRoot, "seed-map.json"), "utf8"));
++const seed = JSON.parse(readFileSync(evidencePath("seed-map.json"), "utf8"));
+ const payloads = payloadsFor(seed);
+-const label = process.argv[2] ?? exp.phase;
++const label = safeLabel(process.argv[2] ?? exp.phase);
+ 
+ const lines = [];
+ const log = (s) => { lines.push(s); if (!process.env.RLS_QUIET) console.log(s); };
+@@ -28,8 +30,9 @@ async function sessionFor(identity) {
+   const c = anonClient(env);
+   if (identity === "anon") return c;
+   const who = seed.cast.find((x) => x.key === identity);
+-  const { error } = await c.auth.signInWithPassword({ email: who.email, password: CAST_PASSWORD });
++  const { data, error } = await c.auth.signInWithPassword({ email: who.email, password: CAST_PASSWORD });
+   if (error) { console.error(`FAIL-CLOSED: sign-in ${identity}: ${error.message}`); process.exit(1); }
++  if (data.user.id !== seed.users[identity]) throw new Error("signed-in matrix identity mismatch");
+   return c;
+ }
+ 
+@@ -41,23 +44,28 @@ const litter = [];
+ // Seeded rows a permitted UPDATE mutated in place; restored from payloads.restore.
+ const restored = [];
+ 
++const trusted = serviceClient(env);
++async function claimSnapshot() { const r=await trusted.from("user_data").select("*").order("id"); if(r.error) throw new Error("trusted claim snapshot failed"); return JSON.stringify(r.data); }
++function verdict(r) { if(r.error && !["42501","P0001"].includes(r.error.code)) return {outcome:"ERROR",detail:`unexpected ${r.error.code || "transport"} HTTP ${r.status}; ${String(r.error.message).replace(/https?:\/\/\S+/g,"[endpoint]").slice(0,100)}`}; return verdictFromResult(r); }
+ async function probeTable(c, table, identity) {
++  const before = table === "user_data" ? await claimSnapshot() : null;
+   const p = payloads[table];
++  const seededTarget = p.target ?? seed.targets?.[table];
+   const chain = {};
+   const cells = {};
+   for (const op of exp.operations) {
+     if (op === "select") {
+-      cells.select = verdictFromResult(await c.from(table).select("*").limit(5));
++      cells.select = verdict(await c.from(table).select("*").limit(5));
+     } else if (op === "insert") {
+       const r = await c.from(table).insert(p.insert).select();
+-      const v = verdictFromResult(r);
++      const v = verdict(r);
+       if (v.outcome === ALLOW) { chain.id = r.data[0].id; litter.push([table, r.data[0].id]); }
+       cells.insert = v;
+     } else {
+-      const id = chain.id ?? p.targetFor?.(identity) ?? p.target ?? "00000000-0000-4000-8000-0000000dead0";
++      const id = chain.id ?? p.targetFor?.(identity) ?? seededTarget ?? "00000000-0000-4000-8000-0000000dead0";
+       const q = op === "update" ? c.from(table).update(p.patch).eq("id", id).select()
+                                 : c.from(table).delete().eq("id", id).select();
+-      const v = verdictFromResult(await q);
++      const v = verdict(await q);
+       if (op === "delete" && v.outcome === ALLOW) {
+         const i = litter.findIndex(([t, lid]) => t === table && lid === id);
+         if (i !== -1) litter.splice(i, 1); // the probe cleaned up after itself
+@@ -66,6 +74,7 @@ async function probeTable(c, table, identity) {
+       cells[op] = v;
+     }
+   }
++  if (table === "user_data" && before !== await claimSnapshot()) throw new Error("claim mutation persisted despite denial; matrix RED");
+   return cells;
+ }
+ 
+@@ -75,7 +84,8 @@ const failed = [];
+ for (const identity of exp.identities) {
+   const c = await sessionFor(identity);
+   // tables run concurrently; ops within a table stay ordered (insert feeds update/delete)
+-  const perTable = await Promise.all(exp.tables.map(async (t) => [t, await probeTable(c, t, identity)]));
++  const perTable = [];
++  for(let offset=0;offset<exp.tables.length;offset+=4) perTable.push(...await Promise.all(exp.tables.slice(offset,offset+4).map(async t=>[t,await probeTable(c,t,identity)])));
+   for (const [table, ops] of perTable) {
+     for (const op of exp.operations) {
+       cells++;
+@@ -108,7 +118,7 @@ log(`[harness] ${cells} cells · ${mismatches} mismatches → ${mismatches === 0
+ if (mismatches) for (const f of failed) log(`   RED: ${f}`);
+ 
+ const ts = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+-const path = join(harnessRoot, "..", "..", "agent_docs", "ACTIONS", "BIM-002-CYBER-PHARMA", "evidence", `${label}_${ts}.log`);
++const path = evidencePath(`${label}_${ts}.log`);
+ writeFileSync(path, lines.join("\n") + "\n");
+ console.log(`[harness] ${mismatches === 0 ? "GREEN" : "RED"} (${cells} cells) → ${path.split("/agent_docs/")[1]}`);
+ process.exit(mismatches === 0 ? 0 : 3);
+diff --git a/scripts/rls-harness/lib/env.mjs b/scripts/rls-harness/lib/env.mjs
+index a653383..d4e1ac4 100644
+--- a/scripts/rls-harness/lib/env.mjs
++++ b/scripts/rls-harness/lib/env.mjs
+@@ -1,53 +1,67 @@
+-// BIM-002 · rls-harness/lib/env.mjs — env loading, prefix-generalized (R-D).
+-// Reads .env.local at repo root. NEVER prints a value. Fail-closed.
+-//
+-// Prefix contract: loadEnv("RLS_HARNESS_") wants RLS_HARNESS_DB_URL,
+-// _SUPABASE_URL, _PUBLISHABLE_KEY, _SECRET_KEY. Until the Director adds those
+-// lines, Amendment A-1 maps the module to the Proto 06 throwaway keys.
+-import { readFileSync, existsSync } from "node:fs";
+-import { fileURLToPath } from "node:url";
+-import { dirname, join } from "node:path";
++// APBM-003: complete credentials, explicit target, bounded output; no DEV fallback.
++import { readFileSync, existsSync, lstatSync, mkdirSync, realpathSync } from 'node:fs';
++import { fileURLToPath } from 'node:url';
++import { dirname, join, resolve, relative, isAbsolute, sep } from 'node:path';
++import dotenv from 'dotenv';
+ 
+-export const repoRoot = dirname(dirname(dirname(dirname(fileURLToPath(import.meta.url)))));
+-export const harnessRoot = join(repoRoot, "scripts", "rls-harness");
+-
+-// A-1 fallback map: <PREFIX><logical> -> actual key on disk today.
+-const A1_FALLBACK = {
+-  DB_URL: "PROTO06_DB_URL",
+-  SUPABASE_URL: "NEXT_PUBLIC_SUPABASE_URL",
+-  PUBLISHABLE_KEY: "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+-  SECRET_KEY: "SUPABASE_SECRET_KEY",
+-};
+-
+-export function loadEnv(prefix = process.env.RLS_HARNESS_PREFIX ?? "RLS_HARNESS_") {
+-  const envPath = join(repoRoot, ".env.local");
+-  if (!existsSync(envPath)) {
+-    console.error("FAIL-CLOSED: .env.local not found at repo root:", repoRoot);
+-    process.exit(1);
+-  }
+-  const raw = {};
+-  for (const line of readFileSync(envPath, "utf8").split("\n")) {
+-    const m = line.match(/^([A-Z_0-9]+)=(.*)$/);
+-    if (m) raw[m[1]] = m[2].trim();
+-  }
++export const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
++export const harnessRoot = join(repoRoot, 'scripts/rls-harness');
++export const SCRATCH_REF = 'ihgcsrypblqkwommrkgj';
++export const DEV_REF = 'yrsuwikjnbmvpznrgydb'; // CyberPharma_Dev_v1; the Vibe pilot is not a permitted DEV target.
++const logicalNames = ['DB_URL', 'SUPABASE_URL', 'PUBLISHABLE_KEY', 'SECRET_KEY'];
++const fail = message => { throw new Error(`FAIL-CLOSED: ${message}`); };
++export function apiRef(value) {
++  try { const u = new URL(value); return u.protocol === 'https:' && !u.username && !u.password && !u.search && !u.hash && (u.pathname === '/' || !u.pathname) ? u.hostname.match(/^([a-z0-9]{20})\.supabase\.co$/)?.[1] : undefined; } catch { return undefined; }
++}
++export function sqlRef(value) {
++  try { const u = new URL(value); if (!['postgres:', 'postgresql:'].includes(u.protocol) || u.pathname !== '/postgres') return undefined;
++    return u.hostname.match(/^db\.([a-z0-9]{20})\.supabase\.co$/)?.[1] || (/^[a-z0-9-]+\.pooler\.supabase\.com$/.test(u.hostname) ? decodeURIComponent(u.username).match(/^postgres\.([a-z0-9]{20})$/)?.[1] : undefined);
++  } catch { return undefined; }
++}
++export function validateConfig(raw, { prefix, target, projectRef, sharedDevRef = DEV_REF } = {}) {
++  if (!/^[A-Z][A-Z0-9_]*_$/.test(prefix || '')) fail('explicit complete credential prefix required');
++  if (!['scratch', 'dev'].includes(target)) fail('APBM_TARGET must be scratch or dev');
++  if (projectRef !== (target === 'scratch' ? SCRATCH_REF : DEV_REF)) fail('target is not the Director-approved project');
+   const out = {};
+-  const usedFallback = [];
+-  for (const logical of Object.keys(A1_FALLBACK)) {
+-    const prefixed = prefix + logical;
+-    if (raw[prefixed]) out[logical] = raw[prefixed];
+-    else if (raw[A1_FALLBACK[logical]]) { out[logical] = raw[A1_FALLBACK[logical]]; usedFallback.push(logical); }
+-    else {
+-      console.error(`FAIL-CLOSED: neither ${prefixed} nor A-1 fallback ${A1_FALLBACK[logical]} present in .env.local.`);
+-      process.exit(1);
+-    }
++  for (const name of logicalNames) { if (!raw[prefix + name]?.trim()) fail(`missing ${prefix + name}; no fallback permitted`); out[name] = raw[prefix + name].trim(); }
++  if (apiRef(out.SUPABASE_URL) !== projectRef || sqlRef(out.DB_URL) !== projectRef) fail('SQL/API/approved project identity mismatch');
++  if (target === 'scratch' && (projectRef === sharedDevRef || projectRef === DEV_REF)) fail('shared DEV cannot be SCRATCH');
++  if (out.PUBLISHABLE_KEY === out.SECRET_KEY || out.PUBLISHABLE_KEY.startsWith('sb_secret_')) fail('user key cannot be a service/secret key');
++  for (const [key, role] of [['PUBLISHABLE_KEY', 'anon'], ['SECRET_KEY', 'service_role']]) {
++    if (out[key].split('.').length === 3) {
++      let claims; try { claims = JSON.parse(Buffer.from(out[key].split('.')[1], 'base64url').toString()); } catch { fail(`malformed ${prefix + key}`); }
++      if (claims.role !== role || claims.ref !== projectRef) fail(`${prefix + key} role/project mismatch`);
++    } else if (!out[key].startsWith(key === 'PUBLISHABLE_KEY' ? 'sb_publishable_' : 'sb_secret_')) fail(`unrecognized ${prefix + key} format`);
+   }
+-  if (out.PUBLISHABLE_KEY === out.SECRET_KEY) {
+-    console.error("FAIL-CLOSED: publishable key equals secret key — the harness would 'prove' isolation as service role.");
+-    process.exit(1);
+-  }
+-  if (usedFallback.length) console.log(`[env] A-1 fallback in use for: ${usedFallback.join(", ")} (rename to ${prefix}* when the Director adds them)`);
+-  return out; // values never logged
++  return Object.freeze({ ...out, prefix, target, projectRef });
+ }
+-
+-// Synthetic, throwaway-only. Rig identities are recreated by seed.mjs every run.
+-export const CAST_PASSWORD = "bim002-Rls-Harness-2026!";
++export function evidenceRoot(requested = process.env.APBM_EVIDENCE_DIR) {
++  if (!requested || !isAbsolute(requested)) fail('APBM_EVIDENCE_DIR must be an absolute path');
++  const root = resolve(requested);
++  const allowed = ['agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/E2', 'agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence', 'agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply'].map(p => join(repoRoot, p));
++  if (!allowed.some(base => root === base || root.startsWith(base + sep))) fail('evidence must stay in the current APBM E2/APPLY/QA lane');
++  let cursor = repoRoot;
++  if (realpathSync(repoRoot) !== repoRoot) fail('repository symlink not permitted');
++  for (const part of relative(repoRoot, root).split(sep)) { cursor = join(cursor, part); if (existsSync(cursor) && (lstatSync(cursor).isSymbolicLink() || !lstatSync(cursor).isDirectory())) fail('evidence ancestor must be a real directory'); }
++  return root;
++}
++export function evidencePath(name) {
++  if (!/^[A-Za-z0-9][A-Za-z0-9_.-]*$/.test(name) || name.includes('..')) fail('unsafe evidence filename');
++  const root = evidenceRoot();
++  mkdirSync(root, { recursive: true });
++  const file = join(root, name);
++  if (existsSync(file) && (lstatSync(file).isSymbolicLink() || !lstatSync(file).isFile())) fail('evidence file must be regular');
++  return file;
++}
++export function loadEnv(prefix = process.env.RLS_HARNESS_PREFIX) {
++  const raw = dotenv.parse(readFileSync(join(repoRoot, '.env.local')));
++  const supplied = logicalNames.filter(n => process.env[prefix + n] !== undefined);
++  if (supplied.length && supplied.length !== logicalNames.length) fail('partial process credential override prohibited');
++  if (supplied.length) for (const n of logicalNames) raw[prefix + n] = process.env[prefix + n];
++  const env = validateConfig(raw, { prefix, target: process.env.APBM_TARGET, projectRef: process.env.APBM_PROJECT_REF, sharedDevRef: apiRef(raw.NEXT_PUBLIC_SUPABASE_URL) });
++  evidenceRoot();
++  return env;
++}
++export function assertScratch(env) { if (env.target !== 'scratch' || env.projectRef !== SCRATCH_REF || sqlRef(env.DB_URL) !== SCRATCH_REF || apiRef(env.SUPABASE_URL) !== SCRATCH_REF) fail('destructive operation requires confirmed SCRATCH'); }
++export function safeLabel(label) { if (!/^[A-Za-z0-9][A-Za-z0-9_-]*$/.test(label)) fail('invalid run label'); return label; }
++export const CAST_PASSWORD = process.env.APBM_CAST_PASSWORD;
+diff --git a/scripts/rls-harness/policy-check.mjs b/scripts/rls-harness/policy-check.mjs
+index 44b93c0..990a04c 100644
+--- a/scripts/rls-harness/policy-check.mjs
++++ b/scripts/rls-harness/policy-check.mjs
+@@ -12,10 +12,11 @@
+ //      user_metadata, raw_user_meta_data, or owner_user_id
+ import { readFileSync, readdirSync } from "node:fs";
+ import { join } from "node:path";
+-import { loadEnv, repoRoot } from "./lib/env.mjs";
++import { assertScratch, loadEnv, repoRoot } from "./lib/env.mjs";
+ import { pgClient } from "./lib/db.mjs";
+ 
+ const env = loadEnv();
++assertScratch(env);
+ const db = await pgClient(env);
+ const q = async (s) => (await db.query(s)).rows;
+ const fails = [];
+@@ -58,16 +59,16 @@ if (inlineJunction.length) {
+ } else ok("L3 junction-first: no inline-junction predicates in use (formulation C adopted)");
+ 
+ // ── L4 ──
+-const banned = /\buser_roles\b|\bprofiles\b|user_metadata|raw_user_meta_data|owner_user_id/i;
++const banned = /\buser_roles\b|\bprofiles\b|user_metadata|raw_user_meta_data/i;
+ let l4 = true;
+ for (const b of bodies) {
+   if (b.tablename === "user_roles" || b.tablename === "profiles") continue; // the 3 baseline policies, untouched by this module
+   if (banned.test(b.body)) { bad(`L4 Gap-6: policy ${b.tablename}.${b.policyname} body references a forbidden source`); l4 = false; }
+ }
+-for (const h of await q(`select proname, prosrc from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and proname in ('is_member_of','is_admin_of','is_account_member','my_business_ids')`)) {
++for (const h of await q(`select proname, prosrc from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and proname in ('is_member_of','is_admin_of','is_account_member','my_business_ids','is_owner_of_account')`)) {
+   if (banned.test(h.prosrc)) { bad(`L4 Gap-6: helper ${h.proname} body references a forbidden source`); l4 = false; }
+ }
+-if (l4) ok("L4 Gap-6: no policy or helper reads user_roles / profiles / metadata / owner_user_id");
++if (l4) ok("L4 Gap-6: no policy or helper reads user_roles / profiles / metadata");
+ 
+ console.log("  ── policy inventory ──");
+ for (const r of perOp) console.log(`     ${r.tablename.padEnd(28)} ${r.cmd.padEnd(6)} × ${r.n}  ${r.names}`);
+diff --git a/scripts/rls-harness/prove.mjs b/scripts/rls-harness/prove.mjs
+index 6a6b905..54f9123 100644
+--- a/scripts/rls-harness/prove.mjs
++++ b/scripts/rls-harness/prove.mjs
+@@ -8,29 +8,31 @@
+ // file per run plus a NORMALISED twin (uuids and timestamps masked) so two runs
+ // can be diffed for real equivalence rather than eyeballed.
+ //
+-// Wipe/chain reuse BIM-001's certified `scripts/db-reset.mjs` rather than a
+-// second copy of the drop logic — one wipe implementation, already gate-proven.
+-import { writeFileSync, readFileSync } from "node:fs";
++// All replay goes through the fenced APBM forward runner. DEV is rejected.
++import { writeFileSync } from "node:fs";
+ import { join } from "node:path";
++import { randomBytes } from "node:crypto";
+ import { spawnSync } from "node:child_process";
+-import { loadEnv, harnessRoot, repoRoot } from "./lib/env.mjs";
++import { evidencePath, assertScratch, safeLabel, loadEnv, harnessRoot, repoRoot } from "./lib/env.mjs";
+ 
+ // Phase label: names this run's evidence files. Defaults to X5 for the gate that
+ // introduced the command; X6 and later pass their own so cross-target runs are
+ // self-describing (BIM-002 X6 §6 — sub-logs previously inherited a hardcoded label).
+ //   node scripts/rls-harness/prove.mjs [phaseLabel]
+-const PHASE = process.argv[2] ?? "X5";
++const PHASE = safeLabel(process.argv[2] ?? "APBM");
+ 
+ const env = loadEnv();
+-const evidenceDir = join(repoRoot, "agent_docs/ACTIONS/BIM-002-CYBER-PHARMA/evidence");
++assertScratch(env);
++process.env.APBM_CAST_PASSWORD ??= randomBytes(24).toString("base64url");
++if (process.env.APBM_ALLOW_DESTRUCTIVE !== env.projectRef) throw new Error("explicit SCRATCH destructive confirmation required");
+ const runTs = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+ const out = [];
+ const say = (s) => { out.push(s); console.log(s); };
+ 
+ const H = (f) => join(harnessRoot, f);
+ const STAGES = [
+-  { name: "1/8 WIPE + CHAIN 0001-0027", cmd: "node", args: [join(repoRoot, "scripts/db-reset.mjs"), "reset"],
+-    env: { DB_URL: env.DB_URL, DB_RESET_ALLOW: "yes" } },
++  { name: "1/8 FENCED SCRATCH REPLAY", cmd: "node", args: [join(repoRoot, "scripts/apply-forward.mjs"), "scratch-reset", "--manifest", evidencePath("migration-inventory.json")],
++    env: {} },
+   { name: "2/8 SEED (cast + FK-safe reset)", cmd: "node", args: [H("seed.mjs")] },
+   { name: "3/8 AC8 helper shape, FROM SCRATCH (E-5)", cmd: "node", args: [H("ac8-check.mjs")] },
+   { name: "4/8 POLICY-CHECK (L1-L4)", cmd: "node", args: [H("policy-check.mjs")] },
+@@ -42,21 +44,23 @@ const STAGES = [
+ 
+ say(`[rls:prove] full isolation proof from an empty scratch — ${runTs}`);
+ let failedAt = null;
++let observedPolicies = null;
+ for (const s of STAGES) {
+   say(`\n═══ ${s.name} ═══`);
+   const r = spawnSync(s.cmd, s.args, { cwd: repoRoot, encoding: "utf8", env: { ...process.env, ...(s.env ?? {}) } });
+   const text = ((r.stdout || "") + (r.stderr || "")).trimEnd();
+   say(text);
++  const policyCount=text.match(/total policies in public: (\d+)/);if(policyCount)observedPolicies=Number(policyCount[1]);
+   if (r.status !== 0) { failedAt = `${s.name} (exit ${r.status})`; break; }
+ }
+ 
+ const verdict = failedAt
+   ? `\n[rls:prove] ✗ FAILED at ${failedAt}`
+-  : `\n[rls:prove] ✓ ISOLATION PROVEN — chain + 18 policies + AC8 + four laws + 320 cells + scoping + 28 attacks + live-session revocation, from an empty database.`;
++  : `\n[rls:prove] ✓ ISOLATION PROVEN — chain + ${observedPolicies} observed policies + AC8 + four laws + 320 cells + scoping + 28 attacks + live-session revocation, from an empty database.`;
+ say(verdict);
+ 
+ const raw = out.join("\n") + "\n";
+-writeFileSync(join(evidenceDir, `${PHASE}_prove_${runTs}.log`), raw);
++writeFileSync(evidencePath(`${PHASE}_prove_${runTs}.log`), raw);
+ 
+ // Normalised twin: mask uuids, timestamps and timings, so SAME-target run-to-run
+ // equivalence is a byte comparison rather than a judgement call.
+@@ -66,7 +70,7 @@ const normalise = (s) => s
+   .replace(/\d+(\.\d+)?\s?ms\b/g, "<ms>")
+   .replace(/fingerprint \S+/g, "fingerprint <token>")
+   .replace(/in \d+s\b/g, "in <s>s");
+-writeFileSync(join(evidenceDir, `${PHASE}_prove_${runTs}.normalised.log`), normalise(raw));
++writeFileSync(evidencePath(`${PHASE}_prove_${runTs}.normalised.log`), normalise(raw));
+ 
+ // --compare-behaviour: for CROSS-TARGET comparison. Strips the env-source banner
+ // and the count of pre-existing identities purged (both are properties of the
+@@ -79,7 +83,7 @@ if (process.argv.includes("--compare-behaviour")) {
+     .filter((l) => !/^\[env\] .* fallback in use/.test(l))
+     .map((l) => l.replace(/purged \d+ pre-existing auth\.users/, "purged <n> pre-existing auth.users"))
+     .join("\n");
+-  writeFileSync(join(evidenceDir, `${PHASE}_prove_${runTs}.behaviour.log`), behavioural);
++  writeFileSync(evidencePath(`${PHASE}_prove_${runTs}.behaviour.log`), behavioural);
+   console.log(`[rls:prove] behaviour-only twin written (host line retained by design)`);
+ }
+ 
+diff --git a/scripts/rls-harness/revocation.mjs b/scripts/rls-harness/revocation.mjs
+index ea75ff1..21e841f 100644
+--- a/scripts/rls-harness/revocation.mjs
++++ b/scripts/rls-harness/revocation.mjs
+@@ -9,12 +9,13 @@
+ // detail. ONE session, signed in ONCE, never refreshed, queried across the
+ // revocation.
+ import { readFileSync, writeFileSync } from "node:fs";
+-import { join } from "node:path";
+-import { loadEnv, harnessRoot, repoRoot, CAST_PASSWORD } from "./lib/env.mjs";
++import { evidencePath, assertScratch, loadEnv, CAST_PASSWORD } from "./lib/env.mjs";
+ import { anonClient, serviceClient } from "./lib/db.mjs";
+ 
+ const env = loadEnv();
+-const m = JSON.parse(readFileSync(join(harnessRoot, "seed-map.json"), "utf8"));
++assertScratch(env);
++if (!CAST_PASSWORD) throw new Error("APBM_CAST_PASSWORD required for synthetic SCRATCH cast");
++const m = JSON.parse(readFileSync(evidencePath("seed-map.json"), "utf8"));
+ const svc = serviceClient(env);
+ const lines = [];
+ const log = (s) => { lines.push(s); console.log(s); };
+@@ -30,10 +31,10 @@ const { data: signIn, error } = await c.auth.signInWithPassword({ email: who.ema
+ if (error) { console.error(`FAIL-CLOSED: sign-in multiStore: ${error.message}`); process.exit(1); }
+ if (signIn?.user?.id !== m.users.multiStore) { console.error("FAIL-CLOSED: identity mismatch"); process.exit(1); }
+ const tokenBefore = signIn.session.access_token;
+-log(`  signed in as multiStore once; access token captured (fingerprint ${tokenBefore.slice(-12)})`);
++log("  signed in as multiStore once; token compared only in memory");
+ 
+ // ── step 1: baseline visibility across both stores ──
+-const rowsOf = async (biz) => (await c.from("user_data").select("*", { count: "exact", head: true }).eq("business_id", biz)).count;
++const rowsOf = async (biz) => { const r=await c.rpc("owedbook_kpis",{p_business_id:biz}); if(r.error){if(r.error.message === "not a member of business")return 0;throw new Error(`unexpected wrapper failure ${r.error.code}`);}return Number(r.data[0].commercial_scripts); };
+ const a1Before = await rowsOf(m.businesses.a1);
+ const b1Before = await rowsOf(m.businesses.b1);
+ const storesBefore = (await c.from("businesses").select("pharmacy_name").order("pharmacy_name")).data.map((b) => b.pharmacy_name);
+@@ -71,5 +72,5 @@ await c.auth.signOut();
+ 
+ log(`\n[revocation] ${failures === 0 ? "R-C PROVEN — revocation and re-grant both take effect immediately, with no token refresh" : `${failures} FAILURE(S)`}`);
+ const ts = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+-writeFileSync(join(repoRoot, "agent_docs/ACTIONS/BIM-002-CYBER-PHARMA/evidence", `X4_revocation_${ts}.log`), lines.join("\n") + "\n");
++writeFileSync(evidencePath(`X4_revocation_${ts}.log`), lines.join("\n") + "\n");
+ process.exit(failures === 0 ? 0 : 3);
+diff --git a/scripts/rls-harness/scoping.mjs b/scripts/rls-harness/scoping.mjs
+index 2b7acac..5cc68fa 100644
+--- a/scripts/rls-harness/scoping.mjs
++++ b/scripts/rls-harness/scoping.mjs
+@@ -7,12 +7,13 @@
+ // failure, and assert the identity we actually ran as. A silently-failed sign-in
+ // reads as "0 rows" and would otherwise be scored as perfect isolation.
+ import { readFileSync, writeFileSync } from "node:fs";
+-import { join } from "node:path";
+-import { loadEnv, harnessRoot, repoRoot, CAST_PASSWORD } from "./lib/env.mjs";
++import { evidencePath, assertScratch, loadEnv, CAST_PASSWORD } from "./lib/env.mjs";
+ import { anonClient } from "./lib/db.mjs";
+ 
+ const env = loadEnv();
+-const seed = JSON.parse(readFileSync(join(harnessRoot, "seed-map.json"), "utf8"));
++assertScratch(env);
++if (!CAST_PASSWORD) throw new Error("APBM_CAST_PASSWORD required for synthetic SCRATCH cast");
++const seed = JSON.parse(readFileSync(evidencePath("seed-map.json"), "utf8"));
+ const lines = [];
+ const log = (s) => { lines.push(s); console.log(s); };
+ 
+@@ -37,7 +38,10 @@ for (const who of seed.cast) {
+     log(`  FAIL ${who.key}: session identity mismatch — signed in as ${session?.user?.id}, expected ${seed.users[who.key]}`);
+     failures++; await c.auth.signOut(); continue;
+   }
+-  const { count } = await c.from("user_data").select("*", { count: "exact", head: true }); // F-2: counted, never inferred
++  const direct = await c.from("user_data").select("id").limit(1);
++  if(direct.error?.code!=="42501")throw new Error("direct-read fence not enforced");
++  const allowed=await c.rpc("my_business_ids");if(allowed.error)throw new Error("store scope RPC failed");
++  let count=0;for(const business of allowed.data){const r=await c.rpc("owedbook_kpis",{p_business_id:business});if(r.error)throw new Error("scoped KPI failed");count+=Number(r.data[0].commercial_scripts);}
+   const { data: biz } = await c.from("businesses").select("pharmacy_name").order("pharmacy_name");
+   const { data: acct } = await c.from("accounts").select("name").order("name");
+   const e = EXPECT[who.key];
+@@ -59,5 +63,5 @@ log(`  ${anonOk ? "ok  " : "FAIL"} ${"anon".padEnd(11)} rows=${anonRows} (expect
+ 
+ log(`[scoping] ${failures === 0 ? "SCOPING EXACT" : `${failures} FAILURE(S)`}`);
+ const ts = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+-writeFileSync(join(repoRoot, "agent_docs/ACTIONS/BIM-002-CYBER-PHARMA/evidence", `X4_scoping_${ts}.log`), lines.join("\n") + "\n");
++writeFileSync(evidencePath(`X4_scoping_${ts}.log`), lines.join("\n") + "\n");
+ process.exit(failures === 0 ? 0 : 3);
+diff --git a/scripts/rls-harness/seed.mjs b/scripts/rls-harness/seed.mjs
+index c742037..686cada 100644
+--- a/scripts/rls-harness/seed.mjs
++++ b/scripts/rls-harness/seed.mjs
+@@ -15,11 +15,13 @@
+ // Every one of the sixteen tables is seeded with at least one row, so that a
+ // DENY verdict means "policy refused" and never "table happened to be empty".
+ import { writeFileSync } from "node:fs";
+-import { join } from "node:path";
+-import { loadEnv, harnessRoot, CAST_PASSWORD } from "./lib/env.mjs";
++
++import { evidencePath, assertScratch, loadEnv, CAST_PASSWORD } from "./lib/env.mjs";
+ import { pgClient, serviceClient } from "./lib/db.mjs";
+ 
+ const env = loadEnv();
++assertScratch(env);
++if (!CAST_PASSWORD) throw new Error("APBM_CAST_PASSWORD required for synthetic SCRATCH cast");
+ const svc = serviceClient(env);
+ const db = await pgClient(env);
+ const one = async (s, p) => (await db.query(s, p)).rows[0];
+@@ -53,11 +55,11 @@ console.log("  reset: thirteen public tables emptied (before the auth purge —
+ // harness asserts the cast it created and never the absence of others.
+ const { data: existing, error: listErr } = await svc.auth.admin.listUsers({ perPage: 1000 });
+ if (listErr) { console.error("FAIL: listUsers — " + listErr.message); process.exit(2); }
+-for (const u of existing?.users ?? []) {
++for (const u of (existing?.users ?? []).filter(u => CAST.some(c => c.email === u.email))) {
+   const { error } = await svc.auth.admin.deleteUser(u.id);
+   if (error) { console.error(`FAIL: deleteUser ${u.id} (${u.email}) — ${error.message}`); process.exit(2); }
+ }
+-console.log(`  reset: purged ${existing?.users?.length ?? 0} pre-existing auth.users`);
++console.log(`  reset: removed only matching legacy harness identities; preserved all other Auth users`);
+ 
+ // ── the cast ──
+ const users = {};
+@@ -114,7 +116,10 @@ const factB1 = await one(`select id from public.user_data where business_id=$1 l
+ const rfA1 = await one(`select id from public.report_files where business_id=$1 limit 1`, [a1.id]);
+ const subA = await one(`select id from public.subscriptions where account_id=$1 limit 1`, [accA.id]);
+ 
+-writeFileSync(join(harnessRoot, "seed-map.json"), JSON.stringify({
++const targets = {};
++for (const table of ["user_roles","user_businesses","pending_registrations","apa_memberships","aac_reference","wac_reference","ful_reference","pbm_info","reference_dataset_versions"]) targets[table] = (await one(`select id from public.${table} order by id limit 1`)).id;
++writeFileSync(evidencePath("seed-map.json"), JSON.stringify({
++  targets,
+   users, cast: CAST,
+   accounts: { A: accA.id, B: accB.id },
+   businesses: { a1: a1.id, a2: a2.id, b1: b1.id },

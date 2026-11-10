@@ -1,0 +1,157 @@
+{
+  "mode": "mocks",
+  "file": "/tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/fa30ae5a-f519-405b-b673-4ca4f9937817/scratchpad/baseline_mocks.ts",
+  "rows": 150,
+  "failures": 150,
+  "failing": [
+    {
+      "script": "837796-08",
+      "failures": [
+        "rule1/2 expected 22.34 ≠ round(qty×rate,2)+10.64 = 13.45",
+        "rule5 method NADAC"
+      ]
+    },
+    {
+      "script": "731067-03",
+      "failures": [
+        "rule1/2 expected 7.2 ≠ round(qty×rate,2)+10.64 = 12.53",
+        "rule5 method MAC"
+      ]
+    },
+    {
+      "script": "747783-02",
+      "failures": [
+        "rule1/2 expected 4716.19 ≠ round(qty×rate,2)+10.64 = 4237.53",
+        "rule5 method NADAC"
+      ]
+    },
+    {
+      "script": "758289-02",
+      "failures": [
+        "rule1/2 expected 7.2 ≠ round(qty×rate,2)+10.64 = 12.04"
+      ]
+    },
+    {
+      "script": "850792-03",
+      "failures": [
+        "rule1/2 expected 10.8 ≠ round(qty×rate,2)+10.64 = 12.49",
+        "rule5 method NADAC"
+      ]
+    },
+    {
+      "script": "742096-04",
+      "failures": [
+        "rule1/2 expected 9.26 ≠ round(qty×rate,2)+10.64 = 13.23",
+        "rule5 method WAC"
+      ]
+    },
+    {
+      "script": "784736-06",
+      "failures": [
+        "rule1/2 expected 106.62 ≠ round(qty×rate,2)+10.64 = 10.83"
+      ]
+    },
+    {
+      "script": "809855-03",
+      "failures": [
+        "rule1/2 expected 17.36 ≠ round(qty×rate,2)+10.64 = 12.02",
+        "rule5 method NADAC"
+      ]
+    },
+    {
+      "script": "886076-08",
+      "failures": [
+        "rule1/2 expected 70.42 ≠ round(qty×rate,2)+10.64 = 17.44",
+        "rule5 method MAC"
+      ]
+    },
+    {
+      "script": "710506-02",
+      "failures": [
+        "rule1/2 expected 9.57 ≠ round(qty×rate,2)+10.64 = 13.69"
+      ]
+    },
+    {
+      "script": "800304-09",
+      "failures": [
+        "rule1/2 expected 16.3 ≠ round(qty×rate,2)+10.64 = 14.02"
+      ]
+    },
+    {
+      "script": "792878-09",
+      "failures": [
+        "rule1/2 expected 12.02 ≠ round(qty×rate,2)+10.64 = 11.86",
+        "rule5 method MAC"
+      ]
+    },
+    {
+      "script": "830215-08",
+      "failures": [
+        "rule1/2 expected 9.94 ≠ round(qty×rate,2)+10.64 = 11.41"
+      ]
+    },
+    {
+      "script": "746365-08",
+      "failures": [
+        "rule1/2 expected 33.79 ≠ round(qty×rate,2)+10.64 = 20.61"
+      ]
+    },
+    {
+      "script": "739653-08",
+      "failures": [
+        "rule1/2 expected 6.95 ≠ round(qty×rate,2)+10.64 = 11.27",
+        "rule5 method MAC"
+      ]
+    },
+    {
+      "script": "841461-01",
+      "failures": [
+        "rule1/2 expected 12.57 ≠ round(qty×rate,2)+10.64 = 18.39"
+      ]
+    },
+    {
+      "script": "833014-05",
+      "failures": [
+        "rule1/2 expected 14.13 ≠ round(qty×rate,2)+10.64 = 13.27",
+        "rule5 method NADAC"
+      ]
+    },
+    {
+      "script": "780785-00",
+      "failures": [
+        "rule1/2 expected 953.9 ≠ round(qty×rate,2)+10.64 = 131.91",
+        "rule5 method WAC"
+      ]
+    },
+    {
+      "script": "815040-05",
+      "failures": [
+        "rule1/2 expected 14.09 ≠ round(qty×rate,2)+10.64 = 13.24"
+      ]
+    },
+    {
+      "script": "748482-05",
+      "failures": [
+        "rule1/2 expected 5.37 ≠ round(qty×rate,2)+10.64 = 12.69",
+        "rule5 method MAC"
+      ]
+    }
+  ],
+  "coverage": {
+    "statuses": [
+      "emailed_pbm",
+      "new",
+      null,
+      "pending",
+      "recovered",
+      "underpaid"
+    ],
+    "distinctPbms": 7,
+    "nullPbmRows": 4,
+    "negativeOwed": 28,
+    "positiveOwed": 121,
+    "federalNull": false
+  },
+  "rule6": "not applicable to the mock shape (no bin/pbm_key)",
+  "result": "FAIL"
+}

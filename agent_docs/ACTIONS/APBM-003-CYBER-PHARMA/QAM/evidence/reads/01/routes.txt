@@ -1,0 +1,10 @@
+# T-41 routes on the QA server 127.0.0.1:3138 — 2026-11-09T09:51:32+06:00 (never :3137)
+/moose-portal        http=404 redirect=
+/auth                http=200 redirect=
+/signup              http=404 redirect=
+/register            http=404 redirect=
+/api/auth/confirm    http=307 redirect=http://localhost:3138/error
+/owedbook            http=307 redirect=http://127.0.0.1:3138/auth
+/admin-portal        http=307 redirect=http://127.0.0.1:3138/auth
+/                    http=200 redirect=
+## :3137 untouched (ss only): 1 listener(s), pid unchanged from Q2 start (1355455): 1

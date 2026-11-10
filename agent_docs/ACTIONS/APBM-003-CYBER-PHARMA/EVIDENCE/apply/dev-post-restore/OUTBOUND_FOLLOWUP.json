@@ -1,0 +1,16 @@
+{
+  "checkedAt": "2026-11-06T13:08:48.717Z",
+  "readOnly": true,
+  "counts": {
+    "storage.buckets": 0,
+    "storage.objects": 0,
+    "realtime.subscription": 0
+  },
+  "preloadOverrides": [
+    {
+      "database": "ALL",
+      "role": "authenticator",
+      "setting": "session_preload_libraries=supautils, safeupdate"
+    }
+  ]
+}

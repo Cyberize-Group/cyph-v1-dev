@@ -1,0 +1,223 @@
+{
+  "phase": "matrix",
+  "startedAt": "2026-11-09T04:21:58.908Z",
+  "base": "http://127.0.0.1:3138",
+  "devRef": "yrsuwikjnbmvpznrgydb",
+  "checks": [
+    {
+      "name": "T-33 MEMBER_B1 login lands on /owedbook",
+      "result": "PASS",
+      "detail": "/owedbook"
+    },
+    {
+      "name": "T-33 MEMBER_B1 store picker offers exactly B1",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE B1\"]"
+    },
+    {
+      "name": "T-33 MEMBER_B1 B1: Total 50, 25 rows on page, every script belongs to B1",
+      "result": "PASS",
+      "detail": "25 rows"
+    },
+    {
+      "name": "T-33 MEMBER_B1 B1: KPI tiles rendered with non-zero Commercial Underpaid",
+      "result": "PASS",
+      "detail": "$91.09"
+    },
+    {
+      "name": "T-33 MEMBER_B1 Updated Payments tab loads (rows with new_paid: 17 expected per generator i%3===1)",
+      "result": "PASS",
+      "detail": "Limit 25 · Total 17"
+    },
+    {
+      "name": "T-33 MEMBER_B1 Federal tab: \"unavailable in this release\" copy + No results, no rows",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 MEMBER_B1 Summary: 3 PBM rows + unattributed note",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC PBM 1\",\"SYNTHETIC PBM 2\",\"SYNTHETIC PBM 3\"]"
+    },
+    {
+      "name": "T-33 MEMBER_B1 status filter Underpaid → Total 10, all chips Underpaid, badge \"1 filter active\"",
+      "result": "PASS",
+      "detail": "10 rows"
+    },
+    {
+      "name": "T-33 MEMBER_B1 date range 06-10..06-12 → Total 6 (QA-derived: days 1–22 occur twice)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-35 MEMBER_B1 empty filter → \"No results\" empty state",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 MEMBER_B1 PBM filter SYNTHETIC PBM 1 → Total 13 (QA-derived: i%4==0 for i in 0..49)",
+      "result": "PASS",
+      "detail": "Limit 25 · Total 13"
+    },
+    {
+      "name": "T-33 MEMBER_B1 sort by Owed → aria-sort=ascending, page values ascending (client-side)",
+      "result": "PASS",
+      "detail": "ascending; first -2.5 last 4.7"
+    },
+    {
+      "name": "T-33 MEMBER_B1 pager Next → Page 2 of 2",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 MEMBER_B1 /admin-portal redirects to /owedbook (member)",
+      "result": "PASS",
+      "detail": "/owedbook"
+    },
+    {
+      "name": "T-33/T-603 MEMBER_B1 /admin-portal/audit redirects (member denied)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 MEMBER_B1 navbar has no Admin Portal link",
+      "result": "PASS",
+      "detail": "[\"OwedBook\",\"Profile\"]"
+    },
+    {
+      "name": "T-33 MEMBER_B1 logout via /api/auth/logout",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 UNRELATED login lands on /owedbook",
+      "result": "PASS",
+      "detail": "/owedbook"
+    },
+    {
+      "name": "T-33 UNRELATED store picker offers exactly C1",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE C1\"]"
+    },
+    {
+      "name": "T-33 UNRELATED C1: Total 50, 25 rows on page, every script belongs to C1",
+      "result": "PASS",
+      "detail": "25 rows"
+    },
+    {
+      "name": "T-33 UNRELATED C1: KPI tiles rendered with non-zero Commercial Underpaid",
+      "result": "PASS",
+      "detail": "$91.09"
+    },
+    {
+      "name": "T-33 UNRELATED Updated Payments tab loads (rows with new_paid: 17 expected per generator i%3===1)",
+      "result": "PASS",
+      "detail": "Limit 25 · Total 17"
+    },
+    {
+      "name": "T-33 UNRELATED Federal tab: \"unavailable in this release\" copy + No results, no rows",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 UNRELATED Summary: 3 PBM rows + unattributed note",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC PBM 1\",\"SYNTHETIC PBM 2\",\"SYNTHETIC PBM 3\"]"
+    },
+    {
+      "name": "T-33 UNRELATED status filter Underpaid → Total 10, all chips Underpaid, badge \"1 filter active\"",
+      "result": "PASS",
+      "detail": "10 rows"
+    },
+    {
+      "name": "T-33 UNRELATED date range 06-10..06-12 → Total 6 (QA-derived: days 1–22 occur twice)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-35 UNRELATED empty filter → \"No results\" empty state",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 UNRELATED PBM filter SYNTHETIC PBM 1 → Total 13 (QA-derived: i%4==0 for i in 0..49)",
+      "result": "PASS",
+      "detail": "Limit 25 · Total 13"
+    },
+    {
+      "name": "T-33 UNRELATED sort by Owed → aria-sort=ascending, page values ascending (client-side)",
+      "result": "PASS",
+      "detail": "ascending; first -2.5 last 4.7"
+    },
+    {
+      "name": "T-33 UNRELATED pager Next → Page 2 of 2",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-601 UNRELATED My Stores shows exactly SYNTHETIC STORE C1",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE C1\"]"
+    },
+    {
+      "name": "T-33 UNRELATED navbar has Admin Portal link (after tenant_stores resolves)",
+      "result": "PASS",
+      "detail": "[\"OwedBook\",\"Admin Portal\",\"Profile\"]"
+    },
+    {
+      "name": "T-33/T-601 UNRELATED store detail C1: heading + members roster (Members · 1)",
+      "result": "PASS",
+      "detail": "Members · 1"
+    },
+    {
+      "name": "T-38 UNRELATED store detail shows \"Demo · mock data\" pill (pre-known R-5 defect)",
+      "result": "PASS",
+      "detail": "present"
+    },
+    {
+      "name": "T-33/T-603 UNRELATED audit viewer rows (100) name only permitted stores / account events",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-601 UNRELATED billing lists permitted stores read-only (Price unavailable, Billing dates unavailable, buttons disabled)",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE C1\"]"
+    },
+    {
+      "name": "T-38 UNRELATED billing shows \"Visual only — no real charge is made in this demo\" (pre-known R-5 defect)",
+      "result": "PASS",
+      "detail": "present"
+    },
+    {
+      "name": "T-38 UNRELATED billing shows no fabricated plan/price (Plan unavailable · Price unavailable)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-602 UNRELATED settings: \"Editing settings is not available in this release.\"",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-602 UNRELATED invite page: error/unavailable state, no invite form",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 UNRELATED logout via /api/auth/logout",
+      "result": "PASS",
+      "detail": ""
+    }
+  ],
+  "signIns": {
+    "MEMBER_B1": 1,
+    "UNRELATED": 1
+  },
+  "unexpectedBackendRequests": 0,
+  "failures": [],
+  "finishedAt": "2026-11-09T04:23:00.883Z",
+  "pass": 41,
+  "fail": 0,
+  "status": "PASS"
+}

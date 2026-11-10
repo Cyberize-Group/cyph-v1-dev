@@ -1,0 +1,123 @@
+{
+  "phase": "owedbook",
+  "attackFlip": false,
+  "startedAt": "2026-11-09T06:28:18.158Z",
+  "base": "http://127.0.0.1:3138",
+  "devRef": "yrsuwikjnbmvpznrgydb",
+  "checks": [
+    {
+      "name": "T-33 OWNER3 login lands on /owedbook",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 OWNER3 store picker offers exactly B1,B2,B3",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE B1\",\"SYNTHETIC STORE B2\",\"SYNTHETIC STORE B3\"]"
+    },
+    {
+      "name": "T-33 OWNER3 B1: Total 50, 25 rows, every script belongs to B1",
+      "result": "PASS",
+      "detail": "25 rows"
+    },
+    {
+      "name": "T-33 OWNER3 B1: KPI tiles rendered with non-zero Commercial Underpaid",
+      "result": "PASS",
+      "detail": "$91.09"
+    },
+    {
+      "name": "T-33 OWNER3 B2: Total 50, 25 rows, every script belongs to B2",
+      "result": "PASS",
+      "detail": "25 rows"
+    },
+    {
+      "name": "T-33 OWNER3 B2: KPI tiles rendered with non-zero Commercial Underpaid",
+      "result": "PASS",
+      "detail": "$91.09"
+    },
+    {
+      "name": "T-33 OWNER3 B3: Total 50, 25 rows, every script belongs to B3",
+      "result": "PASS",
+      "detail": "25 rows"
+    },
+    {
+      "name": "T-33 OWNER3 B3: KPI tiles rendered with non-zero Commercial Underpaid",
+      "result": "PASS",
+      "detail": "$91.09"
+    },
+    {
+      "name": "T-33 OWNER3 Updated Payments tab → Total 17 (QA-derived)",
+      "result": "PASS",
+      "detail": "Limit 25 · Total 17"
+    },
+    {
+      "name": "T-33 OWNER3 Federal tab: \"unavailable in this release\" + No results",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 OWNER3 Summary: 3 PBM rows + unattributed note",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC PBM 1\",\"SYNTHETIC PBM 2\",\"SYNTHETIC PBM 3\"]"
+    },
+    {
+      "name": "T-33 OWNER3 status filter Underpaid → Total 10, all chips Underpaid, \"1 filter active\"",
+      "result": "PASS",
+      "detail": "10 rows"
+    },
+    {
+      "name": "T-33 OWNER3 date range 06-10..06-12 → Total 6 (QA-derived)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-35 OWNER3 empty filter → \"No results\"",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 OWNER3 PBM filter SYNTHETIC PBM 1 → Total 13 (QA-derived)",
+      "result": "PASS",
+      "detail": "Limit 25 · Total 13"
+    },
+    {
+      "name": "T-33 OWNER3 sort by Owed → aria-sort=ascending, page values ascending",
+      "result": "PASS",
+      "detail": "ascending"
+    },
+    {
+      "name": "T-33 OWNER3 pager Next → Page 2 of 2",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/F-05 OWNER3 re-select of the already-selected store (change event, same value): PBM options kept (0 → 0), no \"No options\", audit +0",
+      "result": "FAIL",
+      "detail": "before={\"n\":0,\"none\":false} after={\"n\":0,\"none\":false} audit=[]"
+    },
+    {
+      "name": "T-33/F-05 control: a real store switch B1→B2 refetches (options 3, audit +3: kpis, pbm_options, rows)",
+      "result": "FAIL",
+      "detail": "[{\"fn\":\"owedbook_kpis\",\"n\":1},{\"fn\":\"owedbook_pbm_options\",\"n\":1},{\"fn\":\"owedbook_rows\",\"n\":1}]"
+    },
+    {
+      "name": "T-33c OWNER3 rapid switch B1→B2→B3 with inverted response order → final rows only B3, picker on B3",
+      "result": "PASS",
+      "detail": "0 foreign rows"
+    },
+    {
+      "name": "T-33 OWNER3 logout via /api/auth/logout",
+      "result": "PASS",
+      "detail": ""
+    }
+  ],
+  "signIns": {
+    "OWNER3": 1
+  },
+  "unexpectedBackendRequests": 0,
+  "failures": [],
+  "finishedAt": "2026-11-09T06:29:06.909Z",
+  "pass": 19,
+  "fail": 2,
+  "status": "FAIL"
+}

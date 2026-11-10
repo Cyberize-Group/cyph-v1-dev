@@ -1,0 +1,7 @@
+{
+  "utc": "2026-11-05T14:06:57.307816+00:00",
+  "method": "Exact-value scan against local credential-valued entries and tracked harness password; values never printed. Also exclude env/auth/data artifacts by allowlist.",
+  "redacted_files": [],
+  "remaining_exact_value_hits": 0,
+  "limitations": "Exact-value scan is not a general secret detector; source captures were limited to code/docs, no env contents or real claim files."
+}

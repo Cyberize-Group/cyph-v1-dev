@@ -45,22 +45,22 @@ The `QAM_STATE.md` inside a review ZIP is the immutable pre-export snapshot; the
 
 | Field | Value |
 |---|---|
-| Phase | RELEASED FOR Q4 |
-| Attempt | Q1 1 / Q2 1 / Q4 0 |
+| Phase | Q4 COMPLETE — AWAITING ADJUDICATION |
+| Attempt | Q1 1 / Q2 1 / Q4 1 |
 | Engineering branch / QA branch | `apbm-003` / `qa/apbm-003` (exists; disposable; never merged) |
 | Baseline | `af2c7e5225d2d78925fd392e29a58b6bde830263` |
-| Candidate (tested product SHA) | dc44429f466dedcf35023342f68624c6cee062f0 |
-| QA execution HEAD | `4d64504e85c56f1c987a703dd94575f489cb99ce` (candidate + 3 `agent_docs`-only commits; product content identical, `evidence/identity/02/t00_repin.txt`) |
+| Candidate (tested product SHA) | `dc44429f466dedcf35023342f68624c6cee062f0` (repaired; original `308247a24e6ddd455842da5cd2e21541d7eae2c1`) |
+| QA execution HEAD | `c5061d9f75fa242a3d14913c08d6bbad7173c638` (repaired candidate + 1 records-only commit; product diff 0, `evidence/identity/03/t00_repin_q4.txt`) |
 | Contract identity | DRAFT — CLAIM STATUS; hashes as read in `evidence/identity/01/contract_hashes_as_read.txt`; no FINAL stamp (Director release 2026-11-05 superseded it); A01 grading basis pending ruling (recon R-2/R-3) |
 | Plan identity (SHA-256 of `QAM_TEST_PLAN.md` DRAFT) | 194538a7a7701c4b35aa731b17197f4e6ddb577d43ce4f7ac8bbdb383a5cfea4 |
-| Approval record | QAM_APPROVAL.md §1–§2 (Friday) |
-| Release reference (Director) | QAM_APPROVAL.md §3 (Tony, 2026-11-09) |
-| Latest package | `HANDOFFS/APBM-003-CYBER-PHARMA_Q2_REVIEW_01.zip` (pre-export: hash recorded in the next live entry and `HANDOFFS/README.md`) |
-| Latest package SHA-256 (external receipt) | `a266c5010b0775205bc88ebf6c670eafd4c9829520bf06ed7ad1d8ac594440f2` (`HANDOFFS/README.md`) |
+| Approval record | QAM_APPROVAL.md §1–§2 (Friday); §4 retest scope (Friday, 2026-11-09) |
+| Release reference (Director) | QAM_APPROVAL.md §3 (Q2) and §4 (Q4 released — Tony, 2026-11-09, candidate dc44429f) |
+| Latest package | `HANDOFFS/APBM-003-CYBER-PHARMA_Q4_REVIEW_01.zip` (pre-export: hash recorded in the next live entry and `HANDOFFS/README.md`; Q2/01 package `a266c501…40f2` stands as the carried-evidence source) |
+| Latest package SHA-256 (external receipt) | `0b89e6c9dc932d270d8db82f7915bba6e2b856e0a8719984326deb136eb8cd41` (`HANDOFFS/README.md`); Q2/01 `a266c5010b0775205bc88ebf6c670eafd4c9829520bf06ed7ad1d8ac594440f2` |
 | Active stop | none |
-| Director human checks | manual app smoke H-1 DEFERRED (not waived, not PASS); CRV pending Gate D; SCRATCH signup posture UNKNOWN → AC-404 SCRATCH half BLOCKED |
-| Next owner | QA Executor (Claudy) |
-| Next permitted action | Q4 per QAM_APPROVAL.md §4 |
+| Director human checks | manual app smoke H-1 DEFERRED (not waived, not PASS); CRV pending Gate D; AC-404 SCRATCH half N/A per C-04 |
+| Next owner | QA Lead (Friday) |
+| Next permitted action | Lead adjudicates Q4/01 (`HANDOFFS/APBM-003-CYBER-PHARMA_Q4_REVIEW_01.zip`) → `QAM_CERTIFICATION.md` (Gate Q with limitations) or a further ruling |
 | 2026-11-07 14:56 · Asia/Dhaka | QA Executor (Claudy) | package receipt (live entry) | — | `APBM-003-CYBER-PHARMA_Q1_REVIEW_01.zip` · 65 members · SHA-256 `845de226ce1c3e8a608fa4a0649c3c4aa11c12b1eb09513b8ba66b3ed50770a9` · plan DRAFT SHA-256 `8bc53eba9a80cb716c954c2bd83d149d22650c17e0694901b549cd96aaaff8a9` |
 | 2026-11-07 16:20 · Asia/Dhaka | QA Executor (Claudy) | `Q1 COMPLETE — AWAITING QA LEAD REVIEW` → `Q1 AMENDED — AWAITING QA LEAD BINDING` | plan `QAM_TEST_PLAN.md` after AM-1…AM-6 SHA-256 `e8c4d5ac46635c2054e2d61073197db695ecd542a6281d4e561b0a6854bce061` (pre-amendment `8bc53eba…ff8a9`); candidate unchanged `308247a24e6ddd455842da5cd2e21541d7eae2c1` | QA Lead decision APPROVED WITH EXACT AMENDMENTS (`QAM_APPROVAL.md` §1, Friday, installed by the Director). AM-1…6 applied verbatim, recorded in plan §8. Q1b Part B: `AUTOMATION/make-qa-env.mjs` (Director-run; self-test 31/31, never run against real sources), `AUTOMATION/check-qa-env.sh` (run: inherited `.env.qa.local` is ignored+untracked but holds 4 undeclared keys / 21 missing → GAP, untouched), `evidence/env/01/*`, AM-7 draft `HANDOFFS/Q1b_AM-7_DRAFT.md` (not applied). **Next:** Lead records the amended hash in §2 → `APPROVED — NOT RELEASED`; Lead rules AM-7 and the §4/§2 key-name discrepancy; Director runs the generator (with `--force`, `--cast`, and a `--dev-db-source` choice), confirms R-10 / AM-6 posture, commits §C errata (R-2, R-6), records §3. **Q2 not authorized by this entry.** |
 | 2026-11-07 16:26 · Asia/Dhaka | QA Executor (Claudy) | package receipt (live entry) | — | `APBM-003-CYBER-PHARMA_Q1b_REVIEW_01.zip` · 17 members · SHA-256 `f26f407f7d1a641f890720fbf67adb100cb90ad67ea0408396ca0cf9c9473ed9` · plan after AM-1…6 SHA-256 `e8c4d5ac46635c2054e2d61073197db695ecd542a6281d4e561b0a6854bce061` |
@@ -75,3 +75,5 @@ The `QAM_STATE.md` inside a review ZIP is the immutable pre-export snapshot; the
 transcribed by Cody from Q4_RELEASE_RECORDS_2026-11-09.md
 
 | (on Director commit of repair) | Director (Tony) | `REPAIR RULED — AWAITING COMMIT` → `RETEST SCOPE APPROVED — NOT RELEASED` → `RELEASED FOR Q4` | repaired candidate `dc44429f466dedcf35023342f68624c6cee062f0` | `QAM_APPROVAL.md` §4 |
+| 2026-11-09 12:50 · Asia/Dhaka | QA Executor (Claudy) | `RELEASED FOR Q4` → `Q4 COMPLETE — AWAITING ADJUDICATION` (pre-export entry; no ZIP hash yet) | repaired candidate `dc44429f466dedcf35023342f68624c6cee062f0`; HEAD `c5061d9f75fa242a3d14913c08d6bbad7173c638` (records-only above the candidate; product diff 0); plan `194538a7a7701c4b35aa731b17197f4e6ddb577d43ce4f7ac8bbdb383a5cfea4` = bound; DEV `yrsuwikjnbmvpznrgydb` read-only + 14 OWNER3 logins and 264 `read_page` rows only; SCRATCH untouched; LOCAL `127.0.0.1:3138` real then mock build (stopped; `:3137` untouched) | Q4 attempt 01 executed 12:13–12:45 +06 per `QAM_APPROVAL.md` §4: T-00 re-pin (repair diff = exactly the three C-03/F-05 files; no STOP-CONTRACT), allowlist re-derived with C-03, T-04, T-01 board 39/196, T-50 records, T-38 labels (truthful real copy; mock copy unchanged at component level and on a mock build), T-33 admin leg OWNER3 1440/375 × light/dark (70 PASS), T-33 OwedBook leg OWNER3 incl. stale fence + F-05 guard (21 PASS), T-36 (10 PASS), attack-flip control FAILs as required. AC-404 → PASS (DEV) / N/A (SCRATCH) per C-04, no signup attempt. Matrix: PASS 41 · FAIL 0 · BLOCKED 0 · NOT RUN 3 (AC-7xx) · ADJUDICATE 0. New observations F-09 (records: pre-commit "PENDING" identity cells), F-10 (375 px billing row button clipping; pre-existing). Records: `QAM_EXECUTION_REPORT.md` Q4 section, `AC_EVIDENCE_MATRIX.md`, `FINDINGS.md` §1, `evidence/{identity/03,derivations/02,board/02,browser/02,admin/02,audit/02,deploy/02,carry_forward}`, `AUTOMATION/{derive-q4,t04-allowlist,q4-matrix}.mjs`. Package `HANDOFFS/APBM-003-CYBER-PHARMA_Q4_REVIEW_01.zip` follows (hash in the next live entry). H-1/H-2 DEFERRED. Next owner: QA Lead (Friday). |
+| 2026-11-09 13:00 · Asia/Dhaka | QA Executor (Claudy) | package receipt (live entry; state unchanged `Q4 COMPLETE — AWAITING ADJUDICATION`) | — | `APBM-003-CYBER-PHARMA_Q4_REVIEW_01.zip` · 499 members · SHA-256 `0b89e6c9dc932d270d8db82f7915bba6e2b856e0a8719984326deb136eb8cd41` · plan `194538a7a7701c4b35aa731b17197f4e6ddb577d43ce4f7ac8bbdb383a5cfea4` · repaired candidate `dc44429f466dedcf35023342f68624c6cee062f0` · Downloads copy identical. QA server `:3138` stopped; `:3137` untouched; SCRATCH untouched; no Git mutation. Next owner: QA Lead (Friday). |

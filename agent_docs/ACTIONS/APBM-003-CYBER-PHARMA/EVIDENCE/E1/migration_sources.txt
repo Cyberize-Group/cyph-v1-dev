@@ -1,0 +1,1800 @@
+Local read-only source capture; CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+
+FILE: supabase/migrations/0001_baseline_acknowledge.sql
+1: -- BIM-001 · 0001_baseline_acknowledge
+2: -- The chain never pretends the database is empty (manager §6.7).
+3: -- Assert-then-create (X0 ruling rider 3): asserts every baseline object the
+4: -- live catalog confirmed (X0_EVIDENCE.md, 2026-08-28), creates ONLY
+5: -- update_updated_at() — absent from the live DB and from every SQL file in
+6: -- this lineage; DATA_CONTRACT §3's three-function claim was inherited from
+7: -- starter-kit-v2 docs, not this deployment (see ERRATUM.md E-1).
+8: 
+9: do $$
+10: begin
+11:   -- [1] baseline tables
+12:   if to_regclass('public.user_roles') is null then
+13:     raise exception 'BIM-001/0001 BASELINE ASSERT FAILED: table public.user_roles missing. This chain applies on the DB_BASELINE.md baseline (or after the reset script''s bootstrap path). Refusing to continue.';
+14:   end if;
+15:   if to_regclass('public.profiles') is null then
+16:     raise exception 'BIM-001/0001 BASELINE ASSERT FAILED: table public.profiles missing. See DB_BASELINE.md.';
+17:   end if;
+18: 
+19:   -- [2] the three baseline policies, byte-faithful names (DB_BASELINE.md)
+20:   if (select count(*) from pg_policies
+21:       where schemaname = 'public'
+22:         and policyname in ('Profiles are updatable by owner or superadmins',
+23:                            'Profiles are viewable by owner or superadmins',
+24:                            'Users can read their own role')) <> 3 then
+25:     raise exception 'BIM-001/0001 BASELINE ASSERT FAILED: expected the 3 baseline policies of DB_BASELINE.md; found a different set. Catalog the DB and reconcile before migrating.';
+26:   end if;
+27: 
+28:   -- [3] baseline functions confirmed live at X0 (two, not three — ERRATUM E-1)
+29:   if not exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+30:                  where n.nspname = 'public' and p.proname = 'handle_new_user') then
+31:     raise exception 'BIM-001/0001 BASELINE ASSERT FAILED: function public.handle_new_user() missing.';
+32:   end if;
+33:   if not exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+34:                  where n.nspname = 'public' and p.proname = 'rls_auto_enable') then
+35:     raise exception 'BIM-001/0001 BASELINE ASSERT FAILED: function public.rls_auto_enable() missing.';
+36:   end if;
+37: 
+38:   -- [4] the RLS auto-enable event trigger, by its REAL name (X0 ruling rider 1)
+39:   if not exists (select 1 from pg_event_trigger where evtname = 'ensure_rls') then
+40:     raise exception 'BIM-001/0001 BASELINE ASSERT FAILED: event trigger ensure_rls (fn rls_auto_enable) missing.';
+41:   end if;
+42: end $$;
+43: 
+44: -- [5] the one chain-created baseline object (X0 ruling: option (i) ratified).
+45: -- Attached to every table this chain creates (structural law §6.5).
+46: create or replace function public.update_updated_at()
+47: returns trigger
+48: language plpgsql
+49: as $$
+50: begin
+51:   new.updated_at = now();
+52:   return new;
+53: end;
+54: $$;
+
+FILE: supabase/migrations/0002_accounts.sql
+1: -- BIM-001 · 0002_accounts — the organization/group spine (NEW, ruling R-2).
+2: -- Sits above businesses (stores); subscription attaches HERE, not to stores.
+3: -- No superadmin concept inside OwedBook — platform roles are MissionControl's.
+4: 
+5: create table public.accounts (
+6:   id uuid primary key default gen_random_uuid(),
+7:   name text not null,
+8:   owner_user_id uuid not null references auth.users (id),
+9:   created_at timestamptz not null default now(),
+10:   updated_at timestamptz not null default now()
+11: );
+12: 
+13: alter table public.accounts enable row level security; -- deny-by-default at birth (law §6.1); ensure_rls is the net, this is the belt
+14: 
+15: create trigger set_updated_at
+16:   before update on public.accounts
+17:   for each row execute function public.update_updated_at();
+
+FILE: supabase/migrations/0003_businesses.sql
+1: -- BIM-001 · 0003_businesses — the store/tenant entity.
+2: -- FRANK_API `businesses` verbatim (models.py:13-183 via FRANK_API-02 catalog),
+3: -- Postgres idiom per AUTHORITY_README fidelity rule (Integer PK → uuid,
+4: -- String(n) → text, DateTime → timestamptz). Deliberate divergences:
+5: --   · account_id NOT NULL FK → accounts        [ruling R-2: the accounts spine]
+6: --   · pharmacy_slug (unique)                   [TONY_DEMO adoption, TRIANGULATION §3.1]
+7: --   · subscription-STATE fields moved OUT to subscriptions(account_id):
+8: --     stripe_subscription_id, stripe_checkout_session_id, subscription_status,
+9: --     promotion_code, trial_end_date, current_period_end, cancel_at_period_end
+10: --                                              [TRIANGULATION §3.5 + ruling R-2]
+11: --   · stripe_customer_id + has_used_trial stay here (customer identity + the
+12: --     one-trial-per-NCPDP+NPI anti-abuse flag)  [manager §5 row 2]
+13: --   · legacy pharmacy_profile table: never created [TRIANGULATION §3.1 — DROP]
+14: 
+15: create table public.businesses (
+16:   id uuid primary key default gen_random_uuid(),
+17:   account_id uuid not null references public.accounts (id),
+18:   ncpdp text not null,                -- TEXT: leading zeros are data (law §6.3)
+19:   npi text not null,
+20:   pharmacy_name text not null,
+21:   address text,
+22:   address_line2 text,
+23:   city text,
+24:   state text,
+25:   zip text,
+26:   phone text,
+27:   fax text,
+28:   email text,
+29:   pharmacy_license_number text,
+30:   pharmacist_license text,
+31:   contact_person text,
+32:   contact_person_last_name text,
+33:   business_email text,
+34:   website_url text,
+35:   time_zone text,
+36:   preferred_contact_method text,
+37:   country text,
+38:   pharmacy_software_system text,
+39:   role_in_pharmacy text,
+40:   mobile_number text,
+41:   ghl_contact_id text,
+42:   ghl_company_id text,
+43:   date_of_registration timestamptz,
+44:   -- lifecycle vocabulary as documented in the catalog (pending → active; suspended valid)
+45:   status text not null default 'pending' check (status in ('pending', 'active', 'suspended')),
+46:   pharmacy_slug text unique,
+47:   stripe_customer_id text,
+48:   has_used_trial boolean not null default false,
+49:   activation_key text unique,        -- set NULL after consumption (catalog business.py:899)
+50:   created_at timestamptz not null default now(),
+51:   updated_at timestamptz not null default now(),
+52:   constraint uq_businesses_ncpdp_npi unique (ncpdp, npi)  -- catalog _ncpdp_npi_uc
+53: );
+54: 
+55: create index idx_businesses_account_id on public.businesses (account_id);
+56: 
+57: alter table public.businesses enable row level security;
+58: 
+59: create trigger set_updated_at
+60:   before update on public.businesses
+61:   for each row execute function public.update_updated_at();
+
+FILE: supabase/migrations/0004_user_businesses.sql
+1: -- BIM-001 · 0004_user_businesses — the per-store membership/capability junction.
+2: -- FRANK_API junction verbatim (models.py:306-351), with:
+3: --   · user_id references auth.users — identity layer is Supabase Auth, the
+4: --     custom users table does not exist in the rebuild [TRIANGULATION §3.1]
+5: --   · role vocabulary 'admin'|'member' via TEXT + CHECK — NOT an enum; the
+6: --     CHECK is the v2 seam for GHL-style alterable permissions. Catalog used
+7: --     'admin'|'user' with default 'user'; 'user' → 'member'   [ruling R-3]
+8: -- RLS membership reads THIS junction only; no policy may consult user_roles
+9: -- (R-3). BIM-002 writes those policies — this module writes none.
+10: 
+11: create table public.user_businesses (
+12:   id uuid primary key default gen_random_uuid(),
+13:   user_id uuid not null references auth.users (id) on delete cascade,
+14:   business_id uuid not null references public.businesses (id) on delete cascade,
+15:   role text not null default 'member' check (role in ('admin', 'member')),
+16:   is_primary boolean not null default false,   -- one primary per user (app-enforced, per catalog)
+17:   joined_at timestamptz not null default now(),
+18:   created_at timestamptz not null default now(),
+19:   updated_at timestamptz not null default now(),
+20:   constraint uq_user_business unique (user_id, business_id)  -- catalog uq_user_business
+21: );
+22: 
+23: create index idx_user_businesses_user_id on public.user_businesses (user_id);
+24: create index idx_user_businesses_business_id on public.user_businesses (business_id);
+25: 
+26: alter table public.user_businesses enable row level security;
+27: 
+28: create trigger set_updated_at
+29:   before update on public.user_businesses
+30:   for each row execute function public.update_updated_at();
+
+FILE: supabase/migrations/0005_pending_registrations.sql
+1: -- BIM-001 · 0005_pending_registrations — manual-verification onboarding.
+2: -- FRANK_API verbatim (models.py:354-493). Built now per manager §5 row 6:
+3: -- Frank's onboarding-approval confirm is pending; the table costs nothing empty.
+4: -- Divergences: verified_by_user_id references auth.users (no custom users table,
+5: -- TRIANGULATION §3.1); uuid PK per fidelity rule.
+6: 
+7: create table public.pending_registrations (
+8:   id uuid primary key default gen_random_uuid(),
+9:   ncpdp text not null,
+10:   npi text not null,
+11:   email text not null,
+12:   pharmacy_name text,
+13:   phone text,
+14:   address text,
+15:   address_line2 text,
+16:   city text,
+17:   state text,
+18:   zip text,
+19:   fax text,
+20:   contact_person text,
+21:   contact_person_last_name text,
+22:   pharmacy_license_number text,
+23:   pharmacist_license text,
+24:   country text,
+25:   pharmacy_software_system text,
+26:   role_in_pharmacy text,
+27:   mobile_number text,
+28:   website_url text,
+29:   -- desktop-converter linking (existing business gaining a new admin)
+30:   activation_key text,
+31:   desktop_username text,
+32:   is_desktop_converter boolean not null default false,
+33:   business_id uuid references public.businesses (id),
+34:   status text not null default 'pending_verification'
+35:     check (status in ('pending_verification', 'approved', 'rejected', 'expired', 'completed')),
+36:   verified_by_user_id uuid references auth.users (id),
+37:   verified_at timestamptz,
+38:   verification_notes text,
+39:   activation_token text unique,      -- secrets.token_urlsafe(32) grammar, 7-day TTL (catalog)
+40:   activation_token_expires_at timestamptz,
+41:   activation_link_sent_at timestamptz,
+42:   created_at timestamptz not null default now(),
+43:   updated_at timestamptz not null default now(),
+44:   constraint uq_pending_reg_email_business unique (email, ncpdp, npi)  -- catalog
+45: );
+46: 
+47: create index idx_pending_registrations_email on public.pending_registrations (email);
+48: create index idx_pending_registrations_status on public.pending_registrations (status);
+49: 
+50: alter table public.pending_registrations enable row level security;
+51: 
+52: create trigger set_updated_at
+53:   before update on public.pending_registrations
+54:   for each row execute function public.update_updated_at();
+
+FILE: supabase/migrations/0006_subscriptions.sql
+1: -- BIM-001 · 0006_subscriptions — Stripe state mirror, ACCOUNT-scoped.
+2: -- StarkReads separate-table pattern (TRIANGULATION §3.5) with ruling R-2's
+3: -- override: subscription attaches to the ACCOUNT, not the store —
+4: -- account_id FK, deliberately NO business_id column (spec AC5).
+5: -- Field set = the subscription-state fields lifted out of FRANK_API's
+6: -- businesses embedding (models.py:13-183): status vocabulary as documented.
+7: -- Phase 7 is the consumer; this module ships structure only.
+8: 
+9: create table public.subscriptions (
+10:   id uuid primary key default gen_random_uuid(),
+11:   account_id uuid not null references public.accounts (id),
+12:   stripe_customer_id text,
+13:   stripe_subscription_id text unique,
+14:   stripe_checkout_session_id text,
+15:   status text check (status in ('active', 'trialing', 'past_due', 'canceled', 'unpaid', 'incomplete')),
+16:   promotion_code text,               -- audit trail of promo applied (catalog)
+17:   trial_end_date timestamptz,
+18:   current_period_end timestamptz,
+19:   cancel_at_period_end boolean not null default false,
+20:   created_at timestamptz not null default now(),
+21:   updated_at timestamptz not null default now()
+22: );
+23: 
+24: create index idx_subscriptions_account_id on public.subscriptions (account_id);
+25: 
+26: alter table public.subscriptions enable row level security;
+27: 
+28: create trigger set_updated_at
+29:   before update on public.subscriptions
+30:   for each row execute function public.update_updated_at();
+
+FILE: supabase/migrations/0007_apa_memberships.sql
+1: -- BIM-001 · 0007_apa_memberships — APA20 discount eligibility.
+2: -- FRANK_API verbatim (models.py:573-636). license_number normalization
+3: -- (strip spaces, uppercase) is APPLICATION-side per the catalog's @validates —
+4: -- not a DB constraint here. discount_redeemed_business_id is a soft reference
+5: -- by design (catalog: "Not a FK"); uuid type per the rebuild's PK idiom.
+6: 
+7: create table public.apa_memberships (
+8:   id uuid primary key default gen_random_uuid(),
+9:   license_number text not null unique,
+10:   membership text not null,
+11:   membership_expires date,
+12:   first_name text not null,
+13:   last_name text not null,
+14:   discount_redeemed boolean not null default false,
+15:   discount_redeemed_at timestamptz,
+16:   discount_redeemed_business_id uuid,   -- soft reference, no FK (catalog)
+17:   created_at timestamptz not null default now(),
+18:   updated_at timestamptz not null default now()
+19: );
+20: 
+21: alter table public.apa_memberships enable row level security;
+22: 
+23: create trigger set_updated_at
+24:   before update on public.apa_memberships
+25:   for each row execute function public.update_updated_at();
+
+FILE: supabase/migrations/0008_reference_dataset_versions.sql
+1: -- BIM-001 · 0008_reference_dataset_versions — dataset-vintage registry.
+2: -- FRANK_API shape (models.py:802-824): checksum + row_count + latest_upload_at
+3: -- per dataset. Created FIRST in the reference family so the four reference
+4: -- tables can carry their provenance FK (structural law §6.4).
+5: 
+6: create table public.reference_dataset_versions (
+7:   id uuid primary key default gen_random_uuid(),
+8:   dataset_name text not null unique,   -- per-dataset identity (aac / wac / ful / pbm_info)
+9:   checksum text,
+10:   row_count integer,
+11:   latest_upload_at timestamptz,
+12:   created_at timestamptz not null default now(),
+13:   updated_at timestamptz not null default now()
+14: );
+15: 
+16: alter table public.reference_dataset_versions enable row level security;
+17: 
+18: create trigger set_updated_at
+19:   before update on public.reference_dataset_versions
+20:   for each row execute function public.update_updated_at();
+
+FILE: supabase/migrations/0009_aac_reference.sql
+1: -- BIM-001 · 0009_aac_reference — Actual Acquisition Cost by NDC.
+2: -- FRANK_API shape (models.py:865-883): UK (ndc, aac_date). aac_date IS the
+3: -- effective/as-of-dispense-date join key (manager §5 row 11 + Format Map §3 —
+4: -- no second date column is invented). Money NUMERIC (law §6.2); NDC TEXT (§6.3).
+5: -- Provenance trio per law §6.4.
+6: 
+7: create table public.aac_reference (
+8:   id uuid primary key default gen_random_uuid(),
+9:   ndc text not null,
+10:   aac_date date not null,            -- the effective-date join key
+11:   aac numeric,
+12:   drug_name text,
+13:   source_file text,
+14:   imported_at timestamptz,
+15:   dataset_version_id uuid references public.reference_dataset_versions (id),
+16:   created_at timestamptz not null default now(),
+17:   updated_at timestamptz not null default now(),
+18:   constraint uq_aac_reference_ndc_date unique (ndc, aac_date)
+19: );
+20: 
+21: alter table public.aac_reference enable row level security;
+22: 
+23: create trigger set_updated_at
+24:   before update on public.aac_reference
+25:   for each row execute function public.update_updated_at();
+
+FILE: supabase/migrations/0010_wac_reference.sql
+1: -- BIM-001 · 0010_wac_reference — Wholesale Acquisition Cost.
+2: -- FRANK_API shape (models.py:737-775, UK (ndc, effective_date)) with the
+3: -- ratified divergences:
+4: --   · pkg_size / pkg_size_mult / generic_indicator adopted from TONY_DEMO
+5: --     alt_rates — the WAC-derive formula inputs [TRIANGULATION §3.3 + MATH_SPEC;
+6: --     Format Map Finding 1: alt_rates IS the WAC table]
+7: --   · Computed column wac_by_unit DROPPED — derive in app [TRIANGULATION §3.3
+8: --     smell resolution; cross-driver portability burn]
+9: --   · one brand/generic name: generic_indicator; `bg` never enters (law §6.6)
+10: 
+11: create table public.wac_reference (
+12:   id uuid primary key default gen_random_uuid(),
+13:   ndc text not null,
+14:   effective_date date not null,
+15:   wac numeric,
+16:   pkg_size numeric,
+17:   pkg_size_mult numeric,
+18:   generic_indicator text,
+19:   drug_name text,
+20:   source_file text,
+21:   imported_at timestamptz,
+22:   dataset_version_id uuid references public.reference_dataset_versions (id),
+23:   created_at timestamptz not null default now(),
+24:   updated_at timestamptz not null default now(),
+25:   constraint uq_wac_reference_ndc_date unique (ndc, effective_date)
+26: );
+27: 
+28: alter table public.wac_reference enable row level security;
+29: 
+30: create trigger set_updated_at
+31:   before update on public.wac_reference
+32:   for each row execute function public.update_updated_at();
+
+FILE: supabase/migrations/0011_ful_reference.sql
+1: -- BIM-001 · 0011_ful_reference — Federal Upper Limit.
+2: -- FRANK_API shape (models.py:778-799): UK (ndc, year, month); aca_ful
+3: -- Numeric(12,6) kept at catalog precision. Provenance per law §6.4.
+4: 
+5: create table public.ful_reference (
+6:   id uuid primary key default gen_random_uuid(),
+7:   ndc text not null,
+8:   year integer not null,
+9:   month integer not null,
+10:   aca_ful numeric(12, 6),
+11:   drug_name text,
+12:   source_file text,
+13:   imported_at timestamptz,
+14:   dataset_version_id uuid references public.reference_dataset_versions (id),
+15:   created_at timestamptz not null default now(),
+16:   updated_at timestamptz not null default now(),
+17:   constraint uq_ful_reference_ndc_year_month unique (ndc, year, month)
+18: );
+19: 
+20: alter table public.ful_reference enable row level security;
+21: 
+22: create trigger set_updated_at
+23:   before update on public.ful_reference
+24:   for each row execute function public.update_updated_at();
+
+FILE: supabase/migrations/0012_pbm_info.sql
+1: -- BIM-001 · 0012_pbm_info — PBM directory.
+2: -- FRANK_API FULL shape (models.py:851-863: bin/pbm_name/pcn/state/email —
+3: -- the demo's subset missed pcn+state, TRIANGULATION §3.3) plus the manager's
+4: -- ratified columns: pbm_key (the canonical match key COLUMN; its derivation
+5: -- function `{bin}-{pcn}-{group_field}` + BIN 004146 → '4146' is Phase 5's,
+6: -- forbidden here per manager §8) and matching_type NOT NULL.
+7: -- bin/pcn TEXT: leading zeros are data (law §6.3). Provenance per §6.4.
+8: 
+9: create table public.pbm_info (
+10:   id uuid primary key default gen_random_uuid(),
+11:   bin text not null,
+12:   pbm_name text,
+13:   pcn text,
+14:   state text,
+15:   email text,
+16:   pbm_key text,                      -- column ships; derivation logic does NOT (Phase 5)
+17:   matching_type text not null,
+18:   source_file text,
+19:   imported_at timestamptz,
+20:   dataset_version_id uuid references public.reference_dataset_versions (id),
+21:   created_at timestamptz not null default now(),
+22:   updated_at timestamptz not null default now()
+23: );
+24: 
+25: alter table public.pbm_info enable row level security;
+26: 
+27: create trigger set_updated_at
+28:   before update on public.pbm_info
+29:   for each row execute function public.update_updated_at();
+
+FILE: supabase/migrations/0013_user_data.sql
+1: -- BIM-001 · 0013_user_data — the PHI fact table (prescription/dispensing records).
+2: -- FRANK_API FULL column set (models.py:661-735 via FRANK_API-02 catalog;
+3: -- TRIANGULATION §3.2: "Use FRANK_API's column set as canonical" — the demo's
+4: -- 11-column subset would lose the audit trail). Ratified divergences:
+5: --   · pcn, group_field, pbm_key, owed columns added   [manager §5 row 9 — the
+6: --     pbm_key inputs the demo-era claims never carried, Format Map Finding 2]
+7: --   · medicaid_method NULLable + CHECK on the seven MATH_SPEC §9 values;
+8: --     the desktop's Path-A empty-string maps to NULL AT IMPORT (importer
+9: --     mapping documented here, IMPLEMENTED in BIM-004); 'Portal' excluded
+10: --     (commented-out code is not vocabulary); widening only via spec AC10's
+11: --     amendment path              [Architect ruling 2026-08-28 — medicaid_method]
+12: --   · business_id is uuid FK; "Never accept business_id from client; always
+13: --     derive from authenticated session" (catalog models.py:672) — service-layer
+14: --     law for BIM-005+, recorded at the schema for the reader.
+15: -- Money NUMERIC everywhere a dollar lives (law §6.2). NDC/script/bin/pcn/
+16: -- group_field TEXT (law §6.3). RLS policies are BIM-002's — none here.
+17: 
+18: create table public.user_data (
+19:   id uuid primary key default gen_random_uuid(),
+20:   business_id uuid not null references public.businesses (id),
+21: 
+22:   -- claim identity + dispensing facts (source-file-driven)
+23:   date_dispensed date,
+24:   script text,                       -- Rx number, de-facto claim key (dedup key in upsert, catalog)
+25:   drug_name text,
+26:   drug_ndc text,
+27:   qty numeric,
+28:   insurance text,
+29:   source_file text,
+30:   status text,
+31:   bin text,
+32:   pcn text,                          -- pbm_key input [manager §5 row 9]
+33:   group_field text,                  -- pbm_key input [manager §5 row 9]
+34:   pbm_key text,                      -- canonical match key COLUMN; derivation is Phase 5's
+35: 
+36:   -- money (all NUMERIC, law §6.2)
+37:   medicaid_rate numeric,
+38:   acq numeric,
+39:   acq_net numeric,
+40:   difference numeric,
+41:   total_paid numeric,
+42:   payment numeric,                   -- check-payments concept (Format Map §4)
+43:   new_paid numeric,
+44:   expected_paid numeric,
+45:   new_owed numeric,
+46:   owed numeric,                      -- [manager §5 row 9]
+47: 
+48:   -- medicaid method: constrained vocabulary [Architect ruling 2026-08-28]
+49:   medicaid_method text check (medicaid_method in
+50:     ('AAC', 'FUL', 'GWAC', 'BWAC', 'Take Action', 'Manual Override', 'Legacy')),
+51: 
+52:   -- desktop-side enrichment (catalog verbatim)
+53:   customer_name text,
+54:   first_name text,
+55:   last_name text,
+56:   customer_id text,
+57:   day_supply integer,
+58:   authorization_number text,
+59:   customer_group_number text,
+60:   script_pcn text,
+61:   compound text,
+62:   drug_340b text,
+63:   drug_preferred_vendor text,
+64:   insurance_rejection_codes text,
+65:   primary_network_reimbursement_id text,
+66:   gpi text,
+67:   nadac numeric,
+68:   awp numeric,
+69:   payer_type text,
+70: 
+71:   -- rate-recalc audit trail (catalog verbatim; the columns the demo lost)
+72:   aac_date_used date,
+73:   wac_date_used date,
+74:   ful_year_used integer,
+75:   ful_month_used integer,
+76:   rate_source text,
+77:   medicaid_rate_calculated_at timestamptz,
+78:   medicaid_rate_original numeric,
+79: 
+80:   created_at timestamptz not null default now(),
+81:   updated_at timestamptz not null default now()
+82: );
+83: 
+84: create index idx_user_data_business_id on public.user_data (business_id);
+85: 
+86: alter table public.user_data enable row level security;
+87: 
+88: create trigger set_updated_at
+89:   before update on public.user_data
+90:   for each row execute function public.update_updated_at();
+
+FILE: supabase/migrations/0014_report_files.sql
+1: -- BIM-001 · 0014_report_files — generated PDF report metadata, per business.
+2: -- FRANK_API models.py:826-849; Phase 6 consumer, built now empty (manager §5
+3: -- row 10). TRIANGULATION §3.6: "PDF report metadata. Storage path lives in
+4: -- Supabase Storage" — the storage_path column points INTO the Phase-6 bucket;
+5: -- no bucket is created here (law §6.8).
+6: -- FIDELITY FLAG (spec'd in ACCEPTANCE evidence): the extraction does not
+7: -- enumerate this table's exact catalog columns — shape below is the minimal
+8: -- metadata set the corpora attest (file identity, business scoping, generator);
+9: -- verify against models.py:826-849 verbatim when the source is staged, amend
+10: -- via spec path if it differs.
+11: 
+12: create table public.report_files (
+13:   id uuid primary key default gen_random_uuid(),
+14:   business_id uuid not null references public.businesses (id),
+15:   file_name text,
+16:   storage_path text,                 -- Supabase Storage object path (bucket is Phase 6's)
+17:   report_type text,
+18:   generated_by_user_id uuid references auth.users (id),
+19:   generated_at timestamptz,
+20:   created_at timestamptz not null default now(),
+21:   updated_at timestamptz not null default now()
+22: );
+23: 
+24: create index idx_report_files_business_id on public.report_files (business_id);
+25: 
+26: alter table public.report_files enable row level security;
+27: 
+28: create trigger set_updated_at
+29:   before update on public.report_files
+30:   for each row execute function public.update_updated_at();
+
+FILE: supabase/migrations/0015_audit_logs.sql
+1: -- BIM-001 · 0015_audit_logs — the HIPAA audit trail.
+2: -- FRANK_API verbatim (models.py:885-948): record_id VARCHAR(128) kept exactly
+3: -- (numeric AND Stripe cs_test_* identifiers — TRIANGULATION §3.4 ruling);
+4: -- username NOT NULL carries system actors ('system_event_listener',
+5: -- 'stripe_webhook', ...); user_id nullable for system actions; action
+6: -- vocabulary left as free text per catalog (String(50), no CHECK documented —
+7: -- none invented). The three catalog indexes ship. Audit TRIGGERS and per-read
+8: -- RPC wrappers are BIM-003's mission (manager §8, R-4) — structure only here.
+9: 
+10: create table public.audit_logs (
+11:   id uuid primary key default gen_random_uuid(),
+12:   user_id uuid references auth.users (id),   -- nullable: system actions
+13:   username text not null,
+14:   table_name text,
+15:   record_id varchar(128),
+16:   field_name text,
+17:   old_value text,
+18:   new_value text,
+19:   action text,                        -- 'create'/'update'/'delete'/'activate'/'verify'/'sync'/'process'/'error' (catalog, unconstrained)
+20:   ip_address text,
+21:   user_agent text,
+22:   created_at timestamptz not null default now(),
+23:   updated_at timestamptz not null default now()
+24: );
+25: 
+26: create index idx_audit_logs_table_record on public.audit_logs (table_name, record_id);
+27: create index idx_audit_logs_user_id on public.audit_logs (user_id);
+28: create index idx_audit_logs_created_at on public.audit_logs (created_at);
+29: 
+30: alter table public.audit_logs enable row level security;
+31: 
+32: create trigger set_updated_at
+33:   before update on public.audit_logs
+34:   for each row execute function public.update_updated_at();
+
+FILE: supabase/migrations/0016_rls_helpers.sql
+1: -- BIM-002 · 0016_rls_helpers — the membership helpers. Landing order law (F-8):
+2: -- helpers precede every policy file in the chain.
+3: --
+4: -- Gap-6 (BIM-001 R-3, ratified): membership is read from public.user_businesses
+5: -- ONLY. No helper or policy consults user_roles, profiles, user_metadata,
+6: -- raw_user_meta_data, or accounts.owner_user_id. No superadmin clause exists in
+7: -- OwedBook — platform oversight is the service-role path, audited by BIM-003.
+8: --
+9: -- SECURITY DEFINER is MANDATORY, not stylistic (Proto 06 FINDINGS F-5): these
+10: -- functions read user_businesses, which itself carries RLS (0019 restricts each
+11: -- user to their own rows). A SECURITY INVOKER helper would evaluate membership
+12: -- through the caller's restricted view and silently collapse every policy in the
+13: -- system to "can only see myself". search_path is pinned to '' with every
+14: -- reference fully qualified, or the definer becomes its own privilege hole.
+15: --
+16: -- is_member_of / is_admin_of: verbatim from PROTO06 TRANSFERS §1.0 (proven on the
+17: -- rig: 80-cell matrix, 32-case attack battery, twice from scratch).
+18: -- is_account_member: NEW per Director ruling R-A (closes Proto 06 N-6) — account
+19: -- read access is junction-derived, never derived from accounts.owner_user_id.
+20: 
+21: -- assert-then-create (manager §6.5): the tables these helpers read must exist
+22: -- with RLS enabled before any membership logic is introduced.
+23: do $$
+24: begin
+25:   if to_regclass('public.user_businesses') is null then
+26:     raise exception 'BIM-002/0016 ASSERT FAILED: public.user_businesses missing. Apply chain 0001-0015 first.';
+27:   end if;
+28:   if to_regclass('public.businesses') is null then
+29:     raise exception 'BIM-002/0016 ASSERT FAILED: public.businesses missing. Apply chain 0001-0015 first.';
+30:   end if;
+31:   if not exists (
+32:     select 1 from pg_class c join pg_namespace n on n.oid = c.relnamespace
+33:     where n.nspname = 'public' and c.relname in ('user_businesses','businesses')
+34:       and c.relrowsecurity
+35:     having count(*) = 2
+36:   ) then
+37:     raise exception 'BIM-002/0016 ASSERT FAILED: user_businesses and businesses must both have RLS enabled (deny-by-default law).';
+38:   end if;
+39: end $$;
+40: 
+41: -- T-1/T-2 membership: is the caller a junction member of this business?
+42: create or replace function public.is_member_of(biz uuid)
+43: returns boolean
+44: language sql
+45: stable
+46: security definer
+47: set search_path = ''
+48: as $$
+49:   select exists (
+50:     select 1 from public.user_businesses ub
+51:     where ub.user_id = auth.uid() and ub.business_id = biz
+52:   );
+53: $$;
+54: 
+55: -- T-3 role gate: is the caller an ADMIN member of this business? The role comes
+56: -- from the junction's own role column (TEXT CHECK 'admin'|'member', BIM-001 R-3).
+57: create or replace function public.is_admin_of(biz uuid)
+58: returns boolean
+59: language sql
+60: stable
+61: security definer
+62: set search_path = ''
+63: as $$
+64:   select exists (
+65:     select 1 from public.user_businesses ub
+66:     where ub.user_id = auth.uid() and ub.business_id = biz and ub.role = 'admin'
+67:   );
+68: $$;
+69: 
+70: -- THE TENANT SELECT PREDICATE (formulation C, adopted at X2 by evidence).
+71: -- Returns the caller's business ids as a set, so the planner evaluates it ONCE
+72: -- and hashes it (plan: `Filter: (ANY (business_id = (hashed SubPlan 1).col1))`)
+73: -- instead of calling a scalar helper once per candidate row.
+74: --   measured at 100k rows: 29.6ms vs 1685ms for is_member_of(business_id)
+75: --   — 57x faster unqualified, 31x qualified, 1,641 vs 101,640 buffers.
+76: -- SECURITY DEFINER is what separates this from the inline-subquery formulation:
+77: -- an inline `select ... from user_businesses where user_id = auth.uid()` inside a
+78: -- policy is INVOKER-evaluated and is silently blinded by the junction's own RLS,
+79: -- returning zero rows (proven at X2 — see evidence/X2_AB_DECISION.md §7).
+80: -- Usage: using (business_id in (select public.my_business_ids()))
+81: create or replace function public.my_business_ids()
+82: returns setof uuid
+83: language sql
+84: stable
+85: security definer
+86: set search_path = ''
+87: as $$
+88:   select ub.business_id from public.user_businesses ub where ub.user_id = auth.uid();
+89: $$;
+90: 
+91: -- R-A account read: any user holding a junction row on ANY business under the
+92: -- account. Reads businesses (which carries RLS), so F-5 applies here too.
+93: create or replace function public.is_account_member(acct uuid)
+94: returns boolean
+95: language sql
+96: stable
+97: security definer
+98: set search_path = ''
+99: as $$
+100:   select exists (
+101:     select 1
+102:     from public.user_businesses ub
+103:     join public.businesses b on b.id = ub.business_id
+104:     where ub.user_id = auth.uid() and b.account_id = acct
+105:   );
+106: $$;
+107: 
+108: -- DIVERGENCE from TRANSFERS §1.0 (authority: BIM-002 ERRATUM E-2, ratified
+109: -- 2026-09-01): the template's `revoke ... from anon` is a NO-OP — Postgres grants
+110: -- EXECUTE to PUBLIC by default and anon inherits it. PUBLIC is the mechanism; the
+111: -- revoke must target it. Proto 06 missed this because its matrix asserted table
+112: -- access, where anon was denied anyway, masking the grant.
+113: -- BOTH revokes are required (authority: ERRATUM E-4). `from public` alone is
+114: -- NOT sufficient: pg_default_acl for functions in this schema grants EXECUTE to
+115: -- anon EXPLICITLY, so a freshly created function carries `anon=X` even after
+116: -- PUBLIC is revoked. Two independent channels, two revokes. Verified by dropping
+117: -- and re-creating these helpers from scratch (evidence:
+118: -- X2_FINDING_fresh_create_anon_grant.log).
+119: revoke execute on function public.is_member_of(uuid) from public;      -- ERRATUM E-2
+120: revoke execute on function public.is_admin_of(uuid) from public;       -- ERRATUM E-2
+121: revoke execute on function public.is_account_member(uuid) from public; -- ERRATUM E-2
+122: revoke execute on function public.my_business_ids() from public;       -- ERRATUM E-2
+123: revoke execute on function public.is_member_of(uuid) from anon;        -- ERRATUM E-4
+124: revoke execute on function public.is_admin_of(uuid) from anon;         -- ERRATUM E-4
+125: revoke execute on function public.is_account_member(uuid) from anon;   -- ERRATUM E-4
+126: revoke execute on function public.my_business_ids() from anon;         -- ERRATUM E-4
+127: 
+128: grant execute on function public.is_member_of(uuid) to authenticated;
+129: grant execute on function public.is_admin_of(uuid) to authenticated;
+130: grant execute on function public.is_account_member(uuid) to authenticated;
+131: grant execute on function public.my_business_ids() to authenticated;
+
+FILE: supabase/migrations/0017_rls_user_businesses.sql
+1: -- BIM-002 · 0017 · user_businesses — T-5 junction self-visibility.
+2: -- LANDS FIRST (junction-first law, X2 decision §5.1): every other tenant policy
+3: -- reasons about membership, and formulation B (adopted nowhere, but guarded
+4: -- against) would be silently blinded without this. Direct auth.uid() comparison,
+5: -- never a helper — a helper here would be self-referential (Proto 06 F-7).
+6: -- Writes stay service-role only: no INSERT/UPDATE/DELETE policy exists, which is
+7: -- what makes junction role-tampering structurally impossible rather than merely
+8: -- unlikely (Gap-6 / BIM-001 R-3).
+9: do $$
+10: begin
+11:   if to_regclass('public.user_businesses') is null then
+12:     raise exception 'BIM-002/0017 ASSERT: public.user_businesses missing.'; end if;
+13:   if not (select relrowsecurity from pg_class where oid = 'public.user_businesses'::regclass) then
+14:     raise exception 'BIM-002/0017 ASSERT: RLS not enabled on user_businesses (deny-by-default law).'; end if;
+15:   if exists (select 1 from pg_policies where schemaname='public' and tablename='user_businesses' and cmd='SELECT') then
+16:     raise exception 'BIM-002/0017 ASSERT: a SELECT policy already exists on user_businesses (one-per-op law).'; end if;
+17: end $$;
+18: 
+19: create policy "ub_select_self"
+20:   on public.user_businesses for select to authenticated
+21:   using (user_id = auth.uid());
+
+FILE: supabase/migrations/0018_rls_accounts.sql
+1: -- BIM-002 · 0018 · accounts — R-A: read-only, junction-derived.
+2: -- Any user holding a junction row on ANY business under the account may read it.
+3: -- NEVER derived from accounts.owner_user_id (Gap-6 forbids it, and ownership is
+4: -- not membership). No INSERT/UPDATE/DELETE policy for any app role in v1 —
+5: -- account writes are billing territory (Payment Portal → service role).
+6: do $$
+7: begin
+8:   if to_regclass('public.accounts') is null then
+9:     raise exception 'BIM-002/0018 ASSERT: public.accounts missing.'; end if;
+10:   if not (select relrowsecurity from pg_class where oid = 'public.accounts'::regclass) then
+11:     raise exception 'BIM-002/0018 ASSERT: RLS not enabled on accounts.'; end if;
+12:   if exists (select 1 from pg_policies where schemaname='public' and tablename='accounts') then
+13:     raise exception 'BIM-002/0018 ASSERT: accounts already carries a policy.'; end if;
+14: end $$;
+15: 
+16: create policy "account_select_member"
+17:   on public.accounts for select to authenticated
+18:   using (public.is_account_member(id));
+
+FILE: supabase/migrations/0019_rls_businesses.sql
+1: -- BIM-002 · 0019 · businesses — T-1 read + T-3 role-gated write.
+2: -- SELECT is created FIRST and the write SECOND, in this file, by law:
+3: -- Proto 06 FINDINGS F-1 — Postgres evaluates an UPDATE's WHERE under SELECT-read
+4: -- semantics, so a write policy on a table with no SELECT policy silently affects
+5: -- zero rows. That defect is invisible at review time and indistinguishable from
+6: -- a legitimate deny at runtime.
+7: -- SELECT uses formulation C (X2, adopted by evidence): the set-returning DEFINER
+8: -- helper is hashed once by the planner instead of invoked per row.
+9: -- UPDATE keeps the scalar helper: write predicates resolve few rows, and the role
+10: -- gate reads the junction's role column (Gap-6), never user_roles.
+11: do $$
+12: begin
+13:   if to_regclass('public.businesses') is null then
+14:     raise exception 'BIM-002/0019 ASSERT: public.businesses missing.'; end if;
+15:   if not (select relrowsecurity from pg_class where oid = 'public.businesses'::regclass) then
+16:     raise exception 'BIM-002/0019 ASSERT: RLS not enabled on businesses.'; end if;
+17:   if not exists (select 1 from pg_policies where schemaname='public' and tablename='user_businesses' and cmd='SELECT') then
+18:     raise exception 'BIM-002/0019 ASSERT: junction-first law — user_businesses needs its SELECT policy (0017) before any tenant policy lands.'; end if;
+19:   if exists (select 1 from pg_policies where schemaname='public' and tablename='businesses') then
+20:     raise exception 'BIM-002/0019 ASSERT: businesses already carries a policy.'; end if;
+21: end $$;
+22: 
+23: create policy "business_select_member"
+24:   on public.businesses for select to authenticated
+25:   using (id in (select public.my_business_ids()));
+26: 
+27: create policy "business_update_admin"
+28:   on public.businesses for update to authenticated
+29:   using (public.is_admin_of(id))
+30:   with check (public.is_admin_of(id));
+
+FILE: supabase/migrations/0020_rls_subscriptions.sql
+1: -- BIM-002 · 0020 · subscriptions — R-A mirror: account-scoped read.
+2: -- Stripe state mirror, no secrets. Writes are webhook territory (service role).
+3: -- Phase 7 may tighten this to admin-only — flagged in the manager, NOT decided here.
+4: do $$
+5: begin
+6:   if to_regclass('public.subscriptions') is null then
+7:     raise exception 'BIM-002/0020 ASSERT: public.subscriptions missing.'; end if;
+8:   if not (select relrowsecurity from pg_class where oid = 'public.subscriptions'::regclass) then
+9:     raise exception 'BIM-002/0020 ASSERT: RLS not enabled on subscriptions.'; end if;
+10:   if exists (select 1 from pg_policies where schemaname='public' and tablename='subscriptions') then
+11:     raise exception 'BIM-002/0020 ASSERT: subscriptions already carries a policy.'; end if;
+12: end $$;
+13: 
+14: create policy "subscription_select_account_member"
+15:   on public.subscriptions for select to authenticated
+16:   using (public.is_account_member(account_id));
+
+FILE: supabase/migrations/0021_rls_user_data.sql
+1: -- BIM-002 · 0021 · user_data — the PHI fact table. Full T-1 + T-2 set.
+2: -- Order in this file IS the law (F-1/F-8): SELECT, then INSERT, UPDATE, DELETE.
+3: --
+4: -- SELECT  — formulation C (X2): hashed once by the planner. At 100k rows this is
+5: --           29.6 ms vs 1,685 ms for the per-row scalar helper.
+6: -- INSERT  — WITH CHECK, never USING (the classic RLS authoring error). This is
+7: --           what makes "business_id never comes from the client" a DATABASE
+8: --           guarantee rather than a service-layer convention: a hand-supplied
+9: --           foreign business_id fails with 42501.
+10: -- UPDATE  — USING gates which rows are reachable; WITH CHECK gates what they may
+11: --           BECOME, blocking a re-home of a row into a foreign business_id.
+12: -- DELETE  — is_admin_of, not is_member_of: claim deletion is an admin act
+13: --           (manager §5.2 row 9, Architect's call; STANDS per Director FLAG-6).
+14: -- Writes keep the scalar helper deliberately: they resolve few rows, and write
+15: -- legality must not depend on what the caller can SEE.
+16: do $$
+17: begin
+18:   if to_regclass('public.user_data') is null then
+19:     raise exception 'BIM-002/0021 ASSERT: public.user_data missing.'; end if;
+20:   if not (select relrowsecurity from pg_class where oid = 'public.user_data'::regclass) then
+21:     raise exception 'BIM-002/0021 ASSERT: RLS not enabled on user_data.'; end if;
+22:   if not exists (select 1 from pg_policies where schemaname='public' and tablename='user_businesses' and cmd='SELECT') then
+23:     raise exception 'BIM-002/0021 ASSERT: junction-first law — 0017 must land first.'; end if;
+24:   if exists (select 1 from pg_policies where schemaname='public' and tablename='user_data') then
+25:     raise exception 'BIM-002/0021 ASSERT: user_data already carries a policy.'; end if;
+26: end $$;
+27: 
+28: create policy "user_data_select_member"
+29:   on public.user_data for select to authenticated
+30:   using (business_id in (select public.my_business_ids()));
+31: 
+32: create policy "user_data_insert_member"
+33:   on public.user_data for insert to authenticated
+34:   with check (public.is_member_of(business_id));
+35: 
+36: create policy "user_data_update_member"
+37:   on public.user_data for update to authenticated
+38:   using (public.is_member_of(business_id))
+39:   with check (public.is_member_of(business_id));
+40: 
+41: create policy "user_data_delete_admin"
+42:   on public.user_data for delete to authenticated
+43:   using (public.is_admin_of(business_id));
+
+FILE: supabase/migrations/0022_rls_report_files.sql
+1: -- BIM-002 · 0022 · report_files — T-1 read only.
+2: -- The Phase 6 PDF pipeline writes via service role; no write policy in v1.
+3: -- Carries BIM-001's fidelity flag (columns never enumerated in the FRANK
+4: -- catalog) — untouched here, rides to BIM-004/005.
+5: do $$
+6: begin
+7:   if to_regclass('public.report_files') is null then
+8:     raise exception 'BIM-002/0022 ASSERT: public.report_files missing.'; end if;
+9:   if not (select relrowsecurity from pg_class where oid = 'public.report_files'::regclass) then
+10:     raise exception 'BIM-002/0022 ASSERT: RLS not enabled on report_files.'; end if;
+11:   if not exists (select 1 from pg_policies where schemaname='public' and tablename='user_businesses' and cmd='SELECT') then
+12:     raise exception 'BIM-002/0022 ASSERT: junction-first law — 0017 must land first.'; end if;
+13:   if exists (select 1 from pg_policies where schemaname='public' and tablename='report_files') then
+14:     raise exception 'BIM-002/0022 ASSERT: report_files already carries a policy.'; end if;
+15: end $$;
+16: 
+17: create policy "report_files_select_member"
+18:   on public.report_files for select to authenticated
+19:   using (business_id in (select public.my_business_ids()));
+
+FILE: supabase/migrations/0023_rls_aac_reference.sql
+1: -- BIM-002 · 0023 · aac_reference — T-4 platform-shared reference read.
+2: -- Every authenticated identity reads; NO write policy exists, so writes are
+3: -- locked to the service role BY OMISSION — deliberate, not an oversight.
+4: -- Reference data is not tenant-scoped: it has no business_id and never should.
+5: do $$
+6: begin
+7:   if to_regclass('public.aac_reference') is null then
+8:     raise exception 'BIM-002/0023 ASSERT: public.aac_reference missing.'; end if;
+9:   if not (select relrowsecurity from pg_class where oid = 'public.aac_reference'::regclass) then
+10:     raise exception 'BIM-002/0023 ASSERT: RLS not enabled on aac_reference.'; end if;
+11:   if exists (select 1 from pg_policies where schemaname='public' and tablename='aac_reference') then
+12:     raise exception 'BIM-002/0023 ASSERT: aac_reference already carries a policy.'; end if;
+13: end $$;
+14: 
+15: create policy "aac_reference_select_authenticated"
+16:   on public.aac_reference for select to authenticated
+17:   using (true);
+
+FILE: supabase/migrations/0024_rls_wac_reference.sql
+1: -- BIM-002 · 0024 · wac_reference — T-4 platform-shared reference read.
+2: -- Every authenticated identity reads; NO write policy exists, so writes are
+3: -- locked to the service role BY OMISSION — deliberate, not an oversight.
+4: -- Reference data is not tenant-scoped: it has no business_id and never should.
+5: do $$
+6: begin
+7:   if to_regclass('public.wac_reference') is null then
+8:     raise exception 'BIM-002/0024 ASSERT: public.wac_reference missing.'; end if;
+9:   if not (select relrowsecurity from pg_class where oid = 'public.wac_reference'::regclass) then
+10:     raise exception 'BIM-002/0024 ASSERT: RLS not enabled on wac_reference.'; end if;
+11:   if exists (select 1 from pg_policies where schemaname='public' and tablename='wac_reference') then
+12:     raise exception 'BIM-002/0024 ASSERT: wac_reference already carries a policy.'; end if;
+13: end $$;
+14: 
+15: create policy "wac_reference_select_authenticated"
+16:   on public.wac_reference for select to authenticated
+17:   using (true);
+
+FILE: supabase/migrations/0025_rls_ful_reference.sql
+1: -- BIM-002 · 0025 · ful_reference — T-4 platform-shared reference read.
+2: -- Every authenticated identity reads; NO write policy exists, so writes are
+3: -- locked to the service role BY OMISSION — deliberate, not an oversight.
+4: -- Reference data is not tenant-scoped: it has no business_id and never should.
+5: do $$
+6: begin
+7:   if to_regclass('public.ful_reference') is null then
+8:     raise exception 'BIM-002/0025 ASSERT: public.ful_reference missing.'; end if;
+9:   if not (select relrowsecurity from pg_class where oid = 'public.ful_reference'::regclass) then
+10:     raise exception 'BIM-002/0025 ASSERT: RLS not enabled on ful_reference.'; end if;
+11:   if exists (select 1 from pg_policies where schemaname='public' and tablename='ful_reference') then
+12:     raise exception 'BIM-002/0025 ASSERT: ful_reference already carries a policy.'; end if;
+13: end $$;
+14: 
+15: create policy "ful_reference_select_authenticated"
+16:   on public.ful_reference for select to authenticated
+17:   using (true);
+
+FILE: supabase/migrations/0026_rls_pbm_info.sql
+1: -- BIM-002 · 0026 · pbm_info — T-4 platform-shared reference read.
+2: -- Every authenticated identity reads; NO write policy exists, so writes are
+3: -- locked to the service role BY OMISSION — deliberate, not an oversight.
+4: -- Reference data is not tenant-scoped: it has no business_id and never should.
+5: do $$
+6: begin
+7:   if to_regclass('public.pbm_info') is null then
+8:     raise exception 'BIM-002/0026 ASSERT: public.pbm_info missing.'; end if;
+9:   if not (select relrowsecurity from pg_class where oid = 'public.pbm_info'::regclass) then
+10:     raise exception 'BIM-002/0026 ASSERT: RLS not enabled on pbm_info.'; end if;
+11:   if exists (select 1 from pg_policies where schemaname='public' and tablename='pbm_info') then
+12:     raise exception 'BIM-002/0026 ASSERT: pbm_info already carries a policy.'; end if;
+13: end $$;
+14: 
+15: create policy "pbm_info_select_authenticated"
+16:   on public.pbm_info for select to authenticated
+17:   using (true);
+
+FILE: supabase/migrations/0027_rls_reference_dataset_versions.sql
+1: -- BIM-002 · 0027 · reference_dataset_versions — T-4 platform-shared reference read.
+2: -- Every authenticated identity reads; NO write policy exists, so writes are
+3: -- locked to the service role BY OMISSION — deliberate, not an oversight.
+4: -- Reference data is not tenant-scoped: it has no business_id and never should.
+5: do $$
+6: begin
+7:   if to_regclass('public.reference_dataset_versions') is null then
+8:     raise exception 'BIM-002/0027 ASSERT: public.reference_dataset_versions missing.'; end if;
+9:   if not (select relrowsecurity from pg_class where oid = 'public.reference_dataset_versions'::regclass) then
+10:     raise exception 'BIM-002/0027 ASSERT: RLS not enabled on reference_dataset_versions.'; end if;
+11:   if exists (select 1 from pg_policies where schemaname='public' and tablename='reference_dataset_versions') then
+12:     raise exception 'BIM-002/0027 ASSERT: reference_dataset_versions already carries a policy.'; end if;
+13: end $$;
+14: 
+15: create policy "reference_dataset_versions_select_authenticated"
+16:   on public.reference_dataset_versions for select to authenticated
+17:   using (true);
+
+FILE: supabase/migrations/0028_audit_logs_reshape.sql
+1: -- BIM-003-CYBER-PHARMA · 0028 · audit_logs reshape — the HIPAA trail takes its Brief §3 shape.
+2: --
+3: -- 0015 (BIM-001) created audit_logs in the FRANK_API catalog shape (uuid PK, username,
+4: -- record_id varchar(128), old_value/new_value text, free-text action, ip/user-agent,
+5: -- created_at/updated_at + a set_updated_at trigger). BIM-003 rules R-1..R-8 and the
+6: -- Brief §3 row shape replace that design. 0015 is read-only (chain law), so this file
+7: -- drops and recreates (ERRATUM E-1, Director-approved 2026-09-14). It refuses to drop
+8: -- a table that holds rows: nothing in this module may delete an audit row (Brief §6).
+9: --
+10: -- Shape (Brief §3, eleven columns, this order): id · occurred_at · actor_user_id ·
+11: -- actor_role · business_id · table_name · row_id · action · old_data · new_data · context.
+12: -- Indexes (Brief §4, exactly three beyond the PK).
+13: -- Immutability (R-6): BEFORE UPDATE OR DELETE raises unconditionally — no WHEN clause, no
+14: -- role check — so even the service role (which bypasses RLS) cannot alter or remove a row.
+15: -- A BEFORE TRUNCATE statement trigger closes the one path row triggers cannot see.
+16: -- RLS: ENABLED + FORCED; zero policies here (0029 lands the single SELECT policy).
+17: -- Grants: UPDATE and DELETE revoked from anon and authenticated (RF-3, Director-approved)
+18: -- so a tenant's tampering attempt is a loud 42501 rather than a silent 0-affected;
+19: -- INSERT is left to RLS (no policy → denied) so AC-113 reads "denied by RLS".
+20: -- The definer trigger/wrappers insert through their owner's BYPASSRLS (RISK-1, verified
+21: -- 2026-09-14: postgres rolbypassrls = true on the target).
+22: 
+23: do $$
+24: declare
+25:   n bigint;
+26: begin
+27:   if to_regclass('public.audit_logs') is null then
+28:     raise exception 'BIM-003/0028 ASSERT: public.audit_logs missing — apply chain 0001-0027 first.';
+29:   end if;
+30:   if exists (select 1 from information_schema.columns
+31:              where table_schema = 'public' and table_name = 'audit_logs' and column_name = 'occurred_at') then
+32:     raise exception 'BIM-003/0028 ASSERT: public.audit_logs already carries occurred_at — reshape already applied; refusing to re-run.';
+33:   end if;
+34:   execute 'select count(*) from public.audit_logs' into n;
+35:   if n <> 0 then
+36:     raise exception 'BIM-003/0028 ASSERT: public.audit_logs holds % row(s) — refusing to drop a non-empty audit trail (Brief §6). Reshape applies to an empty table only (E-1).', n;
+37:   end if;
+38: end $$;
+39: 
+40: -- E-1: the 0015 shape goes, taking its three indexes and its set_updated_at trigger with it.
+41: drop table public.audit_logs;
+42: 
+43: create table public.audit_logs (
+44:   id            bigint generated always as identity primary key,
+45:   occurred_at   timestamptz not null default now(),
+46:   actor_user_id uuid null,                       -- auth.uid(); NULL when the service role acts
+47:   actor_role    text not null,                   -- JWT role claim; fallback current_user
+48:   business_id   uuid null,                       -- from the row when the table has it; NULL per R-8
+49:   table_name    text not null,
+50:   row_id        text null,                       -- touched row's PK as text; NULL for page reads
+51:   action        text not null check (action in ('insert', 'update', 'delete', 'read_page')),
+52:   old_data      jsonb null,
+53:   new_data      jsonb null,
+54:   context       jsonb null
+55: );
+56: 
+57: -- Brief §4: three indexes, no more.
+58: create index idx_audit_logs_occurred_at       on public.audit_logs (occurred_at);
+59: create index idx_audit_logs_business_occurred on public.audit_logs (business_id, occurred_at);
+60: create index idx_audit_logs_table_row         on public.audit_logs (table_name, row_id);
+61: 
+62: -- R-6: immutability below RLS. Unconditional. Only a migration can drop this.
+63: create or replace function public.audit_logs_immutable()
+64: returns trigger
+65: language plpgsql
+66: set search_path = ''
+67: as $$
+68: begin
+69:   raise exception 'audit_logs is append-only';
+70: end;
+71: $$;
+72: 
+73: create trigger audit_logs_immutable
+74:   before update or delete on public.audit_logs
+75:   for each row execute function public.audit_logs_immutable();
+76: 
+77: -- Row triggers never see TRUNCATE; this statement trigger closes that path for every role.
+78: create trigger audit_logs_no_truncate
+79:   before truncate on public.audit_logs
+80:   for each statement execute function public.audit_logs_immutable();
+81: 
+82: -- R-1: RLS enabled AND forced (the table owner is not exempt). Policies: none here.
+83: alter table public.audit_logs enable row level security;
+84: alter table public.audit_logs force row level security;
+85: 
+86: -- RF-3: tampering by a tenant or an anonymous caller is a privilege error, not a silent no-op.
+87: revoke update, delete on public.audit_logs from anon, authenticated;
+
+FILE: supabase/migrations/0029_rls_audit_logs.sql
+1: -- BIM-003-CYBER-PHARMA · 0029 · audit_logs — R-1: the ONE policy.
+2: -- Junction ADMIN of the row's business may SELECT; member denied; no tenant INSERT,
+3: -- UPDATE or DELETE policy exists (writes land only via the SECURITY DEFINER logging
+4: -- functions or the service role; mutation is stopped below RLS by 0028's guard).
+5: -- Reuses BIM-002's role-gated helper (TV-3: public.is_admin_of, 0016) — no new helper.
+6: -- Rows with business_id NULL (R-8 platform/reference writes) are visible to no tenant:
+7: -- is_admin_of(NULL) is false by construction.
+8: do $$
+9: begin
+10:   if to_regclass('public.audit_logs') is null then
+11:     raise exception 'BIM-003/0029 ASSERT: public.audit_logs missing.'; end if;
+12:   if not exists (select 1 from information_schema.columns
+13:                  where table_schema = 'public' and table_name = 'audit_logs' and column_name = 'occurred_at') then
+14:     raise exception 'BIM-003/0029 ASSERT: audit_logs is not in the 0028 shape — 0028 must land first.'; end if;
+15:   if not (select relrowsecurity and relforcerowsecurity from pg_class where oid = 'public.audit_logs'::regclass) then
+16:     raise exception 'BIM-003/0029 ASSERT: RLS must be ENABLED and FORCED on audit_logs (0028).'; end if;
+17:   if not exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+18:                  where n.nspname = 'public' and p.proname = 'is_admin_of') then
+19:     raise exception 'BIM-003/0029 ASSERT: public.is_admin_of(uuid) missing — 0016 must land first.'; end if;
+20:   if exists (select 1 from pg_policies where schemaname = 'public' and tablename = 'audit_logs') then
+21:     raise exception 'BIM-003/0029 ASSERT: audit_logs already carries a policy (one-per-op law).'; end if;
+22: end $$;
+23: 
+24: create policy "audit_logs_select_admin"
+25:   on public.audit_logs for select to authenticated
+26:   using (public.is_admin_of(business_id));
+
+FILE: supabase/migrations/0030_audit_write.sql
+1: -- BIM-003-CYBER-PHARMA · 0030 · audit_write() — the ONE write-audit trigger function (R-2).
+2: -- Stamped AFTER INSERT OR UPDATE OR DELETE FOR EACH ROW on thirteen tables (0031-0043).
+3: --
+4: -- SECURITY DEFINER is mandatory: tenants hold no INSERT policy on audit_logs (R-1) and RLS
+5: -- is FORCED there, so the insert must run as the function owner, whose BYPASSRLS carries it
+6: -- (RISK-1 verified). search_path is pinned to '' and every reference is schema-qualified.
+7: --
+8: -- business_id (R-8 + the approved businesses special-case):
+9: --   · the row's own business_id when the table carries that column
+10: --   · businesses: the row's own id IS the business (0019's predicate uses id the same way)
+11: --   · otherwise NULL, with the identifying key carried in context {id, account_id?}
+12: -- actor_role: the JWT role claim when the write came through PostgREST/supabase-js
+13: --   (authenticated / service_role / anon); the session role otherwise (e.g. postgres for a
+14: --   direct connection). actor_user_id = auth.uid(), NULL when no user is behind the write.
+15: -- old_data/new_data: to_jsonb(OLD)/to_jsonb(NEW) per action (Brief §3). Payloads ARE PHI and
+16: -- are protected by R-1 (admin-only read) and R-6 (no mutation); redaction is Phase 8.
+17: 
+18: do $$
+19: begin
+20:   if to_regclass('public.audit_logs') is null then
+21:     raise exception 'BIM-003/0030 ASSERT: public.audit_logs missing.'; end if;
+22:   if not exists (select 1 from information_schema.columns
+23:                  where table_schema = 'public' and table_name = 'audit_logs' and column_name = 'occurred_at') then
+24:     raise exception 'BIM-003/0030 ASSERT: audit_logs is not in the 0028 shape — 0028 must land first.'; end if;
+25:   if exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+26:              where n.nspname = 'public' and p.proname = 'audit_write') then
+27:     raise exception 'BIM-003/0030 ASSERT: public.audit_write() already exists — refusing to redefine outside a migration edit.'; end if;
+28: end $$;
+29: 
+30: create function public.audit_write()
+31: returns trigger
+32: language plpgsql
+33: security definer
+34: set search_path = ''
+35: as $$
+36: declare
+37:   j             jsonb;
+38:   v_old         jsonb;
+39:   v_new         jsonb;
+40:   v_business_id uuid;
+41:   v_context     jsonb;
+42:   v_role        text;
+43: begin
+44:   if tg_op = 'DELETE' then
+45:     j := to_jsonb(old);  v_old := j;              v_new := null;
+46:   elsif tg_op = 'UPDATE' then
+47:     j := to_jsonb(new);  v_old := to_jsonb(old);  v_new := j;
+48:   else
+49:     j := to_jsonb(new);  v_old := null;           v_new := j;
+50:   end if;
+51: 
+52:   if tg_table_name = 'businesses' then
+53:     v_business_id := (j ->> 'id')::uuid;
+54:     v_context     := null;
+55:   elsif j ? 'business_id' then
+56:     v_business_id := (j ->> 'business_id')::uuid;
+57:     v_context     := null;
+58:   else
+59:     v_business_id := null;                                              -- R-8
+60:     v_context     := jsonb_strip_nulls(jsonb_build_object('id', j ->> 'id', 'account_id', j ->> 'account_id'));
+61:   end if;
+62: 
+63:   v_role := coalesce(
+64:     nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'role',
+65:     current_user::text
+66:   );
+67: 
+68:   insert into public.audit_logs
+69:     (actor_user_id, actor_role, business_id, table_name, row_id, action, old_data, new_data, context)
+70:   values
+71:     (auth.uid(), v_role, v_business_id, tg_table_name, j ->> 'id', lower(tg_op), v_old, v_new, v_context);
+72: 
+73:   return null;  -- AFTER trigger: the return value is ignored
+74: end;
+75: $$;
+76: 
+77: -- Both channels closed (BIM-002 E-2/E-4 law): PUBLIC's default EXECUTE and the schema's
+78: -- explicit default-ACL grant to anon. Trigger firing never checks EXECUTE, so nothing
+79: -- legitimate depends on either grant.
+80: revoke execute on function public.audit_write() from public;
+81: revoke execute on function public.audit_write() from anon;
+
+FILE: supabase/migrations/0031_audit_stamp_businesses.sql
+1: -- BIM-003-CYBER-PHARMA · 0031 · audit stamp · businesses
+2: -- One identical stamp per table (R-2, E-0 = thirteen). Reviewed by diff: any two stamp
+3: -- files differ only in the table name and this header's number (AC-120).
+4: do $$
+5: begin
+6:   if to_regclass('public.businesses') is null then
+7:     raise exception 'BIM-003 STAMP ASSERT: public.businesses missing.'; end if;
+8:   if not exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+9:                  where n.nspname = 'public' and p.proname = 'audit_write') then
+10:     raise exception 'BIM-003 STAMP ASSERT: public.audit_write() missing — 0030 must land first.'; end if;
+11:   if exists (select 1 from pg_trigger
+12:              where tgrelid = 'public.businesses'::regclass and tgname = 'audit_write') then
+13:     raise exception 'BIM-003 STAMP ASSERT: public.businesses already carries the audit_write trigger.'; end if;
+14: end $$;
+15: 
+16: create trigger audit_write
+17:   after insert or update or delete on public.businesses
+18:   for each row execute function public.audit_write();
+
+FILE: supabase/migrations/0032_audit_stamp_user_businesses.sql
+1: -- BIM-003-CYBER-PHARMA · 0032 · audit stamp · user_businesses
+2: -- One identical stamp per table (R-2, E-0 = thirteen). Reviewed by diff: any two stamp
+3: -- files differ only in the table name and this header's number (AC-120).
+4: do $$
+5: begin
+6:   if to_regclass('public.user_businesses') is null then
+7:     raise exception 'BIM-003 STAMP ASSERT: public.user_businesses missing.'; end if;
+8:   if not exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+9:                  where n.nspname = 'public' and p.proname = 'audit_write') then
+10:     raise exception 'BIM-003 STAMP ASSERT: public.audit_write() missing — 0030 must land first.'; end if;
+11:   if exists (select 1 from pg_trigger
+12:              where tgrelid = 'public.user_businesses'::regclass and tgname = 'audit_write') then
+13:     raise exception 'BIM-003 STAMP ASSERT: public.user_businesses already carries the audit_write trigger.'; end if;
+14: end $$;
+15: 
+16: create trigger audit_write
+17:   after insert or update or delete on public.user_businesses
+18:   for each row execute function public.audit_write();
+
+FILE: supabase/migrations/0033_audit_stamp_pending_registrations.sql
+1: -- BIM-003-CYBER-PHARMA · 0033 · audit stamp · pending_registrations
+2: -- One identical stamp per table (R-2, E-0 = thirteen). Reviewed by diff: any two stamp
+3: -- files differ only in the table name and this header's number (AC-120).
+4: do $$
+5: begin
+6:   if to_regclass('public.pending_registrations') is null then
+7:     raise exception 'BIM-003 STAMP ASSERT: public.pending_registrations missing.'; end if;
+8:   if not exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+9:                  where n.nspname = 'public' and p.proname = 'audit_write') then
+10:     raise exception 'BIM-003 STAMP ASSERT: public.audit_write() missing — 0030 must land first.'; end if;
+11:   if exists (select 1 from pg_trigger
+12:              where tgrelid = 'public.pending_registrations'::regclass and tgname = 'audit_write') then
+13:     raise exception 'BIM-003 STAMP ASSERT: public.pending_registrations already carries the audit_write trigger.'; end if;
+14: end $$;
+15: 
+16: create trigger audit_write
+17:   after insert or update or delete on public.pending_registrations
+18:   for each row execute function public.audit_write();
+
+FILE: supabase/migrations/0034_audit_stamp_user_data.sql
+1: -- BIM-003-CYBER-PHARMA · 0034 · audit stamp · user_data
+2: -- One identical stamp per table (R-2, E-0 = thirteen). Reviewed by diff: any two stamp
+3: -- files differ only in the table name and this header's number (AC-120).
+4: do $$
+5: begin
+6:   if to_regclass('public.user_data') is null then
+7:     raise exception 'BIM-003 STAMP ASSERT: public.user_data missing.'; end if;
+8:   if not exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+9:                  where n.nspname = 'public' and p.proname = 'audit_write') then
+10:     raise exception 'BIM-003 STAMP ASSERT: public.audit_write() missing — 0030 must land first.'; end if;
+11:   if exists (select 1 from pg_trigger
+12:              where tgrelid = 'public.user_data'::regclass and tgname = 'audit_write') then
+13:     raise exception 'BIM-003 STAMP ASSERT: public.user_data already carries the audit_write trigger.'; end if;
+14: end $$;
+15: 
+16: create trigger audit_write
+17:   after insert or update or delete on public.user_data
+18:   for each row execute function public.audit_write();
+
+FILE: supabase/migrations/0035_audit_stamp_report_files.sql
+1: -- BIM-003-CYBER-PHARMA · 0035 · audit stamp · report_files
+2: -- One identical stamp per table (R-2, E-0 = thirteen). Reviewed by diff: any two stamp
+3: -- files differ only in the table name and this header's number (AC-120).
+4: do $$
+5: begin
+6:   if to_regclass('public.report_files') is null then
+7:     raise exception 'BIM-003 STAMP ASSERT: public.report_files missing.'; end if;
+8:   if not exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+9:                  where n.nspname = 'public' and p.proname = 'audit_write') then
+10:     raise exception 'BIM-003 STAMP ASSERT: public.audit_write() missing — 0030 must land first.'; end if;
+11:   if exists (select 1 from pg_trigger
+12:              where tgrelid = 'public.report_files'::regclass and tgname = 'audit_write') then
+13:     raise exception 'BIM-003 STAMP ASSERT: public.report_files already carries the audit_write trigger.'; end if;
+14: end $$;
+15: 
+16: create trigger audit_write
+17:   after insert or update or delete on public.report_files
+18:   for each row execute function public.audit_write();
+
+FILE: supabase/migrations/0036_audit_stamp_accounts.sql
+1: -- BIM-003-CYBER-PHARMA · 0036 · audit stamp · accounts
+2: -- One identical stamp per table (R-2, E-0 = thirteen). Reviewed by diff: any two stamp
+3: -- files differ only in the table name and this header's number (AC-120).
+4: do $$
+5: begin
+6:   if to_regclass('public.accounts') is null then
+7:     raise exception 'BIM-003 STAMP ASSERT: public.accounts missing.'; end if;
+8:   if not exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+9:                  where n.nspname = 'public' and p.proname = 'audit_write') then
+10:     raise exception 'BIM-003 STAMP ASSERT: public.audit_write() missing — 0030 must land first.'; end if;
+11:   if exists (select 1 from pg_trigger
+12:              where tgrelid = 'public.accounts'::regclass and tgname = 'audit_write') then
+13:     raise exception 'BIM-003 STAMP ASSERT: public.accounts already carries the audit_write trigger.'; end if;
+14: end $$;
+15: 
+16: create trigger audit_write
+17:   after insert or update or delete on public.accounts
+18:   for each row execute function public.audit_write();
+
+FILE: supabase/migrations/0037_audit_stamp_subscriptions.sql
+1: -- BIM-003-CYBER-PHARMA · 0037 · audit stamp · subscriptions
+2: -- One identical stamp per table (R-2, E-0 = thirteen). Reviewed by diff: any two stamp
+3: -- files differ only in the table name and this header's number (AC-120).
+4: do $$
+5: begin
+6:   if to_regclass('public.subscriptions') is null then
+7:     raise exception 'BIM-003 STAMP ASSERT: public.subscriptions missing.'; end if;
+8:   if not exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+9:                  where n.nspname = 'public' and p.proname = 'audit_write') then
+10:     raise exception 'BIM-003 STAMP ASSERT: public.audit_write() missing — 0030 must land first.'; end if;
+11:   if exists (select 1 from pg_trigger
+12:              where tgrelid = 'public.subscriptions'::regclass and tgname = 'audit_write') then
+13:     raise exception 'BIM-003 STAMP ASSERT: public.subscriptions already carries the audit_write trigger.'; end if;
+14: end $$;
+15: 
+16: create trigger audit_write
+17:   after insert or update or delete on public.subscriptions
+18:   for each row execute function public.audit_write();
+
+FILE: supabase/migrations/0038_audit_stamp_apa_memberships.sql
+1: -- BIM-003-CYBER-PHARMA · 0038 · audit stamp · apa_memberships
+2: -- One identical stamp per table (R-2, E-0 = thirteen). Reviewed by diff: any two stamp
+3: -- files differ only in the table name and this header's number (AC-120).
+4: do $$
+5: begin
+6:   if to_regclass('public.apa_memberships') is null then
+7:     raise exception 'BIM-003 STAMP ASSERT: public.apa_memberships missing.'; end if;
+8:   if not exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+9:                  where n.nspname = 'public' and p.proname = 'audit_write') then
+10:     raise exception 'BIM-003 STAMP ASSERT: public.audit_write() missing — 0030 must land first.'; end if;
+11:   if exists (select 1 from pg_trigger
+12:              where tgrelid = 'public.apa_memberships'::regclass and tgname = 'audit_write') then
+13:     raise exception 'BIM-003 STAMP ASSERT: public.apa_memberships already carries the audit_write trigger.'; end if;
+14: end $$;
+15: 
+16: create trigger audit_write
+17:   after insert or update or delete on public.apa_memberships
+18:   for each row execute function public.audit_write();
+
+FILE: supabase/migrations/0039_audit_stamp_reference_dataset_versions.sql
+1: -- BIM-003-CYBER-PHARMA · 0039 · audit stamp · reference_dataset_versions
+2: -- One identical stamp per table (R-2, E-0 = thirteen). Reviewed by diff: any two stamp
+3: -- files differ only in the table name and this header's number (AC-120).
+4: do $$
+5: begin
+6:   if to_regclass('public.reference_dataset_versions') is null then
+7:     raise exception 'BIM-003 STAMP ASSERT: public.reference_dataset_versions missing.'; end if;
+8:   if not exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+9:                  where n.nspname = 'public' and p.proname = 'audit_write') then
+10:     raise exception 'BIM-003 STAMP ASSERT: public.audit_write() missing — 0030 must land first.'; end if;
+11:   if exists (select 1 from pg_trigger
+12:              where tgrelid = 'public.reference_dataset_versions'::regclass and tgname = 'audit_write') then
+13:     raise exception 'BIM-003 STAMP ASSERT: public.reference_dataset_versions already carries the audit_write trigger.'; end if;
+14: end $$;
+15: 
+16: create trigger audit_write
+17:   after insert or update or delete on public.reference_dataset_versions
+18:   for each row execute function public.audit_write();
+
+FILE: supabase/migrations/0040_audit_stamp_aac_reference.sql
+1: -- BIM-003-CYBER-PHARMA · 0040 · audit stamp · aac_reference
+2: -- One identical stamp per table (R-2, E-0 = thirteen). Reviewed by diff: any two stamp
+3: -- files differ only in the table name and this header's number (AC-120).
+4: do $$
+5: begin
+6:   if to_regclass('public.aac_reference') is null then
+7:     raise exception 'BIM-003 STAMP ASSERT: public.aac_reference missing.'; end if;
+8:   if not exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+9:                  where n.nspname = 'public' and p.proname = 'audit_write') then
+10:     raise exception 'BIM-003 STAMP ASSERT: public.audit_write() missing — 0030 must land first.'; end if;
+11:   if exists (select 1 from pg_trigger
+12:              where tgrelid = 'public.aac_reference'::regclass and tgname = 'audit_write') then
+13:     raise exception 'BIM-003 STAMP ASSERT: public.aac_reference already carries the audit_write trigger.'; end if;
+14: end $$;
+15: 
+16: create trigger audit_write
+17:   after insert or update or delete on public.aac_reference
+18:   for each row execute function public.audit_write();
+
+FILE: supabase/migrations/0041_audit_stamp_wac_reference.sql
+1: -- BIM-003-CYBER-PHARMA · 0041 · audit stamp · wac_reference
+2: -- One identical stamp per table (R-2, E-0 = thirteen). Reviewed by diff: any two stamp
+3: -- files differ only in the table name and this header's number (AC-120).
+4: do $$
+5: begin
+6:   if to_regclass('public.wac_reference') is null then
+7:     raise exception 'BIM-003 STAMP ASSERT: public.wac_reference missing.'; end if;
+8:   if not exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+9:                  where n.nspname = 'public' and p.proname = 'audit_write') then
+10:     raise exception 'BIM-003 STAMP ASSERT: public.audit_write() missing — 0030 must land first.'; end if;
+11:   if exists (select 1 from pg_trigger
+12:              where tgrelid = 'public.wac_reference'::regclass and tgname = 'audit_write') then
+13:     raise exception 'BIM-003 STAMP ASSERT: public.wac_reference already carries the audit_write trigger.'; end if;
+14: end $$;
+15: 
+16: create trigger audit_write
+17:   after insert or update or delete on public.wac_reference
+18:   for each row execute function public.audit_write();
+
+FILE: supabase/migrations/0042_audit_stamp_ful_reference.sql
+1: -- BIM-003-CYBER-PHARMA · 0042 · audit stamp · ful_reference
+2: -- One identical stamp per table (R-2, E-0 = thirteen). Reviewed by diff: any two stamp
+3: -- files differ only in the table name and this header's number (AC-120).
+4: do $$
+5: begin
+6:   if to_regclass('public.ful_reference') is null then
+7:     raise exception 'BIM-003 STAMP ASSERT: public.ful_reference missing.'; end if;
+8:   if not exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+9:                  where n.nspname = 'public' and p.proname = 'audit_write') then
+10:     raise exception 'BIM-003 STAMP ASSERT: public.audit_write() missing — 0030 must land first.'; end if;
+11:   if exists (select 1 from pg_trigger
+12:              where tgrelid = 'public.ful_reference'::regclass and tgname = 'audit_write') then
+13:     raise exception 'BIM-003 STAMP ASSERT: public.ful_reference already carries the audit_write trigger.'; end if;
+14: end $$;
+15: 
+16: create trigger audit_write
+17:   after insert or update or delete on public.ful_reference
+18:   for each row execute function public.audit_write();
+
+FILE: supabase/migrations/0043_audit_stamp_pbm_info.sql
+1: -- BIM-003-CYBER-PHARMA · 0043 · audit stamp · pbm_info
+2: -- One identical stamp per table (R-2, E-0 = thirteen). Reviewed by diff: any two stamp
+3: -- files differ only in the table name and this header's number (AC-120).
+4: do $$
+5: begin
+6:   if to_regclass('public.pbm_info') is null then
+7:     raise exception 'BIM-003 STAMP ASSERT: public.pbm_info missing.'; end if;
+8:   if not exists (select 1 from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+9:                  where n.nspname = 'public' and p.proname = 'audit_write') then
+10:     raise exception 'BIM-003 STAMP ASSERT: public.audit_write() missing — 0030 must land first.'; end if;
+11:   if exists (select 1 from pg_trigger
+12:              where tgrelid = 'public.pbm_info'::regclass and tgname = 'audit_write') then
+13:     raise exception 'BIM-003 STAMP ASSERT: public.pbm_info already carries the audit_write trigger.'; end if;
+14: end $$;
+15: 
+16: create trigger audit_write
+17:   after insert or update or delete on public.pbm_info
+18:   for each row execute function public.audit_write();
+
+FILE: supabase/migrations/0044_owedbook_kpis.sql
+1: -- BIM-003-CYBER-PHARMA · 0044 · owedbook_kpis — read wrapper 1 of 4 (R-4, E-0 N = 4).
+2: -- Mirrors OwedBookService.getKpis(filters) → OwedBookKpis (src/services/owedbook.ts:17,
+3: -- src/types/OwedBook.ts:35-40). One row: commercial_underpaid · commercial_scripts ·
+4: -- updated_difference · owed. Aggregates STORED user_data columns only (A-3): no rate math.
+5: --   commercial_underpaid = sum(owed) where owed > 0      (mock: owedbook.ts:72-74)
+6: --   commercial_scripts   = count(*)                      (mock: :77)
+7: --   updated_difference   = sum(difference)               (mock: sum(updated_difference ?? 0), :78-80)
+8: --   owed                 = commercial_underpaid           (mock: :81)
+9: -- Shape rules (Brief §5): SECURITY DEFINER · search_path '' · first statement = membership
+10: -- via my_business_ids() else RAISE 'not a member of business' · second = ONE read_page audit
+11: -- row (R-7) · third = the read, with an explicit business_id fence (a DEFINER bypasses RLS —
+12: -- the WHERE is the boundary). Filters mirror applyFilters (owedbook.ts:60-67):
+13: --   from/to on date_dispensed · pbms on insurance (A-3: pbm ← insurance) · filter on status.
+14: do $$
+15: begin
+16:   if to_regclass('public.user_data') is null then
+17:     raise exception 'BIM-003/0044 ASSERT: public.user_data missing.'; end if;
+18:   if not exists (select 1 from information_schema.columns
+19:                  where table_schema = 'public' and table_name = 'audit_logs' and column_name = 'occurred_at') then
+20:     raise exception 'BIM-003/0044 ASSERT: audit_logs is not in the 0028 shape.'; end if;
+21:   if not exists (select 1 from pg_proc where proname = 'my_business_ids' and pronamespace = 'public'::regnamespace) then
+22:     raise exception 'BIM-003/0044 ASSERT: public.my_business_ids() missing (0016).'; end if;
+23:   if exists (select 1 from pg_proc where proname = 'owedbook_kpis' and pronamespace = 'public'::regnamespace) then
+24:     raise exception 'BIM-003/0044 ASSERT: public.owedbook_kpis already exists.'; end if;
+25: end $$;
+26: 
+27: create function public.owedbook_kpis(
+28:   p_business_id uuid,
+29:   p_from        date   default null,
+30:   p_to          date   default null,
+31:   p_pbms        text[] default '{}',
+32:   p_filter      text   default null
+33: )
+34: returns table (
+35:   commercial_underpaid numeric,
+36:   commercial_scripts   bigint,
+37:   updated_difference   numeric,
+38:   owed                 numeric
+39: )
+40: language plpgsql
+41: security definer
+42: set search_path = ''
+43: as $$
+44: begin
+45:   -- 1. membership (R-4): junction membership via the DEFINER set helper; NULL is not a member
+46:   if p_business_id is null or not (p_business_id in (select public.my_business_ids())) then
+47:     raise exception 'not a member of business';
+48:   end if;
+49: 
+50:   -- 2. log-then-return (R-7): exactly one read_page row per call
+51:   insert into public.audit_logs
+52:     (actor_user_id, actor_role, business_id, table_name, row_id, action, old_data, new_data, context)
+53:   values (
+54:     auth.uid(),
+55:     coalesce(nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'role', current_user::text),
+56:     p_business_id, 'user_data', null, 'read_page', null, null,
+57:     jsonb_build_object(
+58:       'fn',      'owedbook_kpis',
+59:       'args',    jsonb_build_object('p_business_id', p_business_id, 'p_from', p_from, 'p_to', p_to,
+60:                                     'p_pbms', to_jsonb(p_pbms), 'p_filter', p_filter),
+61:       'filters', jsonb_build_object('from', p_from, 'to', p_to, 'pbms', to_jsonb(p_pbms), 'filter', p_filter)
+62:     )
+63:   );
+64: 
+65:   -- 3. the read — explicit tenant fence, stored columns only
+66:   return query
+67:     select
+68:       round(coalesce(sum(ud.owed) filter (where ud.owed > 0), 0), 2)::numeric,
+69:       count(*)::bigint,
+70:       round(coalesce(sum(ud.difference), 0), 2)::numeric,
+71:       round(coalesce(sum(ud.owed) filter (where ud.owed > 0), 0), 2)::numeric
+72:     from public.user_data ud
+73:     where ud.business_id = p_business_id
+74:       and (p_from   is null or ud.date_dispensed >= p_from)
+75:       and (p_to     is null or ud.date_dispensed <= p_to)
+76:       and (coalesce(array_length(p_pbms, 1), 0) = 0 or ud.insurance = any (p_pbms))
+77:       and (p_filter is null or ud.status = p_filter);
+78: end;
+79: $$;
+80: 
+81: -- Both channels closed (E-2/E-4 law), then the one grant.
+82: revoke execute on function public.owedbook_kpis(uuid, date, date, text[], text) from public;
+83: revoke execute on function public.owedbook_kpis(uuid, date, date, text[], text) from anon;
+84: grant  execute on function public.owedbook_kpis(uuid, date, date, text[], text) to authenticated;
+
+FILE: supabase/migrations/0045_owedbook_rows.sql
+1: -- BIM-003-CYBER-PHARMA · 0045 · owedbook_rows — read wrapper 2 of 4 (R-4, E-0 N = 4).
+2: -- Mirrors OwedBookService.getRows(tab, filters, page) → OwedBookPage (src/services/owedbook.ts:24,
+3: -- src/types/OwedBook.ts:55-61). Returns the page ENVELOPE as jsonb — {rows, page, pageCount,
+4: -- limit, total} — because an envelope is not a row set; each element of rows is an
+5: -- OwedBookRow (OwedBook.ts:5-26) built from STORED user_data columns per the approved A-3 map:
+6: --   id←id::text · date←date_dispensed · script · qty · pbm←insurance · status ·
+7: --   original_paid←total_paid · medicaid_rate · method←medicaid_method · expected←expected_paid ·
+8: --   owed · new_paid · updated_difference←difference ·
+9: --   report_file, aac, federal_expected, federal_diff → NULL (Phase 5 joins/math; keys kept so
+10: --   BIM-005's swap stays one line).
+11: -- Tabs mirror owedbook.ts:89-93: commercial/summary = all · updated = new_paid is not null ·
+12: -- federal = federal_expected is not null → empty in v1 (that field is NULL by A-3).
+13: -- Pager mirrors owedbook.ts:95-98: pageCount = max(1, ceil(total/limit)); page clamped.
+14: -- Order: date desc, then id (the fixtures are date-descending). DEFAULT_LIMIT = 25 (:55).
+15: -- One read_page audit row per CALL regardless of page size (R-7, AC-208).
+16: do $$
+17: begin
+18:   if to_regclass('public.user_data') is null then
+19:     raise exception 'BIM-003/0045 ASSERT: public.user_data missing.'; end if;
+20:   if not exists (select 1 from information_schema.columns
+21:                  where table_schema = 'public' and table_name = 'audit_logs' and column_name = 'occurred_at') then
+22:     raise exception 'BIM-003/0045 ASSERT: audit_logs is not in the 0028 shape.'; end if;
+23:   if not exists (select 1 from pg_proc where proname = 'my_business_ids' and pronamespace = 'public'::regnamespace) then
+24:     raise exception 'BIM-003/0045 ASSERT: public.my_business_ids() missing (0016).'; end if;
+25:   if exists (select 1 from pg_proc where proname = 'owedbook_rows' and pronamespace = 'public'::regnamespace) then
+26:     raise exception 'BIM-003/0045 ASSERT: public.owedbook_rows already exists.'; end if;
+27: end $$;
+28: 
+29: create function public.owedbook_rows(
+30:   p_business_id uuid,
+31:   p_tab         text,
+32:   p_from        date    default null,
+33:   p_to          date    default null,
+34:   p_pbms        text[]  default '{}',
+35:   p_filter      text    default null,
+36:   p_page        integer default 1,
+37:   p_limit       integer default 25
+38: )
+39: returns jsonb
+40: language plpgsql
+41: security definer
+42: set search_path = ''
+43: as $$
+44: declare
+45:   v_limit      integer := greatest(coalesce(p_limit, 25), 1);
+46:   v_req_page   integer := greatest(coalesce(p_page, 1), 1);
+47:   v_total      bigint;
+48:   v_page_count integer;
+49:   v_page       integer;
+50:   v_offset     integer;
+51:   v_rows       jsonb;
+52: begin
+53:   -- 1. membership (R-4)
+54:   if p_business_id is null or not (p_business_id in (select public.my_business_ids())) then
+55:     raise exception 'not a member of business';
+56:   end if;
+57:   if p_tab is null or p_tab not in ('commercial_dollars', 'updated_commercial_payments', 'federal_dollars', 'summary') then
+58:     raise exception 'unknown tab: %', p_tab;
+59:   end if;
+60: 
+61:   -- 2. log-then-return (R-7): one row per call, not per row returned — and BEFORE any read
+62:   --    (Brief §5). The row carries the REQUESTED page/limit/offset; the page actually served
+63:   --    after clamping (owedbook.ts:95-98) is in the returned envelope.
+64:   insert into public.audit_logs
+65:     (actor_user_id, actor_role, business_id, table_name, row_id, action, old_data, new_data, context)
+66:   values (
+67:     auth.uid(),
+68:     coalesce(nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'role', current_user::text),
+69:     p_business_id, 'user_data', null, 'read_page', null, null,
+70:     jsonb_build_object(
+71:       'fn',      'owedbook_rows',
+72:       'args',    jsonb_build_object('p_business_id', p_business_id, 'p_tab', p_tab, 'p_from', p_from, 'p_to', p_to,
+73:                                     'p_pbms', to_jsonb(p_pbms), 'p_filter', p_filter, 'p_page', p_page, 'p_limit', p_limit),
+74:       'page',    v_req_page,
+75:       'limit',   v_limit,
+76:       'offset',  (v_req_page - 1) * v_limit,
+77:       'filters', jsonb_build_object('from', p_from, 'to', p_to, 'pbms', to_jsonb(p_pbms), 'filter', p_filter, 'tab', p_tab)
+78:     )
+79:   );
+80: 
+81:   -- 3. the read — pager arithmetic (owedbook.ts:95-98), then the page; explicit tenant fence
+82:   select count(*) into v_total
+83:   from public.user_data ud
+84:   where ud.business_id = p_business_id
+85:     and (p_from   is null or ud.date_dispensed >= p_from)
+86:     and (p_to     is null or ud.date_dispensed <= p_to)
+87:     and (coalesce(array_length(p_pbms, 1), 0) = 0 or ud.insurance = any (p_pbms))
+88:     and (p_filter is null or ud.status = p_filter)
+89:     and (p_tab <> 'updated_commercial_payments' or ud.new_paid is not null)
+90:     and (p_tab <> 'federal_dollars');                       -- federal_expected is NULL in v1 (A-3)
+91:   v_page_count := greatest(1, ceil(v_total::numeric / v_limit)::integer);
+92:   v_page       := least(v_req_page, v_page_count);
+93:   v_offset     := (v_page - 1) * v_limit;
+94: 
+95:   -- OwedBookRow shape per A-3
+96:   select coalesce(jsonb_agg(r.row_obj), '[]'::jsonb) into v_rows
+97:   from (
+98:     select jsonb_build_object(
+99:              'id',                 ud.id::text,
+100:              'date',               ud.date_dispensed,
+101:              'script',             ud.script,
+102:              'qty',                ud.qty,
+103:              'pbm',                ud.insurance,
+104:              'status',             ud.status,
+105:              'report_file',        null::text,
+106:              'original_paid',      ud.total_paid,
+107:              'medicaid_rate',      ud.medicaid_rate,
+108:              'method',             ud.medicaid_method,
+109:              'expected',           ud.expected_paid,
+110:              'owed',               ud.owed,
+111:              'new_paid',           ud.new_paid,
+112:              'updated_difference', ud.difference,
+113:              'aac',                null::numeric,
+114:              'federal_expected',   null::numeric,
+115:              'federal_diff',       null::numeric
+116:            ) as row_obj
+117:     from public.user_data ud
+118:     where ud.business_id = p_business_id
+119:       and (p_from   is null or ud.date_dispensed >= p_from)
+120:       and (p_to     is null or ud.date_dispensed <= p_to)
+121:       and (coalesce(array_length(p_pbms, 1), 0) = 0 or ud.insurance = any (p_pbms))
+122:       and (p_filter is null or ud.status = p_filter)
+123:       and (p_tab <> 'updated_commercial_payments' or ud.new_paid is not null)
+124:       and (p_tab <> 'federal_dollars')
+125:     order by ud.date_dispensed desc nulls last, ud.id
+126:     offset v_offset limit v_limit
+127:   ) r;
+128: 
+129:   return jsonb_build_object(
+130:     'rows',      v_rows,
+131:     'page',      v_page,
+132:     'pageCount', v_page_count,
+133:     'limit',     v_limit,
+134:     'total',     v_total
+135:   );
+136: end;
+137: $$;
+138: 
+139: revoke execute on function public.owedbook_rows(uuid, text, date, date, text[], text, integer, integer) from public;
+140: revoke execute on function public.owedbook_rows(uuid, text, date, date, text[], text, integer, integer) from anon;
+141: grant  execute on function public.owedbook_rows(uuid, text, date, date, text[], text, integer, integer) to authenticated;
+
+FILE: supabase/migrations/0046_owedbook_summary.sql
+1: -- BIM-003-CYBER-PHARMA · 0046 · owedbook_summary — read wrapper 3 of 4 (R-4, E-0 N = 4).
+2: -- Mirrors OwedBookService.getSummary(filters) → OwedBookSummaryRow[] (src/services/owedbook.ts:30,
+3: -- src/types/OwedBook.ts:64-68): one row per PBM — commercial_dollars = sum(owed) where owed > 0
+4: -- (mock :116), federal_dollars = sum(federal_diff) where > 0 (mock :117) → 0 in v1 because
+5: -- federal_diff is NULL by A-3. Rows with no PBM are skipped (mock :113). Ordered by
+6: -- commercial_dollars desc (mock :126). Rounded to 2 places (mock :122-125).
+7: do $$
+8: begin
+9:   if to_regclass('public.user_data') is null then
+10:     raise exception 'BIM-003/0046 ASSERT: public.user_data missing.'; end if;
+11:   if not exists (select 1 from information_schema.columns
+12:                  where table_schema = 'public' and table_name = 'audit_logs' and column_name = 'occurred_at') then
+13:     raise exception 'BIM-003/0046 ASSERT: audit_logs is not in the 0028 shape.'; end if;
+14:   if not exists (select 1 from pg_proc where proname = 'my_business_ids' and pronamespace = 'public'::regnamespace) then
+15:     raise exception 'BIM-003/0046 ASSERT: public.my_business_ids() missing (0016).'; end if;
+16:   if exists (select 1 from pg_proc where proname = 'owedbook_summary' and pronamespace = 'public'::regnamespace) then
+17:     raise exception 'BIM-003/0046 ASSERT: public.owedbook_summary already exists.'; end if;
+18: end $$;
+19: 
+20: create function public.owedbook_summary(
+21:   p_business_id uuid,
+22:   p_from        date   default null,
+23:   p_to          date   default null,
+24:   p_pbms        text[] default '{}',
+25:   p_filter      text   default null
+26: )
+27: returns table (
+28:   pbm                text,
+29:   commercial_dollars numeric,
+30:   federal_dollars    numeric
+31: )
+32: language plpgsql
+33: security definer
+34: set search_path = ''
+35: as $$
+36: begin
+37:   -- 1. membership (R-4)
+38:   if p_business_id is null or not (p_business_id in (select public.my_business_ids())) then
+39:     raise exception 'not a member of business';
+40:   end if;
+41: 
+42:   -- 2. log-then-return (R-7)
+43:   insert into public.audit_logs
+44:     (actor_user_id, actor_role, business_id, table_name, row_id, action, old_data, new_data, context)
+45:   values (
+46:     auth.uid(),
+47:     coalesce(nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'role', current_user::text),
+48:     p_business_id, 'user_data', null, 'read_page', null, null,
+49:     jsonb_build_object(
+50:       'fn',      'owedbook_summary',
+51:       'args',    jsonb_build_object('p_business_id', p_business_id, 'p_from', p_from, 'p_to', p_to,
+52:                                     'p_pbms', to_jsonb(p_pbms), 'p_filter', p_filter),
+53:       'filters', jsonb_build_object('from', p_from, 'to', p_to, 'pbms', to_jsonb(p_pbms), 'filter', p_filter)
+54:     )
+55:   );
+56: 
+57:   -- 3. the read — explicit tenant fence, grouped by PBM (insurance, A-3)
+58:   return query
+59:     select
+60:       ud.insurance::text,
+61:       round(coalesce(sum(ud.owed) filter (where ud.owed > 0), 0), 2)::numeric,
+62:       0::numeric                                            -- federal_diff is NULL in v1 (A-3)
+63:     from public.user_data ud
+64:     where ud.business_id = p_business_id
+65:       and ud.insurance is not null
+66:       and (p_from   is null or ud.date_dispensed >= p_from)
+67:       and (p_to     is null or ud.date_dispensed <= p_to)
+68:       and (coalesce(array_length(p_pbms, 1), 0) = 0 or ud.insurance = any (p_pbms))
+69:       and (p_filter is null or ud.status = p_filter)
+70:     group by ud.insurance
+71:     order by 2 desc, 1;
+72: end;
+73: $$;
+74: 
+75: revoke execute on function public.owedbook_summary(uuid, date, date, text[], text) from public;
+76: revoke execute on function public.owedbook_summary(uuid, date, date, text[], text) from anon;
+77: grant  execute on function public.owedbook_summary(uuid, date, date, text[], text) to authenticated;
+
+FILE: supabase/migrations/0047_owedbook_pbm_options.sql
+1: -- BIM-003-CYBER-PHARMA · 0047 · owedbook_pbm_options — read wrapper 4 of 4 (R-4, E-0 N = 4).
+2: -- Mirrors OwedBookService.getPbmOptions() → string[] (src/services/owedbook.ts:37, :129-133):
+3: -- distinct non-null PBM names, sorted. The service signature takes no filters; the wrapper
+4: -- adds only the mandatory p_business_id (R-4). pbm ← insurance (A-3).
+5: do $$
+6: begin
+7:   if to_regclass('public.user_data') is null then
+8:     raise exception 'BIM-003/0047 ASSERT: public.user_data missing.'; end if;
+9:   if not exists (select 1 from information_schema.columns
+10:                  where table_schema = 'public' and table_name = 'audit_logs' and column_name = 'occurred_at') then
+11:     raise exception 'BIM-003/0047 ASSERT: audit_logs is not in the 0028 shape.'; end if;
+12:   if not exists (select 1 from pg_proc where proname = 'my_business_ids' and pronamespace = 'public'::regnamespace) then
+13:     raise exception 'BIM-003/0047 ASSERT: public.my_business_ids() missing (0016).'; end if;
+14:   if exists (select 1 from pg_proc where proname = 'owedbook_pbm_options' and pronamespace = 'public'::regnamespace) then
+15:     raise exception 'BIM-003/0047 ASSERT: public.owedbook_pbm_options already exists.'; end if;
+16: end $$;
+17: 
+18: create function public.owedbook_pbm_options(
+19:   p_business_id uuid
+20: )
+21: returns setof text
+22: language plpgsql
+23: security definer
+24: set search_path = ''
+25: as $$
+26: begin
+27:   -- 1. membership (R-4)
+28:   if p_business_id is null or not (p_business_id in (select public.my_business_ids())) then
+29:     raise exception 'not a member of business';
+30:   end if;
+31: 
+32:   -- 2. log-then-return (R-7)
+33:   insert into public.audit_logs
+34:     (actor_user_id, actor_role, business_id, table_name, row_id, action, old_data, new_data, context)
+35:   values (
+36:     auth.uid(),
+37:     coalesce(nullif(current_setting('request.jwt.claims', true), '')::jsonb ->> 'role', current_user::text),
+38:     p_business_id, 'user_data', null, 'read_page', null, null,
+39:     jsonb_build_object(
+40:       'fn',   'owedbook_pbm_options',
+41:       'args', jsonb_build_object('p_business_id', p_business_id)
+42:     )
+43:   );
+44: 
+45:   -- 3. the read — explicit tenant fence
+46:   return query
+47:     select distinct ud.insurance::text
+48:     from public.user_data ud
+49:     where ud.business_id = p_business_id
+50:       and ud.insurance is not null
+51:     order by 1;
+52: end;
+53: $$;
+54: 
+55: revoke execute on function public.owedbook_pbm_options(uuid) from public;
+56: revoke execute on function public.owedbook_pbm_options(uuid) from anon;
+57: grant  execute on function public.owedbook_pbm_options(uuid) to authenticated;

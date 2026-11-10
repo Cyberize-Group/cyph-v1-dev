@@ -1,0 +1,4 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+COMMAND: ["git", "diff", "af2c7e5", "HEAD", "--", "src", "scripts", "supabase", "package.json", "package-lock.json", "next.config.js"]
+EXIT: 0
+

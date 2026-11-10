@@ -1,0 +1,55 @@
+{
+  "mode": "ledger",
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "status": "PASS",
+  "startedAt": "2026-11-07T08:05:59.286Z",
+  "bundleSHA256": "8bdb753b4d227e4211c6ee1d0cb6a6c0048071a371e456444b0a7605cb1b0a5c",
+  "rehearsal": {
+    "kind": "SYNTHETIC_APPLICATION_REHEARSAL_NOT_DEV_RESTORE",
+    "completedAt": "2026-11-06T15:02:40.230Z",
+    "restoreVerified": false,
+    "status": "PASS",
+    "reused": true
+  },
+  "backup": {
+    "status": "HASH_VERIFIED",
+    "sha256": "1d33881a1b49f85d20ecee6514a56f94552055efd6dc19f58942b12316dda692"
+  },
+  "signup": {
+    "disabled": true,
+    "checkedAt": "2026-11-07T08:05:59.794Z",
+    "method": "GET settings with apikey only"
+  },
+  "signupGate": {
+    "status": "PASS",
+    "disposition": "disabled-evidence",
+    "observed": {
+      "disabled": true,
+      "checkedAt": "2026-11-07T08:05:59.794Z",
+      "method": "GET settings with apikey only"
+    }
+  },
+  "verification": {
+    "parity": {
+      "status": "PASS",
+      "sha256": "da39e0a17ca3d855dfa8cba0d87f0949d78fc11ac542f74b04962a678dd8227f",
+      "normalizedSHA256": "f83deb44e94e4f4ca8ac3168120477aebaef1cd8d7af3ae8644085c3c05e22ec",
+      "retainedManagedEntries": 3
+    },
+    "preservation": {
+      "status": "PASS",
+      "additive": false,
+      "authIndexesUnchanged": true
+    },
+    "effectiveGrants": {
+      "status": "PASS",
+      "effectiveTableGrantChecks": 336,
+      "effectiveFunctionGrantChecks": 39,
+      "schemaUsageChecks": 3,
+      "rlsAndPolicies": "exact reviewed catalog"
+    },
+    "ledgerEntries": 47
+  },
+  "finishedAt": "2026-11-07T08:06:54.674Z",
+  "sharedDevWritesAttempted": true
+}

@@ -1,0 +1,488 @@
+{
+  "module": "APBM-003-CYBER-PHARMA",
+  "phase": "E1",
+  "starting_head": "b23372d24d79b6460f746a191e824224ba5f8900",
+  "generated_utc": "2026-11-05T14:06:57.329772+00:00",
+  "hash_algorithm": "SHA-256",
+  "self_exclusion": "FILE_INDEX.json indexes all other archive members; own hash and archive hash excluded to avoid self-reference.",
+  "exclusions": [
+    ".env* and credential values",
+    "auth/browser state",
+    "real claim data and mock fixture row bodies",
+    "node_modules",
+    ".next",
+    "historical evidence directories",
+    "QAM execution artifacts",
+    "archive and post-archive receipt"
+  ],
+  "files": [
+    {
+      "path": "APBM_ACCEPTANCE_SPEC.md",
+      "purpose": "Unchanged governing input; draft claims distinguished from observations",
+      "bytes": 13442,
+      "sha256": "5e3374cc3225530ec327b8e2dc1b18d6d227a3e3707593d397e961b6b2cfe574"
+    },
+    {
+      "path": "APBM_BRIEF.md",
+      "purpose": "Unchanged governing input; draft claims distinguished from observations",
+      "bytes": 13121,
+      "sha256": "21a8f19c2be6672ab50a889c41df2b5142cd1d07247c471aba25de399f1a08d3"
+    },
+    {
+      "path": "APBM_ENTRY.md",
+      "purpose": "Unchanged governing input; draft claims distinguished from observations",
+      "bytes": 4906,
+      "sha256": "d42b353f84bcca09379e783336613c8e81c4821d061c355471c9cc7ce584b152"
+    },
+    {
+      "path": "APBM_EXECUTION_PLAN.md",
+      "purpose": "Engineering E1 plan, verified skills or handoff state snapshot",
+      "bytes": 8213,
+      "sha256": "7e200e770fe04d43d20c8c72f8ef992b60b4b035b177ed4595a5dd05dfc43ad0"
+    },
+    {
+      "path": "APBM_JOURNAL.md",
+      "purpose": "Engineering E1 plan, verified skills or handoff state snapshot",
+      "bytes": 1087,
+      "sha256": "14dd5df01ae0c8179e5aee6b0cbe14b30bd13a958ef0d91a84555275eba38310"
+    },
+    {
+      "path": "APBM_RULINGS.md",
+      "purpose": "Unchanged governing input; draft claims distinguished from observations",
+      "bytes": 6266,
+      "sha256": "043791365038b5c86aa88fb04166dc9259cdac91c072aa42bea62200f23cc92a"
+    },
+    {
+      "path": "APBM_SKILLS_MANIFEST.md",
+      "purpose": "Engineering E1 plan, verified skills or handoff state snapshot",
+      "bytes": 1940,
+      "sha256": "3e417c09880b10571a4f58e9081623f2aa664852ecc67206fe9121611e612610"
+    },
+    {
+      "path": "APBM_STATE.md",
+      "purpose": "Engineering E1 plan, verified skills or handoff state snapshot",
+      "bytes": 3141,
+      "sha256": "64b15c806e32034da03589a52cbca8f5e7eac030bf2f89de57acb1000454e8bc"
+    },
+    {
+      "path": "APPLY_CHECKPOINT.md",
+      "purpose": "Unchanged governing input; draft claims distinguished from observations",
+      "bytes": 4313,
+      "sha256": "3ecfad442fb64500688a1cb606c23fb857ec26e43b6d9616a9137848e4487b3f"
+    },
+    {
+      "path": "CONTRACTS/OWNERSHIP_AND_AUDIT_CONTRACT.md",
+      "purpose": "Unchanged governing input; draft claims distinguished from observations",
+      "bytes": 8690,
+      "sha256": "d6da100e9c4fc80a3f9e74bf75138406606ffe39b7bd0aaebe3bf9740b2ba40d"
+    },
+    {
+      "path": "CONTRACTS/SEED_AND_FIXTURE_CONTRACT.md",
+      "purpose": "Unchanged governing input; draft claims distinguished from observations",
+      "bytes": 6998,
+      "sha256": "ab0d9bf2672ee2a8d3a78a061c99c803dcbb87c695ffef8580a5bd35a785f432"
+    },
+    {
+      "path": "CONTRACTS/SUCCESSION_RECORD.md",
+      "purpose": "Unchanged governing input; draft claims distinguished from observations",
+      "bytes": 4769,
+      "sha256": "07ef12e5171390b62a79b8b248a19c3fb57d81381ad1c1ebdd45c57de01689ce"
+    },
+    {
+      "path": "CONTRACTS/TARGET_ONE_RELEASE_CONTRACT.md",
+      "purpose": "Unchanged governing input; draft claims distinguished from observations",
+      "bytes": 3875,
+      "sha256": "34fd12da49a8f1fbe89c4ebd712a0e28b759dc8aee4f9d203b425b34576b2f0c"
+    },
+    {
+      "path": "E1_RECON_MISSION.md",
+      "purpose": "Unchanged governing input; draft claims distinguished from observations",
+      "bytes": 10896,
+      "sha256": "16bdf3e2195796a775a15c0bdb918f25af6836eabd387bcc3aba5d2ef71d4b1b"
+    },
+    {
+      "path": "EVIDENCE/E1/ADMIN_SERVICE_INVENTORY.md",
+      "purpose": "E1 report/proposal",
+      "bytes": 2209,
+      "sha256": "cd36fea890cd126ebc776c0dba296868f960b3c075c1fa38e741052b49607535"
+    },
+    {
+      "path": "EVIDENCE/E1/AUDIT_OPERATION_CONTRACT_DRAFT.md",
+      "purpose": "E1 report/proposal",
+      "bytes": 3466,
+      "sha256": "d06af02498bf87314b3637fe447cc128a314777c7d2782815e9b0938651baa73"
+    },
+    {
+      "path": "EVIDENCE/E1/COUNTS.md",
+      "purpose": "E1 report/proposal",
+      "bytes": 5548,
+      "sha256": "ccbf5bc20c7abaf366112fbebd5193be251cf62dc1ec0432124bc97cb74a5eb5"
+    },
+    {
+      "path": "EVIDENCE/E1/EXPECTED_CHANGE_LIST.md",
+      "purpose": "E1 report/proposal",
+      "bytes": 4287,
+      "sha256": "06c75cd1e151507834f8cd9a027b252135538bec16197cc424f195a867e4eadc"
+    },
+    {
+      "path": "EVIDENCE/E1/PROBE_LIMITS.md",
+      "purpose": "E1 report/proposal",
+      "bytes": 1916,
+      "sha256": "9af7afe7b4e3aa894e2da16e58455005d2424b17891905f12ddff4d0da724fb7"
+    },
+    {
+      "path": "EVIDENCE/E1/R016_PROPOSAL.md",
+      "purpose": "E1 report/proposal",
+      "bytes": 2418,
+      "sha256": "49e60b9fbedba7ef4ec489761b122b8a9c2896c7dd1b420a051db7b21a2353a4"
+    },
+    {
+      "path": "EVIDENCE/E1/RECON_REPORT.md",
+      "purpose": "E1 report/proposal",
+      "bytes": 30511,
+      "sha256": "0496174510c13f6e47e19aa4c2e6eb7d30d07dd8d5aa88f66b3f147292c3db94"
+    },
+    {
+      "path": "EVIDENCE/E1/USER_DATA_CALLER_INVENTORY.md",
+      "purpose": "E1 report/proposal",
+      "bytes": 19539,
+      "sha256": "10692cfbded14482c87b1701e36107dbf126a5a170ab18876621e2321d440742"
+    },
+    {
+      "path": "EVIDENCE/E1/admin_gate.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 1974,
+      "sha256": "dc395f597aea82d7d3b19236463a899015565e5d04ed9e53f74f4f751173ac48"
+    },
+    {
+      "path": "EVIDENCE/E1/auth_factory_consumers.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 1091,
+      "sha256": "2e9dce48564db415f5497fb2835e640047c569da5271b1b060ae920f7e4578ca"
+    },
+    {
+      "path": "EVIDENCE/E1/auth_hashes.json",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 2271,
+      "sha256": "648ce77a2b399a22f038b6486b7303072356d190e3c1eb7e90da01a8bf992f93"
+    },
+    {
+      "path": "EVIDENCE/E1/auth_hits.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 4985,
+      "sha256": "ee6e55497678316b0a3e04d7a7d80ecfcb42b9724f15023c114a60a668508d0b"
+    },
+    {
+      "path": "EVIDENCE/E1/baseline_delta.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 6842,
+      "sha256": "ed9e64ba8a4954cb23aa9a36a5697a2d9eb68388b44727fedf52bf83aab38657"
+    },
+    {
+      "path": "EVIDENCE/E1/baseline_missing.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 208,
+      "sha256": "ee07c2127144782ad0e9f0f6c5c59d87f76eafd0caa4427b3d62d4d405eba091"
+    },
+    {
+      "path": "EVIDENCE/E1/bootstrap_and_audit_history.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 2956,
+      "sha256": "f4af9001656e75758915bbe51d08ceb929d12e98591e9deb775df936a68ac684"
+    },
+    {
+      "path": "EVIDENCE/E1/correct_design_inventory.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 3211,
+      "sha256": "64ed700894e9ca8a84e7a35094a91fd76107ac0816b6d401fee1e0beb5704628"
+    },
+    {
+      "path": "EVIDENCE/E1/deployment_inventory.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 361,
+      "sha256": "ee978edec3a788a140027bfcadfc314a2176640c5b9c8464d2d091bfe8bc6834"
+    },
+    {
+      "path": "EVIDENCE/E1/design_inventory.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 1089,
+      "sha256": "0973c46618ccb67753568d753ddf6ffd68c1a9b2d101dab49755caf8cb17abac"
+    },
+    {
+      "path": "EVIDENCE/E1/e1_placeholders.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 6441,
+      "sha256": "1a86519ed802b7a8d302762e54eb360d38541c09d0094d76ea2788617fcbf44c"
+    },
+    {
+      "path": "EVIDENCE/E1/env_key_names.json",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 745,
+      "sha256": "083fa38ad03a94fac2ab58dd9288f11e535a9b831b56f1d9aa865325e3636f6d"
+    },
+    {
+      "path": "EVIDENCE/E1/final_deployment_checks.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 335,
+      "sha256": "bae7db31f1b78f265e1341ef11534cacf86569c06a93a9e833ab4d4b777b6c8a"
+    },
+    {
+      "path": "EVIDENCE/E1/final_path_checks.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 593,
+      "sha256": "9dadefe3151175e54c17da59cd31f85c6a23f7dd7bc4ccc8b2de16e1d1aa87e9"
+    },
+    {
+      "path": "EVIDENCE/E1/fixture_audit_search.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 6275,
+      "sha256": "928751d09df8babbc11e552cd4d8c977144dbc6c9401720ae1a2ef20522fe6d0"
+    },
+    {
+      "path": "EVIDENCE/E1/fixture_probe.cjs",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 984,
+      "sha256": "d63dfd8d8c9afd45107967c2593e7e379887efb2226c4464b120c110cbba90e6"
+    },
+    {
+      "path": "EVIDENCE/E1/fixture_probe_run.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 251,
+      "sha256": "84e791a564817feaad86aea46ff8b1f82a108231bbb035856b24d7dc7323cb22"
+    },
+    {
+      "path": "EVIDENCE/E1/fixture_recomputation.json",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 505,
+      "sha256": "c1a9ae9dc58c55899afc49cbf7a05bcab96cc40877bc32c0a3e1e2e3a5fa013b"
+    },
+    {
+      "path": "EVIDENCE/E1/frontend_sources.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 27629,
+      "sha256": "5cf9a81fc2443341d4b1e9119755eec549bbf92d4989dbb69a68db3bdfe85057"
+    },
+    {
+      "path": "EVIDENCE/E1/git_identity.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 7325,
+      "sha256": "53adb335f006982d6aa2322f454080397761207295bd47092ddfa68d504893cc"
+    },
+    {
+      "path": "EVIDENCE/E1/harness_sources.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 137298,
+      "sha256": "57ca3fbcd8d9b517216d19b2ff6e3413bcb149c5102818f04856d42af671e64a"
+    },
+    {
+      "path": "EVIDENCE/E1/historical_commit_gap.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 154,
+      "sha256": "5fd19345f7fb36e2b387df71924fd931954fad2120f5033fb341f31f624f7ef9"
+    },
+    {
+      "path": "EVIDENCE/E1/historical_paths.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 733,
+      "sha256": "517eb8358e51144eb6fe14930e262347a4e02048c16090ae12c4686f80948647"
+    },
+    {
+      "path": "EVIDENCE/E1/installed_versions.json",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 159,
+      "sha256": "684bedcc4bfd037b3a9d5cf2c206f20843cf322fa43a652d86a41e9df67fb5b1"
+    },
+    {
+      "path": "EVIDENCE/E1/instruction_inventory.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 545,
+      "sha256": "b11d1687c4dc7b2ebc7003ab1e904bdffc9f723ce82e3619dfc9361a56cae16b"
+    },
+    {
+      "path": "EVIDENCE/E1/jest_write_evidence.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 268,
+      "sha256": "6909f15b2de15e4354f6fe70cfb3a1de1c8f693b425022b695659f29b49d691d"
+    },
+    {
+      "path": "EVIDENCE/E1/keyboard_history.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 369,
+      "sha256": "9211162d6efefd4acbd6619b06f5f57bf2684905f2ed3f9b18578fb1d784a05b"
+    },
+    {
+      "path": "EVIDENCE/E1/lint.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 14180,
+      "sha256": "c03e67e9f8652fdc1d1a56808fecf50b0209026e67335035096f6d6857e12089"
+    },
+    {
+      "path": "EVIDENCE/E1/migration_hashes.json",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 14001,
+      "sha256": "9dfcfc309a3a46ad4f4ec64db65cd0b279fd2e8aca54b47440e89908df9283b6"
+    },
+    {
+      "path": "EVIDENCE/E1/migration_sources.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 94696,
+      "sha256": "2b782f60ab896e98795c99e35c15fc28a93d35c106a99dc737a67540a2d3e038"
+    },
+    {
+      "path": "EVIDENCE/E1/mission_coverage.json",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 3846,
+      "sha256": "00236abd3122b565897b6ece77676427803ae3d899777a97fe2457f022112805"
+    },
+    {
+      "path": "EVIDENCE/E1/no_direct_app_reads.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 170,
+      "sha256": "4df4d9954f5c43de15bc9086cb202768a533e35b833be0dbdc5e6619ba8895f8"
+    },
+    {
+      "path": "EVIDENCE/E1/privacy_check.json",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 433,
+      "sha256": "e4663206a4a4cdb17c63387c7169de6babd605e3b1d189925beefda27d1a63c8"
+    },
+    {
+      "path": "EVIDENCE/E1/protected_delta.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 193,
+      "sha256": "88c9266ac3bb74b0a8a5059bde518b693b6d886f12ebdd85c2114b51d676fc81"
+    },
+    {
+      "path": "EVIDENCE/E1/protected_final_diff.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 330,
+      "sha256": "fa493ff7e44f18573d8d67e952d51990abe54fc937db5761ac69dfe05bfc76c9"
+    },
+    {
+      "path": "EVIDENCE/E1/remote_identity.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 102,
+      "sha256": "db1a5059254210acb435d90167438a6b7e9beec2a89390e87c0edf60d369279b"
+    },
+    {
+      "path": "EVIDENCE/E1/root_instructions.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 72806,
+      "sha256": "e41d65e1dc7f971fb4c5b8ee18f0ce605c7c34b6619e3ea5a8073d4269f9385d"
+    },
+    {
+      "path": "EVIDENCE/E1/routes.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 763,
+      "sha256": "88e565f76a23fa3d4ebcc0fa1210c77b5f06e8d5f5b2f0a35b6e6a98ad889b9c"
+    },
+    {
+      "path": "EVIDENCE/E1/scope_check.json",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 515,
+      "sha256": "a10f03e770a6867f4eb0d84e7b0e6324de943e7fb9d01f1d089020818fdaa6fa"
+    },
+    {
+      "path": "EVIDENCE/E1/skill_inventory.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 428,
+      "sha256": "4495acf6e84fe2159b69c19ba35efa5ac5c6556250308f598c35df6a837b3a6e"
+    },
+    {
+      "path": "EVIDENCE/E1/skill_predicates.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 2551,
+      "sha256": "3c909af0e86c82a219882f8280e72a0b8ae97699beee095fa9579c87f35102ba"
+    },
+    {
+      "path": "EVIDENCE/E1/skill_sources.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 60988,
+      "sha256": "ba74a04fecdf9f0b9f274c540ff511af4eaa188f4bd1605172b53271f0f153d4"
+    },
+    {
+      "path": "EVIDENCE/E1/source_queries.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 9063,
+      "sha256": "50e9a1945ca46d7a1c60e7af7370ef1d16b66a3f4558ca9546c37b1824ef0acc"
+    },
+    {
+      "path": "EVIDENCE/E1/source_structure.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 713,
+      "sha256": "a155dba707b3b619d5423a5ca404c1d572b85459aea3876d2ad27cac5a611b74"
+    },
+    {
+      "path": "EVIDENCE/E1/starting_status.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 211,
+      "sha256": "ed086cbd88946e623916d594039999ba3be430cdd2ea1e1b3ca29fe4ada0bf6b"
+    },
+    {
+      "path": "EVIDENCE/E1/static_counts.json",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 1162,
+      "sha256": "1a42026be99c69ab0e604e9c652aff89ed9c41f02280aaa811cd56cb03a33d48"
+    },
+    {
+      "path": "EVIDENCE/E1/static_policy_inventory.json",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 4129,
+      "sha256": "5391036b9b52868aad9443f10ad21043e795f3406798ebdeebf08f2af416de77"
+    },
+    {
+      "path": "EVIDENCE/E1/style_predicates.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 260,
+      "sha256": "cae39f2635e899fb4e8baf105cc38572f4de3f1f940ca0eeec0bd497b8a0e3f8"
+    },
+    {
+      "path": "EVIDENCE/E1/targeted_source_evidence.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 140826,
+      "sha256": "ba1dc51620645bb79807bd09031b6aa9a4e8daa40ab6ccc720ed398b4843a115"
+    },
+    {
+      "path": "EVIDENCE/E1/test_inventory.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 1798,
+      "sha256": "1a06e3e6669debfe09c89797cae0407d6c0dce27307ec29e9715196fe7a8ea83"
+    },
+    {
+      "path": "EVIDENCE/E1/tracked_pack.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 3371,
+      "sha256": "cd30f3ba05f012c2d5d834c72b318bf6c650e2b3aec6c4d78b4e4abbb8a7a2d0"
+    },
+    {
+      "path": "EVIDENCE/E1/typecheck.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 203,
+      "sha256": "4695beeac8e9f30571f23520f2389d73ece81e0fc25f741643ceabe901ed2c45"
+    },
+    {
+      "path": "EVIDENCE/E1/ui_semantics.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 4554,
+      "sha256": "d702f58e4f8776eba778de231e0065cf927a52d6c5b7e54781ee9026a94394b4"
+    },
+    {
+      "path": "EVIDENCE/E1/userdata_hits.txt",
+      "purpose": "Command output, source snapshot, reproducible probe or verification evidence",
+      "bytes": 16365,
+      "sha256": "b1a23f40c362b57968164c86f23682cbe008801b90a7b33c454c2754ca68555f"
+    },
+    {
+      "path": "MISSING_INPUTS.md",
+      "purpose": "Unchanged governing input; draft claims distinguished from observations",
+      "bytes": 3155,
+      "sha256": "80ce92dd7290d10f69e2640d89c4fa28b02b496aa4d4c6366aa48c4ff165d910"
+    },
+    {
+      "path": "REVIEW_START_HERE.md",
+      "purpose": "Review order, decisions, scope and integrity conventions",
+      "bytes": 3216,
+      "sha256": "761038adaaa450aab79641b35259623af0e52753f932b685660e60dc37522871"
+    }
+  ]
+}

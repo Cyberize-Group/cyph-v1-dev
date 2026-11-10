@@ -1,0 +1,13 @@
+{
+  "mode": "check",
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "bundleSHA256": "d502860d7ba2d4952ffb5cefc3c0547ca92e4d72091615584e02773ed2a76a68",
+  "startedAt": "2026-11-06T09:47:06.675Z",
+  "status": "BLOCKED",
+  "catalog": "PASS",
+  "privilegeAvailable": false,
+  "errorCode": "MANAGED_DEFAULT_ACL_PRIVILEGE_REQUIRED",
+  "nextAction": "Stop; resolve the named prerequisite or failed check. No automatic retry.",
+  "committed": false,
+  "finishedAt": "2026-11-06T09:47:14.030Z"
+}

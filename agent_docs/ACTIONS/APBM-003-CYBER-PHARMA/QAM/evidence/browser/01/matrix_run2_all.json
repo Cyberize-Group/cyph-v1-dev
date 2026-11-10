@@ -1,0 +1,579 @@
+{
+  "phase": "matrix",
+  "startedAt": "2026-11-09T04:01:53.071Z",
+  "base": "http://127.0.0.1:3138",
+  "devRef": "yrsuwikjnbmvpznrgydb",
+  "checks": [
+    {
+      "name": "T-33 OWNER1 login lands on /owedbook",
+      "result": "PASS",
+      "detail": "/owedbook"
+    },
+    {
+      "name": "T-33 OWNER1 store picker offers exactly A1",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE A1\"]"
+    },
+    {
+      "name": "T-33 OWNER1 A1: Total 50, 25 rows on page, every script belongs to A1",
+      "result": "PASS",
+      "detail": "25 rows"
+    },
+    {
+      "name": "T-33 OWNER1 A1: KPI tiles rendered with non-zero Commercial Underpaid",
+      "result": "PASS",
+      "detail": "$91.09"
+    },
+    {
+      "name": "T-33/T-601 OWNER1 My Stores shows exactly SYNTHETIC STORE A1",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE A1\"]"
+    },
+    {
+      "name": "T-33 OWNER1 navbar has Admin Portal link (after tenant_stores resolves)",
+      "result": "PASS",
+      "detail": "[\"OwedBook\",\"Admin Portal\",\"Profile\"]"
+    },
+    {
+      "name": "T-33/T-601 OWNER1 store detail A1: heading + members roster (Members · 1)",
+      "result": "PASS",
+      "detail": "Members · 1"
+    },
+    {
+      "name": "T-38 OWNER1 store detail shows \"Demo · mock data\" pill (pre-known R-5 defect)",
+      "result": "PASS",
+      "detail": "present"
+    },
+    {
+      "name": "T-33/T-603 OWNER1 audit viewer rows (69) name only permitted stores / account events",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-601 OWNER1 billing lists permitted stores read-only (Price unavailable, Billing dates unavailable, buttons disabled)",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE A1\"]"
+    },
+    {
+      "name": "T-38 OWNER1 billing shows \"Visual only — no real charge is made in this demo\" (pre-known R-5 defect)",
+      "result": "PASS",
+      "detail": "present"
+    },
+    {
+      "name": "T-38 OWNER1 billing shows no fabricated plan/price (Plan unavailable · Price unavailable)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-602 OWNER1 settings: \"Editing settings is not available in this release.\"",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-602 OWNER1 invite page: error/unavailable state, no invite form",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 OWNER1 logout via /api/auth/logout",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 OWNER3 login lands on /owedbook",
+      "result": "PASS",
+      "detail": "/owedbook"
+    },
+    {
+      "name": "T-33 OWNER3 store picker offers exactly B1,B2,B3",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE B1\",\"SYNTHETIC STORE B2\",\"SYNTHETIC STORE B3\"]"
+    },
+    {
+      "name": "T-33 OWNER3 B1: Total 50, 25 rows on page, every script belongs to B1",
+      "result": "PASS",
+      "detail": "25 rows"
+    },
+    {
+      "name": "T-33 OWNER3 B1: KPI tiles rendered with non-zero Commercial Underpaid",
+      "result": "PASS",
+      "detail": "$91.09"
+    },
+    {
+      "name": "T-33 OWNER3 B2: Total 50, 25 rows on page, every script belongs to B2",
+      "result": "PASS",
+      "detail": "25 rows"
+    },
+    {
+      "name": "T-33 OWNER3 B2: KPI tiles rendered with non-zero Commercial Underpaid",
+      "result": "PASS",
+      "detail": "$91.09"
+    },
+    {
+      "name": "T-33 OWNER3 B3: Total 50, 25 rows on page, every script belongs to B3",
+      "result": "PASS",
+      "detail": "25 rows"
+    },
+    {
+      "name": "T-33 OWNER3 B3: KPI tiles rendered with non-zero Commercial Underpaid",
+      "result": "PASS",
+      "detail": "$91.09"
+    },
+    {
+      "name": "T-33 OWNER3 Updated Payments tab loads (rows with new_paid: 17 expected per generator i%3===1)",
+      "result": "PASS",
+      "detail": "Limit 25 · Total 17"
+    },
+    {
+      "name": "T-33 OWNER3 Federal tab: \"unavailable in this release\" copy + No results, no rows",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 OWNER3 Summary: 3 PBM rows + unattributed note",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC PBM 1\",\"SYNTHETIC PBM 2\",\"SYNTHETIC PBM 3\"]"
+    },
+    {
+      "name": "T-33 OWNER3 status filter Underpaid → Total 10, all chips Underpaid, badge \"1 filter active\"",
+      "result": "PASS",
+      "detail": "10 rows"
+    },
+    {
+      "name": "T-33 OWNER3 date range 06-10..06-12 → Total 6 (QA-derived: days 1–22 occur twice)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-35 OWNER3 empty filter → \"No results\" empty state",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 OWNER3 PBM filter SYNTHETIC PBM 1 → Total 13 (QA-derived: i%4==0 for i in 0..49)",
+      "result": "PASS",
+      "detail": "Limit 25 · Total 13"
+    },
+    {
+      "name": "T-33 OWNER3 sort by Owed → aria-sort=ascending, page values ascending (client-side)",
+      "result": "PASS",
+      "detail": "ascending; first -2.5 last 4.7"
+    },
+    {
+      "name": "T-33 OWNER3 pager Next → Page 2 of 2",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33c OWNER3 rapid switch B1→B2→B3 with inverted response order → final rows only B3, picker on B3",
+      "result": "PASS",
+      "detail": "0 foreign rows"
+    },
+    {
+      "name": "T-33/T-601 OWNER3 My Stores shows exactly SYNTHETIC STORE B1,SYNTHETIC STORE B2,SYNTHETIC STORE B3",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE B1\",\"SYNTHETIC STORE B2\",\"SYNTHETIC STORE B3\"]"
+    },
+    {
+      "name": "T-33 OWNER3 navbar has Admin Portal link (after tenant_stores resolves)",
+      "result": "PASS",
+      "detail": "[\"OwedBook\",\"Admin Portal\",\"Profile\"]"
+    },
+    {
+      "name": "T-33/T-601 OWNER3 store detail B3: heading + members roster (Members · 2)",
+      "result": "PASS",
+      "detail": "Members · 2"
+    },
+    {
+      "name": "T-38 OWNER3 store detail shows \"Demo · mock data\" pill (pre-known R-5 defect)",
+      "result": "PASS",
+      "detail": "present"
+    },
+    {
+      "name": "T-33/T-603 OWNER3 audit viewer rows (100) name only permitted stores / account events",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-601 OWNER3 billing lists permitted stores read-only (Price unavailable, Billing dates unavailable, buttons disabled)",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE B1\",\"SYNTHETIC STORE B2\",\"SYNTHETIC STORE B3\"]"
+    },
+    {
+      "name": "T-38 OWNER3 billing shows \"Visual only — no real charge is made in this demo\" (pre-known R-5 defect)",
+      "result": "PASS",
+      "detail": "present"
+    },
+    {
+      "name": "T-38 OWNER3 billing shows no fabricated plan/price (Plan unavailable · Price unavailable)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-602 OWNER3 settings: \"Editing settings is not available in this release.\"",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-602 OWNER3 invite page: error/unavailable state, no invite form",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 OWNER3 logout via /api/auth/logout",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 ADMIN_B2 login lands on /owedbook",
+      "result": "PASS",
+      "detail": "/owedbook"
+    },
+    {
+      "name": "T-33 ADMIN_B2 store picker offers exactly B2",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE B2\"]"
+    },
+    {
+      "name": "T-33 ADMIN_B2 B2: Total 50, 25 rows on page, every script belongs to B2",
+      "result": "PASS",
+      "detail": "25 rows"
+    },
+    {
+      "name": "T-33 ADMIN_B2 B2: KPI tiles rendered with non-zero Commercial Underpaid",
+      "result": "PASS",
+      "detail": "$91.09"
+    },
+    {
+      "name": "T-33/T-601 ADMIN_B2 My Stores shows exactly SYNTHETIC STORE B2",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE B2\"]"
+    },
+    {
+      "name": "T-33 ADMIN_B2 navbar has Admin Portal link (after tenant_stores resolves)",
+      "result": "PASS",
+      "detail": "[\"OwedBook\",\"Admin Portal\",\"Profile\"]"
+    },
+    {
+      "name": "T-33/T-601 ADMIN_B2 store detail B2: heading + members roster (Members · 2)",
+      "result": "PASS",
+      "detail": "Members · 2"
+    },
+    {
+      "name": "T-38 ADMIN_B2 store detail shows \"Demo · mock data\" pill (pre-known R-5 defect)",
+      "result": "PASS",
+      "detail": "present"
+    },
+    {
+      "name": "T-33 ADMIN_B2 /stores/B3 → denied/error state, never B3 data",
+      "result": "PASS",
+      "detail": "denied=true leaked=false"
+    },
+    {
+      "name": "T-33/T-603 ADMIN_B2 audit viewer rows (88) name only permitted stores / account events",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-601 ADMIN_B2 billing lists permitted stores read-only (Price unavailable, Billing dates unavailable, buttons disabled)",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE B2\"]"
+    },
+    {
+      "name": "T-38 ADMIN_B2 billing shows \"Visual only — no real charge is made in this demo\" (pre-known R-5 defect)",
+      "result": "PASS",
+      "detail": "present"
+    },
+    {
+      "name": "T-38 ADMIN_B2 billing shows no fabricated plan/price (Plan unavailable · Price unavailable)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-602 ADMIN_B2 settings: \"Editing settings is not available in this release.\"",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-602 ADMIN_B2 invite page: error/unavailable state, no invite form",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 ADMIN_B2 logout via /api/auth/logout",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 ADMIN_B3 login lands on /owedbook",
+      "result": "PASS",
+      "detail": "/owedbook"
+    },
+    {
+      "name": "T-33 ADMIN_B3 store picker offers exactly B3",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE B3\"]"
+    },
+    {
+      "name": "T-33 ADMIN_B3 B3: Total 50, 25 rows on page, every script belongs to B3",
+      "result": "PASS",
+      "detail": "25 rows"
+    },
+    {
+      "name": "T-33 ADMIN_B3 B3: KPI tiles rendered with non-zero Commercial Underpaid",
+      "result": "PASS",
+      "detail": "$91.09"
+    },
+    {
+      "name": "T-33/T-601 ADMIN_B3 My Stores shows exactly SYNTHETIC STORE B3",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE B3\"]"
+    },
+    {
+      "name": "T-33 ADMIN_B3 navbar has Admin Portal link (after tenant_stores resolves)",
+      "result": "PASS",
+      "detail": "[\"OwedBook\",\"Admin Portal\",\"Profile\"]"
+    },
+    {
+      "name": "T-33/T-601 ADMIN_B3 store detail B3: heading + members roster (Members · 2)",
+      "result": "PASS",
+      "detail": "Members · 2"
+    },
+    {
+      "name": "T-38 ADMIN_B3 store detail shows \"Demo · mock data\" pill (pre-known R-5 defect)",
+      "result": "PASS",
+      "detail": "present"
+    },
+    {
+      "name": "T-33 ADMIN_B3 /stores/B2 → denied/error state, never B2 data",
+      "result": "PASS",
+      "detail": "denied=true leaked=false"
+    },
+    {
+      "name": "T-33/T-603 ADMIN_B3 audit viewer rows (90) name only permitted stores / account events",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-601 ADMIN_B3 billing lists permitted stores read-only (Price unavailable, Billing dates unavailable, buttons disabled)",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE B3\"]"
+    },
+    {
+      "name": "T-38 ADMIN_B3 billing shows \"Visual only — no real charge is made in this demo\" (pre-known R-5 defect)",
+      "result": "PASS",
+      "detail": "present"
+    },
+    {
+      "name": "T-38 ADMIN_B3 billing shows no fabricated plan/price (Plan unavailable · Price unavailable)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-602 ADMIN_B3 settings: \"Editing settings is not available in this release.\"",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-602 ADMIN_B3 invite page: error/unavailable state, no invite form",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 ADMIN_B3 logout via /api/auth/logout",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 MEMBER_B1 login lands on /owedbook",
+      "result": "PASS",
+      "detail": "/owedbook"
+    },
+    {
+      "name": "T-33 MEMBER_B1 store picker offers exactly B1",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE B1\"]"
+    },
+    {
+      "name": "T-33 MEMBER_B1 B1: Total 50, 25 rows on page, every script belongs to B1",
+      "result": "PASS",
+      "detail": "25 rows"
+    },
+    {
+      "name": "T-33 MEMBER_B1 B1: KPI tiles rendered with non-zero Commercial Underpaid",
+      "result": "PASS",
+      "detail": "$91.09"
+    },
+    {
+      "name": "T-33 MEMBER_B1 Updated Payments tab loads (rows with new_paid: 17 expected per generator i%3===1)",
+      "result": "PASS",
+      "detail": "Limit 25 · Total 17"
+    },
+    {
+      "name": "T-33 MEMBER_B1 Federal tab: \"unavailable in this release\" copy + No results, no rows",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 MEMBER_B1 Summary: 3 PBM rows + unattributed note",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC PBM 1\",\"SYNTHETIC PBM 2\",\"SYNTHETIC PBM 3\"]"
+    },
+    {
+      "name": "T-33 MEMBER_B1 status filter Underpaid → Total 10, all chips Underpaid, badge \"1 filter active\"",
+      "result": "PASS",
+      "detail": "10 rows"
+    },
+    {
+      "name": "T-33 MEMBER_B1 date range 06-10..06-12 → Total 6 (QA-derived: days 1–22 occur twice)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-35 MEMBER_B1 empty filter → \"No results\" empty state",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 MEMBER_B1 logout via /api/auth/logout",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 MEMBER_B2B3 login lands on /owedbook",
+      "result": "PASS",
+      "detail": "/owedbook"
+    },
+    {
+      "name": "T-33 MEMBER_B2B3 store picker offers exactly B2,B3",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE B2\",\"SYNTHETIC STORE B3\"]"
+    },
+    {
+      "name": "T-33 MEMBER_B2B3 B2: Total 50, 25 rows on page, every script belongs to B2",
+      "result": "PASS",
+      "detail": "25 rows"
+    },
+    {
+      "name": "T-33 MEMBER_B2B3 B2: KPI tiles rendered with non-zero Commercial Underpaid",
+      "result": "PASS",
+      "detail": "$91.09"
+    },
+    {
+      "name": "T-33 MEMBER_B2B3 B3: Total 50, 25 rows on page, every script belongs to B3",
+      "result": "PASS",
+      "detail": "25 rows"
+    },
+    {
+      "name": "T-33 MEMBER_B2B3 B3: KPI tiles rendered with non-zero Commercial Underpaid",
+      "result": "PASS",
+      "detail": "$91.09"
+    },
+    {
+      "name": "T-33c MEMBER_B2B3 rapid switch B2→B3 with inverted response order → final rows only B3, picker on B3",
+      "result": "PASS",
+      "detail": "0 foreign rows"
+    },
+    {
+      "name": "T-33 MEMBER_B2B3 /admin-portal redirects to /owedbook (member)",
+      "result": "PASS",
+      "detail": "/owedbook"
+    },
+    {
+      "name": "T-33/T-603 MEMBER_B2B3 /admin-portal/audit redirects (member denied)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 MEMBER_B2B3 navbar has no Admin Portal link",
+      "result": "PASS",
+      "detail": "[\"OwedBook\",\"Profile\"]"
+    },
+    {
+      "name": "T-33 MEMBER_B2B3 logout via /api/auth/logout",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 UNRELATED login lands on /owedbook",
+      "result": "PASS",
+      "detail": "/owedbook"
+    },
+    {
+      "name": "T-33 UNRELATED store picker offers exactly C1",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC STORE C1\"]"
+    },
+    {
+      "name": "T-33 UNRELATED C1: Total 50, 25 rows on page, every script belongs to C1",
+      "result": "PASS",
+      "detail": "25 rows"
+    },
+    {
+      "name": "T-33 UNRELATED C1: KPI tiles rendered with non-zero Commercial Underpaid",
+      "result": "PASS",
+      "detail": "$91.09"
+    },
+    {
+      "name": "T-33 UNRELATED Updated Payments tab loads (rows with new_paid: 17 expected per generator i%3===1)",
+      "result": "PASS",
+      "detail": "Limit 25 · Total 17"
+    },
+    {
+      "name": "T-33 UNRELATED Federal tab: \"unavailable in this release\" copy + No results, no rows",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 UNRELATED Summary: 3 PBM rows + unattributed note",
+      "result": "PASS",
+      "detail": "[\"SYNTHETIC PBM 1\",\"SYNTHETIC PBM 2\",\"SYNTHETIC PBM 3\"]"
+    },
+    {
+      "name": "T-33 UNRELATED status filter Underpaid → Total 10, all chips Underpaid, badge \"1 filter active\"",
+      "result": "PASS",
+      "detail": "10 rows"
+    },
+    {
+      "name": "T-33 UNRELATED date range 06-10..06-12 → Total 6 (QA-derived: days 1–22 occur twice)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33/T-35 UNRELATED empty filter → \"No results\" empty state",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-33 UNRELATED logout via /api/auth/logout",
+      "result": "PASS",
+      "detail": ""
+    }
+  ],
+  "signIns": {
+    "OWNER1": 1,
+    "OWNER3": 1,
+    "ADMIN_B2": 1,
+    "ADMIN_B3": 1,
+    "MEMBER_B1": 1,
+    "MEMBER_B2B3": 1,
+    "UNRELATED": 1
+  },
+  "unexpectedBackendRequests": 0,
+  "failures": [
+    {
+      "who": "MEMBER_B1",
+      "step": "MEMBER_B1 filters",
+      "error": "locator.click: Timeout 30000ms exceeded."
+    },
+    {
+      "who": "UNRELATED",
+      "step": "UNRELATED filters",
+      "error": "locator.click: Timeout 30000ms exceeded."
+    }
+  ],
+  "finishedAt": "2026-11-09T04:05:47.435Z",
+  "pass": 109,
+  "fail": 2,
+  "status": "FAIL"
+}

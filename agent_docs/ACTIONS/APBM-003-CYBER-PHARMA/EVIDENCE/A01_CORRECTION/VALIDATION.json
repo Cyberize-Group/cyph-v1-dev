@@ -1,0 +1,28 @@
+{
+  "head": "b23372d24d79b6460f746a191e824224ba5f8900",
+  "baseline": "af2c7e5225d2d78925fd392e29a58b6bde830263",
+  "qa_branch": "qa/apbm-003",
+  "e1_preserved": true,
+  "changed_documents": [
+    "README.md",
+    "APBM_ENTRY.md",
+    "E2_AMENDMENT_A01.md",
+    "APPLY_CHECKPOINT.md",
+    "APBM_STATE.md",
+    "CODY_LAUNCH_PROMPT.md",
+    "E2_EXECUTION_INSTRUCTIONS.md",
+    "APBM_ACCEPTANCE_SPEC.md",
+    "APBM_EXECUTION_PLAN.md",
+    "CONTRACTS/TARGET_ONE_RELEASE_CONTRACT.md",
+    "QAM/QAM_STATE.md",
+    "QAM/QAM_ENTRY.md",
+    "QAM/QAM_PREFLIGHT.md",
+    "QAM/AGENTS.md",
+    "QAM/QAM_APPROVAL.md",
+    "QAM/CLAUDE.md",
+    "QAM/QAM_MANIFEST.md",
+    "QAM/HANDOFFS/ENGINEERING_HANDOFF.md"
+  ],
+  "contract": "DRAFT",
+  "e2_release": false
+}

@@ -1,0 +1,7 @@
+APBM-003 implements Target One scoped OwedBook/admin reads, owner reach, audited claim access, synthetic fixtures and the reviewed forward DEV runner. It carries the C-03 truthful-label/same-store repair and the Director-approved results toolbar below paginated tables, plus selected sanitized QA/closeout evidence.
+
+Friday's Gate Q certificate remains bound to dc44429f466dedcf35023342f68624c6cee062f0: 40 PASS, 1 accepted limitation (restore not demonstrated), 3 NOT RUN. The later pagination repair has engineering validation and Director manual acceptance. No renewed independent certification is claimed. Unconfirmed QA cleanup remains unconfirmed; the Director requires no return to Friday/Claudy or renewed cleanup acceptance before Git integration. Tony accepts Target One with the documented limited Owner/MEMBER_B1 smoke and pagination approval.
+
+Retained pagination validation: 40 suites / 201 tests, typecheck/build PASS, lint 0 errors/34 warnings, 16 layout cases. The integration workflow reruns checks on the actual merged engineering tree. See CLOSEOUT/ for identities, scoped path lists, open follow-ups and retrospective. No wholesale merge of the disposable QA branch.
+
+Deployment deferred. Gate D and production readiness pending. C-02 restore rehearsal, C-05 privilege hardening/rotation, cross-tab sign-out and mobile billing clipping remain follow-ups. No credentials, private account sheets or backups included.

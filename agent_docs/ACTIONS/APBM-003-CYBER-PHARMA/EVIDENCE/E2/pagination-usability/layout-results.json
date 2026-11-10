@@ -1,0 +1,649 @@
+{
+  "kind": "Actual React table/toolbar with existing local fixtures; static layout harness, not authenticated application smoke",
+  "results": [
+    {
+      "theme": "light",
+      "width": 1440,
+      "state": "first",
+      "range": "Showing 1–25 of 50 claims\n\n25 claims per page\n\nPage 1 of 2\n\n← Previous\nNext →",
+      "geometry": {
+        "left": 24,
+        "right": 1416,
+        "width": 1392,
+        "overflow": false,
+        "buttons": [
+          {
+            "height": 44,
+            "left": 1163.875,
+            "right": 1275.4375,
+            "color": "rgb(36, 41, 50)",
+            "background": "rgb(217, 220, 227)",
+            "disabled": true
+          },
+          {
+            "height": 44,
+            "left": 1287.4375,
+            "right": 1399,
+            "color": "rgb(225, 229, 234)",
+            "background": "rgb(36, 41, 50)",
+            "disabled": false
+          }
+        ],
+        "color": "rgb(36, 41, 50)",
+        "background": "rgb(255, 255, 255)",
+        "position": "static",
+        "insideScroll": false,
+        "gap": 798
+      },
+      "focusVisible": {
+        "visible": true,
+        "shadow": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(36, 41, 50) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+      },
+      "networkRequests": 0,
+      "screenshot": "light-1440-first.png"
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "state": "last",
+      "range": "Showing 26–50 of 50 claims\n\n25 claims per page\n\nPage 2 of 2\n\n← Previous\nNext →",
+      "geometry": {
+        "left": 24,
+        "right": 1416,
+        "width": 1392,
+        "overflow": false,
+        "buttons": [
+          {
+            "height": 44,
+            "left": 1163.875,
+            "right": 1275.4375,
+            "color": "rgb(36, 41, 50)",
+            "background": "rgb(255, 255, 255)",
+            "disabled": false
+          },
+          {
+            "height": 44,
+            "left": 1287.4375,
+            "right": 1399,
+            "color": "rgb(36, 41, 50)",
+            "background": "rgb(217, 220, 227)",
+            "disabled": true
+          }
+        ],
+        "color": "rgb(36, 41, 50)",
+        "background": "rgb(255, 255, 255)",
+        "position": "static",
+        "insideScroll": false,
+        "gap": 798
+      },
+      "focusVisible": {
+        "visible": true,
+        "shadow": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(36, 41, 50) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+      },
+      "networkRequests": 0,
+      "screenshot": "light-1440-last.png"
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "state": "partial",
+      "range": "Showing 26–31 of 31 claims\n\n25 claims per page\n\nPage 2 of 2\n\n← Previous\nNext →",
+      "geometry": {
+        "left": 24,
+        "right": 1416,
+        "width": 1392,
+        "overflow": false,
+        "buttons": [
+          {
+            "height": 44,
+            "left": 1163.875,
+            "right": 1275.4375,
+            "color": "rgb(36, 41, 50)",
+            "background": "rgb(255, 255, 255)",
+            "disabled": false
+          },
+          {
+            "height": 44,
+            "left": 1287.4375,
+            "right": 1399,
+            "color": "rgb(36, 41, 50)",
+            "background": "rgb(217, 220, 227)",
+            "disabled": true
+          }
+        ],
+        "color": "rgb(36, 41, 50)",
+        "background": "rgb(255, 255, 255)",
+        "position": "static",
+        "insideScroll": false,
+        "gap": 354
+      },
+      "focusVisible": {
+        "visible": true,
+        "shadow": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(36, 41, 50) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+      },
+      "networkRequests": 0,
+      "screenshot": "light-1440-partial.png"
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "state": "empty",
+      "range": "Showing 0 of 0 claims\n\n25 claims per page\n\nNo pages\n\n← Previous\nNext →",
+      "geometry": {
+        "left": 24,
+        "right": 1416,
+        "width": 1392,
+        "overflow": false,
+        "buttons": [
+          {
+            "height": 44,
+            "left": 1163.875,
+            "right": 1275.4375,
+            "color": "rgb(36, 41, 50)",
+            "background": "rgb(217, 220, 227)",
+            "disabled": true
+          },
+          {
+            "height": 44,
+            "left": 1287.4375,
+            "right": 1399,
+            "color": "rgb(36, 41, 50)",
+            "background": "rgb(217, 220, 227)",
+            "disabled": true
+          }
+        ],
+        "color": "rgb(36, 41, 50)",
+        "background": "rgb(255, 255, 255)",
+        "position": "static",
+        "insideScroll": false,
+        "gap": 16
+      },
+      "focusVisible": null,
+      "networkRequests": 0,
+      "screenshot": "light-1440-empty.png"
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "state": "first",
+      "range": "Showing 1–25 of 50 claims\n\n25 claims per page\n\nPage 1 of 2\n\n← Previous\nNext →",
+      "geometry": {
+        "left": 24,
+        "right": 351,
+        "width": 327,
+        "overflow": false,
+        "buttons": [
+          {
+            "height": 44,
+            "left": 44,
+            "right": 183,
+            "color": "rgb(36, 41, 50)",
+            "background": "rgb(217, 220, 227)",
+            "disabled": true
+          },
+          {
+            "height": 44,
+            "left": 195,
+            "right": 334,
+            "color": "rgb(225, 229, 234)",
+            "background": "rgb(36, 41, 50)",
+            "disabled": false
+          }
+        ],
+        "color": "rgb(36, 41, 50)",
+        "background": "rgb(255, 255, 255)",
+        "position": "static",
+        "insideScroll": false,
+        "gap": 16
+      },
+      "focusVisible": {
+        "visible": true,
+        "shadow": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(36, 41, 50) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+      },
+      "networkRequests": 0,
+      "screenshot": "light-375-first.png"
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "state": "last",
+      "range": "Showing 26–50 of 50 claims\n\n25 claims per page\n\nPage 2 of 2\n\n← Previous\nNext →",
+      "geometry": {
+        "left": 24,
+        "right": 351,
+        "width": 327,
+        "overflow": false,
+        "buttons": [
+          {
+            "height": 44,
+            "left": 44,
+            "right": 183,
+            "color": "rgb(36, 41, 50)",
+            "background": "rgb(255, 255, 255)",
+            "disabled": false
+          },
+          {
+            "height": 44,
+            "left": 195,
+            "right": 334,
+            "color": "rgb(36, 41, 50)",
+            "background": "rgb(217, 220, 227)",
+            "disabled": true
+          }
+        ],
+        "color": "rgb(36, 41, 50)",
+        "background": "rgb(255, 255, 255)",
+        "position": "static",
+        "insideScroll": false,
+        "gap": 16
+      },
+      "focusVisible": {
+        "visible": true,
+        "shadow": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(36, 41, 50) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+      },
+      "networkRequests": 0,
+      "screenshot": "light-375-last.png"
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "state": "partial",
+      "range": "Showing 26–31 of 31 claims\n\n25 claims per page\n\nPage 2 of 2\n\n← Previous\nNext →",
+      "geometry": {
+        "left": 24,
+        "right": 351,
+        "width": 327,
+        "overflow": false,
+        "buttons": [
+          {
+            "height": 44,
+            "left": 44,
+            "right": 183,
+            "color": "rgb(36, 41, 50)",
+            "background": "rgb(255, 255, 255)",
+            "disabled": false
+          },
+          {
+            "height": 44,
+            "left": 195,
+            "right": 334,
+            "color": "rgb(36, 41, 50)",
+            "background": "rgb(217, 220, 227)",
+            "disabled": true
+          }
+        ],
+        "color": "rgb(36, 41, 50)",
+        "background": "rgb(255, 255, 255)",
+        "position": "static",
+        "insideScroll": false,
+        "gap": 16
+      },
+      "focusVisible": {
+        "visible": true,
+        "shadow": "rgb(255, 255, 255) 0px 0px 0px 2px, rgb(36, 41, 50) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+      },
+      "networkRequests": 0,
+      "screenshot": "light-375-partial.png"
+    },
+    {
+      "theme": "light",
+      "width": 375,
+      "state": "empty",
+      "range": "Showing 0 of 0 claims\n\n25 claims per page\n\nNo pages\n\n← Previous\nNext →",
+      "geometry": {
+        "left": 24,
+        "right": 351,
+        "width": 327,
+        "overflow": false,
+        "buttons": [
+          {
+            "height": 44,
+            "left": 44,
+            "right": 183,
+            "color": "rgb(36, 41, 50)",
+            "background": "rgb(217, 220, 227)",
+            "disabled": true
+          },
+          {
+            "height": 44,
+            "left": 195,
+            "right": 334,
+            "color": "rgb(36, 41, 50)",
+            "background": "rgb(217, 220, 227)",
+            "disabled": true
+          }
+        ],
+        "color": "rgb(36, 41, 50)",
+        "background": "rgb(255, 255, 255)",
+        "position": "static",
+        "insideScroll": false,
+        "gap": 16
+      },
+      "focusVisible": null,
+      "networkRequests": 0,
+      "screenshot": "light-375-empty.png"
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "state": "first",
+      "range": "Showing 1–25 of 50 claims\n\n25 claims per page\n\nPage 1 of 2\n\n← Previous\nNext →",
+      "geometry": {
+        "left": 24,
+        "right": 1416,
+        "width": 1392,
+        "overflow": false,
+        "buttons": [
+          {
+            "height": 44,
+            "left": 1163.875,
+            "right": 1275.4375,
+            "color": "rgb(233, 235, 242)",
+            "background": "rgb(41, 46, 56)",
+            "disabled": true
+          },
+          {
+            "height": 44,
+            "left": 1287.4375,
+            "right": 1399,
+            "color": "rgb(29, 33, 42)",
+            "background": "rgb(233, 235, 242)",
+            "disabled": false
+          }
+        ],
+        "color": "rgb(233, 235, 242)",
+        "background": "rgb(47, 53, 65)",
+        "position": "static",
+        "insideScroll": false,
+        "gap": 798
+      },
+      "focusVisible": {
+        "visible": true,
+        "shadow": "rgb(47, 53, 65) 0px 0px 0px 2px, rgb(233, 235, 242) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+      },
+      "networkRequests": 0,
+      "screenshot": "dark-1440-first.png"
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "state": "last",
+      "range": "Showing 26–50 of 50 claims\n\n25 claims per page\n\nPage 2 of 2\n\n← Previous\nNext →",
+      "geometry": {
+        "left": 24,
+        "right": 1416,
+        "width": 1392,
+        "overflow": false,
+        "buttons": [
+          {
+            "height": 44,
+            "left": 1163.875,
+            "right": 1275.4375,
+            "color": "rgb(233, 235, 242)",
+            "background": "rgb(47, 53, 65)",
+            "disabled": false
+          },
+          {
+            "height": 44,
+            "left": 1287.4375,
+            "right": 1399,
+            "color": "rgb(233, 235, 242)",
+            "background": "rgb(41, 46, 56)",
+            "disabled": true
+          }
+        ],
+        "color": "rgb(233, 235, 242)",
+        "background": "rgb(47, 53, 65)",
+        "position": "static",
+        "insideScroll": false,
+        "gap": 798
+      },
+      "focusVisible": {
+        "visible": true,
+        "shadow": "rgb(47, 53, 65) 0px 0px 0px 2px, rgb(233, 235, 242) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+      },
+      "networkRequests": 0,
+      "screenshot": "dark-1440-last.png"
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "state": "partial",
+      "range": "Showing 26–31 of 31 claims\n\n25 claims per page\n\nPage 2 of 2\n\n← Previous\nNext →",
+      "geometry": {
+        "left": 24,
+        "right": 1416,
+        "width": 1392,
+        "overflow": false,
+        "buttons": [
+          {
+            "height": 44,
+            "left": 1163.875,
+            "right": 1275.4375,
+            "color": "rgb(233, 235, 242)",
+            "background": "rgb(47, 53, 65)",
+            "disabled": false
+          },
+          {
+            "height": 44,
+            "left": 1287.4375,
+            "right": 1399,
+            "color": "rgb(233, 235, 242)",
+            "background": "rgb(41, 46, 56)",
+            "disabled": true
+          }
+        ],
+        "color": "rgb(233, 235, 242)",
+        "background": "rgb(47, 53, 65)",
+        "position": "static",
+        "insideScroll": false,
+        "gap": 354
+      },
+      "focusVisible": {
+        "visible": true,
+        "shadow": "rgb(47, 53, 65) 0px 0px 0px 2px, rgb(233, 235, 242) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+      },
+      "networkRequests": 0,
+      "screenshot": "dark-1440-partial.png"
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "state": "empty",
+      "range": "Showing 0 of 0 claims\n\n25 claims per page\n\nNo pages\n\n← Previous\nNext →",
+      "geometry": {
+        "left": 24,
+        "right": 1416,
+        "width": 1392,
+        "overflow": false,
+        "buttons": [
+          {
+            "height": 44,
+            "left": 1163.875,
+            "right": 1275.4375,
+            "color": "rgb(233, 235, 242)",
+            "background": "rgb(41, 46, 56)",
+            "disabled": true
+          },
+          {
+            "height": 44,
+            "left": 1287.4375,
+            "right": 1399,
+            "color": "rgb(233, 235, 242)",
+            "background": "rgb(41, 46, 56)",
+            "disabled": true
+          }
+        ],
+        "color": "rgb(233, 235, 242)",
+        "background": "rgb(47, 53, 65)",
+        "position": "static",
+        "insideScroll": false,
+        "gap": 16
+      },
+      "focusVisible": null,
+      "networkRequests": 0,
+      "screenshot": "dark-1440-empty.png"
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "state": "first",
+      "range": "Showing 1–25 of 50 claims\n\n25 claims per page\n\nPage 1 of 2\n\n← Previous\nNext →",
+      "geometry": {
+        "left": 24,
+        "right": 351,
+        "width": 327,
+        "overflow": false,
+        "buttons": [
+          {
+            "height": 44,
+            "left": 44,
+            "right": 183,
+            "color": "rgb(233, 235, 242)",
+            "background": "rgb(41, 46, 56)",
+            "disabled": true
+          },
+          {
+            "height": 44,
+            "left": 195,
+            "right": 334,
+            "color": "rgb(29, 33, 42)",
+            "background": "rgb(233, 235, 242)",
+            "disabled": false
+          }
+        ],
+        "color": "rgb(233, 235, 242)",
+        "background": "rgb(47, 53, 65)",
+        "position": "static",
+        "insideScroll": false,
+        "gap": 16
+      },
+      "focusVisible": {
+        "visible": true,
+        "shadow": "rgb(47, 53, 65) 0px 0px 0px 2px, rgb(233, 235, 242) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+      },
+      "networkRequests": 0,
+      "screenshot": "dark-375-first.png"
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "state": "last",
+      "range": "Showing 26–50 of 50 claims\n\n25 claims per page\n\nPage 2 of 2\n\n← Previous\nNext →",
+      "geometry": {
+        "left": 24,
+        "right": 351,
+        "width": 327,
+        "overflow": false,
+        "buttons": [
+          {
+            "height": 44,
+            "left": 44,
+            "right": 183,
+            "color": "rgb(233, 235, 242)",
+            "background": "rgb(47, 53, 65)",
+            "disabled": false
+          },
+          {
+            "height": 44,
+            "left": 195,
+            "right": 334,
+            "color": "rgb(233, 235, 242)",
+            "background": "rgb(41, 46, 56)",
+            "disabled": true
+          }
+        ],
+        "color": "rgb(233, 235, 242)",
+        "background": "rgb(47, 53, 65)",
+        "position": "static",
+        "insideScroll": false,
+        "gap": 16
+      },
+      "focusVisible": {
+        "visible": true,
+        "shadow": "rgb(47, 53, 65) 0px 0px 0px 2px, rgb(233, 235, 242) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+      },
+      "networkRequests": 0,
+      "screenshot": "dark-375-last.png"
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "state": "partial",
+      "range": "Showing 26–31 of 31 claims\n\n25 claims per page\n\nPage 2 of 2\n\n← Previous\nNext →",
+      "geometry": {
+        "left": 24,
+        "right": 351,
+        "width": 327,
+        "overflow": false,
+        "buttons": [
+          {
+            "height": 44,
+            "left": 44,
+            "right": 183,
+            "color": "rgb(233, 235, 242)",
+            "background": "rgb(47, 53, 65)",
+            "disabled": false
+          },
+          {
+            "height": 44,
+            "left": 195,
+            "right": 334,
+            "color": "rgb(233, 235, 242)",
+            "background": "rgb(41, 46, 56)",
+            "disabled": true
+          }
+        ],
+        "color": "rgb(233, 235, 242)",
+        "background": "rgb(47, 53, 65)",
+        "position": "static",
+        "insideScroll": false,
+        "gap": 16
+      },
+      "focusVisible": {
+        "visible": true,
+        "shadow": "rgb(47, 53, 65) 0px 0px 0px 2px, rgb(233, 235, 242) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px"
+      },
+      "networkRequests": 0,
+      "screenshot": "dark-375-partial.png"
+    },
+    {
+      "theme": "dark",
+      "width": 375,
+      "state": "empty",
+      "range": "Showing 0 of 0 claims\n\n25 claims per page\n\nNo pages\n\n← Previous\nNext →",
+      "geometry": {
+        "left": 24,
+        "right": 351,
+        "width": 327,
+        "overflow": false,
+        "buttons": [
+          {
+            "height": 44,
+            "left": 44,
+            "right": 183,
+            "color": "rgb(233, 235, 242)",
+            "background": "rgb(41, 46, 56)",
+            "disabled": true
+          },
+          {
+            "height": 44,
+            "left": 195,
+            "right": 334,
+            "color": "rgb(233, 235, 242)",
+            "background": "rgb(41, 46, 56)",
+            "disabled": true
+          }
+        ],
+        "color": "rgb(233, 235, 242)",
+        "background": "rgb(47, 53, 65)",
+        "position": "static",
+        "insideScroll": false,
+        "gap": 16
+      },
+      "focusVisible": null,
+      "networkRequests": 0,
+      "screenshot": "dark-375-empty.png"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+COMMAND: node agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/E1/fixture_probe.cjs
+EXIT: 0
+{
+  "rows": 150,
+  "expected_formula_pass": 1,
+  "expected_formula_fail": 149,
+  "owed_formula_pass": 150
+}
+

@@ -1,0 +1,14 @@
+{
+  "utc": "2026-11-05T14:05:36.416984+00:00",
+  "head": "b23372d24d79b6460f746a191e824224ba5f8900",
+  "head_unchanged": true,
+  "tracked_changed": [
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_EXECUTION_PLAN.md",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_JOURNAL.md",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_SKILLS_MANIFEST.md",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_STATE.md"
+  ],
+  "untracked_count": 59,
+  "outside_authorized_paths": [],
+  "protected_diff_empty": true
+}

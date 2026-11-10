@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "exit": 0,
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "mode": "mock",
+  "port": "3138",
+  "buildId": "RO5p366LCnPoQY1k0EjQ_",
+  "builtAt": "2026-11-09T04:25:18.326Z",
+  "tree": "/tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/fa30ae5a-f519-405b-b673-4ca4f9937817/scratchpad/qa-tree",
+  "secretKeyInEnv": false,
+  "envKeysPassed": [
+    "NEXT_PUBLIC_APBM_DATA_MODE",
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+    "NEXT_PUBLIC_SITE_URL"
+  ]
+}

@@ -1,0 +1,11 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+UTC: 2026-11-05T13:53:33.475021+00:00
+COMMAND: ["find", "agent_docs/SKILLS", "-name", "SKILL.md"]
+EXIT: 0
+STDOUT:
+agent_docs/SKILLS/stark-recon-skill-v1.1/SKILL.md
+agent_docs/SKILLS/stark-cloud-deploy-skills/next-deploy-generate/SKILL.md
+agent_docs/SKILLS/stark-cloud-deploy-skills/next-deploy-execute/SKILL.md
+agent_docs/SKILLS/stark-kit-residue-cleaner-skill/SKILL.md
+
+STDERR:

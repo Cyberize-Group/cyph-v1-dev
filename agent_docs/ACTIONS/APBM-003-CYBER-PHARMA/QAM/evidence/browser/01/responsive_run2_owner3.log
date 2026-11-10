@@ -1,0 +1,17 @@
+PASS T-40 OWNER3 1440×900 light: html theme class lacks "dark"; scrollWidth 1440 ≤ 1440; picker/tabs/pager/filter rail reachable class="saira_30d0f00a-module__F8AMRG__variable light" sw=1440 picker=true tabs=true pager=true filters=true
+PASS T-40 keyboard: Tab from the Store select reaches pager (Next) → tabs → table sort buttons, in DOM/visual order; all reachable BUTTON:Next > tab:Commercial Dollars > BUTTON:Date
+PASS T-40 keyboard: Enter/Space activate sort (aria-sort ascending → descending) ascending → descending
+PASS T-40 keyboard: focused sort button shows a visible focus ring (outline or ring box-shadow) 
+PASS T-40 role=alert present on the KPI error state 
+PASS T-40 OWNER3 1440×900 dark: html theme class has "dark"; scrollWidth 1440 ≤ 1440; picker/tabs/pager/filter rail reachable class="saira_30d0f00a-module__F8AMRG__variable dark" sw=1440 picker=true tabs=true pager=true filters=true
+PASS T-40 OWNER3 1280×800 light: html theme class lacks "dark"; scrollWidth 1280 ≤ 1280; picker/tabs/pager/filter rail reachable class="saira_30d0f00a-module__F8AMRG__variable light" sw=1280 picker=true tabs=true pager=true filters=true
+PASS T-40 OWNER3 1280×800 dark: html theme class has "dark"; scrollWidth 1280 ≤ 1280; picker/tabs/pager/filter rail reachable class="saira_30d0f00a-module__F8AMRG__variable dark" sw=1280 picker=true tabs=true pager=true filters=true
+PASS T-40 OWNER3 768×1024 light: html theme class lacks "dark"; scrollWidth 768 ≤ 768; picker/tabs/pager/filter rail reachable class="saira_30d0f00a-module__F8AMRG__variable light" sw=768 picker=true tabs=true pager=true filters=true
+PASS T-40 OWNER3 768×1024 dark: html theme class has "dark"; scrollWidth 768 ≤ 768; picker/tabs/pager/filter rail reachable class="saira_30d0f00a-module__F8AMRG__variable dark" sw=768 picker=true tabs=true pager=true filters=true
+PASS T-40 OWNER3 375×812 light: html theme class lacks "dark"; scrollWidth 375 ≤ 375; picker/tabs/pager/filter rail reachable class="saira_30d0f00a-module__F8AMRG__variable light" sw=375 picker=true tabs=true pager=true filters=true
+PASS T-40 375px filter drawer opens and traps focus (first control focused) 
+PASS T-40 Escape closes the drawer and returns focus to the trigger 
+PASS T-40 MobileNav opens (dialog "Menu") and closes 
+PASS T-40 MobileNav closed 
+PASS T-40 OWNER3 375×812 dark: html theme class has "dark"; scrollWidth 375 ≤ 375; picker/tabs/pager/filter rail reachable class="saira_30d0f00a-module__F8AMRG__variable dark" sw=375 picker=true tabs=true pager=true filters=true
+summary responsive: 16 PASS / 0 FAIL; unexpected backend requests 0

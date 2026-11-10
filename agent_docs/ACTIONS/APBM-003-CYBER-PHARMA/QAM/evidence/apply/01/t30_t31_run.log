@@ -1,0 +1,17 @@
+PASS T-30 ledger has 52 rows observed 52
+PASS T-30 ledger names = committed 0001..0052 
+PASS T-30 ledger sha256 = sha256sum of committed files at candidate all 52 match
+PASS T-30 QA-normalised catalog projection equals the same projection of the receipt snapshot sha c4cb54fb0c76a238…
+PASS T-30 tables = 17 [QA-derived] observed 17: aac_reference,accounts,apa_memberships,audit_logs,businesses,ful_reference,pbm_info,pending_registrations,profiles,reference_dataset_versions,report_files,subscriptions,system_config,user_businesses,user_data,user_roles,wac_reference
+PASS T-30 policies = 15 [QA-derived] observed 15
+PASS T-30 functions = 19 [QA-derived] observed 19: admin_audit,admin_billing_status,admin_members,admin_stores,audit_logs_immutable,audit_write,handle_new_user,is_account_member,is_admin_of,is_member_of,is_owner_of_account,my_business_ids,owedbook_kpis,owedbook_pbm_options,owedbook_rows,owedbook_summary,rls_auto_enable,tenant_stores,update_updated_at
+PASS T-30 audit_write() stamping triggers = 14 [QA-derived] observed 14
+PASS T-30 auth.users = 12 (5 pre-existing + 7 cast) total 12, preserved 5, cast 7; preserved-id-list sha256 2c7ca90bfa8df131…
+PASS T-30 profiles 12 / user_roles 12 {"profiles":12,"user_roles":12,"members":10}
+PASS T-30 default ACLs recorded (compare to receipt entries) 6 entries; supabase_admin-owned: 3
+PASS T-30 restoreVerified clause ACCEPTED LIMITATION per APBM_RULINGS.md C-02 (receipt rehearsal.restoreVerified=false); not graded PASS
+PASS T-31a handle_new_user body = 0049 text (normalised whitespace), SECURITY DEFINER, search_path pinned body identical
+PASS T-31b AC-405 literal: anon/authenticated can SEE nothing by default on user_data, audit_logs (no SELECT grant); system_config SELECT only for authenticated (0052) SELECT grants outside 0052: []
+FAIL T-31b plan-strict (T-11e wording): no table privilege at all beyond 0052 non-SELECT grants present: [{"grantee":"anon","tbl":"audit_logs","priv":"INSERT"},{"grantee":"anon","tbl":"audit_logs","priv":"REFERENCES"},{"grantee":"anon","tbl":"audit_logs","priv":"TRIGGER"},{"grantee":"anon","tbl":"audit_logs","priv":"TRUNCATE"},{"grantee":"anon","tbl":"user_data","priv":"REFERENCES"},{"grantee":"anon","tbl":"user_data","priv":"TRIGGER"},{"grantee":"anon","tbl":"user_data","priv":"TRUNCATE"},{"grantee":"authenticated","tbl":"audit_logs","priv":"INSERT"},{"grantee":"authenticated","tbl":"audit_logs","priv":"REFERENCES"},{"grantee":"authenticated","tbl":"audit_logs","priv":"TRIGGER"},{"grantee":"authenticated","tbl":"audit_logs","priv":"TRUNCATE"},{"grantee":"authenticated","tbl":"user_data","priv":"REFERENCES"},{"grantee":"authenticated","tbl":"user_data","priv":"TRIGGER"},{"grantee":"authenticated","tbl":"user_data","priv":"TRUNCATE"}] — 0028 deliberately leaves INSERT on audit_logs to FORCE RLS (no insert policy); effective denial is probed in T-17
+PASS T-31c DEV GET /auth/v1/settings disable_signup = true observed true
+summary: 15/16 PASS

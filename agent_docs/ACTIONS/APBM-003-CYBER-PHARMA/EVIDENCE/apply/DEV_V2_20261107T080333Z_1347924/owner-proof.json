@@ -1,0 +1,27 @@
+{
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "status": "PASS",
+  "declaredEffects": "1 login/logout session; 4 successful audited RPCs append 4 audit rows; tenant_stores read and one denied foreign-store RPC; no business writes",
+  "checks": [
+    "four expected stores",
+    "B1 account owned by OWNER3",
+    "B2 account owned by OWNER3",
+    "B3 account owned by OWNER3",
+    "OWNER3 has no B2/B3 junction",
+    "real OWNER3 client login",
+    "authenticated user JWT",
+    "exact owner store scope",
+    "B2 owedbook_rows allowed without junction",
+    "B2 owedbook_rows exact audit +1",
+    "B2 admin_members allowed without junction",
+    "B2 admin_members exact audit +1",
+    "B3 owedbook_rows allowed without junction",
+    "B3 owedbook_rows exact audit +1",
+    "B3 admin_members allowed without junction",
+    "B3 admin_members exact audit +1",
+    "foreign account denied",
+    "foreign denial audit +0",
+    "exact aggregate audit +4"
+  ],
+  "auditDelta": 4
+}

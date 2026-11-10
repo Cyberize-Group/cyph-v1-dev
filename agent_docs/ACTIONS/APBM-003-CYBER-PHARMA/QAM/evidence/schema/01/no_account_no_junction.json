@@ -1,0 +1,41 @@
+qa-shim: SCRATCH fence OK (url-side ref=ihgcsrypblqkwommrkgj; sql-side DEV fingerprint absent)
+qa-shim: spawning in /tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/fa30ae5a-f519-405b-b673-4ca4f9937817/scratchpad/qa-tree: node /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/AUTOMATION/scratch-sql.mjs (evidence → ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/schema/01)
+[
+  {
+    "sql": "select set_config('request.jwt.claims', json_build_object('role','authenticated','sub',(select id from auth.users where ",
+    "rowCount": 1,
+    "rows": [
+      {
+        "set_config": "{\"role\" : \"authenticated\", \"sub\" : \"b2519406-a39e-455a-83cf-e28ca03d7fc5\"}"
+      }
+    ]
+  },
+  {
+    "sql": "set local role authenticated",
+    "rowCount": null,
+    "rows": []
+  },
+  {
+    "sql": "select count(*)::int my_business_ids_rows from public.my_business_ids()",
+    "rowCount": 1,
+    "rows": [
+      {
+        "my_business_ids_rows": 0
+      }
+    ]
+  },
+  {
+    "sql": "select (select count(*) from public.user_businesses where user_id=(select id from auth.users where email='apbm003-preser",
+    "error": {
+      "code": "42501",
+      "message": "permission denied for table users"
+    }
+  },
+  {
+    "transaction": "ROLLBACK (error)",
+    "error": {
+      "code": "42501",
+      "message": "permission denied for table users"
+    }
+  }
+]

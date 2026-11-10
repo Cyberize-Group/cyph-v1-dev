@@ -1,0 +1,70 @@
+{
+  "status": "PASS",
+  "kind": "local evaluator controls only; not a restored-copy baseline proof",
+  "checks": [
+    {
+      "name": "only the three approved managed defaults may differ",
+      "status": "PASS"
+    },
+    {
+      "name": "reject other project yrsuwikjnbmvpznrgydb",
+      "status": "PASS"
+    },
+    {
+      "name": "reject other project cwdzijswchlwfvxxrlzb",
+      "status": "PASS"
+    },
+    {
+      "name": "reject DEV mode",
+      "status": "PASS"
+    },
+    {
+      "name": "reject changed ACL privileges",
+      "status": "PASS"
+    },
+    {
+      "name": "reject fourth managed default",
+      "status": "PASS"
+    },
+    {
+      "name": "reject partial exception set",
+      "status": "PASS"
+    },
+    {
+      "name": "reject other catalog change: columns",
+      "status": "PASS"
+    },
+    {
+      "name": "reject other catalog change: tables",
+      "status": "PASS"
+    },
+    {
+      "name": "reject other catalog change: policies",
+      "status": "PASS"
+    },
+    {
+      "name": "reject other catalog change: functions",
+      "status": "PASS"
+    },
+    {
+      "name": "reject other catalog change: constraints",
+      "status": "PASS"
+    },
+    {
+      "name": "reject other catalog change: indexes",
+      "status": "PASS"
+    },
+    {
+      "name": "reject other catalog change: triggers",
+      "status": "PASS"
+    },
+    {
+      "name": "reject other catalog change: enums",
+      "status": "PASS"
+    },
+    {
+      "name": "reject postgres defaults change",
+      "status": "PASS"
+    }
+  ]
+}

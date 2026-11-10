@@ -7,7 +7,7 @@ Engineer: Cody / Codex · Recorded 2026-11-09 before Director commit. All behavi
 | Field | Value |
 |---|---|
 | Baseline | `af2c7e5225d2d78925fd392e29a58b6bde830263` |
-| Implementation identity | PENDING Director repair commit; inventory below covers baseline through current repaired worktree, not a manufactured candidate SHA |
+| Implementation identity | `dc44429f466dedcf35023342f68624c6cee062f0` (certified repair); the original inventory below is its pre-commit snapshot. Later pagination remains a separate uncommitted successor |
 | Original engineering branch | `apbm-003` |
 | Current repair / QA branch | `qa/apbm-003` (already exists) |
 | HEAD at repair handoff | `4d64504e85c56f1c987a703dd94575f489cb99ce` |
@@ -1974,7 +1974,7 @@ Outside current repair scope: all paths except the twelve exact paths in §8; in
 | CLAIM PASS (SCRATCH): exact 15-policy AC7 and structural oracle; stage-5/audit-final/audit-8.log. | Read retained engineering evidence listed here; no live rerun in this repair | Engineering claim only; retained evidence unless §8 says rerun | `APBM_ACCEPTANCE_LEDGER.md; EVIDENCE/E2/IMPLEMENTED_OPERATION_PLAN.md; EVIDENCE/E2/stage-5/` | AC-802 |
 | CLAIM: repaired source typecheck PASS; lint 0 errors/34 warnings; Jest 39 suites/196 tests PASS, 0 skipped. Earlier build PASS retained; repaired production build not run to preserve existing server/build state. | npx tsc --noEmit --tsBuildInfoFile /tmp/apbm-q4.tsbuildinfo; npx eslint .; NEXT_PUBLIC_APBM_DATA_MODE=mock npx jest --runInBand --ci | Engineering claim only; retained evidence unless §8 says rerun | `QAM/QAM_MANIFEST.md §8; EVIDENCE/E2/stage-6/HANDOFF.md` | AC-803 |
 | CLAIM PASS: dependencies and lockfile unchanged; package scripts only. | Read retained engineering evidence listed here; no live rerun in this repair | Engineering claim only; retained evidence unless §8 says rerun | `APBM_ACCEPTANCE_LEDGER.md; EVIDENCE/E2/IMPLEMENTED_OPERATION_PLAN.md; EVIDENCE/E2/stage-5/` | AC-804 |
-| CLAIM: manifest and engineering handoff filled with 44 AC rows and full path inventory; candidate PENDING Director commit. | Read retained engineering evidence listed here; no live rerun in this repair | Engineering claim only; retained evidence unless §8 says rerun | `CONTRACTS/TARGET_ONE_RELEASE_CONTRACT.md; QAM/QAM_MANIFEST.md §8; APBM_STATE.md; APBM_JOURNAL.md` | AC-901 |
+| CLAIM: manifest and engineering handoff filled with 44 AC rows and full path inventory; certified repaired candidate dc44429f466dedcf35023342f68624c6cee062f0; pagination successor pending its own commit/review. | Read retained engineering evidence listed here; no live rerun in this repair | Engineering claim only; retained evidence unless §8 says rerun | `CONTRACTS/TARGET_ONE_RELEASE_CONTRACT.md; QAM/QAM_MANIFEST.md §8; APBM_STATE.md; APBM_JOURNAL.md` | AC-901 |
 | CLAIM: tester limitations and pending Gate D address recorded; truthful real-mode labels repaired; independent certification not claimed. | Read retained engineering evidence listed here; no live rerun in this repair | Engineering claim only; retained evidence unless §8 says rerun | `CONTRACTS/TARGET_ONE_RELEASE_CONTRACT.md; QAM/QAM_MANIFEST.md §8; APBM_STATE.md; APBM_JOURNAL.md` | AC-902 |
 | CLAIM: retrospective E2 completion and stage-8 no-deployment entry plus current repair entry recorded in state/journal; authority and history preserved. | Read retained engineering evidence listed here; no live rerun in this repair | Engineering claim only; retained evidence unless §8 says rerun | `CONTRACTS/TARGET_ONE_RELEASE_CONTRACT.md; QAM/QAM_MANIFEST.md §8; APBM_STATE.md; APBM_JOURNAL.md` | AC-903 |
 
@@ -2067,3 +2067,14 @@ Snapshots:   0 total
 Time:        6.048 s, estimated 9 s
 Ran all test suites.
 ```
+
+### 2026-11-09 — Director-approved pagination presentation repair (Cody)
+
+New product revision after prior candidate dc44429f466dedcf35023342f68624c6cee062f0; Friday targeted review required. The previous certificate/candidate identity is preserved, not extended. Director-authorized exact source/test paths: `src/components/owedbook/OwedBookScreen.tsx`, `src/components/owedbook/ResultsToolbar.tsx`, `src/__tests__/owedbook/ResultsToolbar.test.tsx`, `src/__tests__/apbm-read-states.test.tsx`. Documentation paths: APBM_RULINGS.md, this manifest §8, APBM_JOURNAL.md; new evidence confined to EVIDENCE/E2/pagination-usability/ (enumerated in its README).
+
+CLAIM: prominent results toolbar below active paginated table, outside horizontal scroll, dynamic actual ranges, readable disabled native buttons, responsive light/dark token styling. Existing handlers/query effects untouched; no Summary/Federal pagination. Local board 40 suites/201 tests PASS, typecheck/build PASS, lint 0 errors/34 warnings. Sixteen isolated actual-component layouts PASS; all button/panel text contrast ≥4.5, controls ≥44px, no overflow and visible focus. Integration verifies no extra rows/KPI/options requests, filter/store resets, partial/empty results and hidden non-paginated toolbar. Source hashes, logs, screenshots and exact reproduction in `../EVIDENCE/E2/pagination-usability/`. No DB writes/authenticated probes, no Git mutation, no deployment. Updated local app at http://localhost:3000; refresh required. Live manual smoke and independent targeted review remain pending.
+
+
+## 2026-11-09 closeout reconciliation — Cody
+
+F-09 repaired identity is now explicit. Tony accepts Target One with limitations and reports Owner admin views, filters, store switching, pagination and mobile working; MEMBER_B1 filters/mobile working with no admin access reported; pagination usability approved as beautiful/perfect. No Director UNRELATED test, exact picker verification or full seven-account smoke is claimed. Friday's unchanged certificate binds dc44429f only: 40 PASS, 1 ACCEPTED LIMITATION (AC-401 restore not demonstrated), 3 NOT RUN. Pagination successor requires Friday's targeted disposition; cleanup acceptance remains unrecorded. DEV APPLY succeeded; deployment deferred; Gate D/production readiness pending. See CLOSEOUT/CLOSEOUT.md, FOLLOW_UPS.md and RETROSPECTIVE.md at module root/closeout paths.

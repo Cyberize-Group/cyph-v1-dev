@@ -1,0 +1,52 @@
+{
+  "phase": "spoof",
+  "startedAt": "2026-11-09T04:09:45.452Z",
+  "base": "http://127.0.0.1:3138",
+  "devRef": "yrsuwikjnbmvpznrgydb",
+  "checks": [
+    {
+      "name": "T-34 OWNER3 spoof p_business_id→A1 (rows/kpis/options): refusal text shown, KPI error state, no A1 rows, audit +0",
+      "result": "PASS",
+      "detail": "refused=true kpiErr=true leaked=false auditDelta=0"
+    },
+    {
+      "name": "T-34 OWNER3 spoof p_business_id→C1 (rows/kpis/options): refusal text shown, KPI error state, no C1 rows, audit +0",
+      "result": "PASS",
+      "detail": "refused=true kpiErr=true leaked=false auditDelta=0"
+    },
+    {
+      "name": "T-34 OWNER3 spoof admin_members→A1: refusal text, no A1 members, audit +0",
+      "result": "PASS",
+      "detail": "refused=true"
+    },
+    {
+      "name": "T-34 control: the same interception rewritten to permitted B2 succeeds (rows are B2)",
+      "result": "PASS",
+      "detail": "25 rows"
+    },
+    {
+      "name": "T-34 session token captured from a browser RPC request (kept in memory only)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-34 direct REST owedbook_rows(A1) with OWNER3 token → 4xx \"not a member of business\", audit +0",
+      "result": "PASS",
+      "detail": "http 400"
+    },
+    {
+      "name": "T-34 control: direct REST owedbook_rows(B2) with OWNER3 token → 200, total 50",
+      "result": "PASS",
+      "detail": "http 200"
+    }
+  ],
+  "signIns": {
+    "OWNER3": 1
+  },
+  "unexpectedBackendRequests": 0,
+  "failures": [],
+  "finishedAt": "2026-11-09T04:10:50.769Z",
+  "pass": 7,
+  "fail": 0,
+  "status": "PASS"
+}

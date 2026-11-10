@@ -1,0 +1,10 @@
+{
+  "target": "DEV yrsuwikjnbmvpznrgydb",
+  "method": "GET /auth/v1/settings with publishable apikey header only; no signup attempt",
+  "fetchedAt": "2026-11-09T03:43:41.917Z",
+  "disable_signup": true,
+  "external_providers_enabled": [
+    "email"
+  ],
+  "scratch_half": "BLOCKED — owner Director (SCRATCH signup posture UNKNOWN per QAM_APPROVAL.md §3; no signup attempt on any target, AM-6)"
+}

@@ -1,0 +1,12 @@
+qa-shim: SCRATCH fence OK (url-side ref=ihgcsrypblqkwommrkgj; sql-side DEV fingerprint absent)
+qa-shim: spawning in /tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/fa30ae5a-f519-405b-b673-4ca4f9937817/scratchpad/qa-tree: node /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/AUTOMATION/scratch-sql.mjs --commit (evidence → ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/seed/01)
+[
+  {
+    "sql": "update public.user_data set total_paid = total_paid - 0.01 where script = 'SYNTHETIC-B2-001'",
+    "rowCount": 1,
+    "rows": []
+  },
+  {
+    "transaction": "COMMIT"
+  }
+]

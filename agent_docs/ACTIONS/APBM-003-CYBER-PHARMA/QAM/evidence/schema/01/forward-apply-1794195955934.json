@@ -1,0 +1,15 @@
+{
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "command": "apply",
+  "startedAt": "2026-11-09T03:45:54.133Z",
+  "committed": [
+    "0048_ownership.sql",
+    "0049_signup_member.sql",
+    "0050_claim_read_fence.sql",
+    "0051_admin_reads.sql",
+    "0052_system_config.sql"
+  ],
+  "status": "PASS",
+  "lastCommitted": "0052_system_config.sql",
+  "finishedAt": "2026-11-09T03:45:55.934Z"
+}

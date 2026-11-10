@@ -1,0 +1,12 @@
+qa-shim: SCRATCH fence OK (url-side ref=ihgcsrypblqkwommrkgj; sql-side DEV fingerprint absent)
+qa-shim: spawning in /tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/fa30ae5a-f519-405b-b673-4ca4f9937817/scratchpad/qa-tree: node /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/AUTOMATION/t21-trigger.mjs /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/schema/01/trigger.json (evidence → ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/schema/01)
+PASS T-21 pg_get_functiondef(handle_new_user) body = 0049 text (normalised whitespace) 
+PASS T-21 SECURITY DEFINER + search_path pinned SET search_path TO ''
+PASS T-21 trigger wired on auth.users [{"tgname":"on_auth_user_created","relname":"users","nspname":"auth"}]
+PASS T-21 createUser with role:superadmin metadata succeeded (SCRATCH, probe identity) created
+PASS T-21 user_roles.role = member despite metadata role superadmin observed member
+PASS T-21 profiles.full_name = 'QA Probe' copied from metadata {"full_name":"QA Probe","email":"apbm003-qa-probe-1794196337683@example.invalid"}
+PASS T-21 metadata still carries role (ignored by the trigger, never a privilege) raw role=superadmin
+PASS T-21 probe user deleted (auth.users, user_roles, profiles rows gone) {"ur":0,"pr":0,"au":0}
+PASS T-21 audit delta recorded (user_roles/profiles are not stamped → 0 expected) audit_logs delta = 0
+exit=0

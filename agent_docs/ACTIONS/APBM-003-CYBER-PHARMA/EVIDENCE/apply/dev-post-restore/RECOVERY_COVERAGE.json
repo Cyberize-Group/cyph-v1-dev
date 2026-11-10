@@ -1,0 +1,152 @@
+{
+  "checkedAt": "2026-11-06T12:53:54.911Z",
+  "archiveReadable": true,
+  "tables": [
+    {
+      "name": "auth.audit_log_entries",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.custom_oauth_providers",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.flow_state",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.identities",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.instances",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.mfa_amr_claims",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.mfa_challenges",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.mfa_factors",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.mfa_recovery_code_sets",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.mfa_recovery_codes",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.oauth_authorizations",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.oauth_client_states",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.oauth_clients",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.oauth_consents",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.one_time_tokens",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.refresh_tokens",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.saml_providers",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.saml_relay_states",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.schema_migrations",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.scim_tokens",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.scim_users",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.sessions",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.sso_domains",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.sso_providers",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.users",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.webauthn_challenges",
+      "hasTableData": true
+    },
+    {
+      "name": "auth.webauthn_credentials",
+      "hasTableData": true
+    },
+    {
+      "name": "public.profiles",
+      "hasTableData": true
+    },
+    {
+      "name": "public.user_roles",
+      "hasTableData": true
+    },
+    {
+      "name": "supabase_migrations.schema_migrations",
+      "hasTableData": true
+    }
+  ],
+  "requiredFourIndexes": [
+    {
+      "name": "idx_users_created_at_desc",
+      "present": true
+    },
+    {
+      "name": "idx_users_email",
+      "present": true
+    },
+    {
+      "name": "idx_users_last_sign_in_at_desc",
+      "present": true
+    },
+    {
+      "name": "idx_users_name",
+      "present": true
+    }
+  ],
+  "all30TableDataEntries": true,
+  "allFourIndexEntries": true,
+  "providerAuthSettingsCovered": false,
+  "storageObjectsCovered": false,
+  "apiHealth": {
+    "status": 200,
+    "method": "GET /auth/v1/health with apikey only; no login/session"
+  }
+}

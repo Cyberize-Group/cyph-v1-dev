@@ -1,0 +1,11 @@
+{
+  "candidatePaths": 56,
+  "outsideAllowlist": [],
+  "protectedTouched": [],
+  "allowlistSize": 65,
+  "negativeControl": {
+    "fakePathAdded": "src/components/admin-portal/DemoMarker.tsx",
+    "flagged": true
+  },
+  "result": "PASS"
+}

@@ -1,0 +1,7 @@
+PASS T-35 abort owedbook_kpis → "KPIs unavailable. Please retry." + Retry KPIs; no $0.00 tiles; role=alert present zeroTiles=0 alerts=2
+PASS T-35 abort owedbook_rows → rows error state with Retry 
+PASS T-35 abort owedbook_pbm_options → options alert, table still loads (Total 50) 
+PASS T-35 abort tenant_stores → "Store access unavailable…" + "Retry stores" 
+PASS T-35 restore + Retry → KPIs/options/rows reload; audit +3 for OWNER3 (kpis, pbm_options, rows) [{"fn":"owedbook_kpis","n":1,"biz_present":true},{"fn":"owedbook_pbm_options","n":1,"biz_present":true},{"fn":"owedbook_rows","n":1,"biz_present":true}]
+PASS T-35 loading state: skeleton / aria-busy shown while a request is in flight busy elements=2
+summary r016: 6 PASS / 0 FAIL; unexpected backend requests 0

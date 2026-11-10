@@ -1,0 +1,543 @@
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_ACCEPTANCE_SPEC.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_ACCEPTANCE_SPEC.md
+@@ -11,12 +11,12 @@
+ 
+ | # | Prerequisite | Owner | Evidence |
+ |---|---|---|---|
+-| P-1 | Pack installed at `agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/`, committed on `apbm-003-cyber-pharma`, `git status` clean before "go" | Director | commit receipt |
++| P-1 | Pack installed at `agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/`, committed on `apbm-003`, `git status` clean before "go" | Director | commit receipt |
+ | P-2 | SCRATCH credentials in `.env.local` (throwaway scope only) with their own env prefix (CF-8), rotated since last use | Director | `EVIDENCE/env/ENV_NOTE.md` (key names only) |
+ | P-3 | DA-2: "Allow new users to sign up" OFF on DEV and SCRATCH, curl proof | Director | `EVIDENCE/apply/DA-2_SUPABASE_SIGNUP_DISABLED.md` |
+ | P-4 | Recon skill present in the repo; path recorded | Director / Cody | `APBM_SKILLS_MANIFEST.md` |
+ | P-5 | `.env.qa.local` declared, ignored, untracked, with the key names in `QAM/QAM_ENTRY.md` §4 (created before Q2 release) | Director | QAM preflight PF-4.6 |
+-| P-6 | Deployment target approved (service, project, env var names) before stage 8 | Director | `EVIDENCE/deploy/TARGET_APPROVAL.md` |
++| P-6 | After Gate Q, separate staging approval binds certified candidate/digest, service/project/region, DEV backend and config names, authentication and rollback; not needed to execute Gate Q | Director | EVIDENCE/deploy/TARGET_APPROVAL.md |
+ 
+ ## 1. Schema, permissions and trigger (AC-1xx) — proven on SCRATCH from a from-scratch replay; re-verified on DEV at the checkpoint
+ 
+@@ -56,9 +56,9 @@
+ 
+ | AC | Requirement | Where |
+ |---|---|---|
+-| AC-401 | Before apply: DEV identified by project ref; current migration state recorded (expected: the 2-table baseline, `user_roles` + `profiles`, 3 policies); backup taken and restore path rehearsed on a throwaway clone (`APPLY_CHECKPOINT.md` §2) | DEV |
+-| AC-402 | Apply: only the forward chain via `db:apply` semantics (never reset), catalog check after the run: table count `<<E1>>`, policy count `<<E1>>`, helper + wrapper + audit function count `<<E1>>` | DEV |
+-| AC-403 | Seed run once on DEV; cast present (AC-203 re-checked); DEV-safe catalog/cast verification and bounded authenticated read probes pass per `E2_AMENDMENT_A01.md`; session/audit writes declared, no business mutations | DEV |
++| AC-401 | DEV identity/current catalog and affected-state inventory verified; backup covers affected public/auth data, schema, grants and ledger; restore and forward-apply/seed/verifier rehearsal on disposable target demonstrated | DEV readiness + disposable rehearsal |
++| AC-402 | Tony applies only the verified inventory using rehearsed scripts/apply-forward.mjs design: target fencing, checksum ledger, unapplied files only, atomic migration+receipt per transaction; stop on partial failure per APPLY_CHECKPOINT. Post-apply catalog/ledger matches FINAL counts and definitions. Legacy db:apply is not a DEV command. | DEV |
++| AC-403 | Tony seeds once, verifies cast/counts, and runs rehearsed DEV-safe catalog verifier plus separately bounded authenticated read checks. Declare login/logout session effects and successful wrapper audit inserts; no business DML, reset, reseed-by-reset or destructive proof orchestrators in verifier. | DEV |
+ | AC-404 | `handle_new_user()` on DEV matches the migration text (AC-105 re-check); DA-2 evidence file present | DEV |
+ | AC-405 | E-4's default-ACL premise re-verified on DEV (what `authenticated`/`anon` can see by default on the new tables = nothing) | DEV |
+ 
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_ENTRY.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_ENTRY.md
+@@ -9,9 +9,9 @@
+ | Field | Value |
+ |---|---|
+ | Module | `APBM-003-CYBER-PHARMA` — Phase 3 completion + Target One |
+-| Repo / module dir | `cyber-pharma-dev-v1-phase-3` / `agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/` |
+-| Branches | `apbm-003-cyber-pharma` (engineering) · `qa/apbm-003-cyber-pharma` (QA, forward-only, Director-cut at the completed candidate) |
+-| Baseline | parent of the pack-installation commit (expected `5234abe`; full SHA recorded at E1) |
++| Repo / module dir | `Cyberize-Group/cyph-v1-dev` / `agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/` |
++| Branches | `apbm-003` (engineering) · `qa/apbm-003` (QA, forward-only, Director-cut at the completed candidate) |
++| Baseline | `af2c7e5225d2d78925fd392e29a58b6bde830263`; E1 start `b23372d24d79b6460f746a191e824224ba5f8900`; `5234abe` unavailable |
+ | Seats | Director Tony · Chief Architect JARVIS (he/him) · Architect Friday (she/her) · **Engineering Executor Cody** · **QA Executor Claudy** · QA Lead (seat; holder recorded when it acts) |
+ 
+ ## 2. Read order (Engineering)
+@@ -27,8 +27,8 @@
+ | `E2 APPROVED` | Cody | Verify the FINAL stamp and the approval reference; run `E2_EXECUTION_INSTRUCTIONS.md` §1 preflight, then stages 1–5 |
+ | `E2 PAUSED — APPLY CHECKPOINT (Director)` | Director | Nothing. Report the checkpoint is pending and point to `APPLY_CHECKPOINT.md` |
+ | `APPLY COMPLETE` / `E2 RESUMED` | Cody | Resume at stage 6 against DEV |
+-| `E2 COMPLETE — AWAITING QA BRANCH` | Director | Nothing. The handoff exists; the Director commits the candidate and cuts `qa/apbm-003-cyber-pharma`. QA then starts from `QAM/QAM_ENTRY.md` |
+-| `REPAIR RULED — AWAITING COMMIT` (from QAM) | Cody (repair), Director (commit) | Repair only the ruled paths, on `qa/apbm-003-cyber-pharma`, per the consolidated repair instruction in `QAM/FINDINGS.md` §3 and the ruling in `APBM_RULINGS.md` §C; amend `QAM/QAM_MANIFEST.md` §8; stop for the Director's commit. Nobody retests in this state |
++| `E2 COMPLETE — AWAITING QA BRANCH` | Director | Nothing. The handoff exists; the Director commits the candidate and cuts `qa/apbm-003`. QA then starts from `QAM/QAM_ENTRY.md` |
++| `REPAIR RULED — AWAITING COMMIT` (from QAM) | Cody (repair), Director (commit) | Repair only the ruled paths, on `qa/apbm-003`, per the consolidated repair instruction in `QAM/FINDINGS.md` §3 and the ruling in `APBM_RULINGS.md` §C; amend `QAM/QAM_MANIFEST.md` §8; stop for the Director's commit. Nobody retests in this state |
+ | `CLOSEOUT INSTRUCTED` | Cody | Bounded closeout per JARVIS's instruction (journal, ledger, changelog, campaign-journal append, map status line text for the Director); stop for the Director's merge |
+ | `CLOSED` | — | Show the certificate and merge receipt; do nothing |
+ | `STOPPED (STOP-*)` | per the stop record | Report the stop, owner and resolution; resume only from the recorded resume point |
+@@ -38,11 +38,11 @@
+ ## 4. Protected paths and permitted effects
+ 
+ **Never written by Engineering in this module:** `supabase/migrations/0001`–`0047` · `src/proxy.ts` · `utils/supabase/**` · `app/api/auth/**` · the `protectPage` Server Action · `next.config.*` · `package.json` dependencies and the lockfile (scripts may be added) · `RECOVERY.md` · `agent_docs/SESSIONS/**` · every historical module folder under `agent_docs/ACTIONS/` · `agent_docs/AUTHORITY/**` (the Director stages map/journal changes himself) · `.env*`.
+-**Permitted effects:** SCRATCH: full destructive proofs. DEV: nothing from an agent, ever; the Director applies at the checkpoint. STAGING: the authorized deploy at stage 8 only. Cloud: read-only recon unless the Director authenticates and approves a scoped action (R-10).
++**Permitted effects:** SCRATCH: full destructive proofs. DEV: Tony alone applies/seeds at the checkpoint; later scoped reads may create declared audit/session records, never business mutations. STAGING: no E2 deployment; separate post-Gate-Q target approval, then Gate D. Cloud: read-only recon unless the Director authenticates and approves a scoped action (R-10).
+ 
+ ## 5. Writable lanes
+ 
+-`EVIDENCE/**` (engineering evidence, E1/E2 packages) · `APBM_EXECUTION_PLAN.md` · `APBM_ACCEPTANCE_LEDGER.md` · `APBM_JOURNAL.md` · `APBM_SKILLS_MANIFEST.md` (verified facts) · own dated entries in `APBM_STATE.md` · `QAM/QAM_MANIFEST.md` and `QAM/HANDOFFS/ENGINEERING_HANDOFF.md` (Engineer-owned QAM files) · `CONTRACTS/TARGET_ONE_RELEASE_CONTRACT.md` §2 (filled at E2 completion) · product paths named per stage in `E2_EXECUTION_INSTRUCTIONS.md` §2 · repo-governed `agent_docs/RESPONSES/` and `CHANGELOG.md` per root rules.
++`EVIDENCE/**` (engineering evidence, E1/E2 packages) · `APBM_EXECUTION_PLAN.md` · `APBM_ACCEPTANCE_LEDGER.md` · `APBM_JOURNAL.md` · `APBM_SKILLS_MANIFEST.md` (verified facts) · own dated entries in `APBM_STATE.md` · `QAM/QAM_MANIFEST.md` and `QAM/HANDOFFS/ENGINEERING_HANDOFF.md` (Engineer-owned QAM files) · `CONTRACTS/TARGET_ONE_RELEASE_CONTRACT.md` §2 (filled at E2 completion) · only the finite A01 file allowlist intersected with the per-stage assignment in `E2_EXECUTION_INSTRUCTIONS.md` §2 (no glob may expand it) · repo-governed `agent_docs/RESPONSES/` and `CHANGELOG.md` per root rules.
+ 
+ ## 6. Fallback instruction
+ 
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_EXECUTION_PLAN.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_EXECUTION_PLAN.md
+@@ -31,7 +31,7 @@
+ | APPLY stop | Prepare exact per-step commands and expected counts under EVIDENCE/apply | Target fingerprint, DA-2, backup/restore rehearsal, confirmed forward semantics; **never current rls:prove on DEV** | Tony alone applies/seeds/verifies DEV and records resolution | Director availability, budget up to 0.5 day within stage-5 allowance |
+ | 6 Service/UI swap | src/services, approved store scope and tenant guard/nav, three R-016 files, authorized admin read/unavailable/type paths | Wrapper-only reads, cache isolation, store switch, error/loading/empty/retry, no fake actions, exact scope and parity, operation count instrumentation | Repo; authorized DEV reads append audit events only, no business mutations by agent | 2–3 |
+ | 7 Board/regression | Delta tests and approved instrumentation | Full Jest, build/typecheck/lint, protected-path hashes, direct caller scan, 375px/desktop both themes, keyboard+auth walks, allowed-path diff | Repo build/test artifacts; no deployment | 1–1.5 |
+-| 8 Staging/handoff | Explicitly allowed deploy package; candidate image, manifest and handoff, tester limitations | Approved project/service/region, public build vars, no frontend service secret, candidate↔digest receipt, rollback reference; independent Gate Q/D remain separate | Only separately authorized staging deployment; Git remains Tony | 1–1.5 |
++| 8 Candidate/deployment-package handoff | Exact stage-8 file list; prepare local deploy/config/rollback package and factual handoff | Local artifact validation; Tony commits identified candidate for Claudy Gate Q; no deployment yet | Local only | 1–1.5 (includes later deployment support; separate approval) |
+ 
+ Estimate: **11.5–16 engineering working days**, plus **2–3 days independent QA/review and 1–2 days rework/reserve** = **14.5–21 working days**, excluding unbounded waits for credentials/decisions. The original 11–15 allowance is achievable only near the lower end with prompt architectural resolution and no unexpected target drift. Missing store scope and deployment artifacts are substantive work, not a one-line service swap.
+ 
+@@ -50,7 +50,7 @@
+ | SCRATCH/DEV identity, rotated keys, DA-2, read-only live catalog and ACLs | Tony supplies verified access/receipts; Cody observes with scoped authorization | Before target effects; DA-2 no later than APPLY |
+ | Fresh Jest/build/browser numbers | Cody under authorized artifact-writing probes | Final baseline/implementation gates; historical claims insufficient |
+ | DEV-safe proof mode and migration recovery | JARVIS approves; Cody implements/tests on disposable clone | Before APPLY |
+-| Real deployed target/domain/revision/build inputs and deploy-file authority | Tony authenticates/approves scoped target; Cody records | Before stage 8 |
++| Real deployed target/domain/revision/build inputs and deploy-file authority | Tony authenticates/approves scoped target; Cody records | After Gate Q, before separately approved deployment |
+ | QA Lead holder, independent test plan and release | Tony/QA Lead/Claudy | Q1/Q2 as pack dispatch requires |
+ 
+ ## Factual E2 handoff owed later
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_STATE.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_STATE.md
+@@ -10,10 +10,10 @@
+ 
+ | Field | Value |
+ |---|---|
+-| Phase | `READY FOR E1` |
++| Phase | `E1 COMPLETE — AWAITING RESOLUTION`; A01 correction draft pending FINAL/release |
+ | As of | 2026-11-05 · Asia/Dhaka (authoring) |
+-| Branch / HEAD | `apbm-003-cyber-pharma` — NOT YET CUT (Director creates from `main` after installing the pack); HEAD NOT RECORDED |
+-| Baseline | parent of the pack-installation commit; expected `5234abe`; full SHA NOT RECORDED (E1) |
++| Branch / HEAD | `apbm-003` / `b23372d24d79b6460f746a191e824224ba5f8900`; QA branch `qa/apbm-003` to be cut by Tony at candidate |
++| Baseline | `af2c7e5225d2d78925fd392e29a58b6bde830263` verified; E1 start `b23372d24d79b6460f746a191e824224ba5f8900`; `5234abe` unavailable |
+ | Candidate | PENDING |
+ | Contract identity | `APBM_ACCEPTANCE_SPEC.md` DRAFT — CLAIM STATUS; FINAL stamp NOT RECORDED |
+ | Plan v3.0 adoption (D-6) | PENDING (recorded, not inferred) |
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APPLY_CHECKPOINT.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APPLY_CHECKPOINT.md
+@@ -1,54 +1,34 @@
+-> **DRAFT A01 review overlay:** `E2_AMENDMENT_A01.md` proposes the replacement contract and safe APPLY requirements. Not FINAL or released. Its revised AC-104/403/502 and checkpoint rules supersede contradictory draft prose for review.
++# APPLY_CHECKPOINT — DRAFT correction A01-C1
+ 
+-# APPLY_CHECKPOINT — APBM-003-CYBER-PHARMA (declared Director stop inside E2)
++Tony alone executes this declared stop inside E2 on Cyberize-Group/cyph-v1-dev / apbm-003. Pre-pack baseline af2c7e5225d2d78925fd392e29a58b6bde830263; E1 start b23372d24d79b6460f746a191e824224ba5f8900; 5234abe unavailable. The later approved candidate/runner commit is recorded separately. Contract remains draft pending FINAL and release.
+ 
+-**Executor:** the Director (Tony), hands on the terminal. **Prepared by:** Cody at the end of stage 5 (exact commands, in order, with expected output). **Verified by:** Claudy in Q2 (AC-401..AC-405). **Why a stop:** this is the first time the real schema touches the shared dev project; it cannot be undone by a script, so it is a human's hands with a backup underneath.
++## Prerequisites
+ 
+-This file is the procedure. Each numbered step is one terminal message from an agent to the Director: one command, wait for the paste, label whose turn it is. Full paths every time.
++1. E2 state is E2 PAUSED — APPLY CHECKPOINT (Director). Runner fencing was implemented before the first destructive SCRATCH proof. Stage-5 proofs pass on explicitly confirmed disposable SCRATCH, with approved output paths and no fallback to DEV credentials.
++2. DEV project ref is independently matched across SQL/API connections; scoped credentials and DA-2 evidence exist. Record key names only. Capture current catalog, role/function grants, trigger, migration ledger and data inventory in EVIDENCE/apply/01_TARGET_IDENTITY.txt and 02_DEV_BEFORE.txt.
++3. Backup covers ALL affected DEV state: public schema and data, auth users/identities and relevant auth schema/data, ownership/grants/policies/functions/triggers, migration ledger and other dependent state identified by the impact inventory. Metadata-only backup is insufficient. Record location, timestamp, integrity verification, coverage/exclusions and restore authority without copying secrets/data into evidence, in 03_BACKUP_RECORD.md.
++4. Restore that backup to a disposable target and demonstrate recoverability of affected data/auth/configuration and catalog. Rehearse the exact forward inventory, one-time seed and DEV-safe verifier there; record 04_REHEARSAL.txt. Separate destructive SCRATCH proofs are not a substitute for restore rehearsal.
++5. Freeze ordered migration filenames/checksums, expected baseline and target catalog, runner/code identity and expected receipts in MIGRATION_INVENTORY.json. Confirm historic migrations unchanged. Ledger initialization requires explicit baseline-catalog reconciliation; no guessing from filenames. All counts are FINAL-design values, not copied from E1 expectations.
+ 
+-## 0. Prerequisites (all must be true before step 1)
++## Director procedure — commands are not yet issued
+ 
+-| # | Condition | Evidence file |
++Cody supplies exact commands, full paths, environment-key mappings and expected output ONLY after scripts/apply-forward.mjs and scripts/dev-verify.mjs have been implemented, fenced and rehearsed in E2. These names describe approved runner design, not existing executable readiness. The legacy db:apply runner is not used on DEV.
++
++| Step | Tony's action | Receipt |
+ |---|---|---|
+-| A-0.1 | `APBM_STATE.md` = `E2 PAUSED — APPLY CHECKPOINT (Director)`; stage 5 green on SCRATCH (`EVIDENCE/E2/stage-5/`) | — |
+-| A-0.2 | DA-2: "Allow new users to sign up" OFF on DEV **and** SCRATCH; curl proof | `EVIDENCE/apply/DA-2_SUPABASE_SIGNUP_DISABLED.md` |
+-| A-0.3 | DEV project identified by ref (from the dashboard URL or `supabase projects list`); never by a label | `EVIDENCE/apply/01_TARGET_IDENTITY.txt` |
+-| A-0.4 | DEV current state recorded read-only: tables, policies, `handle_new_user()` text | `EVIDENCE/apply/02_DEV_BEFORE.txt` |
+-| A-0.5 | A backup of DEV exists (dashboard backup or `pg_dump` of `public` + `auth` schema metadata as the Director chooses) and its location is recorded (never its contents) | `EVIDENCE/apply/03_BACKUP_RECORD.md` |
+-| A-0.6 | Rehearsal: the full forward chain plus seed applied to a **throwaway clone** bootstrapped like DEV (2-table baseline + the metadata trigger), then `db-verify`, `rls:prove`, `audit:prove` green there | `EVIDENCE/apply/04_REHEARSAL.txt` |
++| 1 | Reverify target/ref, clean approved runner commit, backup/rehearsal and exact ordered inventory. Reject absent/mixed prefixes, changed checksums or unexpected catalog/ledger. | 01_TARGET_IDENTITY.txt, MIGRATION_INVENTORY.json |
++| 2 | Run the rehearsed forward runner: only unapplied approved migrations, one migration plus its ledger/checksum receipt atomically per transaction. No reset/bootstrap, no replay of applied files. | 05_APPLY.txt |
++| 3 | DEV-safe read-only catalog verifier checks ledger/checksums, tables/policies/functions/owners/grants, default ACLs and corrected trigger. Catalog queries use read-only transactions and bounded timeouts. | 06_CATALOG.txt, 07_TRIGGER.txt, 10_ACL.txt |
++| 4 | Run governed seed once under explicit Director authority; verify cast/content counts and expected seed audit writes. | 08_SEED.txt |
++| 5 | Run separately declared authenticated read checks: permitted wrappers, cross-tenant refusal and direct SELECT denial. Bound login/logout session effects and successful RPC audit inserts; record actor/store/function and before/after audit counts. No business DML, reset, migration, auth-user creation or seed inside verifier. | 09_DEV_VERIFY.txt |
++| 6 | Review results; commit receipts on apbm-003 personally and record full commit, target and inventory hashes. Set APPLY COMPLETE then E2 RESUMED. Cody resumes stage 6 only on that receipt. | APPLY_RECEIPT.md |
+ 
+-## 1. Apply (DEV)
++Do not invoke rls:prove or audit:prove on DEV. Destructive reset, negative mutation tests and seed-reset proofs belong only on confirmed SCRATCH. The DEV verifier must not import or spawn those orchestrators.
+ 
+-| Step | Who | Command / action | Expected |
+-|---|---|---|---|
+-| 1 | YOU | `set -a; source .env.local; set +a` (DEV keys under their own prefix; names recorded in `EVIDENCE/env/ENV_NOTE.md`) | no output |
+-| 2 | YOU | the repo's `db:apply` command against DEV (exact invocation prepared by Cody from E1 Q2.4), forward-only, never reset | applies `0001`–last; summary line pasted |
+-| 3 | YOU | catalog check (Cody prepares the query file) | table count, policy count, function count = the FINAL spec numbers (AC-402) |
+-| 4 | YOU | `pg_get_functiondef('public.handle_new_user')` | equals the OD-7 migration text (AC-404) |
+-| 5 | YOU | seed on DEV: `seed:run` once (never `seed:reset` here unless a re-run is being deliberately performed under §5) | cast present; row counts per store = FINAL spec (AC-403) |
+-| 6 | YOU | the reviewed DEV-safe verifier and bounded authenticated read probes per `E2_AMENDMENT_A01.md` (session/audit writes declared; no destructive proofs) | green (AC-403) |
+-| 7 | YOU | E-4 default-ACL probe (Cody prepares: what `anon` and `authenticated` can see on the new tables with no policy match) | nothing (AC-405) |
++## Partial failure
+ 
+-Every pasted output goes into `EVIDENCE/apply/` as `05_APPLY.txt`, `06_CATALOG.txt`, `07_TRIGGER.txt`, `08_SEED.txt`, `09_PROVE.txt`, `10_ACL.txt`. No secret values appear in any of them (the Director checks before saving).
++Stop immediately on any unexpected result. Record failed migration, SQL error class, last committed ledger entry, actual catalog and transaction status in STOP.md. Failed migration transaction must roll back; earlier transactions remain committed. No automatic retry, full-chain replay, reset or manual fix-forward. Tony and JARVIS review the discrepancy and choose a separately authorized, rehearsed backup restore or exact remaining-chain recovery plan. After recovery, repeat identity/catalog/ledger/inventory checks and record approval before resuming. A backup restore is a deliberate recovery action, never a reset shortcut.
+ 
+-## 2. If anything in §1 is not as expected
++## Later tester data requests
+ 
+-Stop at that step. Do not continue to the next. Record the discrepancy in `EVIDENCE/apply/STOP.md` (step, expected, observed). Options, in order: (a) the discrepancy is a known rehearsal difference → Cody explains, Director decides; (b) the chain failed mid-way → restore from the §0.5 backup, record the restore, return to E2 as a stage-5 defect; (c) unknown → `STOP-ENV`, JARVIS adjudicates. Never "fix forward" on DEV by hand.
+-
+-## 3. Completion
+-
+-| Step | Who | Action |
+-|---|---|---|
+-| 8 | YOU | commit `EVIDENCE/apply/**` on `apbm-003-cyber-pharma` with the suggested message; paste the receipt |
+-| 9 | YOU | `APBM_STATE.md` → `APPLY COMPLETE` then `E2 RESUMED` (one entry each, dated) |
+-| 10 | CODY | resumes at stage 6 against DEV |
+-
+-## 4. Director touches budgeted for this checkpoint
+-
+-Seven terminal steps plus one commit. Recorded in `EVIDENCE/E2/METRICS.md` by purpose ("credentialed apply").
+-
+-## 5. Re-run procedure (tester reseed requests after Target One)
+-
+-Same prerequisites §0.2–§0.5; `seed:reset` then `seed:run` on DEV under the Director's hands; audit rows from prior runs remain (by design); `EVIDENCE/apply/RESEED_<date>.txt`. Never from a shell habit, never by an agent.
+-
+-🥄
++No DEV reset or reseed-by-reset is authorized here. A later repair/additive seed request needs a separately reviewed idempotent forward data plan, affected-state backup and disposable rehearsal, explicit Tony approval, preserved audit history and a new receipt. Existing successful APPLY does not authorize repetition.
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/CODY_LAUNCH_PROMPT.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/CODY_LAUNCH_PROMPT.md
+@@ -1,11 +1,5 @@
+-# CODY_LAUNCH_PROMPT — E1 entry (the Director pastes this; operating rules live in the package)
++# E2 release routing — DRAFT
+ 
+-Files that must be on disk and committed before pasting: the whole `agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/` folder on branch `apbm-003-cyber-pharma`; the engineering recon skill in the repo; `git status` clean.
++E1 is complete; do not restart recon. Repository Cyberize-Group/cyph-v1-dev; engineering apbm-003; QA qa/apbm-003 (Tony cuts at candidate). Baseline af2c7e5225d2d78925fd392e29a58b6bde830263; E1 start b23372d24d79b6460f746a191e824224ba5f8900; 5234abe unavailable.
+ 
+-```
+-You are Cody, the Engineering Executor for APBM-003-CYBER-PHARMA.
+-Read agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_ENTRY.md, then APBM_STATE.md, and act only on the recorded state.
+-The recorded state is READY FOR E1: run E1_RECON_MISSION.md in full — discover and use the repository's engineering recon skill first — and return the one E1 package it specifies.
+-Read-only toward product, Git, every database and the cloud. Aggregate blockers; do not stop at the first missing document.
+-Do not implement, migrate, seed, deploy or mutate Git. Stop for JARVIS's resolution and the Director's approval.
+-```
++Use E2_RELEASE_MESSAGE.md only after its bracketed evidence/decision references are filled, JARVIS final-check/FINAL binding exists and Tony explicitly releases E2. Until then this pack remains draft. Follow APBM_STATE, APBM_ENTRY and E2_EXECUTION_INSTRUCTIONS; stage file ceilings are binding. No release is inferred from this template.
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/CONTRACTS/SEED_AND_FIXTURE_CONTRACT.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/CONTRACTS/SEED_AND_FIXTURE_CONTRACT.md
+@@ -45,7 +45,7 @@
+ 
+ ## 4. Idempotency, reset and safe boundaries
+ 
+-- `seed:reset` + `seed:run` on **SCRATCH** from scratch is the proof path; on **dev** the seed runs once at the APPLY checkpoint under Director authority and is re-runnable only through the same checkpoint procedure (never from a shell habit).
++- `seed:reset` + `seed:run` on **SCRATCH** from scratch is the proof path; on **dev** the seed runs once at the APPLY checkpoint under Director authority and is not re-run by reset; any later additive/repair seed needs a separately approved forward data plan and backup/restore rehearsal under APPLY_CHECKPOINT.md.
+ - **Reset boundary**: tenant rows (`accounts`, `businesses`, `user_businesses`, `user_data`, `subscriptions`, `apa_*`, `pending_registrations`, `report_files`, reference slices, `system_config` rows the seed owns) and the seed identities. **Never** `audit_logs` (insert-only, TRUNCATE guarded — the seed must not even try), never `user_roles`/`profiles` rows of non-seed users, never Storage.
+ - **"Reseed twice = identical state"** is graded as: identical canonical content hash over every seeded table **excluding** `audit_logs`, generated timestamps (`created_at`/`updated_at`), auth UUIDs and any surrogate ids; the comparison script defines the canonical projection and is itself an instrument QA attacks (change one seeded value → hash differs).
+ - Audit rows produced by the seed carry `actor_role = service_role`, actor NULL; the expected count per run is recorded (`<<E1>>`) and QA checks it.
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/CONTRACTS/TARGET_ONE_RELEASE_CONTRACT.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/CONTRACTS/TARGET_ONE_RELEASE_CONTRACT.md
+@@ -32,7 +32,9 @@
+ | `user_businesses.role = 'member'` | "Store Worker" / "Member" |
+ | `user_roles.superadmin` | never shown to customers; internal operator only |
+ 
+-## 4. Gate D (independent, Claudy, after Gate Q)
++## 4. Gate D (independent, Claudy, after Gate Q and certified-candidate deployment)
++
++E2 delivers the candidate and deployment package locally. Claudy tests that identified candidate for Gate Q; QA Lead certifies. Tony then separately approves deployment of that certified product identity, and Gate D verifies the actual deployed revision. Staging is not a Gate-Q precondition.
+ 
+ Verifies on the deployed revision: the running image is the certified candidate's build; sign-in works for each cast identity; supported reads return the right stores; role boundaries hold through the real browser; the limitations list matches what the screens actually do; no secret appears in the client bundle or response headers. Gate D is a separate claim from Gate Q (`../QAM/QAM_CERTIFICATION.md` §3) and is recorded in `../EVIDENCE/deploy/GATE_D.md` by the QA Executor with its own evidence.
+ 
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/E2_AMENDMENT_A01.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/E2_AMENDMENT_A01.md
+@@ -21,7 +21,7 @@
+ 
+ Existing files permitted after E2 release: src/services/owedbook.ts; src/services/adminDemo.ts; src/types/OwedBook.ts; src/types/adminDemo.ts; src/types/supabase.ts; src/mocks/owedbook.ts; src/components/owedbook/OwedBookScreen.tsx; src/components/owedbook/OwedBookContext.tsx; src/components/owedbook/FilterRail.tsx; src/app/(admin)/layout.tsx; src/components/global/Navbar.tsx; src/components/global/UserMenu.tsx; src/components/global/MobileNav.tsx; src/components/admin-portal/AddStoreButton.tsx; InviteMemberForm.tsx; MemberRow.tsx; SettingsForm.tsx; BillingRow.tsx; AuditScreen.tsx; statusPresentation.ts (last seven relative to src/components/admin-portal/); scripts/db-verify.mjs; scripts/rls-harness/prove.mjs; audit-prove.mjs; harness.mjs; expectations.json; payloads.mjs; scoping.mjs; attacks.mjs; revocation.mjs; seed.mjs; audit-seed.mjs; audit-session.mjs; audit-wrappers.mjs; audit-catalog.mjs; policy-check.mjs; ac8-check.mjs; lib/env.mjs; lib/db.mjs (harness-relative); package.json scripts only.
+ 
+-New files: src/services/tenantScope.ts; src/components/owedbook/StoreSelector.tsx; scripts/dev-verify.mjs; scripts/apply-forward.mjs; scripts/seed/generate.mjs; run.mjs; reset.mjs; verify.mjs; identity-scan.mjs; README.md (seed-relative); supabase/migrations/0048_ownership.sql, 0049_signup_member.sql, 0050_claim_read_fence.sql, 0051_admin_reads.sql, 0052_system_config.sql; src/__tests__/apbm-tenant-scope.test.ts; apbm-read-states.test.tsx; apbm-admin-readonly.test.tsx (test-relative). Deployment proposal: Dockerfile, cloudbuild.yaml, deploy.sh, deploy.config.json, DEPLOYMENT_PLAYBOOK.md, .dockerignore, only after stage-8 target approval. Any additional file requires a recorded scope amendment. AC-502 uses this exact component/app list, not R-016 alone; AC-804 dependencies/lockfile unchanged. Existing auth helpers/proxy/auth routes/protectPage, migrations 0001–0047, next.config, root records and historical modules remain protected.
++New files: src/services/tenantScope.ts; src/components/owedbook/StoreSelector.tsx; scripts/dev-verify.mjs; scripts/apply-forward.mjs; scripts/seed/generate.mjs; run.mjs; reset.mjs; verify.mjs; identity-scan.mjs; README.md (seed-relative); supabase/migrations/0048_ownership.sql, 0049_signup_member.sql, 0050_claim_read_fence.sql, 0051_admin_reads.sql, 0052_system_config.sql; src/__tests__/apbm-tenant-scope.test.ts; apbm-read-states.test.tsx; apbm-admin-readonly.test.tsx (test-relative). Deployment proposal: Dockerfile, cloudbuild.yaml, deploy.sh, deploy.config.json, DEPLOYMENT_PLAYBOOK.md, .dockerignore, local preparation in E2 stage 8; execution only after Gate Q and separate staging approval. Any additional file requires a recorded scope amendment. AC-502 uses this exact component/app list, not R-016 alone; AC-804 dependencies/lockfile unchanged. Existing auth helpers/proxy/auth routes/protectPage, migrations 0001–0047, next.config, root records and historical modules remain protected.
+ 
+ ## Safe APPLY and revised AC-403
+ 
+@@ -37,18 +37,16 @@
+ 
+ Recommended: adopt plan v3.0 draft 3; approve A01 rulings and exact paths; defer customer claim/account/subscription writes; approve scoped stores/members/audit/billing-status reads; regenerate synthetic mocks; shared PHI-free PBM directory; 50 claims × five stores; seven customer users/no Operator; preserve owner FK NO ACTION. Confirm administrative capability matrix and unavailable states. Approve counts only after reviewed schema/seed design, never invent live observations.
+ 
+-E2 release prerequisites: JARVIS FINAL contract/ruling hashes, explicit Director decisions, committed amendment and clean approved starting HEAD; confirmed disposable SCRATCH ref, rotated scoped keys, DA-2 proof and authenticated catalog access. Permit bounded build/test artifacts and SCRATCH proof effects only at release. Record actual executed board baseline before implementation; stop on unresolved regression. Stage-5 APPLY prerequisites: independent approved DEV identity/credentials, DA-2, backup/restore rehearsal, migration inventory/ledger and tested DEV-safe verifier; Tony alone applies/seeds. Stage-8 prerequisites: approved staging project/service/region/domain, DEV backend identity, public build/runtime configuration names, authenticated deployment access, rollback image and candidate digest. E2 release does not waive APPLY or stage-8 checkpoints.
++E2 release prerequisites: JARVIS FINAL contract/ruling hashes, explicit Director decisions, committed amendment and clean approved starting HEAD; confirmed disposable SCRATCH ref, rotated scoped keys, DA-2 proof and authenticated catalog access. Permit bounded build/test artifacts and SCRATCH proof effects only at release. Record actual executed board baseline before implementation; stop on unresolved regression. Stage-5 APPLY prerequisites: independent approved DEV identity/credentials, DA-2, backup/restore rehearsal, migration inventory/ledger and tested DEV-safe verifier; Tony alone applies/seeds. Post-Gate-Q deployment prerequisites (not E2 stage-8 or Gate-Q prerequisites): approved staging project/service/region/domain, DEV backend identity, public build/runtime configuration names, authenticated deployment access, rollback image and candidate digest. E2 release does not waive APPLY or the separate post-Gate-Q deployment checkpoint.
+ 
+ ## Execution and independent QA
+ 
+-Retain eight stages and E1 estimate: 11.5–16 engineering days + 2–3 independent QA/review + 1–2 reserve, total 14.5–21 days excluding external waits. Dec 1 conditional on prompt release, six protected hours/day and successful target proofs; later release shifts dates. Implement safe runners before any APPLY; evidence of blocked E1 probes is not a green preflight. Claudy independently drafts/tests candidate for Gate Q under QA Lead approval and Director release; engineering evidence is claims, not QA results. QA uses confirmed SCRATCH for mutation/poisoned controls; DEV only bounded sessions/audited reads. Gate D separately verifies actual deployed revision/digest equals Gate-Q-certified product, domain/backend and real-browser scope. If deployed before Gate Q it is provisional; no tester release until Q and D pass. QA plan/certificate/approval fields remain empty.
++Retain eight stages and E1 estimate: 11.5–16 engineering days + 2–3 independent QA/review + 1–2 reserve, total 14.5–21 days excluding external waits. Dec 1 conditional on prompt release, six protected hours/day and successful target proofs; later release shifts dates. Implement safe runners before any APPLY; evidence of blocked E1 probes is not a green preflight. Claudy independently drafts/tests candidate for Gate Q under QA Lead approval and Director release; engineering evidence is claims, not QA results. QA uses confirmed SCRATCH for mutation/poisoned controls; DEV only bounded sessions/audited reads. Gate D separately verifies actual deployed revision/digest equals Gate-Q-certified product, domain/backend and real-browser scope. E2 ends with candidate/deployment package ready for Claudy; no pre-Gate-Q deployment. Deploy the Gate-Q-certified candidate only under separate staging approval, then Gate D verifies the actual revision. QA plan/certificate/approval fields remain empty.
+ 
+ ## F01–F16 disposition
+ 
+ F01 identity verified; F02 tenant guard proposed; F03 store scope/stale-response fence proposed; F04 exact expanded allowlist proposed; F05 destructive DEV instruction removed/replaced; F06 seven writes deferred with explicit negative expectations proposed; F07 ledgered transactional forward runner/recovery proposed; F08 system_config migration proposed; F09 retain NO ACTION; F10 all customer billing/account writes deferred; F11 account audit attribution/projection proposed; F12 self-logging audit viewer proposed; F13 three-file truthful fetch states proposed; F14 committed-success counting proposed; F15 synthetic regeneration/federal limitation proposed; F16 deployment files/target checkpoint proposed. Proposed means pending approval/implementation, not closed by proof.
+ 
+-## Exact release message — Tony fills bracketed references after prerequisites
++## Exact release message
+ 
+-“I approve APBM-003 amendment A01 and its Director recommendations, including v3.0 adoption, seven users/no Operator, 50 synthetic claims per store across five stores, shared PHI-free PBM directory, regenerated mocks, scoped read-only admin views, deferred customer claim/account/subscription writes, unchanged owner FK, and exact permitted paths. JARVIS FINAL contract/ruling receipt is [path + SHA-256]. Amendment commit and clean E2 starting HEAD on cyph-v1-dev/apbm-003 are [full SHA]. Verified SCRATCH identity, rotated credential key names, DA-2 and readiness evidence are [paths]. Release Cody for E2 stages 1–5, including bounded build/test artifacts and destructive proofs only on that confirmed SCRATCH. Baseline board must pass before implementation. Tony retains every Git mutation. Stop at APPLY; DEV forward apply/seed and bounded session/audit-writing read probes require the recorded Director checkpoint. Staging deployment requires its own target approval. Claudy independently tests Gate Q; Gate D must verify the actual deployed revision. Record E2 APPROVED with this release reference; do not infer any later checkpoint approval.”
+-
+-Until that completed message and records exist: documentation review only, contract DRAFT, E2 NOT RELEASED.
++Use E2_RELEASE_MESSAGE.md, which binds the focused correction and separates E2, APPLY, Gate Q, deployment and Gate D. Proposed Director choices above remain pending. No template is a release. Contract remains DRAFT until JARVIS final check and Tony approval.
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/E2_EXECUTION_INSTRUCTIONS.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/E2_EXECUTION_INSTRUCTIONS.md
+@@ -17,23 +17,42 @@
+ | E2-P6 | Protected paths listed in `APBM_ENTRY.md` §4 untouched (hash snapshot taken) | snapshot saved |
+ | E2-P7 | A01 readiness: inspect target fencing and output paths before any proof; legacy runners must not write historical evidence or use mixed-target fallbacks. Implement authorized runner safety before SCRATCH proofs; no destructive DEV invocation | green |
+ 
+-Any red row: stop, record the stop (§4), aggregate, return. Do not start stage 1 on a red preflight.
++Any red readiness row: stop and aggregate. After readiness passes, perform stage 0 runner fencing within the exact allowlist; prove target/output rejection locally and on a disposable target before any destructive proof. E2-P7 is a safety-review gate, not a demand to run unfenced legacy tools.
+ 
+ ## 2. The eight stages (each ends: instrument green → `EVIDENCE/E2/stage-N/` → journal entry → ledger rows updated)
+ 
+ | Stage | Build | Instrument that must be green before the next stage | Allowed write surface |
+ |---|---|---|---|
+-| 1 Ownership delta | Migrations `0048+` per A01 ownership rules: helper, replaced SELECT policies, all customer billing/account writes denied, one-admin index and governed system_config schema | from-scratch replay on SCRATCH; reviewed SCRATCH catalog verifier (no npm audit:catalog script exists); the A01 expected-change list applied to the matrix as **expected**, not yet proven | `supabase/migrations/` (new files only) |
+-| 2 Trigger correction | OD-7 migration redefining `handle_new_user()` | `pg_get_functiondef` equals migration text; a metadata-role signup on SCRATCH lands as `member` | same |
+-| 3 Read-audit closure | Drop the BIM-002 member SELECT policy on `user_data`; revoke `SELECT` from `authenticated`; admin read paths as SECURITY DEFINER functions logging `read_page` (names per O-04/O-06 resolution) | direct-read denial for owner/admin/member tokens; wrapper calls succeed; OAC §4 counts observed on SCRATCH | same |
+-| 4 Seed + fixtures | Generator, `seed:reset`/`seed:run`, identity scan, canonical-hash comparator, `scripts/seed/README.md`; `mocks/owedbook.ts` regenerated (if R-05 confirmed) | AC-201..AC-207 self-checks; RRM-002 money-rule audit 0 failures on the new mocks; comparator attacked once | `scripts/seed/**`, `src/mocks/owedbook.ts`, `package.json` scripts (no dependency changes unless ruled) |
+-| 5 Harness rework + **DECLARED STOP** | CF-8/CF-9 repairs; matrix updated to certified-plus-expected-change; `rls:prove` + `audit:prove` green from scratch on SCRATCH; `db-verify` AC7 green | all three green; evidence packaged as `EVIDENCE/E2/stage-5/` | `scripts/rls-harness/**`, `scripts/db-verify.mjs` |
++| 1 Ownership delta | Migrations `0048+` per A01 ownership rules: helper, replaced SELECT policies, all customer billing/account writes denied, one-admin index and governed system_config schema | from-scratch replay on SCRATCH; reviewed SCRATCH catalog verifier (no npm audit:catalog script exists); the A01 expected-change list applied to the matrix as **expected**, not yet proven | Stage 1 exact allowlist |
++| 2 Trigger correction | OD-7 migration redefining `handle_new_user()` | `pg_get_functiondef` equals migration text; a metadata-role signup on SCRATCH lands as `member` | Exact allowlist for this stage |
++| 3 Read-audit closure | Drop the BIM-002 member SELECT policy on `user_data`; revoke `SELECT` from `authenticated`; admin read paths as SECURITY DEFINER functions logging `read_page` (names per O-04/O-06 resolution) | direct-read denial for owner/admin/member tokens; wrapper calls succeed; OAC §4 counts observed on SCRATCH | Exact allowlist for this stage |
++| 4 Seed + fixtures | Generator, `seed:reset`/`seed:run`, identity scan, canonical-hash comparator, `scripts/seed/README.md`; `mocks/owedbook.ts` regenerated (if R-05 confirmed) | AC-201..AC-207 self-checks; RRM-002 money-rule audit 0 failures on the new mocks; comparator attacked once | Stage 4 exact allowlist |
++| 5 Harness rework + **DECLARED STOP** | CF-8/CF-9 repairs; matrix updated to certified-plus-expected-change; `rls:prove` + `audit:prove` green from scratch on SCRATCH; `db-verify` AC7 green | all three green; evidence packaged as `EVIDENCE/E2/stage-5/` | Stage 5 exact allowlist |
+ | **STOP** | Record `APBM_STATE.md` → `E2 PAUSED — APPLY CHECKPOINT (Director)` with the exact files the Director will run (`APPLY_CHECKPOINT.md`), then stop. **Resume only** when the Director records `APPLY COMPLETE` with the evidence file paths in `EVIDENCE/apply/` and sets state `E2 RESUMED` | — | — |
+-| 6 Service swap + admin reads | `services/owedbook.ts` → wrappers; `services/adminDemo.ts` read methods → real; write methods → explicit "unavailable" state; R-016 states in the O-04 files only; store picker from `my_business_ids()` through a wrapper or RPC E1 named | against DEV: AC-503/504/505/507/601..603 self-checks with the cast; component diff limited to O-04 | `src/services/**`, O-04 files, `src/mocks/` only if R-05 |
+-| 7 Board + regression | — | build, tsc, lint 0 errors, full suite green, 0 skipped; lockfile unchanged (AC-804); protected-path hashes unchanged (E2-P6) | tests added under the existing test tree |
+-| 8 Deploy + handoff | Deploy the candidate to the approved staging target through the agent-owned workflow (R-10): inspect what exists → one config file → explain missing values → Director authenticates (user-only) → execute → record. Then complete `QAM/QAM_MANIFEST.md` + `QAM/HANDOFFS/ENGINEERING_HANDOFF.md`; fill `CONTRACTS/TARGET_ONE_RELEASE_CONTRACT.md` §2 (no passwords in it); `APBM_STATE.md` → `E2 COMPLETE — AWAITING QA BRANCH` | sign-in at the staging URL with one cast identity (counted Director touch if the Director must authenticate the cloud step) | `EVIDENCE/deploy/**`, QAM Engineer-owned files |
++| 6 Service swap + admin reads | `services/owedbook.ts` → wrappers; `services/adminDemo.ts` read methods → real; write methods → explicit "unavailable" state; R-016 states in the O-04 files only; store picker from `my_business_ids()` through a wrapper or RPC E1 named | against DEV: AC-503/504/505/507/601..603 self-checks with the cast; component diff limited to O-04 | Stage 6 exact allowlist |
++| 7 Board + regression | — | build, tsc, lint 0 errors, full suite green, 0 skipped; lockfile unchanged (AC-804); protected-path hashes unchanged (E2-P6) | Stage 7 exact allowlist |
++| 8 Candidate + deployment-package handoff | Prepare deployment artifacts and rollback/config instructions without cloud effects. Complete engineering manifest/handoff and draft tester limitations; Tony commits candidate and cuts qa/apbm-003 at its full SHA for Claudy. | Local board and package integrity pass; candidate identity pinned before Q1 | Stage 8 exact allowlist only |
+ 
+-Stages 6–8 run against **DEV** (applied at the checkpoint). Stages 1–5 run against **SCRATCH** only. Nothing in E2 runs a reset or a seed on DEV; that happens inside the checkpoint under the Director's hands.
++Stages 1–5 use confirmed SCRATCH after stage 0 fencing. The Director DEV APPLY stop remains inside E2. Stages 6–7 use authorized DEV reads (audit/session effects declared). Stage 8 prepares the candidate/deployment package locally. E2 does not deploy. Claudy independently tests Gate Q on the identified candidate; only afterward may separately approved deployment publish that certified candidate, followed by Gate D on the actual revision. No DEV reset is authorized.
++
++
++### Exact stage permissions (ceiling)
++
++The finite file list in E2_AMENDMENT_A01.md §Exact proposed file permissions is the ONLY product-file ceiling. Relative filenames in its parenthetical groups resolve to the explicitly named directory; they are individual files, not globs. The following assigns that finite list to stages. Both the stage assignment and finite list must permit a file. No broader path in any older plan, table or entry expands permission. New filenames require a recorded amendment. Package.json changes are scripts only; no dependencies/lockfile changes.
++
++| Stage | Subset of that finite list |
++|---|---|
++| 0 Runner fencing, before any destructive proof | The individually listed scripts/rls-harness files, scripts/db-verify.mjs, scripts/apply-forward.mjs, scripts/dev-verify.mjs, package.json scripts. Target identity/fail-closed prefix and output-root fencing first; no product feature changes. |
++| 1 | 0048_ownership.sql and 0052_system_config.sql only under supabase/migrations; src/types/supabase.ts |
++| 2 | supabase/migrations/0049_signup_member.sql |
++| 3 | supabase/migrations/0050_claim_read_fence.sql and 0051_admin_reads.sql; src/types/supabase.ts |
++| 4 | The six named scripts/seed files; src/mocks/owedbook.ts; package.json scripts |
++| 5 | Same runner-file subset as stage 0; three explicitly named apbm test files for instrument validation |
++| 6 | The individually named src/services, src/types, OwedBook components, StoreSelector, admin layout, global navigation and admin-portal component files; three named apbm tests |
++| 7 | Only the three named apbm test files; approved test/build artifacts. Any product repair returns to its owning stage and permissions. |
++| 8 | Dockerfile, cloudbuild.yaml, deploy.sh, deploy.config.json, DEPLOYMENT_PLAYBOOK.md, .dockerignore — local preparation only; APBM evidence, manifest and engineering handoff |
++
++Documentation/evidence writes remain confined to APBM authorized lanes. Test/build caches may be written only as recorded bounded artifacts after E2 release; never use that allowance to edit product outside the list. Deployment configuration values await target approval; no speculative secrets or cloud changes.
+ 
+ ## 3. Rules that do not bend
+ 
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/E2_RELEASE_MESSAGE.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/E2_RELEASE_MESSAGE.md
+@@ -0,0 +1,7 @@
++# Paste-ready E2 release — fill every bracket before sending
++
++Remaining Director decisions (recommended, not recorded as approved): v3.0 adoption; A01 tenant/admin/store scope and exact files; defer customer claim/account/subscription writes; read-only stores/members/audit/billing-status views; synthetic mock regeneration; shared PHI-free PBM directory; 50 claims per store × five stores, seven users/no Operator; preserve owner FK NO ACTION. JARVIS must bind final schema/counts, capability matrix, audit semantics and corrected contracts before release.
++
++> Cody, I approve those A01 Director recommendations and the focused correction, including the exact file ceiling and per-stage assignments. JARVIS final-check and FINAL contract/ruling hashes: [receipt path and hashes]. Committed correction and clean E2 starting HEAD on Cyberize-Group/cyph-v1-dev / apbm-003: [full SHA and status receipt]. Preservation baseline is af2c7e5225d2d78925fd392e29a58b6bde830263; E1 began at b23372d24d79b6460f746a191e824224ba5f8900; 5234abe is unavailable. Confirmed disposable SCRATCH reference, rotated scoped credential key names, DA-2 and readiness evidence: [paths]. Release E2 with bounded build/test artifacts. First complete runner target/output fencing; do not execute destructive SCRATCH proofs before fencing passes. Record actual baseline board and stop on unresolved failure. Tony retains Git authority. Stop inside E2 at DEV APPLY: exact commands are supplied only after forward and DEV-safe runners are built/rehearsed and affected-state backup, restore rehearsal, verified inventory and target evidence are recorded. Tony alone applies/seeds; subsequent authenticated read probes have declared session/audit writes only. Resume E2 only on my APPLY receipt. E2 ends with candidate and local deployment package ready for Claudy; I will commit candidate and cut qa/apbm-003. Claudy independently tests Gate Q under QA Lead approval and my QA release. Only after certification will I separately approve staging deployment of that candidate; Gate D verifies actual deployed revision/digest. No DEV reset/reseed-by-reset or pre-Q deployment is authorized. Record E2 APPROVED with this release reference.
++
++Later checkpoints, not prerequisites for E2 release: DEV target/DA-2 + affected-state backup/restore rehearsal + verified migration inventory + rehearsed runners before APPLY; Gate-Q certificate + staging project/service/region/domain + backend/config/authentication/rollback + certified candidate/image binding before deployment. Gate D follows deployment. No blank reference or this template itself constitutes approval.
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/AGENTS.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/AGENTS.md
+@@ -4,7 +4,7 @@
+ 
+ <!-- ROUTING TEXT — keep byte-identical with CLAUDE.md from here to the end marker -->
+ 
+-You are the **QA Executor** for module `APBM-003-CYBER-PHARMA` (APBM, Phase 3 completion + Target One), repository `cyber-pharma-dev-v1-phase-3`. In this module the QA Executor seat is held by **Claudy**; the Engineering Executor is **Cody** (deliberately reversed from previous engagements). The QA Lead is a separate seat whose holder is recorded in `QAM_APPROVAL.md` when it acts.
++You are the **QA Executor** for module `APBM-003-CYBER-PHARMA` (APBM, Phase 3 completion + Target One), repository `Cyberize-Group/cyph-v1-dev`. In this module the QA Executor seat is held by **Claudy**; the Engineering Executor is **Cody** (deliberately reversed from previous engagements). The QA Lead is a separate seat whose holder is recorded in `QAM_APPROVAL.md` when it acts.
+ 
+ Read `QAM_ENTRY.md` in this folder first. It is the canonical entry: module identity, role routing, read order and phase dispatch. Do not act before reading the persisted state in `QAM_STATE.md`.
+ 
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/CLAUDE.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/CLAUDE.md
+@@ -4,7 +4,7 @@
+ 
+ <!-- ROUTING TEXT — keep byte-identical with AGENTS.md from here to the end marker -->
+ 
+-You are the **QA Executor** for module `APBM-003-CYBER-PHARMA` (APBM, Phase 3 completion + Target One), repository `cyber-pharma-dev-v1-phase-3`. In this module the QA Executor seat is held by **Claudy**; the Engineering Executor is **Cody** (deliberately reversed from previous engagements). The QA Lead is a separate seat whose holder is recorded in `QAM_APPROVAL.md` when it acts.
++You are the **QA Executor** for module `APBM-003-CYBER-PHARMA` (APBM, Phase 3 completion + Target One), repository `Cyberize-Group/cyph-v1-dev`. In this module the QA Executor seat is held by **Claudy**; the Engineering Executor is **Cody** (deliberately reversed from previous engagements). The QA Lead is a separate seat whose holder is recorded in `QAM_APPROVAL.md` when it acts.
+ 
+ Read `QAM_ENTRY.md` in this folder first. It is the canonical entry: module identity, role routing, read order and phase dispatch. Do not act before reading the persisted state in `QAM_STATE.md`.
+ 
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/HANDOFFS/ENGINEERING_HANDOFF.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/HANDOFFS/ENGINEERING_HANDOFF.md
+@@ -2,7 +2,7 @@
+ 
+ > Instantiated 2026-11-05 by Friday from TEMPLATE SET v0.3 (QA Lead accepted 2026-10-14) under QAM_PLAYBOOK v1.0. **Owner: Engineer (Cody)**, as part of E2. Everything here is a **claim for independent QA** unless it is a command or a path. Companion to `../QAM_MANIFEST.md`; link, do not restate.
+ 
+-**Engineer:** Cody / NOT RECORDED · **Recorded at:** NOT RECORDED (before the Director commits) · **Manifest:** `../QAM_MANIFEST.md` · **Candidate:** `PENDING` until the Director commits and creates `qa/apbm-003-cyber-pharma`
++**Engineer:** Cody / NOT RECORDED · **Recorded at:** NOT RECORDED (before the Director commits) · **Manifest:** `../QAM_MANIFEST.md` · **Candidate:** `PENDING` until the Director commits and creates `qa/apbm-003`
+ 
+ ## 1. What was built (claims, per acceptance criterion — every AC-1xx..9xx has a row, including not-applicable ones with the reason; the applicability ruling is the Architect's)
+ 
+@@ -30,7 +30,7 @@
+ 
+ ## 5. Reproduction for an independent runtime
+ 
+-Steps from a clean clone of `qa/apbm-003-cyber-pharma` at the candidate: NOT RECORDED (numbered; each a command with its working directory; anything depending on the Engineer's machine state is a limitation in §4).
++Steps from a clean clone of `qa/apbm-003` at the candidate: NOT RECORDED (numbered; each a command with its working directory; anything depending on the Engineer's machine state is a limitation in §4).
+ 
+ ## 6. What this handoff does not contain
+ 
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_APPROVAL.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_APPROVAL.md
+@@ -27,7 +27,7 @@
+ ## 3. Director release (Q2)
+ | Field | Value |
+ |---|---|
+-| Records committed (files, commit SHA on `qa/apbm-003-cyber-pharma`) | NOT RECORDED |
++| Records committed (files, commit SHA on `qa/apbm-003`) | NOT RECORDED |
+ | Release statement | NOT RECORDED |
+ | Credential file created (`.env.qa.local`; keys by name) | NOT RECORDED |
+ | Release source (Director, date, TZ) | NOT RECORDED |
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_CERTIFICATION.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_CERTIFICATION.md
+@@ -22,7 +22,7 @@
+ ## 2. Basis
+ | AC group | Independent result (matrix) | Finding IDs and dispositions | Evidence / specimen | Limitation or ruling |
+ |---|---|---|---|---|
+-| AC-1xx schema/permissions · AC-2xx seed · AC-3xx read-audit (D-1(a)) · AC-4xx apply · AC-5xx reads/CRV · AC-6xx admin views · AC-7xx deploy · AC-8xx regression · AC-9xx handoff | NOT RECORDED | | | |
++| AC-1xx schema/permissions · AC-2xx seed · AC-3xx read-audit (D-1(a)) · AC-4xx apply · AC-5xx reads/CRV · AC-6xx admin views · AC-7xx deferred to post-deployment Gate D (not Gate-Q prerequisite) · AC-8xx regression · AC-9xx handoff | NOT RECORDED | | | |
+ 
+ Evidence adequacy and rationale: NEEDS AUTHORING (QA Lead). Follow-up findings carried: NOT RECORDED. Known risk accepted: NOT RECORDED — Director authority: NOT RECORDED.
+ 
+@@ -44,4 +44,4 @@
+ | Governed clean-tree condition | NOT RECORDED | |
+ | Released to Architect closeout (date, QA Lead) | NOT RECORDED | |
+ 
+-After release: JARVIS directs bounded closeout (Cody); the Director commits, merges `qa/apbm-003-cyber-pharma` into `main` and pushes. A documentation-only successor is verified by the complete diff before the recorded identity is extended. This certificate does not certify a deployed revision.
++After release: JARVIS directs bounded closeout (Cody); the Director commits, merges `qa/apbm-003` into `main` and pushes. A documentation-only successor is verified by the complete diff before the recorded identity is extended. This certificate does not certify a deployed revision.
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_ENTRY.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_ENTRY.md
+@@ -9,11 +9,11 @@
+ | Field | Value |
+ |---|---|
+ | Module ID / type | `APBM-003-CYBER-PHARMA` / APBM (Application Phase Build Module, Phase 3 completion + Target One). Module-type adaptation: this QAM applies the **BIM** row of QAM_PLAYBOOK §16 (schema/RLS/tenant negatives/fixtures/allowed writes/rollback/regression) **plus** the FFM row (frontend states, responsive/keyboard, real auth) because Target One ships both |
+-| Repository | `cyber-pharma-dev-v1-phase-3` (Director's checkout `~/nextjs/CYBER_PHARMA/cyber-pharma-dev-v1-phase-3`; remote per Director) |
++| Repository | `Cyberize-Group/cyph-v1-dev` (Director's checkout `/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev`; remote per Director) |
+ | Module directory (repo-relative) | `agent_docs/ACTIONS/APBM-003-CYBER-PHARMA` — this QAM lives at `agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/` |
+-| Engineering branch | `apbm-003-cyber-pharma` |
+-| QA branch (continuing; Director creates it **at the completed engineering candidate commit** after the engineering handoff; Director-merged into `main`) | `qa/apbm-003-cyber-pharma` |
+-| Baseline commit (full SHA) | NOT RECORDED — parent of the pack-installation commit (expected short `5234abe`); recorded by Cody at E1 and confirmed by the QA Executor in Q1 from read-only Git |
++| Engineering branch | `apbm-003` |
++| QA branch (continuing; Director creates it **at the completed engineering candidate commit** after the engineering handoff; Director-merged into `main`) | `qa/apbm-003` |
++| Baseline commit (full SHA) | `af2c7e5225d2d78925fd392e29a58b6bde830263` (verified pre-pack parent); E1 start `b23372d24d79b6460f746a191e824224ba5f8900`; `5234abe` unavailable |
+ | Candidate (tested product identity) | `PENDING` — resolved by the QA Executor in Q1 from the Director's commit receipt / read-only Git evidence and reconciled against `QAM_MANIFEST.md` §2; never invented |
+ | Playbook governing this QAM | QAM_PLAYBOOK v1.0 (Hub `03_BUILD_METHODOLOGY/QAM_PLAYBOOK.md`, dated 2026-10-18) — provenance in `GOVERNING/README.md` |
+ | Seats | **QA Executor: Claudy** · QA Lead: the QA Lead seat (holder recorded in `QAM_APPROVAL.md` when it acts; never inferred from a model name) · Engineer: Cody · Architect: Friday · Chief Architect: JARVIS · Director: Tony. Cody and Claudy are deliberately reversed from previous engagements |
+@@ -35,12 +35,14 @@
+ | Seat | May write | May not |
+ |---|---|---|
+ | QA Executor (Claudy) | `QAM_RECON_REPORT.md`, `QAM_EXECUTION_REPORT.md`, `AC_EVIDENCE_MATRIX.md`, `FINDINGS.md` §1 and §3.1, `QAM_CLEANUP_REPORT.md` execution rows, `evidence/**`, `AUTOMATION/**`, `HANDOFFS/**` (packages, filled `REVIEW_START_HERE.md` copies, `FILE_INDEX.json`, receipts table), `../EVIDENCE/deploy/GATE_D.md`. Executor-recorded parts of other seats' files: Result/Evidence cells of `QAM_PREFLIGHT.md`; `QAM_RISK_REQUIREMENTS.md` §3; the `QAM_TEST_PLAN.md` draft and the application of the QA Lead's **exact** amendments (§8); own dated entries in `QAM_STATE.md`. Transcription only when expressly instructed, attributed | product code, tests, contract files, Engineer's evidence, `QAM_MANIFEST.md`; composing any approval, disposition, retention decision or verdict; Git mutation; deployment |
+-| Engineer (Cody) | `QAM_MANIFEST.md` (incl. §8 amendments), `HANDOFFS/ENGINEERING_HANDOFF.md`, own `QAM_STATE.md` entries; ruled repair paths on `qa/apbm-003-cyber-pharma` only | QA results, plan approval, dispositions, certificate |
++| Engineer (Cody) | `QAM_MANIFEST.md` (incl. §8 amendments), `HANDOFFS/ENGINEERING_HANDOFF.md`, own `QAM_STATE.md` entries; ruled repair paths on `qa/apbm-003` only | QA results, plan approval, dispositions, certificate |
+ | QA Lead | `QAM_APPROVAL.md` decisions, `FINDINGS.md` §2 dispositions, retention/cleanup-acceptance in `QAM_CLEANUP_REPORT.md`, `QAM_CERTIFICATION.md`, `QAM_RISK_REQUIREMENTS.md` §1 adoption, own `QAM_STATE.md` entries | product changes; inventing evidence |
+ | Architect (Friday) / Chief Architect (JARVIS) | this file, `QAM_PREFLIGHT.md` rows, `QAM_RISK_REQUIREMENTS.md` §2, `GOVERNING/`, `PARENT_ENTRY_ROUTING.md`, closeout instruction, own `QAM_STATE.md` entries | QA results; substituting an engineering-green result for independent QA |
+ | Director (Tony) | release references in `QAM_APPROVAL.md` §3/§4; credential file `.env.qa.local`; all Git actions; risk decisions; the APPLY checkpoint; own `QAM_STATE.md` entries | — (does not have to perform repeatable UI checks) |
+ 
+ **Protected paths (never written by any QA seat):** `src/**` (except nothing), `scripts/**` product code, `supabase/migrations/**`, `package.json`, lockfile, `next.config.*`, `tests/**` product tests, `RECOVERY.md`, `agent_docs/SESSIONS/**`, `agent_docs/AUTHORITY/**`, every historical module folder, `.env*` (the QA credential file is written by the Director only).
++**Sequence:** E2 ends with identified candidate and local deployment package, not deployment. Claudy independently plans and tests Gate Q against that candidate on `qa/apbm-003`; QA Lead certifies. Then Tony separately approves staging deployment of the certified candidate; Claudy verifies actual revision/digest and behavior in Gate D. Staging availability is not a Gate-Q prerequisite. Repaired product requires candidate re-binding and Gate-Q retest before deployment.
++
+ **Permitted effects on targets:** SCRATCH — destructive QA authorized (from-scratch replay, seed reset, direct-read attacks, concurrent-admin attacks) under the plan; DEV — read-only plus bounded login/logout probes with the cast identities and the wrapper reads the plan declares (these create session and audit rows, acknowledged); STAGING — browser-only through the real app with cast identities (Gate D). Anything else is `STOP-AUTHORITY`.
+ 
+ Authority rule (playbook §6): being pointed at this folder and asked to start authorizes **Q1 only**, within the declared scope.
+@@ -62,7 +64,7 @@
+ | Recorded state in `QAM_STATE.md` | Next owner | What the arriving QA Executor does |
+ |---|---|---|
+ | `READY FOR ENGINEERING` | Engineer | Nothing to test yet. Report that engineering is pending and no handoff exists; do not run preflight against an unfinished candidate |
+-| `ENGINEERING COMPLETE — AWAITING QA BRANCH` | Director | Report that the handoff exists and the Director has not yet committed the candidate and created `qa/apbm-003-cyber-pharma` at it. Do not start Q1 |
++| `ENGINEERING COMPLETE — AWAITING QA BRANCH` | Director | Report that the handoff exists and the Director has not yet committed the candidate and created `qa/apbm-003` at it. Do not start Q1 |
+ | `READY FOR RECON` | QA Executor | Introduce the role briefly; run `QAM_PREFLIGHT.md`; resolve the candidate from the Director's receipt and reconcile it against the handoff inventory; write `QAM_RECON_REPORT.md`; draft `QAM_TEST_PLAN.md`; build the Q1 package; record `Q1 COMPLETE — AWAITING QA LEAD REVIEW`; stop |
+ | `Q1 COMPLETE — AWAITING QA LEAD REVIEW` | QA Lead | Return the existing Q1 package and the decision needed. Do not rerun Q1 |
+ | `Q1 AMENDMENTS REQUESTED` | QA Executor | Apply **only** the exact edits in `QAM_APPROVAL.md` §1; record in plan §8 with the diff; re-bind (new SHA-256); record `Q1 AMENDED — AWAITING QA LEAD BINDING`; return |
+@@ -93,6 +95,6 @@
+ 
+ ## 8. Reworks (conditional; same QA line; explicit handoffs)
+ 
+-QA Lead adjudication → one consolidated repair instruction (JARVIS, in `../APBM_RULINGS.md` §C + `FINDINGS.md` §3.2) → Cody repairs on `qa/apbm-003-cyber-pharma` (one active writer; ownership transfer recorded in `HANDOFFS/QA_HANDOFF.md`) → Director commits → Claudy re-pins and retests (repair diff + affected ACs + full required regression). Findings consolidated into one repair assignment where practical; repeat only when evidence requires it. No disposable QA branches; no transfer back to the engineering branch.
++QA Lead adjudication → one consolidated repair instruction (JARVIS, in `../APBM_RULINGS.md` §C + `FINDINGS.md` §3.2) → Cody repairs on `qa/apbm-003` (one active writer; ownership transfer recorded in `HANDOFFS/QA_HANDOFF.md`) → Director commits → Claudy re-pins and retests (repair diff + affected ACs + full required regression). Findings consolidated into one repair assignment where practical; repeat only when evidence requires it. No disposable QA branches; no transfer back to the engineering branch.
+ 
+ *Instantiated 2026-11-05 by Friday from TEMPLATE SET v0.3.*
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_MANIFEST.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_MANIFEST.md
+@@ -10,8 +10,8 @@
+ |---|---|
+ | Baseline (full SHA) | NOT RECORDED |
+ | Implementation identity | `PENDING` — the candidate does not exist until the Director commits; after the commit Q1 resolves it from the receipt and reconciles against §2. Factual amendments after handoff go in §8, dated. No documentation commit is made just to embed its own SHA |
+-| Engineering branch | `apbm-003-cyber-pharma` |
+-| Intended QA branch | `qa/apbm-003-cyber-pharma` — Director creates it at the completed candidate, after this handoff |
++| Engineering branch | `apbm-003` |
++| Intended QA branch | `qa/apbm-003` — Director creates it at the completed candidate, after this handoff |
+ | HEAD at handoff | NOT RECORDED |
+ 
+ ## 2. Complete change inventory at handoff (facts; before the Director commits)
+@@ -49,7 +49,7 @@
+ | Seed reset + run | NOT RECORDED | |
+ | `rls:prove` / `audit:prove` / `db-verify` | NOT RECORDED | |
+ | Tests / board | NOT RECORDED | |
+-| Deploy (the authorized workflow) | NOT RECORDED | |
++| Deployment package prepared locally (E2); actual deployment receipt added only after Gate Q and separate approval | NOT RECORDED | |
+ 
+ ## 5. Environment the QA body needs (facts; no secret values)
+ 
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_PREFLIGHT.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_PREFLIGHT.md
+@@ -4,7 +4,7 @@
+ 
+ > Instantiated from TEMPLATE SET v0.3 under QAM_PLAYBOOK v1.0 §5 and §8. **Owner: Architect (Friday) authors the rows; the QA Executor (Claudy) records only the Result and Evidence cells in Q1 and rechecks changeable rows at Q2/Q4 entry.** A row the Executor believes is wrong is a GAP/QUESTION in `QAM_RECON_REPORT.md` §4, not an edit. Every result starts `NOT RUN`.
+ 
+-**Executor:** Claudy · **Run at:** NOT RECORDED · **Working directory:** repo root of the `qa/apbm-003-cyber-pharma` checkout · **Results file:** `evidence/preflight/<attempt>/PREFLIGHT_RESULTS.txt`
++**Executor:** Claudy · **Run at:** NOT RECORDED · **Working directory:** repo root of the `qa/apbm-003` checkout · **Results file:** `evidence/preflight/<attempt>/PREFLIGHT_RESULTS.txt`
+ 
+ Q1 is read-only toward product and live business data. SCRATCH destructive work, DEV login probes and STAGING browser work are authorized only where a row says so and only in Q2 under the approved plan.
+ 
+@@ -12,7 +12,7 @@
+ 
+ | # | Check | Command (working dir) | Expected | Authorized effect | Result | Evidence |
+ |---|---|---|---|---|---|---|
+-| PF-1.1 | Repository and branch | `git rev-parse --abbrev-ref HEAD` | `qa/apbm-003-cyber-pharma` | read-only | NOT RUN | |
++| PF-1.1 | Repository and branch | `git rev-parse --abbrev-ref HEAD` | `qa/apbm-003` | read-only | NOT RUN | |
+ | PF-1.2 | Full HEAD, baseline, candidate | `git rev-parse HEAD`; `git log --oneline <BASELINE>..HEAD` | candidate per Director receipt | read-only | NOT RUN | |
+ | PF-1.3 | Tracked and untracked state | `git status --porcelain` | empty | read-only | NOT RUN | |
+ | PF-1.4 | Candidate ancestry | `git merge-base --is-ancestor <CANDIDATE> HEAD` | exit 0 | read-only | NOT RUN | |
+@@ -49,7 +49,7 @@
+ |---|---|---|---|---|---|---|
+ | PF-4.1 | SCRATCH resolved by project ref from `QA_SCRATCH_*` keys; unpaused; ready for a catalog query (an HTTP 200 proves nothing) | `select 1` via `QA_SCRATCH_DB_URL` | ref recorded; query returns | read-only | NOT RUN | |
+ | PF-4.2 | DEV resolved by project ref (= `../EVIDENCE/apply/01_TARGET_IDENTITY.txt`); migration state = applied chain; cast present | read-only catalog query with `QA_DEV_*` publishable key through the app's own paths or a read-only probe the plan authorizes | matches apply evidence | read-only | NOT RUN | |
+-| PF-4.3 | STAGING URL serves the candidate revision (image digest ↔ commit from `../EVIDENCE/deploy/`) | `curl -sI` + revision record | matches | read-only | NOT RUN | |
++| PF-4.3 | Gate D only, after Gate Q and separate deployment approval: verify actual Cloud Run revision/digest against certified candidate; not a Q1/Q2 prerequisite | revision/image provenance plus browser checks | exact match | bounded session/audit reads | NOT RUN | |
+ | PF-4.4 | Cast identities exist on the target (E-17): `OWNER1`, `OWNER3`, `ADMIN_B2`, `ADMIN_B3`, `MEMBER_B1`, `MEMBER_B2B3`, `UNRELATED` (+ `OPERATOR` only if authorized) | Director-verified at the seed run; Executor confirms by a bounded login probe only in Q2 | exist | Q2: bounded login (creates session/audit rows, acknowledged) | NOT RUN | |
+ | PF-4.5 | Suitable test data: per-store row counts and coverage per the FINAL `../CONTRACTS/SEED_AND_FIXTURE_CONTRACT.md` §3 | read-only counts through wrappers or the plan's authorized probe | matches | read-only | NOT RUN | |
+ | PF-4.6 | `.env.qa.local` declared, **ignored and untracked**, schema valid, no values echoed | `git check-ignore -v .env.qa.local`; `git ls-files --error-unmatch .env.qa.local` (expect failure); key-name check | ignored; untracked; keys per `QAM_ENTRY.md` §4 | read-only; no values printed | NOT RUN | |
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_STATE.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_STATE.md
+@@ -10,10 +10,10 @@
+ 
+ | Field | Value |
+ |---|---|
+-| Phase | `READY FOR ENGINEERING` (set at packaging; `READY FOR RECON` is recorded by the Director only after the engineering handoff **and** `qa/apbm-003-cyber-pharma` exists at the completed candidate) |
++| Phase | `READY FOR ENGINEERING` (set at packaging; `READY FOR RECON` is recorded by the Director only after the engineering handoff **and** `qa/apbm-003` exists at the completed candidate) |
+ | Attempt | Q1 0 / Q2 0 / Q4 0 |
+-| Engineering branch / QA branch | `apbm-003-cyber-pharma` / `qa/apbm-003-cyber-pharma` (NOT RECORDED until the Director creates it) |
+-| Baseline | NOT RECORDED (expected short `5234abe`; full SHA from E1) |
++| Engineering branch / QA branch | `apbm-003` / `qa/apbm-003` (NOT RECORDED until the Director creates it) |
++| Baseline | `af2c7e5225d2d78925fd392e29a58b6bde830263`; E1 start `b23372d24d79b6460f746a191e824224ba5f8900`; `5234abe` unavailable |
+ | Candidate (tested product SHA) | `PENDING` |
+ | QA execution HEAD | NOT RECORDED |
+ | Evidence / closeout commit | NOT RECORDED |
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_TEST_PLAN.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_TEST_PLAN.md
+@@ -35,7 +35,7 @@
+ Reductions and why: NOT RECORDED. Sign-in strategy per SR-5. Actual sign-in counts recorded.
+ 
+ ## 5. Stop conditions for execution
+-QAM_PLAYBOOK §11 `STOP-*` table applies. Module-specific triggers: any evidence of a real (non-synthetic) record on any target (`STOP-PRIVACY`); DEV mutation by any QA step (`STOP-AUTHORITY`); candidate ≠ deployed revision (`STOP-IDENTITY`).
++QAM_PLAYBOOK §11 `STOP-*` table applies. Module-specific triggers: any evidence of a real (non-synthetic) record on any target (`STOP-PRIVACY`); undeclared DEV effects beyond bounded session/audited read probes (`STOP-AUTHORITY`); at Gate D only: candidate ≠ deployed revision (`STOP-IDENTITY`); no deployed revision required for Gate Q.
+ 
+ ## 6. Cannot yet be tested
+ | AC / area | Reason | Enabler | Owner |
+--- a/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/README.md
++++ b/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/README.md
+@@ -2,13 +2,13 @@
+ 
+ **What this is.** The module package (with its embedded QAM) that closes Phase 3 of the Cyber Pharma Eight-Phase Plan v3.0 and delivers **Target One**: OwedBook and the agreed admin read views on staging, reading real rows from the shared dev Supabase, where those rows are synthetic pharmacies. Phase 3's exit gate (Controlled Read Validation) passes inside this module.
+ **Status at authoring (2026-11-05):** `READY FOR E1`. Not approved for E2. Contract text is DRAFT — CLAIM STATUS until E1 resolution. Plan v3.0 D-6 adoption pending (recorded, not inferred).
+-**Install destination:** `agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/` in `cyber-pharma-dev-v1-phase-3`, on a new branch `apbm-003-cyber-pharma` cut from `main` (expected parent `5234abe`). Unpack the ZIP outside the repo, copy only this folder in, commit the pack with the Director's hands, confirm `git status` clean before "go".
++**Install destination:** `agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/` in `Cyberize-Group/cyph-v1-dev`, on a new branch `apbm-003` cut from `main` (verified pre-pack parent `af2c7e5225d2d78925fd392e29a58b6bde830263`; E1 start `b23372d24d79b6460f746a191e824224ba5f8900`; `5234abe` unavailable). Unpack the ZIP outside the repo, copy only this folder in, commit the pack with the Director's hands, confirm `git status` clean before "go".
+ 
+ ## Seats
+ Director **Tony** · Chief Architect **JARVIS** (he/him; reviews this pack) · Module Architect **Friday** (she/her; author) · **Engineering Executor Cody** · **QA Executor Claudy** · QA Lead (seat; holder recorded when it acts). Cody and Claudy are deliberately reversed from previous engagements.
+ 
+ ## The four shots
+-E1 Cody recon (`E1_RECON_MISSION.md`) → resolution (JARVIS stamps the contract FINAL; Director approves E2) → E2 Cody builds continuously with one declared Director stop (`APPLY_CHECKPOINT.md`) → Director commits the candidate and cuts `qa/apbm-003-cyber-pharma` → Q1 Claudy recon + test plan (`QAM/`) → QA Lead approval, Director release → Q2 Claudy executes → adjudication → conditional repair (Cody, same QA line) → certificate → cleanup → closeout → merge → Gate D on staging.
++E1 Cody recon (`E1_RECON_MISSION.md`) → resolution (JARVIS stamps the contract FINAL; Director approves E2) → E2 Cody builds continuously with one declared Director stop (`APPLY_CHECKPOINT.md`) → Director commits the candidate and cuts `qa/apbm-003` → Q1 Claudy recon + test plan (`QAM/`) → QA Lead approval, Director release → Q2 Claudy executes → adjudication → conditional repair (Cody, same QA line) → Gate Q certificate → separately approved deployment of that certified candidate → Gate D on actual deployed revision → cleanup/closeout and Director merge. E2 stage 8 prepares artifacts locally; no pre-Q deployment.
+ 
+ ## File index
+ | Path | Owner | Purpose |

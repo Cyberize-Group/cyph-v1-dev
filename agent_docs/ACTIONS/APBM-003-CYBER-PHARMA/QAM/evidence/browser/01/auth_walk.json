@@ -1,0 +1,88 @@
+{
+  "phase": "authwalk",
+  "startedAt": "2026-11-09T04:23:08.051Z",
+  "base": "http://127.0.0.1:3138",
+  "devRef": "yrsuwikjnbmvpznrgydb",
+  "checks": [
+    {
+      "name": "T-39 OWNER3 hard refresh on /owedbook keeps the session",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-39 OWNER3 /admin-portal reachable and survives refresh",
+      "result": "PASS",
+      "detail": "/admin-portal"
+    },
+    {
+      "name": "T-39 OWNER3 /profile reachable and survives refresh",
+      "result": "PASS",
+      "detail": "/profile"
+    },
+    {
+      "name": "T-39 OWNER3 logout → /auth (via UI menu: true)",
+      "result": "PASS",
+      "detail": "/auth"
+    },
+    {
+      "name": "T-39 OWNER3 cross-tab: second tab bounced to /auth after logout (NavAuthRefresh / SIGNED_OUT)",
+      "result": "FAIL",
+      "detail": "/owedbook"
+    },
+    {
+      "name": "T-39 OWNER3 protected route redirects to /auth after logout",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-39 OWNER3 re-login works",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-39 MEMBER_B1 hard refresh on /owedbook keeps the session",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-39 MEMBER_B1 /admin-portal redirects to /owedbook and survives refresh",
+      "result": "PASS",
+      "detail": "/owedbook"
+    },
+    {
+      "name": "T-39 MEMBER_B1 /profile reachable and survives refresh",
+      "result": "PASS",
+      "detail": "/profile"
+    },
+    {
+      "name": "T-39 MEMBER_B1 logout → /auth (via UI menu: true)",
+      "result": "PASS",
+      "detail": "/auth"
+    },
+    {
+      "name": "T-39 MEMBER_B1 cross-tab: second tab bounced to /auth after logout (NavAuthRefresh / SIGNED_OUT)",
+      "result": "FAIL",
+      "detail": "/owedbook"
+    },
+    {
+      "name": "T-39 MEMBER_B1 protected route redirects to /auth after logout",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-39 MEMBER_B1 re-login works",
+      "result": "PASS",
+      "detail": ""
+    }
+  ],
+  "signIns": {
+    "OWNER3": 2,
+    "MEMBER_B1": 2
+  },
+  "unexpectedBackendRequests": 0,
+  "failures": [],
+  "finishedAt": "2026-11-09T04:24:32.043Z",
+  "pass": 12,
+  "fail": 2,
+  "status": "FAIL"
+}

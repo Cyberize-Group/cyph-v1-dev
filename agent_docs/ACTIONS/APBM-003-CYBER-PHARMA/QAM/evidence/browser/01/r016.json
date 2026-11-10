@@ -1,0 +1,47 @@
+{
+  "phase": "r016",
+  "startedAt": "2026-11-09T04:11:02.210Z",
+  "base": "http://127.0.0.1:3138",
+  "devRef": "yrsuwikjnbmvpznrgydb",
+  "checks": [
+    {
+      "name": "T-35 abort owedbook_kpis → \"KPIs unavailable. Please retry.\" + Retry KPIs; no $0.00 tiles; role=alert present",
+      "result": "PASS",
+      "detail": "zeroTiles=0 alerts=2"
+    },
+    {
+      "name": "T-35 abort owedbook_rows → rows error state with Retry",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-35 abort owedbook_pbm_options → options alert, table still loads (Total 50)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-35 abort tenant_stores → \"Store access unavailable…\" + \"Retry stores\"",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-35 restore + Retry → KPIs/options/rows reload; audit +3 for OWNER3 (kpis, pbm_options, rows)",
+      "result": "PASS",
+      "detail": "[{\"fn\":\"owedbook_kpis\",\"n\":1,\"biz_present\":true},{\"fn\":\"owedbook_pbm_options\",\"n\":1,\"biz_present\":true},{\"fn\":\"owedbook_rows\",\"n\":1,\"biz_present\":true}]"
+    },
+    {
+      "name": "T-35 loading state: skeleton / aria-busy shown while a request is in flight",
+      "result": "PASS",
+      "detail": "busy elements=2"
+    }
+  ],
+  "signIns": {
+    "OWNER3": 1
+  },
+  "unexpectedBackendRequests": 0,
+  "failures": [],
+  "finishedAt": "2026-11-09T04:11:22.920Z",
+  "pass": 6,
+  "fail": 0,
+  "status": "PASS"
+}

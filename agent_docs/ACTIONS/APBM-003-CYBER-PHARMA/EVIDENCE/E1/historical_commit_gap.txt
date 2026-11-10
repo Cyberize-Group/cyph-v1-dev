@@ -1,0 +1,5 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+COMMAND: ["git", "rev-parse", "--verify", "c45949e^{commit}"]
+EXIT: 128
+
+fatal: Needed a single revision

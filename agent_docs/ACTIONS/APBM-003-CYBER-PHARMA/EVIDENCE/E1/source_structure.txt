@@ -1,0 +1,39 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+COMMAND: ["find", "src", "-maxdepth", "2", "-type", "d"]
+EXIT: 0
+src
+src/app
+src/app/api
+src/app/owedbook
+src/app/error
+src/app/providers
+src/app/(public)
+src/app/(admin)
+src/app/profile
+src/app/(auth)
+src/lib
+src/components
+src/components/auth
+src/components/owedbook
+src/components/admin-portal
+src/components/common
+src/components/ui
+src/components/global
+src/components/layout
+src/utils
+src/utils/supabase
+src/services
+src/types
+src/mocks
+src/store
+src/__tests__
+src/__tests__/auth
+src/__tests__/owedbook
+src/__tests__/member
+src/__tests__/admin-portal
+src/__tests__/services
+src/__tests__/mocks
+src/__tests__/common
+src/__tests__/global
+src/__tests__/layout
+

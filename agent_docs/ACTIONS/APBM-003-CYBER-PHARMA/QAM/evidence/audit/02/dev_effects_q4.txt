@@ -1,0 +1,13 @@
+-- Q4 DEV declared effects (read-only via ro-sql.sh), window from 2026-11-09T06:15:00Z
+audit_rows_by_action: [{"action":"read_page","n":264}]
+read_page_by_actor: [{"email":"apbm003-owner3@example.invalid","n":264}]
+read_page_by_fn: [{"fn":"admin_audit","n":8}, 
+ {"fn":"admin_billing_status","n":27}, 
+ {"fn":"admin_members","n":9}, 
+ {"fn":"admin_stores","n":53}, 
+ {"fn":"owedbook_kpis","n":57}, 
+ {"fn":"owedbook_pbm_options","n":34}, 
+ {"fn":"owedbook_rows","n":73}, 
+ {"fn":"owedbook_summary","n":3}]
+non_read_page_rows_in_window: 0
+business_table_counts: {"accounts" : 3, "businesses" : 5, "user_businesses" : 8, "subscriptions" : 3, "user_data" : 250, "profiles" : 12, "user_roles" : 12, "system_config" : 2, "pending_registrations" : 0}

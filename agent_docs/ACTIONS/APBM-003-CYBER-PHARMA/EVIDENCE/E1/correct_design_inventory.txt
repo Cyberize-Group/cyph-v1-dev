@@ -1,0 +1,36 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+COMMAND: ["rg", "-n", "darkMode|next/font|ThemeToggler|ThemeProvider|--font-brand|lg:|md:", "tailwind.config.ts", "src/app/layout.tsx", "src/components/global", "src/app/(public)/HomePageContent.tsx"]
+EXIT: 0
+STDOUT:
+src/app/(public)/HomePageContent.tsx:9:    <section className="grid grid-cols-1 lg:grid-cols-[1fr_1.12fr] gap-10 lg:gap-14 px-7 py-10 lg:px-14 lg:py-20 items-center max-w-[1840px] mx-auto">
+src/app/(public)/HomePageContent.tsx:21:        <h1 className="font-brand text-5xl md:text-6xl lg:text-7xl font-semibold leading-none tracking-tight">
+src/app/(public)/HomePageContent.tsx:78:        <div className="relative overflow-hidden p-6 lg:p-12 pb-16 lg:pb-20 rounded-[28px] bg-gradient-to-br from-primary/10 via-primary/5 to-card">
+src/app/(public)/HomePageContent.tsx:97:          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 lg:bottom-6 lg:right-6 lg:left-auto lg:translate-x-0 bg-card border border-border rounded-[14px] shadow-xl px-4 py-3 lg:px-5 lg:py-4 flex items-center gap-3 lg:gap-3.5">
+src/app/(public)/HomePageContent.tsx:102:              <div className="text-lg lg:text-xl font-bold tabular-nums">$12,627</div>
+src/app/layout.tsx:2:import { Saira } from "next/font/google";
+src/app/layout.tsx:5:import { ThemeProvider } from "./providers/ThemeProvider";
+src/app/layout.tsx:10:  variable: "--font-brand",
+src/app/layout.tsx:26:        <ThemeProvider
+src/app/layout.tsx:34:        </ThemeProvider>
+tailwind.config.ts:8:  darkMode: ["class"],
+tailwind.config.ts:84:        lg: "var(--radius)",
+tailwind.config.ts:85:        md: "calc(var(--radius) - 2px)",
+tailwind.config.ts:103:        brand: ["var(--font-brand)", "system-ui", "sans-serif"],
+src/components/global/NavbarLoginReg.tsx:3:import ThemeToggler from "./ThemeToggler";
+src/components/global/NavbarLoginReg.tsx:20:          <ThemeToggler />
+src/components/global/Navbar.tsx:17:import ThemeToggler from "./ThemeToggler";
+src/components/global/Navbar.tsx:128:        <nav aria-label="Primary" className="hidden lg:flex items-center gap-1">
+src/components/global/Navbar.tsx:142:        <div className="hidden lg:flex items-center">
+src/components/global/Navbar.tsx:143:          <ThemeToggler />
+src/components/global/Navbar.tsx:168:          className="lg:hidden shrink-0 p-2 text-navbar-foreground hover:opacity-80"
+src/components/global/Navbar.tsx:177:          className="lg:hidden border-t border-navbar-foreground/20"
+src/components/global/Navbar.tsx:198:              <ThemeToggler onSelect={closeMenu} />
+src/components/global/ThemeToggler.tsx:17:const ThemeToggler = ({ onSelect }: { onSelect?: () => void } = {}) => {
+src/components/global/ThemeToggler.tsx:53:export default ThemeToggler;
+src/components/global/NavbarHome.tsx:6:import ThemeToggler from "./ThemeToggler";
+src/components/global/NavbarHome.tsx:31:      <nav className="ml-auto hidden lg:flex items-center h-full text-xs font-semibold tracking-wide">
+src/components/global/NavbarHome.tsx:50:        <ThemeToggler />
+src/components/global/NavbarHome.tsx:54:      <div className="ml-auto flex items-center lg:hidden">
+src/components/global/NavbarHome.tsx:55:        <ThemeToggler />
+
+STDERR:

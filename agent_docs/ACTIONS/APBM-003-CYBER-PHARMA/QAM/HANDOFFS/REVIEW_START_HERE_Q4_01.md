@@ -1,0 +1,21 @@
+# REVIEW_START_HERE — `APBM-003-CYBER-PHARMA` Q4 package (retest of the repaired candidate), attempt 01
+
+> Filled copy by Claudy (QA Executor), 2026-11-09T12:55:00+06:00. The first file a reviewer opens. Facts only; no verdict.
+
+| Field | Value |
+|---|---|
+| Package | `APBM-003-CYBER-PHARMA_Q4_REVIEW_01.zip` — SHA-256 recorded **outside** this package (`HANDOFFS/README.md`, return message, live `QAM_STATE.md`). `QAM_STATE.md` here is the pre-export snapshot. |
+| Reviewer and decision requested | **QA Lead (Friday):** adjudicate Q4 attempt 01 — the ten re-graded rows (AC-401, 404, 502, 503, 601, 602, 803, 901, 902, 903) and the carry-forward of the other 34; dispose observations F-09/F-10 (`FINDINGS.md` §1); confirm the AC-401 label (PASS on your C-02 disposition) or restate it; then `QAM_CERTIFICATION.md` (Gate Q with limitations: AC-401 restore clause C-02, F-02/C-05a, F-04/C-05b, F-06/C-05c, AC-7xx pending Gate D, H-1 deferred) or a further ruling. **Director:** H-1 manual smoke remains DEFERRED; Gate D decision after Gate Q. |
+| Identities | repaired candidate `dc44429f466dedcf35023342f68624c6cee062f0` (original `308247a24e6ddd455842da5cd2e21541d7eae2c1`) · QA execution HEAD `c5061d9f75fa242a3d14913c08d6bbad7173c638` (1 records-only commit above the candidate; product diff 0) · bound plan SHA-256 `194538a7a7701c4b35aa731b17197f4e6ddb577d43ce4f7ac8bbdb383a5cfea4` (unchanged) · retest scope + release `QAM_APPROVAL.md` §4 (Friday / Tony, 2026-11-09) · rulings C-03/C-04/C-05 · DEV `yrsuwikjnbmvpznrgydb` · LOCAL `127.0.0.1:3138` · SCRATCH untouched in Q4 |
+| Current state | `Q4 COMPLETE — AWAITING ADJUDICATION` |
+| Active stop | none (STOP-CONTRACT check negative: repair diff = exactly the three declared files) |
+| Totals (44 ACs) | PASS 41 · FAIL 0 · BLOCKED 0 · NOT RUN 3 (AC-701/702/703) · ADJUDICATE 0 (Q2/01 was 35 / 3 / 1 / 3 / 2) |
+
+## Read in this order
+1. `QAM_STATE.md` 2. `QAM_EXECUTION_REPORT.md` — the **Q4 attempt 01** section at the end (Q4.1 entry, Q4.2 log, Q4.3 helper corrections, Q4.9 summary) 3. `AC_EVIDENCE_MATRIX.md` (Q4 header paragraph; the ten re-graded rows; carried-forward table; totals) 4. `FINDINGS.md` §1 (F-09, F-10, Q4 status note) 5. `evidence/identity/03/` (T-00, T-04 with attack, T-50) 6. `evidence/derivations/02/allowlist.md` (written before T-04) 7. `evidence/board/02/` 8. `evidence/browser/02/` (admin leg 4 variants + labels, OwedBook leg incl. F-05, nomut, attack-flip, mock_mode) 9. `evidence/carry_forward/Q2_01_carry_forward.md` 10. `AUTOMATION/README.md` §Q4 additions.
+
+## Summary
+Entry gate passed against disk (state, §4, C-03..C-05, writer transfer). The repair diff `308247a2..dc44429f` touches exactly `DemoMarker.tsx`, `BillingScreen.tsx`, `OwedBookContext.tsx`; no migration, seed, harness, service, auth or test path, so all Group B SCRATCH and non-named Group C DEV evidence is carried from Q2/01 (357 members re-hashed, 0 changed). Retested: board 39/196 in a fresh QA install; allowlist with C-03 (58 paths; attack flagged); truthful real-mode copy on every admin screen for OWNER3 at 1440 and 375 in light and dark ("Synthetic test data" pill; "Billing actions are unavailable in this release" footer; the demo copy appears 0 times), mock copy proven unchanged at component level and on a mock build; T-36 no-mutation (9 table hashes unchanged, audit only `read_page`, no table POSTs); OWNER3 OwedBook leg including the stale fence and the F-05 guard (same-store re-select keeps the PBM options with audit +0; a real switch refetches +3); T-50 records complete. AC-404 is PASS (DEV) / N/A (SCRATCH) per C-04 with no signup attempt. Instrument controls: `--attack` (T-04) and `--attack-flip` (browser) fail as required; three helper corrections preserved. New observations only (F-09 records wording, F-10 375 px billing button clipping, both low, neither a C-03 regression). DEV effects: 14 OWNER3 logins, 264 `read_page` rows, nothing else.
+
+## Not included
+`.env.qa.local`, `.env.local`, auth state/cookies/tokens (HARs are body-less and header-sanitised), Playwright binaries, `node_modules`/`.next`, the QA copy tree, previous review ZIPs (Q1/Q1b/Q2 — the Q2 ZIP's member index `FILE_INDEX_Q2_01.json` **is** included as the carried-evidence hash source). Tenant rows appear only as counts/hashes.

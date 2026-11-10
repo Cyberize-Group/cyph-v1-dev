@@ -1,0 +1,19 @@
+PASS T-37 login → 0 observed {}
+PASS T-37 open /owedbook (initial load) → {"owedbook_kpis":1,"owedbook_pbm_options":1,"owedbook_rows":1} observed {"owedbook_kpis":1,"owedbook_pbm_options":1,"owedbook_rows":1}
+PASS T-37 switch tab → Updated Payments → {"owedbook_rows":1} observed {"owedbook_rows":1}
+PASS T-37 switch tab → Commercial → {"owedbook_rows":1} observed {"owedbook_rows":1}
+PASS T-37 next page → {"owedbook_rows":1} observed {"owedbook_rows":1}
+PASS T-37 prev page → {"owedbook_rows":1} observed {"owedbook_rows":1}
+PASS T-37 sort by Owed (client-side) → 0 observed {}
+PASS T-37 apply status filter from page 1 → {"owedbook_kpis":1,"owedbook_rows":1} observed {"owedbook_kpis":1,"owedbook_rows":1}
+PASS T-37 clear filters → {"owedbook_kpis":1,"owedbook_rows":1} observed {"owedbook_kpis":1,"owedbook_rows":1}
+PASS T-37 switch store B1→B2 from page 1 → {"owedbook_kpis":1,"owedbook_pbm_options":1,"owedbook_rows":1} observed {"owedbook_kpis":1,"owedbook_pbm_options":1,"owedbook_rows":1}
+PASS T-37 Refresh (Get Fresh Data) → {"owedbook_kpis":1,"owedbook_pbm_options":1,"owedbook_rows":1} observed {"owedbook_kpis":1,"owedbook_pbm_options":1,"owedbook_rows":1}
+PASS T-37 switch tab → Summary → {"owedbook_summary":1} observed {"owedbook_summary":1}
+PASS T-37 /admin-portal (My Stores) → {"admin_stores":1} observed {"admin_stores":1}
+PASS T-37 store detail B2 → {"admin_stores":1,"admin_members":1} observed {"admin_members":1,"admin_stores":1}
+PASS T-37 /admin-portal/audit → {"admin_audit":1} observed {"admin_audit":1}
+PASS T-37 /admin-portal/billing (1 admin_stores + 3 admin_billing_status) → {"admin_stores":1,"admin_billing_status":3} observed {"admin_billing_status":3,"admin_stores":1}
+PASS T-37 /admin-portal/settings → {"admin_stores":2} observed {"admin_stores":2}
+PASS T-37 every OWNER3 row this session: actor_user_id = OWNER3, business_id = selected store (NULL only for admin_stores()), context.fn present {"n":142,"actor_ok":true,"biz_ok":true,"fn_ok":true}
+summary counts: 18 PASS / 0 FAIL; unexpected backend requests 0

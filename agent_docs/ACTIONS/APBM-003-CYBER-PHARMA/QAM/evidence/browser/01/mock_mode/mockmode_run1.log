@@ -1,0 +1,6 @@
+PASS §3 mock mode: login lands on /owedbook 
+PASS §3 mock mode: "Synthetic demo data" text replaces the store picker 
+PASS §3 mock mode: fixture rows render (A1 synthetic scripts, Total 50) 25 rows
+PASS §3 mock mode: /admin-portal follows the mock gate (platform role member → redirect to /owedbook) /owedbook
+FAIL §3 mock mode: no owedbook_* RPC reached DEV (0 new read_page rows for OWNER3 in the last 2 minutes) rows=29
+summary mockmode: 4 PASS / 1 FAIL; unexpected backend requests 0

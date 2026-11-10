@@ -1,0 +1,21 @@
+{
+  "status": "BLOCKED",
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "scratchProjectRef": "ihgcsrypblqkwommrkgj",
+  "bundleSHA256": "7ea2cbe960cd45232f54a4ba39a564e3dbf5d657fa908195db85b8639792d2f6",
+  "backup": "NOT_RUN: installed tools 16.15; server 17.6",
+  "restore": "NOT_RUN: no compatible backup and no supported managed-role restore path",
+  "bootstrap": "NOT_RUN: managed default ACL privilege unavailable",
+  "ledgerInitialization": "NOT_RUN",
+  "forward0048to0052": "NOT_RUN on restored copy; earlier SCRATCH proof preserved",
+  "seedOwnerVerifier": "NOT_RUN on restored copy; exact commands and Owner probe prepared",
+  "localTests": {
+    "proposal": 15,
+    "runnerSimulation": 20,
+    "syntax": "PASS"
+  },
+  "sharedDevWrites": false,
+  "scratchWritesThisTurn": false,
+  "gitMutation": false,
+  "finishedAt": "2026-11-06T09:57:23.149233+00:00"
+}

@@ -1,0 +1,8 @@
+# T-01 negative controls (Q4) 2026-11-09T12:22:18+06:00
+skip/xit/xdescribe in src/__tests__ (must be 0): 0
+test files under src/__tests__ excluding jest.setup.ts: 39 (expected suites)
+    Expected: 3
+    Received: 2
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+broken-assertion jest exit: 1 (must be non-zero)

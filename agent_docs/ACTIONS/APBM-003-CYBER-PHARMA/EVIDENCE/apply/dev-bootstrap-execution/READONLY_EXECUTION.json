@@ -1,0 +1,19 @@
+{
+  "credentialMapping": "explicit complete in-memory APBM_DEV_ override from working pooler and existing Dev v1 API keys; no .env edit or loader fallback",
+  "results": [
+    {
+      "script": "backup.mjs",
+      "mode": "check",
+      "exit": 1,
+      "stdout": "{\"projectRef\":\"yrsuwikjnbmvpznrgydb\",\"serverMajor\":17,\"tools\":{\"pg_dump\":16,\"pg_restore\":16},\"checkedAt\":\"2026-11-06T09:47:06.552Z\",\"mode\":\"check\",\"status\":\"BLOCKED\",\"reason\":\"MATCHING_MAJOR_BACKUP_TOOLS_REQUIRED\"}",
+      "stderr": ""
+    },
+    {
+      "script": "bootstrap-runner.mjs",
+      "mode": "check",
+      "exit": 1,
+      "stdout": "{\"mode\":\"check\",\"projectRef\":\"yrsuwikjnbmvpznrgydb\",\"bundleSHA256\":\"d502860d7ba2d4952ffb5cefc3c0547ca92e4d72091615584e02773ed2a76a68\",\"startedAt\":\"2026-11-06T09:47:06.675Z\",\"status\":\"BLOCKED\",\"catalog\":\"PASS\",\"privilegeAvailable\":false,\"errorCode\":\"MANAGED_DEFAULT_ACL_PRIVILEGE_REQUIRED\",\"nextAction\":\"Stop; resolve the named prerequisite or failed check. No automatic retry.\",\"committed\":false,\"finishedAt\":\"2026-11-06T09:47:14.030Z\"}",
+      "stderr": ""
+    }
+  ]
+}

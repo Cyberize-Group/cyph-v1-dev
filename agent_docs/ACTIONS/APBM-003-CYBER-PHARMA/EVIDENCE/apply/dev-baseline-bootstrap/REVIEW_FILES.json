@@ -1,0 +1,14 @@
+{
+  "status": "PROPOSED_NOT_EXECUTED",
+  "scope": "new bootstrap proposal files only; prior target-reconciliation changes remain pending separately",
+  "selfExcluded": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-baseline-bootstrap/REVIEW_FILES.json",
+  "files": {
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-baseline-bootstrap/DEV_METADATA.json": "8443f8e4b9dbc3e15e839f0769b73476d627eabd385351e26e899415902d005e",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-baseline-bootstrap/PLAN_MANIFEST.json": "0dba50c5151f59113570863696e017f768e308533cc035be5676af5e2e839226",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-baseline-bootstrap/PROPOSAL.md": "7d47fa12d005081a172f1bfc305880fbf4df290b39774ac7f973d9c5ca193535",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-baseline-bootstrap/PROPOSED_BOOTSTRAP.sql": "ccaa16a3701752a4895705e1dca5456d5eb3171b3c8750cc43001f9ff9b4b3e4",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-baseline-bootstrap/STATIC_RESULTS.json": "41ba0ddcaae619f7fa4005f97aa7d5c598822f9815407bf3aed32353c5898bc4",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-baseline-bootstrap/checks.mjs": "400b66504cf64bdcf4d7f8002149a7273c983fc57472d698c57b7d2f9b01a78e",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-baseline-bootstrap/static-checks.mjs": "4d45673b9374e6ceba2152e7f6c6f3086fbdcb28e8e057c224dd9e453e55a614"
+  }
+}

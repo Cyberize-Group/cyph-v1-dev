@@ -1,0 +1,11 @@
+{
+  "url": "http://localhost:3000/auth",
+  "authStatus": 200,
+  "toolbarAssetStatus": 200,
+  "toolbarAssetMatches": true,
+  "supabaseRefs": [
+    "yrsuwikjnbmvpznrgydb.supabase.co"
+  ],
+  "buildId": "AK6KT5FBjJapcvMBT1MrU",
+  "checkedAt": "2026-11-09T09:43:52.607Z"
+}

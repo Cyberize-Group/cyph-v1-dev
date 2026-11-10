@@ -1,0 +1,6 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+COMMAND: ["find", ".", "-path", "./node_modules", "-prune", "-o", "-path", "./.git", "-prune", "-o", "-type", "f", "(", "-name", "Dockerfile", "-o", "-name", "cloudbuild.yaml", "-o", "-name", "deploy.sh", "-o", "-name", "DEPLOYMENT_PLAYBOOK.md", ")", "-print"]
+EXIT: 0
+STDOUT:
+
+STDERR:

@@ -1,0 +1,16 @@
+/** @jest-environment jsdom */
+// QA instrument (Claudy, Q4 T-38): component-level copy check for C-03 in BOTH data modes. Lives outside src/__tests__
+// so the product board count is untouched. isDemoMode() reads process.env at call time, so each test sets the mode.
+import "@testing-library/jest-dom";
+import { render, screen, waitFor } from "@testing-library/react";
+import DemoMarker from "@/components/admin-portal/DemoMarker";
+import BillingScreen from "@/components/admin-portal/BillingScreen";
+jest.mock("@/services/adminDemo", () => ({ billingService: { listBilling: async () => [{ storeId: "11111111-1111-4111-8111-111111111111", storeName: "SYNTHETIC STORE B1", plan: "unavailable", subscriptionStatus: "unavailable", amountLabel: "Price unavailable" }], managePayment: async () => ({ ok: false, message: "x" }), cancelSubscription: async () => ({ ok: false, message: "x" }) }, ownerStoresService: { addStore: async () => { throw new Error("Not available"); } } }));
+const prev = process.env.NEXT_PUBLIC_APBM_DATA_MODE; afterAll(() => { process.env.NEXT_PUBLIC_APBM_DATA_MODE = prev; });
+describe("C-03 copy by data mode", () => {
+  it("mock mode: DemoMarker keeps 'Demo · mock data' (unchanged)", () => { process.env.NEXT_PUBLIC_APBM_DATA_MODE = "mock"; render(<DemoMarker />); expect(screen.getByText("Demo · mock data")).toBeInTheDocument(); expect(screen.queryByText("Synthetic test data")).toBeNull(); });
+  it("real mode: DemoMarker shows 'Synthetic test data'", () => { process.env.NEXT_PUBLIC_APBM_DATA_MODE = "real"; render(<DemoMarker />); expect(screen.getByText("Synthetic test data")).toBeInTheDocument(); expect(screen.queryByText("Demo · mock data")).toBeNull(); });
+  it("mock mode: Billing footer keeps the demo sentence (unchanged)", async () => { process.env.NEXT_PUBLIC_APBM_DATA_MODE = "mock"; render(<BillingScreen />); await waitFor(() => expect(screen.getByText("Visual only — no real charge is made in this demo.")).toBeInTheDocument()); expect(screen.queryByText(/Billing actions are unavailable/)).toBeNull(); });
+  it("real mode: Billing footer says 'Billing actions are unavailable in this release'", async () => { process.env.NEXT_PUBLIC_APBM_DATA_MODE = "real"; render(<BillingScreen />); await waitFor(() => expect(screen.getByText("Billing actions are unavailable in this release")).toBeInTheDocument()); expect(screen.queryByText(/no real charge/)).toBeNull(); expect(screen.queryByText(/\$\d/)).toBeNull(); });
+  it("instrument control: a deliberately wrong expectation fails", () => { process.env.NEXT_PUBLIC_APBM_DATA_MODE = "real"; render(<DemoMarker />); expect(() => screen.getByText("Demo · mock data")).toThrow(); });
+});

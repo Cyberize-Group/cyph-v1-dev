@@ -1,0 +1,2 @@
+{"projectRef":"yrsuwikjnbmvpznrgydb","readOnly":"on","catalogSHA256":"e2f4ab8b2ec2ef0195c3412a01064d869374682c59e656942e92d337ec23e186","tables":17,"policies":15,"functions":19}
+Bounded authenticated reads PASS: 154 checks

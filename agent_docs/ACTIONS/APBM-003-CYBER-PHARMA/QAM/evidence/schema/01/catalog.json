@@ -1,0 +1,510 @@
+qa-shim: SCRATCH fence OK (url-side ref=ihgcsrypblqkwommrkgj; sql-side DEV fingerprint absent)
+qa-shim: spawning in /tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/fa30ae5a-f519-405b-b673-4ca4f9937817/scratchpad/qa-tree: node /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/AUTOMATION/scratch-sql.mjs (evidence → ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/schema/01)
+[
+  {
+    "sql": "select 'T-11a is_owner_of_account shape' as check, p.prosecdef secdef, p.provolatile vol, p.proconfig::text cfg, has_fun",
+    "rowCount": 1,
+    "rows": [
+      {
+        "check": "T-11a is_owner_of_account shape",
+        "secdef": true,
+        "vol": "s",
+        "cfg": "{\"search_path=\\\"\\\"\"}",
+        "anon_exec": false,
+        "auth_exec": true,
+        "public_exec": false
+      }
+    ]
+  },
+  {
+    "sql": "select 'T-11a my_business_ids def' as check, pg_get_functiondef('public.my_business_ids'::regproc) def",
+    "rowCount": 1,
+    "rows": [
+      {
+        "check": "T-11a my_business_ids def",
+        "def": "CREATE OR REPLACE FUNCTION public.my_business_ids()\n RETURNS SETOF uuid\n LANGUAGE sql\n STABLE SECURITY DEFINER\n SET search_path TO ''\nAS $function$\n select ub.business_id from public.user_businesses ub where ub.user_id=auth.uid()\n union\n select b.id from public.businesses b where public.is_owner_of_account(b.account_id);\n$function$\n"
+      }
+    ]
+  },
+  {
+    "sql": "select 'T-11b policies per table x cmd' as check, tablename, cmd, count(*) filter (where permissive='PERMISSIVE') permis",
+    "rowCount": 15,
+    "rows": [
+      {
+        "check": "T-11b policies per table x cmd",
+        "tablename": "aac_reference",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "aac_reference_select_authenticated"
+      },
+      {
+        "check": "T-11b policies per table x cmd",
+        "tablename": "accounts",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "account_select_member_or_owner"
+      },
+      {
+        "check": "T-11b policies per table x cmd",
+        "tablename": "businesses",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "business_select_member_or_owner"
+      },
+      {
+        "check": "T-11b policies per table x cmd",
+        "tablename": "businesses",
+        "cmd": "UPDATE",
+        "permissive_n": "1",
+        "names": "business_update_admin"
+      },
+      {
+        "check": "T-11b policies per table x cmd",
+        "tablename": "ful_reference",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "ful_reference_select_authenticated"
+      },
+      {
+        "check": "T-11b policies per table x cmd",
+        "tablename": "pbm_info",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "pbm_info_select_authenticated"
+      },
+      {
+        "check": "T-11b policies per table x cmd",
+        "tablename": "profiles",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "Profiles are viewable by owner or superadmins"
+      },
+      {
+        "check": "T-11b policies per table x cmd",
+        "tablename": "profiles",
+        "cmd": "UPDATE",
+        "permissive_n": "1",
+        "names": "Profiles are updatable by owner or superadmins"
+      },
+      {
+        "check": "T-11b policies per table x cmd",
+        "tablename": "reference_dataset_versions",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "reference_dataset_versions_select_authenticated"
+      },
+      {
+        "check": "T-11b policies per table x cmd",
+        "tablename": "report_files",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "report_files_select_member"
+      },
+      {
+        "check": "T-11b policies per table x cmd",
+        "tablename": "subscriptions",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "subscription_select_member_or_owner"
+      },
+      {
+        "check": "T-11b policies per table x cmd",
+        "tablename": "system_config",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "config_select_scoped_state"
+      },
+      {
+        "check": "T-11b policies per table x cmd",
+        "tablename": "user_businesses",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "user_business_select_self_or_owner"
+      },
+      {
+        "check": "T-11b policies per table x cmd",
+        "tablename": "user_roles",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "Users can read their own role"
+      },
+      {
+        "check": "T-11b policies per table x cmd",
+        "tablename": "wac_reference",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "wac_reference_select_authenticated"
+      }
+    ]
+  },
+  {
+    "sql": "select 'T-11b totals' as check, count(*) total, count(*) filter (where permissive='PERMISSIVE') permissive, count(*) fil",
+    "rowCount": 1,
+    "rows": [
+      {
+        "check": "T-11b totals",
+        "total": "15",
+        "permissive": "15",
+        "user_data_policies": "0",
+        "audit_logs_select": "0",
+        "owner_policies": "6"
+      }
+    ]
+  },
+  {
+    "sql": "select 'T-11c policy bodies referencing user_roles' as check, count(*) n from pg_policies where schemaname='public' and ",
+    "rowCount": 1,
+    "rows": [
+      {
+        "check": "T-11c policy bodies referencing user_roles",
+        "n": "2"
+      }
+    ]
+  },
+  {
+    "sql": "select 'T-11d one-admin partial unique index' as check, indexname, indexdef from pg_indexes where schemaname='public' an",
+    "rowCount": 1,
+    "rows": [
+      {
+        "check": "T-11d one-admin partial unique index",
+        "indexname": "user_businesses_one_admin",
+        "indexdef": "CREATE UNIQUE INDEX user_businesses_one_admin ON public.user_businesses USING btree (business_id) WHERE (role = 'admin'::text)"
+      }
+    ]
+  },
+  {
+    "sql": "select 'T-11e grants on user_data/audit_logs/system_config to anon/authenticated/PUBLIC' as check, grantee, table_name, ",
+    "rowCount": 15,
+    "rows": [
+      {
+        "check": "T-11e grants on user_data/audit_logs/system_config to anon/authenticated/PUBLIC",
+        "grantee": "anon",
+        "table_name": "audit_logs",
+        "privilege_type": "REFERENCES"
+      },
+      {
+        "check": "T-11e grants on user_data/audit_logs/system_config to anon/authenticated/PUBLIC",
+        "grantee": "anon",
+        "table_name": "audit_logs",
+        "privilege_type": "TRUNCATE"
+      },
+      {
+        "check": "T-11e grants on user_data/audit_logs/system_config to anon/authenticated/PUBLIC",
+        "grantee": "anon",
+        "table_name": "audit_logs",
+        "privilege_type": "INSERT"
+      },
+      {
+        "check": "T-11e grants on user_data/audit_logs/system_config to anon/authenticated/PUBLIC",
+        "grantee": "anon",
+        "table_name": "audit_logs",
+        "privilege_type": "TRIGGER"
+      },
+      {
+        "check": "T-11e grants on user_data/audit_logs/system_config to anon/authenticated/PUBLIC",
+        "grantee": "anon",
+        "table_name": "user_data",
+        "privilege_type": "TRUNCATE"
+      },
+      {
+        "check": "T-11e grants on user_data/audit_logs/system_config to anon/authenticated/PUBLIC",
+        "grantee": "anon",
+        "table_name": "user_data",
+        "privilege_type": "REFERENCES"
+      },
+      {
+        "check": "T-11e grants on user_data/audit_logs/system_config to anon/authenticated/PUBLIC",
+        "grantee": "anon",
+        "table_name": "user_data",
+        "privilege_type": "TRIGGER"
+      },
+      {
+        "check": "T-11e grants on user_data/audit_logs/system_config to anon/authenticated/PUBLIC",
+        "grantee": "authenticated",
+        "table_name": "audit_logs",
+        "privilege_type": "TRUNCATE"
+      },
+      {
+        "check": "T-11e grants on user_data/audit_logs/system_config to anon/authenticated/PUBLIC",
+        "grantee": "authenticated",
+        "table_name": "audit_logs",
+        "privilege_type": "TRIGGER"
+      },
+      {
+        "check": "T-11e grants on user_data/audit_logs/system_config to anon/authenticated/PUBLIC",
+        "grantee": "authenticated",
+        "table_name": "audit_logs",
+        "privilege_type": "REFERENCES"
+      },
+      {
+        "check": "T-11e grants on user_data/audit_logs/system_config to anon/authenticated/PUBLIC",
+        "grantee": "authenticated",
+        "table_name": "audit_logs",
+        "privilege_type": "INSERT"
+      },
+      {
+        "check": "T-11e grants on user_data/audit_logs/system_config to anon/authenticated/PUBLIC",
+        "grantee": "authenticated",
+        "table_name": "system_config",
+        "privilege_type": "SELECT"
+      },
+      {
+        "check": "T-11e grants on user_data/audit_logs/system_config to anon/authenticated/PUBLIC",
+        "grantee": "authenticated",
+        "table_name": "user_data",
+        "privilege_type": "TRUNCATE"
+      },
+      {
+        "check": "T-11e grants on user_data/audit_logs/system_config to anon/authenticated/PUBLIC",
+        "grantee": "authenticated",
+        "table_name": "user_data",
+        "privilege_type": "REFERENCES"
+      },
+      {
+        "check": "T-11e grants on user_data/audit_logs/system_config to anon/authenticated/PUBLIC",
+        "grantee": "authenticated",
+        "table_name": "user_data",
+        "privilege_type": "TRIGGER"
+      }
+    ]
+  },
+  {
+    "sql": "select 'T-11e default ACLs' as check, pg_get_userbyid(d.defaclrole) owner, coalesce(n.nspname,'') nsp, d.defaclobjtype o",
+    "rowCount": 21,
+    "rows": [
+      {
+        "check": "T-11e default ACLs",
+        "owner": "postgres",
+        "nsp": "public",
+        "objtype": "S",
+        "acl": "{postgres=rwU/postgres,anon=rwU/postgres,authenticated=rwU/postgres,service_role=rwU/postgres}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "postgres",
+        "nsp": "public",
+        "objtype": "f",
+        "acl": "{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "postgres",
+        "nsp": "public",
+        "objtype": "r",
+        "acl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "postgres",
+        "nsp": "storage",
+        "objtype": "r",
+        "acl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "postgres",
+        "nsp": "storage",
+        "objtype": "f",
+        "acl": "{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "postgres",
+        "nsp": "storage",
+        "objtype": "S",
+        "acl": "{postgres=rwU/postgres,anon=rwU/postgres,authenticated=rwU/postgres,service_role=rwU/postgres}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "supabase_admin",
+        "nsp": "extensions",
+        "objtype": "f",
+        "acl": "{postgres=X*/supabase_admin}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "supabase_admin",
+        "nsp": "extensions",
+        "objtype": "r",
+        "acl": "{postgres=a*r*w*d*D*x*t*m*/supabase_admin}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "supabase_admin",
+        "nsp": "extensions",
+        "objtype": "S",
+        "acl": "{postgres=r*w*U*/supabase_admin}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "supabase_admin",
+        "nsp": "graphql",
+        "objtype": "f",
+        "acl": "{postgres=X/supabase_admin,anon=X/supabase_admin,authenticated=X/supabase_admin,service_role=X/supabase_admin}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "supabase_admin",
+        "nsp": "graphql",
+        "objtype": "S",
+        "acl": "{postgres=rwU/supabase_admin,anon=rwU/supabase_admin,authenticated=rwU/supabase_admin,service_role=rwU/supabase_admin}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "supabase_admin",
+        "nsp": "graphql",
+        "objtype": "r",
+        "acl": "{postgres=arwdDxtm/supabase_admin,anon=arwdDxtm/supabase_admin,authenticated=arwdDxtm/supabase_admin,service_role=arwdDxtm/supabase_admin}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "supabase_admin",
+        "nsp": "graphql_public",
+        "objtype": "r",
+        "acl": "{postgres=arwdDxtm/supabase_admin,anon=arwdDxtm/supabase_admin,authenticated=arwdDxtm/supabase_admin,service_role=arwdDxtm/supabase_admin}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "supabase_admin",
+        "nsp": "graphql_public",
+        "objtype": "S",
+        "acl": "{postgres=rwU/supabase_admin,anon=rwU/supabase_admin,authenticated=rwU/supabase_admin,service_role=rwU/supabase_admin}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "supabase_admin",
+        "nsp": "graphql_public",
+        "objtype": "f",
+        "acl": "{postgres=X/supabase_admin,anon=X/supabase_admin,authenticated=X/supabase_admin,service_role=X/supabase_admin}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "supabase_admin",
+        "nsp": "realtime",
+        "objtype": "S",
+        "acl": "{postgres=rwU/supabase_admin,dashboard_user=rwU/supabase_admin}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "supabase_admin",
+        "nsp": "realtime",
+        "objtype": "f",
+        "acl": "{postgres=X/supabase_admin,dashboard_user=X/supabase_admin}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "supabase_admin",
+        "nsp": "realtime",
+        "objtype": "r",
+        "acl": "{postgres=a*r*wdDxtm/supabase_admin,dashboard_user=arwdDxtm/supabase_admin}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "supabase_auth_admin",
+        "nsp": "auth",
+        "objtype": "f",
+        "acl": "{postgres=X/supabase_auth_admin,dashboard_user=X/supabase_auth_admin}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "supabase_auth_admin",
+        "nsp": "auth",
+        "objtype": "S",
+        "acl": "{postgres=rwU/supabase_auth_admin,dashboard_user=rwU/supabase_auth_admin}"
+      },
+      {
+        "check": "T-11e default ACLs",
+        "owner": "supabase_auth_admin",
+        "nsp": "auth",
+        "objtype": "r",
+        "acl": "{postgres=arwdDxtm/supabase_auth_admin,dashboard_user=arwdDxtm/supabase_auth_admin}"
+      }
+    ]
+  },
+  {
+    "sql": "select 'T-11 handle_new_user revoked' as check, has_function_privilege('anon','public.handle_new_user()','EXECUTE') anon",
+    "rowCount": 1,
+    "rows": [
+      {
+        "check": "T-11 handle_new_user revoked",
+        "anon_exec": false,
+        "auth_exec": false
+      }
+    ]
+  },
+  {
+    "sql": "select 'T-19 admin RPC shape' as check, p.proname, p.prosecdef secdef, p.proconfig::text cfg, has_function_privilege('an",
+    "rowCount": 5,
+    "rows": [
+      {
+        "check": "T-19 admin RPC shape",
+        "proname": "admin_audit",
+        "secdef": true,
+        "cfg": "{\"search_path=\\\"\\\"\"}",
+        "anon_exec": false,
+        "auth_exec": true,
+        "public_exec": false
+      },
+      {
+        "check": "T-19 admin RPC shape",
+        "proname": "admin_billing_status",
+        "secdef": true,
+        "cfg": "{\"search_path=\\\"\\\"\"}",
+        "anon_exec": false,
+        "auth_exec": true,
+        "public_exec": false
+      },
+      {
+        "check": "T-19 admin RPC shape",
+        "proname": "admin_members",
+        "secdef": true,
+        "cfg": "{\"search_path=\\\"\\\"\"}",
+        "anon_exec": false,
+        "auth_exec": true,
+        "public_exec": false
+      },
+      {
+        "check": "T-19 admin RPC shape",
+        "proname": "admin_stores",
+        "secdef": true,
+        "cfg": "{\"search_path=\\\"\\\"\"}",
+        "anon_exec": false,
+        "auth_exec": true,
+        "public_exec": false
+      },
+      {
+        "check": "T-19 admin RPC shape",
+        "proname": "tenant_stores",
+        "secdef": true,
+        "cfg": "{\"search_path=\\\"\\\"\"}",
+        "anon_exec": false,
+        "auth_exec": true,
+        "public_exec": false
+      }
+    ]
+  },
+  {
+    "sql": "select 'T-21 handle_new_user def' as check, pg_get_functiondef('public.handle_new_user'::regproc) def",
+    "rowCount": 1,
+    "rows": [
+      {
+        "check": "T-21 handle_new_user def",
+        "def": "CREATE OR REPLACE FUNCTION public.handle_new_user()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO ''\nAS $function$\nbegin\n insert into public.user_roles(user_id,role) values(new.id,'member'::public.app_role)\n on conflict(user_id) do nothing;\n insert into public.profiles(id,email,full_name) values(new.id,new.email,new.raw_user_meta_data->>'full_name')\n on conflict(id) do nothing;\n return new;\nend;\n$function$\n"
+      }
+    ]
+  },
+  {
+    "sql": "select 'ownership FK' as check, conname, confdeltype from pg_constraint where conrelid='public.accounts'::regclass and c",
+    "rowCount": 1,
+    "rows": [
+      {
+        "check": "ownership FK",
+        "conname": "accounts_owner_user_id_fkey",
+        "confdeltype": "a"
+      }
+    ]
+  },
+  {
+    "transaction": "ROLLBACK"
+  }
+]

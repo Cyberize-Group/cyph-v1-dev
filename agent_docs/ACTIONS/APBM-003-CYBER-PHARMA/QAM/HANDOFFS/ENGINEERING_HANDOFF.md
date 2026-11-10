@@ -1,6 +1,6 @@
 # ENGINEERING_HANDOFF — APBM-003-CYBER-PHARMA
 
-Cody / Codex · 2026-11-09 · `/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev` · branch `qa/apbm-003` · HEAD `4d64504e85c56f1c987a703dd94575f489cb99ce`. Repaired candidate **PENDING Director commit**. Companion: `../QAM_MANIFEST.md`. Engineering CLAIMs only; no QA results or certification.
+Cody / Codex · 2026-11-09 · `/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev` · branch `qa/apbm-003` · HEAD `4d64504e85c56f1c987a703dd94575f489cb99ce`. Repaired candidate **dc44429f466dedcf35023342f68624c6cee062f0** (F-09 corrected at closeout). Companion: `../QAM_MANIFEST.md`. Engineering CLAIMs only; no QA results or certification.
 
 ## 1. Built behavior and self-verification (44 ACs)
 
@@ -47,7 +47,7 @@ Cody / Codex · 2026-11-09 · `/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev` · b
 | AC-802 | CLAIM PASS (SCRATCH): exact 15-policy AC7 and structural oracle; stage-5/audit-final/audit-8.log. | `../../APBM_ACCEPTANCE_LEDGER.md; EVIDENCE/E2/IMPLEMENTED_OPERATION_PLAN.md; EVIDENCE/E2/stage-5/`; manifest §2 path inventory | Read retained engineering evidence listed here; no live rerun in this repair; details in manifest §3/§8 |
 | AC-803 | CLAIM: repaired source typecheck PASS; lint 0 errors/34 warnings; Jest 39 suites/196 tests PASS, 0 skipped. Earlier build PASS retained; repaired production build not run to preserve existing server/build state. | `../../QAM/QAM_MANIFEST.md §8; EVIDENCE/E2/stage-6/HANDOFF.md`; manifest §2 path inventory | npx tsc --noEmit --tsBuildInfoFile /tmp/apbm-q4.tsbuildinfo; npx eslint .; NEXT_PUBLIC_APBM_DATA_MODE=mock npx jest --runInBand --ci; details in manifest §3/§8 |
 | AC-804 | CLAIM PASS: dependencies and lockfile unchanged; package scripts only. | `../../APBM_ACCEPTANCE_LEDGER.md; EVIDENCE/E2/IMPLEMENTED_OPERATION_PLAN.md; EVIDENCE/E2/stage-5/`; manifest §2 path inventory | Read retained engineering evidence listed here; no live rerun in this repair; details in manifest §3/§8 |
-| AC-901 | CLAIM: manifest and engineering handoff filled with 44 AC rows and full path inventory; candidate PENDING Director commit. | `../../CONTRACTS/TARGET_ONE_RELEASE_CONTRACT.md; QAM/QAM_MANIFEST.md §8; APBM_STATE.md; APBM_JOURNAL.md`; manifest §2 path inventory | Read retained engineering evidence listed here; no live rerun in this repair; details in manifest §3/§8 |
+| AC-901 | CLAIM: manifest and engineering handoff filled with 44 AC rows and full path inventory; certified repaired candidate dc44429f466dedcf35023342f68624c6cee062f0; pagination successor pending its own commit/review. | `../../CONTRACTS/TARGET_ONE_RELEASE_CONTRACT.md; QAM/QAM_MANIFEST.md §8; APBM_STATE.md; APBM_JOURNAL.md`; manifest §2 path inventory | Read retained engineering evidence listed here; no live rerun in this repair; details in manifest §3/§8 |
 | AC-902 | CLAIM: tester limitations and pending Gate D address recorded; truthful real-mode labels repaired; independent certification not claimed. | `../../CONTRACTS/TARGET_ONE_RELEASE_CONTRACT.md; QAM/QAM_MANIFEST.md §8; APBM_STATE.md; APBM_JOURNAL.md`; manifest §2 path inventory | Read retained engineering evidence listed here; no live rerun in this repair; details in manifest §3/§8 |
 | AC-903 | CLAIM: retrospective E2 completion and stage-8 no-deployment entry plus current repair entry recorded in state/journal; authority and history preserved. | `../../CONTRACTS/TARGET_ONE_RELEASE_CONTRACT.md; QAM/QAM_MANIFEST.md §8; APBM_STATE.md; APBM_JOURNAL.md`; manifest §2 path inventory | Read retained engineering evidence listed here; no live rerun in this repair; details in manifest §3/§8 |
 
@@ -84,3 +84,8 @@ Director decides release/commit and later deployment. Friday owns Q4 scope; Clau
 ## 6. Exclusions
 
 No QA findings authored, no QA results assigned, no plan rewritten, no certificate issued. Friday's release-record blocks were only transcribed in the expressly authorized files. No credentials, Auth state or raw authenticated traces are present here. No DB writes, migration/seed runs, scripts/services edits, environment changes, server operations or Git mutations occurred in this repair.
+
+
+## 2026-11-09 closeout reconciliation — Cody
+
+F-09 repaired identity is now explicit. Tony accepts Target One with limitations and reports Owner admin views, filters, store switching, pagination and mobile working; MEMBER_B1 filters/mobile working with no admin access reported; pagination usability approved as beautiful/perfect. No Director UNRELATED test, exact picker verification or full seven-account smoke is claimed. Friday's unchanged certificate binds dc44429f only: 40 PASS, 1 ACCEPTED LIMITATION (AC-401 restore not demonstrated), 3 NOT RUN. Pagination successor requires Friday's targeted disposition; cleanup acceptance remains unrecorded. DEV APPLY succeeded; deployment deferred; Gate D/production readiness pending. See CLOSEOUT/CLOSEOUT.md, FOLLOW_UPS.md and RETROSPECTIVE.md at module root/closeout paths.

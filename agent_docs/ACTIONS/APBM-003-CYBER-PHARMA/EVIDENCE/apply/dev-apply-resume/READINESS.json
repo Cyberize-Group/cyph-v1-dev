@@ -1,0 +1,149 @@
+{
+  "startedAt": "2026-11-06T14:41:09.436Z",
+  "status": "BLOCKED",
+  "backup": {
+    "dev-before.dump": {
+      "sha256": "1d33881a1b49f85d20ecee6514a56f94552055efd6dc19f58942b12316dda692",
+      "matchesReceipt": true,
+      "mode": "600"
+    },
+    "source-proof.private.json": {
+      "sha256": "da66a9e80edf45999acae890f4f933dee27d356d68c4bff260d21165012c2600",
+      "matchesReceipt": true,
+      "mode": "600"
+    }
+  },
+  "configuration": {
+    "devSqlRef": "yrsuwikjnbmvpznrgydb",
+    "devApiRef": "yrsuwikjnbmvpznrgydb",
+    "devDbUrlIsSessionPooler": false,
+    "devSqlVariablesIdentical": false,
+    "otherRestoreVariableNames": []
+  },
+  "targets": {
+    "dev": {
+      "projectRef": "yrsuwikjnbmvpznrgydb",
+      "status": "READ_ONLY_CHECK_PASS",
+      "explicitReadOnlySqlVariable": "APBM_DEV_DB_POOL",
+      "readOnly": "on",
+      "serverVersion": "17.6",
+      "requiredFourIndexes": [
+        {
+          "name": "idx_users_created_at_desc",
+          "present": true,
+          "exactDefinition": true,
+          "valid": true,
+          "ready": true,
+          "live": true
+        },
+        {
+          "name": "idx_users_email",
+          "present": true,
+          "exactDefinition": true,
+          "valid": true,
+          "ready": true,
+          "live": true
+        },
+        {
+          "name": "idx_users_last_sign_in_at_desc",
+          "present": true,
+          "exactDefinition": true,
+          "valid": true,
+          "ready": true,
+          "live": true
+        },
+        {
+          "name": "idx_users_name",
+          "present": true,
+          "exactDefinition": true,
+          "valid": true,
+          "ready": true,
+          "live": true
+        }
+      ],
+      "restorePrivileges": {
+        "operator": "postgres",
+        "superuser": false,
+        "authschemacreate": false,
+        "authownermember": false,
+        "authownerinherited": false,
+        "authownersetrole": false,
+        "authusersowner": "supabase_auth_admin",
+        "manageddefaultaclownerinherited": false
+      },
+      "catalogSHA256": "da2a46ee54a85bcc8a9e4f54eb0f14106a68d4a336e3a165170f77b17620a07b",
+      "apbmLedgerPresent": false
+    },
+    "scratch": {
+      "projectRef": "ihgcsrypblqkwommrkgj",
+      "status": "READ_ONLY_CHECK_PASS",
+      "explicitReadOnlySqlVariable": "RLS_REPLICA_DB_URL",
+      "readOnly": "on",
+      "serverVersion": "17.6",
+      "requiredFourIndexes": [
+        {
+          "name": "idx_users_created_at_desc",
+          "present": false,
+          "exactDefinition": false,
+          "valid": false,
+          "ready": false,
+          "live": false
+        },
+        {
+          "name": "idx_users_email",
+          "present": false,
+          "exactDefinition": false,
+          "valid": false,
+          "ready": false,
+          "live": false
+        },
+        {
+          "name": "idx_users_last_sign_in_at_desc",
+          "present": false,
+          "exactDefinition": false,
+          "valid": false,
+          "ready": false,
+          "live": false
+        },
+        {
+          "name": "idx_users_name",
+          "present": false,
+          "exactDefinition": false,
+          "valid": false,
+          "ready": false,
+          "live": false
+        }
+      ],
+      "restorePrivileges": {
+        "operator": "postgres",
+        "superuser": false,
+        "authschemacreate": false,
+        "authownermember": false,
+        "authownerinherited": false,
+        "authownersetrole": false,
+        "authusersowner": "supabase_auth_admin",
+        "manageddefaultaclownerinherited": false
+      },
+      "catalogSHA256": "66782ff92213415443d428ade161b165e04a5aba29999453cb0ab34a7160d061",
+      "apbmLedgerPresent": true
+    }
+  },
+  "signup": {
+    "status": "ENABLED_VERIFIED",
+    "httpStatus": 200,
+    "disableSignup": false,
+    "observedAt": "2026-11-06T14:41:17.347Z",
+    "method": "GET /auth/v1/settings with publishable apikey; no signup attempted"
+  },
+  "effects": "Read-only SQL catalogs and GET Auth settings; no database writes, user login or project creation",
+  "restoreGate": {
+    "approvedExistingTarget": "ihgcsrypblqkwommrkgj",
+    "missingOrChangedAuthIndexes": [
+      "idx_users_created_at_desc",
+      "idx_users_email",
+      "idx_users_last_sign_in_at_desc",
+      "idx_users_name"
+    ]
+  },
+  "finishedAt": "2026-11-06T14:41:19.340Z"
+}

@@ -50,6 +50,15 @@ Authority: Director (Tony). Adjudication: Friday (QA Lead), 2026-11-09. Transcri
 
 transcribed by Cody from Q4_RELEASE_RECORDS_2026-11-09.md
 
+
+### 2026-11-09 — Director-approved post-certification pagination usability repair
+
+Authority: Tony's explicit pagination repair instruction; recorded by Cody. This new product change requires Friday's targeted review and does not extend any prior certificate to the new revision. Prior repaired candidate `dc44429f466dedcf35023342f68624c6cee062f0` and existing certificate records remain unchanged. The local certificate currently has NOT RECORDED fields; no retroactive certification is invented.
+
+Exact product/test paths: `src/components/owedbook/OwedBookScreen.tsx`, new `src/components/owedbook/ResultsToolbar.tsx`, new `src/__tests__/owedbook/ResultsToolbar.test.tsx`, `src/__tests__/apbm-read-states.test.tsx`. Documentation: this ruling, `QAM/QAM_MANIFEST.md` §8, `APBM_JOURNAL.md`; engineering verification artifacts under `EVIDENCE/E2/pagination-usability/` (README.md, validation logs, layout verification script/results and screenshots). No global style changes. Affects AC-502/503/507/803/902. This instruction adds only this finite presentation/verification scope to the prior allowlist.
+
+Move navigation below active paginated results, outside horizontal scrolling; use clear dynamic ranges, page size, page count, Previous/Next buttons, responsive theme-token styling and keyboard focus. Preserve query behavior, filters, sorting, tabs, store reset and stale-response fencing. No toolbar on Summary or unavailable Federal. No DB/auth/admin/fixture/calculation/migration/service changes; no Git mutation or deployment. Tony performs manual smoke, Friday owns targeted review of the new candidate.
+
 🥄
 
 ## D. Proposed amendment A01 — NOT IN FORCE

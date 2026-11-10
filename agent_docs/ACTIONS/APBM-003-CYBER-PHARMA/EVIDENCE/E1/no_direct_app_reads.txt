@@ -1,0 +1,4 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+COMMAND: ["rg", "-n", "\\.from\\(['\\\"]user_data['\\\"]\\)|\\b(from|join)\\s+(public\\.)?user_data\\b", "src"]
+EXIT: 1
+

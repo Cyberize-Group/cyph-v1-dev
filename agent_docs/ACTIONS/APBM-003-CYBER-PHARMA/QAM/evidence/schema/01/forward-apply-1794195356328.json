@@ -1,0 +1,12 @@
+{
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "command": "apply",
+  "startedAt": "2026-11-09T03:35:55.454Z",
+  "committed": [],
+  "status": "STOP_PARTIAL_FAILURE",
+  "failedMigration": null,
+  "errorCode": null,
+  "reason": "ledger is not an unchanged ordered prefix",
+  "recovery": "Stop. Prior committed migrations remain. Director verifies catalog/ledger and chooses rehearsed restore or a reviewed remaining-chain recovery. Never reset/replay DEV.",
+  "finishedAt": "2026-11-09T03:35:56.328Z"
+}

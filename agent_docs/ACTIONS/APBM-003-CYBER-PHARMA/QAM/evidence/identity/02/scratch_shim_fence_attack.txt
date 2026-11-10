@@ -1,0 +1,2 @@
+qa-shim: STOP-IDENTITY scratch fence: QA_SCRATCH_SUPABASE_URL ref; QA_SCRATCH_DB_URL ref — refused; nothing spawned
+exit=3

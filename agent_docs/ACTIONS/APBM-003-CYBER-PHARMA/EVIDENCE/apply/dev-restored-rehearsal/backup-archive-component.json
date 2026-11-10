@@ -1,0 +1,24 @@
+{
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "serverMajor": 17,
+  "tools": {
+    "pg_dump": 17,
+    "pg_restore": 17
+  },
+  "checkedAt": "2026-11-06T10:35:38.872Z",
+  "mode": "backup",
+  "status": "ARCHIVE_COMPONENT_COMPLETE",
+  "coverageComplete": false,
+  "privateDirectory": "/tmp/apbm003-dev-backup-1793961338872-98f557403a",
+  "backupSHA256": "65390c55c710ef382d037d1a1feb7ea68f24a118b601fc009f236a3844654661",
+  "coverage": [
+    "public schema/data/default ACLs",
+    "Auth schema/data",
+    "native migration schema/data"
+  ],
+  "remainingCoverage": [
+    "private provider Auth configuration and exclusions",
+    "role/trigger/sequence metadata inventory",
+    "focused restore verification"
+  ]
+}

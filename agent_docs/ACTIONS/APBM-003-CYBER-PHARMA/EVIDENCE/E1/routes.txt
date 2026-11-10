@@ -1,0 +1,22 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+UTC: 2026-11-05T13:53:33.473790+00:00
+COMMAND: ["find", "src/app", "-type", "f", "(", "-name", "page.tsx", "-o", "-name", "route.ts", ")"]
+EXIT: 0
+STDOUT:
+src/app/api/auth/login/route.ts
+src/app/api/auth/logout/route.ts
+src/app/api/auth/confirm/route.ts
+src/app/owedbook/page.tsx
+src/app/error/page.tsx
+src/app/(public)/page.tsx
+src/app/(public)/access-denied/page.tsx
+src/app/(admin)/admin-portal/settings/page.tsx
+src/app/(admin)/admin-portal/page.tsx
+src/app/(admin)/admin-portal/stores/[id]/invite/page.tsx
+src/app/(admin)/admin-portal/stores/[id]/page.tsx
+src/app/(admin)/admin-portal/billing/page.tsx
+src/app/(admin)/admin-portal/audit/page.tsx
+src/app/profile/page.tsx
+src/app/(auth)/auth/page.tsx
+
+STDERR:

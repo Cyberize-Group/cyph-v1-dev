@@ -1,0 +1,924 @@
+Local read-only source capture; CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+
+FILE: agent_docs/SKILLS/stark-recon-skill-v1.1/README.md
+1: # stark-recon
+2: 
+3: > **An Agent Skill for the Stark Industries App Factory.** Establishes ground truth about a repo before any Architect authors a brief or FFM against it.
+4: 
+5: ## What it does
+6: 
+7: Docs drift. Handbooks, APP_BRIEFs, and session logs make claims about disk state that go stale. An Architect who authors against a stale doc produces a correct artifact built on wrong data — and pays for it later in conflict after conflict at the build gate.
+8: 
+9: `stark-recon` closes that hole. The Engineer (Claudy) runs it against the actual filesystem + grep + build output and produces a **Recon Report**. The Architect authors only from that report. Where any doc and the filesystem disagree, the filesystem wins.
+10: 
+11: This is **Recon Mode** — the Architect's equivalent of Plan Mode. Plan Mode keeps the Engineer from coding blind; Recon Mode keeps the Architect from authoring blind.
+12: 
+13: ## Mandatory-first
+14: 
+15: **No brief, no FFM, gets authored without a Recon Report for the repo's current state.** Every project, every kit, every phase. Re-run when significant work has landed since the last recon.
+16: 
+17: ## How to run
+18: 
+19: Drop this folder under your `_SKILLS/`. Then point the agent at it:
+20: 
+21: > "Go read `_SKILLS/stark-recon/CLAUDE.md` and run a recon on this repo. Read-only. Hand me the report when done."
+22: 
+23: The agent reads `CLAUDE.md` (doctrine) → `SKILL.md` (methodology) → executes `templates/RECON_MISSION.md` → answers in `templates/RECON_REPORT_TEMPLATE.md` format → STOPS and hands back the report.
+24: 
+25: ## What it is NOT
+26: 
+27: Not `brain-drain`. Brain-drain is a deep architecture extraction (11 docs, hours). Recon is fast, targeted doc-vs-disk verification (one report, ~30 min) focused only on drift that would mislead authoring.
+28: 
+29: ## Contents
+30: 
+31: - `CLAUDE.md` — doctrine, mandatory-first rule, activation
+32: - `SKILL.md` — the six-phase recon methodology
+33: - `templates/RECON_MISSION.md` — the generic, kit-agnostic questionnaire
+34: - `templates/RECON_REPORT_TEMPLATE.md` — the output format
+35: - `references/EVIDENCE_DISCIPLINE.md` — finding labels + disk-wins rule
+36: - `references/ANTI_PATTERNS.md` — recon failure modes
+37: - `examples/` — a real successful run (Cyber Pharma v1, pre-Phase-2)
+38: 
+39: 🛡️ *Part of Stark Industries — AI App Factory.*
+
+FILE: agent_docs/SKILLS/stark-recon-skill-v1.1/SKILL.md
+1: ---
+2: name: stark-recon
+3: description: >
+4:   Establish ground truth about a repo before any Architect authors a brief or FFM
+5:   against it. The agent reads the filesystem, runs greps, and inspects build output
+6:   to verify what docs CLAIM against what disk ACTUALLY contains, then produces a
+7:   structured Recon Report. Use this skill at the START of any project, any phase,
+8:   before authoring APP_BRIEF / DATA_CONTRACT / UI_SPEC / FFM files — and whenever
+9:   significant work has landed since the last recon (phase closed, kit upgraded,
+10:   branches merged). Triggers: "run a recon", "ground-truth the repo", "stark-recon",
+11:   "verify before authoring", "what are we actually working with". Read-only of the
+12:   inspected codebase (no source changes, no fixes, no git); the one write it makes is
+13:   the Recon Report FILE — mandatory output, written to agent_docs/recon/, never
+14:   on-screen only. This is NOT a deep architecture extraction (that is brain-drain, 11
+15:   docs, hours) — recon is fast, targeted doc-vs-disk verification (one report, ~30
+16:   min) focused on drift that would mislead authoring.
+17: allowed-tools: [bash, view, create_file]
+18: ---
+19: 
+20: # Stark Recon
+21: 
+22: You are the **Engineer** running a ground-truth recon for the **Architect**. Your output is a **Recon Report** the Architect will author the next brief/FFM from. You verify; you do not fix. Where any doc and the filesystem disagree, the filesystem wins, and you flag the drift.
+23: 
+24: Read `CLAUDE.md` first (doctrine). Then execute the mission in `templates/RECON_MISSION.md`, answering in the format of `templates/RECON_REPORT_TEMPLATE.md`, labeling every finding per `references/EVIDENCE_DISCIPLINE.md`.
+25: 
+26: ---
+27: 
+28: ## The Recon Sequence
+29: 
+30: Six phases. Read-only throughout. Announce the scope, execute, assemble one report, STOP.
+31: 
+32: ### Phase 0 — Day-0 Ground-Truth Sweep (run FIRST)
+33: 
+34: The highest-value drift, caught fastest. Per `RECON_MISSION.md` Section 0:
+35: - Verify **every handbook-named file exists** on disk (the #1 lie class).
+36: - Verify **handbook-claimed exports/shapes** match disk (`cat` the stores/utils the handbook describes; compare).
+37: - Run the **forbidden-zone greps** against the kit itself, NOW (`: any`, `dangerouslySetInnerHTML`, `user_metadata.(is_|role)`).
+38: - Verify **every doc-named route/path** by `find` before trusting it.
+39: - Confirm the **test runner** (`grep -E '"test":|vitest|jest' package.json`).
+40: - Ground-truth **env names** from the example file + `grep process.env` in code — never from docs.
+41: - Run the **build route table** (`npm run build` output) — ground truth for what surfaces exist.
+42: 
+43: Every finding gets a label. Every doc-vs-disk mismatch gets flagged.
+44: 
+45: ### Phase 1 — Stack & Structure
+46: 
+47: `RECON_MISSION.md` Sections 1-2: exact versions from `package.json` (Next, React, TS, Tailwind → token mechanic, Node pin, test runner, other heavyweights); kit structure vs handbook claims; existing directories (`src/services/`, `src/utils/`, `src/store/`, `src/types/`); route groups; `proxy.ts` vs `middleware.ts`.
+48: 
+49: ### Phase 2 — Auth, Design & Data
+50: 
+51: `RECON_MISSION.md` Sections 3-5: the auth pattern (how user is read, how role resolves, whether a service layer exists, `user_metadata` role smells, route gates); design reality (token file + mechanic, numbered-color count, dark mode, font, theme toggle, CSS extension match, dark-mode real-screen note); database (migrations vs setup SQL, tables, enums, triggers/functions, RLS).
+52: 
+53: ### Phase 3 — Scaffolding & Packaging
+54: 
+55: `RECON_MISSION.md` Sections 6, 8, 9: skills/security/env (skills dir + launch CWD, `npm audit`, required env vars, pointer files, boot check); demo/tutorial scaffolding + cross-project residue (the cascade trap + clone-debt fossils); FFM packaging & compile scope (`tsconfig` exclude, test-runner scope, `.ts` files that would compile).
+56: 
+57: ### Phase 4 — Nav, Auth-State & Verification Predicates
+58: 
+59: `RECON_MISSION.md` Sections 11-12: nav variants present, theme-toggle-on-every-navbar, auth-state region on marketing routes, split-hero breakpoint; current state of every grep-verifiable predicate (numbered colors, `any`, role smells, forbidden directives).
+60: 
+61: ### Phase 5 — Surprises & Report Assembly → WRITE TO FILE
+62: 
+63: `RECON_MISSION.md` Section 10 + 13: the open-ended sweep (orphans, latent kit-infra risks, stale docs, anything unexpected — **this is the gold**), the `src/` tree (2 levels), then assemble everything into the report format and write the **Recommendation to Architect** (verified facts the FFM can write against without re-verification; drift to surface in doctrine; cleanup candidates; open questions).
+64: 
+65: **Then WRITE THE REPORT TO A FILE — this is mandatory, not on-screen.** Create `agent_docs/recon/` if needed and write the full report to:
+66: ```
+67: agent_docs/recon/RECON_<project>_<phase>_<YYYY-MM-DD>.md
+68: ```
+69: On-screen, print ONLY: a one-line "Recon complete", the file path, and a 3-5 line headline summary (biggest drifts + top surprises). The full report lives in the file.
+70: 
+71: STOP. Hand the Architect the file path.
+72: 
+73: ---
+74: 
+75: ## Worked Example
+76: 
+77: See `examples/cyber-pharma-v1-phase2-recon-2026-06-08.md` — a real pre-authoring recon that confirmed a repo's post-Phase-1 state. Note how it: leads with the Day-0 sweep, labels findings, flags every doc-vs-disk drift (handbook still says Vitest/ThemeToggle/AppShellPage; APP_BRIEF still names legacy env vars), surfaces real orphans in the Surprises section (a leftover `SuperadminSidebar.tsx`, an unimported `command.tsx` with `as any`), and closes with a Recommendation listing exactly what the Architect can write against vs. what to re-confirm.
+78: 
+79: That report is the shape. Match it.
+80: 
+81: ---
+82: 
+83: ## Anti-Patterns (Block These)
+84: 
+85: See `references/ANTI_PATTERNS.md` for detail. Summary:
+86: - ❌ Trusting a doc claim without verifying on disk → the entire reason this skill exists.
+87: - ❌ Fixing defects during recon → recon REPORTS, never patches. Fixing is a separate authorized pass.
+88: - ❌ Skipping the Surprises section → that's where the next unknown lesson lives.
+89: - ❌ Unlabeled findings → the Architect can't tell verified from guessed.
+90: - ❌ Mutating anything / running git → read-only, always.
+91: - ❌ Trickling findings instead of one assembled report.
+92: - ❌ Treating recon as brain-drain → recon is fast/targeted doc-vs-disk; brain-drain is deep architecture extraction. Don't write 11 docs.
+93: 
+94: ---
+95: 
+96: ## When You're Done
+97: 
+98: - Every mission section answered from disk (or explicitly marked N/A per Operator override).
+99: - Every finding labeled. Every doc-vs-disk drift flagged.
+100: - The Surprises section populated (orphans, latent risks, stale docs).
+101: - The Recommendation to Architect written: verified-facts / doctrine-drift / cleanup-candidates / open-questions.
+102: - **The full report WRITTEN TO A FILE** at `agent_docs/recon/RECON_<project>_<phase>_<YYYY-MM-DD>.md` — NOT on-screen only.
+103: - On-screen: one-line confirmation + the file path + a 3-5 line headline. STOP. No source changes. No git.
+104: 
+105: ---
+106: 
+107: ## Version History
+108: 
+109: | Version | Date | Changes |
+110: |---|---|---|
+111: | 1.0 | 2026-06-08 | Initial methodology. Six-phase sequence over the 13-section mission, seeded from the Cyber Pharma v1 Phase 1 run. |
+112: | 1.1 | 2026-06-09 | Phase 5 now writes the report to a file (mandatory). allowed-tools includes create_file. |
+
+FILE: agent_docs/SKILLS/stark-recon-skill-v1.1/CLAUDE.md
+1: # CLAUDE.md — stark-recon
+2: 
+3: > **You are reading the manager file for the `stark-recon` skill.** Read this FIRST, then `SKILL.md`. This file is always-on doctrine; SKILL.md is the methodology.
+4: 
+5: ---
+6: 
+7: ## Identity / Mission
+8: 
+9: `stark-recon` is an **Agent Skill** in the Stark Industries App Factory. Its job: **establish ground truth about a repo before any Architect authors a brief or an FFM against it.**
+10: 
+11: The skill exists because of one hard-won lesson: **docs lie.** Starter-kit handbooks, APP_BRIEFs, and prior session logs make claims about disk state that drift out of true. An Architect who authors against a stale doc produces a *correct artifact built on wrong data* — and the cost surfaces later as conflict after conflict at the Engineer's build gate.
+12: 
+13: `stark-recon` closes that hole. The Engineer (Claudy) runs it against the actual filesystem + grep + build output and produces a **Recon Report**. The Architect authors only from that report. **Where any doc and the filesystem disagree, the filesystem wins — every time.**
+14: 
+15: This is the **Recon Mode** protocol — the Architect's equivalent of Plan Mode. Plan Mode keeps the Engineer from coding blind. Recon Mode keeps the Architect from authoring blind. Together they ground all three roles (Operator, Architect, Engineer) against one verified source of truth.
+16: 
+17: ---
+18: 
+19: ## MANDATORY-FIRST (Non-Negotiable Doctrine)
+20: 
+21: **No brief and no FFM may be authored for a repo until a `stark-recon` Recon Report exists for that repo's current state.**
+22: 
+23: - The Architect is **forbidden** from authoring `APP_BRIEF`, `DATA_CONTRACT`, `UI_SPEC`, `_project/CLAUDE.md`, or any FFM file without a Recon Report in hand.
+24: - This applies to **every project, every kit, every phase** — not just the first.
+25: - A Recon Report goes stale. If significant work has landed since the last recon (a phase closed, a kit upgraded, branches merged), **re-run recon** before authoring the next brief/FFM.
+26: - The Operator may explicitly override (with acknowledgment) for trivial cases — but the default is: recon first, always.
+27: 
+28: If an Architect starts authoring without a report, that is a process violation. Surface it and run recon first.
+29: 
+30: ---
+31: 
+32: ## Skill Type & Activation
+33: 
+34: - **Type:** Agent Skill (the agent executes autonomously; the operator does not paste each command).
+35: - **Invocation:** manual. Operator points the agent at this folder: *"Go read `_SKILLS/stark-recon/CLAUDE.md` and run a recon."*
+36: - **Execution:** read-only **of the inspected codebase**. The agent greps, reads files, runs the build, and assembles the report. **It makes NO changes to source, NO fixes, NO git operations, NO `cd && git`.** The ONE write it makes is the report file itself (see Output Contract below) — that is the deliverable, not a mutation of the code under inspection.
+37: - **Plan Mode:** compressed. Because the inspection is read-only and low-risk, the agent does NOT gate on each command. It announces the recon scope, executes the sweep + sections, and writes the report.
+38: - **The one checkpoint:** the agent writes the report **to a file**, then STOPS and hands the Architect the file path. The Architect reviews the file before authoring. That handoff is the mandatory gate.
+39: 
+40: ---
+41: 
+42: ## Folder Tree
+43: 
+44: ```
+45: stark-recon/
+46: ├── CLAUDE.md                          ← THIS FILE (doctrine, mandatory-first, activation)
+47: ├── SKILL.md                           ← v2 methodology (the recon phases)
+48: ├── README.md                          ← human-facing description
+49: ├── templates/
+50: │   ├── RECON_MISSION.md               ← the generic questionnaire (the payload to execute)
+51: │   └── RECON_REPORT_TEMPLATE.md       ← the output format the report follows
+52: ├── references/
+53: │   ├── EVIDENCE_DISCIPLINE.md         ← the labels + "disk wins" rule
+54: │   └── ANTI_PATTERNS.md               ← recon-specific failure modes
+55: └── examples/
+56:     └── cyber-pharma-v1-phase2-recon-2026-06-08.md   ← a proven successful run
+57: ```
+58: 
+59: ---
+60: 
+61: ## Doctrine — Always In Effect
+62: 
+63: 1. **Disk wins.** Where any doc and the filesystem disagree, the filesystem is truth. Flag every drift.
+64: 2. **Evidence discipline.** Every finding is labeled EVIDENCE / INFERENCE / CLAIM / GAP / QUESTION (see `references/EVIDENCE_DISCIPLINE.md`). The Architect must be able to tell what was verified vs guessed.
+65: 3. **Read-only of the inspected codebase.** No mutations to source. The recon observes; it never fixes. Defects found are *reported*, not patched — fixing is a separate authorized pass. (This does NOT forbid writing the report file — that's the deliverable; see rule 7.)
+66: 4. **Ground-truth the Day-0 sweep first.** Section 0 of the mission (verify handbook-named files exist, run the forbidden-zone greps, confirm the route table) runs before everything else. It catches the highest-value drift fastest.
+67: 5. **The Surprises section is the gold.** The open-ended sweep is where the NEXT unknown lesson gets found. Never skip it.
+68: 6. **One pass, one report.** Answer the whole mission, hand back one structured report. Don't trickle findings.
+69: 7. **OUTPUT CONTRACT — the report MUST be written to a file.** Never produce the recon on-screen only. The full report is written to:
+70:    ```
+71:    agent_docs/recon/RECON_<project>_<phase>_<YYYY-MM-DD>.md
+72:    ```
+73:    (Create `agent_docs/recon/` if it doesn't exist.) On-screen, the agent prints only a SHORT confirmation + the file path + a 3-5 line headline summary. The full report lives in the file so the Architect can read, diff, and keep it. A recon that exists only in chat scrollback is a failed recon — it can't be referenced, version-tracked, or handed off cleanly.
+74: 
+75: ---
+76: 
+77: ## Reading Order
+78: 
+79: 1. This file (`CLAUDE.md`) — doctrine
+80: 2. `SKILL.md` — the methodology / phases
+81: 3. `templates/RECON_MISSION.md` — the questions to answer from disk
+82: 4. `templates/RECON_REPORT_TEMPLATE.md` — the format to answer them in
+83: 5. `references/EVIDENCE_DISCIPLINE.md` — how to label findings
+84: 6. `examples/` — what a finished report looks like
+85: 
+86: ---
+87: 
+88: ## Operator Override Protocol
+89: 
+90: The Operator may override any default with explicit acknowledgment:
+91: - Skip a mission section ("the DB section is N/A this run") → the agent notes the skip in the report.
+92: - Proceed to author without recon (trivial case) → the agent surfaces the MANDATORY-FIRST rule once, then defers to the Operator's explicit call.
+93: - Re-scope the mission (add/remove questions) → the agent adapts and notes what changed.
+94: 
+95: Override is explicit and acknowledged, never assumed. Absent an override, the defaults above hold.
+96: 
+97: ---
+98: 
+99: ## Evolution Principle
+100: 
+101: This skill grows with every run. When a new class of doc-vs-disk drift surfaces that the mission didn't ask about, it gets added to `templates/RECON_MISSION.md` (and the lesson noted in the version history). The Cyber Pharma v1 Phase 1 run seeded the mission with 13 sections; future runs sharpen it.
+102: 
+103: ---
+104: 
+105: ## Version History
+106: 
+107: | Version | Date | Changes |
+108: |---|---|---|
+109: | 1.0 | 2026-06-08 | Initial skill. Authored from the Cyber Pharma v1 Phase 1 proving-ground run (34 lessons) + the v0.4 recon questionnaire. Agent Skill, single, evidence-disciplined, mandatory-first. Mission carries the Day-0 ground-truth sweep + 13 sections. Example: the Phase-2 pre-authoring recon that confirmed the post-Phase-1 repo state. |
+110: | 1.1 | 2026-06-09 | OUTPUT CONTRACT added: the report MUST be written to a file at agent_docs/recon/RECON_<project>_<phase>_<date>.md, never on-screen only (early runs went to screen because "read-only" was misread as "write nothing"). Clarified read-only boundary = inspected codebase, not the report deliverable. Added write tool to allowed-tools, AP-10 (on-screen-only failure), Phase-5 file-write step. |
+
+FILE: agent_docs/SKILLS/stark-recon-skill-v1.1/examples/cyber-pharma-v1-phase2-recon-2026-06-08.md
+1: # EXAMPLE RECON REPORT — Cyber Pharma v1, post-Phase-1, pre-Phase-2
+2: 
+3: > **A real, successful `stark-recon` run.** This is the shape a finished Recon Report takes. Note how it: leads with the Day-0 sweep; labels findings; flags every doc-vs-disk drift (handbook still says Vitest / ThemeToggle / AppShellPage; APP_BRIEF still names legacy env vars); surfaces real orphans in the Surprises section; and closes with a Recommendation to Architect splitting verified-facts from doctrine-drift from cleanup-candidates from open-questions.
+4: >
+5: > Run by Claudy, 2026-06-08, for the Architect authoring `cyber_pharma_v1_phase2_ffm`. Read-only. No file changes, no git.
+6: 
+7: ---
+8: 
+9: ## Section 0 — Day-0 Ground-Truth Sweep
+10: 
+11: **S0.1 — Handbook-named files (verified by ls):** Most exist as claimed. Two drifts: `ThemeToggle.tsx` MISSING (actual file is `ThemeToggler.tsx` — handbook bug); `AppShellPage.tsx` listed as a kit primitive but does NOT exist (NEW handbook bug). One orphan: `SuperadminSidebar.tsx` survived the Phase-1 superadmin-route deletion (real bug). `app-role.ts` now EXISTS (Phase 1 fixed the original handbook lie).
+12: 
+13: **S0.2 — Handbook-claimed exports vs disk:** `useAuthStore` actual shape = `{ user: SupabaseUser|null, role, isAdmin, isMember, isAuthenticated, isLoading, login, logout }`. `isSuperadmin` NOT exposed (operator ruling). Handbook's "all three flags" claim is now partial — store has two.
+14: 
+15: **S0.3 — Forbidden-zone grep:** `dangerouslySetInnerHTML` = 0. `user_metadata.(is_|role)` = 0 (clean). `: any` = 3 (a shadcn `command.tsx` primitive, a kit-infra `cookies() as any` in server.ts, and test mocks — all flagged).
+16: 
+17: **S0.4 — Route paths by find:** `(superadmin)` group NOT FOUND (correct, deleted). `superadmin-add-user` NOT FOUND (correct, deleted).
+18: 
+19: **S0.5 — Test runner:** `"test": "jest"` + `jest@^30.0.5`. Handbook still says Vitest — DRIFT.
+20: 
+21: **S0.6 — Env names (example + code):** code reads `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SECRET_KEY`, `NEXT_PUBLIC_SITE_URL` (Q4-2025 Supabase naming). APP_BRIEF still names legacy `ANON_KEY` / `SERVICE_ROLE_KEY` — DRIFT.
+22: 
+23: **S0.7 — Build route table:** build exit 0, all prerenders pass, 16 routes. No `/demo`, no `/template`, no `/api/ghl/`, no `(superadmin)/*`. Clean.
+24: 
+25: ---
+26: 
+27: ## Section 1 — Stack Versions
+28: 
+29: Next `^16.2.1` (App Router, instrumentation stable, proxy.ts not middleware.ts) · React `^19.2.4` · TS `^5` strict · Tailwind `^3.4.1` (HSL+config mechanic, NOT @theme/OKLCH) · Node not pinned · Jest `^30.0.5` (NOT Vitest) · Stripe `22.1.0` installed-but-unused (Phase 2/7 prep) · sass `1.77.6` present but `.scss` removed Phase 1 (dep could be dropped) · Playwright installed, no test files yet.
+30: 
+31: ## Section 2 — Kit Structure vs Handbook
+32: 
+33: `app-role.ts` now separated from `get-user-role.ts` (Phase 1 fix). `useAuthStore` typed + has `isAdmin`/`isMember`. DRIFT: handbook says `ThemeToggle` (actual `ThemeToggler`); lists `AppShellPage` (doesn't exist). `src/services/` empty (option-b honored). Route groups: `(public)`, `(auth)`, `(members)`, `(admin)` — no `(superadmin)`. `src/proxy.ts` present, `middleware.ts` absent (correct Next 16). **Source-truth for Architect: import `AppRole` from `src/utils/app-role.ts`.**
+34: 
+35: ## Section 3 — Auth Pattern
+36: 
+37: User read via `useAuthStore` (client) + `supabase.auth.getUser()` (server). Role via `getUserRole()` → `public.user_roles`; `AppRole` enum at `src/utils/app-role.ts`. **No auth service — `src/services/` empty; do NOT author a wrapper.** `user_metadata` role smells = 0 (reads are `full_name` display only). Gates: `protectPage([AppRole.X])` in `(members)` and `(admin)` layouts, tested by `actions.test.ts` (7 cases).
+38: 
+39: ## Section 4 — Design Reality
+40: 
+41: Token file `src/app/globals.css` (v1.1 dark readability patch applied, CSS not SCSS). HSL-no-wrapper in `:root`+`.dark` mapped via `tailwind.config.ts`. Numbered colors in components = 0. `darkMode: ["class"]`. Saira via `next/font/google`, `--font-brand`, Metro flat (`--radius:0`). `ThemeToggler` on all 4 nav surfaces. In-FFM source-of-truth: `_design/tokens/globals.css` (in sync).
+42: 
+43: ## Section 5 — Database
+44: 
+45: No `supabase/migrations/`; kit ships single-file `supabase/setup.sql`. Tables: `public.user_roles`, `public.profiles`. Enum `public.app_role ('superadmin','admin','member')` (keeps superadmin value, no UI references). `handle_new_user()` SECURITY DEFINER trigger auto-inserts both rows. RLS: own-role SELECT, own-profile SELECT/UPDATE, all `auth.uid()` matched. **13 Frank-domain tables do NOT exist — Phase 3, not Phase 2.**
+46: 
+47: ## Section 6 — Skills / Security / Env
+48: 
+49: Skills resolve from `agent_docs/.claude/skills/` (launch CWD = `agent_docs/`, documented). `npm audit` = 0 vulns. No `agent_docs/security/` ledger (operator ruled "audit IS the commit"). 4 required env vars validated at boot by `src/instrumentation.ts`. Repo-root has `CLAUDE.md` (Stark v3.1); no `AGENTS.md`/`GEMINI.md`/`PROJECT_POINTER.md`.
+50: 
+51: ## Section 8 — Scaffolding & Residue
+52: 
+53: Demo-feature greps = false positives only (copy/comments). Third-party demo APIs = 0. Cross-project residue = 0 (GHL fossil deleted Phase 1). API routes = only `auth/{confirm,login,logout,signup}`. Clean — Phase 1 deletion held.
+54: 
+55: ## Section 9 — FFM Packaging
+56: 
+57: `tsconfig exclude: ["node_modules", "agent_docs/**"]` (Phase 1 fix landed). 7 `.ts` files under `agent_docs/` all excluded — no tsc-trip risk.
+58: 
+59: ## Section 10 — Surprises (the gold)
+60: 
+61: **Real orphans:** `SuperadminSidebar.tsx` (consumer deleted, zero refs — DELETE); `DashboardCard.tsx` (zero refs — delete OR keep as Phase-2 starter, QUESTION); empty dirs `components/admin/`, `components/members/` (rmdir or keep as hooks); `command.tsx` unimported shadcn primitive with `{children as any}` (delete or fix). **Kit-infra latent risk:** `server.ts:6` `(await cookies()) as any` — Next 16 cookies() vs `@supabase/ssr@0.6.1` type workaround; real bug surface if Phase 2 touches SSR/cookies. **Stale docs:** APP_BRIEF legacy env names; handbook Vitest/ThemeToggle/AppShellPage; `.env copy.example` MacOS-artifact filename. `cn()` standard shadcn, 16 consumers, no drift.
+62: 
+63: ## Section 11 — Nav & Auth-State (post-fix)
+64: 
+65: 4 nav variants + MobileNav/UserMenu islands. ThemeToggler on every navbar (confirmed by grep). Auth-state region: `UserMenu.tsx` reads store + getUser, renders avatar-dropdown logged-in / Log-in+CTA logged-out (SP5 fix held). Split-hero `lg:grid-cols-[1fr_1.12fr]` (not md: — lesson honored).
+66: 
+67: ## Section 12 — Verification Predicates
+68: 
+69: Numbered colors = 0 ✅. `: any` in store/utils = 1 (kit-infra cookies cast — flagged). `user_metadata` role smells = 0 ✅. Forbidden directives = 0 ✅.
+70: 
+71: ## Section 13 — src/ tree
+72: 
+73: (public)/(auth)/(members)/(admin) app groups; components with orphans noted (layout/SuperadminSidebar, dashboard/DashboardCard, empty admin+members dirs, ui/command unimported); services/ empty; store/ (useAuthStore); types/ (User, UserRole, AuthSnapshot, tailwind-merge.d); utils/ (app-role, get-user-role, supabase/*).
+74: 
+75: ---
+76: 
+77: ## Recommendation to Architect
+78: 
+79: **Write Phase 2 FFM against these verified facts (no re-verification needed):** stack (Next 16.2.1/React 19.2.4/TS strict/Tailwind 3.4.1 HSL+config/Jest — never write "Vitest"); token system locked (globals.css canonical w/ v1.1 patch, inherit don't reinstall); brand (Saira/--font-brand/Metro flat, toggle on all navbars); auth pattern (store + getUser, getUserRole from user_roles, protectPage, NO service wrapper — services land Phase 3); DB (2 kit tables + trigger + RLS, 13 Frank tables are Phase 3); 16 routes, no (superadmin), proxy.ts; **env var names verbatim** (URL/PUBLISHABLE_KEY/SECRET_KEY/SITE_URL — NOT legacy names); Jest baseline 42/42.
+80: 
+81: **Drift to surface in doctrine (still wrong on disk):** kit handbook v1.0 needs reconciliation (ThemeToggle naming, AppShellPage doesn't exist, Vitest claim); Phase-2 APP_BRIEF must use real Supabase env names.
+82: 
+83: **Cleanup candidates Phase 2 can pick up:** delete `SuperadminSidebar.tsx`; decide `DashboardCard.tsx` (keep/delete); empty `admin/`+`members/` dirs; `command.tsx` `as any`; `server.ts` cookies cast (if Phase 2 touches SSR); uninstall sass dep; Stripe env validation (if Phase 2 starts wiring).
+84: 
+85: **Open question before authoring:** Phase 2 = OwedBook screens, which need the 3 KIPs (DataTable, MultiSelect, EmptyState) built FIRST per COMPONENT_MANIFEST §4. Confirm that sequence in the FFM.
+86: 
+87: ---
+88: 
+89: 🛑 Recon complete. No file changes. No git. Pure inspection.
+
+FILE: agent_docs/SKILLS/stark-recon-skill-v1.1/templates/RECON_MISSION.md
+1: # RECON MISSION — Generic Ground-Truth Questionnaire
+2: 
+3: > **The payload `stark-recon` executes.** Answer every section from the actual filesystem + grep + build output. Label each finding (EVIDENCE / INFERENCE / CLAIM / GAP / QUESTION). Where any doc and disk disagree, disk wins — flag the drift.
+4: >
+5: > This mission is KIT-AGNOSTIC and PROJECT-AGNOSTIC. The seeded examples reference a past run (Cyber Pharma v1 Phase 1) purely as ILLUSTRATIONS of the drift class each question catches — they are NOT requirements for the current repo. Replace them with what THIS repo actually shows.
+6: >
+7: > Answer in the format of `RECON_REPORT_TEMPLATE.md`.
+8: 
+9: ---
+10: 
+11: ## SECTION 0 — The Day-1 Ground-Truth Sweep (Run 001 Meta-Lesson)
+12: 
+13: > **THE governing lesson from Cyber Pharma v1 Phase 1:** *the kit handbook (and APP_BRIEF, and every doc) is ASPIRATIONAL, not contractual.* Six confirmed handbook bugs in one run. Every doc claim about disk state that went unverified became a shipped wrong assumption. **Where any doc and the filesystem disagree, the filesystem wins — every time.**
+14: >
+15: > This section is the consolidated "verify before you trust" sweep. Run it FIRST, before authoring anything. Every check here exists because trusting a doc instead of disk cost real time in Run 001.
+16: 
+17: ```bash
+18: # S0.1 — VERIFY EVERY HANDBOOK-NAMED FILE EXISTS (L1, L5)
+19: #   The handbook claimed src/utils/app-role.ts existed. It didn't.
+20: #   For every file the handbook names, confirm it's on disk:
+21: #   (build the list from the handbook, then:)
+22: for f in <each-handbook-named-file>; do ls -la "$f" 2>/dev/null || echo "MISSING (handbook lie): $f"; done
+23: 
+24: # S0.2 — VERIFY EVERY HANDBOOK-CLAIMED EXPORT/SHAPE MATCHES DISK (L5, L6)
+25: #   Handbook claimed useAuthStore exposes isAdmin/isMember/isSuperadmin. It didn't.
+26: #   Handbook implied user was typed. It was `any`.
+27: #   For each store/util the handbook describes, cat the file and compare the ACTUAL
+28: #   exported shape to the claim. Note every mismatch.
+29: 
+30: # S0.3 — FORBIDDEN-ZONE GREP AGAINST THE KIT BASELINE (L6)
+31: #   Run the Stark forbidden-zone greps on the KIT ITSELF, day 1 — not at SP-close.
+32: #   The kit shipped `user: any` from init. Catch kit-level violations before authoring.
+33: grep -rn ": any\b\|as any" src/ | grep -v node_modules
+34: grep -rn "dangerouslySetInnerHTML" src/ | grep -v node_modules
+35: grep -rn "user_metadata\.\(is_\|role\)" src/ | grep -v node_modules
+36: 
+37: # S0.4 — VERIFY EVERY DOC-NAMED ROUTE/PATH BY find (L7)
+38: #   APP_BRIEF said the vuln route was under api/superadmin/. It was at api/auth/.
+39: #   For every "route X is at path Y" claim, find the ACTUAL path before scoping work:
+40: find src/app -type d -name "<claimed-route-segment>"
+41: 
+42: # S0.5 — VERIFY THE TEST RUNNER (L8)
+43: #   Handbook said Vitest. Kit used Jest. The flag mismatch was the only signal.
+44: grep -E '"test":|vitest|jest' package.json
+45: 
+46: # S0.6 — GROUND-TRUTH ENV NAMES FROM .env.local.example + CODE, NOT DOCS (L9, L24)
+47: #   APP_BRIEF specified stale Supabase names (anon/service_role). Real code used the
+48: #   Q4-2025 naming (publishable/secret). Doc env names are SUGGESTIVE, not authoritative.
+49: cat .env.local.example .env.example 2>/dev/null
+50: grep -rn "process\.env\." src/ | grep -oP "process\.env\.\w+" | sort -u
+51: #   Confirm env vars are STAGED before any build is asked to pass (L24).
+52: 
+53: # S0.7 — RUN THE BUILD ROUTE TABLE (L7, L32)
+54: #   The route table is ground truth for "what surfaces actually exist." It surfaced
+55: #   /demo, /template, /api/ghl/ (a year-old QR fossil), and the real vuln-route path.
+56: npm run build 2>&1 | grep -E "Route|/|├|└" | head -60
+57: ```
+58: 
+59: **The rule:** when this sweep and a doc disagree, the sweep wins, and the doc gets flagged for correction (kit handbook v3). Don't author a single FFM line against an unverified doc claim. Every handbook bug in Run 001 (L1, L5, L6, L7, L8 — plus the env-name and runner drift) would have been caught here on Day 1 instead of mid-build.
+60: 
+61: ---
+62: 
+63: ## SECTION 1 — Stack Versions
+64: 
+65: The global doctrine pins versions that age. The repo's `package.json` is the only truth.
+66: 
+67: ```bash
+68: # Q1.1 — Next.js version
+69: grep '"next"' package.json
+70: 
+71: # Q1.2 — React version
+72: grep '"react"' package.json
+73: 
+74: # Q1.3 — Tailwind version (determines token mechanic: HSL/config vs @theme/OKLCH)
+75: grep tailwindcss package.json
+76: 
+77: # Q1.4 — TypeScript version
+78: grep '"typescript"' package.json
+79: 
+80: # Q1.5 — Node version (if pinned)
+81: cat .nvmrc 2>/dev/null; grep '"node"' package.json 2>/dev/null
+82: 
+83: # Q1.6 — full dependency snapshot for anything the FFM will reference
+84: cat package.json
+85: 
+86: # Q1.7 — Which test runner does the kit ACTUALLY use? (don't trust the handbook)
+87: #         Phase 1 found: doctrine said Vitest, kit used Jest.
+88: grep -E '"test"|vitest|jest' package.json
+89: ```
+90: 
+91: **Architect uses this to:** write exact versions into `_project/CLAUDE.md` § Tech Stack, so the Engineer never surfaces a stack conflict at Discovery. Global defaults are the fallback; the repo wins.
+92: 
+93: ---
+94: 
+95: ## SECTION 2 — Kit Structure vs Handbook Claims
+96: 
+97: The handbook describes what the kit *should* contain. The filesystem describes what it *actually* contains. When they disagree, the filesystem wins and the drift gets recorded.
+98: 
+99: ```bash
+100: # Q2.1 — Verify every file the handbook claims exists
+101: #         (run for each path the handbook names in its "files already separated" section)
+102: ls -la src/utils/
+103: ls -la src/services/ 2>/dev/null
+104: ls -la src/store/ 2>/dev/null
+105: ls -la src/types/
+106: 
+107: # Q2.2 — Where is a given exported symbol ACTUALLY defined?
+108: #         (the app-role.ts lesson: handbook said one file, reality was another)
+109: grep -rn "export.*AppRole" src/ | grep -v node_modules
+110: grep -rn "export.*getUserRole" src/ | grep -v node_modules
+111: 
+112: # Q2.3 — Route group inventory (confirm what (groups) actually exist)
+113: find src/app -maxdepth 1 -type d -name "(*)"
+114: 
+115: # Q2.4 — What's ALREADY in src/services/? (don't author wrappers for what exists)
+116: ls -la src/services/ 2>/dev/null && echo "--- contents ---" && \
+117:   for f in src/services/*; do echo "## $f"; head -20 "$f" 2>/dev/null; done
+118: 
+119: # Q2.5 — Middleware vs proxy (Next 16 ships src/proxy.ts, not middleware.ts)
+120: ls -la src/middleware.ts src/proxy.ts 2>/dev/null
+121: ```
+122: 
+123: **Architect uses this to:** stop inheriting handbook errors. Every file path written into the FFM is one Claudy confirmed exists. Drift gets logged as a "kit reconciliation" task for the appropriate sub-phase.
+124: 
+125: ---
+126: 
+127: ## SECTION 3 — Auth & RBAC Pattern (The authService Trap)
+128: 
+129: The single most common conflict: DATA_CONTRACT defines a service wrapper for auth the kit already provides complete. Verify what the kit actually does BEFORE writing any service contract.
+130: 
+131: ```bash
+132: # Q3.1 — How do components currently read the authenticated user?
+133: grep -rn "useAuthStore\|useUser\|getUser\|getCurrentUser" src/ | grep -v node_modules | head -20
+134: 
+135: # Q3.2 — How is the user's ROLE resolved?
+136: grep -rn "getUserRole\|resolveRole\|AppRole\|user_roles" src/ | grep -v node_modules | head -20
+137: 
+138: # Q3.3 — Is there an existing auth service, or is auth consumed directly?
+139: ls -la src/services/*auth* 2>/dev/null
+140: grep -rn "authService\|AuthService" src/ | grep -v node_modules
+141: 
+142: # Q3.4 — SECURITY: any roles read from user_metadata? (forbidden smell)
+143: grep -rn "user_metadata" src/ | grep -v node_modules
+144: 
+145: # Q3.5 — How does the kit gate protected routes?
+146: grep -rn "protectPage\|requireAuth\|redirect.*login" src/ | grep -v node_modules | head -10
+147: 
+148: # Q3.6 — EXACT shape of the auth store (handbook claims derived flags that may not exist)
+149: #         Phase 1 found: handbook claimed isAdmin/isMember/isSuperadmin; store had none.
+150: cat src/store/useAuthStore.ts 2>/dev/null
+151: grep -n "isAdmin\|isMember\|isSuperadmin\|isAuthenticated\|role" src/store/useAuthStore.ts 2>/dev/null
+152: 
+153: # Q3.7 — Type-safety smells in the auth store (Phase 1 found user: any)
+154: grep -n ": any\|as any" src/store/useAuthStore.ts src/utils/get-user-role.ts 2>/dev/null
+155: ```
+156: 
+157: **Architect uses this to:** decide whether DATA_CONTRACT needs ANY service contracts. If the kit provides auth complete (it usually does), DATA_CONTRACT says "consume the kit's primitives directly — no wrapper." Service layer is reserved for project-specific domain logic only. Also: write the FFM's `_project/CLAUDE.md` against the store's ACTUAL shape (Q3.6) — if the handbook claims derived flags the store doesn't have, schedule adding them (or correcting the handbook) as a kit-reconciliation task, and don't write FFM code that reads flags that return `undefined`. Type smells (Q3.7) like `user: any` become reconciliation tasks (replace with the project's `User` type).
+158: 
+159: ---
+160: 
+161: ## SECTION 4 — Design System & Token Reality
+162: 
+163: The token mechanic depends entirely on the Tailwind major version (already captured in Q1.3). This section inventories what the kit hardcodes so the reconciliation task is scoped accurately.
+164: 
+165: ```bash
+166: # Q4.1 — Where do tokens currently live?
+167: ls -la src/app/globals.css src/styles/globals.css 2>/dev/null
+168: grep -l "@theme\|:root" src/**/*.css 2>/dev/null
+169: 
+170: # Q4.2 — Numbered Tailwind colors hardcoded in components (reconciliation scope)
+171: grep -rn "slate-\|zinc-\|gray-\|red-6\|red-5\|green-6\|blue-6\|purple-6\|amber-6" src/components/ src/app/ 2>/dev/null | grep -v node_modules | wc -l
+172: echo "--- detailed list ---"
+173: grep -rn "slate-\|zinc-\|gray-\|red-6\|red-5\|green-6\|blue-6\|purple-6\|amber-6" src/components/ src/app/ 2>/dev/null | grep -v node_modules
+174: 
+175: # Q4.3 — Current dark mode mechanism (class vs media)
+176: grep -n "darkMode" tailwind.config.* 2>/dev/null
+177: 
+178: # Q4.4 — Existing font setup (will the designer's font wiring conflict?)
+179: grep -rn "next/font\|@font-face\|fonts.googleapis" src/ | grep -v node_modules
+180: 
+181: # Q4.5 — Theme toggle present? (designer themes need a working switcher)
+182: grep -rn "ThemeToggle\|useTheme\|setTheme" src/ | grep -v node_modules | head
+183: 
+184: # Q4.6 — CSS EXTENSION MATCH: kit's entry CSS vs designer's deliverable (L14)
+185: #   Kit shipped globals.SCSS (Sass); designer shipped globals.CSS. Mismatch = a
+186: #   conversion task that must be scoped in Cluster 2, not discovered mid-build.
+187: ls -la src/app/globals.* src/styles/globals.* 2>/dev/null
+188: #   If .scss: grep for Sass-only syntax that won't survive a .css rename:
+189: grep -n "//\|@mixin\|@include\|\$[a-z]\|&:" src/app/globals.scss 2>/dev/null
+190: #   (nested rules + // comments are Sass-only; @apply works in both)
+191: 
+192: # Q4.7 — DARK-MODE READABILITY needs a REAL-SCREEN pass, not just style-tile (L16)
+193: #   Style tile passed; real Slate screens were nearly unreadable (background == card,
+194: #   borders too soft, muted-foreground too dim). The check below is OPERATOR-RUN, not
+195: #   greppable: token-lock requires BOTH style-tile review AND an npm run dev walk of
+196: #   the major dark surfaces — cards-on-background, secondary text, form-field
+197: #   placeholders, borders. Flag this as a required gate BEFORE the build phase, not after.
+198: echo "Q4.7 is an operator real-screen dark-mode check — see token-lock gate"
+199: ```
+200: 
+201: **Architect uses this to:** scope the kit-reconciliation task precisely (exact count and location of hardcoded colors), confirm the token install path, and flag font/theme-toggle conflicts before the designer's tokens land.
+202: 
+203: ---
+204: 
+205: ## SECTION 5 — Database & Schema Reality
+206: 
+207: Confirm what tables/triggers actually exist vs what the FFM assumes is in or out of scope.
+208: 
+209: ```bash
+210: # Q5.1 — Migration files present
+211: ls -la supabase/migrations/ 2>/dev/null
+212: 
+213: # Q5.2 — Tables the kit ships (read the migrations)
+214: grep -rn "create table\|CREATE TABLE" supabase/ 2>/dev/null | grep -v node_modules
+215: 
+216: # Q5.3 — Triggers/functions the kit ships (e.g. handle_new_user)
+217: grep -rn "create function\|CREATE FUNCTION\|create trigger\|CREATE TRIGGER" supabase/ 2>/dev/null
+218: 
+219: # Q5.4 — RLS policies present?
+220: grep -rn "policy\|POLICY\|row level security\|RLS" supabase/ 2>/dev/null | head
+221: ```
+222: 
+223: **Architect uses this to:** write DATA_CONTRACT's "tables in play / NOT in play" sections from reality, and confirm which DB functions are inherited vs need building.
+224: 
+225: ---
+226: 
+227: ## SECTION 6 — Skills, Security, & Environment
+228: 
+229: Confirm the runtime prerequisites the playbook's sequencing section expects.
+230: 
+231: ```bash
+232: # Q6.1 — Skills present (NOTE: resolve from the CWD Claude Code launches from)
+233: ls -la .claude/skills/ 2>/dev/null
+234: pwd  # confirm where Claude Code is launched — skills resolve relative to this
+235: 
+236: # Q6.2 — Security audit state
+237: ls -la agent_docs/security/ 2>/dev/null
+238: npm audit 2>&1 | tail -5
+239: 
+240: # Q6.3 — Required env vars (what does the kit expect?)
+241: cat .env.example .env.local.example 2>/dev/null
+242: grep -rn "process.env\." src/ | grep -v node_modules | grep -oP "process\.env\.\w+" | sort -u
+243: 
+244: # Q6.4 — Existing CLAUDE.md / AGENTS.md / pointer files at repo root
+245: ls -la CLAUDE.md AGENTS.md GEMINI.md PROJECT_POINTER.md 2>/dev/null
+246: 
+247: # Q6.5 — Where does Claude Code launch from? (skills + relative paths depend on this)
+248: #         Document this in RECOVERY.md so future sessions launch consistently.
+249: ```
+250: 
+251: **Architect uses this to:** confirm sequencing prerequisites, write the correct env-var fail-closed check list, and note the launch-CWD requirement (the skills-path nuance from Phase 1).
+252: 
+253: ---
+254: 
+255: ## SECTION 8 — Demo / Tutorial Scaffolding (The Cascade Trap)
+256: 
+257: Starter kits ship tutorial filler — example features demonstrating patterns — that is NOT product code. Phase 1 found a whole "posts" demo cascade: 2 services → 2 stores → 1 types file → 2 components → 3 routes → 1 util, all inherited and all dead weight. Find the WHOLE cascade up front so the Architect can scope its deletion into the FFM from the start.
+258: 
+259: ```bash
+260: # Q8.1 — Obvious demo/example feature names (posts, todos, booking, blog, sample)
+261: grep -rln "posts\|todos\|booking\|sample\|example\|demo\|jsonplaceholder" src/ | grep -v node_modules
+262: 
+263: # Q8.2 — Third-party demo API calls (a dead giveaway of tutorial code)
+264: grep -rn "jsonplaceholder\|dummyjson\|fakestoreapi\|reqres.in\|typicode" src/ | grep -v node_modules
+265: 
+266: # Q8.3 — Trace the full cascade for any demo feature found
+267: #         (service → store → component → route → types → util)
+268: #         For each demo name found in Q8.1, grep for its imports to map the fan-out:
+269: #         grep -rn "import.*<demoName>" src/
+270: #         Report the COMPLETE file list so deletion is one clean pass, not whack-a-mole.
+271: 
+272: # Q8.4 — Prior session logs flagging "legacy / do not touch / ignore" dirs
+273: grep -rn "legacy\|do not touch\|DO NOT\|ignore\|deprecated" agent_docs/ 2>/dev/null | head
+274: 
+275: # Q8.5 — INHERITED CROSS-PROJECT RESIDUE (clone-debt from prior projects)
+276: #         Phase 1 found a year-old GoHighLevel hooktest from a QR project riding along.
+277: #         Grep for old project names, stale integrations, forgotten API stubs.
+278: grep -rn "ghl\|gohighlevel\|hooktest\|webhook" src/app/api/ 2>/dev/null
+279: find src/app/api -type d  # eyeball every API route — any that belong to NO current feature?
+280: 
+281: # Q8.6 — FULL ROUTE TABLE INVENTORY (run the build, read the route list day 1)
+282: #         Phase 1's extra cruft (/demo, /template, /api/ghl, /profile) surfaced here.
+283: #         Every route should map to THIS project or kit baseline — anything else is suspect.
+284: npm run build 2>&1 | grep -E "^\s*[├└]|Route|/" | head -50
+285: ```
+286: 
+287: **Architect uses this to:** scope a "demo cascade deletion" task into the FFM's Components sub-phase from day one, with the COMPLETE file list. Without this, the cascade gets discovered piecemeal mid-build (as it did in Phase 1) and the deletion becomes whack-a-mole. Knowing the full fan-out lets the deletion happen in one verified pass.
+288: 
+289: ---
+290: 
+291: ## SECTION 9 — FFM Packaging & Compile Scope
+292: 
+293: The FFM itself can break the build if its template files land inside the TypeScript or test scope. Phase 1 found the FFM's `.ts` template stubs (in `skills/templates/` and `_design/tokens/`) caught by `tsc --noEmit`, throwing 3 phantom errors in non-source files.
+294: 
+295: ```bash
+296: # Q9.1 — Does tsconfig exclude the FFM/agent_docs tree?
+297: cat tsconfig.json | grep -A10 '"exclude"'
+298: #   If agent_docs/** (or wherever the FFM lands) is NOT excluded, the FFM's
+299: #   .ts template stubs will be compiled and may throw phantom errors.
+300: 
+301: # Q9.2 — Does the test runner scope exclude agent_docs?
+302: grep -rn "include\|exclude\|testMatch\|dir" vitest.config.* jest.config.* 2>/dev/null
+303: 
+304: # Q9.3 — What .ts/.tsx files live under agent_docs (would-be compile targets)?
+305: find agent_docs -name "*.ts" -o -name "*.tsx" 2>/dev/null | grep -v node_modules
+306: ```
+307: 
+308: **Architect uses this to:** ship the FFM with the right packaging — either (a) instruct the operator to add `agent_docs/**` to tsconfig `exclude`, or (b) name the FFM's template stubs with a non-compiled extension (`.ts.txt`) so they never enter compile scope. This is a self-inflicted conflict the FFM author can prevent entirely.
+309: 
+310: ---
+311: 
+312: ## SECTION 11 — Nav & Auth-State Patterns (The Landing/Nav Lessons)
+313: 
+314: The landing page took 3 iterations and the marketing nav stranded logged-in users. These checks turn those scars into upfront questions.
+315: 
+316: ```
+317: # Q11.1 — Marketing nav vs portal nav are DIFFERENT (L19)
+318: #   Marketing nav has real destinations (esp. Log in) → needs a mobile hamburger.
+319: #   Portal nav for placeholder portals (no Dashboard/Settings yet) → logo + user menu.
+320: #   For EACH nav surface, ask separately: does it have real mobile destinations?
+321: #   Marketing-nav default = hamburger REQUIRED.
+322: 
+323: # Q11.2 — Every navbar has a theme toggle (L20)
+324: #   Theme is a UX setting that applies everywhere, including logged-out marketing pages.
+325: #   Confirm the theme toggle is reachable from EVERY navbar surface, not just portals.
+326: 
+327: # Q11.3 — Every public/marketing route has an auth-state region DEFINED (L22)
+328: #   "No auto-redirect" does NOT mean "no auth awareness." A logged-in user landing on /
+329: #   must still see they're logged in + reach their portal + log out.
+330: #   For each public route, define: what shows logged-IN vs logged-OUT? (Not just routing.)
+331: #   Distinguish ROUTING-behavior (don't bounce them) from UI-STATE (reflect their state).
+332: 
+333: # Q11.4 — Complex split-hero transforms at lg:, not md: (L18)
+334: #   A two-column hero (copy + visual-that-needs-width) squishes in the 768-1023 range.
+335: #   For any split hero, the side-by-side engages at lg: (1024px). md: is for text/size
+336: #   transitions only, not layout pivots. Ask: what breakpoint engages side-by-side?
+337: #   If md: → flag for review.
+338: 
+339: # Q11.5 — "Always-visible" mobile controls sit OUTSIDE the hamburger (L21)
+340: #   Navigation belongs in the menu; controls (theme toggle, search, avatar) stay at top
+341: #   level for single-tap reach. Confirm the split.
+342: ```
+343: 
+344: **Architect uses this to:** spec navbars correctly the first time — marketing nav gets a hamburger + theme toggle + auth-state region; split heroes default to `lg:`; controls stay outside the menu. Prevents the 3-iteration landing churn.
+345: 
+346: ---
+347: 
+348: ## SECTION 12 — Verification Rituals (What Piecewise Gates Miss)
+349: 
+350: Each gate passed in isolation; the continuous SP5 walk caught a real bug no gate's grep could. These checks bake the verification lessons into the FFM upfront.
+351: 
+352: ```
+353: # Q12.1 — Every grep-verifiable gate runs its grep AT SP-CLOSE (L17)
+354: #   "Sample-check one file then trust the rest" is BRITTLE — it hid 5 numbered-color
+355: #   sites in shadcn primitives until SP-close panic. For any gate with a grep-verifiable
+356: #   predicate (no numbered colors, no user_metadata, no forbidden imports), the grep
+357: #   RUNS at SP-close as a standard step. Sample-then-trust is DISALLOWED for these.
+358: 
+359: # Q12.2 — Boot/instrumentation checks verify PROCESS STATUS, not just logs (L28)
+360: #   Turbopack prints "✓ Ready" BEFORE an instrumentation throw propagates — looks like
+361: #   the server started when it actually died. Verify with curl/port-check that the
+362: #   process is actually gone, plus a success-log line ("✓ Environment validated") as the
+363: #   only unambiguous "hook fired + passed" signal.
+364: 
+365: # Q12.3 — SP5 includes a SEAM-CHECK: walk every transition in every auth state (L29)
+366: #   Gates measure components in isolation; bugs live in the SEAMS. The continuous walk
+367: #   (login → role → portal → gate → logout → back to /) caught the auth-stranding bug.
+368: #   SP5 ritual = "navigate every surface in every auth state," not just the happy path.
+369: 
+370: # Q12.4 — Between deletion batches, rm -rf .next before tsc smoke (L25)
+371: #   Stale .next/types/validator.ts references deleted routes → false-failure noise
+372: #   indistinguishable from real orphaned imports. Clear .next before per-batch tsc.
+373: 
+374: # Q12.5 — Run pre-deletion test baseline FRESH; don't trust historical counts (L26)
+375: #   A prior session log was 3 tests behind. Predict from a fresh run, not history.
+376: ```
+377: 
+378: **Architect uses this to:** write verification sub-phases that close gates honestly (grep-at-close), prove boot checks correctly (process status), and make SP5 a real seam-check instead of a formality.
+379: 
+380: ---
+381: 
+382: ## SECTION 13 — Open-Ended Sweep
+383: 
+384: The questions above are the known traps. This section catches the unknown ones.
+385: 
+386: ```bash
+387: # Q10.1 — Full src/ tree (2 levels) so the Architect sees the actual shape
+388: find src -maxdepth 2 -type d | sort
+389: 
+390: # Q10.2 — Anything in the repo that contradicts what the operator described?
+391: #         (Claudy reports any surprise: stale scaffolding, unexpected dirs,
+392: #          vestigial template strings, half-finished features)
+393: 
+394: # Q10.3 — Vestigial template residue (starter kits leave these)
+395: grep -rn "Your Company\|Acme\|TODO\|FIXME\|placeholder\|lorem ipsum" src/ | grep -v node_modules | head -20
+396: 
+397: # Q10.4 — The cn() helper every component depends on
+398: cat src/lib/utils.ts 2>/dev/null | grep -A5 "export.*cn"
+399: ```
+400: 
+401: **Architect uses this to:** catch the things no questionnaire anticipated. The open-ended sweep is where the NEXT lesson gets discovered.
+402: 
+403: ---
+
+FILE: agent_docs/SKILLS/stark-recon-skill-v1.1/templates/RECON_REPORT_TEMPLATE.md
+1: # RECON REPORT TEMPLATE — Output Format
+2: 
+3: > The format `stark-recon` answers the mission in. The Architect reads this report and authors the next brief/FFM from it. Lead with the Day-0 sweep; flag every doc-vs-disk drift; make the Surprises section rich; close with a Recommendation to Architect.
+4: >
+5: > **This report is WRITTEN TO A FILE — never on-screen only.** Save the full report to `agent_docs/recon/RECON_<project>_<phase>_<YYYY-MM-DD>.md` (create the folder if needed). On-screen, print only a one-line confirmation, the file path, and a 3-5 line headline summary.
+6: 
+7: ---
+8: 
+9: ## Recon Report Format (What Claudy Returns)
+10: 
+11: Claudy answers in this structure:
+12: 
+13: ```
+14: ## RECON REPORT — <project> <phase>
+15: 
+16: ### Section 1 — Stack Versions
+17: - Next.js: <actual>
+18: - React: <actual>
+19: - Tailwind: <actual> → token mechanic: <HSL/config OR @theme/OKLCH>
+20: - TypeScript: <actual>
+21: - Node: <actual or "not pinned">
+22: 
+23: ### Section 2 — Kit Structure vs Handbook
+24: - Handbook claims verified: <list confirmed>
+25: - DRIFT FOUND: <list every handbook claim that's false, with reality>
+26: - Existing src/services/: <contents or "empty/absent">
+27: 
+28: ### Section 3 — Auth Pattern
+29: - User read via: <actual mechanism>
+30: - Role resolved via: <actual mechanism + file>
+31: - Existing auth service: <yes/no — if yes, what>
+32: - user_metadata role smells: <count + locations, or "none">
+33: 
+34: ### Section 4 — Design Reality
+35: - Tokens live in: <path>
+36: - Hardcoded numbered colors: <count> in <files>
+37: - Dark mode: <class/media>
+38: - Font setup: <current>
+39: - Theme toggle: <present/absent>
+40: 
+41: ### Section 5 — Database
+42: - Migrations: <count>
+43: - Tables shipped: <list>
+44: - Triggers/functions: <list>
+45: - RLS: <present/absent>
+46: 
+47: ### Section 6 — Skills/Security/Env
+48: - Skills present: <list + which CWD they resolve from>
+49: - Security audit: <state>
+50: - Required env vars: <list>
+51: - Launch CWD: <path>
+52: 
+53: ### Section 8 — Demo / Tutorial Scaffolding
+54: - Demo features found: <list>
+55: - Full cascade per feature: <complete file list — services, stores, components, routes, types, utils>
+56: - Third-party demo APIs: <list, e.g. jsonplaceholder>
+57: - Recommended deletion bucket: <which sub-phase>
+58: 
+59: ### Section 9 — FFM Packaging
+60: - tsconfig excludes agent_docs/**: <yes/no — if no, FLAG>
+61: - Test runner excludes agent_docs: <yes/no>
+62: - .ts files under agent_docs that would compile: <list>
+63: 
+64: ### Section 10 — Surprises
+65: - <anything unexpected — this is the highest-value section>
+66: - cn() helper present + standard: <yes/no>
+67: 
+68: ### Recommendation to Architect
+69: - <any FFM authoring implications Claudy spotted>
+70: - <every handbook claim that proved FALSE against the filesystem>
+71: 
+72: ---
+
+FILE: agent_docs/SKILLS/stark-recon-skill-v1.1/references/ANTI_PATTERNS.md
+1: # ANTI-PATTERNS — stark-recon
+2: 
+3: Recon-specific failure modes. Each is a way a recon can betray its purpose.
+4: 
+5: ---
+6: 
+7: ### AP-1 — Trusting a doc claim without verifying on disk
+8: 
+9: **The cardinal sin.** The handbook says `app-role.ts` exists, so the recon writes "app-role.ts exists" without running `ls`. This is the exact failure the skill was built to prevent. **Every doc claim is a CLAIM until disk confirms it.** If you didn't run the command, you didn't verify it.
+10: 
+11: ### AP-2 — Fixing defects during recon
+12: 
+13: The recon finds `user: any` and "helpfully" types it. NO. Recon is read-only **of the inspected codebase**. It REPORTS the defect with a label and a recommendation; a separate authorized pass fixes it. (Writing the report FILE is not a "fix" — it's the deliverable. The prohibition is on mutating the code under inspection.)
+14: 
+15: ### AP-10 — Producing the report on-screen only (the file-output failure)
+16: 
+17: The recon assembles a beautiful report and prints it to chat — but never writes it to a file. **This is a failed recon.** A report that lives only in chat scrollback can't be referenced later, can't be diffed against the next recon, can't be version-tracked, and forces the Operator to copy-paste it around. The full report MUST be written to `agent_docs/recon/RECON_<project>_<phase>_<YYYY-MM-DD>.md`. On-screen gets only a short confirmation + the path + a 3-5 line headline. This anti-pattern is why v1.1 made file-output an explicit Output Contract — early runs went to screen because "read-only" was misread as "write nothing at all." Read-only protects the *inspected code*; the report file is the deliverable.
+18: 
+19: ### AP-3 — Skipping the Surprises section
+20: 
+21: The mission's open-ended sweep feels optional because it has no fixed checklist. It is the OPPOSITE of optional — it's where the next unknown lesson lives (the orphan files, the unimported primitive with `as any`, the stale-doc fossil). The known questions catch known drift; the Surprises section catches what no one thought to ask.
+22: 
+23: ### AP-4 — Unlabeled findings
+24: 
+25: A report that states facts without EVIDENCE/INFERENCE/CLAIM/GAP/QUESTION labels forces the Architect to guess what was verified. That reintroduces exactly the blind-authoring risk recon exists to remove. Label everything.
+26: 
+27: ### AP-5 — Mutating anything / running git
+28: 
+29: `cd && git show` can trigger repo hooks. Any write changes the snapshot. Recon observes only: read, grep, build (build is read-only of source). No writes, no git, no hooks.
+30: 
+31: ### AP-6 — Trickling findings instead of one assembled report
+32: 
+33: Reporting section-by-section as you go, in fragments, forces the Architect to reassemble. Run the whole mission, assemble ONE structured report in the template format, hand it off once.
+34: 
+35: ### AP-7 — Treating recon as brain-drain
+36: 
+37: Brain-drain is a deep architecture extraction — 11 evidence docs, hours, full system map. Recon is fast, targeted doc-vs-disk verification — one report, ~30 min, focused only on drift that would mislead authoring. Don't write 11 docs. Don't map every function. Answer the mission and stop.
+38: 
+39: ### AP-8 — Stale recon treated as current
+40: 
+41: A Recon Report is a snapshot. If a phase closed, a kit was upgraded, or branches merged since the report, it's stale — re-run before authoring. Authoring against a stale recon is the same failure as authoring against a stale handbook, one level up.
+42: 
+43: ### AP-9 — Letting seeded examples read as requirements
+44: 
+45: The mission's seeded examples (the QR fossil, the `app-role.ts` lie, etc.) are ILLUSTRATIONS of drift classes from a past run, not requirements for the current repo. Replace them with what THIS repo shows. A recon that reports a past project's findings as if they were the current repo's is worse than no recon.
+
+FILE: agent_docs/SKILLS/stark-recon-skill-v1.1/references/EVIDENCE_DISCIPLINE.md
+1: # EVIDENCE DISCIPLINE
+2: 
+3: > Every finding in a Recon Report carries one of five labels. Without labels, the Architect can't tell what was verified from what was guessed — and authoring against a guess is the exact failure this skill prevents.
+4: 
+5: ---
+6: 
+7: ## The Five Labels
+8: 
+9: - **EVIDENCE** — directly found on disk, with a citation (file path + line, or the exact command + its output). The strongest claim. *"`useAuthStore.user` is typed `SupabaseUser | null` — EVIDENCE: src/store/useAuthStore.ts:12."*
+10: 
+11: - **INFERENCE** — a reasonable conclusion drawn from observed structure, with the basis stated. *"The kit gets away with the server-only AppRole import because every value-level usage is in a server component — INFERENCE from grep of import sites."*
+12: 
+13: - **CLAIM** — a doc or the operator says it; NOT independently verified. Always flag claims for verification. *"Handbook says the kit uses Vitest — CLAIM; see EVIDENCE below where package.json shows Jest."*
+14: 
+15: - **GAP** — an expected thing was not found. State what was expected and where you searched. *"No `src/middleware.ts` — GAP (expected per pre-Next-16 convention); `src/proxy.ts` present instead, which is correct for Next 16."*
+16: 
+17: - **QUESTION** — needs operator clarification; phrased as an explicit question. *"`DashboardCard.tsx` has zero consumers — QUESTION: delete as orphan, or keep as a Phase-2 starter pattern?"*
+18: 
+19: ---
+20: 
+21: ## The Governing Rule: Disk Wins
+22: 
+23: When any doc (handbook, APP_BRIEF, prior session log) and the filesystem disagree, **the filesystem is truth.** The doc gets flagged as drift; the report records reality.
+24: 
+25: This is non-negotiable. The entire reason `stark-recon` exists is that docs drift out of true and Architects author against them. Recon's job is to surface every such drift so the Architect authors from disk, not from a stale claim.
+26: 
+27: ## Read-Only
+28: 
+29: Recon **reports** drift; it never **fixes** it. Finding a defect (a `: any`, an orphan file, a stale env name) means logging it with a label and a recommendation — not patching it. Fixing is a separate, explicitly-authorized pass (a cleanup cluster or an FFM build), never part of recon. The recon must leave the repo byte-for-byte unchanged and run zero git operations.
+30: 
+31: ## Citation Style
+32: 
+33: - File facts: `path:line` (`src/utils/app-role.ts:1`).
+34: - Command facts: the command + the salient output (`grep -E '"test":' package.json → "test": "jest"`).
+35: - Absence facts: the command that found nothing (`find src/app -type d -name "(superadmin)" → no results`).
+36: 
+37: A finding the Architect can't trace to a citation is not EVIDENCE — downgrade it to INFERENCE or CLAIM and say so.

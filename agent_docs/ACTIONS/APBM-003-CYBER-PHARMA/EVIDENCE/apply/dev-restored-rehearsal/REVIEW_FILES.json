@@ -1,0 +1,26 @@
+{
+  "status": "BLOCKED",
+  "head": "49dec499d665125bb8764ccc8ea498c5fdfcdcd1",
+  "selfExcluded": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/REVIEW_FILES.json",
+  "files": {
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/ACL_EXCEPTION_TEST_RESULTS.json": "716b8e2312cc3551dd725a89e699eec17e1367ea8748f27f2f9673f3bbdffef4",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/AUTH_INDEX_DIFFERENCES.json": "b2ddadec5f0e77a997adfd55a42d4fb49019747bdd759f6fd21389671ba5dbef",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/AUTH_INDEX_RESTORE_PRIVILEGE.json": "10c1c4bcb2698717a76a331c8a7a719fd25f74935694740c344d56698b0f8384",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/AUTH_MANAGED_OBJECT_PARITY.json": "8abe88ef7f7bf13dbfcd775ae3804fb76821f88b3489c4d1fe1a271814afcd12",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/AUTH_RESTORE_COMPATIBILITY.json": "f8060219cd6b1774ec40a54358b940e26d7bf1ad85e869cfd87906796cef7f2b",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/BACKUP_EXECUTION.json": "00dbe277502b44df413aa8bfd39ebfe9ebd4f4188fbb1b57d4a367c124a78f9f",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/CONFIG_CHECK.json": "c6cbeca61e8df1825fde281b1606f3b2ad95b2bd757b3f8ef38842bae0e57f4d",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/DEV_API_KEYS_CHECK.json": "70bb6595e07ab73131c0bf0254a7037c886fbed19bd9a90512bd2d7433645ded",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/HANDOFF.md": "7c128732f1e57d92a7c983c70fcb432c96b85edbc3dd0eafa2bbc5279bc29c1e",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/RESTORE_CAPABILITIES.json": "b814f65c8c941c5fbe931569776f734ebc44570a3dda40170e43fc0ce4db1c18",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/RESTORE_PLAN_METADATA.json": "fb4c46b4dc98b3c374c091de6fa8e253ee4389958958adf0dd429add200747f1",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/SCRATCH_AUTH_INDEX_PREREQUISITE.sql": "67886fdfb87b11c6170f76792e71be4d63802b6c50ede223641a14dab21e7abf",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/SNAPSHOT_BACKUP.json": "4c62fb9e9d7b1c164543971264df03499359ebf6fd80f11a54cdef280309e8cc",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/VERDICT.json": "0d753a10236a72d050897a14282e4cce198776d91133d6d83482e03abb6b3caf",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/acl-exception-tests.mjs": "655fdf18a2667876c2978501f1845cd9561281390061b75692e80c16e433da65",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/acl-exception.mjs": "4f2e5bd99020699a565842999a50226a933084e18aa86d86204df5b2d785d791",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/backup-archive-component.json": "fb89706cabc5f5f9ebcc87f0f54c07f3a99988c601957031a7efd88c941d9d67",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/backup-tool-check.json": "b5aa8359dc9e139f2e0a217a16a9572c2702470ba8d5abbb4ee1d36b3840f0e2",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-restored-rehearsal/snapshot-backup.mjs": "ee95492dc2b118c75390cc07492c16fd826a34d9669408464fee47e556685915"
+  }
+}

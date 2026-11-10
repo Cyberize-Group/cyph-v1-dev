@@ -1,0 +1,7 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+UTC: 2026-11-05T13:54:32.751391+00:00
+COMMAND: ["node", "node_modules/typescript/bin/tsc", "--noEmit", "--incremental", "false"]
+EXIT: 0
+STDOUT:
+
+STDERR:

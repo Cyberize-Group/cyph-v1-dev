@@ -1,0 +1,112 @@
+{
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "readOnly": "on",
+  "privileges": [
+    {
+      "current_user": "postgres",
+      "bypass_rls": true,
+      "supabase_admin_member": false,
+      "supabase_admin_usage": false
+    }
+  ],
+  "eventTriggers": [
+    {
+      "evtname": "ensure_rls",
+      "evtevent": "ddl_command_end",
+      "evtenabled": "O",
+      "evttags": [
+        "CREATE TABLE",
+        "CREATE TABLE AS",
+        "SELECT INTO"
+      ],
+      "owner": "postgres",
+      "function_schema": "public",
+      "proname": "rls_auto_enable"
+    },
+    {
+      "evtname": "issue_graphql_placeholder",
+      "evtevent": "sql_drop",
+      "evtenabled": "O",
+      "evttags": [
+        "DROP EXTENSION"
+      ],
+      "owner": "supabase_admin",
+      "function_schema": "extensions",
+      "proname": "set_graphql_placeholder"
+    },
+    {
+      "evtname": "issue_pg_cron_access",
+      "evtevent": "ddl_command_end",
+      "evtenabled": "O",
+      "evttags": [
+        "CREATE EXTENSION"
+      ],
+      "owner": "supabase_admin",
+      "function_schema": "extensions",
+      "proname": "grant_pg_cron_access"
+    },
+    {
+      "evtname": "issue_pg_graphql_access",
+      "evtevent": "ddl_command_end",
+      "evtenabled": "O",
+      "evttags": [
+        "CREATE EXTENSION"
+      ],
+      "owner": "supabase_admin",
+      "function_schema": "extensions",
+      "proname": "grant_pg_graphql_access"
+    },
+    {
+      "evtname": "issue_pg_net_access",
+      "evtevent": "ddl_command_end",
+      "evtenabled": "O",
+      "evttags": [
+        "CREATE EXTENSION"
+      ],
+      "owner": "supabase_admin",
+      "function_schema": "extensions",
+      "proname": "grant_pg_net_access"
+    },
+    {
+      "evtname": "pgrst_ddl_watch",
+      "evtevent": "ddl_command_end",
+      "evtenabled": "O",
+      "evttags": null,
+      "owner": "supabase_admin",
+      "function_schema": "extensions",
+      "proname": "pgrst_ddl_watch"
+    },
+    {
+      "evtname": "pgrst_drop_watch",
+      "evtevent": "sql_drop",
+      "evtenabled": "O",
+      "evttags": null,
+      "owner": "supabase_admin",
+      "function_schema": "extensions",
+      "proname": "pgrst_drop_watch"
+    }
+  ],
+  "authUserTriggers": [
+    {
+      "tgname": "on_auth_user_created",
+      "definition": "CREATE TRIGGER on_auth_user_created AFTER INSERT ON auth.users FOR EACH ROW EXECUTE FUNCTION handle_new_user()",
+      "tgenabled": "O"
+    }
+  ],
+  "globalDefaultACLs": [],
+  "publicSequenceSettings": [
+    {
+      "schemaname": "public",
+      "sequencename": "user_roles_id_seq",
+      "sequenceowner": "postgres",
+      "data_type": "bigint",
+      "start_value": "1",
+      "min_value": "1",
+      "max_value": "9223372036854775807",
+      "increment_by": "1",
+      "cycle": false,
+      "cache_size": "1",
+      "last_value": "13"
+    }
+  ]
+}
