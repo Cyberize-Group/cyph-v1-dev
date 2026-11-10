@@ -1,0 +1,10 @@
+{
+  "endpoint": "GET /rest/v1/businesses?select=id&limit=0",
+  "keyName": "RLS_REPLICA_PUBLISHABLE_KEY",
+  "authorizationHeader": false,
+  "httpStatus": 200,
+  "returnedRows": 0,
+  "errorCode": null,
+  "errorMessage": null,
+  "interpretation": "Publishable key accepted on data endpoint"
+}

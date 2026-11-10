@@ -1,0 +1,4 @@
+# real-mode QA build bundle check (Q4) 2026-11-09T12:38:45+06:00 BUILD_ID b4sV31M_syjGJEKIpFVSf
+sb_secret_ occurrences in .next/static + standalone server chunks: 0
+SUPABASE_SECRET_KEY literal in client static: 0
+new copy strings present in client bundle: Synthetic test data=6 files; Billing actions are unavailable=1 files; old demo copy still compiled (mock branch, expected present)=6 files

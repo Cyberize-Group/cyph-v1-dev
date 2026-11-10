@@ -1,0 +1,15 @@
+Q2 entry check — 2026-11-07T17:03:16+06:00
+branch qa/apbm-003
+HEAD 051344c80f4ba559fbde300b025923181c48c047
+candidate 308247a24e6ddd455842da5cd2e21541d7eae2c1
+product diff candidate..HEAD (excluding agent_docs): 0 lines -> IDENTICAL
+HEAD commit: 051344c APBM-003 QA: bind plan 194538a7, Director Q2 release (Ahmed Rahat Musawir, Sat Nov 7 17:00:06 2026 +0600)
+files in HEAD commit: 41 (all under agent_docs/)
+plan sha256 194538a7a7701c4b35aa731b17197f4e6ddb577d43ce4f7ac8bbdb383a5cfea4 == bound 194538a7a7701c4b35aa731b17197f4e6ddb577d43ce4f7ac8bbdb383a5cfea4 -> MATCH
+QAM_APPROVAL.md §2 plan identity: NOT RECORDED
+QAM_APPROVAL.md §3 release (4 rows): NOT RECORDED
+QAM_STATE.md latest phase: Q1 AMENDED — AWAITING QA LEAD BINDING (no APPROVED — NOT RELEASED, no RELEASED FOR Q2)
+APBM_RULINGS.md §C: (none yet) — errata R-2 / R-6 absent (release condition 3)
+R-10 confirmation / AM-6 SCRATCH signup posture: not on disk (release condition 2)
+check-qa-env.sh: RESULT PASS, 21/21 keys, mode 600, ignored, untracked (release condition 1 satisfied)
+actions taken: none on SCRATCH, DEV, :3137/:3138, product, Git

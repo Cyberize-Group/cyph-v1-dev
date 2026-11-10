@@ -11,7 +11,8 @@ import {
 } from "@/components/ui/select";
 import { owedBookService } from "@/services/owedbook";
 import type { OwedBookFilters } from "@/types/OwedBook";
-import { countActiveFilters } from "./OwedBookContext";
+import { isDemoMode } from "@/services/tenantScope";
+import { countActiveFilters, useOwedBook } from "./OwedBookContext";
 
 interface FilterRailProps {
   filters: OwedBookFilters; // committed filters — seed the controls + active count
@@ -35,6 +36,8 @@ const FILTER_OPTIONS = [
 // is a UI-FUNCTIONAL MOCK — opens a real picker and fakes success via the
 // service, but does NOT read/parse/send the file (real ingest = Phase 5).
 const FilterRail = ({ filters, pbmOptions, onApply, onClear }: FilterRailProps) => {
+  const { refresh: reloadScoped, optionsError } = useOwedBook();
+  const demo = isDemoMode();
   // Seed the controls from the committed filters so reopening the rail/drawer
   // shows the active selection (FilterRail re-mounts each time the drawer opens).
   const [draft, setDraft] = useState<OwedBookFilters>(filters);
@@ -58,7 +61,7 @@ const FilterRail = ({ filters, pbmOptions, onApply, onClear }: FilterRailProps) 
 
   const handleFile = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file) return;
+    if (!file || !demo) return;
     setUpload({ name: file.name, status: "uploading" });
     await owedBookService.uploadData(file); // mock: file is NOT read/parsed/sent
     setUpload({ name: file.name, status: "done" });
@@ -66,6 +69,7 @@ const FilterRail = ({ filters, pbmOptions, onApply, onClear }: FilterRailProps) 
   };
 
   const handleRefresh = async () => {
+    if (!demo) { reloadScoped(); return; }
     setRefresh("refreshing");
     await owedBookService.refreshData(); // mock: no real fetch
     setRefresh("done");
@@ -76,6 +80,7 @@ const FilterRail = ({ filters, pbmOptions, onApply, onClear }: FilterRailProps) 
       <div className="flex flex-col gap-1">
         <button
           type="button"
+          disabled={!demo}
           onClick={() => fileInputRef.current?.click()}
           className="w-full bg-chart-5 text-white py-2 text-sm font-semibold"
         >
@@ -89,7 +94,7 @@ const FilterRail = ({ filters, pbmOptions, onApply, onClear }: FilterRailProps) 
           className="hidden"
           aria-label="Upload claims file"
         />
-        <p className="text-xs text-muted-foreground">Upload your dispensing report (.csv, .xlsx)</p>
+        <p className="text-xs text-muted-foreground">{demo ? "Upload your dispensing report (.csv, .xlsx)" : "Upload is not available in this release."}</p>
         {upload && (
           <p className="text-xs text-muted-foreground truncate" role="status">
             {upload.name} — {upload.status === "uploading" ? "Uploading…" : "Upload complete"}
@@ -147,6 +152,7 @@ const FilterRail = ({ filters, pbmOptions, onApply, onClear }: FilterRailProps) 
         />
       </div>
 
+      {optionsError && <p role="alert">{optionsError}</p>}
       <p className="text-xs text-muted-foreground">{activeCount} filters active</p>
 
       <div className="flex gap-2">

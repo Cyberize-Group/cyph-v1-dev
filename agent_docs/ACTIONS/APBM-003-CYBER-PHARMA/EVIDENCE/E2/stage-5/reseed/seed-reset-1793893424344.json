@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "deleted": {
+    "user_data": 250,
+    "subscriptions": 3,
+    "user_businesses": 8,
+    "businesses": 5,
+    "accounts": 3,
+    "aac_reference": 2,
+    "wac_reference": 4,
+    "ful_reference": 1,
+    "pbm_info": 3,
+    "reference_dataset_versions": 4,
+    "system_config": 2
+  },
+  "seedAuthUsersRemoved": 7,
+  "auditLogsPreserved": true
+}

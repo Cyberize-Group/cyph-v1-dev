@@ -1,0 +1,25 @@
+qa-shim: SCRATCH fence OK (url-side ref=ihgcsrypblqkwommrkgj; sql-side DEV fingerprint absent)
+qa-shim: spawning in /tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/fa30ae5a-f519-405b-b673-4ca4f9937817/scratchpad/qa-tree: node /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/AUTOMATION/scratch-sql.mjs (evidence → ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/seed/01)
+[
+  {
+    "sql": "select count(*)::int audit_total from public.audit_logs",
+    "rowCount": 1,
+    "rows": [
+      {
+        "audit_total": 570
+      }
+    ]
+  },
+  {
+    "sql": "select count(*)::int remaining_seed_rows from public.user_data",
+    "rowCount": 1,
+    "rows": [
+      {
+        "remaining_seed_rows": 0
+      }
+    ]
+  },
+  {
+    "transaction": "ROLLBACK"
+  }
+]

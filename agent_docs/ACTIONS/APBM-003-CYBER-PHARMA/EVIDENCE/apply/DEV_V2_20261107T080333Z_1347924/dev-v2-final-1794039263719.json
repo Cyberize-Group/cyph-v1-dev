@@ -1,0 +1,186 @@
+{
+  "mode": "final",
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "status": "PASS",
+  "startedAt": "2026-11-07T08:13:48.178Z",
+  "bundleSHA256": "8bdb753b4d227e4211c6ee1d0cb6a6c0048071a371e456444b0a7605cb1b0a5c",
+  "rehearsal": {
+    "kind": "SYNTHETIC_APPLICATION_REHEARSAL_NOT_DEV_RESTORE",
+    "completedAt": "2026-11-06T15:02:40.230Z",
+    "restoreVerified": false,
+    "status": "PASS",
+    "reused": true
+  },
+  "backup": {
+    "status": "HASH_VERIFIED",
+    "sha256": "1d33881a1b49f85d20ecee6514a56f94552055efd6dc19f58942b12316dda692"
+  },
+  "signup": {
+    "disabled": true,
+    "checkedAt": "2026-11-07T08:13:48.637Z",
+    "method": "GET settings with apikey only"
+  },
+  "signupGate": {
+    "status": "PASS",
+    "disposition": "disabled-evidence",
+    "observed": {
+      "disabled": true,
+      "checkedAt": "2026-11-07T08:13:48.637Z",
+      "method": "GET settings with apikey only"
+    }
+  },
+  "verification": {
+    "parity": {
+      "status": "PASS",
+      "sha256": "e2f4ab8b2ec2ef0195c3412a01064d869374682c59e656942e92d337ec23e186",
+      "normalizedSHA256": "66782ff92213415443d428ade161b165e04a5aba29999453cb0ab34a7160d061",
+      "retainedManagedEntries": 3
+    },
+    "preservation": {
+      "status": "PASS",
+      "additive": true,
+      "tables": {
+        "auth.audit_log_entries": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.custom_oauth_providers": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.flow_state": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.identities": {
+          "preserved": 5,
+          "added": 7
+        },
+        "auth.instances": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.mfa_amr_claims": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.mfa_challenges": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.mfa_factors": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.mfa_recovery_code_sets": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.mfa_recovery_codes": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.oauth_authorizations": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.oauth_client_states": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.oauth_clients": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.oauth_consents": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.one_time_tokens": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.refresh_tokens": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.saml_providers": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.saml_relay_states": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.schema_migrations": {
+          "preserved": 82,
+          "added": 0
+        },
+        "auth.scim_tokens": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.scim_users": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.sessions": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.sso_domains": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.sso_providers": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.users": {
+          "preserved": 5,
+          "added": 7
+        },
+        "auth.webauthn_challenges": {
+          "preserved": 0,
+          "added": 0
+        },
+        "auth.webauthn_credentials": {
+          "preserved": 0,
+          "added": 0
+        },
+        "public.profiles": {
+          "preserved": 5,
+          "added": 7
+        },
+        "public.user_roles": {
+          "preserved": 5,
+          "added": 7
+        },
+        "supabase_migrations.schema_migrations": {
+          "preserved": 1,
+          "added": 0
+        }
+      },
+      "authIndexesUnchanged": true
+    },
+    "effectiveGrants": {
+      "status": "PASS",
+      "effectiveTableGrantChecks": 357,
+      "effectiveFunctionGrantChecks": 57,
+      "schemaUsageChecks": 3,
+      "rlsAndPolicies": "exact reviewed catalog"
+    },
+    "ledgerEntries": 52
+  },
+  "conditionalACLAcceptanceSatisfied": true,
+  "liveProofs": {
+    "ownerChecks": 19,
+    "clientChecks": 154,
+    "crossStoreDenial": true,
+    "directReadDenial": true,
+    "claims": 250
+  },
+  "manualAppSmoke": "Tony pending",
+  "finishedAt": "2026-11-07T08:14:23.719Z",
+  "sharedDevWritesAttempted": false
+}

@@ -1,0 +1,10 @@
+# T-05 — 2026-11-09T09:33:08+06:00
+auth path diff lines af2c7e5..308247a: 0
+find src/app -path '*moose-portal*': 0
+signup/register routes under src/app: 0
+grep -l user_roles in 0048-0052:
+supabase/migrations/0049_signup_member.sql
+negative control: auth path diff af2c7e5 vs older b23372d lines: 0 (expected non-zero if those paths changed historically; if 0, control via 7abd8a6)
+negative control 2: diff 7abd8a6..af2c7e5 auth path lines: 0
+negative control 3: git log count touching auth path across history: 2
+first commit touching auth path: 297a0114b2ec6e2258dd336067b6a4b87b7daa30; diff 297a0114b2ec6e2258dd336067b6a4b87b7daa30^..af2c7e5 lines: 439

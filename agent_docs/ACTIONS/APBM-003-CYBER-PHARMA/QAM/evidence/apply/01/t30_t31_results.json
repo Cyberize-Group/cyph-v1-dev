@@ -1,0 +1,86 @@
+{
+  "ranAt": "2026-11-09T03:43:41.918Z",
+  "fence": "AUTOMATION/ro-sql.sh (URL + SQL fingerprint, READ ONLY, ROLLBACK)",
+  "checks": [
+    {
+      "name": "T-30 ledger has 52 rows",
+      "result": "PASS",
+      "detail": "observed 52"
+    },
+    {
+      "name": "T-30 ledger names = committed 0001..0052",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-30 ledger sha256 = sha256sum of committed files at candidate",
+      "result": "PASS",
+      "detail": "all 52 match"
+    },
+    {
+      "name": "T-30 QA-normalised catalog projection equals the same projection of the receipt snapshot",
+      "result": "PASS",
+      "detail": "sha c4cb54fb0c76a238…"
+    },
+    {
+      "name": "T-30 tables = 17 [QA-derived]",
+      "result": "PASS",
+      "detail": "observed 17: aac_reference,accounts,apa_memberships,audit_logs,businesses,ful_reference,pbm_info,pending_registrations,profiles,reference_dataset_versions,report_files,subscriptions,system_config,user_businesses,user_data,user_roles,wac_reference"
+    },
+    {
+      "name": "T-30 policies = 15 [QA-derived]",
+      "result": "PASS",
+      "detail": "observed 15"
+    },
+    {
+      "name": "T-30 functions = 19 [QA-derived]",
+      "result": "PASS",
+      "detail": "observed 19: admin_audit,admin_billing_status,admin_members,admin_stores,audit_logs_immutable,audit_write,handle_new_user,is_account_member,is_admin_of,is_member_of,is_owner_of_account,my_business_ids,owedbook_kpis,owedbook_pbm_options,owedbook_rows,owedbook_summary,rls_auto_enable,tenant_stores,update_updated_at"
+    },
+    {
+      "name": "T-30 audit_write() stamping triggers = 14 [QA-derived]",
+      "result": "PASS",
+      "detail": "observed 14"
+    },
+    {
+      "name": "T-30 auth.users = 12 (5 pre-existing + 7 cast)",
+      "result": "PASS",
+      "detail": "total 12, preserved 5, cast 7; preserved-id-list sha256 2c7ca90bfa8df131…"
+    },
+    {
+      "name": "T-30 profiles 12 / user_roles 12",
+      "result": "PASS",
+      "detail": "{\"profiles\":12,\"user_roles\":12,\"members\":10}"
+    },
+    {
+      "name": "T-30 default ACLs recorded (compare to receipt entries)",
+      "result": "PASS",
+      "detail": "6 entries; supabase_admin-owned: 3"
+    },
+    {
+      "name": "T-30 restoreVerified clause",
+      "result": "PASS",
+      "detail": "ACCEPTED LIMITATION per APBM_RULINGS.md C-02 (receipt rehearsal.restoreVerified=false); not graded PASS"
+    },
+    {
+      "name": "T-31a handle_new_user body = 0049 text (normalised whitespace), SECURITY DEFINER, search_path pinned",
+      "result": "PASS",
+      "detail": "body identical"
+    },
+    {
+      "name": "T-31b AC-405 literal: anon/authenticated can SEE nothing by default on user_data, audit_logs (no SELECT grant); system_config SELECT only for authenticated (0052)",
+      "result": "PASS",
+      "detail": "SELECT grants outside 0052: []"
+    },
+    {
+      "name": "T-31b plan-strict (T-11e wording): no table privilege at all beyond 0052",
+      "result": "FAIL",
+      "detail": "non-SELECT grants present: [{\"grantee\":\"anon\",\"tbl\":\"audit_logs\",\"priv\":\"INSERT\"},{\"grantee\":\"anon\",\"tbl\":\"audit_logs\",\"priv\":\"REFERENCES\"},{\"grantee\":\"anon\",\"tbl\":\"audit_logs\",\"priv\":\"TRIGGER\"},{\"grantee\":\"anon\",\"tbl\":\"audit_logs\",\"priv\":\"TRUNCATE\"},{\"grantee\":\"anon\",\"tbl\":\"user_data\",\"priv\":\"REFERENCES\"},{\"grantee\":\"anon\",\"tbl\":\"user_data\",\"priv\":\"TRIGGER\"},{\"grantee\":\"anon\",\"tbl\":\"user_data\",\"priv\":\"TRUNCATE\"},{\"grantee\":\"authenticated\",\"tbl\":\"audit_logs\",\"priv\":\"INSERT\"},{\"grantee\":\"authenticated\",\"tbl\":\"audit_logs\",\"priv\":\"REFERENCES\"},{\"grantee\":\"authenticated\",\"tbl\":\"audit_logs\",\"priv\":\"TRIGGER\"},{\"grantee\":\"authenticated\",\"tbl\":\"audit_logs\",\"priv\":\"TRUNCATE\"},{\"grantee\":\"authenticated\",\"tbl\":\"user_data\",\"priv\":\"REFERENCES\"},{\"grantee\":\"authenticated\",\"tbl\":\"user_data\",\"priv\":\"TRIGGER\"},{\"grantee\":\"authenticated\",\"tbl\":\"user_data\",\"priv\":\"TRUNCATE\"}] — 0028 deliberately leaves INSERT on audit_logs to FORCE RLS (no insert policy); effective denial is probed in T-17"
+    },
+    {
+      "name": "T-31c DEV GET /auth/v1/settings disable_signup = true",
+      "result": "PASS",
+      "detail": "observed true"
+    }
+  ]
+}

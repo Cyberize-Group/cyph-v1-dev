@@ -1,0 +1,10 @@
+PASS T-36 Upload Data disabled + "Upload is not available in this release." 
+PASS T-36 Add store disabled 
+PASS T-36 Manage payment disabled 
+PASS T-36 Cancel disabled 
+PASS T-36 member actions: "Member actions are not available in this release." and no enabled action buttons 
+PASS T-36 settings edit unavailable (status text), no Save button 
+PASS T-36 before/after row counts + content hashes unchanged on all 9 business tables 
+PASS T-36 audit_logs grew only by read_page rows [{"action":"read_page","n":15}]
+PASS T-36 HAR: no POST to any /rest/v1/<table>; only /rest/v1/rpc/* and /auth/v1/* 21 POSTs; table posts: 
+summary nomut: 9 PASS / 0 FAIL; unexpected backend requests 0

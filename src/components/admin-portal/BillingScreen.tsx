@@ -5,6 +5,7 @@ import ScreenHeader from "@/components/admin-portal/ScreenHeader";
 import AddStoreButton from "@/components/admin-portal/AddStoreButton";
 import BillingRow from "@/components/admin-portal/BillingRow";
 import { billingService } from "@/services/adminDemo";
+import { isDemoMode } from "@/services/tenantScope";
 import type { BillingLine } from "@/types/adminDemo";
 
 const Skeleton = () => (
@@ -72,7 +73,9 @@ const BillingScreen = () => {
             ))}
           </div>
           <p className="mt-4 text-xs text-muted-foreground">
-            Visual only — no real charge is made in this demo.
+            {isDemoMode()
+              ? "Visual only — no real charge is made in this demo."
+              : "Billing actions are unavailable in this release"}
           </p>
         </>
       )}

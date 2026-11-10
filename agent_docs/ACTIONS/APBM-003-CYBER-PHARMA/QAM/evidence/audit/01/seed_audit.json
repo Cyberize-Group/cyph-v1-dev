@@ -1,0 +1,97 @@
+{
+  "test": "T-16 seed audit posture (AC-207)",
+  "expected_per_run": 285,
+  "before_run1": {
+    "audit_total": 0,
+    "max_id": "0"
+  },
+  "after_run1": {
+    "total": 285,
+    "attribution": [
+      {
+        "actor_role": "service_role",
+        "actor_null": true,
+        "n": 285
+      }
+    ],
+    "by_table": [
+      {
+        "table_name": "aac_reference",
+        "n": 2
+      },
+      {
+        "table_name": "accounts",
+        "n": 3
+      },
+      {
+        "table_name": "businesses",
+        "n": 5
+      },
+      {
+        "table_name": "ful_reference",
+        "n": 1
+      },
+      {
+        "table_name": "pbm_info",
+        "n": 3
+      },
+      {
+        "table_name": "reference_dataset_versions",
+        "n": 4
+      },
+      {
+        "table_name": "subscriptions",
+        "n": 3
+      },
+      {
+        "table_name": "system_config",
+        "n": 2
+      },
+      {
+        "table_name": "user_businesses",
+        "n": 8
+      },
+      {
+        "table_name": "user_data",
+        "n": 250
+      },
+      {
+        "table_name": "wac_reference",
+        "n": 4
+      }
+    ]
+  },
+  "after_reset1": {
+    "audit_total": 570
+  },
+  "after_run2": {
+    "audit_total": 855
+  },
+  "intact_check": [
+    [
+      {
+        "first_285_intact": 285
+      }
+    ],
+    [
+      {
+        "action": "delete",
+        "n": 285
+      },
+      {
+        "action": "insert",
+        "n": 570
+      },
+      {
+        "action": "read_page",
+        "n": 216
+      },
+      {
+        "action": "update",
+        "n": 9
+      }
+    ]
+  ],
+  "observation": "seed:reset deletes the seed slice and audit_write stamps one delete row per deleted row (+285), so the audit count grows on reset; prior rows (ids 1..285) remain intact and nothing is deleted or truncated \u2014 the plan text \"count unchanged\" was imprecise; AC-207 wording \"reset leaves prior audit rows intact\" is what is graded",
+  "source_grep": "grep -n audit_logs scripts/seed/*.mjs:\nscripts/seed/reset.mjs:2:// Deletes only the deterministic APBM seed slice. Never touches audit_logs or non-seed users.\nscripts/seed/run.mjs:19: const before=(await db.query('select coalesce(max(id),0)::text id from public.audit_logs')).rows[0].id;\nscripts/seed/run.mjs:30: const audit=(await db.query(\"select count(*)::int count,count(*) filter(where actor_role='service_role' and actor_user_id is null)::int correctly_attributed from public.audit_logs where id>$1\",[before])).rows[0];if(audit.count!==285||audit.correctly_attributed!==285)throw new Error('seed audit count/attribution mismatch');\nwrite statements touching audit_logs in scripts/seed (insert|update|delete|truncate audit_logs): 0\n"
+}

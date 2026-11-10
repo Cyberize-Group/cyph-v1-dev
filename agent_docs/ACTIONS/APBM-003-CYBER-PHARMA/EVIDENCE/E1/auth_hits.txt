@@ -1,0 +1,54 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+UTC: 2026-11-05T13:53:33.472203+00:00
+COMMAND: ["rg", "-n", "user_roles|createAdminClient|GoTrueAdminApi|service_role|protectPage|signOut|user_metadata", "src"]
+EXIT: 0
+STDOUT:
+src/__tests__/supabase-admin.test.ts:6:import { createAdminClient } from '@/utils/supabase/admin';
+src/__tests__/supabase-admin.test.ts:8:// createAdminClient is the only reader of SUPABASE_SECRET_KEY. With the key no
+src/__tests__/supabase-admin.test.ts:16:describe('createAdminClient (fail-closed)', () => {
+src/__tests__/supabase-admin.test.ts:35:    expect(() => createAdminClient()).toThrow('Missing Supabase admin credentials');
+src/__tests__/supabase-admin.test.ts:42:    expect(() => createAdminClient()).toThrow('Missing Supabase admin credentials');
+src/__tests__/supabase-admin.test.ts:50:    expect(() => createAdminClient()).toThrow('Missing Supabase admin credentials');
+src/__tests__/supabase-admin.test.ts:57:    createAdminClient();
+src/__tests__/get-user-role.test.ts:31:    expect(query.from).toHaveBeenCalledWith('user_roles');
+src/__tests__/actions.test.ts:18:import { protectPage } from '@/utils/supabase/actions';
+src/__tests__/actions.test.ts:27:describe('protectPage', () => {
+src/__tests__/actions.test.ts:48:    // protectPage now returns server-truth identity for layouts to pass into the Navbar.
+src/__tests__/actions.test.ts:49:    await expect(protectPage([AppRole.ADMIN as any])).resolves.toEqual({
+src/__tests__/actions.test.ts:61:    await expect(protectPage([AppRole.ADMIN as any])).rejects.toThrow('NEXT_REDIRECT:/auth');
+src/__tests__/actions.test.ts:68:    await expect(protectPage([AppRole.ADMIN as any])).rejects.toThrow('NEXT_REDIRECT:/auth');
+src/__tests__/actions.test.ts:78:    await expect(protectPage([AppRole.ADMIN as any])).rejects.toThrow('NEXT_REDIRECT:/auth');
+src/__tests__/actions.test.ts:87:    await expect(protectPage([AppRole.SUPERADMIN as any])).rejects.toThrow('NEXT_REDIRECT:/auth');
+src/__tests__/actions.test.ts:96:    await expect(protectPage([AppRole.SUPERADMIN as any])).rejects.toThrow('NEXT_REDIRECT:/auth');
+src/__tests__/actions.test.ts:105:    await expect(protectPage([AppRole.SUPERADMIN as any])).resolves.toEqual({
+src/__tests__/member/ProfileForm.test.tsx:31:  user_metadata: { full_name: 'John Member', role: 'member' },
+src/__tests__/member/ProfileForm.test.tsx:189:      user_metadata: {},
+src/types/supabase.ts:878:      user_roles: {
+src/utils/get-user-role.ts:5: * Fetches the user's role from the user_roles table in the database.
+src/utils/get-user-role.ts:17:    .from('user_roles')
+src/utils/supabase/actions.ts:8:export async function protectPage(
+src/utils/supabase/admin.ts:8:// CRITICAL: uses the secret (service_role) key — server-side only. NEVER import this in
+src/utils/supabase/admin.ts:14: * Creates a Supabase admin client with service_role privileges.
+src/utils/supabase/admin.ts:20:export const createAdminClient = () => {
+src/instrumentation.ts:5:// `secret` replaces `service_role`. See `.env.example` for current names.
+src/instrumentation.ts:9:// reader, createAdminClient() in src/utils/supabase/admin.ts, fails closed at
+src/components/layout/AuthedShell.tsx:22:// user/role come from the server layout's protectPage — forwarded to the Navbar
+src/components/global/Navbar.tsx:25:// protectPage, which guarantees an authenticated user with an allowed role and
+src/app/profile/ProfileForm.tsx:16:  /** Canonical role from `user_roles` (fetched server-side in the page). */
+src/app/profile/ProfileForm.tsx:28:    user.user_metadata?.full_name ?? user.email?.split("@")[0] ?? "Member";
+src/app/profile/page.tsx:15:  // Canonical role from user_roles (not metadata) drives the profile badge.
+src/app/profile/layout.tsx:3:import { protectPage } from "@/utils/supabase/actions";
+src/app/profile/layout.tsx:15:  const { user, role } = await protectPage([AppRole.ADMIN, AppRole.MEMBER]);
+src/app/(admin)/layout.tsx:2:import { protectPage } from "@/utils/supabase/actions";
+src/app/(admin)/layout.tsx:13:  const { user, role } = await protectPage([AppRole.ADMIN], {
+src/app/(public)/layout.tsx:8:// legitimate on the public group — protectPage would bounce them, so we resolve
+src/app/(public)/layout.tsx:9:// by hand): user may be null, and role comes from user_roles (DB is role truth),
+src/app/owedbook/layout.tsx:2:import { protectPage } from "@/utils/supabase/actions";
+src/app/owedbook/layout.tsx:17:  const { user, role } = await protectPage([AppRole.ADMIN, AppRole.MEMBER]);
+src/app/api/auth/logout/route.ts:7:  const { error } = await supabase.auth.signOut();
+src/app/api/auth/logout/route.ts:13:  // Purge the entire Next.js Server Component cache so layouts re-run protectPage
+src/app/api/auth/login/route.ts:27:  // Purge the entire Next.js Server Component cache so layouts re-run protectPage
+src/app/api/auth/login/route.ts:30:  // Fetch the user's role from user_roles table
+src/app/api/auth/login/route.ts:34:      .from('user_roles')
+
+STDERR:

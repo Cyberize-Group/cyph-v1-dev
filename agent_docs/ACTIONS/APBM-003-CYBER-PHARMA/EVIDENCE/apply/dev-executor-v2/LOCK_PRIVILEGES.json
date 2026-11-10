@@ -1,0 +1,281 @@
+{
+  "readOnly": true,
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "rows": [
+    {
+      "schema": "auth",
+      "table_name": "audit_log_entries",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "custom_oauth_providers",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "flow_state",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "identities",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "instances",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "mfa_amr_claims",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "mfa_challenges",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "mfa_factors",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "mfa_recovery_code_sets",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "mfa_recovery_codes",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "oauth_authorizations",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "oauth_client_states",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "oauth_clients",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "oauth_consents",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "one_time_tokens",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "refresh_tokens",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "saml_providers",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "saml_relay_states",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "schema_migrations",
+      "can_select": true,
+      "can_update": false,
+      "can_delete": false,
+      "can_truncate": false,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "scim_tokens",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "scim_users",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "sessions",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "sso_domains",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "sso_providers",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "users",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "webauthn_challenges",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "auth",
+      "table_name": "webauthn_credentials",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "supabase_auth_admin"
+    },
+    {
+      "schema": "public",
+      "table_name": "profiles",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "postgres"
+    },
+    {
+      "schema": "public",
+      "table_name": "user_roles",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "postgres"
+    },
+    {
+      "schema": "supabase_migrations",
+      "table_name": "schema_migrations",
+      "can_select": true,
+      "can_update": true,
+      "can_delete": true,
+      "can_truncate": true,
+      "owner": "postgres"
+    }
+  ],
+  "additional": {
+    "can_maintain": false,
+    "public_create": true,
+    "operator": "postgres"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "command": "apply",
+  "startedAt": "2026-11-05T15:18:02.987Z",
+  "committed": [
+    "0049_signup_member.sql"
+  ],
+  "status": "PASS",
+  "lastCommitted": "0049_signup_member.sql",
+  "finishedAt": "2026-11-05T15:18:05.995Z"
+}

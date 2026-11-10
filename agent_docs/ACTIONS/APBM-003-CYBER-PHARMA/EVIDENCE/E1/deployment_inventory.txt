@@ -1,0 +1,6 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+COMMAND: ["find", ".", "-path", "./node_modules", "-prune", "-o", "-path", "./.git", "-prune", "-o", "-type", "f", "(", "-iname", "*docker*", "-o", "-iname", "*cloudbuild*", "-o", "-iname", "*deploy*", ")", "-print"]
+EXIT: 0
+./.next/standalone/node_modules/next/dist/shared/lib/deployment-id.js
+./.dockerignore
+

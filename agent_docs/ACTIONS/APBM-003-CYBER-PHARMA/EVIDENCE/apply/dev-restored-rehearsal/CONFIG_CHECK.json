@@ -1,0 +1,21 @@
+{
+  "checkedAt": "2026-11-06T10:34:48.960Z",
+  "pgDump": "/usr/lib/postgresql/17/bin/pg_dump",
+  "pgRestore": "/usr/lib/postgresql/17/bin/pg_restore",
+  "toolVersions": "17.11",
+  "devProjectRef": "yrsuwikjnbmvpznrgydb",
+  "scratchProjectRef": "ihgcsrypblqkwommrkgj",
+  "missingDevVariables": [],
+  "dev": {
+    "status": "PASS_CONFIG",
+    "sqlRef": "yrsuwikjnbmvpznrgydb",
+    "apiRef": "yrsuwikjnbmvpznrgydb",
+    "sessionPooler": false
+  },
+  "scratch": {
+    "status": "PASS_CONFIG",
+    "sqlRef": "ihgcsrypblqkwommrkgj",
+    "apiRef": "ihgcsrypblqkwommrkgj",
+    "sessionPooler": true
+  }
+}

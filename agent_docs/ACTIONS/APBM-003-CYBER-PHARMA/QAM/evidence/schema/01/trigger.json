@@ -1,0 +1,53 @@
+{
+  "ranAt": "2026-11-09T03:52:18.518Z",
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "probeEmailShape": "apbm003-qa-probe-<ts>@example.invalid (deleted)",
+  "checks": [
+    {
+      "name": "T-21 pg_get_functiondef(handle_new_user) body = 0049 text (normalised whitespace)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-21 SECURITY DEFINER + search_path pinned",
+      "result": "PASS",
+      "detail": "SET search_path TO ''"
+    },
+    {
+      "name": "T-21 trigger wired on auth.users",
+      "result": "PASS",
+      "detail": "[{\"tgname\":\"on_auth_user_created\",\"relname\":\"users\",\"nspname\":\"auth\"}]"
+    },
+    {
+      "name": "T-21 createUser with role:superadmin metadata succeeded (SCRATCH, probe identity)",
+      "result": "PASS",
+      "detail": "created"
+    },
+    {
+      "name": "T-21 user_roles.role = member despite metadata role superadmin",
+      "result": "PASS",
+      "detail": "observed member"
+    },
+    {
+      "name": "T-21 profiles.full_name = 'QA Probe' copied from metadata",
+      "result": "PASS",
+      "detail": "{\"full_name\":\"QA Probe\",\"email\":\"apbm003-qa-probe-1794196337683@example.invalid\"}"
+    },
+    {
+      "name": "T-21 metadata still carries role (ignored by the trigger, never a privilege)",
+      "result": "PASS",
+      "detail": "raw role=superadmin"
+    },
+    {
+      "name": "T-21 probe user deleted (auth.users, user_roles, profiles rows gone)",
+      "result": "PASS",
+      "detail": "{\"ur\":0,\"pr\":0,\"au\":0}"
+    },
+    {
+      "name": "T-21 audit delta recorded (user_roles/profiles are not stamped → 0 expected)",
+      "result": "PASS",
+      "detail": "audit_logs delta = 0"
+    }
+  ],
+  "auditDelta": 0
+}

@@ -1,0 +1,49 @@
+
+/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/scripts/rls-harness/ac8-check.mjs
+  12:10  warning  'join' is defined but never used. Allowed unused vars must match /^_/u          @typescript-eslint/no-unused-vars
+  13:24  warning  'evidenceRoot' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+  13:53  warning  'safeLabel' is defined but never used. Allowed unused vars must match /^_/u     @typescript-eslint/no-unused-vars
+  13:73  warning  'repoRoot' is defined but never used. Allowed unused vars must match /^_/u      @typescript-eslint/no-unused-vars
+
+/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/scripts/rls-harness/attacks.mjs
+  7:10  warning  'join' is defined but never used. Allowed unused vars must match /^_/u          @typescript-eslint/no-unused-vars
+  8:24  warning  'evidenceRoot' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+  8:53  warning  'safeLabel' is defined but never used. Allowed unused vars must match /^_/u     @typescript-eslint/no-unused-vars
+  8:73  warning  'harnessRoot' is defined but never used. Allowed unused vars must match /^_/u   @typescript-eslint/no-unused-vars
+  8:86  warning  'repoRoot' is defined but never used. Allowed unused vars must match /^_/u      @typescript-eslint/no-unused-vars
+
+/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/scripts/rls-harness/harness.mjs
+  12:24  warning  'evidenceRoot' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+  15:36  warning  'DENY' is defined but never used. Allowed unused vars must match /^_/u          @typescript-eslint/no-unused-vars
+
+/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/scripts/rls-harness/policy-check.mjs
+  15:10  warning  'evidencePath' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+  15:24  warning  'evidenceRoot' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+  15:53  warning  'safeLabel' is defined but never used. Allowed unused vars must match /^_/u     @typescript-eslint/no-unused-vars
+
+/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/scripts/rls-harness/prove.mjs
+  12:25  warning  'readFileSync' is defined but never used. Allowed unused vars must match /^_/u          @typescript-eslint/no-unused-vars
+  28:7   warning  'evidenceDir' is assigned a value but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/scripts/rls-harness/revocation.mjs
+  12:10  warning  'join' is defined but never used. Allowed unused vars must match /^_/u          @typescript-eslint/no-unused-vars
+  13:24  warning  'evidenceRoot' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+  13:53  warning  'safeLabel' is defined but never used. Allowed unused vars must match /^_/u     @typescript-eslint/no-unused-vars
+  13:73  warning  'harnessRoot' is defined but never used. Allowed unused vars must match /^_/u   @typescript-eslint/no-unused-vars
+  13:86  warning  'repoRoot' is defined but never used. Allowed unused vars must match /^_/u      @typescript-eslint/no-unused-vars
+
+/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/scripts/rls-harness/scoping.mjs
+  10:10  warning  'join' is defined but never used. Allowed unused vars must match /^_/u          @typescript-eslint/no-unused-vars
+  11:24  warning  'evidenceRoot' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+  11:53  warning  'safeLabel' is defined but never used. Allowed unused vars must match /^_/u     @typescript-eslint/no-unused-vars
+  11:73  warning  'harnessRoot' is defined but never used. Allowed unused vars must match /^_/u   @typescript-eslint/no-unused-vars
+  11:86  warning  'repoRoot' is defined but never used. Allowed unused vars must match /^_/u      @typescript-eslint/no-unused-vars
+
+/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/scripts/rls-harness/seed.mjs
+  18:10  warning  'join' is defined but never used. Allowed unused vars must match /^_/u          @typescript-eslint/no-unused-vars
+  19:24  warning  'evidenceRoot' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+  19:53  warning  'safeLabel' is defined but never used. Allowed unused vars must match /^_/u     @typescript-eslint/no-unused-vars
+  19:73  warning  'harnessRoot' is defined but never used. Allowed unused vars must match /^_/u   @typescript-eslint/no-unused-vars
+
+✖ 30 problems (0 errors, 30 warnings)
+

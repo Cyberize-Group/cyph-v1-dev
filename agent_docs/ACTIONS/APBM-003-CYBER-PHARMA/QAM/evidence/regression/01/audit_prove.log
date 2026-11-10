@@ -1,0 +1,23 @@
+qa-shim: SCRATCH fence OK (url-side ref=ihgcsrypblqkwommrkgj; sql-side DEV fingerprint absent)
+qa-shim: spawning in /tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/fa30ae5a-f519-405b-b673-4ca4f9937817/scratchpad/qa-tree: npm run audit:prove (evidence → ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/regression/01)
+
+> cyber-pharma@0.1.0 audit:prove
+> node scripts/rls-harness/audit-prove.mjs
+
+Starting fenced replay
+fenced replay: PASS
+Starting legacy cast cleanup
+legacy cast cleanup: PASS
+Starting seed slice reset
+seed slice reset: PASS
+Starting catalog
+catalog: PASS
+Starting synthetic seed
+synthetic seed: PASS
+Starting seed arithmetic
+seed arithmetic: PASS
+Starting real-user audit proof
+real-user audit proof: PASS
+Starting DB structural oracle
+DB structural oracle: PASS
+exit=0

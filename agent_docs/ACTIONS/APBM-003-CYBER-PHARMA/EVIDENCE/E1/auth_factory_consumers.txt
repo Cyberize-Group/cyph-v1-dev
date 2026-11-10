@@ -1,0 +1,15 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+COMMAND: ["rg", "-n", "createAdminClient|GoTrueAdminApi|supabase/admin", "src", "scripts"]
+EXIT: 0
+STDOUT:
+src/__tests__/supabase-admin.test.ts:6:import { createAdminClient } from '@/utils/supabase/admin';
+src/__tests__/supabase-admin.test.ts:8:// createAdminClient is the only reader of SUPABASE_SECRET_KEY. With the key no
+src/__tests__/supabase-admin.test.ts:16:describe('createAdminClient (fail-closed)', () => {
+src/__tests__/supabase-admin.test.ts:35:    expect(() => createAdminClient()).toThrow('Missing Supabase admin credentials');
+src/__tests__/supabase-admin.test.ts:42:    expect(() => createAdminClient()).toThrow('Missing Supabase admin credentials');
+src/__tests__/supabase-admin.test.ts:50:    expect(() => createAdminClient()).toThrow('Missing Supabase admin credentials');
+src/__tests__/supabase-admin.test.ts:57:    createAdminClient();
+src/instrumentation.ts:9:// reader, createAdminClient() in src/utils/supabase/admin.ts, fails closed at
+src/utils/supabase/admin.ts:20:export const createAdminClient = () => {
+
+STDERR:

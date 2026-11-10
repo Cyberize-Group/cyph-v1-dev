@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "results": [
+    {
+      "label": "inventory",
+      "exit": 0
+    },
+    {
+      "label": "baseline-replay",
+      "exit": 0
+    },
+    {
+      "label": "init-ledger",
+      "exit": 0
+    },
+    {
+      "label": "partial-failure",
+      "exit": 1
+    },
+    {
+      "label": "remaining-chain-recovery",
+      "exit": 0
+    },
+    {
+      "label": "already-applied-noop",
+      "exit": 0
+    },
+    {
+      "label": "reject-changed-inventory",
+      "exit": 1
+    },
+    {
+      "label": "reject-stale-catalog",
+      "exit": 1
+    }
+  ],
+  "failedMigration": "0052_system_config.sql",
+  "expectedError": "22012",
+  "lastPriorCommit": "0051_admin_reads.sql",
+  "failedDDLAbsent": true,
+  "recovery": "explicit remaining-chain application from verified partial catalog",
+  "backupRestoreRehearsal": false,
+  "limitation": "Does not prove restoration of affected DEV data/Auth. Director backup plus disposable restore evidence remains required at APPLY."
+}

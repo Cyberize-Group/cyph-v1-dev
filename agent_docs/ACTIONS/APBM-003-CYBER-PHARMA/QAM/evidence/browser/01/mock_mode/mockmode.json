@@ -1,0 +1,42 @@
+{
+  "phase": "mockmode",
+  "startedAt": "2026-11-09T04:25:33.738Z",
+  "base": "http://127.0.0.1:3138",
+  "devRef": "yrsuwikjnbmvpznrgydb",
+  "checks": [
+    {
+      "name": "§3 mock mode: login lands on /owedbook",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "§3 mock mode: \"Synthetic demo data\" text replaces the store picker",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "§3 mock mode: fixture rows render (A1 synthetic scripts, Total 50)",
+      "result": "PASS",
+      "detail": "25 rows"
+    },
+    {
+      "name": "§3 mock mode: /admin-portal follows the mock gate (platform role member → redirect to /owedbook)",
+      "result": "PASS",
+      "detail": "/owedbook"
+    },
+    {
+      "name": "§3 mock mode: no owedbook_* RPC reached DEV (0 new read_page rows for OWNER3 in the last 2 minutes)",
+      "result": "FAIL",
+      "detail": "rows=29"
+    }
+  ],
+  "signIns": {
+    "OWNER3": 1
+  },
+  "unexpectedBackendRequests": 0,
+  "failures": [],
+  "finishedAt": "2026-11-09T04:25:45.257Z",
+  "pass": 4,
+  "fail": 1,
+  "status": "FAIL"
+}

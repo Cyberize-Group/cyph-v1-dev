@@ -1,0 +1,89 @@
+{
+  "source": "direct_denials.json (cast-matrix.mjs run)",
+  "ranAt": "2026-11-09T04:02:38.495Z",
+  "note": "T-18 owner reach through wrappers (AC-303)",
+  "pass": 16,
+  "fail": 0,
+  "checks": [
+    {
+      "name": "T-18 OWNER1 owedbook_rows(B1) \u2192 'not a member of business', +0 audit",
+      "result": "PASS",
+      "detail": "msg=not a member of business"
+    },
+    {
+      "name": "T-18 OWNER3 owedbook_rows(A1) \u2192 'not a member of business', +0 audit",
+      "result": "PASS",
+      "detail": "msg=not a member of business"
+    },
+    {
+      "name": "T-18 ADMIN_B2 owedbook_rows(A1) \u2192 'not a member of business', +0 audit",
+      "result": "PASS",
+      "detail": "msg=not a member of business"
+    },
+    {
+      "name": "T-18 ADMIN_B3 owedbook_rows(A1) \u2192 'not a member of business', +0 audit",
+      "result": "PASS",
+      "detail": "msg=not a member of business"
+    },
+    {
+      "name": "T-18 MEMBER_B1 owedbook_rows(A1) \u2192 'not a member of business', +0 audit",
+      "result": "PASS",
+      "detail": "msg=not a member of business"
+    },
+    {
+      "name": "T-18 MEMBER_B2B3 owedbook_rows(A1) \u2192 'not a member of business', +0 audit",
+      "result": "PASS",
+      "detail": "msg=not a member of business"
+    },
+    {
+      "name": "T-18 UNRELATED owedbook_rows(A1) \u2192 'not a member of business', +0 audit",
+      "result": "PASS",
+      "detail": "msg=not a member of business"
+    },
+    {
+      "name": "T-18 OWNER3 has no junction row for B2/B3 (reach by ownership alone)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-18 OWNER3 \u2192 owedbook_rows(B2) succeeds without junction, +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-18 OWNER3 \u2192 owedbook_rows(B3) succeeds without junction, +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-18 OWNER3 \u2192 owedbook_rows(A1) refused 'not a member of business', +0",
+      "result": "PASS",
+      "detail": "not a member of business"
+    },
+    {
+      "name": "T-18 OWNER3 \u2192 owedbook_rows(C1) refused 'not a member of business', +0",
+      "result": "PASS",
+      "detail": "not a member of business"
+    },
+    {
+      "name": "T-18 UNRELATED \u2192 A1 refused, +0",
+      "result": "PASS",
+      "detail": "not a member of business"
+    },
+    {
+      "name": "T-18 UNRELATED \u2192 B1 refused, +0",
+      "result": "PASS",
+      "detail": "not a member of business"
+    },
+    {
+      "name": "T-18 OWNER1 \u2192 B1 refused, +0",
+      "result": "PASS",
+      "detail": "not a member of business"
+    },
+    {
+      "name": "T-18 MEMBER_B2B3 \u2192 B1 refused, +0",
+      "result": "PASS",
+      "detail": "not a member of business"
+    }
+  ]
+}

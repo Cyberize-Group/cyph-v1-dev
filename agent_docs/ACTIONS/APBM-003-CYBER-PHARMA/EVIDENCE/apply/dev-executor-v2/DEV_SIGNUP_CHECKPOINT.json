@@ -1,0 +1,37 @@
+{
+  "checkedAt": "2026-11-07T07:43:37.812Z",
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "readOnly": true,
+  "configuration": {
+    "sqlRef": "yrsuwikjnbmvpznrgydb",
+    "poolRef": "yrsuwikjnbmvpznrgydb",
+    "apiRef": "yrsuwikjnbmvpznrgydb",
+    "bothSessionPoolers": true,
+    "identical": true
+  },
+  "responses": [
+    {
+      "keyName": "APBM_DEV_PUBLISHABLE_KEY",
+      "httpStatus": 200,
+      "date": "Sat, 07 Nov 2026 07:43:38 GMT",
+      "cacheStatus": "DYNAMIC",
+      "age": null,
+      "disableSignup": false,
+      "emailProviderEnabled": true,
+      "emailAutoconfirm": true
+    },
+    {
+      "keyName": "APBM_DEV_SECRET_KEY",
+      "httpStatus": 200,
+      "date": "Sat, 07 Nov 2026 07:43:38 GMT",
+      "cacheStatus": "DYNAMIC",
+      "age": null,
+      "disableSignup": false,
+      "emailProviderEnabled": true,
+      "emailAutoconfirm": true
+    }
+  ],
+  "status": "BLOCKED",
+  "reason": "SAVED_SIGNUP_DISABLED_SETTING_NOT_OBSERVED",
+  "effects": "GET Auth settings only; no signup attempt, login, database write or setting mutation"
+}

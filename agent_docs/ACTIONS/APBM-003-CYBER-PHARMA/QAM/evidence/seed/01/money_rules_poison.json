@@ -1,0 +1,97 @@
+{
+  "mode": "scratch",
+  "rows": 250,
+  "references": {
+    "aac": 2,
+    "wac": 4,
+    "ful": 1,
+    "config": [
+      "dispensing_fee=10.64 AL 2026-01-01",
+      "brand_multiplier=0.96 AL 2026-01-01"
+    ]
+  },
+  "failures": 1,
+  "failing": [
+    {
+      "store": "SYNTHETIC STORE A1",
+      "script": "SYNTHETIC-A1-007",
+      "failures": [
+        "rule3 owed"
+      ]
+    }
+  ],
+  "coverage": {
+    "SYNTHETIC STORE A1": {
+      "rows": 50,
+      "statuses": [
+        "emailed_pbm",
+        "new",
+        "pending",
+        "recovered",
+        "underpaid"
+      ],
+      "distinctPbms": 3,
+      "nullPbmRows": 12,
+      "negativeOwed": 17,
+      "positiveOwed": 33
+    },
+    "SYNTHETIC STORE B1": {
+      "rows": 50,
+      "statuses": [
+        "emailed_pbm",
+        "new",
+        "pending",
+        "recovered",
+        "underpaid"
+      ],
+      "distinctPbms": 3,
+      "nullPbmRows": 12,
+      "negativeOwed": 17,
+      "positiveOwed": 33
+    },
+    "SYNTHETIC STORE B2": {
+      "rows": 50,
+      "statuses": [
+        "emailed_pbm",
+        "new",
+        "pending",
+        "recovered",
+        "underpaid"
+      ],
+      "distinctPbms": 3,
+      "nullPbmRows": 12,
+      "negativeOwed": 17,
+      "positiveOwed": 33
+    },
+    "SYNTHETIC STORE B3": {
+      "rows": 50,
+      "statuses": [
+        "emailed_pbm",
+        "new",
+        "pending",
+        "recovered",
+        "underpaid"
+      ],
+      "distinctPbms": 3,
+      "nullPbmRows": 12,
+      "negativeOwed": 17,
+      "positiveOwed": 33
+    },
+    "SYNTHETIC STORE C1": {
+      "rows": 50,
+      "statuses": [
+        "emailed_pbm",
+        "new",
+        "pending",
+        "recovered",
+        "underpaid"
+      ],
+      "distinctPbms": 3,
+      "nullPbmRows": 12,
+      "negativeOwed": 17,
+      "positiveOwed": 33
+    }
+  },
+  "coverageOk": true,
+  "result": "FAIL"
+}

@@ -1,0 +1,30 @@
+# T-00 re-pin — Q4 entry (2026-11-09 12:17:19 +0600)
+branch=qa/apbm-003
+HEAD=c5061d9f75fa242a3d14913c08d6bbad7173c638
+repaired_candidate=dc44429f466dedcf35023342f68624c6cee062f0
+original_candidate=308247a24e6ddd455842da5cd2e21541d7eae2c1
+commits candidate..HEAD:
+  c5061d9 APBM-003: record Director Q4 release for dc44429f
+product paths changed candidate..HEAD (must be 0): 0
+plan sha256: 194538a7a7701c4b35aa731b17197f4e6ddb577d43ce4f7ac8bbdb383a5cfea4 (bound 194538a7a7701c4b35aa731b17197f4e6ddb577d43ce4f7ac8bbdb383a5cfea4)
+repair diff 308247a24e6ddd455842da5cd2e21541d7eae2c1..dc44429f466dedcf35023342f68624c6cee062f0 — all paths: 59; product (non-agent_docs) paths:
+  src/components/admin-portal/BillingScreen.tsx
+  src/components/admin-portal/DemoMarker.tsx
+  src/components/owedbook/OwedBookContext.tsx
+repair diff numstat (product):
+  4	1	src/components/admin-portal/BillingScreen.tsx
+  3	1	src/components/admin-portal/DemoMarker.tsx
+  1	1	src/components/owedbook/OwedBookContext.tsx
+migration/seed/harness/service/test paths in repair diff (must be 0): 0
+repaired file sha256 (working tree) vs manifest §8:
+  644adf25a48f5c4a4e84827ec6d44a0e0dcbad85d734dfc3fb0e79b7d3ccd269  src/components/admin-portal/DemoMarker.tsx
+  f1771545492d95dc432b2f7edf7b9a9cdc89811022b167a10ceda52118911fad  src/components/admin-portal/BillingScreen.tsx
+  80b8705f43aecb73c7ff3141ffc6db70a7d45fa95dcb98e38b6065ca5f33e954  src/components/owedbook/OwedBookContext.tsx
+  manifest: 644adf25…c269 DemoMarker · f1771545…1fad BillingScreen · 80b8705f…e954 OwedBookContext
+check-qa-env.sh:
+  IGNORED yes
+  UNTRACKED yes
+  KEYS present=21 required=21
+  RESULT PASS
+.env.qa.local stat: 600 moose
+inherited dirt: 122 paths (Q2 entry snapshot in evidence/identity/02)

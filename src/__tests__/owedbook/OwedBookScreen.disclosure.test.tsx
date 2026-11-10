@@ -63,10 +63,13 @@ describe("OwedBookScreen disclosure — real mock service", () => {
   });
 
   it("AC-101 filtered: a date range isolating a null-PBM row shows that subset's derived value", async () => {
-    const range = { from: "2026-06-01", to: "2026-06-01" };
+    const unmatched = owedBookFixtures.find((r) => r.pbm === null && r.owed > 0);
+    expect(unmatched).toBeDefined();
+    const range = { from: unmatched!.date, to: unmatched!.date };
     const inRange = (r: OwedBookRow) => r.date >= range.from && r.date <= range.to;
     const unfiltered = expectedNote();
     const filtered = expectedNote(inRange);
+    expect(owedBookFixtures.some((r) => inRange(r) && r.pbm === null && r.owed > 0)).toBe(true);
     expect(filtered).not.toBe(unfiltered); // the range really narrows the set
 
     renderScreen({ ...range, pbms: [] });
@@ -135,14 +138,17 @@ describe("OwedBookScreen disclosure — injected responses (AC-103 same-filters 
 
   afterEach(() => jest.restoreAllMocks());
 
-  it("rejected getKpis: no note, ZERO_KPIS fallback unchanged", async () => {
+  // A02/Stage 6: failed KPI reads are unavailable, never fabricated zero tiles.
+  it("rejected getKpis: no note and an explicit unavailable KPI state", async () => {
     jest.spyOn(owedBookService, "getKpis").mockRejectedValue(new Error("kpis down"));
     renderScreen();
     goTab("Summary");
     await skeletonGone();
-    await screen.findAllByText("OptumRx"); // summary rendered (DataTable paints table + card layouts)
+    await screen.findAllByText("SYNTHETIC PBM 1"); // summary rendered (DataTable paints table + card layouts)
     expect(screen.queryByTestId(NOTE)).not.toBeInTheDocument();
-    expect(screen.getAllByText("$0.00").length).toBeGreaterThanOrEqual(3); // three money tiles at zero
+    expect(screen.getByRole("alert")).toHaveTextContent("KPIs unavailable");
+    expect(screen.getByRole("button", { name: "Retry KPIs" })).toBeInTheDocument();
+    expect(screen.queryByText("Commercial Underpaid")).not.toBeInTheDocument();
   });
 
   it("loading: skeleton shows no note while the summary is pending", async () => {

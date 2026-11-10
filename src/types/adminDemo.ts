@@ -5,19 +5,19 @@
 // ── §1. Status vocabularies (single source — back every pill) ────────────────
 
 // Member account state (drives ACTIVE / INVITE PENDING / SUSPENDED pills)
-export type MemberAccountStatus = "active" | "invite_pending" | "suspended";
+export type MemberAccountStatus = "active" | "invite_pending" | "suspended" | "unavailable";
 
 // Member permission role (domain-expert truth: admin | user). jobTitle is shown separately (§2.3).
 export type MemberRole = "admin" | "member";
 
 // Store operational status
-export type StoreStatus = "active" | "suspended";
+export type StoreStatus = "active" | "suspended" | "unavailable";
 
 // Subscription mirror (drives SUB ACTIVE / PAST-DUE pills)
-export type SubscriptionStatus = "active" | "past_due" | "canceled";
+export type SubscriptionStatus = "active" | "past_due" | "canceled" | "trialing" | "unpaid" | "incomplete" | "incomplete_expired" | "paused" | "unavailable";
 
 // Billing plan (demo values; Phase-7 maps to real Stripe price/plan_type)
-export type BillingPlan = "standard" | "concierge";
+export type BillingPlan = "standard" | "concierge" | "unavailable";
 
 // Audit action vocabulary (the owner's own actions)
 export type AuditAction =
@@ -27,7 +27,7 @@ export type AuditAction =
   | "unsuspended_member"
   | "sent_recovery"
   | "added_store"
-  | "updated_settings";
+  | "updated_settings" | "read_page" | "insert" | "update" | "delete";
 
 // ── §2. View-models (what the services return) ───────────────────────────────
 

@@ -1,0 +1,9 @@
+{
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "command": "init-ledger",
+  "startedAt": "2026-11-05T15:35:15.265Z",
+  "committed": [],
+  "status": "PASS",
+  "lastCommitted": "0047_owedbook_pbm_options.sql",
+  "finishedAt": "2026-11-05T15:35:18.335Z"
+}

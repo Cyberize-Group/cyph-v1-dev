@@ -1,0 +1,86 @@
+{
+  "status": "PASS",
+  "kind": "local synthetic simulation; not a database rehearsal",
+  "checks": [
+    {
+      "name": "DEV apply requires Director release",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV fault injection always rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "pilot as DEV rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "SCRATCH as DEV rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "SCRATCH apply requires explicit confirmation",
+      "status": "PASS"
+    },
+    {
+      "name": "SCRATCH apply requires verified restored copy",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV rejects missing rehearsal restoreVerified",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV rejects missing rehearsal rollbackVerified",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV rejects missing rehearsal bootstrapVerified",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV rejects missing rehearsal forward52Verified",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV rejects missing rehearsal seedVerified",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV rejects missing rehearsal ownerVerified",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV rejects missing rehearsal verifierVerified",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV rejects stale bundle",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV rejects unmatched backup",
+      "status": "PASS"
+    },
+    {
+      "name": "complete reviewed receipts permit authorization only",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic transaction fault",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic transaction success",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic transaction bad-catalog",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic transaction commit-unknown",
+      "status": "PASS"
+    }
+  ]
+}

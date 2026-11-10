@@ -1,0 +1,33 @@
+PASS  1 happy path: exit 0
+PASS  1 happy path: all 21 declared keys present in file  (keys=21)
+PASS  1 happy path: values landed in file (not elsewhere)
+PASS  1 happy path: file mode 0600  (mode=600)
+PASS  1 happy path: no secret in stdout/stderr
+PASS  1 happy path: UNRELATED_KEY not copied
+PASS  1 happy path: pooler-form SCRATCH DB URL ref derived from user name
+PASS  2 missing key: non-zero exit
+PASS  2 missing key: names RLS_REPLICA_SECRET_KEY
+PASS  2 missing key: no file created
+PASS  2 missing key: no secret in output
+PASS  3 wrong ref: non-zero exit
+PASS  3 wrong ref: REF_MISMATCH APBM_DEV_SUPABASE_URL reported
+PASS  3 wrong ref: no file created
+PASS  3 wrong ref: no secret in output
+PASS  4 preserve on failure (--force, EMPTY_KEY): non-zero exit
+PASS  4 preserve on failure: existing file byte-identical
+PASS  4 preserve on failure: no secret in output
+PASS  5 exists without --force: refused with EXISTS
+PASS  5 exists without --force: file byte-identical
+PASS  6 --force: exit 0 and overwritten
+PASS  6 --force: mode 0600
+PASS  6 --force: no secret in output
+PASS  7 duplicate conflicting APBM_DEV_DB_URL: refused by name
+PASS  7 duplicate: no secret in output
+PASS  7b duplicate identical APBM_DEV_DB_URL: accepted
+PASS  8a cast projectRef mismatch: refused
+PASS  8b cast missing handle / empty field: both named
+PASS  8c cast unparsable: refused without echoing content
+PASS  9 disallowed --dev-db-source: refused
+PASS  10 no temp files left behind
+SELF-TEST PASS: 31/31 checks; synthetic values planted=60; fixture dir removed
+exit=0

@@ -1,0 +1,77 @@
+qa-shim: SCRATCH fence OK (url-side ref=ihgcsrypblqkwommrkgj; sql-side DEV fingerprint absent)
+qa-shim: spawning in /tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/fa30ae5a-f519-405b-b673-4ca4f9937817/scratchpad/qa-tree: node /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/AUTOMATION/scratch-sql.mjs (evidence → ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/seed/01)
+[
+  {
+    "sql": "select count(*)::int audit_total from public.audit_logs",
+    "rowCount": 1,
+    "rows": [
+      {
+        "audit_total": 285
+      }
+    ]
+  },
+  {
+    "sql": "select actor_role, (actor_user_id is null) actor_null, count(*)::int n from public.audit_logs where id > (select coalesc",
+    "rowCount": 1,
+    "rows": [
+      {
+        "actor_role": "service_role",
+        "actor_null": true,
+        "n": 285
+      }
+    ]
+  },
+  {
+    "sql": "select table_name, count(*)::int n from public.audit_logs where actor_role='service_role' and action='insert' and id > (",
+    "rowCount": 11,
+    "rows": [
+      {
+        "table_name": "aac_reference",
+        "n": 2
+      },
+      {
+        "table_name": "accounts",
+        "n": 3
+      },
+      {
+        "table_name": "businesses",
+        "n": 5
+      },
+      {
+        "table_name": "ful_reference",
+        "n": 1
+      },
+      {
+        "table_name": "pbm_info",
+        "n": 3
+      },
+      {
+        "table_name": "reference_dataset_versions",
+        "n": 4
+      },
+      {
+        "table_name": "subscriptions",
+        "n": 3
+      },
+      {
+        "table_name": "system_config",
+        "n": 2
+      },
+      {
+        "table_name": "user_businesses",
+        "n": 8
+      },
+      {
+        "table_name": "user_data",
+        "n": 250
+      },
+      {
+        "table_name": "wac_reference",
+        "n": 4
+      }
+    ]
+  },
+  {
+    "transaction": "ROLLBACK"
+  }
+]

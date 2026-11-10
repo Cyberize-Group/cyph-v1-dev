@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "confirmed DEV accepted",
+      "status": "PASS"
+    },
+    {
+      "name": "cwdzijswchlwfvxxrlzb declared as DEV rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "cwdzijswchlwfvxxrlzb credentials with DEV declaration rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "cwdzijswchlwfvxxrlzb mismatched APBM_DEV_DB_URL rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "cwdzijswchlwfvxxrlzb mismatched APBM_DEV_SUPABASE_URL rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "ihgcsrypblqkwommrkgj declared as DEV rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "ihgcsrypblqkwommrkgj credentials with DEV declaration rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "ihgcsrypblqkwommrkgj mismatched APBM_DEV_DB_URL rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "ihgcsrypblqkwommrkgj mismatched APBM_DEV_SUPABASE_URL rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV missing APBM_DEV_DB_URL rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV missing APBM_DEV_SUPABASE_URL rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV missing APBM_DEV_PUBLISHABLE_KEY rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV missing APBM_DEV_SECRET_KEY rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV destructive SCRATCH guard rejected",
+      "status": "PASS"
+    }
+  ]
+}

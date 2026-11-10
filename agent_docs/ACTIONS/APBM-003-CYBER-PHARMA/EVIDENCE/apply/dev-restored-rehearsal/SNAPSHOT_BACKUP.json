@@ -1,0 +1,13 @@
+{
+  "status": "DATABASE_SNAPSHOT_COMPLETE",
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "sharedReadOnlySnapshot": true,
+  "backupSHA256": "1d33881a1b49f85d20ecee6514a56f94552055efd6dc19f58942b12316dda692",
+  "privateDirectory": "/tmp/apbm003-snapshot-backup-1793961957992-5ff6f0b89b",
+  "privateProofSHA256": "da66a9e80edf45999acae890f4f933dee27d356d68c4bff260d21165012c2600",
+  "catalogSHA256": "da2a46ee54a85bcc8a9e4f54eb0f14106a68d4a336e3a165170f77b17620a07b",
+  "coveredTables": 30,
+  "providerAuthSettingsCovered": false,
+  "finishedAt": "2026-11-06T10:46:52.259Z",
+  "archiveTOCReadable": true
+}

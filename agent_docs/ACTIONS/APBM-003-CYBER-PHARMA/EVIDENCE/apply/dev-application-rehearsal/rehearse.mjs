@@ -1,0 +1,73 @@
+// Director-authorized SYNTHETIC application rehearsal; SCRATCH only, never a DEV executor.
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync,mkdirSync,openSync,closeSync,statSync,existsSync} from 'node:fs';
+import {randomBytes,createHash} from 'node:crypto';import {spawnSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';import {join} from 'node:path';import pg from 'pg';
+import {loadEnv,assertScratch,repoRoot} from '../../../../../../scripts/rls-harness/lib/env.mjs';
+import {serviceClient} from '../../../../../../scripts/rls-harness/lib/db.mjs';
+import {catalog} from '../../../../../../scripts/dev-verify.mjs';
+import {capturePreservation,preservedTables,verifyInputs,plan} from '../dev-baseline-bootstrap/checks.mjs';
+import {compare} from '../dev-restored-rehearsal/acl-exception.mjs';
+const dir=fileURLToPath(new URL('.',import.meta.url));const pack=join(repoRoot,'agent_docs/ACTIONS/APBM-003-CYBER-PHARMA');
+const hash=b=>createHash('sha256').update(b).digest('hex');const json=p=>JSON.parse(readFileSync(p));
+const write=(name,x)=>writeFileSync(join(dir,name),JSON.stringify(x,null,2)+'\n');
+const expectedBefore=json(join(dir,'../dev-target-reconciliation/catalog.json'));
+const expected47=json(join(pack,'EVIDENCE/E2/stage-5/recovery/baseline.json'));
+const expected52=json(join(pack,'EVIDENCE/E2/stage-5/recovery/complete.json'));
+const manifest=join(pack,'EVIDENCE/E2/stage-5/audit-final/migration-inventory.json');
+const ctx={target:'scratch',projectRef:'ihgcsrypblqkwommrkgj'};
+if(existsSync(join(dir,'RESULT.json'))){console.error('STOP: one-shot rehearsal receipt already exists; preserve it and prepare a separately reviewed run directory.');process.exit(2);}
+const result={kind:'SYNTHETIC_APPLICATION_REHEARSAL_NOT_DEV_RESTORE',status:'RUNNING',startedAt:new Date().toISOString(),projectRef:ctx.projectRef,steps:[],limits:['No DEV backup restore; no actual DEV row recovery or provider clone parity proof','Four extra DEV Auth indexes absent on SCRATCH; no creation or omission on DEV authorized','Exactly three managed default ACL entries may be normalized on SCRATCH only; no DEV exception granted']};
+let db,env,privateDir;
+function cli(label,script,args=[],extra={}){const r=spawnSync(process.execPath,[script,...args],{cwd:repoRoot,env:{...process.env,...extra},encoding:'utf8',timeout:240000,maxBuffer:2000000});writeFileSync(join(dir,label+'.log'),r.stdout||'');if(r.status!==0){write(label+'-failure.json',{status:'BLOCKED',exitCode:r.status,signal:r.signal,sqlCodes:[...(r.stderr||'').matchAll(/\b(42501|23505|42P01|PGRST\d+|23503)\b/g)].map(x=>x[0])});throw new Error('STEP_FAILED_'+label);}result.steps.push({name:label,status:'PASS'});write('RESULT.json',result);console.log(label+': PASS');}
+async function authIndexes(){return (await db.query("select c.relname indexname,pg_get_indexdef(i.indexrelid) indexdef,i.indisvalid,i.indisready,i.indislive,i.indisunique from pg_index i join pg_class c on c.oid=i.indexrelid where i.indrelid='auth.users'::regclass order by c.relname")).rows;}
+async function rowHashes(salt){const out={};for(const t of await preservedTables(db)){assert.match(t.schema,/^[a-z_]+$/);assert.match(t.name,/^[a-z_]+$/);out[t.schema+'.'+t.name]=(await db.query(`select encode(sha256(convert_to($1 || to_jsonb(t)::text,'UTF8')),'hex') h from "${t.schema}"."${t.name}" t order by h`,[salt])).rows.map(r=>r.h);}return out;}
+try{
+ env=loadEnv();assertScratch(env);assert.equal(process.env.APBM_ALLOW_DESTRUCTIVE,env.projectRef,'explicit SCRATCH confirmation');assert.equal(process.env.APBM_EVIDENCE_DIR,dir.replace(/\/$/,''));
+ const pre=json(join(dir,'PREFLIGHT.json'));assert.equal(pre.status,'PASS_READ_ONLY');assert.equal(pre.fencing['yrsuwikjnbmvpznrgydb'],'REJECTED');assert.equal(pre.fencing['cwdzijswchlwfvxxrlzb'],'REJECTED');assert.equal(pre.fencing.mixedSqlApi,'REJECTED');
+ verifyInputs();const sourceHashes=json(join(pack,'EVIDENCE/E2/SOURCE_HASHES.json'));for(const [path,digest]of Object.entries(sourceHashes))assert.equal(hash(readFileSync(join(repoRoot,path))),digest,'source drift '+path);result.sourceFilesVerified=Object.keys(sourceHashes).length;
+ // Derive only the approved SCRATCH ACL exception. Original strict DEV SQL stays intact.
+ let sql=readFileSync(join(dir,'../dev-baseline-bootstrap/PROPOSED_BOOTSTRAP.sql'),'utf8');
+ const guard=/ IF NOT \(\(SELECT rolsuper FROM pg_roles WHERE rolname=current_user\)[\s\S]*? END IF;\n/;
+ assert.equal((sql.match(guard)||[]).length,1);sql=sql.replace(guard,' -- SCRATCH-only: managed ACL privilege gate evaluated separately.\n');
+ let removals=0;sql=sql.replace(/ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public\n REVOKE ALL PRIVILEGES ON (TABLES|SEQUENCES|FUNCTIONS) FROM postgres, anon, authenticated, service_role;\n/g,()=>{removals++;return '';});assert.equal(removals,3);
+ sql='-- SCRATCH APPLICATION BODY ONLY. NOT RELEASED FOR DEV. No managed ACL writes.\n'+sql;
+ assert.ok(!/idx_users_(created_at_desc|email|last_sign_in_at_desc|name)/.test(sql));writeFileSync(join(dir,'SCRATCH_APPLICATION_BOOTSTRAP.sql'),sql);result.applicationBootstrapSHA256=hash(sql);result.strictOriginalBootstrapSHA256=plan.bootstrapSHA256;
+ privateDir='/tmp/apbm003-synthetic-rehearsal-'+Date.now()+'-'+randomBytes(5).toString('hex');mkdirSync(privateDir,{mode:0o700});result.privateDirectory=privateDir;
+ // Keep previous SCRATCH data recoverable without touching the verified DEV backup.
+ const u=new URL(env.DB_URL);const pgEnv={...process.env,PGHOST:u.hostname,PGPORT:u.port||'5432',PGUSER:decodeURIComponent(u.username),PGPASSWORD:decodeURIComponent(u.password),PGDATABASE:'postgres',PGCONNECT_TIMEOUT:'15'};
+ const fd=openSync(privateDir+'/scratch-before.dump','wx',0o600),err=openSync(privateDir+'/dump.private.log','wx',0o600);
+ const dump=spawnSync('/usr/lib/postgresql/17/bin/pg_dump',['--format=custom','--no-owner','--no-privileges'],{env:pgEnv,stdio:['ignore',fd,err],timeout:180000});closeSync(fd);closeSync(err);assert.equal(dump.status,0,'SCRATCH_BACKUP_FAILED');result.scratchBackupSHA256=hash(readFileSync(privateDir+'/scratch-before.dump'));write('RESULT.json',result);
+ db=new pg.Client({connectionString:env.DB_URL,connectionTimeoutMillis:15000,options:'-c statement_timeout=120000 -c lock_timeout=5000'});await db.connect();assert.equal((await catalog(db)).sha256,pre.targets.scratch.catalogSHA256,'SCRATCH drift since preflight');const initialIndexes=await authIndexes();
+ cli('remove-prior-synthetic-cast','scripts/seed/reset.mjs');
+ // Fixture-only reset. ALL application-forward steps begin after this committed starting state.
+ await db.query('BEGIN');await db.query('DROP EVENT TRIGGER IF EXISTS ensure_rls; DROP SCHEMA IF EXISTS apbm_migrations CASCADE; DROP SCHEMA public CASCADE; CREATE SCHEMA public;');
+ await db.query('GRANT USAGE ON SCHEMA public TO postgres,anon,authenticated,service_role; ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO postgres,anon,authenticated,service_role; ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON FUNCTIONS TO postgres,anon,authenticated,service_role; ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO postgres,anon,authenticated,service_role;');
+ await db.query(readFileSync(join(repoRoot,'scripts/db-bootstrap-baseline.sql'),'utf8'));
+ for(const fn of expectedBefore.snapshot.functions)await db.query(fn.definition);
+ // Native provider ledger is represented by a synthetic sentinel, never copied customer data.
+ const native=(await db.query("select to_regclass('supabase_migrations.schema_migrations') is not null present")).rows[0].present;assert.equal(native,false,'unexpected native SCRATCH ledger; stop for review');
+ await db.query("CREATE SCHEMA IF NOT EXISTS supabase_migrations; CREATE TABLE supabase_migrations.schema_migrations(version text primary key,statements text[],name text); INSERT INTO supabase_migrations.schema_migrations VALUES ('20261012053902',ARRAY['-- synthetic native-history preservation sentinel'],'synthetic_dev_start');");
+ const fixtureCat=await catalog(db);result.startingCatalogParity=compare(fixtureCat.snapshot,expectedBefore.snapshot,ctx);await db.query('COMMIT');
+ const svc=serviceClient(env),synthetic={};for(const [i,role]of ['superadmin','admin','member','member','admin'].entries()){const email=`apbm003-preserved-${i}@example.invalid`,password=randomBytes(24).toString('base64url');const r=await svc.auth.admin.createUser({email,password,email_confirm:true,user_metadata:{full_name:'SYNTHETIC PRESERVED '+i,role}});assert.ok(!r.error,'synthetic preserved Auth creation failed');synthetic[i]={id:r.data.user.id,email,password,role};writeFileSync(privateDir+'/preserved-users.private.json',JSON.stringify(synthetic),{mode:0o600});}
+ const salt=randomBytes(32).toString('hex');const before=await capturePreservation(db,salt);const rows=await rowHashes(salt);const beforeCat=await catalog(db);assert.deepEqual(await authIndexes(),initialIndexes);write('starting-catalog.json',beforeCat);
+ writeFileSync(privateDir+'/preservation.private.json',JSON.stringify({salt,before,rows,indexes:initialIndexes,syntheticIDs:Object.values(synthetic).map(x=>x.id)}),{mode:0o600});
+ result.fixture={syntheticUsers:5,syntheticProfiles:5,syntheticRoles:['superadmin','admin','member','member','admin'],retainedUnrelatedScratchAuthUsers:before.tables['auth.users'].count-5,nativeLedger:'synthetic sentinel version 20261012053902; not provider metadata parity',preservedTables:Object.keys(before.tables).length};
+ // Fault rehearsal: complete patch then deliberate exception; all DDL/data roll back.
+ await db.query('BEGIN');await db.query(sql);try{await db.query('select 1/0');assert.fail('fault not triggered');}catch(e){assert.equal(e.code,'22012');}await db.query('ROLLBACK');assert.equal((await catalog(db)).sha256,beforeCat.sha256);assert.deepEqual(await capturePreservation(db,salt),before);assert.deepEqual(await authIndexes(),initialIndexes);result.bootstrapRollback='PASS';
+ await db.query('BEGIN');await db.query(sql);const baseline=await catalog(db);result.baselineParity=compare(baseline.snapshot,expected47.snapshot,ctx);assert.deepEqual(await capturePreservation(db,salt),before);assert.deepEqual(await authIndexes(),initialIndexes);assert.equal((await db.query("select to_regclass('apbm_migrations.ledger') is null absent")).rows[0].absent,true);for(const table of plan.newTables)assert.equal((await db.query('select count(*)::int n from public.'+table)).rows[0].n,0);await db.query('COMMIT');write('baseline-0047.json',baseline);result.preservationBeforeLedger='ALL_ROWS_AND_METADATA_EXACT';result.baseline={tables:16,policies:19,functions:13,newTablesEmpty:14,ledgerAbsent:true};write('RESULT.json',result);console.log('synthetic starting state, bootstrap rollback, 0047 and preservation: PASS');
+ cli('init-ledger','scripts/apply-forward.mjs',['init-ledger','--manifest',manifest,'--baseline',join(dir,'baseline-0047.json'),'--through','47']);
+ cli('verify-0047','scripts/dev-verify.mjs',['--expect',join(dir,'baseline-0047.json'),'--manifest',manifest,'--through','47']);
+ cli('forward-0048-0052','scripts/apply-forward.mjs',['apply','--manifest',manifest,'--before',join(dir,'baseline-0047.json'),'--through','52']);
+ const complete=await catalog(db);result.completeParity=compare(complete.snapshot,expected52.snapshot,ctx);assert.deepEqual(await capturePreservation(db,salt),before);assert.deepEqual(await authIndexes(),initialIndexes);result.forwardPreservation='ALL_30_TABLES_AND_METADATA_EXACT';write('complete-0052.json',complete);
+ const castFile='/tmp/apbm003-application-cast-'+Date.now()+'.json';result.castCredentialFile=castFile;write('RESULT.json',result);
+ cli('seed','scripts/seed/run.mjs',[],{APBM_CREDENTIAL_FILE:castFile});
+ cli('seed-verify','scripts/seed/verify.mjs',['--compare',join(pack,'EVIDENCE/E2/stage-5/reseed/seed-verify.json')]);
+ // Subset proof: every previously existing row still present after additive seed/probes.
+ async function preservationAfterAdditions(label){const now=await rowHashes(salt);const tables={};for(const [table,old]of Object.entries(rows)){const remaining=[...now[table]];for(const h of old){const i=remaining.indexOf(h);assert.ok(i>=0,'preexisting row changed '+table);remaining.splice(i,1);}tables[table]={preserved:old.length,added:remaining.length};}const metadata=await capturePreservation(db,salt);for(const key of Object.keys(before).filter(k=>!['tables','userRolesSequence'].includes(k)))assert.deepEqual(metadata[key],before[key],'metadata changed '+key);assert.ok(BigInt(metadata.userRolesSequence[0].last_value)>=BigInt(before.userRolesSequence[0].last_value));assert.deepEqual(await authIndexes(),initialIndexes);write(label+'.json',{status:'PASS',tables,authIndexDefinitionsAndValidityUnchanged:true,existingRolesAndProfilesExact:true,sequenceNeverLowered:true});return tables;}
+ result.afterSeedPreservation=await preservationAfterAdditions('preservation-after-seed');
+ cli('owner','agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-bootstrap-execution/owner-check.mjs',[],{APBM_CREDENTIAL_FILE:castFile,APBM_AUTHENTICATED_PROBES:env.projectRef});
+ cli('authenticated-verifier','scripts/dev-verify.mjs',['--expect',join(dir,'complete-0052.json'),'--manifest',manifest,'--through','52','--authenticated'],{APBM_CREDENTIAL_FILE:castFile,APBM_AUTHENTICATED_PROBES:env.projectRef});
+ result.afterProbesPreservation=await preservationAfterAdditions('preservation-after-probes');result.authIndexPreservation='ALL_EXISTING_SCRATCH_AUTH_INDEXES_EXACT';result.declaredProbeEffects='8 synthetic login/logout sessions, 52 audited read rows; seed 7 users/5 stores/250 claims/285 insert audit rows';result.status='PASS';
+}catch(e){if(db)await db.query('ROLLBACK').catch(()=>{});result.status='BLOCKED';result.error={code:/^[A-Z0-9_]+$/.test(e.code||'')?e.code:'REHEARSAL_CHECK_FAILED',message:/^STEP_FAILED_[a-zA-Z0-9_-]+$/.test(e.message||'')?e.message:e.code==='ERR_ASSERTION'?'Assertion failed; sanitized details in local failure receipt':'Inspect the failing step before retrying'};if(e.code==='ERR_ASSERTION'){write('assertion-failure.json',{operator:e.operator,message:e.message?.split('\n')[0],actual:typeof e.actual==='string'?e.actual.slice(0,200):undefined,expected:typeof e.expected==='string'?e.expected.slice(0,200):undefined});}process.exitCode=1;}
+finally{if(db)await db.end().catch(()=>{});result.finishedAt=new Date().toISOString();write('RESULT.json',result);console.log(JSON.stringify({status:result.status,error:result.error,steps:result.steps,fixture:result.fixture,baselineParity:result.baselineParity}));}

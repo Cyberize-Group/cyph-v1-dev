@@ -1,0 +1,18 @@
+
+/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/scripts/rls-harness/ac8-check.mjs
+  12:10  warning  'join' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/scripts/rls-harness/attacks.mjs
+  7:10  warning  'join' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/scripts/rls-harness/prove.mjs
+  16:24  warning  'evidenceRoot' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/scripts/rls-harness/revocation.mjs
+  12:10  warning  'join' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/scripts/rls-harness/scoping.mjs
+  10:10  warning  'join' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+✖ 5 problems (0 errors, 5 warnings)
+

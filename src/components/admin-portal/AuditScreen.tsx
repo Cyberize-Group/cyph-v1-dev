@@ -41,6 +41,7 @@ const Skeleton = () => (
 const AuditScreen = () => {
   const [rows, setRows] = useState<AuditRow[] | null>(null);
   const [loading, setLoading] = useState(true);
+  const [reload, setReload] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -53,7 +54,7 @@ const AuditScreen = () => {
           entries.map((e) => ({
             id: e.id,
             time: formatAuditTime(e.occurredAt),
-            action: auditActionLabel[e.action],
+            action: auditActionLabel[e.action] ?? e.action,
             target: e.target,
             result: e.result === "failed" ? "Failed" : "Done",
           }))
@@ -68,17 +69,17 @@ const AuditScreen = () => {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [reload]);
 
   return (
     <div>
       <ScreenHeader
         title="Audit log"
-        subtitle="A record of actions across your stores."
+        subtitle="Latest events, up to 100 per permitted account or store."
       />
       <div className="mt-6">
         {error ? (
-          <div className="text-sm text-destructive">{error}</div>
+          <div className="text-sm text-destructive" role="alert">{error} <button onClick={() => { setLoading(true); setRows(null); setError(null); setReload(r => r+1); }}>Retry audit</button></div>
         ) : loading ? (
           <Skeleton />
         ) : (

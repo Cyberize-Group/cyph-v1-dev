@@ -1,0 +1,6 @@
+.env.qa.local mtime=2026-11-07 15:51:00.736639087 +0600 size=139 mode=664
+ADMIN_USER
+ADMIN_PASS
+(blank line)
+MEMBER_USER
+MEMBER_PASS

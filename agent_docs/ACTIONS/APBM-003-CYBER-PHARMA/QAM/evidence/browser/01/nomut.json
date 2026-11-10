@@ -1,0 +1,101 @@
+{
+  "phase": "nomut",
+  "startedAt": "2026-11-09T04:13:09.350Z",
+  "base": "http://127.0.0.1:3138",
+  "devRef": "yrsuwikjnbmvpznrgydb",
+  "checks": [
+    {
+      "name": "T-36 Upload Data disabled + \"Upload is not available in this release.\"",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-36 Add store disabled",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-36 Manage payment disabled",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-36 Cancel disabled",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-36 member actions: \"Member actions are not available in this release.\" and no enabled action buttons",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-36 settings edit unavailable (status text), no Save button",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-36 before/after row counts + content hashes unchanged on all 9 business tables",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-36 audit_logs grew only by read_page rows",
+      "result": "PASS",
+      "detail": "[{\"action\":\"read_page\",\"n\":15}]"
+    },
+    {
+      "name": "T-36 HAR: no POST to any /rest/v1/<table>; only /rest/v1/rpc/* and /auth/v1/*",
+      "result": "PASS",
+      "detail": "21 POSTs; table posts: "
+    }
+  ],
+  "signIns": {
+    "OWNER3": 1
+  },
+  "unexpectedBackendRequests": 0,
+  "failures": [],
+  "noMutation": {
+    "before": {
+      "accounts": "3:5a8584d2e8391e066d59d528e67bc8f3",
+      "businesses": "5:5c61d5fe1633fbb78f2169baa1bb7ed8",
+      "user_businesses": "8:23656b446a670dcdd91007138e8d58ab",
+      "subscriptions": "3:b1a5bcaa9b0987702b47c9dfc8140026",
+      "user_data": "250:ccf1034b79ab48da1c7b7474b6aaa512",
+      "profiles": "12:919663dc40d6eeefe934ee2617347fe4",
+      "user_roles": "12:3eed6036386d4b70334b09ee8b6ed1e3",
+      "system_config": "2:c23828789c785e1c384e78d4dfe95e78",
+      "pending_registrations": "0:empty"
+    },
+    "after": {
+      "accounts": "3:5a8584d2e8391e066d59d528e67bc8f3",
+      "businesses": "5:5c61d5fe1633fbb78f2169baa1bb7ed8",
+      "user_businesses": "8:23656b446a670dcdd91007138e8d58ab",
+      "subscriptions": "3:b1a5bcaa9b0987702b47c9dfc8140026",
+      "user_data": "250:ccf1034b79ab48da1c7b7474b6aaa512",
+      "profiles": "12:919663dc40d6eeefe934ee2617347fe4",
+      "user_roles": "12:3eed6036386d4b70334b09ee8b6ed1e3",
+      "system_config": "2:c23828789c785e1c384e78d4dfe95e78",
+      "pending_registrations": "0:empty"
+    },
+    "auditNew": [
+      {
+        "action": "read_page",
+        "n": 15
+      }
+    ]
+  },
+  "harPosts": [
+    "/rest/v1/rpc/tenant_stores",
+    "/rest/v1/rpc/owedbook_kpis",
+    "/rest/v1/rpc/owedbook_rows",
+    "/rest/v1/rpc/owedbook_pbm_options",
+    "/rest/v1/rpc/admin_stores",
+    "/rest/v1/rpc/admin_billing_status",
+    "/rest/v1/rpc/admin_members"
+  ],
+  "finishedAt": "2026-11-09T04:14:39.330Z",
+  "pass": 9,
+  "fail": 0,
+  "status": "PASS"
+}

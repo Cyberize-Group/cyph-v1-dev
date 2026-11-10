@@ -1,0 +1,22 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+COMMAND: ["rg", "-n", "AppRole.ADMIN|admin-portal|role ===|getOwner", "src/app/(admin)/layout.tsx", "src/components/layout", "src/components/navbar"]
+EXIT: 2
+src/app/(admin)/layout.tsx:13:  const { user, role } = await protectPage([AppRole.ADMIN], {
+src/app/(admin)/layout.tsx:17:  // Content-column gutter for every admin-portal screen — the designer's `.main`
+src/app/(admin)/layout.tsx:19:  // sidebar stops being fixed). Applied here (admin-portal-only group) rather than
+src/components/layout/AuthedShell.tsx:21:// AdminSidebar (nav items on /admin-portal, filter rail on /owedbook).
+src/components/layout/AuthedShell.tsx:42:  // two-column only at xl+ and collapses to the drawer below xl. /admin-portal's
+src/components/layout/AuthedShell.tsx:50:  // default 0 on /admin-portal where there's no provider).
+src/components/layout/AdminSidebar.tsx:22:  // Stores owns the store drill-down at /admin-portal/stores/*).
+src/components/layout/AdminSidebar.tsx:30:// Audit. The old user-CRUD at /admin-portal/users/* is removed.
+src/components/layout/AdminSidebar.tsx:35:    href: "/admin-portal",
+src/components/layout/AdminSidebar.tsx:36:    isActive: (p) => p === "/admin-portal" || p.startsWith("/admin-portal/stores"),
+src/components/layout/AdminSidebar.tsx:41:    href: "/admin-portal/billing",
+src/components/layout/AdminSidebar.tsx:42:    isActive: (p) => p.startsWith("/admin-portal/billing"),
+src/components/layout/AdminSidebar.tsx:47:    href: "/admin-portal/settings",
+src/components/layout/AdminSidebar.tsx:48:    isActive: (p) => p.startsWith("/admin-portal/settings"),
+src/components/layout/AdminSidebar.tsx:53:    href: "/admin-portal/audit",
+src/components/layout/AdminSidebar.tsx:54:    isActive: (p) => p.startsWith("/admin-portal/audit"),
+src/components/layout/AdminSidebar.tsx:60:  const onAdmin = pathname.startsWith("/admin-portal");
+
+rg: src/components/navbar: No such file or directory (os error 2)

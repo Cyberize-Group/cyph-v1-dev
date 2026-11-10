@@ -1,0 +1,109 @@
+{
+  "_label": "FILE_INDEX for the Q1b package (amendments + credential tooling); one entry per member except itself. ZIP SHA-256 recorded outside the ZIP (HANDOFFS/README.md).",
+  "package": "APBM-003-CYBER-PHARMA_Q1b_REVIEW_01.zip",
+  "module_id": "APBM-003-CYBER-PHARMA",
+  "phase": "Q1b",
+  "attempt": "01",
+  "produced_by": "Claudy (QA Executor) / Claude Code, Fable 5.1",
+  "produced_at": "2026-11-07T16:26:18+06:00",
+  "candidate_sha": "308247a24e6ddd455842da5cd2e21541d7eae2c1",
+  "qa_execution_head": "308247a24e6ddd455842da5cd2e21541d7eae2c1",
+  "plan_sha256_after_AM1_6": "e8c4d5ac46635c2054e2d61073197db695ecd542a6281d4e561b0a6854bce061",
+  "plan_sha256_pre_amendment": "8bc53eba9a80cb716c954c2bd83d149d22650c17e0694901b549cd96aaaff8a9",
+  "state": "Q1 AMENDED — AWAITING QA LEAD BINDING",
+  "privacy_scan": {
+    "patterns": [
+      "sb_secret",
+      "sb_publishable",
+      "jwt",
+      "pg_url_with_password",
+      "env_assignment_with_value"
+    ],
+    "fixture_hits": "5/5",
+    "control_hits": 0,
+    "package_hits": 0
+  },
+  "hash_scope": "every member except FILE_INDEX.json",
+  "members": [
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_STATE.md",
+      "sha256": "a59a5f9116497971fc5b4cc005ee31466221c6da13220c835bd83c69625f5c3e",
+      "bytes": 7134
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_APPROVAL.md",
+      "sha256": "57ca783bf2f5b4436d45da7b13a68122ad83173dcd1549dbf134e756ed67effb",
+      "bytes": 10804
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_TEST_PLAN.md",
+      "sha256": "e8c4d5ac46635c2054e2d61073197db695ecd542a6281d4e561b0a6854bce061",
+      "bytes": 41454
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_PREFLIGHT.md",
+      "sha256": "8a8ccbc9fdba76492d98b5dc6d85ba4021e0b00f5710cab0c07ef1809ba20c52",
+      "bytes": 9948
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_ENTRY.md",
+      "sha256": "41e2ba057f0d3749c11e018f28c3eb3684c2745d790645d7919f1d00ea45638b",
+      "bytes": 14169
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/AUTOMATION/README.md",
+      "sha256": "2ee2633247c0d4a401b923ed76608b66debafc5666c45ddcb3a9c06a695e4efb",
+      "bytes": 3794
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/AUTOMATION/make-qa-env.mjs",
+      "sha256": "1cd40b6a7c08f56f6052e5750638cfff11bf5f01f2c18fe844d7a86e206a56f1",
+      "bytes": 19855
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/AUTOMATION/check-qa-env.sh",
+      "sha256": "b4f037553d4e0d31686965778e8cdc4a35d45610f06d726c15d40269af1410e0",
+      "bytes": 2057
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/HANDOFFS/Q1b_AM-7_DRAFT.md",
+      "sha256": "e3fedb384bc5af2ca88c9934ee5e8e95a606d463746db3372e8c6c4b05d3d7dd",
+      "bytes": 2566
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/HANDOFFS/REVIEW_START_HERE_Q1b_01.md",
+      "sha256": "479f704201afd963476e9ef0a83d23797ed2e63ce9dc27474594685ab717dc1e",
+      "bytes": 2407
+    },
+    {
+      "path": "agent_docs/RESPONSES/response_2026-11-07_162251_apbm003-qam-q1b-amendments.md",
+      "sha256": "a856361c28d1548fa7c0ee5371ef063a79e275263aa7574efb27328b69471065",
+      "bytes": 10176
+    },
+    {
+      "path": "agent_docs/SESSIONS/session_2026-11-07.md",
+      "sha256": "27f0b6940bfe7d58e8daf26136968013c37af44acf298ad170bc38556fad8cf0",
+      "bytes": 5715
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/env/01/check-qa-env_current.txt",
+      "sha256": "819bfee5c1484b7263d2394cafc94216fceb118fbdbbc1b9496e830bf90bcfd4",
+      "bytes": 578
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/env/01/credential_mapping.md",
+      "sha256": "30f79a68e9e423443a6a418b790b5f3ad65bc2b31279a79bb345dfed96dc34f6",
+      "bytes": 5280
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/env/01/env_qa_local_stat_names_only.txt",
+      "sha256": "3217b86f61a1b58fe41a51d699b67efddc4de5426a84b3c0555f76e1f2c5ad98",
+      "bytes": 133
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/env/01/make-qa-env_selftest.txt",
+      "sha256": "4cae26c7b2436f46c9c75702ab871735bc72d3840c279c1820b1f15324502c90",
+      "bytes": 1556
+    }
+  ]
+}

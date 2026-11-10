@@ -1,0 +1,37 @@
+{
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "status": "PASS",
+  "createdUsers": [
+    "OWNER1",
+    "OWNER3",
+    "ADMIN_B2",
+    "ADMIN_B3",
+    "MEMBER_B1",
+    "MEMBER_B2B3",
+    "UNRELATED"
+  ],
+  "expectedAuditedInserts": 285,
+  "auditBoundaryBefore": "570",
+  "observedAudit": {
+    "count": 285,
+    "correctly_attributed": 285
+  },
+  "cast": [
+    "OWNER1",
+    "OWNER3",
+    "ADMIN_B2",
+    "ADMIN_B3",
+    "MEMBER_B1",
+    "MEMBER_B2B3",
+    "UNRELATED"
+  ],
+  "stores": [
+    "A1",
+    "B1",
+    "B2",
+    "B3",
+    "C1"
+  ],
+  "claims": 250,
+  "publicCommitted": true
+}

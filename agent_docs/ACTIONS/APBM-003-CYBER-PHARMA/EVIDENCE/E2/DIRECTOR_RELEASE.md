@@ -1,0 +1,1 @@
+Director release recorded in APBM_STATE latest entry. The current user message is authoritative over draft prerequisites. Build scope remains exact A01 allowlist; no contract FINAL stamp asserted. Startup snapshot STARTING_TRACKED_HASHES.json excludes untracked evidence; .env files are neither hashed nor copied. Bounded artifacts: .next, Jest cache under /tmp, APBM E2 evidence.

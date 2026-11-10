@@ -1,0 +1,93 @@
+qa-shim: SCRATCH fence OK (url-side ref=ihgcsrypblqkwommrkgj; sql-side DEV fingerprint absent)
+qa-shim: spawning in /tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/fa30ae5a-f519-405b-b673-4ca4f9937817/scratchpad/qa-tree: node /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/AUTOMATION/scratch-sql.mjs (evidence → ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/schema/01)
+[
+  {
+    "sql": "select 'control: policies at 0047 state' as check, tablename, cmd, count(*) permissive_n, string_agg(policyname, ',' ord",
+    "rowCount": 10,
+    "rows": [
+      {
+        "check": "control: policies at 0047 state",
+        "tablename": "accounts",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "account_select_member"
+      },
+      {
+        "check": "control: policies at 0047 state",
+        "tablename": "audit_logs",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "audit_logs_select_admin"
+      },
+      {
+        "check": "control: policies at 0047 state",
+        "tablename": "businesses",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "business_select_member"
+      },
+      {
+        "check": "control: policies at 0047 state",
+        "tablename": "businesses",
+        "cmd": "UPDATE",
+        "permissive_n": "1",
+        "names": "business_update_admin"
+      },
+      {
+        "check": "control: policies at 0047 state",
+        "tablename": "subscriptions",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "subscription_select_account_member"
+      },
+      {
+        "check": "control: policies at 0047 state",
+        "tablename": "user_businesses",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "ub_select_self"
+      },
+      {
+        "check": "control: policies at 0047 state",
+        "tablename": "user_data",
+        "cmd": "DELETE",
+        "permissive_n": "1",
+        "names": "user_data_delete_admin"
+      },
+      {
+        "check": "control: policies at 0047 state",
+        "tablename": "user_data",
+        "cmd": "INSERT",
+        "permissive_n": "1",
+        "names": "user_data_insert_member"
+      },
+      {
+        "check": "control: policies at 0047 state",
+        "tablename": "user_data",
+        "cmd": "SELECT",
+        "permissive_n": "1",
+        "names": "user_data_select_member"
+      },
+      {
+        "check": "control: policies at 0047 state",
+        "tablename": "user_data",
+        "cmd": "UPDATE",
+        "permissive_n": "1",
+        "names": "user_data_update_member"
+      }
+    ]
+  },
+  {
+    "sql": "select 'control totals at 0047' as check, count(*) total from pg_policies where schemaname='public'",
+    "rowCount": 1,
+    "rows": [
+      {
+        "check": "control totals at 0047",
+        "total": "19"
+      }
+    ]
+  },
+  {
+    "transaction": "ROLLBACK"
+  }
+]

@@ -1,0 +1,22 @@
+PASS T-33 OWNER3 login lands on /owedbook 
+PASS T-33 OWNER3 store picker offers exactly B1,B2,B3 ["SYNTHETIC STORE B1","SYNTHETIC STORE B2","SYNTHETIC STORE B3"]
+PASS T-33 OWNER3 B1: Total 50, 25 rows, every script belongs to B1 25 rows
+PASS T-33 OWNER3 B1: KPI tiles rendered with non-zero Commercial Underpaid $91.09
+PASS T-33 OWNER3 B2: Total 50, 25 rows, every script belongs to B2 25 rows
+PASS T-33 OWNER3 B2: KPI tiles rendered with non-zero Commercial Underpaid $91.09
+PASS T-33 OWNER3 B3: Total 50, 25 rows, every script belongs to B3 25 rows
+PASS T-33 OWNER3 B3: KPI tiles rendered with non-zero Commercial Underpaid $91.09
+PASS T-33 OWNER3 Updated Payments tab → Total 17 (QA-derived) Limit 25 · Total 17
+PASS T-33 OWNER3 Federal tab: "unavailable in this release" + No results 
+PASS T-33 OWNER3 Summary: 3 PBM rows + unattributed note ["SYNTHETIC PBM 1","SYNTHETIC PBM 2","SYNTHETIC PBM 3"]
+PASS T-33 OWNER3 status filter Underpaid → Total 10, all chips Underpaid, "1 filter active" 10 rows
+PASS T-33 OWNER3 date range 06-10..06-12 → Total 6 (QA-derived) 
+PASS T-33/T-35 OWNER3 empty filter → "No results" 
+PASS T-33 OWNER3 PBM filter SYNTHETIC PBM 1 → Total 13 (QA-derived) Limit 25 · Total 13
+PASS T-33 OWNER3 sort by Owed → aria-sort=ascending, page values ascending ascending
+PASS T-33 OWNER3 pager Next → Page 2 of 2 
+PASS T-33/F-05 OWNER3 re-select of the already-selected store (change event, same value): PBM options kept (3 → 3), no "No options", audit +0 before={"n":3,"none":false} after={"n":3,"none":false} audit=[]
+PASS T-33/F-05 control: a real store switch B1→B2 refetches (options 3, audit +3: kpis, pbm_options, rows) [{"fn":"owedbook_kpis","n":1},{"fn":"owedbook_pbm_options","n":1},{"fn":"owedbook_rows","n":1}]
+PASS T-33c OWNER3 rapid switch B1→B2→B3 with inverted response order → final rows only B3, picker on B3 0 foreign rows
+PASS T-33 OWNER3 logout via /api/auth/logout 
+summary owedbook: 21 PASS / 0 FAIL; unexpected backend requests 0

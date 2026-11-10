@@ -1,0 +1,177 @@
+{
+  "mode": "check",
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "status": "PASS",
+  "startedAt": "2026-11-07T08:00:23.210Z",
+  "bundleSHA256": "8bdb753b4d227e4211c6ee1d0cb6a6c0048071a371e456444b0a7605cb1b0a5c",
+  "rehearsal": {
+    "kind": "SYNTHETIC_APPLICATION_REHEARSAL_NOT_DEV_RESTORE",
+    "completedAt": "2026-11-06T15:02:40.230Z",
+    "restoreVerified": false,
+    "status": "PASS",
+    "reused": true
+  },
+  "backup": {
+    "status": "PASS",
+    "backupSHA256": "1d33881a1b49f85d20ecee6514a56f94552055efd6dc19f58942b12316dda692",
+    "privateProofSHA256": "da66a9e80edf45999acae890f4f933dee27d356d68c4bff260d21165012c2600",
+    "all30TablesAndMetadataMatch": true
+  },
+  "signup": {
+    "disabled": true,
+    "checkedAt": "2026-11-07T08:00:23.909Z",
+    "method": "GET settings with apikey only"
+  },
+  "signupGate": {
+    "status": "PASS",
+    "disposition": "disabled-evidence",
+    "observed": {
+      "disabled": true,
+      "checkedAt": "2026-11-07T08:00:23.909Z",
+      "method": "GET settings with apikey only"
+    }
+  },
+  "authIndexes": [
+    {
+      "indexname": "confirmation_token_idx",
+      "indexdef": "CREATE UNIQUE INDEX confirmation_token_idx ON auth.users USING btree (confirmation_token) WHERE ((confirmation_token)::text !~ '^[0-9 ]*$'::text)",
+      "indisvalid": true,
+      "indisready": true,
+      "indislive": true,
+      "indisunique": true
+    },
+    {
+      "indexname": "email_change_token_current_idx",
+      "indexdef": "CREATE UNIQUE INDEX email_change_token_current_idx ON auth.users USING btree (email_change_token_current) WHERE ((email_change_token_current)::text !~ '^[0-9 ]*$'::text)",
+      "indisvalid": true,
+      "indisready": true,
+      "indislive": true,
+      "indisunique": true
+    },
+    {
+      "indexname": "email_change_token_new_idx",
+      "indexdef": "CREATE UNIQUE INDEX email_change_token_new_idx ON auth.users USING btree (email_change_token_new) WHERE ((email_change_token_new)::text !~ '^[0-9 ]*$'::text)",
+      "indisvalid": true,
+      "indisready": true,
+      "indislive": true,
+      "indisunique": true
+    },
+    {
+      "indexname": "idx_users_created_at_desc",
+      "indexdef": "CREATE INDEX idx_users_created_at_desc ON auth.users USING btree (created_at DESC)",
+      "indisvalid": true,
+      "indisready": true,
+      "indislive": true,
+      "indisunique": false
+    },
+    {
+      "indexname": "idx_users_email",
+      "indexdef": "CREATE INDEX idx_users_email ON auth.users USING btree (email)",
+      "indisvalid": true,
+      "indisready": true,
+      "indislive": true,
+      "indisunique": false
+    },
+    {
+      "indexname": "idx_users_last_sign_in_at_desc",
+      "indexdef": "CREATE INDEX idx_users_last_sign_in_at_desc ON auth.users USING btree (last_sign_in_at DESC)",
+      "indisvalid": true,
+      "indisready": true,
+      "indislive": true,
+      "indisunique": false
+    },
+    {
+      "indexname": "idx_users_name",
+      "indexdef": "CREATE INDEX idx_users_name ON auth.users USING btree (((raw_user_meta_data ->> 'name'::text))) WHERE ((raw_user_meta_data ->> 'name'::text) IS NOT NULL)",
+      "indisvalid": true,
+      "indisready": true,
+      "indislive": true,
+      "indisunique": false
+    },
+    {
+      "indexname": "reauthentication_token_idx",
+      "indexdef": "CREATE UNIQUE INDEX reauthentication_token_idx ON auth.users USING btree (reauthentication_token) WHERE ((reauthentication_token)::text !~ '^[0-9 ]*$'::text)",
+      "indisvalid": true,
+      "indisready": true,
+      "indislive": true,
+      "indisunique": true
+    },
+    {
+      "indexname": "recovery_token_idx",
+      "indexdef": "CREATE UNIQUE INDEX recovery_token_idx ON auth.users USING btree (recovery_token) WHERE ((recovery_token)::text !~ '^[0-9 ]*$'::text)",
+      "indisvalid": true,
+      "indisready": true,
+      "indislive": true,
+      "indisunique": true
+    },
+    {
+      "indexname": "users_email_partial_key",
+      "indexdef": "CREATE UNIQUE INDEX users_email_partial_key ON auth.users USING btree (email) WHERE (is_sso_user = false)",
+      "indisvalid": true,
+      "indisready": true,
+      "indislive": true,
+      "indisunique": true
+    },
+    {
+      "indexname": "users_instance_id_email_idx",
+      "indexdef": "CREATE INDEX users_instance_id_email_idx ON auth.users USING btree (instance_id, lower((email)::text))",
+      "indisvalid": true,
+      "indisready": true,
+      "indislive": true,
+      "indisunique": false
+    },
+    {
+      "indexname": "users_instance_id_idx",
+      "indexdef": "CREATE INDEX users_instance_id_idx ON auth.users USING btree (instance_id)",
+      "indisvalid": true,
+      "indisready": true,
+      "indislive": true,
+      "indisunique": false
+    },
+    {
+      "indexname": "users_is_anonymous_idx",
+      "indexdef": "CREATE INDEX users_is_anonymous_idx ON auth.users USING btree (is_anonymous)",
+      "indisvalid": true,
+      "indisready": true,
+      "indislive": true,
+      "indisunique": false
+    },
+    {
+      "indexname": "users_phone_key",
+      "indexdef": "CREATE UNIQUE INDEX users_phone_key ON auth.users USING btree (phone)",
+      "indisvalid": true,
+      "indisready": true,
+      "indislive": true,
+      "indisunique": true
+    },
+    {
+      "indexname": "users_pkey",
+      "indexdef": "CREATE UNIQUE INDEX users_pkey ON auth.users USING btree (id)",
+      "indisvalid": true,
+      "indisready": true,
+      "indislive": true,
+      "indisunique": true
+    }
+  ],
+  "effectiveGrants": {
+    "status": "PASS",
+    "effectiveTableGrantChecks": 42,
+    "effectiveFunctionGrantChecks": 6,
+    "schemaUsageChecks": 3,
+    "rlsAndPolicies": "exact reviewed catalog"
+  },
+  "privileges": {
+    "preservedTablesLockable": 30,
+    "strongLocks": 29,
+    "readLockForProviderHistory": "auth.schema_migrations",
+    "providerHistoryFingerprintChecks": "unchanged; provider migrations must remain paused in maintenance",
+    "applicationDDL": true,
+    "managedAclPrivilegeNotRequired": true
+  },
+  "before": {
+    "catalogSHA256": "da2a46ee54a85bcc8a9e4f54eb0f14106a68d4a336e3a165170f77b17620a07b",
+    "apbmLedgerAbsent": true
+  },
+  "finishedAt": "2026-11-07T08:00:49.141Z",
+  "sharedDevWritesAttempted": false
+}

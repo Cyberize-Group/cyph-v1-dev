@@ -1,0 +1,414 @@
+{
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "status": "READ_ONLY_INSPECTED",
+  "tables": [
+    {
+      "schema": "auth",
+      "name": "audit_log_entries",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "custom_oauth_providers",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "flow_state",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "identities",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "instances",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "mfa_amr_claims",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "mfa_challenges",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "mfa_factors",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "mfa_recovery_code_sets",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "mfa_recovery_codes",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "oauth_authorizations",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "oauth_client_states",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "oauth_clients",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "oauth_consents",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "one_time_tokens",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "refresh_tokens",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "saml_providers",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "saml_relay_states",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "schema_migrations",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": false,
+      "can_delete": false,
+      "can_truncate": false
+    },
+    {
+      "schema": "auth",
+      "name": "scim_tokens",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "scim_users",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "sessions",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "sso_domains",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "sso_providers",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "users",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "webauthn_challenges",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "auth",
+      "name": "webauthn_credentials",
+      "owner": "supabase_auth_admin",
+      "owner_privileges": false,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "public",
+      "name": "aac_reference",
+      "owner": "postgres",
+      "owner_privileges": true,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "public",
+      "name": "accounts",
+      "owner": "postgres",
+      "owner_privileges": true,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "public",
+      "name": "apa_memberships",
+      "owner": "postgres",
+      "owner_privileges": true,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "public",
+      "name": "audit_logs",
+      "owner": "postgres",
+      "owner_privileges": true,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "public",
+      "name": "businesses",
+      "owner": "postgres",
+      "owner_privileges": true,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "public",
+      "name": "ful_reference",
+      "owner": "postgres",
+      "owner_privileges": true,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "public",
+      "name": "pbm_info",
+      "owner": "postgres",
+      "owner_privileges": true,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "public",
+      "name": "pending_registrations",
+      "owner": "postgres",
+      "owner_privileges": true,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "public",
+      "name": "profiles",
+      "owner": "postgres",
+      "owner_privileges": true,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "public",
+      "name": "reference_dataset_versions",
+      "owner": "postgres",
+      "owner_privileges": true,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "public",
+      "name": "report_files",
+      "owner": "postgres",
+      "owner_privileges": true,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "public",
+      "name": "subscriptions",
+      "owner": "postgres",
+      "owner_privileges": true,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "public",
+      "name": "system_config",
+      "owner": "postgres",
+      "owner_privileges": true,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "public",
+      "name": "user_businesses",
+      "owner": "postgres",
+      "owner_privileges": true,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "public",
+      "name": "user_data",
+      "owner": "postgres",
+      "owner_privileges": true,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "public",
+      "name": "user_roles",
+      "owner": "postgres",
+      "owner_privileges": true,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    },
+    {
+      "schema": "public",
+      "name": "wac_reference",
+      "owner": "postgres",
+      "owner_privileges": true,
+      "can_insert": true,
+      "can_delete": true,
+      "can_truncate": true
+    }
+  ],
+  "schemas": [
+    {
+      "nspname": "auth",
+      "owner": "supabase_admin",
+      "can_create": false
+    },
+    {
+      "nspname": "public",
+      "owner": "postgres",
+      "can_create": true
+    }
+  ]
+}

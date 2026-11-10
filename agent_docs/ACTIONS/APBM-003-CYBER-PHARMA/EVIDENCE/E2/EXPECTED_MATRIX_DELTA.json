@@ -1,0 +1,97 @@
+{
+  "changes": [
+    {
+      "identity": "ownerA",
+      "table": "user_data",
+      "operation": "select",
+      "from": "ALLOW",
+      "to": "DENY"
+    },
+    {
+      "identity": "ownerA",
+      "table": "user_data",
+      "operation": "insert",
+      "from": "ALLOW",
+      "to": "DENY"
+    },
+    {
+      "identity": "ownerA",
+      "table": "user_data",
+      "operation": "update",
+      "from": "ALLOW",
+      "to": "DENY"
+    },
+    {
+      "identity": "ownerA",
+      "table": "user_data",
+      "operation": "delete",
+      "from": "ALLOW",
+      "to": "DENY"
+    },
+    {
+      "identity": "ownerA",
+      "table": "audit_logs",
+      "operation": "select",
+      "from": "ALLOW",
+      "to": "DENY"
+    },
+    {
+      "identity": "staffA",
+      "table": "user_data",
+      "operation": "select",
+      "from": "ALLOW",
+      "to": "DENY"
+    },
+    {
+      "identity": "staffA",
+      "table": "user_data",
+      "operation": "insert",
+      "from": "ALLOW",
+      "to": "DENY"
+    },
+    {
+      "identity": "staffA",
+      "table": "user_data",
+      "operation": "update",
+      "from": "ALLOW",
+      "to": "DENY"
+    },
+    {
+      "identity": "ownerB",
+      "table": "user_data",
+      "operation": "select",
+      "from": "ALLOW",
+      "to": "DENY"
+    },
+    {
+      "identity": "ownerB",
+      "table": "audit_logs",
+      "operation": "select",
+      "from": "ALLOW",
+      "to": "DENY"
+    },
+    {
+      "identity": "multiStore",
+      "table": "user_data",
+      "operation": "select",
+      "from": "ALLOW",
+      "to": "DENY"
+    },
+    {
+      "identity": "multiStore",
+      "table": "user_data",
+      "operation": "insert",
+      "from": "ALLOW",
+      "to": "DENY"
+    },
+    {
+      "identity": "multiStore",
+      "table": "user_data",
+      "operation": "update",
+      "from": "ALLOW",
+      "to": "DENY"
+    }
+  ],
+  "legacyClaimWrites": 7,
+  "newCoverage": "Owner-without-junction, scoped admin RPCs, account audit, billing denial and configuration are independently proven with seven-user APBM cast."
+}

@@ -1,0 +1,128 @@
+{
+  "status": "PASS",
+  "tables": {
+    "auth.audit_log_entries": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.custom_oauth_providers": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.flow_state": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.identities": {
+      "preserved": 6,
+      "added": 7
+    },
+    "auth.instances": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.mfa_amr_claims": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.mfa_challenges": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.mfa_factors": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.mfa_recovery_code_sets": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.mfa_recovery_codes": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.oauth_authorizations": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.oauth_client_states": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.oauth_clients": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.oauth_consents": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.one_time_tokens": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.refresh_tokens": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.saml_providers": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.saml_relay_states": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.schema_migrations": {
+      "preserved": 82,
+      "added": 0
+    },
+    "auth.scim_tokens": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.scim_users": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.sessions": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.sso_domains": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.sso_providers": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.users": {
+      "preserved": 6,
+      "added": 7
+    },
+    "auth.webauthn_challenges": {
+      "preserved": 0,
+      "added": 0
+    },
+    "auth.webauthn_credentials": {
+      "preserved": 0,
+      "added": 0
+    },
+    "public.profiles": {
+      "preserved": 5,
+      "added": 7
+    },
+    "public.user_roles": {
+      "preserved": 5,
+      "added": 7
+    },
+    "supabase_migrations.schema_migrations": {
+      "preserved": 1,
+      "added": 0
+    }
+  },
+  "authIndexDefinitionsAndValidityUnchanged": true,
+  "existingRolesAndProfilesExact": true,
+  "sequenceNeverLowered": true
+}

@@ -1,0 +1,25 @@
+{
+  "method": "In-memory TypeScript transpilation; no fixtures emitted or mutated",
+  "file": "src/mocks/owedbook.ts",
+  "rows": 150,
+  "expected_formula_pass": 1,
+  "owed_formula_pass": 150,
+  "negative_owed": 28,
+  "zero_owed": 1,
+  "statuses": {
+    "underpaid": 22,
+    "recovered": 17,
+    "emailed_pbm": 38,
+    "new": 54,
+    "pending": 18,
+    "null": 1
+  },
+  "methods": {
+    "NADAC": 27,
+    "MAC": 38,
+    "AAC": 61,
+    "WAC": 24
+  },
+  "distinct_nonnull_pbms": 7,
+  "nonnull_federal": 139
+}

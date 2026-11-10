@@ -1,0 +1,4 @@
+# T-02 — 2026-11-09T09:37:54+06:00
+lockfile diff af2c7e5..308247a lines: 0
+package.json hunks touch only scripts: 0 non-script changed lines (0 expected)
+negative control: last commit changing package-lock.json = 297a0114b2ec6e2258dd336067b6a4b87b7daa30; diff 297a0114b2ec6e2258dd336067b6a4b87b7daa30^..297a0114b2ec6e2258dd336067b6a4b87b7daa30 -- package-lock.json lines: 13560 (non-empty expected)

@@ -1,0 +1,8 @@
+{
+  "bundleSHA256": "7ea2cbe960cd45232f54a4ba39a564e3dbf5d657fa908195db85b8639792d2f6",
+  "mode": "check",
+  "credentialMapping": "explicit in-memory complete APBM_DEV_ set using APBM_DEV_DB_POOL and existing Dev v1 API variables",
+  "exit": 1,
+  "stdout": "{\"mode\":\"check\",\"projectRef\":\"yrsuwikjnbmvpznrgydb\",\"bundleSHA256\":\"7ea2cbe960cd45232f54a4ba39a564e3dbf5d657fa908195db85b8639792d2f6\",\"startedAt\":\"2026-11-06T09:54:57.847Z\",\"status\":\"BLOCKED\",\"catalog\":\"PASS\",\"privilegeAvailable\":false,\"errorCode\":\"MANAGED_DEFAULT_ACL_PRIVILEGE_REQUIRED\",\"nextAction\":\"Stop; resolve the named prerequisite or failed check. No automatic retry.\",\"committed\":false,\"finishedAt\":\"2026-11-06T09:55:04.994Z\"}",
+  "stderr": ""
+}

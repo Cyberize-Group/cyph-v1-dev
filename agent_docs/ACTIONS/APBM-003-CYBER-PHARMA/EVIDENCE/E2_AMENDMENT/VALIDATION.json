@@ -1,0 +1,11 @@
+{
+  "utc": "2026-11-05T14:26:45.702398+00:00",
+  "head": "b23372d24d79b6460f746a191e824224ba5f8900",
+  "branch": "apbm-003",
+  "e1_zip_sha256": "949262c1bf5fb3ab774de93de9bd5e3bda78d76ac01af0ac4d1f70ffd96f78b5",
+  "e1_archived_evidence_files_unchanged": 62,
+  "all_changes_within_apbm": true,
+  "product_diff_empty": true,
+  "contract_status": "DRAFT",
+  "release": "NOT RECORDED"
+}

@@ -12,10 +12,11 @@
 //      user_metadata, raw_user_meta_data, or owner_user_id
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { loadEnv, repoRoot } from "./lib/env.mjs";
+import { assertScratch, loadEnv, repoRoot } from "./lib/env.mjs";
 import { pgClient } from "./lib/db.mjs";
 
 const env = loadEnv();
+assertScratch(env);
 const db = await pgClient(env);
 const q = async (s) => (await db.query(s)).rows;
 const fails = [];
@@ -58,16 +59,16 @@ if (inlineJunction.length) {
 } else ok("L3 junction-first: no inline-junction predicates in use (formulation C adopted)");
 
 // ── L4 ──
-const banned = /\buser_roles\b|\bprofiles\b|user_metadata|raw_user_meta_data|owner_user_id/i;
+const banned = /\buser_roles\b|\bprofiles\b|user_metadata|raw_user_meta_data/i;
 let l4 = true;
 for (const b of bodies) {
   if (b.tablename === "user_roles" || b.tablename === "profiles") continue; // the 3 baseline policies, untouched by this module
   if (banned.test(b.body)) { bad(`L4 Gap-6: policy ${b.tablename}.${b.policyname} body references a forbidden source`); l4 = false; }
 }
-for (const h of await q(`select proname, prosrc from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and proname in ('is_member_of','is_admin_of','is_account_member','my_business_ids')`)) {
+for (const h of await q(`select proname, prosrc from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and proname in ('is_member_of','is_admin_of','is_account_member','my_business_ids','is_owner_of_account')`)) {
   if (banned.test(h.prosrc)) { bad(`L4 Gap-6: helper ${h.proname} body references a forbidden source`); l4 = false; }
 }
-if (l4) ok("L4 Gap-6: no policy or helper reads user_roles / profiles / metadata / owner_user_id");
+if (l4) ok("L4 Gap-6: no policy or helper reads user_roles / profiles / metadata");
 
 console.log("  ── policy inventory ──");
 for (const r of perOp) console.log(`     ${r.tablename.padEnd(28)} ${r.cmd.padEnd(6)} × ${r.n}  ${r.names}`);

@@ -1,0 +1,21 @@
+{
+  "head": "49dec499d665125bb8764ccc8ea498c5fdfcdcd1",
+  "selfExcluded": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-target-reconciliation/LOCAL_CHANGES.json",
+  "files": {
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_JOURNAL.md": "3dfac10a35154f0757888959635bfa3866aab7609973b811fd99038e59eafd01",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_RULINGS.md": "c666f9b3dad21a7f744bf61b93e9a6144f840241f717426b40fd22853bcf90e7",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_STATE.md": "6d15863bf7964968618a393209e04126c9c1b94bc0893079f30ce23cd6cdea47",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/E2/DEV_APPLY_HANDOFF.md": "4aacc3dd26f3ed20bbc4a95e250c298251cd2777ce9f3e7851368a771c741b89",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/E2/GIT_HANDOFF.md": "93bfd0df98289d85a72102483470d2c0c140fb02119e647baaf55306c5b8f0bc",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/E2/SOURCE_HASHES.json": "7691efb07f0887888119cb77d35feb454068fb895a916d58bb3fda5a7393cb99",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-target-reconciliation/REPORT.md": "e0dabeef0ec8d4bd7901907060f162b2642e3844ce28720356a73af05332e83d",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-target-reconciliation/baseline-diff.json": "e4a248789af2a72f05750e33303987e2a096027b8d1e5d8a8a7393917ed8a72c",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-target-reconciliation/catalog.json": "fb6c3b27f6c5427148420ba3c0773406483fd1c5910a2df1294af21c7e94b445",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-target-reconciliation/dev-fencing-results.json": "06f00aae5ace8a747d8d90b01a3eb341dec9e72f1be9eb48dc0e5dbb893539a7",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-target-reconciliation/dev-fencing-test.mjs": "90852ca576bf391f7a2687869756e19291eec473deca808c93985ccddaf04931",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-target-reconciliation/fencing-results.json": "2ec3c02d0b93991f998c7fdd871ea94884f6d7fdb888ba50b02df574f9987211",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-target-reconciliation/preflight.json": "aa63214a1f735673a398532aee1e69ba76b728d964163b6ffb26ae5aee015aa6",
+    "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-target-reconciliation/read-only-preflight.mjs": "ce0068db30f213d465454da66437f3238660f55579b3f39f130e0cfb5beb4417",
+    "scripts/rls-harness/lib/env.mjs": "b7837245804eebdfcd7f5aa778b04ab150aadf6c130f1014a9c593de2a5dbd95"
+  }
+}

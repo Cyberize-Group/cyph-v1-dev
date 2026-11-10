@@ -1,0 +1,59 @@
+{
+  "checkedAt": "2026-11-06T09:40:11.850Z",
+  "missingRunnerVariables": [
+    "APBM_DEV_SUPABASE_URL",
+    "APBM_DEV_PUBLISHABLE_KEY",
+    "APBM_DEV_SECRET_KEY"
+  ],
+  "devDBURLMatchesWorkingPool": false,
+  "targets": [
+    {
+      "target": "dev",
+      "projectRef": "yrsuwikjnbmvpznrgydb",
+      "server_version": "17.6",
+      "server_version_num": "170006",
+      "current_user": "postgres",
+      "superuser": false,
+      "supabase_admin_member": false,
+      "read_only": "on",
+      "tables": [
+        "profiles",
+        "user_roles"
+      ],
+      "apbmLedgerPresent": false,
+      "status": "PASS_READ_ONLY"
+    },
+    {
+      "target": "scratch",
+      "projectRef": "ihgcsrypblqkwommrkgj",
+      "server_version": "17.6",
+      "server_version_num": "170006",
+      "current_user": "postgres",
+      "superuser": false,
+      "supabase_admin_member": false,
+      "read_only": "on",
+      "tables": [
+        "aac_reference",
+        "accounts",
+        "apa_memberships",
+        "audit_logs",
+        "businesses",
+        "ful_reference",
+        "pbm_info",
+        "pending_registrations",
+        "profiles",
+        "reference_dataset_versions",
+        "report_files",
+        "subscriptions",
+        "system_config",
+        "user_businesses",
+        "user_data",
+        "user_roles",
+        "wac_reference"
+      ],
+      "apbmLedgerPresent": true,
+      "status": "PASS_READ_ONLY"
+    }
+  ],
+  "devDBURLSessionPooler": false
+}

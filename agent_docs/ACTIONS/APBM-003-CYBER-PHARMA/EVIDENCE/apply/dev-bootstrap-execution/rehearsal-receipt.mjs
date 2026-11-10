@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';import {readFileSync,readdirSync,writeFileSync} from 'node:fs';import {join} from 'node:path';
+import {loadEnv,evidenceRoot,evidencePath,SCRATCH_REF,DEV_REF} from '../../../../../../scripts/rls-harness/lib/env.mjs';import {bundleHash} from './bootstrap-runner.mjs';import {plan} from '../dev-baseline-bootstrap/checks.mjs';
+try{
+ const env=loadEnv();assert.equal(env.target,'scratch');assert.equal(env.projectRef,SCRATCH_REF);const dir=evidenceRoot(),read=p=>JSON.parse(readFileSync(p));
+ const one=pattern=>{const files=readdirSync(dir).filter(n=>pattern.test(n));assert.equal(files.length,1);return read(join(dir,files[0]));};
+ const restore=read(process.env.APBM_RESTORE_RECEIPT),backup=read(process.env.APBM_BACKUP_RECEIPT);assert.equal(restore.status,'PASS');assert.equal(restore.sourceProjectRef,DEV_REF);assert.equal(restore.targetProjectRef,SCRATCH_REF);assert.equal(restore.preservationVerified,true);assert.equal(restore.catalogSHA256,plan.expectedBeforeSHA256);assert.equal(backup.status,'PASS');assert.equal(backup.coverageComplete,true);assert.equal(backup.projectRef,DEV_REF);assert.ok(backup.backupSHA256);assert.equal(restore.backupSHA256,backup.backupSHA256);
+ const fault=one(/^bootstrap-fault-\d+\.json$/),apply=one(/^bootstrap-apply-\d+\.json$/),verify=one(/^bootstrap-verify-\d+\.json$/);
+ for(const r of[fault,apply,verify]){assert.equal(r.status,'PASS');assert.equal(r.projectRef,SCRATCH_REF);assert.equal(r.bundleSHA256,bundleHash());}assert.equal(fault.rollbackVerified,true);assert.equal(apply.bootstrapVerified,true);assert.equal(verify.verification.apbmLedgerAbsent,true);
+ const catalog=read(join(dir,'catalog.json')),seed=read(join(dir,'seed-verify.json')),owner=read(join(dir,'owner-proof.json')),auth=read(join(dir,'authenticated-reads.json')),seedReceipt=one(/^seed-receipt-\d+\.json$/);
+ assert.equal(catalog.projectRef,SCRATCH_REF);assert.equal(catalog.sha256,'66782ff92213415443d428ade161b165e04a5aba29999453cb0ab34a7160d061');assert.equal(catalog.ledger.length,52);assert.equal(catalog.migrationInventoryVerified,true);
+ for(const r of[seed,owner,auth,seedReceipt]){assert.equal(r.status,'PASS');assert.equal(r.projectRef,SCRATCH_REF);}
+ assert.equal(seed.contentSHA256,'f7f1270cccbb26896cfeeef4c7326b761bfc90f4080a72d27b66574b83cfabdf');assert.equal(seed.counts.user_data,250);assert.equal(seedReceipt.observedAudit.count,285);assert.equal(seedReceipt.publicCommitted,true);assert.equal(owner.auditDelta,4);assert.equal(auth.checks.length,154);
+ const result={status:'PASS',projectRef:SCRATCH_REF,bundleSHA256:bundleHash(),baselineSHA256:plan.expectedAfterSHA256,backupSHA256:backup.backupSHA256,restoreVerified:true,rollbackVerified:true,bootstrapVerified:true,forward52Verified:true,seedVerified:true,ownerVerified:true,verifierVerified:true,finishedAt:new Date().toISOString()};
+ writeFileSync(evidencePath('REHEARSAL_RECEIPT.json'),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result));
+}catch{console.error('BLOCKED: complete matching restored-copy rehearsal evidence is required');process.exitCode=1;}

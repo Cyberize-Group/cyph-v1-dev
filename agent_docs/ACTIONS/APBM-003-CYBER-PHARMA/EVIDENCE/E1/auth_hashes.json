@@ -1,0 +1,56 @@
+[
+  {
+    "path": "src/app/api/auth/confirm/route.ts",
+    "current_sha256": "ceb7327124e22e57f4a22450619535085e6e26a46de88d5e44c85775155c7dfc",
+    "baseline_sha256": "ceb7327124e22e57f4a22450619535085e6e26a46de88d5e44c85775155c7dfc",
+    "equal": true
+  },
+  {
+    "path": "src/app/api/auth/login/route.ts",
+    "current_sha256": "807e315d120b945867e2f83360aac08f3d3d016192791310801dd92f99d331bd",
+    "baseline_sha256": "807e315d120b945867e2f83360aac08f3d3d016192791310801dd92f99d331bd",
+    "equal": true
+  },
+  {
+    "path": "src/app/api/auth/logout/route.ts",
+    "current_sha256": "e0437df48102dab785af52cab448259f775b603f81040a986cd36ba7b186ea66",
+    "baseline_sha256": "e0437df48102dab785af52cab448259f775b603f81040a986cd36ba7b186ea66",
+    "equal": true
+  },
+  {
+    "path": "src/proxy.ts",
+    "current_sha256": "34086fc9777e97f333b11722c5680d9d43535142d52082aa75e0c13f6d7af966",
+    "baseline_sha256": "34086fc9777e97f333b11722c5680d9d43535142d52082aa75e0c13f6d7af966",
+    "equal": true
+  },
+  {
+    "path": "src/utils/supabase/actions.ts",
+    "current_sha256": "73ea3505eb0f8487475faf00b0f6f330d8685ea4ea08f07efe563eb54df2807b",
+    "baseline_sha256": "73ea3505eb0f8487475faf00b0f6f330d8685ea4ea08f07efe563eb54df2807b",
+    "equal": true
+  },
+  {
+    "path": "src/utils/supabase/admin.ts",
+    "current_sha256": "3c8ab2513efd03f8f2b4f8d8cf67a6d77b24204a91078d2c7a44a6131fc73dfe",
+    "baseline_sha256": "3c8ab2513efd03f8f2b4f8d8cf67a6d77b24204a91078d2c7a44a6131fc73dfe",
+    "equal": true
+  },
+  {
+    "path": "src/utils/supabase/client.ts",
+    "current_sha256": "c4600ce3978425a85cacb7bae88250f72ee7a50266e900c75214cab03d70c339",
+    "baseline_sha256": "c4600ce3978425a85cacb7bae88250f72ee7a50266e900c75214cab03d70c339",
+    "equal": true
+  },
+  {
+    "path": "src/utils/supabase/middleware.ts",
+    "current_sha256": "1800d931d158d57cfdc1ff870537ccca293fced46357af0647420208ab3c14e2",
+    "baseline_sha256": "1800d931d158d57cfdc1ff870537ccca293fced46357af0647420208ab3c14e2",
+    "equal": true
+  },
+  {
+    "path": "src/utils/supabase/server.ts",
+    "current_sha256": "f96278674332bd57dcf00cfd62c28be58b160c0bde33ca5a4a82bd23fa152fb9",
+    "baseline_sha256": "f96278674332bd57dcf00cfd62c28be58b160c0bde33ca5a4a82bd23fa152fb9",
+    "equal": true
+  }
+]

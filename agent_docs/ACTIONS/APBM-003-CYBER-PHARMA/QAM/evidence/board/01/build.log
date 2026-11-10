@@ -1,0 +1,43 @@
+▲ Next.js 16.3.7 (Turbopack)
+- Environments: .env.local
+✓ Running next.config.js took 9ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 7.4s
+  Running TypeScript ...
+  Finished TypeScript in 4.2s ...
+  Collecting page data using 3 workers ...
+  Generating static pages using 3 workers (0/15) ...
+  Generating static pages using 3 workers (3/15) 
+  Generating static pages using 3 workers (7/15) 
+  Generating static pages using 3 workers (11/15) 
+✓ Generating static pages using 3 workers (15/15) in 228ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ƒ /access-denied
+├ ƒ /admin-portal
+├ ƒ /admin-portal/audit
+├ ƒ /admin-portal/billing
+├ ƒ /admin-portal/settings
+├ ƒ /admin-portal/stores/[id]
+├ ƒ /admin-portal/stores/[id]/invite
+├ ƒ /api/auth/confirm
+├ ƒ /api/auth/login
+├ ƒ /api/auth/logout
+├ ○ /auth
+├ ○ /error
+├ ○ /icon.png
+├ ƒ /owedbook
+└ ƒ /profile
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+{"status":"PASS","exit":0,"projectRef":"yrsuwikjnbmvpznrgydb","mode":"real","port":"3138","buildId":"2mBOHUJbKEQw4m7sSVOHb","builtAt":"2026-11-09T03:35:48.495Z","tree":"/tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/fa30ae5a-f519-405b-b673-4ca4f9937817/scratchpad/qa-tree","secretKeyInEnv":false,"envKeysPassed":["NEXT_PUBLIC_APBM_DATA_MODE","NEXT_PUBLIC_SUPABASE_URL","NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY","NEXT_PUBLIC_SITE_URL"]}
+exit=0

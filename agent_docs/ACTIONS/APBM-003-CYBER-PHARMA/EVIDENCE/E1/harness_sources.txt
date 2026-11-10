@@ -1,0 +1,2001 @@
+Local read-only source capture; CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+
+FILE: scripts/db-reset.mjs
+1: #!/usr/bin/env node
+2: // BIM-001 · db-reset.mjs — the one-command reset + chain runner (gates X1-X3).
+3: //
+4: // Commands:
+5: //   node scripts/db-reset.mjs reset       drop public schema → bootstrap baseline → replay chain (SCRATCH ONLY)
+6: //   node scripts/db-reset.mjs bootstrap   install the baseline reproduction ONLY (factory-fresh replica setup; no chain)
+7: //   node scripts/db-reset.mjs apply       replay chain only (X2: baseline-replica path; 0001 asserts first)
+8: //   node scripts/db-reset.mjs inventory   print public tables + counts, exit 0
+9: //
+10: // Environment (fail-closed — BIM-000 runner lessons: repo-root-anchored, loud):
+11: //   DB_URL           postgres connection string (scratch or replica — NEVER live)
+12: //   DB_RESET_ALLOW   must be exactly "yes" for the destructive `reset` command
+13: //
+14: // Exit codes: 0 success · 1 usage/env failure · 2 SQL failure (file named).
+15: 
+16: import { readFileSync, readdirSync, existsSync } from "node:fs";
+17: import { fileURLToPath } from "node:url";
+18: import { dirname, join } from "node:path";
+19: import pg from "pg";
+20: 
+21: const repoRoot = dirname(dirname(fileURLToPath(import.meta.url)));
+22: const migrationsDir = join(repoRoot, "supabase", "migrations");
+23: const bootstrapFile = join(repoRoot, "scripts", "db-bootstrap-baseline.sql");
+24: 
+25: // fail-closed anchors (BIM-000 lesson: runners resolve repo root, verify, refuse)
+26: for (const anchor of [migrationsDir, bootstrapFile]) {
+27:   if (!existsSync(anchor)) {
+28:     console.error(`FAIL-CLOSED: missing anchor ${anchor} — refusing to run.`);
+29:     process.exit(1);
+30:   }
+31: }
+32: 
+33: const cmd = process.argv[2];
+34: if (!["reset", "bootstrap", "apply", "inventory"].includes(cmd)) {
+35:   console.error("usage: db-reset.mjs <reset|bootstrap|apply|inventory>   (DB_URL required)");
+36:   process.exit(1);
+37: }
+38: const dbUrl = process.env.DB_URL;
+39: if (!dbUrl) {
+40:   console.error("FAIL-CLOSED: DB_URL not set. Provide the SCRATCH/REPLICA connection string. Never the live project.");
+41:   process.exit(1);
+42: }
+43: if (cmd === "reset" && process.env.DB_RESET_ALLOW !== "yes") {
+44:   console.error("FAIL-CLOSED: `reset` DROPS the public schema. Set DB_RESET_ALLOW=yes to confirm the target is a scratch database.");
+45:   process.exit(1);
+46: }
+47: 
+48: const migrationFiles = readdirSync(migrationsDir)
+49:   .filter((f) => /^\d{4}_.+\.sql$/.test(f))
+50:   .sort();
+51: 
+52: const client = new pg.Client({ connectionString: dbUrl });
+53: const target = new URL(dbUrl);
+54: console.log(`[db-reset] ${cmd} → host=${target.hostname} db=${target.pathname.slice(1)}`);
+55: console.log(`[db-reset] chain: ${migrationFiles.length} migrations (${migrationFiles[0]} … ${migrationFiles[migrationFiles.length - 1]})`);
+56: 
+57: async function runSql(label, sql) {
+58:   try {
+59:     await client.query(sql);
+60:     console.log(`  ok  ${label}`);
+61:   } catch (err) {
+62:     console.error(`  FAIL ${label}: ${err.message}`);
+63:     await client.end();
+64:     process.exit(2);
+65:   }
+66: }
+67: 
+68: async function inventory() {
+69:   const { rows } = await client.query(
+70:     `select table_name from information_schema.tables
+71:      where table_schema='public' and table_type='BASE TABLE' order by table_name`
+72:   );
+73:   console.log(`[inventory] ${rows.length} public tables:`);
+74:   for (const r of rows) console.log(`  - ${r.table_name}`);
+75:   return rows.map((r) => r.table_name);
+76: }
+77: 
+78: await client.connect();
+79: 
+80: if (cmd === "inventory") {
+81:   await inventory();
+82:   await client.end();
+83:   process.exit(0);
+84: }
+85: 
+86: if (cmd === "reset") {
+87:   // drop the event trigger FIRST — its function lives in public and a schema
+88:   // drop would orphan the trigger, breaking all subsequent DDL.
+89:   await runSql("drop event trigger (pre-drop)", `DROP EVENT TRIGGER IF EXISTS ensure_rls;`);
+90:   await runSql("drop schema public", `DROP SCHEMA public CASCADE; CREATE SCHEMA public;`);
+91:   // re-grant the Supabase-standard privileges the schema drop destroyed —
+92:   // deny-by-default must come from RLS, not from missing grants (X4 semantics).
+93:   await runSql(
+94:     "re-grant public schema privileges",
+95:     `GRANT USAGE ON SCHEMA public TO postgres, anon, authenticated, service_role;
+96:      GRANT ALL ON ALL TABLES IN SCHEMA public TO postgres, service_role;
+97:      ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO postgres, anon, authenticated, service_role;
+98:      ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON FUNCTIONS TO postgres, anon, authenticated, service_role;
+99:      ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO postgres, anon, authenticated, service_role;`
+100:   );
+101:   await runSql("bootstrap baseline (scratch-only, X0 rider 3)", readFileSync(bootstrapFile, "utf8"));
+102: }
+103: 
+104: if (cmd === "bootstrap") {
+105:   // factory-fresh target: install the baseline reproduction only, no chain.
+106:   await runSql("bootstrap baseline (replica setup)", readFileSync(bootstrapFile, "utf8"));
+107:   await inventory();
+108:   await client.end();
+109:   process.exit(0);
+110: }
+111: 
+112: // chain replay — both `reset` and `apply` end here. 0001 asserts the baseline
+113: // (assert-then-create) so a wrong target fails loudly on the first file.
+114: for (const file of migrationFiles) {
+115:   await runSql(file, readFileSync(join(migrationsDir, file), "utf8"));
+116: }
+117: 
+118: const tables = await inventory();
+119: console.log(`[db-reset] ${cmd} complete — ${tables.length} tables on target.`);
+120: await client.end();
+
+FILE: scripts/db-verify.mjs
+1: #!/usr/bin/env node
+2: // BIM-001 · db-verify.mjs — post-chain gate assertions (X4, X5 + structural ACs).
+3: //
+4: //   node scripts/db-verify.mjs            structural checks only (safe on any target)
+5: //   node scripts/db-verify.mjs --probes   + mutation probes (AC6/AC10/AC12/ensure_rls)
+6: //                                          SCRATCH ONLY — writes then removes rows
+7: // Env: DB_URL (fail-closed). Exit 0 = all green; 1 = env; 3 = check failures (all listed).
+8: 
+9: import pg from "pg";
+10: 
+11: const dbUrl = process.env.DB_URL;
+12: if (!dbUrl) { console.error("FAIL-CLOSED: DB_URL not set."); process.exit(1); }
+13: const probes = process.argv.includes("--probes");
+14: 
+15: const NEW_TABLES = [
+16:   "accounts", "businesses", "user_businesses", "pending_registrations",
+17:   "subscriptions", "apa_memberships", "reference_dataset_versions",
+18:   "aac_reference", "wac_reference", "ful_reference", "pbm_info",
+19:   "user_data", "report_files", "audit_logs",
+20: ];
+21: const SIXTEEN = [...NEW_TABLES, "user_roles", "profiles"].sort();
+22: const DEFERRED = ["desktop_client_versions", "local_desktop_users", "password_reset_tokens"];
+23: 
+24: // AC8 declared money-column list (all must be numeric; zero float/real/double anywhere)
+25: const MONEY = {
+26:   user_data: ["medicaid_rate", "acq", "acq_net", "difference", "total_paid", "payment",
+27:     "new_paid", "expected_paid", "new_owed", "owed", "nadac", "awp", "medicaid_rate_original"],
+28:   wac_reference: ["wac"],
+29:   aac_reference: ["aac"],
+30:   ful_reference: ["aca_ful"],
+31: };
+32: // AC9 identifier TEXT law: column → tables where it appears
+33: const TEXT_IDS = [
+34:   ["drug_ndc", ["user_data"]], ["ndc", ["aac_reference", "wac_reference", "ful_reference"]],
+35:   ["script", ["user_data"]], ["bin", ["user_data", "pbm_info"]],
+36:   ["pcn", ["user_data", "pbm_info"]], ["group_field", ["user_data"]],
+37:   ["ncpdp", ["businesses", "pending_registrations"]], ["npi", ["businesses", "pending_registrations"]],
+38: ];
+39: 
+40: const failures = [];
+41: const ok = (label) => console.log(`  ok  ${label}`);
+42: const bad = (label, detail) => { console.error(`  FAIL ${label}: ${detail}`); failures.push(label); };
+43: 
+44: const client = new pg.Client({ connectionString: dbUrl });
+45: await client.connect();
+46: const q = (sql, params) => client.query(sql, params);
+47: 
+48: console.log(`[db-verify] structural checks${probes ? " + mutation probes" : ""}`);
+49: 
+50: // ── AC4: sixteen-table inventory, deferred absent ────────────────────────────
+51: {
+52:   const { rows } = await q(`select table_name from information_schema.tables
+53:     where table_schema='public' and table_type='BASE TABLE' order by table_name`);
+54:   const names = rows.map((r) => r.table_name);
+55:   const missing = SIXTEEN.filter((t) => !names.includes(t));
+56:   const unexpected = names.filter((t) => !SIXTEEN.includes(t));
+57:   if (missing.length) bad("AC4 inventory", `missing: ${missing.join(", ")}`);
+58:   else if (unexpected.length) bad("AC4 inventory", `unexpected tables: ${unexpected.join(", ")}`);
+59:   else ok(`AC4 inventory — exactly ${SIXTEEN.length} tables`);
+60:   const zombie = DEFERRED.filter((t) => names.includes(t));
+61:   if (zombie.length) bad("AC4 deferred", `deferred table exists: ${zombie.join(", ")}`);
+62:   else ok("AC4 deferred tables absent");
+63: }
+64: 
+65: // ── X4/AC7: RLS enabled on all 16; zero new policies (baseline 3 only) ───────
+66: {
+67:   const { rows } = await q(`select relname from pg_class c join pg_namespace n on n.oid=c.relnamespace
+68:     where n.nspname='public' and relkind='r' and not relrowsecurity`);
+69:   if (rows.length) bad("X4 RLS-enabled", `RLS off on: ${rows.map((r) => r.relname).join(", ")}`);
+70:   else ok("X4 RLS enabled on every public table");
+71:   const { rows: pol } = await q(`select policyname, tablename from pg_policies where schemaname='public'`);
+72:   const baseline = ["Profiles are updatable by owner or superadmins",
+73:     "Profiles are viewable by owner or superadmins", "Users can read their own role"];
+74:   const extra = pol.filter((p) => !baseline.includes(p.policyname));
+75:   if (extra.length) bad("AC7 policy delta", `non-baseline policies: ${extra.map((p) => `${p.tablename}.${p.policyname}`).join(", ")}`);
+76:   else if (pol.length !== 3) bad("AC7 policy delta", `expected 3 baseline policies, found ${pol.length}`);
+77:   else ok("AC7 zero permissive policies added (baseline 3 intact)");
+78: }
+79: 
+80: // ── X4 deny probe: anon + authenticated SELECT on every new table ────────────
+81: for (const role of ["anon", "authenticated"]) {
+82:   let denied = 0, empty = 0, leaked = [];
+83:   for (const t of NEW_TABLES) {
+84:     try {
+85:       await q("begin");
+86:       await q(`set local role ${role}`);
+87:       const { rows } = await q(`select * from public.${t} limit 1`);
+88:       if (rows.length === 0) empty++; else leaked.push(t);
+89:       await q("rollback");
+90:     } catch { denied++; await q("rollback").catch(() => {}); }
+91:   }
+92:   if (leaked.length) bad(`X4 deny-by-default (${role})`, `rows visible on: ${leaked.join(", ")}`);
+93:   else ok(`X4 deny-by-default (${role}) — ${empty} empty / ${denied} denied of ${NEW_TABLES.length}`);
+94: }
+95: 
+96: // ── X5/AC8: money type law ───────────────────────────────────────────────────
+97: {
+98:   const { rows } = await q(`select table_name, column_name, data_type from information_schema.columns
+99:     where table_schema='public' and data_type in ('real','double precision')`);
+100:   if (rows.length) bad("X5 float ban", rows.map((r) => `${r.table_name}.${r.column_name}`).join(", "));
+101:   else ok("X5 zero float/real/double in public schema");
+102:   for (const [table, cols] of Object.entries(MONEY)) {
+103:     const { rows: cr } = await q(`select column_name, data_type from information_schema.columns
+104:       where table_schema='public' and table_name=$1 and column_name = any($2)`, [table, cols]);
+105:     const wrong = cr.filter((c) => c.data_type !== "numeric");
+106:     const found = cr.map((c) => c.column_name);
+107:     const absent = cols.filter((c) => !found.includes(c));
+108:     if (wrong.length || absent.length)
+109:       bad(`AC8 money ${table}`, `${wrong.map((c) => `${c.column_name}:${c.data_type}`).join(",")} ${absent.length ? `missing:${absent.join(",")}` : ""}`);
+110:     else ok(`AC8 money NUMERIC — ${table} (${cols.length} cols)`);
+111:   }
+112: }
+113: 
+114: // ── X5/AC9: identifier TEXT law ──────────────────────────────────────────────
+115: for (const [col, tables] of TEXT_IDS) {
+116:   const { rows } = await q(`select table_name, data_type from information_schema.columns
+117:     where table_schema='public' and column_name=$1 and table_name = any($2)`, [col, tables]);
+118:   const wrong = rows.filter((r) => !["text", "character varying"].includes(r.data_type));
+119:   const found = rows.map((r) => r.table_name);
+120:   const absent = tables.filter((t) => !found.includes(t));
+121:   if (wrong.length || absent.length)
+122:     bad(`AC9 text ${col}`, `${wrong.map((r) => `${r.table_name}:${r.data_type}`).join(",")} ${absent.length ? `missing on:${absent.join(",")}` : ""}`);
+123:   else ok(`AC9 TEXT — ${col} on ${tables.join("/")}`);
+124: }
+125: 
+126: // ── AC5: accounts spine wiring ───────────────────────────────────────────────
+127: {
+128:   const { rows: bn } = await q(`select is_nullable from information_schema.columns
+129:     where table_schema='public' and table_name='businesses' and column_name='account_id'`);
+130:   if (!bn.length || bn[0].is_nullable !== "NO") bad("AC5 businesses.account_id", "missing or nullable");
+131:   else ok("AC5 businesses.account_id NOT NULL");
+132:   // pg_constraint, NOT information_schema: constraint_column_usage hides tables
+133:   // the connecting role doesn't own (auth.users belongs to supabase_auth_admin),
+134:   // which false-failed the auth.users FK on first run — instrument defect of the
+135:   // BIM-000 "boundary-aware predicate" class, corrected 2026-08-28 (see evidence
+136:   // X4X5_scratch_verify_probes_rerun.log; schema was correct all along).
+137:   const fk = async (table, col, foreignRegclass) => {
+138:     const { rows } = await q(`
+139:       select 1
+140:       from pg_constraint c
+141:       join pg_attribute a on a.attrelid = c.conrelid and a.attnum = any (c.conkey)
+142:       where c.contype = 'f'
+143:         and c.conrelid = ('public.' || $1)::regclass
+144:         and a.attname = $2
+145:         and c.confrelid = $3::regclass`, [table, col, foreignRegclass]);
+146:     return rows.length > 0;
+147:   };
+148:   if (!(await fk("businesses", "account_id", "public.accounts"))) bad("AC5 FK", "businesses.account_id → accounts missing");
+149:   else ok("AC5 FK businesses.account_id → accounts");
+150:   if (!(await fk("subscriptions", "account_id", "public.accounts"))) bad("AC5 FK", "subscriptions.account_id → accounts missing");
+151:   else ok("AC5 FK subscriptions.account_id → accounts");
+152:   if (!(await fk("accounts", "owner_user_id", "auth.users"))) bad("AC5 FK", "accounts.owner_user_id → auth.users missing");
+153:   else ok("AC5 FK accounts.owner_user_id → auth.users");
+154:   const { rows: sb } = await q(`select 1 from information_schema.columns
+155:     where table_schema='public' and table_name='subscriptions' and column_name='business_id'`);
+156:   if (sb.length) bad("AC5 subscriptions", "business_id column EXISTS (must not)");
+157:   else ok("AC5 subscriptions has NO business_id");
+158: }
+159: 
+160: // ── AC6/AC10 constraint text (structural half; functional half under --probes) ─
+161: {
+162:   const check = async (label, table, mustContain) => {
+163:     const { rows } = await q(`select pg_get_constraintdef(c.oid) as def from pg_constraint c
+164:       join pg_class r on r.oid = c.conrelid join pg_namespace n on n.oid = r.relnamespace
+165:       where n.nspname='public' and r.relname=$1 and c.contype='c'`, [table]);
+166:     const hit = rows.some((r) => mustContain.every((s) => r.def.includes(s)));
+167:     if (!hit) bad(label, `no CHECK on ${table} containing ${mustContain.join(" + ")}`);
+168:     else ok(label);
+169:   };
+170:   await check("AC6 junction role CHECK ('admin','member')", "user_businesses", ["admin", "member", "role"]);
+171:   await check("AC10 medicaid_method CHECK (7 values)", "user_data",
+172:     ["AAC", "FUL", "GWAC", "BWAC", "Take Action", "Manual Override", "Legacy"]);
+173: }
+174: 
+175: // ── AC12 structural: timestamps + trigger on all 16 ──────────────────────────
+176: {
+177:   for (const t of SIXTEEN) {
+178:     if (["user_roles", "profiles", "audit_logs"].includes(t)) continue; // baseline: acknowledged as-is, not retrofitted (manager §5 rows 3-4: NO structural change) // audit_logs: BIM-003 shape has occurred_at, no updated_at, immutable (ERRATUM E-3)
+179:     const { rows } = await q(`select count(*)::int as n from information_schema.columns
+180:       where table_schema='public' and table_name=$1 and column_name in ('created_at','updated_at')
+181:         and data_type='timestamp with time zone'`, [t]);
+182:     const { rows: trg } = await q(`select 1 from information_schema.triggers
+183:       where event_object_schema='public' and event_object_table=$1 and trigger_name='set_updated_at'`, [t]);
+184:     if (rows[0].n !== 2) bad(`AC12 timestamps ${t}`, `${rows[0].n}/2 timestamptz cols`);
+185:     else if (!trg.length) bad(`AC12 trigger ${t}`, "set_updated_at missing");
+186:     else ok(`AC12 ${t} — timestamptz pair + trigger`);
+187:   }
+188: }
+189: 
+190: // ── mutation probes (scratch only) ───────────────────────────────────────────
+191: if (probes) {
+192:   console.log("[db-verify] mutation probes (scratch-only)");
+193:   // AC6 functional: role='owner' rejected, 'member' accepted (rolled back)
+194:   try {
+195:     await q("begin");
+196:     await q(`insert into auth.users (id, email) values ('00000000-0000-4000-8000-000000000001','probe@bim001.local')
+197:              on conflict do nothing`);
+198:     await q(`insert into public.accounts (id, name, owner_user_id)
+199:              values ('00000000-0000-4000-8000-0000000000aa','probe','00000000-0000-4000-8000-000000000001')`);
+200:     await q(`insert into public.businesses (id, account_id, ncpdp, npi, pharmacy_name)
+201:              values ('00000000-0000-4000-8000-0000000000bb','00000000-0000-4000-8000-0000000000aa','0123456','0123456789','Probe Pharmacy')`);
+202:     await q(`insert into public.user_businesses (user_id, business_id, role)
+203:              values ('00000000-0000-4000-8000-000000000001','00000000-0000-4000-8000-0000000000bb','member')`);
+204:     let rejected = false;
+205:     try {
+206:       await q("savepoint p1");
+207:       await q(`insert into public.user_businesses (user_id, business_id, role)
+208:                values ('00000000-0000-4000-8000-000000000001','00000000-0000-4000-8000-0000000000bb','owner')`);
+209:     } catch (e) { rejected = e.code === "23514" || e.code === "23505"; await q("rollback to p1"); }
+210:     if (rejected) ok("AC6 probe — role='owner' rejected, 'member' accepted");
+211:     else bad("AC6 probe", "role='owner' was NOT rejected by CHECK");
+212:     // AC10 functional: 'Portal' rejected, 'AAC' accepted
+213:     let mmRejected = false;
+214:     try {
+215:       await q("savepoint p2");
+216:       await q(`insert into public.user_data (business_id, medicaid_method)
+217:                values ('00000000-0000-4000-8000-0000000000bb','Portal')`);
+218:     } catch (e) { mmRejected = e.code === "23514"; await q("rollback to p2"); }
+219:     await q(`insert into public.user_data (business_id, medicaid_method)
+220:              values ('00000000-0000-4000-8000-0000000000bb','AAC')`);
+221:     if (mmRejected) ok("AC10 probe — 'Portal' rejected, 'AAC' accepted");
+222:     else bad("AC10 probe", "'Portal' was NOT rejected by CHECK");
+223:     await q("rollback");
+224:   } catch (e) { bad("AC6/AC10 probe scaffolding", e.message); await q("rollback").catch(() => {}); }
+225: 
+226:   // AC12 functional: updated_at bumps across transactions (real commit, then cleanup)
+227:   try {
+228:     await q(`insert into public.reference_dataset_versions (id, dataset_name)
+229:              values ('00000000-0000-4000-8000-0000000000cc','__ac12_probe__')`);
+230:     const { rows: before } = await q(`select updated_at from public.reference_dataset_versions where dataset_name='__ac12_probe__'`);
+231:     await new Promise((r) => setTimeout(r, 1100));
+232:     await q(`update public.reference_dataset_versions set row_count=1 where dataset_name='__ac12_probe__'`);
+233:     const { rows: after } = await q(`select updated_at from public.reference_dataset_versions where dataset_name='__ac12_probe__'`);
+234:     if (new Date(after[0].updated_at) > new Date(before[0].updated_at)) ok("AC12 probe — updated_at bumps on UPDATE");
+235:     else bad("AC12 probe", "updated_at did not advance");
+236:     await q(`delete from public.reference_dataset_versions where dataset_name='__ac12_probe__'`);
+237:   } catch (e) { bad("AC12 probe", e.message); }
+238: 
+239:   // ensure_rls net check (law §6.1: verify the event trigger fires, don't rely on it)
+240:   try {
+241:     await q(`create table public.__ensure_rls_probe__ (id int)`);
+242:     const { rows } = await q(`select relrowsecurity from pg_class c join pg_namespace n on n.oid=c.relnamespace
+243:       where n.nspname='public' and relname='__ensure_rls_probe__'`);
+244:     if (rows[0]?.relrowsecurity) ok("ensure_rls probe — event trigger auto-enabled RLS");
+245:     else bad("ensure_rls probe", "new table born WITHOUT RLS from the event trigger");
+246:     await q(`drop table public.__ensure_rls_probe__`);
+247:   } catch (e) { bad("ensure_rls probe", e.message); }
+248: }
+249: 
+250: await client.end();
+251: if (failures.length) {
+252:   console.error(`[db-verify] ${failures.length} FAILURE(S): ${failures.join(" · ")}`);
+253:   process.exit(3);
+254: }
+255: console.log("[db-verify] ALL GREEN");
+
+FILE: scripts/rls-harness/ac8-check.mjs
+1: #!/usr/bin/env node
+2: // BIM-002 · rls-harness/ac8-check.mjs — helper shape and grants (AC8).
+3: //
+4: // E-5 / ERRATUM E-4: this assertion is only meaningful AFTER a from-scratch
+5: // drop-and-apply. `create or replace` preserves an existing ACL, so an
+6: // incremental re-apply can show a clean grant that a fresh database would not
+7: // reproduce — which is exactly how the anon grant hid through X1.
+8: // PUBLIC and anon are two independent channels: pg_default_acl grants function
+9: // EXECUTE to anon explicitly, so the raw ACL is checked for BOTH a bare `=X/`
+10: // entry (PUBLIC) and an `anon=X` entry.
+11: import { writeFileSync } from "node:fs";
+12: import { join } from "node:path";
+13: import { loadEnv, repoRoot } from "./lib/env.mjs";
+14: import { pgClient } from "./lib/db.mjs";
+15: 
+16: const HELPERS = [
+17:   ["is_member_of", "is_member_of(uuid)"],
+18:   ["is_admin_of", "is_admin_of(uuid)"],
+19:   ["is_account_member", "is_account_member(uuid)"],
+20:   ["my_business_ids", "my_business_ids()"],
+21: ];
+22: 
+23: const env = loadEnv();
+24: const db = await pgClient(env);
+25: const lines = [];
+26: const log = (s) => { lines.push(s); console.log(s); };
+27: let fails = 0;
+28: 
+29: log("[ac8] helper shape + grants (asserted after a from-scratch apply, per E-5)");
+30: const rows = (await db.query(
+31:   `select proname, prosecdef, provolatile, proconfig::text cfg, proacl::text acl
+32:    from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+33:    where n.nspname = 'public' and proname = any($1) order by 1`,
+34:   [HELPERS.map((h) => h[0])]
+35: )).rows;
+36: 
+37: if (rows.length !== HELPERS.length) { log(`  FAIL expected ${HELPERS.length} helpers, found ${rows.length}`); fails++; }
+38: for (const r of rows) {
+39:   const shape = r.prosecdef === true && r.provolatile === "s" && /search_path=/.test(r.cfg || "");
+40:   const noPublic = !/(^|\{|,)=X\//.test(r.acl || "");   // bare =X/ is PUBLIC
+41:   const noAnon = !/anon=X/.test(r.acl || "");
+42:   const ok = shape && noPublic && noAnon;
+43:   if (!ok) fails++;
+44:   log(`  ${ok ? "ok  " : "FAIL"} ${r.proname.padEnd(18)} secdef=${r.prosecdef} volatile=${r.provolatile} config=${r.cfg} acl=${r.acl}`);
+45: }
+46: for (const [, sig] of HELPERS) {
+47:   const g = (await db.query(
+48:     `select has_function_privilege('anon','public.'||$1,'EXECUTE') a,
+49:             has_function_privilege('authenticated','public.'||$1,'EXECUTE') b,
+50:             has_function_privilege('service_role','public.'||$1,'EXECUTE') s`, [sig])).rows[0];
+51:   const ok = g.a === false && g.b === true && g.s === true;
+52:   if (!ok) fails++;
+53:   log(`  ${ok ? "ok  " : "FAIL"} ${sig.padEnd(26)} anon=${g.a} authenticated=${g.b} service_role=${g.s}`);
+54: }
+55: // live probe: anon must be refused at execution time, not merely by catalog
+56: await db.query("begin");
+57: await db.query("set local role anon");
+58: try { await db.query("select * from public.my_business_ids()"); log("  FAIL anon EXECUTED my_business_ids()"); fails++; }
+59: catch (e) { log(`  ok   anon denied at execution (${e.code})`); }
+60: await db.query("rollback");
+61: 
+62: log(`[ac8] ${fails === 0 ? "AC8 GREEN" : `${fails} FAILURE(S)`}`);
+63: const ts = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+64: writeFileSync(join(repoRoot, "agent_docs/ACTIONS/BIM-002-CYBER-PHARMA/evidence", `X5_ac8_fresh_${ts}.log`), lines.join("\n") + "\n");
+65: await db.end();
+66: process.exit(fails === 0 ? 0 : 3);
+
+FILE: scripts/rls-harness/attacks.mjs
+1: #!/usr/bin/env node
+2: // BIM-002 · rls-harness/attacks.mjs — the attack battery.
+3: // Every case is EXPECTED DENIED, and every MUTATION denial is confirmed against
+4: // service-role ground truth (Proto 06 F-4 corollary: "0 affected" is not proof
+5: // that nothing persisted — the database may simply have declined to tell you).
+6: import { readFileSync, writeFileSync } from "node:fs";
+7: import { join } from "node:path";
+8: import { loadEnv, harnessRoot, repoRoot, CAST_PASSWORD } from "./lib/env.mjs";
+9: import { anonClient, serviceClient } from "./lib/db.mjs";
+10: import { verdictFromResult, ALLOW } from "./lib/verdict.mjs";
+11: 
+12: const env = loadEnv();
+13: const m = JSON.parse(readFileSync(join(harnessRoot, "seed-map.json"), "utf8"));
+14: const svc = serviceClient(env);
+15: const lines = [];
+16: const log = (s) => { lines.push(s); console.log(s); };
+17: let breaches = 0, gtMismatches = 0, cases = 0;
+18: 
+19: const sessions = {};
+20: for (const who of m.cast) {
+21:   const c = anonClient(env);
+22:   const { data, error } = await c.auth.signInWithPassword({ email: who.email, password: CAST_PASSWORD });
+23:   if (error) { console.error(`FAIL-CLOSED: sign-in ${who.key}: ${error.message}`); process.exit(1); }
+24:   if (data?.user?.id !== m.users[who.key]) { console.error(`FAIL-CLOSED: identity mismatch for ${who.key}`); process.exit(1); }
+25:   sessions[who.key] = c;
+26: }
+27: sessions.anon = anonClient(env);
+28: 
+29: // A case: run it (must be DENIED), then ask the service role whether the world
+30: // actually changed. `truth` returns a value; `truthWant` is what it must still be.
+31: async function attack({ id, desc, identity, run, truth, truthWant }) {
+32:   cases++;
+33:   const before = truth ? await truth() : null;
+34:   const v = verdictFromResult(await run(sessions[identity]));
+35:   const denied = v.outcome !== ALLOW;
+36:   if (!denied) breaches++;
+37:   let gtLine = "";
+38:   if (truth) {
+39:     const after = await truth();
+40:     const intact = JSON.stringify(after) === JSON.stringify(truthWant);
+41:     if (!intact) gtMismatches++;
+42:     gtLine = ` · ground truth: ${JSON.stringify(after)} ${intact ? "UNCHANGED ✓" : `MUTATED ✗ (wanted ${JSON.stringify(truthWant)}, was ${JSON.stringify(before)})`}`;
+43:   }
+44:   log(`  ${denied && !gtLine.includes("✗") ? "ok(denied)" : "BREACH    "} ${id} ${desc} → ${v.outcome} (${v.detail})${gtLine}`);
+45: }
+46: 
+47: const factA1Drug = async () => (await svc.from("user_data").select("drug_name").eq("id", m.samples.factA1).single()).data?.drug_name;
+48: const factA1Biz  = async () => (await svc.from("user_data").select("business_id").eq("id", m.samples.factA1).single()).data?.business_id;
+49: const factA1Count = async () => (await svc.from("user_data").select("*", { count: "exact", head: true }).eq("business_id", m.businesses.a1)).count;
+50: const staffARole = async () => (await svc.from("user_businesses").select("role").eq("user_id", m.users.staffA).eq("business_id", m.businesses.a1).single()).data?.role;
+51: const acctACount = async () => (await svc.from("accounts").select("*", { count: "exact", head: true }).eq("id", m.accounts.A)).count;
+52: const junctionCount = async () => (await svc.from("user_businesses").select("*", { count: "exact", head: true })).count;
+53: 
+54: const seededDrug = await factA1Drug();
+55: const seededA1Rows = await factA1Count();
+56: 
+57: log("[attacks] every case expected DENIED; every mutation confirmed against service-role ground truth\n");
+58: 
+59: log("A1 — cross-account reads by direct id (ownerB is account B only):");
+60: await attack({ id: "A1.1", desc: "ownerB reads ACCOUNT A by id", identity: "ownerB",
+61:   run: (c) => c.from("accounts").select("*").eq("id", m.accounts.A) });
+62: await attack({ id: "A1.2", desc: "ownerB reads SUBSCRIPTION A by id", identity: "ownerB",
+63:   run: (c) => c.from("subscriptions").select("*").eq("id", m.samples.subscriptionA) });
+64: await attack({ id: "A1.3", desc: "ownerB reads user_data A1 row by id", identity: "ownerB",
+65:   run: (c) => c.from("user_data").select("*").eq("id", m.samples.factA1) });
+66: await attack({ id: "A1.4", desc: "ownerB reads business A1 by id", identity: "ownerB",
+67:   run: (c) => c.from("businesses").select("*").eq("id", m.businesses.a1) });
+68: await attack({ id: "A1.5", desc: "ownerB reads report_files A1 by id", identity: "ownerB",
+69:   run: (c) => c.from("report_files").select("*").eq("id", m.samples.reportA1) });
+70: 
+71: log("\nA2 — client-supplied foreign business_id (the 'never from the client' law, enforced by the DB):");
+72: await attack({ id: "A2.1", desc: "ownerB INSERTs user_data with business_id = A1", identity: "ownerB",
+73:   run: (c) => c.from("user_data").insert({ business_id: m.businesses.a1, script: "ATTACK", drug_name: "attack" }).select(),
+74:   truth: factA1Count, truthWant: seededA1Rows });
+75: await attack({ id: "A2.2", desc: "ownerB UPDATEs an A1 row by id", identity: "ownerB",
+76:   run: (c) => c.from("user_data").update({ drug_name: "attacked" }).eq("id", m.samples.factA1).select(),
+77:   truth: factA1Drug, truthWant: seededDrug });
+78: await attack({ id: "A2.3", desc: "ownerB DELETEs an A1 row by id", identity: "ownerB",
+79:   run: (c) => c.from("user_data").delete().eq("id", m.samples.factA1).select(),
+80:   truth: factA1Count, truthWant: seededA1Rows });
+81: 
+82: log("\nA3 — RE-HOME: staffA (legitimate A1 member) tries to move an A1 row into B1 (WITH CHECK):");
+83: await attack({ id: "A3.1", desc: "staffA UPDATEs own-tenant row setting business_id = B1", identity: "staffA",
+84:   run: (c) => c.from("user_data").update({ business_id: m.businesses.b1 }).eq("id", m.samples.factA1).select(),
+85:   truth: factA1Biz, truthWant: m.businesses.a1 });
+86: 
+87: log("\nA4 — DELETE by a member (role gate: DELETE is is_admin_of, not is_member_of):");
+88: await attack({ id: "A4.1", desc: "staffA (member of A1) DELETEs an A1 row", identity: "staffA",
+89:   run: (c) => c.from("user_data").delete().eq("id", m.samples.factA1).select(),
+90:   truth: factA1Count, truthWant: seededA1Rows });
+91: await attack({ id: "A4.2", desc: "multiStore (member of A1) DELETEs an A1 row", identity: "multiStore",
+92:   run: (c) => c.from("user_data").delete().eq("id", m.samples.factA1).select(),
+93:   truth: factA1Count, truthWant: seededA1Rows });
+94: 
+95: log("\nA5 — junction role tampering (privilege escalation — structurally impossible: no write policy):");
+96: await attack({ id: "A5.1", desc: "staffA promotes own junction role to admin", identity: "staffA",
+97:   run: (c) => c.from("user_businesses").update({ role: "admin" }).eq("user_id", m.users.staffA).eq("business_id", m.businesses.a1).select(),
+98:   truth: staffARole, truthWant: "member" });
+99: await attack({ id: "A5.2", desc: "staffA INSERTs a new admin membership on B1", identity: "staffA",
+100:   run: (c) => c.from("user_businesses").insert({ user_id: m.users.staffA, business_id: m.businesses.b1, role: "admin" }).select(),
+101:   truth: junctionCount, truthWant: 6 });
+102: await attack({ id: "A5.3", desc: "staffA DELETEs own junction row (self-offboard)", identity: "staffA",
+103:   run: (c) => c.from("user_businesses").delete().eq("user_id", m.users.staffA).select(),
+104:   truth: junctionCount, truthWant: 6 });
+105: await attack({ id: "A5.4", desc: "staffA reads ANOTHER user's junction row", identity: "staffA",
+106:   run: (c) => c.from("user_businesses").select("*").eq("user_id", m.users.ownerB) });
+107: 
+108: log("\nA6 — accounts are read-only for every app role (R-A):");
+109: await attack({ id: "A6.1", desc: "ownerA INSERTs an account", identity: "ownerA",
+110:   run: (c) => c.from("accounts").insert({ name: "attack-acct", owner_user_id: m.users.ownerA }).select(),
+111:   truth: acctACount, truthWant: 1 });
+112: await attack({ id: "A6.2", desc: "ownerA UPDATEs own account (owner_user_id must NOT grant writes)", identity: "ownerA",
+113:   run: (c) => c.from("accounts").update({ name: "attacked" }).eq("id", m.accounts.A).select(),
+114:   truth: async () => (await svc.from("accounts").select("name").eq("id", m.accounts.A).single()).data?.name, truthWant: "Account A" });
+115: await attack({ id: "A6.3", desc: "ownerA DELETEs own account", identity: "ownerA",
+116:   run: (c) => c.from("accounts").delete().eq("id", m.accounts.A).select(),
+117:   truth: acctACount, truthWant: 1 });
+118: 
+119: log("\nA7 — reference tables are read-only for authenticated (locked by omission):");
+120: await attack({ id: "A7.1", desc: "ownerA INSERTs into aac_reference", identity: "ownerA",
+121:   run: (c) => c.from("aac_reference").insert({ ndc: "99999999999", aac_date: "2026-09-01", aac: 1 }).select() });
+122: await attack({ id: "A7.2", desc: "ownerA UPDATEs pbm_info", identity: "ownerA",
+123:   run: (c) => c.from("pbm_info").update({ pbm_name: "attacked" }).eq("bin", "004146").select(),
+124:   truth: async () => (await svc.from("pbm_info").select("pbm_name").eq("bin", "004146").single()).data?.pbm_name, truthWant: "Seed PBM" });
+125: 
+126: log("\nA8 — deny-all tables stay dark (rows EXIST — a 0 here means refused, not empty). audit_logs is admin-readable since BIM-003 (R-1), so its probe runs as a MEMBER:");
+127: for (const [i, [t, who]] of [["apa_memberships", "ownerA"], ["pending_registrations", "ownerA"], ["audit_logs", "staffA"]].entries()) {
+128:   const n = (await svc.from(t).select("*", { count: "exact", head: true })).count;
+129:   await attack({ id: `A8.${i + 1}`, desc: `${who} reads ${t} (service role sees ${n} row(s))`, identity: who,
+130:     run: (c) => c.from(t).select("*") });
+131: }
+132: 
+133: log("\nA9 — anonymous, no session:");
+134: for (const [i, t] of ["accounts", "businesses", "user_businesses", "user_data", "subscriptions"].entries()) {
+135:   await attack({ id: `A9.${i + 1}`, desc: `anon reads ${t}`, identity: "anon", run: (c) => c.from(t).select("*") });
+136: }
+137: 
+138: log(`\n[attacks] ${cases} cases · ${breaches} breach(es) · ${gtMismatches} ground-truth mismatch(es) → ${breaches === 0 && gtMismatches === 0 ? "ALL DENIED, NOTHING PERSISTED" : "FAILURE"}`);
+139: const ts = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+140: writeFileSync(join(repoRoot, "agent_docs/ACTIONS/BIM-002-CYBER-PHARMA/evidence", `X4_attacks_${ts}.log`), lines.join("\n") + "\n");
+141: process.exit(breaches === 0 && gtMismatches === 0 ? 0 : 3);
+
+FILE: scripts/rls-harness/audit-catalog.mjs
+1: #!/usr/bin/env node
+2: // BIM-003 · rls-harness/audit-catalog.mjs — Stage 1 catalog evidence (AC-102…105, 107, 108,
+3: // 114, 115) plus a rolled-back smoke walk of the trigger and the immutability guard.
+4: // Reads pg_catalog (never information_schema for privilege questions — F-3). Every write
+5: // happens inside a transaction that is rolled back; the target's data is untouched.
+6: // Output: agent_docs/ACTIONS/BIM-003-CYBER-PHARMA/evidence/S1_catalog.md
+7: //   node scripts/rls-harness/audit-catalog.mjs [S1|S2]   (default S1)
+8: // S2 adds the wrapper checks (AC-201…203) and writes S2_catalog.md instead.
+9: import { writeFileSync } from "node:fs";
+10: import { join } from "node:path";
+11: import { loadEnv, repoRoot } from "./lib/env.mjs";
+12: import { pgClient } from "./lib/db.mjs";
+13: 
+14: const STAMPED = ["businesses", "user_businesses", "pending_registrations", "user_data", "report_files",
+15:   "accounts", "subscriptions", "apa_memberships", "reference_dataset_versions",
+16:   "aac_reference", "wac_reference", "ful_reference", "pbm_info"]; // E-0, thirteen
+17: 
+18: const STAGE = process.argv[2] ?? "S1";
+19: const WRAPPERS = ["owedbook_kpis", "owedbook_rows", "owedbook_summary", "owedbook_pbm_options"]; // E-0, N = 4
+20: const env = loadEnv();
+21: const db = await pgClient(env);
+22: const q = async (s, p) => (await db.query(s, p)).rows;
+23: const out = [];
+24: const say = (s = "") => { out.push(s); console.log(s); };
+25: let fails = 0;
+26: const check = (ok, label, detail = "") => { if (!ok) fails++; say(`- ${ok ? "✅" : "❌"} ${label}${detail ? " — " + detail : ""}`); };
+27: const table = (rows, cols) => { say(`| ${cols.join(" | ")} |`); say(`|${cols.map(() => "---").join("|")}|`); for (const r of rows) say(`| ${cols.map((c) => String(r[c] ?? "null").replace(/\|/g, "\\|")).join(" | ")} |`); };
+28: // expected error inside a transaction: run under a savepoint, report the SQLSTATE, keep the txn alive
+29: const expectError = async (label, sql, wantCode) => {
+30:   await db.query("savepoint s");
+31:   try { await db.query(sql); await db.query("release savepoint s"); check(false, label, "NO ERROR (expected a raise)"); return null; }
+32:   catch (e) { await db.query("rollback to savepoint s"); check(!wantCode || e.code === wantCode, label, `${e.code} ${e.message.split("\n")[0]}`); return e; }
+33: };
+34: 
+35: say(`# ${STAGE} catalog evidence — BIM-003-CYBER-PHARMA`);
+36: say(`Generated ${new Date().toISOString()} by \`scripts/rls-harness/audit-catalog.mjs\` against host \`${new URL(env.DB_URL).hostname}\` (scratch throwaway, ENV_NOTE.md). Every mutation below ran inside a rolled-back transaction.`);
+37: say();
+38: 
+39: say(`## RISK-1 — definer owner can insert through FORCE RLS`);
+40: const who = (await q(`select current_user, rolbypassrls, rolsuper from pg_roles where rolname = current_user`))[0];
+41: table([who], ["current_user", "rolbypassrls", "rolsuper"]);
+42: check(who.rolbypassrls === true, "RISK-1 GREEN: migration role has BYPASSRLS, so SECURITY DEFINER inserts into the FORCED, policy-less audit_logs succeed", `(first observed read-only 2026-09-14 13:1x before S1; re-confirmed here)`);
+43: say();
+44: 
+45: if (STAGE === "S2") {
+46:   say(`## AC-201 — exactly N = 4 functions in public whose names begin with owedbook_`);
+47:   const fns = await q(`select p.oid::int oid, p.proname, pg_get_function_identity_arguments(p.oid) args, pg_get_function_result(p.oid) result,
+48:       p.prosecdef, p.proconfig::text cfg, p.proacl::text acl, p.proargnames[1] first_arg, (p.proargtypes[0])::regtype first_type, p.prolang::regclass lang
+49:     from pg_proc p where p.pronamespace = 'public'::regnamespace and p.proname like 'owedbook\\_%' order by p.proname`);
+50:   table(fns, ["proname", "args", "result"]);
+51:   check(fns.length === 4, `pg_proc count = ${fns.length}`);
+52:   check(JSON.stringify(fns.map((f) => f.proname)) === JSON.stringify([...WRAPPERS].sort()), "the four names match E-0 exactly");
+53:   say();
+54:   say(`## AC-202 — every wrapper: SECURITY DEFINER, search_path pinned, EXECUTE to authenticated, revoked from public and anon`);
+55:   table(fns, ["proname", "prosecdef", "cfg", "acl"]);
+56:   for (const f of fns) {
+57:     // by oid: has_function_privilege's text form wants type-only signatures, identity_arguments carries names
+58:     const g = (await q(`select has_function_privilege('anon', $1::oid, 'EXECUTE') a, has_function_privilege('authenticated', $1::oid, 'EXECUTE') b, has_function_privilege('service_role', $1::oid, 'EXECUTE') s`, [f.oid]))[0];
+59:     const noPublic = !/(^|\{|,)=X\//.test(f.acl || ""), noAnon = !/anon=X/.test(f.acl || "");
+60:     check(f.prosecdef === true && /search_path=/.test(f.cfg || "") && noPublic && noAnon && g.a === false && g.b === true,
+61:       `${f.proname}: secdef=${f.prosecdef} cfg=${f.cfg} anon=${g.a} authenticated=${g.b} service_role=${g.s} PUBLIC-entry=${!noPublic}`);
+62:   }
+63:   // live: anon must be refused at execution time, not merely by catalog (ac8-check pattern)
+64:   await db.query("begin"); await db.query("set local role anon");
+65:   for (const w of WRAPPERS) await expectError(`anon EXECUTE ${w} refused at run time`, `select * from public.${w}('00000000-0000-4000-8000-000000000000'::uuid${w === "owedbook_rows" ? ", 'commercial_dollars'" : ""})`, "42501");
+66:   await db.query("rollback");
+67:   say();
+68:   say(`## AC-203 — first parameter is p_business_id uuid on all four`);
+69:   table(fns, ["proname", "first_arg", "first_type"]);
+70:   check(fns.every((f) => f.first_arg === "p_business_id" && String(f.first_type) === "uuid"), "proargnames[1] = 'p_business_id', proargtypes[0] = uuid, all four");
+71:   say();
+72:   say(`## Body shape (Brief §5) — membership check, then ONE read_page insert, then the read`);
+73:   const bodies = await q(`select proname, prosrc from pg_proc where pronamespace = 'public'::regnamespace and proname like 'owedbook\\_%' order by proname`);
+74:   for (const b of bodies) {
+75:     const src = b.prosrc;
+76:     const iMember = src.search(/in \(select public\.my_business_ids\(\)\)/);
+77:     const iRaise = src.indexOf("raise exception 'not a member of business'");
+78:     const iInsert = src.indexOf("insert into public.audit_logs");
+79:     const iRead = src.search(/from public\.user_data ud/);
+80:     const inserts = (src.match(/insert into public\.audit_logs/g) || []).length;
+81:     const fence = (src.match(/where ud\.business_id = p_business_id/g) || []).length;
+82:     check(iMember > -1 && iRaise > iMember && iInsert > iRaise && iRead > iInsert && inserts === 1 && fence >= 1,
+83:       `${b.proname}: membership@${iMember} < raise@${iRaise} < insert@${iInsert} < read@${iRead}; audit inserts = ${inserts}; explicit business_id fence × ${fence}`);
+84:     check(/'read_page'/.test(src) && new RegExp(`'fn',\\s*'${b.proname}'`).test(src), `${b.proname}: action 'read_page' and context.fn = '${b.proname}'`);
+85:   }
+86:   say();
+87:   say(`## Prior-stage invariants still hold`);
+88:   const pol = await q(`select count(*)::int n from pg_policies where schemaname = 'public' and tablename = 'audit_logs'`);
+89:   const stamps = await q(`select count(*)::int n from pg_trigger where tgfoid = 'public.audit_write'::regproc and not tgisinternal`);
+90:   const rls = (await q(`select relrowsecurity, relforcerowsecurity from pg_class where oid = 'public.audit_logs'::regclass`))[0];
+91:   check(pol[0].n === 1 && stamps[0].n === 13 && rls.relrowsecurity && rls.relforcerowsecurity, `audit_logs: 1 policy, RLS enabled+forced; audit_write stamps = ${stamps[0].n}`);
+92:   say();
+93: }
+94: if (STAGE === "S1") {
+95: say(`## AC-102 — audit_logs columns, in order`);
+96: const cols = await q(`select a.attnum, a.attname, format_type(a.atttypid, a.atttypmod) type, a.attnotnull notnull, pg_get_expr(d.adbin, d.adrelid) dflt
+97:   from pg_attribute a left join pg_attrdef d on d.adrelid = a.attrelid and d.adnum = a.attnum
+98:   where a.attrelid = 'public.audit_logs'::regclass and a.attnum > 0 and not a.attisdropped order by a.attnum`);
+99: table(cols, ["attnum", "attname", "type", "notnull", "dflt"]);
+100: const want102 = ["id","occurred_at","actor_user_id","actor_role","business_id","table_name","row_id","action","old_data","new_data","context"];
+101: check(JSON.stringify(cols.map((c) => c.attname)) === JSON.stringify(want102), `exactly these eleven columns in Brief §3 order (${cols.length} found)`);
+102: say();
+103: 
+104: say(`## AC-103 — action CHECK: exactly four values; a fifth is rejected`);
+105: const chk = await q(`select conname, pg_get_constraintdef(oid) def from pg_constraint where conrelid = 'public.audit_logs'::regclass and contype = 'c'`);
+106: table(chk, ["conname", "def"]);
+107: await db.query("begin");
+108: for (const v of ["insert", "update", "delete", "read_page"]) {
+109:   await db.query("savepoint s");
+110:   try { await db.query(`insert into public.audit_logs (actor_role, table_name, action) values ('catalog', 'probe', $1)`, [v]); check(true, `positive: action='${v}' accepted`); }
+111:   catch (e) { check(false, `positive: action='${v}'`, e.message); }
+112:   await db.query("rollback to savepoint s");
+113: }
+114: await expectError("negative: action='archive' rejected", `insert into public.audit_logs (actor_role, table_name, action) values ('catalog', 'probe', 'archive')`, "23514");
+115: await db.query("rollback");
+116: say();
+117: 
+118: say(`## AC-104 — indexes beyond the primary key`);
+119: const idx = await q(`select indexname, indexdef from pg_indexes where schemaname = 'public' and tablename = 'audit_logs' and indexname <> 'audit_logs_pkey' order by indexname`);
+120: table(idx, ["indexname", "indexdef"]);
+121: const defs = idx.map((i) => i.indexdef);
+122: check(idx.length === 3 && defs.some((d) => /\(occurred_at\)$/.test(d)) && defs.some((d) => /\(business_id, occurred_at\)$/.test(d)) && defs.some((d) => /\(table_name, row_id\)$/.test(d)), "exactly three: (occurred_at) · (business_id, occurred_at) · (table_name, row_id)");
+123: say();
+124: 
+125: say(`## AC-105 — BEFORE UPDATE OR DELETE trigger calling a function that raises unconditionally`);
+126: const trg = await q(`select tgname, pg_get_triggerdef(t.oid) def from pg_trigger t where tgrelid = 'public.audit_logs'::regclass and not tgisinternal order by tgname`);
+127: table(trg, ["tgname", "def"]);
+128: const src = (await q(`select prosrc, proconfig::text cfg from pg_proc where proname = 'audit_logs_immutable' and pronamespace = 'public'::regnamespace`))[0];
+129: say("```sql\n" + src.prosrc.trim() + "\n```");
+130: check(trg.some((t) => /BEFORE (UPDATE OR DELETE|DELETE OR UPDATE) ON (public\.)?audit_logs FOR EACH ROW EXECUTE FUNCTION (public\.)?audit_logs_immutable\(\)/.test(t.def)), "BEFORE UPDATE OR DELETE … FOR EACH ROW → audit_logs_immutable()");
+131: check(/raise exception/i.test(src.prosrc) && !/\bif\b/i.test(src.prosrc), "function body is a bare RAISE EXCEPTION — no IF, no WHEN, no role check");
+132: check(trg.some((t) => /BEFORE TRUNCATE ON (public\.)?audit_logs FOR EACH STATEMENT/.test(t.def)), "plus BEFORE TRUNCATE statement trigger (row triggers never see TRUNCATE) — addition, reported in S1");
+133: say();
+134: 
+135: say(`## AC-107 — RLS enabled AND forced`);
+136: const rls = (await q(`select relrowsecurity, relforcerowsecurity from pg_class where oid = 'public.audit_logs'::regclass`))[0];
+137: table([rls], ["relrowsecurity", "relforcerowsecurity"]);
+138: check(rls.relrowsecurity && rls.relforcerowsecurity, "relrowsecurity = true, relforcerowsecurity = true");
+139: say();
+140: 
+141: say(`## AC-108 — exactly one policy: SELECT to authenticated; zero INSERT/UPDATE/DELETE`);
+142: const pol = await q(`select policyname, cmd, roles::text roles, permissive, qual from pg_policies where schemaname = 'public' and tablename = 'audit_logs' order by policyname`);
+143: table(pol, ["policyname", "cmd", "roles", "permissive", "qual"]);
+144: check(pol.length === 1 && pol[0].cmd === "SELECT" && pol[0].roles === "{authenticated}", "one policy, SELECT, {authenticated}");
+145: check(pol.filter((p) => p.cmd !== "SELECT").length === 0, "zero write policies");
+146: say(`Table privileges (RF-3 — UPDATE/DELETE revoked from anon and authenticated; INSERT left to RLS):`);
+147: const priv = await q(`select grantee, string_agg(privilege_type, ', ' order by privilege_type) privs from information_schema.role_table_grants where table_schema = 'public' and table_name = 'audit_logs' group by grantee order by grantee`);
+148: table(priv, ["grantee", "privs"]);
+149: for (const r of ["anon", "authenticated"]) {
+150:   const g = (await q(`select has_table_privilege($1, 'public.audit_logs', 'UPDATE') u, has_table_privilege($1, 'public.audit_logs', 'DELETE') d, has_table_privilege($1, 'public.audit_logs', 'INSERT') i, has_table_privilege($1, 'public.audit_logs', 'SELECT') s`, [r]))[0];
+151:   check(g.u === false && g.d === false, `${r}: UPDATE=${g.u} DELETE=${g.d} (both false)`, `INSERT=${g.i} SELECT=${g.s} kept — RLS decides`);
+152: }
+153: say();
+154: 
+155: say(`## AC-114 — audit_write(): SECURITY DEFINER, search_path pinned, EXECUTE revoked from public and anon`);
+156: const fn = (await q(`select proname, prosecdef, provolatile, proconfig::text cfg, proacl::text acl, pg_get_function_identity_arguments(oid) args, prorettype::regtype rettype from pg_proc where proname = 'audit_write' and pronamespace = 'public'::regnamespace`))[0];
+157: table([fn], ["proname", "prosecdef", "cfg", "acl", "rettype"]);
+158: const noPublic = !/(^|\{|,)=X\//.test(fn.acl || ""), noAnon = !/anon=X/.test(fn.acl || "");
+159: const hfp = (await q(`select has_function_privilege('anon', 'public.audit_write()', 'EXECUTE') a, has_function_privilege('authenticated', 'public.audit_write()', 'EXECUTE') b, has_function_privilege('service_role', 'public.audit_write()', 'EXECUTE') s`))[0];
+160: check(fn.prosecdef === true, "prosecdef = true (SECURITY DEFINER)");
+161: check(/search_path=/.test(fn.cfg || ""), `proconfig pins search_path`, fn.cfg);
+162: check(noPublic && noAnon && hfp.a === false, `no bare =X/ (PUBLIC) and no anon=X in proacl; has_function_privilege(anon) = ${hfp.a}`, `authenticated=${hfp.b} service_role=${hfp.s} (trigger firing never checks EXECUTE)`);
+163: say();
+164: 
+165: say(`## AC-115 — thirteen tables carry audit_write, AFTER INSERT OR UPDATE OR DELETE … FOR EACH ROW (E-0)`);
+166: const stamps = await q(`select c.relname, t.tgname, pg_get_triggerdef(t.oid) def from pg_trigger t join pg_class c on c.oid = t.tgrelid
+167:   where t.tgfoid = 'public.audit_write'::regproc and not t.tgisinternal order by c.relname`);
+168: table(stamps, ["relname", "def"]);
+169: const names = stamps.map((s) => s.relname).sort();
+170: check(stamps.length === 13, `pg_trigger count = ${stamps.length}`);
+171: check(JSON.stringify(names) === JSON.stringify([...STAMPED].sort()), "the thirteen names match E-0 exactly");
+172: check(stamps.every((s) => /AFTER INSERT OR DELETE OR UPDATE ON (public\.)?\w+ FOR EACH ROW EXECUTE FUNCTION (public\.)?audit_write\(\)/.test(s.def)), "every stamp is AFTER INSERT OR DELETE OR UPDATE … FOR EACH ROW (pg_get_triggerdef prints events in catalog order and omits the schema when it is on the search path)");
+173: const notStamped = await q(`select c.relname from pg_class c join pg_namespace n on n.oid = c.relnamespace where n.nspname = 'public' and c.relkind = 'r'
+174:   and not exists (select 1 from pg_trigger t where t.tgrelid = c.oid and t.tgfoid = 'public.audit_write'::regproc) order by 1`);
+175: say(`Not stamped (by ruling): ${notStamped.map((r) => r.relname).join(", ")}`);
+176: check(JSON.stringify(notStamped.map((r) => r.relname)) === JSON.stringify(["audit_logs", "profiles", "user_roles"]), "exactly audit_logs (self), profiles, user_roles (baseline) are unstamped");
+177: say();
+178: 
+179: say(`## Smoke walk (rolled back) — the trigger writes what R-2/R-8 say, and the guard holds for the owner`);
+180: await db.query("begin");
+181: const acct = (await q(`insert into public.accounts (name, owner_user_id) select 'S1 smoke', id from auth.users limit 1 returning id`));
+182: if (!acct.length) { say("- ⚠️ no auth.users row on target to own a smoke account — smoke walk skipped (seed.mjs creates them; rls:prove covers this)"); }
+183: else {
+184:   const a = acct[0].id;
+185:   const b = (await q(`insert into public.businesses (account_id, ncpdp, npi, pharmacy_name) values ($1, '0999001', '1099000001', 'S1 Smoke Store') returning id`, [a]))[0].id;
+186:   const u = (await q(`insert into public.user_data (business_id, script, drug_name) values ($1, 'RX-S1', 'smoke') returning id`, [b]))[0].id;
+187:   await db.query(`update public.user_data set drug_name = 'smoke-2' where id = $1`, [u]);
+188:   await db.query(`delete from public.user_data where id = $1`, [u]);
+189:   const trail = await q(`select table_name, action, actor_role, actor_user_id, business_id, row_id, context, (old_data is not null) has_old, (new_data is not null) has_new
+190:     from public.audit_logs where row_id in ($1, $2, $3) order by id`, [a, b, u]);
+191:   table(trail, ["table_name", "action", "actor_role", "actor_user_id", "business_id", "row_id", "context", "has_old", "has_new"]);
+192:   const byT = (t, act) => trail.find((r) => r.table_name === t && r.action === act);
+193:   check(byT("accounts", "insert")?.business_id === null && byT("accounts", "insert")?.context?.id === a, "accounts (R-8): business_id NULL, context carries {id}");
+194:   check(byT("businesses", "insert")?.business_id === b, "businesses special-case: business_id = the row's own id");
+195:   check(byT("user_data", "insert")?.business_id === b && byT("user_data", "insert")?.row_id === u && byT("user_data", "insert")?.has_new && !byT("user_data", "insert")?.has_old, "user_data insert: business_id from row, row_id = pk, new_data only");
+196:   check(byT("user_data", "update")?.has_old && byT("user_data", "update")?.has_new, "user_data update: old_data AND new_data");
+197:   check(byT("user_data", "delete")?.has_old && !byT("user_data", "delete")?.has_new, "user_data delete: old_data only");
+198:   check(trail.every((r) => r.actor_role === who.current_user && r.actor_user_id === null), `direct-connection writes: actor_role = '${who.current_user}' (current_user fallback), actor_user_id NULL`);
+199:   check(trail.length === 5, `exactly five trail rows for five writes (${trail.length})`);
+200:   const someId = (await q(`select id from public.audit_logs order by id desc limit 1`))[0].id;
+201:   await expectError("owner UPDATE audit_logs raises (R-6, below RLS)", `update public.audit_logs set actor_role = 'x' where id = ${someId}`, "P0001");
+202:   await expectError("owner DELETE audit_logs raises (R-6)", `delete from public.audit_logs where id = ${someId}`, "P0001");
+203:   await expectError("owner TRUNCATE audit_logs raises (statement guard)", `truncate public.audit_logs`, "P0001");
+204:   await db.query("set local role authenticated");
+205:   await expectError("authenticated UPDATE audit_logs → 42501 permission denied (RF-3 revoke)", `update public.audit_logs set actor_role = 'x' where id = ${someId}`, "42501");
+206:   await expectError("authenticated DELETE audit_logs → 42501 permission denied (RF-3 revoke)", `delete from public.audit_logs where id = ${someId}`, "42501");
+207:   await expectError("authenticated INSERT audit_logs → 42501 RLS violation (no policy — AC-113 shape)", `insert into public.audit_logs (actor_role, table_name, action) values ('authenticated', 'probe', 'insert')`, "42501");
+208:   await db.query("reset role");
+209: }
+210: await db.query("rollback");
+211: say();
+212: 
+213: }
+214: say(`## Verdict`);
+215: say(fails === 0 ? `**${STAGE} CATALOG GREEN** — every assertion above holds.` : `**${fails} ASSERTION(S) FAILED** — see ❌ above.`);
+216: writeFileSync(join(repoRoot, `agent_docs/ACTIONS/BIM-003-CYBER-PHARMA/evidence/${STAGE}_catalog.md`), out.join("\n") + "\n");
+217: await db.end();
+218: process.exit(fails === 0 ? 0 : 3);
+
+FILE: scripts/rls-harness/audit-prove.mjs
+1: #!/usr/bin/env node
+2: // BIM-003 · rls-harness/audit-prove.mjs — THE ONE COMMAND.  npm run audit:prove
+3: //
+4: //   wipe (F-6 order) → chain 0001–0047 → seed (BIM-002 cast) → audit-seed (multi + R-10)
+5: //   → scripted two-tenant session + probes + golden diff
+6: //
+7: // Exits non-zero the moment any stage fails. Same shape as prove.mjs; same env re-pointing
+8: // (lib/env.mjs, RLS_HARNESS_PREFIX); no new env names. Evidence lands in BIM-003's folder.
+9: import { writeFileSync } from "node:fs";
+10: import { join } from "node:path";
+11: import { spawnSync } from "node:child_process";
+12: import { loadEnv, harnessRoot, repoRoot } from "./lib/env.mjs";
+13: 
+14: const PHASE = process.argv[2] ?? "S3";
+15: const env = loadEnv();
+16: const evidenceDir = join(repoRoot, "agent_docs/ACTIONS/BIM-003-CYBER-PHARMA/evidence");
+17: const runTs = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+18: const out = [];
+19: const say = (s) => { out.push(s); console.log(s); };
+20: const H = (f) => join(harnessRoot, f);
+21: 
+22: const STAGES = [
+23:   { name: "1/4 WIPE + CHAIN 0001-0047", cmd: "node", args: [join(repoRoot, "scripts/db-reset.mjs"), "reset"], env: { DB_URL: env.DB_URL, DB_RESET_ALLOW: "yes" } },
+24:   { name: "2/4 SEED (BIM-002 cast + FK-safe reset)", cmd: "node", args: [H("seed.mjs")] },
+25:   { name: "3/4 AUDIT-SEED (multi + R-10 rows)", cmd: "node", args: [H("audit-seed.mjs")] },
+26:   { name: "4/4 SESSION + PROBES + GOLDEN DIFF", cmd: "node", args: [H("audit-session.mjs")] },
+27: ];
+28: 
+29: say(`[audit:prove] audit-trail proof from an empty scratch — ${runTs}`);
+30: let failedAt = null;
+31: for (const s of STAGES) {
+32:   say(`\n═══ ${s.name} ═══`);
+33:   const r = spawnSync(s.cmd, s.args, { cwd: repoRoot, encoding: "utf8", env: { ...process.env, ...(s.env ?? {}) } });
+34:   say(((r.stdout || "") + (r.stderr || "")).trimEnd());
+35:   if (r.status !== 0) { failedAt = `${s.name} (exit ${r.status})`; break; }
+36: }
+37: say(failedAt
+38:   ? `\n[audit:prove] ✗ FAILED at ${failedAt}`
+39:   : `\n[audit:prove] ✓ TRAIL PROVEN — chain 0001-0047 + immutability (6 probes) + write trail + R-8 + six wrapper reads + cross-tenant deny + admin-only visibility + golden match, from an empty database.`);
+40: 
+41: const raw = out.join("\n") + "\n";
+42: writeFileSync(join(evidenceDir, `${PHASE}_audit_prove_${runTs}.log`), raw);
+43: const normalise = (s) => s
+44:   .replace(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/g, "<uuid>")
+45:   .replace(/\d{4}-\d{2}-\d{2}T\d{4,6}/g, "<ts>")
+46:   .replace(/LIC-SESSION-\d+/g, "LIC-SESSION-<n>")
+47:   .replace(/watermark: audit_logs\.id = \d+ \(\d+ rows/g, "watermark: audit_logs.id = <n> (<n> rows");
+48: writeFileSync(join(evidenceDir, `${PHASE}_audit_prove_${runTs}.normalised.log`), normalise(raw));
+49: console.log(`[audit:prove] evidence → evidence/${PHASE}_audit_prove_${runTs}.log (+ .normalised.log)`);
+50: process.exit(failedAt ? 8 : 0);
+
+FILE: scripts/rls-harness/audit-seed.mjs
+1: #!/usr/bin/env node
+2: // BIM-003 · rls-harness/audit-seed.mjs — runs AFTER seed.mjs. Adds two things the BIM-002 cast
+3: // does not carry, without touching seed.mjs or its hardcoded counts:
+4: //   · E-4  `multi` = multiAdmin, junction ADMIN of A1 AND B1 (the spec's "admin of A and B")
+5: //   · R-10 a small user_data set on A1 with insurance / new_paid / status populated, so the
+6: //          golden session exercises summary, pbm_options and the updated tab non-empty.
+7: // Writes audit-seed-map.json (ids only, no secrets). Every insert here fires audit_write() —
+8: // those rows land BEFORE the session watermark and are not part of the golden trail.
+9: import { readFileSync, writeFileSync } from "node:fs";
+10: import { join } from "node:path";
+11: import { loadEnv, harnessRoot, CAST_PASSWORD } from "./lib/env.mjs";
+12: import { pgClient, serviceClient } from "./lib/db.mjs";
+13: 
+14: const env = loadEnv();
+15: const svc = serviceClient(env);
+16: const db = await pgClient(env);
+17: const m = JSON.parse(readFileSync(join(harnessRoot, "seed-map.json"), "utf8"));
+18: 
+19: const MULTI = { key: "multiAdmin", email: "bim003-multiadmin@rls.local" };
+20: const { data: existing, error: listErr } = await svc.auth.admin.listUsers({ perPage: 1000 });
+21: if (listErr) { console.error("FAIL: listUsers — " + listErr.message); process.exit(2); }
+22: for (const u of existing?.users ?? []) if (u.email === MULTI.email) await svc.auth.admin.deleteUser(u.id);
+23: const { data, error } = await svc.auth.admin.createUser({ email: MULTI.email, password: CAST_PASSWORD, email_confirm: true });
+24: if (error) { console.error("FAIL: createUser multiAdmin — " + error.message); process.exit(2); }
+25: await db.query(
+26:   `insert into public.user_businesses (user_id, business_id, role, is_primary) values ($1, $2, 'admin', true), ($1, $3, 'admin', false)`,
+27:   [data.user.id, m.businesses.a1, m.businesses.b1]
+28: );
+29: console.log("  multi: multiAdmin created — junction ADMIN of A1 + B1 (E-4)");
+30: 
+31: // R-10 rows (A1). Expected downstream: summary = [OptumRx 10.00, Caremark 9.50] · pbm_options =
+32: // [Caremark, OptumRx] · updated tab total = 2 · KPIs add 19.50 owed / 4 scripts / 6.00 difference.
+33: const R10 = [
+34:   ["RX-R10-1", "OptumRx",  "underpaid", 5.00,  15.00, 10.00, null, null, "2026-09-01"],
+35:   ["RX-R10-2", "OptumRx",  "recovered", 20.00, 20.00, 0.00,  25.00, 5.00, "2026-09-02"],
+36:   ["RX-R10-3", "Caremark", "pending",   2.50,  10.00, 7.50,  null, null, "2026-09-03"],
+37:   ["RX-R10-4", "Caremark", "underpaid", 8.00,  10.00, 2.00,  9.00,  1.00, "2026-09-04"],
+38: ];
+39: const r10 = [];
+40: for (const [script, insurance, status, total_paid, expected_paid, owed, new_paid, difference, date] of R10) {
+41:   const row = (await db.query(
+42:     `insert into public.user_data (business_id, script, drug_name, insurance, status, total_paid, expected_paid, owed, new_paid, difference, date_dispensed)
+43:      values ($1, $2, 'r10', $3, $4, $5, $6, $7, $8, $9, $10) returning id`,
+44:     [m.businesses.a1, script, insurance, status, total_paid, expected_paid, owed, new_paid, difference, date]
+45:   )).rows[0];
+46:   r10.push(row.id);
+47: }
+48: console.log(`  r10: ${r10.length} user_data rows on A1 with insurance/new_paid/status populated (R-10)`);
+49: 
+50: writeFileSync(join(harnessRoot, "audit-seed-map.json"), JSON.stringify({ users: { multiAdmin: data.user.id }, cast: [MULTI], r10 }, null, 2));
+51: console.log("[audit-seed] complete — audit-seed-map.json written (ids only, no secrets).");
+52: await db.end();
+
+FILE: scripts/rls-harness/audit-session.mjs
+1: #!/usr/bin/env node
+2: // BIM-003 · rls-harness/audit-session.mjs — the scripted two-tenant session (AC-302) and its probes,
+3: // then the golden diff (AC-303/304 under ERRATUM E-2). Runs after seed.mjs + audit-seed.mjs.
+4: //
+5: //   watermark → six tampering probes (AC-106) → admin-A insert/update/delete on user_data (AC-116/117)
+6: //   → svc write on an R-8 table (AC-118/119) → five wrapper calls by admin-A + one by multi (AC-204)
+7: //   → cross-tenant wrapper attempt (AC-206) → admin-A INSERT into audit_logs (AC-113)
+8: //   → SELECT scoping for admin-A / member-A / admin-B / multi / anon (AC-109…112, G-4)
+9: //   → rows after the watermark, normalised to symbols, diffed row-for-row against the golden (G-6).
+10: //
+11: // Every claim about audit rows is ground-truthed through the service role (bypasses RLS). Every
+12: // session is a REAL signed-in publishable-key session with its identity asserted. Fail closed.
+13: // Symbols (E-2): actor_user_id → admin-A | member-A | admin-B | multi · business_id → A1 | A2 | B1 ·
+14: // any other uuid → <uuid> · old_data/new_data → "present" | null (payload key set asserted here,
+15: // not in the golden) · context deep-symbolised.
+16: import { readFileSync, writeFileSync } from "node:fs";
+17: import { join } from "node:path";
+18: import { loadEnv, harnessRoot, repoRoot, CAST_PASSWORD } from "./lib/env.mjs";
+19: import { anonClient, serviceClient } from "./lib/db.mjs";
+20: 
+21: const env = loadEnv();
+22: const m = JSON.parse(readFileSync(join(harnessRoot, "seed-map.json"), "utf8"));
+23: const am = JSON.parse(readFileSync(join(harnessRoot, "audit-seed-map.json"), "utf8"));
+24: const GOLDEN_PATH = join(harnessRoot, "golden", "audit_trail_expected.json");
+25: const evidenceDir = join(repoRoot, "agent_docs/ACTIONS/BIM-003-CYBER-PHARMA/evidence");
+26: const svc = serviceClient(env);
+27: const out = [];
+28: const say = (s = "") => { out.push(s); console.log(s); };
+29: let fails = 0;
+30: const check = (ok, label, detail = "") => { if (!ok) fails++; say(`  ${ok ? "ok  " : "FAIL"} ${label}${detail ? " — " + detail : ""}`); };
+31: 
+32: // ── identities: spec symbol → harness cast; fail closed, assert the identity we run as ──
+33: const IDENT = {
+34:   "admin-A":  ["ownerA",     m.users.ownerA,      m.cast],
+35:   "member-A": ["staffA",     m.users.staffA,      m.cast],
+36:   "admin-B":  ["ownerB",     m.users.ownerB,      m.cast],
+37:   "multi":    ["multiAdmin", am.users.multiAdmin, am.cast],
+38: };
+39: const S = {};
+40: for (const [sym, [key, uid, cast]] of Object.entries(IDENT)) {
+41:   const c = anonClient(env);
+42:   const who = cast.find((x) => x.key === key);
+43:   const { data, error } = await c.auth.signInWithPassword({ email: who.email, password: CAST_PASSWORD });
+44:   if (error || data?.user?.id !== uid) { console.error(`FAIL-CLOSED: sign-in ${sym} (${key}): ${error?.message ?? "identity mismatch"}`); process.exit(1); }
+45:   S[sym] = c;
+46: }
+47: S.anon = anonClient(env);
+48: const A1 = m.businesses.a1, A2 = m.businesses.a2, B1 = m.businesses.b1;
+49: 
+50: // ── symbol maps (E-2) ──
+51: const USER_SYM = { [m.users.ownerA]: "admin-A", [m.users.staffA]: "member-A", [m.users.ownerB]: "admin-B", [am.users.multiAdmin]: "multi" };
+52: const BIZ_SYM = { [A1]: "A1", [A2]: "A2", [B1]: "B1" };
+53: const UUID = /[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/gi;
+54: const symbolise = (v) => typeof v === "string" ? v.replace(UUID, (u) => BIZ_SYM[u] ?? USER_SYM[u] ?? "<uuid>") : v;
+55: const deep = (v) => Array.isArray(v) ? v.map(deep) : v && typeof v === "object" ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, deep(x)])) : symbolise(v);
+56: const normalise = (r) => ({
+57:   table_name: r.table_name, action: r.action, actor_role: r.actor_role,
+58:   actor_user_id: r.actor_user_id === null ? null : (USER_SYM[r.actor_user_id] ?? "<uuid>"),
+59:   business_id: r.business_id === null ? null : (BIZ_SYM[r.business_id] ?? "<uuid>"),
+60:   row_id: r.row_id === null ? null : r.row_id.replace(UUID, "<uuid>"),
+61:   old_data: r.old_data === null ? null : "present",
+62:   new_data: r.new_data === null ? null : "present",
+63:   context: r.context === null ? null : deep(r.context),
+64: });
+65: const sortKeys = (v) => Array.isArray(v) ? v.map(sortKeys) : v && typeof v === "object" ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, sortKeys(v[k])])) : v;
+66: const canon = (v) => JSON.stringify(sortKeys(v));
+67: 
+68: const gtCount = async (filter) => { let q = svc.from("audit_logs").select("*", { count: "exact", head: true }); q = filter ? filter(q) : q; const { count, error } = await q; if (error) throw error; return count ?? 0; };
+69: const sessCount = async (c, filter) => { let q = c.from("audit_logs").select("*", { count: "exact", head: true }); q = filter ? filter(q) : q; const { count, error } = await q; return error ? { error } : { count: count ?? 0 }; };
+70: 
+71: say(`[audit-session] BIM-003 scripted two-tenant session — ${new Date().toISOString()} — host ${new URL(env.SUPABASE_URL).hostname}`);
+72: const wm = (await svc.from("audit_logs").select("id").order("id", { ascending: false }).limit(1)).data?.[0]?.id ?? 0;
+73: say(`  watermark: audit_logs.id = ${wm} (${await gtCount()} rows on the trail before the session)`);
+74: 
+75: // ── AC-106: six tampering probes, six raises, ground truth unchanged ──
+76: say("\nAC-106 — tampering: UPDATE and DELETE on audit_logs as svc, admin-A, anon (six probes)");
+77: const target = (await svc.from("audit_logs").select("id, actor_role").order("id").limit(1)).data?.[0];
+78: if (!target) { say("  FAIL no audit row exists to tamper with"); fails++; }
+79: const roleOf = async () => (await svc.from("audit_logs").select("actor_role").eq("id", target.id).single()).data?.actor_role;
+80: const total0 = await gtCount();
+81: for (const [sym, c, want] of [["svc", svc, "P0001"], ["admin-A", S["admin-A"], "42501"], ["anon", S.anon, "42501"]]) {
+82:   const u = await c.from("audit_logs").update({ actor_role: "tampered" }).eq("id", target.id).select();
+83:   check(!!u.error && u.error.code === want && (await roleOf()) === target.actor_role, `${sym} UPDATE raises`, `${u.error ? `${u.error.code} "${u.error.message}"` : "NO ERROR"} · ground truth actor_role=${await roleOf()}`);
+84:   const d = await c.from("audit_logs").delete().eq("id", target.id).select();
+85:   check(!!d.error && d.error.code === want && (await gtCount()) === total0, `${sym} DELETE raises`, `${d.error ? `${d.error.code} "${d.error.message}"` : "NO ERROR"} · ground truth count=${await gtCount()}`);
+86: }
+87: 
+88: // ── AC-116/117/119: admin-A writes one of each action on a business_id table ──
+89: say("\nAC-116/117 — admin-A INSERT → UPDATE → DELETE on user_data (A1)");
+90: const ins = await S["admin-A"].from("user_data").insert({ business_id: A1, script: "RX-SESSION", drug_name: "session" }).select().single();
+91: check(!ins.error, "insert", ins.error?.message ?? `id ${ins.data?.id}`);
+92: const sid = ins.data?.id;
+93: const upd = await S["admin-A"].from("user_data").update({ drug_name: "session-2" }).eq("id", sid).select();
+94: check(!upd.error && upd.data?.length === 1, "update", upd.error?.message ?? "1 row");
+95: const del = await S["admin-A"].from("user_data").delete().eq("id", sid).select();
+96: check(!del.error && del.data?.length === 1, "delete", del.error?.message ?? "1 row");
+97: const trail = (await svc.from("audit_logs").select("*").eq("row_id", sid).order("id")).data ?? [];
+98: const t = (a) => trail.find((r) => r.action === a);
+99: check(trail.length === 3 && t("insert") && t("update") && t("delete"), `three trail rows for row ${sid ? "<session-row>" : "?"}`, trail.map((r) => r.action).join(","));
+100: check(t("insert")?.new_data && !t("insert")?.old_data && t("insert")?.business_id === A1 && t("insert")?.table_name === "user_data" && t("insert")?.row_id === sid, "insert: new_data only, business_id A1, table user_data, row_id = pk");
+101: check(t("update")?.new_data && t("update")?.old_data, "update: old_data AND new_data");
+102: check(t("delete")?.old_data && !t("delete")?.new_data, "delete: old_data only");
+103: check(trail.every((r) => r.actor_user_id === m.users.ownerA && r.actor_role === "authenticated"), "AC-119: actor_user_id = admin-A, actor_role = authenticated");
+104: check(trail.every((r) => ["id", "business_id"].every((k) => k in (r.new_data ?? r.old_data))), "payload key set carries id + business_id (E-2 stable keys)");
+105: 
+106: // ── AC-118/119: one write on an R-8 table (service role — tenants hold no write policy there) ──
+107: say("\nAC-118 — svc INSERT on apa_memberships (R-8: no business_id)");
+108: const apa = await svc.from("apa_memberships").insert({ license_number: `LIC-SESSION-${Date.now()}`, membership: "APA", first_name: "S", last_name: "Ession" }).select().single();
+109: check(!apa.error, "svc insert", apa.error?.message ?? "1 row");
+110: const apaRow = (await svc.from("audit_logs").select("*").eq("row_id", apa.data?.id).single()).data;
+111: check(apaRow?.business_id === null && apaRow?.context !== null && apaRow?.context?.id === apa.data?.id, "R-8 row: business_id NULL, context non-null carrying the identifying key", JSON.stringify(apaRow?.context));
+112: check(apaRow?.actor_user_id === null && apaRow?.actor_role === "service_role", "AC-119: svc write → actor_user_id NULL, actor_role service_role");
+113: 
+114: // ── wrappers: one call per owedbook_* by admin-A on A1 (+ updated tab), one by multi on B1 ──
+115: say("\nAC-302 — wrapper calls (log-then-return, R-10 shapes non-empty)");
+116: const rp0 = await gtCount((q) => q.eq("action", "read_page"));
+117: const A = S["admin-A"];
+118: const kp = await A.rpc("owedbook_kpis", { p_business_id: A1 });
+119: check(!kp.error && kp.data?.[0]?.commercial_scripts === 204 && Number(kp.data?.[0]?.commercial_underpaid) === 20119.5 && Number(kp.data?.[0]?.updated_difference) === 6, "owedbook_kpis(A1): 204 scripts · 20119.50 underpaid · 6.00 updated_difference (200 seed + 4 R-10)", kp.error?.message ?? JSON.stringify(kp.data?.[0]));
+120: const rw = await A.rpc("owedbook_rows", { p_business_id: A1, p_tab: "commercial_dollars" });
+121: check(!rw.error && rw.data?.total === 204 && rw.data?.rows?.length === 25 && rw.data?.pageCount === 9, "owedbook_rows(A1, commercial): total 204, 25 rows, 9 pages", rw.error?.message ?? `${rw.data?.total}/${rw.data?.rows?.length}/${rw.data?.pageCount}`);
+122: const ru = await A.rpc("owedbook_rows", { p_business_id: A1, p_tab: "updated_commercial_payments" });
+123: check(!ru.error && ru.data?.total === 2 && ru.data?.rows?.every((r) => r.new_paid !== null), "owedbook_rows(A1, updated): total 2, every row has new_paid (R-10)", ru.error?.message ?? `${ru.data?.total}`);
+124: const sm = await A.rpc("owedbook_summary", { p_business_id: A1 });
+125: check(!sm.error && canon(sm.data) === canon([{ pbm: "OptumRx", commercial_dollars: 10, federal_dollars: 0 }, { pbm: "Caremark", commercial_dollars: 9.5, federal_dollars: 0 }]), "owedbook_summary(A1): [OptumRx 10.00, Caremark 9.50] desc (R-10)", sm.error?.message ?? JSON.stringify(sm.data));
+126: const po = await A.rpc("owedbook_pbm_options", { p_business_id: A1 });
+127: check(!po.error && canon(po.data) === canon(["Caremark", "OptumRx"]), "owedbook_pbm_options(A1): [Caremark, OptumRx] (R-10)", po.error?.message ?? JSON.stringify(po.data));
+128: const mk = await S.multi.rpc("owedbook_kpis", { p_business_id: B1 });
+129: check(!mk.error && mk.data?.[0]?.commercial_scripts === 200, "multi → owedbook_kpis(B1): 200 scripts (second tenant in the trail)", mk.error?.message ?? JSON.stringify(mk.data?.[0]));
+130: check((await gtCount((q) => q.eq("action", "read_page"))) === rp0 + 6, "exactly six read_page rows for six wrapper calls (R-7)");
+131: 
+132: // ── AC-206: cross-tenant wrapper attempt ──
+133: say("\nAC-206 — admin-A → owedbook_kpis(B1)");
+134: const rp1 = await gtCount((q) => q.eq("action", "read_page"));
+135: const x = await A.rpc("owedbook_kpis", { p_business_id: B1 });
+136: check(!!x.error && /not a member of business/.test(x.error.message) && (await gtCount((q) => q.eq("action", "read_page"))) === rp1, "raises 'not a member of business', zero rows inserted", x.error ? `${x.error.code} "${x.error.message}"` : "NO ERROR");
+137: 
+138: // ── AC-113: admin-A INSERT into audit_logs ──
+139: say("\nAC-113 — admin-A INSERT into audit_logs");
+140: const tot1 = await gtCount();
+141: const ai = await A.from("audit_logs").insert({ table_name: "user_data", action: "insert", actor_role: "authenticated" }).select();
+142: check(!!ai.error && ai.error.code === "42501" && (await gtCount()) === tot1, "denied by RLS (42501), count unchanged", ai.error ? `${ai.error.code} "${ai.error.message}"` : "NO ERROR");
+143: 
+144: // ── AC-109…112 / G-4: SELECT scoping on the trail itself ──
+145: say("\nAC-109…112 — audit_logs SELECT scoping (junction ADMIN of the row's business only)");
+146: const inSet = (ids) => (q) => q.in("business_id", ids);
+147: const outSet = (ids) => (q) => q.not("business_id", "in", `(${ids.join(",")})`);
+148: const expA = await gtCount(inSet([A1, A2])), expB = await gtCount(inSet([B1])), expM = await gtCount(inSet([A1, B1]));
+149: const cA = await sessCount(A), cAout = await sessCount(A, outSet([A1, A2])), cAnull = await sessCount(A, (q) => q.is("business_id", null));
+150: check(cA.count === expA && cAout.count === 0 && cAnull.count === 0, `AC-109 admin-A: ${cA.count} rows = expected A-count ${expA} (A1+A2, ownerA is admin of both); outside A = ${cAout.count}; NULL-business = ${cAnull.count}`);
+151: const cS = await sessCount(S["member-A"]);
+152: check(cS.count === 0, `AC-110 member-A: ${cS.count} rows (expected 0)`);
+153: const cB = await sessCount(S["admin-B"]), cBout = await sessCount(S["admin-B"], outSet([B1]));
+154: check(cB.count === expB && cBout.count === 0, `AC-111 admin-B: ${cB.count} rows = expected B-count ${expB}; outside B = ${cBout.count}`);
+155: const cM = await sessCount(S.multi), cMout = await sessCount(S.multi, outSet([A1, B1]));
+156: check(cM.count === expM && cMout.count === 0, `AC-111 multi: ${cM.count} rows = expected A1+B1 count ${expM}; outside = ${cMout.count}`);
+157: const cN = await sessCount(S.anon);
+158: check(cN.error || cN.count === 0, `AC-112 anon: ${cN.error ? `denied (${cN.error.code})` : `${cN.count} rows`}`);
+159: 
+160: // ── G-6 / AC-303: the golden trail ──
+161: say("\nAC-303 — golden diff (rows after the watermark, ordered by id, id/occurred_at excluded, symbolised per E-2)");
+162: const produced = ((await svc.from("audit_logs").select("*").gt("id", wm).order("id")).data ?? []).map(normalise);
+163: const golden = JSON.parse(readFileSync(GOLDEN_PATH, "utf8"));
+164: let diffs = 0;
+165: const n = Math.max(produced.length, golden.length);
+166: for (let i = 0; i < n; i++) {
+167:   const p = produced[i], g = golden[i];
+168:   if (canon(p) !== canon(g)) {
+169:     diffs++;
+170:     say(`  DIFF at row ${i + 1}:`);
+171:     say(`    expected: ${g === undefined ? "<no row>" : JSON.stringify(g)}`);
+172:     say(`    produced: ${p === undefined ? "<no row>" : JSON.stringify(p)}`);
+173:   }
+174: }
+175: check(produced.length === golden.length, `row count: produced ${produced.length}, golden ${golden.length}`);
+176: check(diffs === 0, `${diffs} differing row(s) against golden/audit_trail_expected.json`);
+177: 
+178: say(`\n[audit-session] ${fails === 0 ? "TRAIL EXACT — every probe green and the produced trail matches the golden row-for-row" : `${fails} FAILURE(S)`}`);
+179: const ts = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+180: writeFileSync(join(evidenceDir, `S3_audit_session_${ts}.log`), out.join("\n") + "\n");
+181: writeFileSync(join(evidenceDir, `S3_audit_session_${ts}.produced.json`), JSON.stringify(produced, null, 2) + "\n");
+182: for (const [k, c] of Object.entries(S)) if (k !== "anon") await c.auth.signOut();
+183: process.exit(fails === 0 ? 0 : 3);
+
+FILE: scripts/rls-harness/audit-wrappers.mjs
+1: #!/usr/bin/env node
+2: // BIM-003 · rls-harness/audit-wrappers.mjs — Stage 2 session probes for the four owedbook_*
+3: // wrappers (AC-204…208). Every call goes through a REAL signed-in session on the publishable
+4: // key (the SQL editor lies about auth.uid()); every audit-row claim is ground-truthed through
+5: // the service role, which bypasses RLS. Runs after seed.mjs. Fails closed on auth.
+6: //   node scripts/rls-harness/audit-wrappers.mjs
+7: import { readFileSync, writeFileSync } from "node:fs";
+8: import { join } from "node:path";
+9: import { loadEnv, harnessRoot, repoRoot, CAST_PASSWORD } from "./lib/env.mjs";
+10: import { anonClient, serviceClient } from "./lib/db.mjs";
+11: 
+12: const WRAPPERS = ["owedbook_kpis", "owedbook_rows", "owedbook_summary", "owedbook_pbm_options"];
+13: const env = loadEnv();
+14: const m = JSON.parse(readFileSync(join(harnessRoot, "seed-map.json"), "utf8"));
+15: const svc = serviceClient(env);
+16: const out = [];
+17: const say = (s = "") => { out.push(s); console.log(s); };
+18: let fails = 0;
+19: const check = (ok, label, detail = "") => { if (!ok) fails++; say(`- ${ok ? "✅" : "❌"} ${label}${detail ? " — " + detail : ""}`); };
+20: 
+21: // spec identities → harness cast: admin-A = ownerA (admin A1+A2) · member-A = staffA (member A1) · anon
+22: const sessions = {};
+23: for (const [role, key] of [["admin-A", "ownerA"], ["member-A", "staffA"]]) {
+24:   const c = anonClient(env);
+25:   const who = m.cast.find((x) => x.key === key);
+26:   const { data, error } = await c.auth.signInWithPassword({ email: who.email, password: CAST_PASSWORD });
+27:   if (error || data?.user?.id !== m.users[key]) { console.error(`FAIL-CLOSED: sign-in ${role}/${key}: ${error?.message ?? "identity mismatch"}`); process.exit(1); }
+28:   sessions[role] = { c, uid: data.user.id, key };
+29: }
+30: sessions.anon = { c: anonClient(env), uid: null, key: "anon" };
+31: const A = m.businesses.a1, B = m.businesses.b1;
+32: 
+33: const args = (fn, biz) => fn === "owedbook_rows" ? { p_business_id: biz, p_tab: "commercial_dollars" } : { p_business_id: biz };
+34: const readPageCount = async () => (await svc.from("audit_logs").select("*", { count: "exact", head: true }).eq("action", "read_page")).count ?? 0;
+35: const lastReadPage = async () => (await svc.from("audit_logs").select("*").eq("action", "read_page").order("id", { ascending: false }).limit(1)).data?.[0];
+36: 
+37: say(`# S2 wrapper probes — BIM-003-CYBER-PHARMA`);
+38: say(`Generated ${new Date().toISOString()} by \`scripts/rls-harness/audit-wrappers.mjs\` against host \`${new URL(env.SUPABASE_URL).hostname}\` after \`seed.mjs\`. Identities: admin-A = ownerA (admin of A1), member-A = staffA (member of A1), anon. Business A = store A1, business B = store B1 (200 seeded user_data rows each).`);
+39: say();
+40: 
+41: for (const [ac, role] of [["AC-204", "admin-A"], ["AC-205", "member-A"]]) {
+42:   say(`## ${ac} — ${role} calls every wrapper with p_business_id = A: returns, and inserts exactly one read_page row`);
+43:   const s = sessions[role];
+44:   for (const fn of WRAPPERS) {
+45:     const before = await readPageCount();
+46:     const { data, error } = await s.c.rpc(fn, args(fn, A));
+47:     const after = await readPageCount();
+48:     const row = await lastReadPage();
+49:     const shape = fn === "owedbook_kpis" ? `1 row ${JSON.stringify(data?.[0])}`
+50:       : fn === "owedbook_rows" ? `page ${data?.page}/${data?.pageCount} limit ${data?.limit} total ${data?.total} rows ${data?.rows?.length}`
+51:       : Array.isArray(data) ? `${data.length} item(s)` : String(data);
+52:     const ok = !error && after === before + 1 && row?.action === "read_page" && row?.business_id === A && row?.actor_user_id === s.uid
+53:       && row?.actor_role === "authenticated" && row?.table_name != null && row?.context?.fn === fn;
+54:     check(ok, `${fn}(A) as ${role}`, error ? `ERROR ${error.code} ${error.message}` : `${shape}; audit +${after - before}; row: business_id=${row?.business_id === A ? "A" : row?.business_id} actor=${row?.actor_user_id === s.uid ? role : row?.actor_user_id} role=${row?.actor_role} table=${row?.table_name} context.fn=${row?.context?.fn}`);
+55:   }
+56:   say();
+57: }
+58: 
+59: say(`## AC-206 — admin-A calls every wrapper with p_business_id = B: raises 'not a member of business', inserts zero rows`);
+60: for (const fn of WRAPPERS) {
+61:   const before = await readPageCount();
+62:   const { error } = await sessions["admin-A"].c.rpc(fn, args(fn, B));
+63:   const after = await readPageCount();
+64:   check(!!error && /not a member of business/.test(error.message) && after === before, `${fn}(B) as admin-A`, `${error ? `${error.code} "${error.message}"` : "NO ERROR"}; audit +${after - before}`);
+65: }
+66: say();
+67: 
+68: say(`## AC-207 — anon calls every wrapper: denied (no EXECUTE), inserts zero rows`);
+69: for (const fn of WRAPPERS) {
+70:   const before = await readPageCount();
+71:   const { error } = await sessions.anon.c.rpc(fn, args(fn, A));
+72:   const after = await readPageCount();
+73:   check(!!error && error.code === "42501" && after === before, `${fn}(A) as anon`, `${error ? `${error.code} "${error.message}"` : "NO ERROR"}; audit +${after - before}`);
+74: }
+75: say();
+76: 
+77: say(`## AC-208 — one wrapper call returning K ≥ 2 rows inserts exactly one row, not K`);
+78: {
+79:   const before = await readPageCount();
+80:   const { data, error } = await sessions["admin-A"].c.rpc("owedbook_rows", { p_business_id: A, p_tab: "commercial_dollars", p_page: 1, p_limit: 25 });
+81:   const after = await readPageCount();
+82:   const K = data?.rows?.length ?? 0;
+83:   check(!error && K >= 2 && after === before + 1, `owedbook_rows(A, page 1, limit 25) as admin-A`, error ? `ERROR ${error.message}` : `K = ${K} rows served (total ${data?.total}, pageCount ${data?.pageCount}); audit +${after - before}`);
+84:   const row = await lastReadPage();
+85:   check(row?.context?.page === 1 && row?.context?.limit === 25 && row?.context?.offset === 0 && row?.context?.filters?.tab === "commercial_dollars", "context carries page/limit/offset/filters", JSON.stringify(row?.context));
+86:   const r0 = data?.rows?.[0] ?? {};
+87:   const keys = ["id","date","script","qty","pbm","status","report_file","original_paid","medicaid_rate","method","expected","owed","new_paid","updated_difference","aac","federal_expected","federal_diff"];
+88:   check(keys.every((k) => k in r0) && Object.keys(r0).length === keys.length, `each row carries exactly the 17 OwedBookRow keys`, `row[0] = ${JSON.stringify(r0)}`);
+89:   check(data && ["rows","page","pageCount","limit","total"].every((k) => k in data), "envelope carries rows/page/pageCount/limit/total");
+90: }
+91: say();
+92: 
+93: say(`## Shape spot-checks (return types mirror the service contract)`);
+94: {
+95:   const s = sessions["admin-A"].c;
+96:   const kp = (await s.rpc("owedbook_kpis", { p_business_id: A })).data?.[0];
+97:   check(kp && ["commercial_underpaid","commercial_scripts","updated_difference","owed"].every((k) => k in kp), "owedbook_kpis → OwedBookKpis keys", JSON.stringify(kp));
+98:   const sm = (await s.rpc("owedbook_summary", { p_business_id: A })).data;
+99:   check(Array.isArray(sm) && sm.every((r) => ["pbm","commercial_dollars","federal_dollars"].every((k) => k in r)), `owedbook_summary → OwedBookSummaryRow[] (${sm?.length} rows; seed carries no insurance so 0 is expected)`, JSON.stringify(sm));
+100:   const po = (await s.rpc("owedbook_pbm_options", { p_business_id: A })).data;
+101:   check(Array.isArray(po) && po.every((x) => typeof x === "string"), `owedbook_pbm_options → string[] (${po?.length})`, JSON.stringify(po));
+102:   const upd = (await s.rpc("owedbook_rows", { p_business_id: A, p_tab: "updated_commercial_payments" })).data;
+103:   const fed = (await s.rpc("owedbook_rows", { p_business_id: A, p_tab: "federal_dollars" })).data;
+104:   const p9 = (await s.rpc("owedbook_rows", { p_business_id: A, p_tab: "commercial_dollars", p_page: 99 })).data;
+105:   check(upd?.total === 0 && fed?.total === 0 && p9?.page === p9?.pageCount && p9?.rows?.length > 0, `tabs + pager: updated total=${upd?.total} (seed has no new_paid), federal total=${fed?.total} (NULL by A-3), page 99 clamps to ${p9?.page}/${p9?.pageCount} with ${p9?.rows?.length} rows`);
+106:   const { error: badTab } = await s.rpc("owedbook_rows", { p_business_id: A, p_tab: "nope" });
+107:   check(!!badTab && /unknown tab/.test(badTab.message), "unknown tab raises", badTab?.message);
+108: }
+109: say();
+110: 
+111: say(`## Verdict`);
+112: say(fails === 0 ? "**S2 WRAPPER PROBES GREEN** — every assertion above holds." : `**${fails} ASSERTION(S) FAILED** — see ❌ above.`);
+113: writeFileSync(join(repoRoot, "agent_docs/ACTIONS/BIM-003-CYBER-PHARMA/evidence/S2_wrappers.md"), out.join("\n") + "\n");
+114: for (const s of Object.values(sessions)) if (s.uid) await s.c.auth.signOut();
+115: process.exit(fails === 0 ? 0 : 3);
+
+FILE: scripts/rls-harness/harness.mjs
+1: #!/usr/bin/env node
+2: // BIM-002 · rls-harness/harness.mjs — the expectation matrix.
+3: // 5 identities × 16 tables × 4 operations = 320 cells, every cell run through a
+4: // REAL signed-in session on the publishable key (the SQL editor lies about RLS).
+5: // Exits non-zero on any mismatch. One uniquely-named evidence file per run.
+6: //
+7: // Self-cleaning (Proto 06 F-9): a probe's UPDATE/DELETE prefer the row its own
+8: // INSERT created, so a destructive test destroys only what it made and the suite
+9: // is idempotent across runs.
+10: import { readFileSync, writeFileSync } from "node:fs";
+11: import { join } from "node:path";
+12: import { loadEnv, harnessRoot, CAST_PASSWORD } from "./lib/env.mjs";
+13: import { anonClient, serviceClient } from "./lib/db.mjs";
+14: import { payloadsFor } from "./payloads.mjs";
+15: import { verdictFromResult, ALLOW, DENY } from "./lib/verdict.mjs";
+16: 
+17: const env = loadEnv();
+18: const exp = JSON.parse(readFileSync(join(harnessRoot, "expectations.json"), "utf8"));
+19: const seed = JSON.parse(readFileSync(join(harnessRoot, "seed-map.json"), "utf8"));
+20: const payloads = payloadsFor(seed);
+21: const label = process.argv[2] ?? exp.phase;
+22: 
+23: const lines = [];
+24: const log = (s) => { lines.push(s); if (!process.env.RLS_QUIET) console.log(s); };
+25: const expectationFor = (id, t, op) => exp.overrides?.[id]?.[t]?.[op] ?? exp.default;
+26: 
+27: async function sessionFor(identity) {
+28:   const c = anonClient(env);
+29:   if (identity === "anon") return c;
+30:   const who = seed.cast.find((x) => x.key === identity);
+31:   const { error } = await c.auth.signInWithPassword({ email: who.email, password: CAST_PASSWORD });
+32:   if (error) { console.error(`FAIL-CLOSED: sign-in ${identity}: ${error.message}`); process.exit(1); }
+33:   return c;
+34: }
+35: 
+36: // Rows this run created and did NOT manage to delete (INSERT permitted but
+37: // DELETE denied is a legitimate policy outcome). Without this, repeated runs
+38: // inflate seeded counts and the suite stops being idempotent — caught at X3 by
+39: // the row-scoping check (426 rows where 400 were seeded).
+40: const litter = [];
+41: // Seeded rows a permitted UPDATE mutated in place; restored from payloads.restore.
+42: const restored = [];
+43: 
+44: async function probeTable(c, table, identity) {
+45:   const p = payloads[table];
+46:   const chain = {};
+47:   const cells = {};
+48:   for (const op of exp.operations) {
+49:     if (op === "select") {
+50:       cells.select = verdictFromResult(await c.from(table).select("*").limit(5));
+51:     } else if (op === "insert") {
+52:       const r = await c.from(table).insert(p.insert).select();
+53:       const v = verdictFromResult(r);
+54:       if (v.outcome === ALLOW) { chain.id = r.data[0].id; litter.push([table, r.data[0].id]); }
+55:       cells.insert = v;
+56:     } else {
+57:       const id = chain.id ?? p.targetFor?.(identity) ?? p.target ?? "00000000-0000-4000-8000-0000000dead0";
+58:       const q = op === "update" ? c.from(table).update(p.patch).eq("id", id).select()
+59:                                 : c.from(table).delete().eq("id", id).select();
+60:       const v = verdictFromResult(await q);
+61:       if (op === "delete" && v.outcome === ALLOW) {
+62:         const i = litter.findIndex(([t, lid]) => t === table && lid === id);
+63:         if (i !== -1) litter.splice(i, 1); // the probe cleaned up after itself
+64:       }
+65:       if (op === "update" && v.outcome === ALLOW && !chain.id) restored.push([table, id, p.restore ?? null]);
+66:       cells[op] = v;
+67:     }
+68:   }
+69:   return cells;
+70: }
+71: 
+72: log(`[harness] ${label} — ${exp.identities.length} identities × ${exp.tables.length} tables × ${exp.operations.length} ops = ${exp.identities.length * exp.tables.length * exp.operations.length} cells`);
+73: let mismatches = 0, cells = 0;
+74: const failed = [];
+75: for (const identity of exp.identities) {
+76:   const c = await sessionFor(identity);
+77:   // tables run concurrently; ops within a table stay ordered (insert feeds update/delete)
+78:   const perTable = await Promise.all(exp.tables.map(async (t) => [t, await probeTable(c, t, identity)]));
+79:   for (const [table, ops] of perTable) {
+80:     for (const op of exp.operations) {
+81:       cells++;
+82:       const expected = expectationFor(identity, table, op);
+83:       const { outcome, detail } = ops[op];
+84:       const ok = outcome === expected;
+85:       if (!ok) { mismatches++; failed.push(`${identity}×${table}×${op} got ${outcome} want ${expected}`); }
+86:       log(`  ${ok ? "ok  " : "MISMATCH"} ${identity} × ${table} × ${op} → ${outcome} (${detail}) expected=${expected}`);
+87:     }
+88:   }
+89:   if (identity !== "anon") await c.auth.signOut();
+90: }
+91: // ── restore the scratch to its seeded shape (idempotence, not cosmetics) ──
+92: // Service-role use is confined to this file and lib/db.mjs (AC19 fence) and is
+93: // never used to evaluate a matrix cell — only to undo what the probes did.
+94: const svc = serviceClient(env);
+95: let cleaned = 0, reverted = 0;
+96: for (const [table, id] of litter) {
+97:   const { error } = await svc.from(table).delete().eq("id", id);
+98:   if (!error) cleaned++;
+99: }
+100: for (const [table, id, patch] of restored) {
+101:   if (!patch) continue;
+102:   const { error } = await svc.from(table).update(patch).eq("id", id);
+103:   if (!error) reverted++;
+104: }
+105: log(`[harness] cleanup: ${cleaned} probe row(s) removed, ${reverted} seeded row(s) restored — scratch back to seeded shape`);
+106: 
+107: log(`[harness] ${cells} cells · ${mismatches} mismatches → ${mismatches === 0 ? "MATRIX GREEN" : "MATRIX RED"}`);
+108: if (mismatches) for (const f of failed) log(`   RED: ${f}`);
+109: 
+110: const ts = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+111: const path = join(harnessRoot, "..", "..", "agent_docs", "ACTIONS", "BIM-002-CYBER-PHARMA", "evidence", `${label}_${ts}.log`);
+112: writeFileSync(path, lines.join("\n") + "\n");
+113: console.log(`[harness] ${mismatches === 0 ? "GREEN" : "RED"} (${cells} cells) → ${path.split("/agent_docs/")[1]}`);
+114: process.exit(mismatches === 0 ? 0 : 3);
+
+FILE: scripts/rls-harness/payloads.mjs
+1: // BIM-002 · rls-harness/payloads.mjs — per-table probe data (DATA, not logic).
+2: // One insert row + one update patch + a static target row per table. Tenant
+3: // payloads deliberately point at store A1, so the same fixed payload proves
+4: // ALLOW for A-side identities and DENY for ownerB — the cross-tenant case falls
+5: // out of the matrix instead of needing a special case.
+6: export function payloadsFor(m) {
+7:   return {
+8:     accounts:                   { insert: { name: "probe-acct", owner_user_id: m.users.ownerA }, patch: { name: "probe-upd" }, target: m.accounts.A },
+9:     // `restore` puts a seeded row back after a PERMITTED update, so the suite is
+10:     // idempotent across runs (X3 row-scoping check caught the drift).
+11:     businesses:                 { insert: { account_id: m.accounts.A, ncpdp: "0999999", npi: "1099999999", pharmacy_name: "probe-store" }, patch: { pharmacy_name: "probe-upd" }, restore: { pharmacy_name: "Store A1" }, target: m.businesses.a1 },
+12:     user_roles:                 { insert: { user_id: m.users.staffA, role: "admin" }, patch: { role: "admin" }, target: null },
+13:     // targetFor: resolved per identity. profiles' baseline policy is "owner or
+14:     // superadmin", so the honest probe is the caller's OWN row — otherwise the
+15:     // cell would read DENY for the trivial reason that the target doesn't exist,
+16:     // and BIM-002 would never notice if it broke baseline profile editing.
+17:     profiles:                   { insert: { id: m.users.staffA, email: "probe@rls.local" }, patch: { full_name: "probe-upd" }, target: null, targetFor: (id) => m.users[id] ?? null },
+18:     user_businesses:            { insert: { user_id: m.users.staffA, business_id: m.businesses.b1, role: "admin" }, patch: { is_primary: false }, target: null },
+19:     pending_registrations:      { insert: { ncpdp: "0999998", npi: "1099999998", email: "probe-pending@rls.local" }, patch: { phone: "555-0000" }, target: null },
+20:     subscriptions:              { insert: { account_id: m.accounts.A, status: "active" }, patch: { status: "past_due" }, target: m.samples.subscriptionA },
+21:     apa_memberships:            { insert: { license_number: "LIC-PROBE", membership: "APA", first_name: "P", last_name: "Robe" }, patch: { membership: "APA-UPD" }, target: null },
+22:     user_data:                  { insert: { business_id: m.businesses.a1, script: "RX-PROBE", drug_name: "probe" }, patch: { drug_name: "probe-upd" }, target: m.samples.factA1 },
+23:     report_files:               { insert: { business_id: m.businesses.a1, file_name: "probe.pdf" }, patch: { file_name: "probe-upd.pdf" }, target: m.samples.reportA1 },
+24:     aac_reference:              { insert: { ndc: "00000000999", aac_date: "2026-09-01", aac: 1.23 }, patch: { aac: 9.99 }, target: null },
+25:     wac_reference:              { insert: { ndc: "00000000999", effective_date: "2026-09-01", wac: 1.23 }, patch: { wac: 9.99 }, target: null },
+26:     ful_reference:              { insert: { ndc: "00000000999", year: 2026, month: 9, aca_ful: 1.234567 }, patch: { aca_ful: 9.999999 }, target: null },
+27:     pbm_info:                   { insert: { bin: "999999", matching_type: "bin_only" }, patch: { pbm_name: "probe-upd" }, target: null },
+28:     // BIM-003 shape (0028): bigint id, so the mutation target is 0, not the dead uuid. Every
+29:     // cell is DENY by design — INSERT by RLS (no policy), UPDATE/DELETE by revoked privilege.
+30:     audit_logs:                 { insert: { table_name: "user_data", action: "insert", actor_role: "authenticated" }, patch: { action: "update" }, target: 0 },
+31:     reference_dataset_versions: { insert: { dataset_name: "probe-dataset" }, patch: { row_count: 42 }, target: null },
+32:   };
+33: }
+
+FILE: scripts/rls-harness/policy-check.mjs
+1: #!/usr/bin/env node
+2: // BIM-002 · rls-harness/policy-check.mjs — the structural laws, checked
+3: // mechanically after EVERY landing. Reads pg_catalog only (F-3).
+4: //
+5: //   L1 (AC6) one permissive policy per operation per table
+6: //   L2 (AC7/F-1) no write policy on a table lacking a SELECT policy, and the
+7: //      SELECT appears EARLIER in the same migration file
+8: //   L3 (junction-first) any policy whose body contains the inline junction
+9: //      subquery requires a SELECT policy on user_businesses — defence-in-depth
+10: //      under formulation C, load-bearing if a predicate ever reverts to B
+11: //   L4 (Gap-6/AC5) no policy or helper body references user_roles, profiles,
+12: //      user_metadata, raw_user_meta_data, or owner_user_id
+13: import { readFileSync, readdirSync } from "node:fs";
+14: import { join } from "node:path";
+15: import { loadEnv, repoRoot } from "./lib/env.mjs";
+16: import { pgClient } from "./lib/db.mjs";
+17: 
+18: const env = loadEnv();
+19: const db = await pgClient(env);
+20: const q = async (s) => (await db.query(s)).rows;
+21: const fails = [];
+22: const ok = (s) => console.log("  ok   " + s);
+23: const bad = (s) => { console.error("  FAIL " + s); fails.push(s); };
+24: 
+25: // ── L1 ──
+26: const perOp = await q(`select tablename, cmd, count(*)::int n, string_agg(policyname, ', ' order by policyname) names
+27:   from pg_policies where schemaname='public' and permissive='PERMISSIVE' group by 1,2 order by 1,2`);
+28: let l1 = true;
+29: for (const r of perOp) if (r.n > 1) { bad(`L1 one-per-op: ${r.tablename}.${r.cmd} has ${r.n} (${r.names})`); l1 = false; }
+30: if (l1) ok(`L1 one permissive policy per operation per table (${perOp.length} table×op groups)`);
+31: 
+32: // ── L2 ── catalog half
+33: const byTable = {};
+34: for (const r of await q(`select tablename, cmd from pg_policies where schemaname='public'`)) (byTable[r.tablename] ||= []).push(r.cmd);
+35: let l2 = true;
+36: for (const [t, cmds] of Object.entries(byTable)) {
+37:   const writes = cmds.filter((c) => c !== "SELECT");
+38:   if (writes.length && !cmds.includes("SELECT")) { bad(`L2 SELECT-before-write: ${t} has ${writes.join("/")} but NO SELECT policy (F-1 silent no-op)`); l2 = false; }
+39: }
+40: // ── L2 ── file-order half: SELECT must appear earlier in the same migration
+41: const migDir = join(repoRoot, "supabase", "migrations");
+42: for (const f of readdirSync(migDir).filter((f) => /^00(1[6-9]|[2-9]\d)_rls_.+\.sql$/.test(f)).sort()) {
+43:   const body = readFileSync(join(migDir, f), "utf8");
+44:   const stmts = [...body.matchAll(/create\s+policy\s+"([^"]+)"[\s\S]*?for\s+(select|insert|update|delete)/gi)];
+45:   const firstWrite = stmts.findIndex((s) => s[2].toLowerCase() !== "select");
+46:   const firstSelect = stmts.findIndex((s) => s[2].toLowerCase() === "select");
+47:   if (firstWrite !== -1 && (firstSelect === -1 || firstSelect > firstWrite)) { bad(`L2 file order: ${f} creates a write policy before its SELECT policy`); l2 = false; }
+48: }
+49: if (l2) ok("L2 SELECT-before-write holds (catalog + migration file order)");
+50: 
+51: // ── L3 ──
+52: const bodies = await q(`select tablename, policyname, coalesce(qual,'') || ' ' || coalesce(with_check,'') body from pg_policies where schemaname='public'`);
+53: const inlineJunction = bodies.filter((b) => /from\s+user_businesses/i.test(b.body) && !/my_business_ids|is_member_of|is_admin_of|is_account_member/i.test(b.body));
+54: if (inlineJunction.length) {
+55:   const junctionSelect = bodies.some((b) => b.tablename === "user_businesses");
+56:   if (!junctionSelect) bad(`L3 junction-first: ${inlineJunction.length} inline-junction policy(ies) but no SELECT policy on user_businesses (formulation-B blindness)`);
+57:   else ok(`L3 junction-first satisfied for ${inlineJunction.length} inline-junction policy(ies)`);
+58: } else ok("L3 junction-first: no inline-junction predicates in use (formulation C adopted)");
+59: 
+60: // ── L4 ──
+61: const banned = /\buser_roles\b|\bprofiles\b|user_metadata|raw_user_meta_data|owner_user_id/i;
+62: let l4 = true;
+63: for (const b of bodies) {
+64:   if (b.tablename === "user_roles" || b.tablename === "profiles") continue; // the 3 baseline policies, untouched by this module
+65:   if (banned.test(b.body)) { bad(`L4 Gap-6: policy ${b.tablename}.${b.policyname} body references a forbidden source`); l4 = false; }
+66: }
+67: for (const h of await q(`select proname, prosrc from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and proname in ('is_member_of','is_admin_of','is_account_member','my_business_ids')`)) {
+68:   if (banned.test(h.prosrc)) { bad(`L4 Gap-6: helper ${h.proname} body references a forbidden source`); l4 = false; }
+69: }
+70: if (l4) ok("L4 Gap-6: no policy or helper reads user_roles / profiles / metadata / owner_user_id");
+71: 
+72: console.log("  ── policy inventory ──");
+73: for (const r of perOp) console.log(`     ${r.tablename.padEnd(28)} ${r.cmd.padEnd(6)} × ${r.n}  ${r.names}`);
+74: const total = (await q(`select count(*)::int n from pg_policies where schemaname='public'`))[0].n;
+75: console.log(`  total policies in public: ${total}`);
+76: await db.end();
+77: if (fails.length) { console.error(`[policy-check] ${fails.length} LAW VIOLATION(S)`); process.exit(3); }
+78: console.log("[policy-check] ALL LAWS HOLD");
+
+FILE: scripts/rls-harness/prove.mjs
+1: #!/usr/bin/env node
+2: // BIM-002 · rls-harness/prove.mjs — THE ONE COMMAND.  npm run rls:prove
+3: //
+4: //   wipe (F-6 order) → chain 0001–0027 → seed → AC8 (from-scratch, E-5)
+5: //   → policy-check → matrix → scoping → attacks → revocation
+6: //
+7: // Exits non-zero the moment any stage fails. Writes one consolidated evidence
+8: // file per run plus a NORMALISED twin (uuids and timestamps masked) so two runs
+9: // can be diffed for real equivalence rather than eyeballed.
+10: //
+11: // Wipe/chain reuse BIM-001's certified `scripts/db-reset.mjs` rather than a
+12: // second copy of the drop logic — one wipe implementation, already gate-proven.
+13: import { writeFileSync, readFileSync } from "node:fs";
+14: import { join } from "node:path";
+15: import { spawnSync } from "node:child_process";
+16: import { loadEnv, harnessRoot, repoRoot } from "./lib/env.mjs";
+17: 
+18: // Phase label: names this run's evidence files. Defaults to X5 for the gate that
+19: // introduced the command; X6 and later pass their own so cross-target runs are
+20: // self-describing (BIM-002 X6 §6 — sub-logs previously inherited a hardcoded label).
+21: //   node scripts/rls-harness/prove.mjs [phaseLabel]
+22: const PHASE = process.argv[2] ?? "X5";
+23: 
+24: const env = loadEnv();
+25: const evidenceDir = join(repoRoot, "agent_docs/ACTIONS/BIM-002-CYBER-PHARMA/evidence");
+26: const runTs = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+27: const out = [];
+28: const say = (s) => { out.push(s); console.log(s); };
+29: 
+30: const H = (f) => join(harnessRoot, f);
+31: const STAGES = [
+32:   { name: "1/8 WIPE + CHAIN 0001-0027", cmd: "node", args: [join(repoRoot, "scripts/db-reset.mjs"), "reset"],
+33:     env: { DB_URL: env.DB_URL, DB_RESET_ALLOW: "yes" } },
+34:   { name: "2/8 SEED (cast + FK-safe reset)", cmd: "node", args: [H("seed.mjs")] },
+35:   { name: "3/8 AC8 helper shape, FROM SCRATCH (E-5)", cmd: "node", args: [H("ac8-check.mjs")] },
+36:   { name: "4/8 POLICY-CHECK (L1-L4)", cmd: "node", args: [H("policy-check.mjs")] },
+37:   { name: "5/8 MATRIX (320 cells)", cmd: "node", args: [H("harness.mjs"), `${PHASE}-matrix`], env: { RLS_QUIET: "1" } },
+38:   { name: "6/8 SCOPING (row-level)", cmd: "node", args: [H("scoping.mjs")] },
+39:   { name: "7/8 ATTACK BATTERY", cmd: "node", args: [H("attacks.mjs")] },
+40:   { name: "8/8 REVOCATION (R-C)", cmd: "node", args: [H("revocation.mjs")] },
+41: ];
+42: 
+43: say(`[rls:prove] full isolation proof from an empty scratch — ${runTs}`);
+44: let failedAt = null;
+45: for (const s of STAGES) {
+46:   say(`\n═══ ${s.name} ═══`);
+47:   const r = spawnSync(s.cmd, s.args, { cwd: repoRoot, encoding: "utf8", env: { ...process.env, ...(s.env ?? {}) } });
+48:   const text = ((r.stdout || "") + (r.stderr || "")).trimEnd();
+49:   say(text);
+50:   if (r.status !== 0) { failedAt = `${s.name} (exit ${r.status})`; break; }
+51: }
+52: 
+53: const verdict = failedAt
+54:   ? `\n[rls:prove] ✗ FAILED at ${failedAt}`
+55:   : `\n[rls:prove] ✓ ISOLATION PROVEN — chain + 18 policies + AC8 + four laws + 320 cells + scoping + 28 attacks + live-session revocation, from an empty database.`;
+56: say(verdict);
+57: 
+58: const raw = out.join("\n") + "\n";
+59: writeFileSync(join(evidenceDir, `${PHASE}_prove_${runTs}.log`), raw);
+60: 
+61: // Normalised twin: mask uuids, timestamps and timings, so SAME-target run-to-run
+62: // equivalence is a byte comparison rather than a judgement call.
+63: const normalise = (s) => s
+64:   .replace(/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/g, "<uuid>")
+65:   .replace(/\d{4}-\d{2}-\d{2}T\d{4,6}/g, "<ts>")
+66:   .replace(/\d+(\.\d+)?\s?ms\b/g, "<ms>")
+67:   .replace(/fingerprint \S+/g, "fingerprint <token>")
+68:   .replace(/in \d+s\b/g, "in <s>s");
+69: writeFileSync(join(evidenceDir, `${PHASE}_prove_${runTs}.normalised.log`), normalise(raw));
+70: 
+71: // --compare-behaviour: for CROSS-TARGET comparison. Strips the env-source banner
+72: // and the count of pre-existing identities purged (both are properties of the
+73: // target, not of policy behaviour) — but NEVER the pooler host. Masking which
+74: // database ran would make a cross-target diff look clean while destroying the one
+75: // line that proves where it ran (BIM-002 X6 §4).
+76: if (process.argv.includes("--compare-behaviour")) {
+77:   const behavioural = normalise(raw)
+78:     .split("\n")
+79:     .filter((l) => !/^\[env\] .* fallback in use/.test(l))
+80:     .map((l) => l.replace(/purged \d+ pre-existing auth\.users/, "purged <n> pre-existing auth.users"))
+81:     .join("\n");
+82:   writeFileSync(join(evidenceDir, `${PHASE}_prove_${runTs}.behaviour.log`), behavioural);
+83:   console.log(`[rls:prove] behaviour-only twin written (host line retained by design)`);
+84: }
+85: 
+86: console.log(`[rls:prove] evidence → evidence/${PHASE}_prove_${runTs}.log (+ .normalised.log)`);
+87: process.exit(failedAt ? 8 : 0);
+
+FILE: scripts/rls-harness/revocation.mjs
+1: #!/usr/bin/env node
+2: // BIM-002 · rls-harness/revocation.mjs — R-C: live-session junction revocation.
+3: // Closes Proto 06 N-3, which was "expected immediate, never proven".
+4: //
+5: // The question that matters operationally: when a pharmacy offboards someone,
+6: // does their access die NOW, or only when their token happens to refresh?
+7: // Membership is looked up live from the junction, so it should be immediate —
+8: // but expected is not proven, and an hour-long stale window on PHI is not a
+9: // detail. ONE session, signed in ONCE, never refreshed, queried across the
+10: // revocation.
+11: import { readFileSync, writeFileSync } from "node:fs";
+12: import { join } from "node:path";
+13: import { loadEnv, harnessRoot, repoRoot, CAST_PASSWORD } from "./lib/env.mjs";
+14: import { anonClient, serviceClient } from "./lib/db.mjs";
+15: 
+16: const env = loadEnv();
+17: const m = JSON.parse(readFileSync(join(harnessRoot, "seed-map.json"), "utf8"));
+18: const svc = serviceClient(env);
+19: const lines = [];
+20: const log = (s) => { lines.push(s); console.log(s); };
+21: let failures = 0;
+22: const check = (cond, ok, bad) => { if (cond) log(`  ok   ${ok}`); else { log(`  FAIL ${bad}`); failures++; } };
+23: 
+24: log("[revocation] R-C — junction revocation against a LIVE session (no token refresh)\n");
+25: 
+26: // ── sign in ONCE. This session object is never re-authenticated below. ──
+27: const c = anonClient(env);
+28: const who = m.cast.find((x) => x.key === "multiStore");
+29: const { data: signIn, error } = await c.auth.signInWithPassword({ email: who.email, password: CAST_PASSWORD });
+30: if (error) { console.error(`FAIL-CLOSED: sign-in multiStore: ${error.message}`); process.exit(1); }
+31: if (signIn?.user?.id !== m.users.multiStore) { console.error("FAIL-CLOSED: identity mismatch"); process.exit(1); }
+32: const tokenBefore = signIn.session.access_token;
+33: log(`  signed in as multiStore once; access token captured (fingerprint ${tokenBefore.slice(-12)})`);
+34: 
+35: // ── step 1: baseline visibility across both stores ──
+36: const rowsOf = async (biz) => (await c.from("user_data").select("*", { count: "exact", head: true }).eq("business_id", biz)).count;
+37: const a1Before = await rowsOf(m.businesses.a1);
+38: const b1Before = await rowsOf(m.businesses.b1);
+39: const storesBefore = (await c.from("businesses").select("pharmacy_name").order("pharmacy_name")).data.map((b) => b.pharmacy_name);
+40: log(`  step 1 — before revocation: A1=${a1Before} rows · B1=${b1Before} rows · stores=[${storesBefore.join(", ")}]`);
+41: check(a1Before === 200 && b1Before === 200, "sees both stores' rows (200 + 200)", `expected 200/200, got ${a1Before}/${b1Before}`);
+42: 
+43: // ── step 2: service role revokes the (multiStore, B1) membership ──
+44: const { error: delErr } = await svc.from("user_businesses").delete()
+45:   .eq("user_id", m.users.multiStore).eq("business_id", m.businesses.b1);
+46: if (delErr) { console.error(`FAIL: revoke failed — ${delErr.message}`); process.exit(2); }
+47: const gtAfterRevoke = (await svc.from("user_businesses").select("business_id")
+48:   .eq("user_id", m.users.multiStore)).data.map((r) => r.business_id);
+49: log(`  step 2 — service role deleted (multiStore, B1). Ground truth: multiStore now holds ${gtAfterRevoke.length} junction row(s)`);
+50: check(gtAfterRevoke.length === 1 && gtAfterRevoke[0] === m.businesses.a1, "junction ground truth: A1 only", "junction ground truth wrong after revoke");
+51: 
+52: // ── step 3: SAME session, no refresh, re-query ──
+53: const tokenNow = (await c.auth.getSession()).data.session.access_token;
+54: check(tokenNow === tokenBefore, "access token is byte-identical — no refresh occurred between the queries", "token changed; the test would prove nothing");
+55: const a1After = await rowsOf(m.businesses.a1);
+56: const b1After = await rowsOf(m.businesses.b1);
+57: const storesAfter = (await c.from("businesses").select("pharmacy_name").order("pharmacy_name")).data.map((b) => b.pharmacy_name);
+58: log(`  step 3 — after revocation, SAME session: A1=${a1After} rows · B1=${b1After} rows · stores=[${storesAfter.join(", ")}]`);
+59: check(b1After === 0, "B1 rows are gone IMMEDIATELY (0) — revocation is not deferred to token refresh", `B1 still visible: ${b1After} rows — STALE ACCESS WINDOW`);
+60: check(a1After === 200, "A1 rows remain (200) — revocation was surgical, not a blanket lockout", `A1 unexpectedly changed: ${a1After}`);
+61: check(storesAfter.length === 1 && storesAfter[0] === "Store A1", "store list narrowed to A1 only", `store list wrong: [${storesAfter.join(", ")}]`);
+62: 
+63: // ── step 4: restore, so the suite is idempotent ──
+64: await svc.from("user_businesses").insert({ user_id: m.users.multiStore, business_id: m.businesses.b1, role: "member", is_primary: false });
+65: const restored = (await svc.from("user_businesses").select("*", { count: "exact", head: true })).count;
+66: const b1Restored = await rowsOf(m.businesses.b1);
+67: log(`  step 4 — membership restored (junction back to ${restored} rows); same session now sees B1=${b1Restored} rows again`);
+68: check(restored === 6, "junction restored to its seeded shape", `junction is ${restored} rows, expected 6`);
+69: check(b1Restored === 200, "re-granting membership is ALSO immediate on the same session", `B1=${b1Restored} after restore`);
+70: await c.auth.signOut();
+71: 
+72: log(`\n[revocation] ${failures === 0 ? "R-C PROVEN — revocation and re-grant both take effect immediately, with no token refresh" : `${failures} FAILURE(S)`}`);
+73: const ts = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+74: writeFileSync(join(repoRoot, "agent_docs/ACTIONS/BIM-002-CYBER-PHARMA/evidence", `X4_revocation_${ts}.log`), lines.join("\n") + "\n");
+75: process.exit(failures === 0 ? 0 : 3);
+
+FILE: scripts/rls-harness/scoping.mjs
+1: #!/usr/bin/env node
+2: // BIM-002 · rls-harness/scoping.mjs — the row-scoping assertion set.
+3: // Promoted from a one-off X3 check into a permanent, named part of the suite
+4: // (Architect ruling 2026-09-01): allow/deny is not isolation — WHICH rows is.
+5: //
+6: // Standing law applied here after instrument defect #4: FAIL CLOSED on auth
+7: // failure, and assert the identity we actually ran as. A silently-failed sign-in
+8: // reads as "0 rows" and would otherwise be scored as perfect isolation.
+9: import { readFileSync, writeFileSync } from "node:fs";
+10: import { join } from "node:path";
+11: import { loadEnv, harnessRoot, repoRoot, CAST_PASSWORD } from "./lib/env.mjs";
+12: import { anonClient } from "./lib/db.mjs";
+13: 
+14: const env = loadEnv();
+15: const seed = JSON.parse(readFileSync(join(harnessRoot, "seed-map.json"), "utf8"));
+16: const lines = [];
+17: const log = (s) => { lines.push(s); console.log(s); };
+18: 
+19: // Expected shape, derived from the seed cast (manager §5.3): 200 user_data rows
+20: // per store · A1+A2 under Account A · B1 under Account B.
+21: const EXPECT = {
+22:   ownerA:     { rows: 400, stores: ["Store A1", "Store A2"], accounts: ["Account A"] },
+23:   staffA:     { rows: 200, stores: ["Store A1"],             accounts: ["Account A"] },
+24:   ownerB:     { rows: 200, stores: ["Store B1"],             accounts: ["Account B"] },
+25:   multiStore: { rows: 400, stores: ["Store A1", "Store B1"], accounts: ["Account A", "Account B"] },
+26: };
+27: 
+28: let failures = 0;
+29: log("[scoping] row-level tenant scoping — which rows, not just allow/deny");
+30: 
+31: for (const who of seed.cast) {
+32:   const c = anonClient(env);
+33:   const { data: session, error } = await c.auth.signInWithPassword({ email: who.email, password: CAST_PASSWORD });
+34:   if (error) { log(`  FAIL ${who.key}: sign-in failed (${error.message}) — FAILING CLOSED, not scoring as 0 rows`); failures++; continue; }
+35:   // assert the identity we actually ran as (instrument defect #4)
+36:   if (session?.user?.id !== seed.users[who.key]) {
+37:     log(`  FAIL ${who.key}: session identity mismatch — signed in as ${session?.user?.id}, expected ${seed.users[who.key]}`);
+38:     failures++; await c.auth.signOut(); continue;
+39:   }
+40:   const { count } = await c.from("user_data").select("*", { count: "exact", head: true }); // F-2: counted, never inferred
+41:   const { data: biz } = await c.from("businesses").select("pharmacy_name").order("pharmacy_name");
+42:   const { data: acct } = await c.from("accounts").select("name").order("name");
+43:   const e = EXPECT[who.key];
+44:   const gotStores = biz.map((b) => b.pharmacy_name);
+45:   const gotAccts = acct.map((a) => a.name);
+46:   const ok = count === e.rows
+47:     && JSON.stringify(gotStores) === JSON.stringify(e.stores)
+48:     && JSON.stringify(gotAccts) === JSON.stringify(e.accounts);
+49:   if (!ok) failures++;
+50:   log(`  ${ok ? "ok  " : "FAIL"} ${who.key.padEnd(11)} rows=${String(count).padEnd(4)} stores=[${gotStores.join(", ")}] accounts=[${gotAccts.join(", ")}]  expected rows=${e.rows} stores=[${e.stores.join(", ")}] accounts=[${e.accounts.join(", ")}]`);
+51:   await c.auth.signOut();
+52: }
+53: 
+54: const anon = anonClient(env);
+55: const { count: anonRows } = await anon.from("user_data").select("*", { count: "exact", head: true });
+56: const anonOk = (anonRows ?? 0) === 0;
+57: if (!anonOk) failures++;
+58: log(`  ${anonOk ? "ok  " : "FAIL"} ${"anon".padEnd(11)} rows=${anonRows} (expected 0)`);
+59: 
+60: log(`[scoping] ${failures === 0 ? "SCOPING EXACT" : `${failures} FAILURE(S)`}`);
+61: const ts = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
+62: writeFileSync(join(repoRoot, "agent_docs/ACTIONS/BIM-002-CYBER-PHARMA/evidence", `X4_scoping_${ts}.log`), lines.join("\n") + "\n");
+63: process.exit(failures === 0 ? 0 : 3);
+
+FILE: scripts/rls-harness/seed.mjs
+1: #!/usr/bin/env node
+2: // BIM-002 · rls-harness/seed.mjs — the real cast (manager §5.3).
+3: //
+4: //   Account A → stores A1, A2 · Account B → store B1
+5: //   ownerA     admin  A1 + A2
+6: //   staffA     member A1
+7: //   ownerB     admin  B1
+8: //   multiStore member A1 + B1
+9: //
+10: // Reset step (X4 carry note, Architect 2026-09-01): the `auth` schema SURVIVES a
+11: // public-schema wipe, so this step EXPLICITLY deletes every auth user it finds
+12: // from prior lanes before creating the cast. The harness asserts the cast it
+13: // created — never the absence of others.
+14: //
+15: // Every one of the sixteen tables is seeded with at least one row, so that a
+16: // DENY verdict means "policy refused" and never "table happened to be empty".
+17: import { writeFileSync } from "node:fs";
+18: import { join } from "node:path";
+19: import { loadEnv, harnessRoot, CAST_PASSWORD } from "./lib/env.mjs";
+20: import { pgClient, serviceClient } from "./lib/db.mjs";
+21: 
+22: const env = loadEnv();
+23: const svc = serviceClient(env);
+24: const db = await pgClient(env);
+25: const one = async (s, p) => (await db.query(s, p)).rows[0];
+26: 
+27: const CAST = [
+28:   { key: "ownerA", email: "bim002-ownera@rls.local" },
+29:   { key: "staffA", email: "bim002-staffa@rls.local" },
+30:   { key: "ownerB", email: "bim002-ownerb@rls.local" },
+31:   { key: "multiStore", email: "bim002-multistore@rls.local" },
+32: ];
+33: 
+34: // ── reset, PUBLIC DATA FIRST ──
+35: // Order is load-bearing: `accounts.owner_user_id` references auth.users with NO
+36: // ON DELETE CASCADE (BIM-001 schema), so an auth user who owns an account cannot
+37: // be deleted while that row exists — auth.admin.deleteUser returns "Database
+38: // error deleting user" and a naive purge dies half-way, leaving orphaned
+39: // identities whose sign-in then fails silently. Public rows go first; the
+40: // junction's own ON DELETE CASCADE handles the rest.
+41: // audit_logs is NOT in this list: since BIM-003 (R-6) it is append-only for every role and
+42: // a DELETE here would raise. Its only reset is prove.mjs stage 1's schema drop.
+43: for (const t of ["user_data", "report_files", "subscriptions", "user_businesses", "businesses",
+44:                  "accounts", "apa_memberships", "pending_registrations",
+45:                  "aac_reference", "wac_reference", "ful_reference", "pbm_info", "reference_dataset_versions"]) {
+46:   await db.query(`delete from public.${t}`);
+47: }
+48: console.log("  reset: thirteen public tables emptied (before the auth purge — FK order matters; audit_logs is append-only)");
+49: 
+50: // ── reset: purge ALL pre-existing auth users (explicit, never assumed absent) ──
+51: // X4 carry note (Architect, 2026-09-01): the auth schema SURVIVES a public-schema
+52: // wipe. Leftover identities from prior lanes are deleted here explicitly; the
+53: // harness asserts the cast it created and never the absence of others.
+54: const { data: existing, error: listErr } = await svc.auth.admin.listUsers({ perPage: 1000 });
+55: if (listErr) { console.error("FAIL: listUsers — " + listErr.message); process.exit(2); }
+56: for (const u of existing?.users ?? []) {
+57:   const { error } = await svc.auth.admin.deleteUser(u.id);
+58:   if (error) { console.error(`FAIL: deleteUser ${u.id} (${u.email}) — ${error.message}`); process.exit(2); }
+59: }
+60: console.log(`  reset: purged ${existing?.users?.length ?? 0} pre-existing auth.users`);
+61: 
+62: // ── the cast ──
+63: const users = {};
+64: for (const who of CAST) {
+65:   const { data, error } = await svc.auth.admin.createUser({ email: who.email, password: CAST_PASSWORD, email_confirm: true });
+66:   if (error) { console.error(`FAIL: createUser ${who.key} — ${error.message}`); process.exit(2); }
+67:   users[who.key] = data.user.id;
+68: }
+69: console.log(`  cast: ${Object.keys(users).length} identities created (handle_new_user seeds their user_roles + profiles rows)`);
+70: 
+71: // ── tenants ──
+72: const accA = await one(`insert into public.accounts (name, owner_user_id) values ('Account A', $1) returning id`, [users.ownerA]);
+73: const accB = await one(`insert into public.accounts (name, owner_user_id) values ('Account B', $1) returning id`, [users.ownerB]);
+74: const a1 = await one(`insert into public.businesses (account_id, ncpdp, npi, pharmacy_name) values ($1,'0100001','1010000001','Store A1') returning id`, [accA.id]);
+75: const a2 = await one(`insert into public.businesses (account_id, ncpdp, npi, pharmacy_name) values ($1,'0100002','1010000002','Store A2') returning id`, [accA.id]);
+76: const b1 = await one(`insert into public.businesses (account_id, ncpdp, npi, pharmacy_name) values ($1,'0100003','1010000003','Store B1') returning id`, [accB.id]);
+77: 
+78: await db.query(
+79:   `insert into public.user_businesses (user_id, business_id, role, is_primary) values
+80:      ($1,$5,'admin',true), ($1,$6,'admin',false),
+81:      ($2,$5,'member',true),
+82:      ($3,$7,'admin',true),
+83:      ($4,$5,'member',true), ($4,$7,'member',false)`,
+84:   [users.ownerA, users.staffA, users.ownerB, users.multiStore, a1.id, a2.id, b1.id]
+85: );
+86: console.log("  tenants: 2 accounts, 3 stores, 6 junction rows");
+87: 
+88: // ── one row minimum in every remaining table, so DENY is never vacuous ──
+89: await db.query(`insert into public.subscriptions (account_id, status) values ($1,'active'), ($2,'trialing')`, [accA.id, accB.id]);
+90: for (const [biz, tag] of [[a1.id, "A1"], [a2.id, "A2"], [b1.id, "B1"]]) {
+91:   await db.query(
+92:     `insert into public.user_data (business_id, script, drug_ndc, drug_name, qty, payment, expected_paid, owed, date_dispensed)
+93:      select $1, 'RX-${tag}-'||g, lpad(g::text,11,'0'), 'Drug ${tag} '||g, (g%5)+1, (g*3)::numeric, (g*4)::numeric, g::numeric, current_date-(g%30)
+94:      from generate_series(1,200) g`, [biz]);
+95:   await db.query(`insert into public.report_files (business_id, file_name, report_type) values ($1, 'report-${tag}.pdf', 'owedbook')`, [biz]);
+96: }
+97: await db.query(`insert into public.apa_memberships (license_number, membership, first_name, last_name) values ('LIC-0001','APA','Ada','Lovelace')`);
+98: await db.query(`insert into public.pending_registrations (ncpdp, npi, email, pharmacy_name) values ('0900001','1090000001','pending@rls.local','Pending Pharmacy')`);
+99: // audit_logs seeds itself: every insert above fired BIM-003's audit_write trigger (0030-0043).
+100: await db.query(`insert into public.reference_dataset_versions (dataset_name, checksum, row_count) values ('aac','seed-checksum',3)`);
+101: await db.query(`insert into public.aac_reference (ndc, aac_date, aac, drug_name) values ('00000000001', current_date, 12.34, 'Ref Drug')`);
+102: await db.query(`insert into public.wac_reference (ndc, effective_date, wac, pkg_size, pkg_size_mult, generic_indicator) values ('00000000001', current_date, 56.78, 30, 1, 'G')`);
+103: await db.query(`insert into public.ful_reference (ndc, year, month, aca_ful) values ('00000000001', 2026, 9, 9.876543)`);
+104: await db.query(`insert into public.pbm_info (bin, pbm_name, pcn, state, matching_type) values ('004146','Seed PBM','PCN1','AL','bin_only')`);
+105: 
+106: const counts = await one(`select
+107:   (select count(*) from public.user_data)::int ud, (select count(*) from public.report_files)::int rf,
+108:   (select count(*) from public.subscriptions)::int sb, (select count(*) from public.user_roles)::int ur,
+109:   (select count(*) from public.profiles)::int pr`);
+110: console.log(`  rows: user_data=${counts.ud} report_files=${counts.rf} subscriptions=${counts.sb} user_roles=${counts.ur} profiles=${counts.pr} (+1 in each remaining table)`);
+111: 
+112: const factA1 = await one(`select id from public.user_data where business_id=$1 limit 1`, [a1.id]);
+113: const factB1 = await one(`select id from public.user_data where business_id=$1 limit 1`, [b1.id]);
+114: const rfA1 = await one(`select id from public.report_files where business_id=$1 limit 1`, [a1.id]);
+115: const subA = await one(`select id from public.subscriptions where account_id=$1 limit 1`, [accA.id]);
+116: 
+117: writeFileSync(join(harnessRoot, "seed-map.json"), JSON.stringify({
+118:   users, cast: CAST,
+119:   accounts: { A: accA.id, B: accB.id },
+120:   businesses: { a1: a1.id, a2: a2.id, b1: b1.id },
+121:   samples: { factA1: factA1.id, factB1: factB1.id, reportA1: rfA1.id, subscriptionA: subA.id },
+122: }, null, 2));
+123: console.log("[seed] complete — seed-map.json written (ids only, no secrets).");
+124: await db.end();
+
+FILE: scripts/rls-harness/x3-red-green.mjs
+1: #!/usr/bin/env node
+2: // BIM-002 · X3 driver — lands 0017..0027 ONE AT A TIME, red then green.
+3: //
+4: // The ritual, mechanised so the evidence is uniform and reproducible:
+5: //   1. flip that step's expectation cells to ALLOW  → run matrix → must be RED
+6: //      (a policy that never went red proves nothing — manager §4.3.6)
+7: //   2. apply the migration                          → run matrix → must be GREEN
+8: //   3. run policy-check                             → all four laws must hold
+9: // Any deviation stops the driver on the spot.
+10: import { readFileSync, writeFileSync } from "node:fs";
+11: import { join } from "node:path";
+12: import { spawnSync } from "node:child_process";
+13: import { loadEnv, harnessRoot, repoRoot } from "./lib/env.mjs";
+14: import { pgClient } from "./lib/db.mjs";
+15: 
+16: const AUTHED = ["ownerA", "staffA", "ownerB", "multiStore"];
+17: const all = (table, op) => Object.fromEntries(AUTHED.map((i) => [i, { [table]: { [op]: "ALLOW" } }]));
+18: const some = (ids, table, op) => Object.fromEntries(ids.map((i) => [i, { [table]: { [op]: "ALLOW" } }]));
+19: 
+20: // Per-step expectation deltas. Tenant payloads target store A1 throughout, so
+21: // ownerB (B-side only) staying DENY is the cross-tenant proof, cell by cell.
+22: const STEPS = [
+23:   { file: "0017_rls_user_businesses.sql", delta: all("user_businesses", "select"),
+24:     why: "T-5 self-visibility: each identity sees only their own junction rows" },
+25:   { file: "0018_rls_accounts.sql", delta: all("accounts", "select"),
+26:     why: "R-A: each identity reads the account above a store they belong to" },
+27:   { file: "0019_rls_businesses.sql",
+28:     delta: merge(all("businesses", "select"), some(["ownerA"], "businesses", "update")),
+29:     why: "T-1 read for all four; T-3 write only for ownerA (admin of A1, the probe target)" },
+30:   { file: "0020_rls_subscriptions.sql", delta: all("subscriptions", "select"),
+31:     why: "R-A mirror: account-scoped subscription read" },
+32:   { file: "0021_rls_user_data.sql",
+33:     delta: merge(all("user_data", "select"),
+34:                  some(["ownerA", "staffA", "multiStore"], "user_data", "insert"),
+35:                  some(["ownerA", "staffA", "multiStore"], "user_data", "update"),
+36:                  some(["ownerA"], "user_data", "delete")),
+37:     why: "SELECT all four; INSERT/UPDATE only A1 members; DELETE only the A1 admin (ownerB denied throughout = cross-tenant proof)" },
+38:   { file: "0022_rls_report_files.sql", delta: all("report_files", "select"), why: "T-1 read" },
+39:   { file: "0023_rls_aac_reference.sql", delta: all("aac_reference", "select"), why: "T-4 platform read" },
+40:   { file: "0024_rls_wac_reference.sql", delta: all("wac_reference", "select"), why: "T-4 platform read" },
+41:   { file: "0025_rls_ful_reference.sql", delta: all("ful_reference", "select"), why: "T-4 platform read" },
+42:   { file: "0026_rls_pbm_info.sql", delta: all("pbm_info", "select"), why: "T-4 platform read" },
+43:   { file: "0027_rls_reference_dataset_versions.sql", delta: all("reference_dataset_versions", "select"), why: "T-4 platform read" },
+44: ];
+45: 
+46: function merge(...objs) {
+47:   const out = {};
+48:   for (const o of objs) for (const [id, tables] of Object.entries(o)) {
+49:     out[id] ||= {};
+50:     for (const [t, ops] of Object.entries(tables)) out[id][t] = { ...(out[id][t] ?? {}), ...ops };
+51:   }
+52:   return out;
+53: }
+54: function applyDelta(overrides, delta) {
+55:   for (const [id, tables] of Object.entries(delta)) {
+56:     overrides[id] ||= {};
+57:     for (const [t, ops] of Object.entries(tables)) overrides[id][t] = { ...(overrides[id][t] ?? {}), ...ops };
+58:   }
+59: }
+60: const expPath = join(harnessRoot, "expectations.json");
+61: const runMatrix = (label) => spawnSync("node", [join(harnessRoot, "harness.mjs"), label],
+62:   { cwd: repoRoot, encoding: "utf8", env: { ...process.env, RLS_QUIET: "1" } });
+63: const runCheck = () => spawnSync("node", [join(harnessRoot, "policy-check.mjs")], { cwd: repoRoot, encoding: "utf8" });
+64: 
+65: const env = loadEnv();
+66: const db = await pgClient(env);
+67: const ledger = [];
+68: 
+69: for (const [i, step] of STEPS.entries()) {
+70:   const n = String(i + 1).padStart(2, "0");
+71:   const stem = step.file.replace(/\.sql$/, "");
+72:   console.log(`\n═════ STEP ${n}/${STEPS.length} — ${step.file} ═════\n  ${step.why}`);
+73: 
+74:   // 1. RED — flip expectations before the policy exists
+75:   const exp = JSON.parse(readFileSync(expPath, "utf8"));
+76:   applyDelta(exp.overrides, step.delta);
+77:   exp.phase = `X3-${n}-${stem}-RED`;
+78:   writeFileSync(expPath, JSON.stringify(exp, null, 2) + "\n");
+79:   const red = runMatrix(exp.phase);
+80:   const redFile = (red.stdout.match(/evidence\/(\S+\.log)/) || [])[1];
+81:   if (red.status === 0) { console.error(`  ABORT: matrix was GREEN before ${step.file} landed — the step proves nothing.`); process.exit(4); }
+82:   console.log(`  RED   ✓ ${redFile}`);
+83: 
+84:   // 2. GREEN — land the policy
+85:   try { await db.query(readFileSync(join(repoRoot, "supabase", "migrations", step.file), "utf8")); }
+86:   catch (e) { console.error(`  ABORT: ${step.file} failed to apply — ${e.message}`); process.exit(5); }
+87:   exp.phase = `X3-${n}-${stem}-GREEN`;
+88:   writeFileSync(expPath, JSON.stringify(exp, null, 2) + "\n");
+89:   const green = runMatrix(exp.phase);
+90:   const greenFile = (green.stdout.match(/evidence\/(\S+\.log)/) || [])[1];
+91:   if (green.status !== 0) {
+92:     console.error(`  ABORT: matrix still RED after ${step.file}.`);
+93:     console.error(green.stdout.split("\n").filter((l) => l.includes("RED:")).join("\n"));
+94:     process.exit(6);
+95:   }
+96:   console.log(`  GREEN ✓ ${greenFile}`);
+97: 
+98:   // 3. laws
+99:   const chk = runCheck();
+100:   if (chk.status !== 0) { console.error(`  ABORT: policy-check failed after ${step.file}\n${chk.stdout}${chk.stderr}`); process.exit(7); }
+101:   console.log(`  LAWS  ✓ L1 one-per-op · L2 SELECT-before-write · L3 junction-first · L4 Gap-6`);
+102:   ledger.push({ step: n, file: step.file, red: redFile, green: greenFile, why: step.why });
+103: }
+104: 
+105: const exp = JSON.parse(readFileSync(expPath, "utf8"));
+106: exp.phase = "X3-FINAL-all-policies";
+107: writeFileSync(expPath, JSON.stringify(exp, null, 2) + "\n");
+108: writeFileSync(join(repoRoot, "agent_docs", "ACTIONS", "BIM-002-CYBER-PHARMA", "evidence", "X3_red_green_ledger.json"), JSON.stringify(ledger, null, 2) + "\n");
+109: console.log(`\n[x3] ${ledger.length}/${STEPS.length} steps landed red→green, laws held after every one.`);
+110: await db.end();
+
+FILE: scripts/rls-harness/lib/env.mjs
+1: // BIM-002 · rls-harness/lib/env.mjs — env loading, prefix-generalized (R-D).
+2: // Reads .env.local at repo root. NEVER prints a value. Fail-closed.
+3: //
+4: // Prefix contract: loadEnv("RLS_HARNESS_") wants RLS_HARNESS_DB_URL,
+5: // _SUPABASE_URL, _PUBLISHABLE_KEY, _SECRET_KEY. Until the Director adds those
+6: // lines, Amendment A-1 maps the module to the Proto 06 throwaway keys.
+7: import { readFileSync, existsSync } from "node:fs";
+8: import { fileURLToPath } from "node:url";
+9: import { dirname, join } from "node:path";
+10: 
+11: export const repoRoot = dirname(dirname(dirname(dirname(fileURLToPath(import.meta.url)))));
+12: export const harnessRoot = join(repoRoot, "scripts", "rls-harness");
+13: 
+14: // A-1 fallback map: <PREFIX><logical> -> actual key on disk today.
+15: const A1_FALLBACK = {
+16:   DB_URL: "PROTO06_DB_URL",
+17:   SUPABASE_URL: "NEXT_PUBLIC_SUPABASE_URL",
+18:   PUBLISHABLE_KEY: "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+19:   SECRET_KEY: "SUPABASE_SECRET_KEY",
+20: };
+21: 
+22: export function loadEnv(prefix = process.env.RLS_HARNESS_PREFIX ?? "RLS_HARNESS_") {
+23:   const envPath = join(repoRoot, ".env.local");
+24:   if (!existsSync(envPath)) {
+25:     console.error("FAIL-CLOSED: .env.local not found at repo root:", repoRoot);
+26:     process.exit(1);
+27:   }
+28:   const raw = {};
+29:   for (const line of readFileSync(envPath, "utf8").split("\n")) {
+30:     const m = line.match(/^([A-Z_0-9]+)=(.*)$/);
+31:     if (m) raw[m[1]] = m[2].trim();
+32:   }
+33:   const out = {};
+34:   const usedFallback = [];
+35:   for (const logical of Object.keys(A1_FALLBACK)) {
+36:     const prefixed = prefix + logical;
+37:     if (raw[prefixed]) out[logical] = raw[prefixed];
+38:     else if (raw[A1_FALLBACK[logical]]) { out[logical] = raw[A1_FALLBACK[logical]]; usedFallback.push(logical); }
+39:     else {
+40:       console.error(`FAIL-CLOSED: neither ${prefixed} nor A-1 fallback ${A1_FALLBACK[logical]} present in .env.local.`);
+41:       process.exit(1);
+42:     }
+43:   }
+44:   if (out.PUBLISHABLE_KEY === out.SECRET_KEY) {
+45:     console.error("FAIL-CLOSED: publishable key equals secret key — the harness would 'prove' isolation as service role.");
+46:     process.exit(1);
+47:   }
+48:   if (usedFallback.length) console.log(`[env] A-1 fallback in use for: ${usedFallback.join(", ")} (rename to ${prefix}* when the Director adds them)`);
+49:   return out; // values never logged
+50: }
+51: 
+52: // Synthetic, throwaway-only. Rig identities are recreated by seed.mjs every run.
+[REDACTED: tracked harness password literal; source location retained in adjacent lines]
+
+FILE: scripts/rls-harness/lib/db.mjs
+1: // BIM-002 · rls-harness/lib/db.mjs — service-role clients.
+2: // The ONLY place in the repo that constructs a service-role client outside
+3: // seed/system paths (AC19 fence). Everything the matrix asserts runs through
+4: // the publishable key instead.
+5: import pg from "pg";
+6: import { createClient } from "@supabase/supabase-js";
+7: 
+8: export async function pgClient(env, { timeout = "120s" } = {}) {
+9:   const c = new pg.Client({ connectionString: env.DB_URL });
+10:   await c.connect();
+11:   await c.query(`set statement_timeout = '${timeout}'`);
+12:   return c;
+13: }
+14: 
+15: export function serviceClient(env) {
+16:   return createClient(env.SUPABASE_URL, env.SECRET_KEY, {
+17:     auth: { autoRefreshToken: false, persistSession: false },
+18:   });
+19: }
+20: 
+21: export function anonClient(env) {
+22:   return createClient(env.SUPABASE_URL, env.PUBLISHABLE_KEY, {
+23:     auth: { autoRefreshToken: false, persistSession: false },
+24:   });
+25: }

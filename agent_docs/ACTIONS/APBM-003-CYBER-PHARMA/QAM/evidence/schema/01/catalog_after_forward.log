@@ -1,0 +1,4 @@
+qa-shim: SCRATCH fence OK (url-side ref=ihgcsrypblqkwommrkgj; sql-side DEV fingerprint absent)
+qa-shim: spawning in /tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/fa30ae5a-f519-405b-b673-4ca4f9937817/scratchpad/qa-tree: node scripts/dev-verify.mjs --manifest /tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/fa30ae5a-f519-405b-b673-4ca4f9937817/scratchpad/qa-tree/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/schema/01/migration-inventory.json (evidence → ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/schema/01)
+{"projectRef":"ihgcsrypblqkwommrkgj","readOnly":"on","catalogSHA256":"66782ff92213415443d428ade161b165e04a5aba29999453cb0ab34a7160d061","tables":17,"policies":15,"functions":19}
+exit=0

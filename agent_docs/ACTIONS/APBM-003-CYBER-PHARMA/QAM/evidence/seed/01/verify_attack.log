@@ -1,0 +1,21 @@
+qa-shim: SCRATCH fence OK (url-side ref=ihgcsrypblqkwommrkgj; sql-side DEV fingerprint absent)
+qa-shim: spawning in /tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/fa30ae5a-f519-405b-b673-4ca4f9937817/scratchpad/qa-tree: node scripts/seed/verify.mjs --compare /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/seed/01/seed_verify_run1.json (evidence → ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/seed/01)
+node:internal/modules/run_main:122
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+1 !== 0
+
+    at file:///tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/fa30ae5a-f519-405b-b673-4ca4f9937817/scratchpad/qa-tree/scripts/seed/verify.mjs:32:352
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 1,
+  expected: 0,
+  operator: 'strictEqual'
+}
+
+Node.js v22.14.0
+exit=1

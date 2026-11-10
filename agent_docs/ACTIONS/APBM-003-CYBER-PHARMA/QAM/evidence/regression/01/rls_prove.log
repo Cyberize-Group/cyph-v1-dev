@@ -1,0 +1,194 @@
+qa-shim: SCRATCH fence OK (url-side ref=ihgcsrypblqkwommrkgj; sql-side DEV fingerprint absent)
+qa-shim: spawning in /tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/fa30ae5a-f519-405b-b673-4ca4f9937817/scratchpad/qa-tree: npm run rls:prove -- APBM_QA (evidence → ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/regression/01)
+
+> cyber-pharma@0.1.0 rls:prove
+> node scripts/rls-harness/prove.mjs APBM_QA
+
+[rls:prove] full isolation proof from an empty scratch — 2026-11-09T0403
+
+═══ 1/8 FENCED SCRATCH REPLAY ═══
+Committed 0001_baseline_acknowledge.sql
+Committed 0002_accounts.sql
+Committed 0003_businesses.sql
+Committed 0004_user_businesses.sql
+Committed 0005_pending_registrations.sql
+Committed 0006_subscriptions.sql
+Committed 0007_apa_memberships.sql
+Committed 0008_reference_dataset_versions.sql
+Committed 0009_aac_reference.sql
+Committed 0010_wac_reference.sql
+Committed 0011_ful_reference.sql
+Committed 0012_pbm_info.sql
+Committed 0013_user_data.sql
+Committed 0014_report_files.sql
+Committed 0015_audit_logs.sql
+Committed 0016_rls_helpers.sql
+Committed 0017_rls_user_businesses.sql
+Committed 0018_rls_accounts.sql
+Committed 0019_rls_businesses.sql
+Committed 0020_rls_subscriptions.sql
+Committed 0021_rls_user_data.sql
+Committed 0022_rls_report_files.sql
+Committed 0023_rls_aac_reference.sql
+Committed 0024_rls_wac_reference.sql
+Committed 0025_rls_ful_reference.sql
+Committed 0026_rls_pbm_info.sql
+Committed 0027_rls_reference_dataset_versions.sql
+Committed 0028_audit_logs_reshape.sql
+Committed 0029_rls_audit_logs.sql
+Committed 0030_audit_write.sql
+Committed 0031_audit_stamp_businesses.sql
+Committed 0032_audit_stamp_user_businesses.sql
+Committed 0033_audit_stamp_pending_registrations.sql
+Committed 0034_audit_stamp_user_data.sql
+Committed 0035_audit_stamp_report_files.sql
+Committed 0036_audit_stamp_accounts.sql
+Committed 0037_audit_stamp_subscriptions.sql
+Committed 0038_audit_stamp_apa_memberships.sql
+Committed 0039_audit_stamp_reference_dataset_versions.sql
+Committed 0040_audit_stamp_aac_reference.sql
+Committed 0041_audit_stamp_wac_reference.sql
+Committed 0042_audit_stamp_ful_reference.sql
+Committed 0043_audit_stamp_pbm_info.sql
+Committed 0044_owedbook_kpis.sql
+Committed 0045_owedbook_rows.sql
+Committed 0046_owedbook_summary.sql
+Committed 0047_owedbook_pbm_options.sql
+Committed 0048_ownership.sql
+Committed 0049_signup_member.sql
+Committed 0050_claim_read_fence.sql
+Committed 0051_admin_reads.sql
+Committed 0052_system_config.sql
+
+═══ 2/8 SEED (cast + FK-safe reset) ═══
+  reset: thirteen public tables emptied (before the auth purge — FK order matters; audit_logs is append-only)
+  reset: removed only matching legacy harness identities; preserved all other Auth users
+  cast: 4 identities created (handle_new_user seeds their user_roles + profiles rows)
+  tenants: 2 accounts, 3 stores, 6 junction rows
+  rows: user_data=600 report_files=3 subscriptions=2 user_roles=4 profiles=4 (+1 in each remaining table)
+[seed] complete — seed-map.json written (ids only, no secrets).
+
+═══ 3/8 AC8 helper shape, FROM SCRATCH (E-5) ═══
+[ac8] helper shape + grants (asserted after a from-scratch apply, per E-5)
+  ok   is_account_member  secdef=true volatile=s config={"search_path=\"\""} acl={postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
+  ok   is_admin_of        secdef=true volatile=s config={"search_path=\"\""} acl={postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
+  ok   is_member_of       secdef=true volatile=s config={"search_path=\"\""} acl={postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
+  ok   is_owner_of_account secdef=true volatile=s config={"search_path=\"\""} acl={postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
+  ok   my_business_ids    secdef=true volatile=s config={"search_path=\"\""} acl={postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}
+  ok   is_owner_of_account(uuid)  anon=false authenticated=true service_role=true
+  ok   is_member_of(uuid)         anon=false authenticated=true service_role=true
+  ok   is_admin_of(uuid)          anon=false authenticated=true service_role=true
+  ok   is_account_member(uuid)    anon=false authenticated=true service_role=true
+  ok   my_business_ids()          anon=false authenticated=true service_role=true
+  ok   anon denied at execution (42501)
+[ac8] AC8 GREEN
+
+═══ 4/8 POLICY-CHECK (L1-L4) ═══
+  ok   L1 one permissive policy per operation per table (15 table×op groups)
+  ok   L2 SELECT-before-write holds (catalog + migration file order)
+  ok   L3 junction-first: no inline-junction predicates in use (formulation C adopted)
+  ok   L4 Gap-6: no policy or helper reads user_roles / profiles / metadata
+  ── policy inventory ──
+     aac_reference                SELECT × 1  aac_reference_select_authenticated
+     accounts                     SELECT × 1  account_select_member_or_owner
+     businesses                   SELECT × 1  business_select_member_or_owner
+     businesses                   UPDATE × 1  business_update_admin
+     ful_reference                SELECT × 1  ful_reference_select_authenticated
+     pbm_info                     SELECT × 1  pbm_info_select_authenticated
+     profiles                     SELECT × 1  Profiles are viewable by owner or superadmins
+     profiles                     UPDATE × 1  Profiles are updatable by owner or superadmins
+     reference_dataset_versions   SELECT × 1  reference_dataset_versions_select_authenticated
+     report_files                 SELECT × 1  report_files_select_member
+     subscriptions                SELECT × 1  subscription_select_member_or_owner
+     system_config                SELECT × 1  config_select_scoped_state
+     user_businesses              SELECT × 1  user_business_select_self_or_owner
+     user_roles                   SELECT × 1  Users can read their own role
+     wac_reference                SELECT × 1  wac_reference_select_authenticated
+  total policies in public: 15
+[policy-check] ALL LAWS HOLD
+
+═══ 5/8 MATRIX (320 cells) ═══
+[harness] GREEN (320 cells) → ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/regression/01/APBM_QA-matrix_2026-11-09T0404.log
+
+═══ 6/8 SCOPING (row-level) ═══
+[scoping] row-level tenant scoping — which rows, not just allow/deny
+  ok   ownerA      rows=400  stores=[Store A1, Store A2] accounts=[Account A]  expected rows=400 stores=[Store A1, Store A2] accounts=[Account A]
+  ok   staffA      rows=200  stores=[Store A1] accounts=[Account A]  expected rows=200 stores=[Store A1] accounts=[Account A]
+  ok   ownerB      rows=200  stores=[Store B1] accounts=[Account B]  expected rows=200 stores=[Store B1] accounts=[Account B]
+  ok   multiStore  rows=400  stores=[Store A1, Store B1] accounts=[Account A, Account B]  expected rows=400 stores=[Store A1, Store B1] accounts=[Account A, Account B]
+  ok   anon        rows=null (expected 0)
+[scoping] SCOPING EXACT
+
+═══ 7/8 ATTACK BATTERY ═══
+[attacks] every case expected DENIED; every mutation confirmed against service-role ground truth
+
+A1 — cross-account reads by direct id (ownerB is account B only):
+  ok(denied) A1.1 ownerB reads ACCOUNT A by id → DENY (0 rows/affected)
+  ok(denied) A1.2 ownerB reads SUBSCRIPTION A by id → DENY (0 rows/affected)
+  ok(denied) A1.3 ownerB reads user_data A1 row by id → DENY (error 42501)
+  ok(denied) A1.4 ownerB reads business A1 by id → DENY (0 rows/affected)
+  ok(denied) A1.5 ownerB reads report_files A1 by id → DENY (0 rows/affected)
+
+A2 — client-supplied foreign business_id (the 'never from the client' law, enforced by the DB):
+  ok(denied) A2.1 ownerB INSERTs user_data with business_id = A1 → DENY (error 42501) · ground truth: 200 UNCHANGED ✓
+  ok(denied) A2.2 ownerB UPDATEs an A1 row by id → DENY (error 42501) · ground truth: "Drug A1 1" UNCHANGED ✓
+  ok(denied) A2.3 ownerB DELETEs an A1 row by id → DENY (error 42501) · ground truth: 200 UNCHANGED ✓
+
+A3 — RE-HOME: staffA (legitimate A1 member) tries to move an A1 row into B1 (WITH CHECK):
+  ok(denied) A3.1 staffA UPDATEs own-tenant row setting business_id = B1 → DENY (error 42501) · ground truth: "bd2434f8-b07d-4a58-99a3-41de1f01cdcd" UNCHANGED ✓
+
+A4 — DELETE by a member (role gate: DELETE is is_admin_of, not is_member_of):
+  ok(denied) A4.1 staffA (member of A1) DELETEs an A1 row → DENY (error 42501) · ground truth: 200 UNCHANGED ✓
+  ok(denied) A4.2 multiStore (member of A1) DELETEs an A1 row → DENY (error 42501) · ground truth: 200 UNCHANGED ✓
+
+A5 — junction role tampering (privilege escalation — structurally impossible: no write policy):
+  ok(denied) A5.1 staffA promotes own junction role to admin → DENY (0 rows/affected) · ground truth: "member" UNCHANGED ✓
+  ok(denied) A5.2 staffA INSERTs a new admin membership on B1 → DENY (error 42501) · ground truth: 6 UNCHANGED ✓
+  ok(denied) A5.3 staffA DELETEs own junction row (self-offboard) → DENY (0 rows/affected) · ground truth: 6 UNCHANGED ✓
+  ok(denied) A5.4 staffA reads ANOTHER user's junction row → DENY (0 rows/affected)
+
+A6 — accounts are read-only for every app role (R-A):
+  ok(denied) A6.1 ownerA INSERTs an account → DENY (error 42501) · ground truth: 1 UNCHANGED ✓
+  ok(denied) A6.2 ownerA UPDATEs own account (owner_user_id must NOT grant writes) → DENY (error 42501) · ground truth: "Account A" UNCHANGED ✓
+  ok(denied) A6.3 ownerA DELETEs own account → DENY (error 42501) · ground truth: 1 UNCHANGED ✓
+
+A7 — reference tables are read-only for authenticated (locked by omission):
+  ok(denied) A7.1 ownerA INSERTs into aac_reference → DENY (error 42501)
+  ok(denied) A7.2 ownerA UPDATEs pbm_info → DENY (0 rows/affected) · ground truth: "Seed PBM" UNCHANGED ✓
+
+A8 — deny-all tables stay dark (rows EXIST — a 0 here means refused, not empty). audit_logs is admin-readable since BIM-003 (R-1), so its probe runs as a MEMBER:
+  ok(denied) A8.1 ownerA reads apa_memberships (service role sees 1 row(s)) → DENY (0 rows/affected)
+  ok(denied) A8.2 ownerA reads pending_registrations (service role sees 1 row(s)) → DENY (0 rows/affected)
+  ok(denied) A8.3 staffA reads audit_logs (service role sees 631 row(s)) → DENY (error 42501)
+
+A9 — anonymous, no session:
+  ok(denied) A9.1 anon reads accounts → DENY (0 rows/affected)
+  ok(denied) A9.2 anon reads businesses → DENY (0 rows/affected)
+  ok(denied) A9.3 anon reads user_businesses → DENY (0 rows/affected)
+  ok(denied) A9.4 anon reads user_data → DENY (error 42501)
+  ok(denied) A9.5 anon reads subscriptions → DENY (0 rows/affected)
+
+[attacks] 28 cases · 0 breach(es) · 0 ground-truth mismatch(es) → ALL DENIED, NOTHING PERSISTED
+
+═══ 8/8 REVOCATION (R-C) ═══
+[revocation] R-C — junction revocation against a LIVE session (no token refresh)
+
+  signed in as multiStore once; token compared only in memory
+  step 1 — before revocation: A1=200 rows · B1=200 rows · stores=[Store A1, Store B1]
+  ok   sees both stores' rows (200 + 200)
+  step 2 — service role deleted (multiStore, B1). Ground truth: multiStore now holds 1 junction row(s)
+  ok   junction ground truth: A1 only
+  ok   access token is byte-identical — no refresh occurred between the queries
+  step 3 — after revocation, SAME session: A1=200 rows · B1=0 rows · stores=[Store A1]
+  ok   B1 rows are gone IMMEDIATELY (0) — revocation is not deferred to token refresh
+  ok   A1 rows remain (200) — revocation was surgical, not a blanket lockout
+  ok   store list narrowed to A1 only
+  step 4 — membership restored (junction back to 6 rows); same session now sees B1=200 rows again
+  ok   junction restored to its seeded shape
+  ok   re-granting membership is ALSO immediate on the same session
+
+[revocation] R-C PROVEN — revocation and re-grant both take effect immediately, with no token refresh
+
+[rls:prove] ✓ ISOLATION PROVEN — chain + 15 observed policies + AC8 + four laws + 320 cells + scoping + 28 attacks + live-session revocation, from an empty database.
+[rls:prove] evidence → evidence/APBM_QA_prove_2026-11-09T0403.log (+ .normalised.log)
+exit=0

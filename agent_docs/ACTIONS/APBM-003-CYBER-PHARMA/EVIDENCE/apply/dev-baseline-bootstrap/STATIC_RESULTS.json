@@ -1,0 +1,66 @@
+{
+  "status": "PASS",
+  "kind": "local static and negative-control checks; not a database rehearsal",
+  "checks": [
+    {
+      "name": "all approved inputs and SQL hash pinned",
+      "status": "PASS"
+    },
+    {
+      "name": "DEV target accepted",
+      "status": "PASS"
+    },
+    {
+      "name": "reject non-DEV ihgcsrypblqkwommrkgj",
+      "status": "PASS"
+    },
+    {
+      "name": "reject non-DEV cwdzijswchlwfvxxrlzb",
+      "status": "PASS"
+    },
+    {
+      "name": "no top-level data mutation, DROP, COMMIT, ledger creation or seed",
+      "status": "PASS"
+    },
+    {
+      "name": "exactly the 14 missing tables; no replacement of existing tables",
+      "status": "PASS"
+    },
+    {
+      "name": "16 missing policies; existing 3 policies untouched",
+      "status": "PASS"
+    },
+    {
+      "name": "13 function definitions: 11 missing plus 2 reconciliations",
+      "status": "PASS"
+    },
+    {
+      "name": "old audit shape and drop/recreate path excluded",
+      "status": "PASS"
+    },
+    {
+      "name": "all 3 managed default ACL changes explicitly scoped",
+      "status": "PASS"
+    },
+    {
+      "name": "before check rejects catalog drift",
+      "status": "PASS"
+    },
+    {
+      "name": "before check rejects pre-existing APBM ledger",
+      "status": "PASS"
+    },
+    {
+      "name": "after check rejects unbootstrapped catalog",
+      "status": "PASS"
+    },
+    {
+      "name": "after check rejects changed data even with matching schema",
+      "status": "PASS"
+    },
+    {
+      "name": "after check accepts matching schema plus preservation and empty new tables",
+      "status": "PASS"
+    }
+  ]
+}

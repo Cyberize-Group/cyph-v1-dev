@@ -1,0 +1,17 @@
+{
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "command": "apply",
+  "startedAt": "2026-11-05T15:35:18.456Z",
+  "committed": [
+    "0048_ownership.sql",
+    "0049_signup_member.sql",
+    "0050_claim_read_fence.sql",
+    "0051_admin_reads.sql"
+  ],
+  "status": "STOP_PARTIAL_FAILURE",
+  "failedMigration": "0052_system_config.sql",
+  "errorCode": "22012",
+  "reason": "SQL failure; failed transaction rolled back",
+  "recovery": "Stop. Prior committed migrations remain. Director verifies catalog/ledger and chooses rehearsed restore or a reviewed remaining-chain recovery. Never reset/replay DEV.",
+  "finishedAt": "2026-11-05T15:35:22.977Z"
+}

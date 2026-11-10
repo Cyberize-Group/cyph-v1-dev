@@ -1,0 +1,8 @@
+# T-01 negative controls — 2026-11-09T09:45:05+06:00
+## skip/xit/xdescribe grep in src/__tests__: 0 hits (0 expected)
+## instrument check: one deliberately broken assertion in a QA scratch test placed in the COPY tree only, run alone
+  ● QA instrument check › must fail
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+jest exit=1 (non-zero expected)
+scratch test removed from copy: 1

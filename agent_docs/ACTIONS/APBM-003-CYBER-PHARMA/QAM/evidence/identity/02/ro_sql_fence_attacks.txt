@@ -1,0 +1,13 @@
+# ro-sql.sh fence attacks — 2026-11-09T09:33:00+06:00
+## URL-side: DEV key present, SQL-side fingerprint present (happy path, read-only)
+ledger=52
+exit=0
+## statement filter: UPDATE refused
+ro-sql: REFUSED non-read statement: update public.system_config set value=1
+exit=4
+## statement filter: DELETE inside a CTE refused
+psql:/tmp/tmp.2FKUuNA91v:8: ERROR:  cannot execute SELECT in a read-only transaction
+exit=3
+## SQL-side fence attack: SCRATCH connection (fingerprint absent) must refuse before any user statement
+ro-sql: STOP-IDENTITY SQL-side fence failed (DEV cast fingerprint absent or not read-only); no statement executed
+exit=3

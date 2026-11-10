@@ -1,0 +1,29 @@
+{
+  "status": "READY",
+  "commit": "308247a24e6ddd455842da5cd2e21541d7eae2c1",
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "checkpointEvidence": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-executor-v2/dev-v2-check-1794038449141.json",
+  "committedInputsEvidence": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-executor-v2/COMMITTED_RELEASE_CHECK_308247a.json",
+  "signupDisposition": {
+    "status": "PASS",
+    "disposition": "disabled-evidence",
+    "observed": {
+      "disabled": true,
+      "checkedAt": "2026-11-07T08:00:23.909Z",
+      "method": "GET settings with apikey only"
+    }
+  },
+  "poolerVariables": "Both identical working Session poolers; verified by executor config guard",
+  "committedInputsVerified": 135,
+  "bundleSHA256": "8bdb753b4d227e4211c6ee1d0cb6a6c0048071a371e456444b0a7605cb1b0a5c",
+  "acceptedNarrowRehearsalReused": true,
+  "exactThreeManagedACLRuleRetained": true,
+  "backupAnd30TablePreservation": "PASS",
+  "fourAuthIndexes": "PASS",
+  "untrackedRuntimeDependencies": [],
+  "untrackedReportsPreserved": true,
+  "additionalCommitRequired": false,
+  "reason": "New append-only read-only evidence is not a runner input. Runner validates live signup again; committed inputs and tracked worktree/index are unchanged.",
+  "devApplyExecuted": false,
+  "checkedAt": "2026-11-07T08:01:13.440663+00:00"
+}

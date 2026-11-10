@@ -1,0 +1,17 @@
+{
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "status": "PASS",
+  "effects": "read-only schema request and zero-row SELECT; no login, signup, RPC or session",
+  "checks": [
+    {
+      "variable": "APBM_DEV_PUBLISHABLE_KEY",
+      "status": "PASS",
+      "httpStatus": 200
+    },
+    {
+      "variable": "APBM_DEV_SECRET_KEY",
+      "status": "PASS",
+      "httpStatus": 200
+    }
+  ]
+}

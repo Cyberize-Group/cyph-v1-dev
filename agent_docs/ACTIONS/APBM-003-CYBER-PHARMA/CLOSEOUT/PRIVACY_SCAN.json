@@ -1,0 +1,8 @@
+{
+  "filesAndArchiveMembersScanned": 2088,
+  "knownCredentialSourcesPresent": true,
+  "reviewedSyntheticURLPatterns": 7,
+  "hitCount": 0,
+  "locations": [],
+  "scope": "Current known credential values plus password-URL/private-key/token patterns; no credential hashes retained"
+}

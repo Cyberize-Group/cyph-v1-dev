@@ -1,0 +1,10 @@
+
+> cyber-pharma@0.1.0 test
+> jest --runInBand
+
+
+Test Suites: 39 passed, 39 total
+Tests:       196 passed, 196 total
+Snapshots:   0 total
+Time:        10.006 s
+Ran all test suites.

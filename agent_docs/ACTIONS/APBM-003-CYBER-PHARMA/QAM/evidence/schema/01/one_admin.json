@@ -1,0 +1,36 @@
+qa-shim: SCRATCH fence OK (url-side ref=ihgcsrypblqkwommrkgj; sql-side DEV fingerprint absent)
+qa-shim: spawning in /tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/fa30ae5a-f519-405b-b673-4ca4f9937817/scratchpad/qa-tree: node /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/AUTOMATION/scratch-sql.mjs --continue-on-error (evidence → ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/schema/01)
+[
+  {
+    "sql": "insert into public.user_businesses(user_id,business_id,role) select p.id, b.id, 'admin' from public.profiles p, public.b",
+    "error": {
+      "code": "23505",
+      "message": "duplicate key value violates unique constraint \"user_businesses_one_admin\""
+    }
+  },
+  {
+    "sql": "update public.user_businesses set role='admin' where user_id=(select id from public.profiles where email='apbm003-member",
+    "error": {
+      "code": "23505",
+      "message": "duplicate key value violates unique constraint \"user_businesses_one_admin\""
+    }
+  },
+  {
+    "sql": "insert into public.user_businesses(user_id,business_id,role) select p.id, b.id, 'member' from public.profiles p, public.",
+    "rowCount": 1,
+    "rows": []
+  },
+  {
+    "sql": "select count(*)::int admins_b2, count(*) filter (where role='member')::int members_b2 from public.user_businesses ub joi",
+    "rowCount": 1,
+    "rows": [
+      {
+        "admins_b2": 3,
+        "members_b2": 2
+      }
+    ]
+  },
+  {
+    "transaction": "ROLLBACK"
+  }
+]

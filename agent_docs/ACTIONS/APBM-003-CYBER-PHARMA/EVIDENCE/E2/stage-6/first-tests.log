@@ -1,0 +1,466 @@
+
+> cyber-pharma@0.1.0 test
+> jest --runInBand
+
+FAIL src/__tests__/apbm-read-states.test.tsx
+  ● Console
+
+    console.error
+      An update to OwedBookScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      88 |       .then((k) => {
+      89 |         if (cancelled) return;
+    > 90 |         setKpis(k);
+         |         ^
+      91 |         setKpiFilters(filters);
+      92 |         setKpiRequest(request);
+      93 |       })
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at src/components/owedbook/OwedBookScreen.tsx:90:9
+
+    console.error
+      An update to OwedBookScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      89 |         if (cancelled) return;
+      90 |         setKpis(k);
+    > 91 |         setKpiFilters(filters);
+         |         ^
+      92 |         setKpiRequest(request);
+      93 |       })
+      94 |       .catch(() => {
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at src/components/owedbook/OwedBookScreen.tsx:91:9
+
+    console.error
+      An update to OwedBookScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      90 |         setKpis(k);
+      91 |         setKpiFilters(filters);
+    > 92 |         setKpiRequest(request);
+         |         ^
+      93 |       })
+      94 |       .catch(() => {
+      95 |         if (cancelled) return;
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at src/components/owedbook/OwedBookScreen.tsx:92:9
+
+    console.error
+      An update to OwedBookScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      122 |         } else {
+      123 |           const p = await service.getRows(activeTab, filters, page);
+    > 124 |           if (!cancelled) setPageData(p);
+          |                           ^
+      125 |         }
+      126 |       } catch (e) {
+      127 |         if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load data");
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at src/components/owedbook/OwedBookScreen.tsx:124:27
+
+    console.error
+      An update to OwedBookScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      127 |         if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load data");
+      128 |       } finally {
+    > 129 |         if (!cancelled) { setLoading(false); setResolvedData(dataRequest); }
+          |                           ^
+      130 |       }
+      131 |     })();
+      132 |     return () => {
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at src/components/owedbook/OwedBookScreen.tsx:129:27
+
+    console.error
+      An update to OwedBookScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      127 |         if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load data");
+      128 |       } finally {
+    > 129 |         if (!cancelled) { setLoading(false); setResolvedData(dataRequest); }
+          |                                              ^
+      130 |       }
+      131 |     })();
+      132 |     return () => {
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at src/components/owedbook/OwedBookScreen.tsx:129:46
+
+    console.error
+      An update to OwedBookProvider inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      35 |   if(!scopeReady)return;
+      36 |   let cancelled=false;
+    > 37 |   service.getPbmOptions().then(values=>{if(!cancelled)setOptions({request,values,error:null});}).catch(()=>{if(!cancelled)setOptions({request,values:[],error:"PBM options unavailable. Retry refresh."});});
+         |                                                       ^
+      38 |   return ()=>{cancelled=true;};
+      39 |  },[service,request,scopeReady]);
+      40 |  const applyFilters=useCallback((f:OwedBookFilters)=>{setFilters(f);setAppliedTick(t=>t+1);},[]);
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at src/components/owedbook/OwedBookContext.tsx:37:55
+
+    console.error
+      An update to OwedBookScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      122 |         } else {
+      123 |           const p = await service.getRows(activeTab, filters, page);
+    > 124 |           if (!cancelled) setPageData(p);
+          |                           ^
+      125 |         }
+      126 |       } catch (e) {
+      127 |         if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load data");
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at src/components/owedbook/OwedBookScreen.tsx:124:27
+
+    console.error
+      An update to OwedBookScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      127 |         if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load data");
+      128 |       } finally {
+    > 129 |         if (!cancelled) { setLoading(false); setResolvedData(dataRequest); }
+          |                           ^
+      130 |       }
+      131 |     })();
+      132 |     return () => {
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at src/components/owedbook/OwedBookScreen.tsx:129:27
+
+    console.error
+      An update to OwedBookScreen inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      127 |         if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load data");
+      128 |       } finally {
+    > 129 |         if (!cancelled) { setLoading(false); setResolvedData(dataRequest); }
+          |                                              ^
+      130 |       }
+      131 |     })();
+      132 |     return () => {
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at src/components/owedbook/OwedBookScreen.tsx:129:46
+
+    console.error
+      An update to OwedBookProvider inside a test was not wrapped in act(...).
+      
+      When testing, code that causes React state updates should be wrapped into act(...):
+      
+      act(() => {
+        /* fire events that update state */
+      });
+      /* assert on the output */
+      
+      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act
+
+      35 |   if(!scopeReady)return;
+      36 |   let cancelled=false;
+    > 37 |   service.getPbmOptions().then(values=>{if(!cancelled)setOptions({request,values,error:null});}).catch(()=>{if(!cancelled)setOptions({request,values:[],error:"PBM options unavailable. Retry refresh."});});
+         |                                                       ^
+      38 |   return ()=>{cancelled=true;};
+      39 |  },[service,request,scopeReady]);
+      40 |  const applyFilters=useCallback((f:OwedBookFilters)=>{setFilters(f);setAppliedTick(t=>t+1);},[]);
+
+      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
+      at dispatchSetStateInternal (node_modules/react-dom/cjs/react-dom-client.development.js:9170:13)
+      at dispatchSetState (node_modules/react-dom/cjs/react-dom-client.development.js:9127:7)
+      at src/components/owedbook/OwedBookContext.tsx:37:55
+
+  ● APBM real-mode asynchronous states › drops stale store KPI, rows and options after a switch
+
+    TypeError: expect(...).not.toBeInTheDocument is not a function
+
+      29 |   renderPage();await waitFor(()=>expect(a.getRows).toHaveBeenCalled());
+      30 |   fireEvent.change(screen.getByRole("combobox",{name:"Store"}),{target:{value:B}});
+    > 31 |   expect(screen.queryByText("$999.00")).not.toBeInTheDocument();
+         |                                             ^
+      32 |   await screen.findByText("No results");await act(async()=>{k.resolve({...kpi,commercial_underpaid:999,owed:999});r.resolve({...empty,total:999});o.resolve(["OLD STORE PBM"]);});
+      33 |   expect(screen.queryByText("$999.00")).not.toBeInTheDocument();expect(screen.queryByText(/Total 999/)).not.toBeInTheDocument();expect(screen.getByTestId("options")).not.toHaveTextContent("OLD STORE PBM");
+      34 |  });
+
+      at Object.<anonymous> (src/__tests__/apbm-read-states.test.tsx:31:45)
+
+  ● APBM real-mode asynchronous states › clears already visible values immediately when changing stores
+
+    TypeError: expect(...).not.toBeInTheDocument is not a function
+
+      37 |   const pending=deferred<OwedBookKpis>();jest.mocked(b.getKpis).mockReturnValue(pending.promise);
+      38 |   renderPage();await screen.findAllByText("$999.00");fireEvent.change(screen.getByRole("combobox",{name:"Store"}),{target:{value:B}});
+    > 39 |   expect(screen.queryByText("$999.00")).not.toBeInTheDocument();expect(screen.getByLabelText("Loading KPIs")).toBeInTheDocument();
+         |                                             ^
+      40 |   await act(async()=>pending.resolve(kpi));await screen.findAllByText("$42.00");
+      41 |  });
+      42 |  it("KPI failure is unavailable and retry refreshes KPIs, options and active rows",async()=>{
+
+      at Object.<anonymous> (src/__tests__/apbm-read-states.test.tsx:39:45)
+
+  ● APBM real-mode asynchronous states › KPI failure is unavailable and retry refreshes KPIs, options and active rows
+
+    TypeError: expect(...).not.toBeInTheDocument is not a function
+
+      42 |  it("KPI failure is unavailable and retry refreshes KPIs, options and active rows",async()=>{
+      43 |   jest.mocked(a.getKpis).mockRejectedValueOnce(new Error("temporary"));renderPage();
+    > 44 |   await screen.findByText("KPIs unavailable. Please retry.");expect(screen.queryByText("Commercial Underpaid")).not.toBeInTheDocument();
+         |                                                                                                                     ^
+      45 |   fireEvent.click(screen.getByRole("button",{name:"Retry KPIs"}));await screen.findAllByText("$42.00");
+      46 |   expect(a.getKpis).toHaveBeenCalledTimes(2);expect(a.getRows).toHaveBeenCalledTimes(2);expect(a.getPbmOptions).toHaveBeenCalledTimes(2);
+      47 |  });
+
+      at Object.<anonymous> (src/__tests__/apbm-read-states.test.tsx:44:117)
+
+  ● APBM real-mode asynchronous states › foreign-store rejection renders an error, never old rows
+
+    TypeError: expect(...).not.toBeInTheDocument is not a function
+
+      48 |  it("foreign-store rejection renders an error, never old rows",async()=>{
+      49 |   jest.mocked(b.getRows).mockRejectedValue(new Error("not a member of business"));renderPage();await screen.findByText("No results");
+    > 50 |   fireEvent.change(screen.getByRole("combobox",{name:"Store"}),{target:{value:B}});await screen.findByText("not a member of business");expect(screen.queryByText("No results")).not.toBeInTheDocument();expect(screen.queryByText(/Page 1 of/)).not.toBeInTheDocument();
+         |                                                                                                                                                                                     ^
+      51 |  });
+      52 |  it("failed store discovery starts no claim RPC and offers retry",async()=>{
+      53 |   jest.mocked(listTenantStores).mockRejectedValue(new Error("offline"));renderPage();await screen.findByRole("button",{name:"Retry stores"});expect(a.getKpis).not.toHaveBeenCalled();expect(a.getRows).not.toHaveBeenCalled();
+
+      at Object.<anonymous> (src/__tests__/apbm-read-states.test.tsx:50:181)
+
+FAIL src/__tests__/apbm-admin-readonly.test.tsx
+  ● APBM read-only admin adapter › renders disabled write controls and clear unavailable text
+
+    TypeError: expect(...).toBeDisabled is not a function
+
+      33 |  });
+      34 |  it("renders disabled write controls and clear unavailable text",()=>{
+    > 35 |   const added=jest.fn();render(<AddStoreButton onAdded={added}/>);fireEvent.click(screen.getByRole("button",{name:"Add store"}));expect(added).not.toHaveBeenCalled();expect(screen.getByRole("button",{name:"Add store"})).toBeDisabled();
+         |                                                                                                                                                                                                                             ^
+      36 |   render(<InviteMemberForm storeId={A} onInvited={jest.fn()}/>);expect(screen.getByText(/Inviting members is not available/)).toBeInTheDocument();
+      37 |   render(<BillingRow line={{storeId:A,storeName:"A",plan:"unavailable",subscriptionStatus:"unavailable",amountLabel:"Price unavailable"}}/>);expect(screen.getByRole("button",{name:"Manage payment"})).toBeDisabled();expect(screen.getByRole("button",{name:"Cancel"})).toBeDisabled();expect(screen.getByText(/Billing dates unavailable/)).toBeInTheDocument();
+      38 |  });
+
+      at Object.<anonymous> (src/__tests__/apbm-admin-readonly.test.tsx:35:221)
+
+
+Summary of all failing tests
+FAIL src/__tests__/apbm-read-states.test.tsx
+  ● APBM real-mode asynchronous states › drops stale store KPI, rows and options after a switch
+
+    TypeError: expect(...).not.toBeInTheDocument is not a function
+
+      29 |   renderPage();await waitFor(()=>expect(a.getRows).toHaveBeenCalled());
+      30 |   fireEvent.change(screen.getByRole("combobox",{name:"Store"}),{target:{value:B}});
+    > 31 |   expect(screen.queryByText("$999.00")).not.toBeInTheDocument();
+         |                                             ^
+      32 |   await screen.findByText("No results");await act(async()=>{k.resolve({...kpi,commercial_underpaid:999,owed:999});r.resolve({...empty,total:999});o.resolve(["OLD STORE PBM"]);});
+      33 |   expect(screen.queryByText("$999.00")).not.toBeInTheDocument();expect(screen.queryByText(/Total 999/)).not.toBeInTheDocument();expect(screen.getByTestId("options")).not.toHaveTextContent("OLD STORE PBM");
+      34 |  });
+
+      at Object.<anonymous> (src/__tests__/apbm-read-states.test.tsx:31:45)
+
+  ● APBM real-mode asynchronous states › clears already visible values immediately when changing stores
+
+    TypeError: expect(...).not.toBeInTheDocument is not a function
+
+      37 |   const pending=deferred<OwedBookKpis>();jest.mocked(b.getKpis).mockReturnValue(pending.promise);
+      38 |   renderPage();await screen.findAllByText("$999.00");fireEvent.change(screen.getByRole("combobox",{name:"Store"}),{target:{value:B}});
+    > 39 |   expect(screen.queryByText("$999.00")).not.toBeInTheDocument();expect(screen.getByLabelText("Loading KPIs")).toBeInTheDocument();
+         |                                             ^
+      40 |   await act(async()=>pending.resolve(kpi));await screen.findAllByText("$42.00");
+      41 |  });
+      42 |  it("KPI failure is unavailable and retry refreshes KPIs, options and active rows",async()=>{
+
+      at Object.<anonymous> (src/__tests__/apbm-read-states.test.tsx:39:45)
+
+  ● APBM real-mode asynchronous states › KPI failure is unavailable and retry refreshes KPIs, options and active rows
+
+    TypeError: expect(...).not.toBeInTheDocument is not a function
+
+      42 |  it("KPI failure is unavailable and retry refreshes KPIs, options and active rows",async()=>{
+      43 |   jest.mocked(a.getKpis).mockRejectedValueOnce(new Error("temporary"));renderPage();
+    > 44 |   await screen.findByText("KPIs unavailable. Please retry.");expect(screen.queryByText("Commercial Underpaid")).not.toBeInTheDocument();
+         |                                                                                                                     ^
+      45 |   fireEvent.click(screen.getByRole("button",{name:"Retry KPIs"}));await screen.findAllByText("$42.00");
+      46 |   expect(a.getKpis).toHaveBeenCalledTimes(2);expect(a.getRows).toHaveBeenCalledTimes(2);expect(a.getPbmOptions).toHaveBeenCalledTimes(2);
+      47 |  });
+
+      at Object.<anonymous> (src/__tests__/apbm-read-states.test.tsx:44:117)
+
+  ● APBM real-mode asynchronous states › foreign-store rejection renders an error, never old rows
+
+    TypeError: expect(...).not.toBeInTheDocument is not a function
+
+      48 |  it("foreign-store rejection renders an error, never old rows",async()=>{
+      49 |   jest.mocked(b.getRows).mockRejectedValue(new Error("not a member of business"));renderPage();await screen.findByText("No results");
+    > 50 |   fireEvent.change(screen.getByRole("combobox",{name:"Store"}),{target:{value:B}});await screen.findByText("not a member of business");expect(screen.queryByText("No results")).not.toBeInTheDocument();expect(screen.queryByText(/Page 1 of/)).not.toBeInTheDocument();
+         |                                                                                                                                                                                     ^
+      51 |  });
+      52 |  it("failed store discovery starts no claim RPC and offers retry",async()=>{
+      53 |   jest.mocked(listTenantStores).mockRejectedValue(new Error("offline"));renderPage();await screen.findByRole("button",{name:"Retry stores"});expect(a.getKpis).not.toHaveBeenCalled();expect(a.getRows).not.toHaveBeenCalled();
+
+      at Object.<anonymous> (src/__tests__/apbm-read-states.test.tsx:50:181)
+
+FAIL src/__tests__/apbm-admin-readonly.test.tsx
+  ● APBM read-only admin adapter › renders disabled write controls and clear unavailable text
+
+    TypeError: expect(...).toBeDisabled is not a function
+
+      33 |  });
+      34 |  it("renders disabled write controls and clear unavailable text",()=>{
+    > 35 |   const added=jest.fn();render(<AddStoreButton onAdded={added}/>);fireEvent.click(screen.getByRole("button",{name:"Add store"}));expect(added).not.toHaveBeenCalled();expect(screen.getByRole("button",{name:"Add store"})).toBeDisabled();
+         |                                                                                                                                                                                                                             ^
+      36 |   render(<InviteMemberForm storeId={A} onInvited={jest.fn()}/>);expect(screen.getByText(/Inviting members is not available/)).toBeInTheDocument();
+      37 |   render(<BillingRow line={{storeId:A,storeName:"A",plan:"unavailable",subscriptionStatus:"unavailable",amountLabel:"Price unavailable"}}/>);expect(screen.getByRole("button",{name:"Manage payment"})).toBeDisabled();expect(screen.getByRole("button",{name:"Cancel"})).toBeDisabled();expect(screen.getByText(/Billing dates unavailable/)).toBeInTheDocument();
+      38 |  });
+
+      at Object.<anonymous> (src/__tests__/apbm-admin-readonly.test.tsx:35:221)
+
+
+Test Suites: 2 failed, 37 passed, 39 total
+Tests:       5 failed, 191 passed, 196 total
+Snapshots:   0 total
+Time:        9.817 s
+Ran all test suites.

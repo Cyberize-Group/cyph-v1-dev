@@ -1,0 +1,20 @@
+{
+  "scannedDir": "agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/AUTOMATION",
+  "filesScanned": 19,
+  "patterns": [
+    "sb_secret",
+    "sb_publishable",
+    "jwt",
+    "pg_url_with_password",
+    "env_assignment",
+    "cast_password_field"
+  ],
+  "validation": {
+    "fixtureDetectedAllPatterns": true,
+    "fixturePatternsHit": 6,
+    "cleanControlHits": 0
+  },
+  "hits": {},
+  "totalHits": 0,
+  "result": "PASS"
+}

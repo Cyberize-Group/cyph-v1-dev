@@ -1,0 +1,71 @@
+PASS T-33 1440_light html theme class lacks "dark" class="saira_30d0f00a-module__F8AMRG__variable light"
+PASS T-33/T-601 1440_light My Stores shows exactly B1,B2,B3 ["SYNTHETIC STORE B1","SYNTHETIC STORE B2","SYNTHETIC STORE B3"]
+FAIL T-38 1440_light My Stores header pill = "Demo · mock data" and no "Demo · mock data" 
+PASS T-33 1440_light no horizontal overflow (scrollWidth 1440 ≤ 1440) 
+PASS T-33 1440_light navbar has Admin Portal link ["OwedBook","Admin Portal","Profile"]
+PASS T-33/T-601 1440_light store detail B3: heading + roster (Members · 2) 
+FAIL T-38 1440_light store detail pill = "Demo · mock data", no "Demo · mock data" 
+PASS T-33/T-603 1440_light audit viewer rows (100) name only permitted stores / account events 
+FAIL T-38 1440_light audit header pill = "Demo · mock data" 
+PASS T-33/T-601 1440_light billing lists 3 stores read-only (Price unavailable, Billing dates unavailable, buttons disabled) ["SYNTHETIC STORE B1","SYNTHETIC STORE B2","SYNTHETIC STORE B3"]
+FAIL T-38 1440_light billing footer = "Visual only — no real charge is made in this demo" and no "Billing actions are unavailable in this release" 
+FAIL T-38 1440_light billing pill = "Demo · mock data"; no fabricated plan/price (Plan unavailable, no $ amounts) 
+PASS T-33/T-602 1440_light settings: "Editing settings is not available in this release." 
+FAIL T-38 1440_light settings pill = "Demo · mock data" 
+PASS T-33/T-602 1440_light invite: unavailable state, no invite form 
+PASS T-33 1440_light no horizontal overflow on invite (scrollWidth 1440 ≤ 1440) 
+PASS T-38 1440_light store names render as SYNTHETIC STORE … (no demo/fixture names) 
+PASS T-33 1440_light logout via /api/auth/logout 
+PASS T-33 1440_dark html theme class has "dark" class="saira_30d0f00a-module__F8AMRG__variable dark"
+PASS T-33/T-601 1440_dark My Stores shows exactly B1,B2,B3 ["SYNTHETIC STORE B1","SYNTHETIC STORE B2","SYNTHETIC STORE B3"]
+FAIL T-38 1440_dark My Stores header pill = "Demo · mock data" and no "Demo · mock data" 
+PASS T-33 1440_dark no horizontal overflow (scrollWidth 1440 ≤ 1440) 
+PASS T-33 1440_dark navbar has Admin Portal link ["OwedBook","Admin Portal","Profile"]
+PASS T-33/T-601 1440_dark store detail B3: heading + roster (Members · 2) 
+FAIL T-38 1440_dark store detail pill = "Demo · mock data", no "Demo · mock data" 
+PASS T-33/T-603 1440_dark audit viewer rows (100) name only permitted stores / account events 
+FAIL T-38 1440_dark audit header pill = "Demo · mock data" 
+PASS T-33/T-601 1440_dark billing lists 3 stores read-only (Price unavailable, Billing dates unavailable, buttons disabled) ["SYNTHETIC STORE B1","SYNTHETIC STORE B2","SYNTHETIC STORE B3"]
+FAIL T-38 1440_dark billing footer = "Visual only — no real charge is made in this demo" and no "Billing actions are unavailable in this release" 
+FAIL T-38 1440_dark billing pill = "Demo · mock data"; no fabricated plan/price (Plan unavailable, no $ amounts) 
+PASS T-33/T-602 1440_dark settings: "Editing settings is not available in this release." 
+FAIL T-38 1440_dark settings pill = "Demo · mock data" 
+PASS T-33/T-602 1440_dark invite: unavailable state, no invite form 
+PASS T-33 1440_dark no horizontal overflow on invite (scrollWidth 1440 ≤ 1440) 
+PASS T-38 1440_dark store names render as SYNTHETIC STORE … (no demo/fixture names) 
+PASS T-33 1440_dark logout via /api/auth/logout 
+PASS T-33 375_light html theme class lacks "dark" class="saira_30d0f00a-module__F8AMRG__variable light"
+PASS T-33/T-601 375_light My Stores shows exactly B1,B2,B3 ["SYNTHETIC STORE B1","SYNTHETIC STORE B2","SYNTHETIC STORE B3"]
+FAIL T-38 375_light My Stores header pill = "Demo · mock data" and no "Demo · mock data" 
+PASS T-33 375_light no horizontal overflow (scrollWidth 375 ≤ 375) 
+PASS T-33/T-601 375_light store detail B3: heading + roster (Members · 2) 
+FAIL T-38 375_light store detail pill = "Demo · mock data", no "Demo · mock data" 
+PASS T-33/T-603 375_light audit viewer (mobile list 1) shows no foreign store 
+FAIL T-38 375_light audit header pill = "Demo · mock data" 
+PASS T-33/T-601 375_light billing lists 3 stores read-only (Price unavailable, Billing dates unavailable, buttons disabled) ["SYNTHETIC STORE B1","SYNTHETIC STORE B2","SYNTHETIC STORE B3"]
+FAIL T-38 375_light billing footer = "Visual only — no real charge is made in this demo" and no "Billing actions are unavailable in this release" 
+FAIL T-38 375_light billing pill = "Demo · mock data"; no fabricated plan/price (Plan unavailable, no $ amounts) 
+PASS T-33/T-602 375_light settings: "Editing settings is not available in this release." 
+FAIL T-38 375_light settings pill = "Demo · mock data" 
+PASS T-33/T-602 375_light invite: unavailable state, no invite form 
+PASS T-33 375_light no horizontal overflow on invite (scrollWidth 375 ≤ 375) 
+PASS T-38 375_light store names render as SYNTHETIC STORE … (no demo/fixture names) 
+PASS T-33 375_light logout via /api/auth/logout 
+PASS T-33 375_dark html theme class has "dark" class="saira_30d0f00a-module__F8AMRG__variable dark"
+PASS T-33/T-601 375_dark My Stores shows exactly B1,B2,B3 ["SYNTHETIC STORE B1","SYNTHETIC STORE B2","SYNTHETIC STORE B3"]
+FAIL T-38 375_dark My Stores header pill = "Demo · mock data" and no "Demo · mock data" 
+PASS T-33 375_dark no horizontal overflow (scrollWidth 375 ≤ 375) 
+PASS T-33/T-601 375_dark store detail B3: heading + roster (Members · 2) 
+FAIL T-38 375_dark store detail pill = "Demo · mock data", no "Demo · mock data" 
+PASS T-33/T-603 375_dark audit viewer (mobile list 1) shows no foreign store 
+FAIL T-38 375_dark audit header pill = "Demo · mock data" 
+PASS T-33/T-601 375_dark billing lists 3 stores read-only (Price unavailable, Billing dates unavailable, buttons disabled) ["SYNTHETIC STORE B1","SYNTHETIC STORE B2","SYNTHETIC STORE B3"]
+FAIL T-38 375_dark billing footer = "Visual only — no real charge is made in this demo" and no "Billing actions are unavailable in this release" 
+FAIL T-38 375_dark billing pill = "Demo · mock data"; no fabricated plan/price (Plan unavailable, no $ amounts) 
+PASS T-33/T-602 375_dark settings: "Editing settings is not available in this release." 
+FAIL T-38 375_dark settings pill = "Demo · mock data" 
+PASS T-33/T-602 375_dark invite: unavailable state, no invite form 
+PASS T-33 375_dark no horizontal overflow on invite (scrollWidth 375 ≤ 375) 
+PASS T-38 375_dark store names render as SYNTHETIC STORE … (no demo/fixture names) 
+PASS T-33 375_dark logout via /api/auth/logout 
+summary admin (attack-flip): 46 PASS / 24 FAIL; unexpected backend requests 0

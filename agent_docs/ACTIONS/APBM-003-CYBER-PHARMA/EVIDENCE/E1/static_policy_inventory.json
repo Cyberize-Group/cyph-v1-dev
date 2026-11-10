@@ -1,0 +1,130 @@
+[
+  {
+    "source": "supabase/migrations/0017_rls_user_businesses.sql",
+    "policy": "ub_select_self",
+    "table": "user_businesses",
+    "command": "select",
+    "role": "authenticated",
+    "predicates": "using (user_id = auth.uid())"
+  },
+  {
+    "source": "supabase/migrations/0018_rls_accounts.sql",
+    "policy": "account_select_member",
+    "table": "accounts",
+    "command": "select",
+    "role": "authenticated",
+    "predicates": "using (public.is_account_member(id))"
+  },
+  {
+    "source": "supabase/migrations/0019_rls_businesses.sql",
+    "policy": "business_select_member",
+    "table": "businesses",
+    "command": "select",
+    "role": "authenticated",
+    "predicates": "using (id in (select public.my_business_ids()))"
+  },
+  {
+    "source": "supabase/migrations/0019_rls_businesses.sql",
+    "policy": "business_update_admin",
+    "table": "businesses",
+    "command": "update",
+    "role": "authenticated",
+    "predicates": "using (public.is_admin_of(id)) with check (public.is_admin_of(id))"
+  },
+  {
+    "source": "supabase/migrations/0020_rls_subscriptions.sql",
+    "policy": "subscription_select_account_member",
+    "table": "subscriptions",
+    "command": "select",
+    "role": "authenticated",
+    "predicates": "using (public.is_account_member(account_id))"
+  },
+  {
+    "source": "supabase/migrations/0021_rls_user_data.sql",
+    "policy": "user_data_select_member",
+    "table": "user_data",
+    "command": "select",
+    "role": "authenticated",
+    "predicates": "using (business_id in (select public.my_business_ids()))"
+  },
+  {
+    "source": "supabase/migrations/0021_rls_user_data.sql",
+    "policy": "user_data_insert_member",
+    "table": "user_data",
+    "command": "insert",
+    "role": "authenticated",
+    "predicates": "with check (public.is_member_of(business_id))"
+  },
+  {
+    "source": "supabase/migrations/0021_rls_user_data.sql",
+    "policy": "user_data_update_member",
+    "table": "user_data",
+    "command": "update",
+    "role": "authenticated",
+    "predicates": "using (public.is_member_of(business_id)) with check (public.is_member_of(business_id))"
+  },
+  {
+    "source": "supabase/migrations/0021_rls_user_data.sql",
+    "policy": "user_data_delete_admin",
+    "table": "user_data",
+    "command": "delete",
+    "role": "authenticated",
+    "predicates": "using (public.is_admin_of(business_id))"
+  },
+  {
+    "source": "supabase/migrations/0022_rls_report_files.sql",
+    "policy": "report_files_select_member",
+    "table": "report_files",
+    "command": "select",
+    "role": "authenticated",
+    "predicates": "using (business_id in (select public.my_business_ids()))"
+  },
+  {
+    "source": "supabase/migrations/0023_rls_aac_reference.sql",
+    "policy": "aac_reference_select_authenticated",
+    "table": "aac_reference",
+    "command": "select",
+    "role": "authenticated",
+    "predicates": "using (true)"
+  },
+  {
+    "source": "supabase/migrations/0024_rls_wac_reference.sql",
+    "policy": "wac_reference_select_authenticated",
+    "table": "wac_reference",
+    "command": "select",
+    "role": "authenticated",
+    "predicates": "using (true)"
+  },
+  {
+    "source": "supabase/migrations/0025_rls_ful_reference.sql",
+    "policy": "ful_reference_select_authenticated",
+    "table": "ful_reference",
+    "command": "select",
+    "role": "authenticated",
+    "predicates": "using (true)"
+  },
+  {
+    "source": "supabase/migrations/0026_rls_pbm_info.sql",
+    "policy": "pbm_info_select_authenticated",
+    "table": "pbm_info",
+    "command": "select",
+    "role": "authenticated",
+    "predicates": "using (true)"
+  },
+  {
+    "source": "supabase/migrations/0027_rls_reference_dataset_versions.sql",
+    "policy": "reference_dataset_versions_select_authenticated",
+    "table": "reference_dataset_versions",
+    "command": "select",
+    "role": "authenticated",
+    "predicates": "using (true)"
+  },
+  {
+    "source": "supabase/migrations/0029_rls_audit_logs.sql",
+    "policy": "audit_logs_select_admin",
+    "table": "audit_logs",
+    "command": "select",
+    "role": "authenticated",
+    "predicates": "using (public.is_admin_of(business_id))"
+  }
+]

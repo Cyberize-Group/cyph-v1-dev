@@ -1,0 +1,159 @@
+{
+  "source": "direct_denials.json (cast-matrix.mjs run)",
+  "ranAt": "2026-11-09T04:02:38.495Z",
+  "note": "T-20 SQL-level audit operation counts incl. forced retry and rejected call (AC-304)",
+  "pass": 30,
+  "fail": 0,
+  "checks": [
+    {
+      "name": "T-17/T-20 OWNER1 owedbook_rows(A1) succeeds: total 50, 25 rows, +1 read_page",
+      "result": "PASS",
+      "detail": "audit +1"
+    },
+    {
+      "name": "T-20 OWNER1 owedbook_kpis +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 OWNER1 owedbook_summary +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 OWNER1 owedbook_pbm_options +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-17/T-20 OWNER3 owedbook_rows(B1) succeeds: total 50, 25 rows, +1 read_page",
+      "result": "PASS",
+      "detail": "audit +1"
+    },
+    {
+      "name": "T-20 OWNER3 owedbook_kpis +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 OWNER3 owedbook_summary +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 OWNER3 owedbook_pbm_options +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-17/T-20 ADMIN_B2 owedbook_rows(B2) succeeds: total 50, 25 rows, +1 read_page",
+      "result": "PASS",
+      "detail": "audit +1"
+    },
+    {
+      "name": "T-20 ADMIN_B2 owedbook_kpis +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 ADMIN_B2 owedbook_summary +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 ADMIN_B2 owedbook_pbm_options +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-17/T-20 ADMIN_B3 owedbook_rows(B3) succeeds: total 50, 25 rows, +1 read_page",
+      "result": "PASS",
+      "detail": "audit +1"
+    },
+    {
+      "name": "T-20 ADMIN_B3 owedbook_kpis +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 ADMIN_B3 owedbook_summary +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 ADMIN_B3 owedbook_pbm_options +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-17/T-20 MEMBER_B1 owedbook_rows(B1) succeeds: total 50, 25 rows, +1 read_page",
+      "result": "PASS",
+      "detail": "audit +1"
+    },
+    {
+      "name": "T-20 MEMBER_B1 owedbook_kpis +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 MEMBER_B1 owedbook_summary +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 MEMBER_B1 owedbook_pbm_options +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-17/T-20 MEMBER_B2B3 owedbook_rows(B2) succeeds: total 50, 25 rows, +1 read_page",
+      "result": "PASS",
+      "detail": "audit +1"
+    },
+    {
+      "name": "T-20 MEMBER_B2B3 owedbook_kpis +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 MEMBER_B2B3 owedbook_summary +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 MEMBER_B2B3 owedbook_pbm_options +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-17/T-20 UNRELATED owedbook_rows(C1) succeeds: total 50, 25 rows, +1 read_page",
+      "result": "PASS",
+      "detail": "audit +1"
+    },
+    {
+      "name": "T-20 UNRELATED owedbook_kpis +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 UNRELATED owedbook_summary +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 UNRELATED owedbook_pbm_options +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 lost-response retry (same call twice) \u2192 2 committed read_page rows",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 rejected call (invalid limit 22023) \u2192 0 rows",
+      "result": "PASS",
+      "detail": "22023"
+    }
+  ]
+}

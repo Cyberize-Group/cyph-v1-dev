@@ -1,0 +1,43 @@
+{
+  "status": "FUNCTIONAL_CHECKS_PASS_COPY_SCOPE_PENDING",
+  "branch": "apbm-003",
+  "head": "49dec499d665125bb8764ccc8ea498c5fdfcdcd1",
+  "checkedAt": "2026-11-06T14:22:04.181727+00:00",
+  "testTarget": "ihgcsrypblqkwommrkgj",
+  "intendedRolloutTarget": "yrsuwikjnbmvpznrgydb",
+  "devApplyAndRestoreRehearsalOwner": "DevOps",
+  "baseline": {
+    "suites": 36,
+    "tests": 178
+  },
+  "final": {
+    "suites": 39,
+    "tests": 196,
+    "failures": 0,
+    "skipped": 0,
+    "typecheck": "PASS",
+    "build": "PASS",
+    "lintErrors": 0,
+    "lintWarnings": 34
+  },
+  "scratchCatalog": "PASS",
+  "seed": "PASS",
+  "ownerChecks": 19,
+  "authenticatedReadChecks": 154,
+  "browserChecks": 34,
+  "protectedFilesUnchanged": 58,
+  "backupHashesMatch": true,
+  "declaredScratchEffects": {
+    "loginLogoutSessions": 17,
+    "successfulAuditedReadEvents": 227,
+    "businessWrites": 0,
+    "schemaWrites": 0
+  },
+  "outOfScopeCopyFiles": [
+    "src/components/admin-portal/DemoMarker.tsx",
+    "src/components/admin-portal/BillingScreen.tsx"
+  ],
+  "newProjectCreated": false,
+  "sharedDevWrites": 0,
+  "gitMutations": 0
+}

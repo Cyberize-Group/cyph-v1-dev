@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "readOnly": true,
+  "sqlVariable": "APBM_DEV_DB_POOL explicit process mapping",
+  "foreignKeys": [
+    {
+      "schema": "public",
+      "table_name": "profiles",
+      "conname": "profiles_id_fkey",
+      "definition": "FOREIGN KEY (id) REFERENCES auth.users(id) ON DELETE CASCADE",
+      "referenced_index": "users_pkey"
+    },
+    {
+      "schema": "public",
+      "table_name": "user_roles",
+      "conname": "user_roles_user_id_fkey",
+      "definition": "FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE",
+      "referenced_index": "users_pkey"
+    }
+  ]
+}

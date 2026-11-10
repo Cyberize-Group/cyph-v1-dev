@@ -1,4 +1,5 @@
 "use client";
+import { isDemoMode } from "@/services/tenantScope";
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,7 @@ import { billingService } from "@/services/adminDemo";
 import type { ActionResult, BillingLine, BillingPlan } from "@/types/adminDemo";
 
 const PLAN_LABEL: Record<BillingPlan, string> = {
+  unavailable: "Plan unavailable",
   standard: "Standard",
   concierge: "Concierge",
 };
@@ -21,7 +23,7 @@ const BillingRow = ({ line }: { line: BillingLine }) => {
   const [busy, setBusy] = useState(false);
   const pill = subscriptionPill[line.subscriptionStatus];
 
-  const when = line.nextChargeDate
+  const when = !isDemoMode() ? "Billing dates unavailable" : line.nextChargeDate
     ? `Next charge ${formatChargeDate(line.nextChargeDate)}`
     : line.retryDate
       ? `Retry ${formatChargeDate(line.retryDate)}`
@@ -47,11 +49,12 @@ const BillingRow = ({ line }: { line: BillingLine }) => {
       </div>
       <div className="flex items-center justify-between gap-3 md:justify-end">
         <StatusPill tone={pill.tone}>{pill.label}</StatusPill>
+        {!isDemoMode() && <p className="text-xs text-muted-foreground">Billing changes are not available in this release.</p>}
         <div className="flex gap-2">
           <Button
             variant="secondary"
             size="sm"
-            disabled={busy}
+            disabled={busy || !isDemoMode()}
             onClick={() => run(() => billingService.managePayment(line.storeId))}
           >
             Manage payment
@@ -59,7 +62,7 @@ const BillingRow = ({ line }: { line: BillingLine }) => {
           <Button
             variant="outline"
             size="sm"
-            disabled={busy}
+            disabled={busy || !isDemoMode()}
             onClick={() => run(() => billingService.cancelSubscription(line.storeId))}
           >
             Cancel

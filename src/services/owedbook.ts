@@ -6,7 +6,8 @@ import type {
   OwedBookSummaryRow,
   OwedTab,
 } from "@/types/OwedBook";
-import { owedBookFixtures } from "@/mocks/owedbook";
+import { isDemoMode, readRpc, requireStore, unavailableMessage, type RpcClient } from "./tenantScope";
+const fixtures = async () => (await import("@/mocks/owedbook")).owedBookFixtures;
 
 export interface OwedBookService {
   /**
@@ -66,8 +67,9 @@ const applyFilters = (rows: OwedBookRow[], f: OwedBookFilters): OwedBookRow[] =>
     return true;
   });
 
-export const owedBookService: OwedBookService = {
+const mockOwedBookService: OwedBookService = {
   async getKpis(filters) {
+    const owedBookFixtures = await fixtures();
     const rows = applyFilters(owedBookFixtures, filters);
     const underpaid = round2(
       rows.filter((r) => r.owed > 0).reduce((s, r) => s + r.owed, 0)
@@ -83,6 +85,7 @@ export const owedBookService: OwedBookService = {
   },
 
   async getRows(tab, filters, page) {
+    const owedBookFixtures = await fixtures();
     let rows = applyFilters(owedBookFixtures, filters);
     // Per-tab dataset (UI_SPEC §5.3). Commercial = all; Updated = engineered
     // new-paid subset; Federal = rows that carry real federal data.
@@ -107,6 +110,7 @@ export const owedBookService: OwedBookService = {
   },
 
   async getSummary(filters) {
+    const owedBookFixtures = await fixtures();
     const rows = applyFilters(owedBookFixtures, filters);
     const byPbm = new Map<string, OwedBookSummaryRow>();
     for (const r of rows) {
@@ -127,6 +131,7 @@ export const owedBookService: OwedBookService = {
   },
 
   async getPbmOptions() {
+    const owedBookFixtures = await fixtures();
     return Array.from(
       new Set(owedBookFixtures.map((r) => r.pbm).filter((p): p is string => Boolean(p)))
     ).sort();
@@ -142,3 +147,27 @@ export const owedBookService: OwedBookService = {
     await new Promise((resolve) => setTimeout(resolve, 600));
   },
 };
+
+// RPCs retain the server's tenant fence and audit exactly once per successful call.
+export function createOwedBookService(businessId?: string, client?: RpcClient): OwedBookService {
+  const args = (f: OwedBookFilters) => ({ p_business_id: requireStore(businessId), p_from: f.from || null, p_to: f.to || null, p_pbms: f.pbms, p_filter: f.filter || null });
+  return {
+    async getKpis(filters) {
+      const rows = await readRpc<OwedBookKpis[]>("owedbook_kpis", args(filters), client);
+      if (rows.length !== 1 || ["commercial_underpaid", "commercial_scripts", "updated_difference", "owed"].some(key => rows[0][key as keyof OwedBookKpis] == null || !Number.isFinite(Number(rows[0][key as keyof OwedBookKpis])))) throw new Error("KPI data unavailable. Please retry.");
+      return { commercial_underpaid: Number(rows[0].commercial_underpaid), commercial_scripts: Number(rows[0].commercial_scripts), updated_difference: Number(rows[0].updated_difference), owed: Number(rows[0].owed) };
+    },
+    getRows: (tab, filters, page) => readRpc<OwedBookPage>("owedbook_rows", { ...args(filters), p_tab: tab, p_page: page, p_limit: 25 }, client),
+    getSummary: filters => readRpc<OwedBookSummaryRow[]>("owedbook_summary", args(filters), client),
+    getPbmOptions: () => readRpc<string[]>("owedbook_pbm_options", { p_business_id: requireStore(businessId) }, client),
+    async uploadData() { throw new Error(unavailableMessage); },
+    async refreshData() { throw new Error("Use the scoped screen refresh to reload KPIs, filters and rows."); },
+  };
+}
+// Explicit demo kill switch; never fall back to mock data after a live error.
+export const owedBookService: OwedBookService = Object.fromEntries(
+  Object.keys(mockOwedBookService).map(key => [key, (...args: unknown[]) => {
+    const service = isDemoMode() ? mockOwedBookService : createOwedBookService();
+    return (service[key as keyof OwedBookService] as (...values: unknown[]) => unknown)(...args);
+  }])
+) as unknown as OwedBookService;

@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "files": 229,
+  "modifiedTrackedFiles": 27,
+  "allModifiedTrackedFilesIncluded": true,
+  "indexInitiallyEmpty": true,
+  "pendingCopyOnlyFilesExcluded": [
+    "src/components/admin-portal/DemoMarker.tsx",
+    "src/components/admin-portal/BillingScreen.tsx"
+  ],
+  "credentialMatches": 0,
+  "privateBackupsIncluded": false,
+  "gitMutations": false,
+  "scope": "Literal reviewed input/evidence/source paths; no globs or unrelated untracked files"
+}

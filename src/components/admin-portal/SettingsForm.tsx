@@ -1,4 +1,5 @@
 "use client";
+import { isDemoMode } from "@/services/tenantScope";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -63,6 +64,8 @@ const SettingsForm = ({ settings }: { settings: PharmacySettings }) => {
       });
     }
   };
+
+  if (!isDemoMode()) return <div><h2 className="font-semibold">{settings.pharmacyName}</h2><p role="status">Editing settings is not available in this release. Additional pharmacy details are unavailable.</p></div>;
 
   return (
     <Form {...form}>

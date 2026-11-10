@@ -1,0 +1,31 @@
+checkedAt: 2026-11-07T14:43:01+06:00
+BUILD_ID: qHwlP5OzfOPiuxYc5iRSq
+BUILD.json buildId: qHwlP5OzfOPiuxYc5iRSq
+SCRATCH ref files in .next/static + standalone server: 0
+DEV ref files in .next/static + standalone server: 7
+SCRATCH ref in .next/static only (client bundle): 0
+listener 3137: 1
+/auth HTTP: 200
+/moose-portal HTTP: 404
+env key names in .env.local (names only):
+  APBM_DEV_DB_CONNECTION_STR x1
+  APBM_DEV_DB_POOL x1
+  APBM_DEV_DB_URL x2
+  APBM_DEV_PUBLISHABLE_KEY x1
+  APBM_DEV_SECRET_KEY x1
+  APBM_DEV_SUPABASE_URL x1
+  ENCODED_PASSWORD x1
+  NEXT_PUBLIC_API_BASE_URL x1
+  NEXT_PUBLIC_SITE_URL x1
+  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY x1
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY x1
+  NEXT_PUBLIC_SUPABASE_URL x1
+  RLS_REPLICA_DB_URL x1
+  RLS_REPLICA_PUBLISHABLE_KEY x1
+  RLS_REPLICA_SECRET_KEY x1
+  RLS_REPLICA_SUPABASE_URL x1
+  SUPABASE_SECRET_KEY x1
+project refs by key (ref only):
+NEXT_PUBLIC_SUPABASE_URL= ref:yrsuwikjnbmvpznrgydb
+APBM_DEV_SUPABASE_URL= ref:yrsuwikjnbmvpznrgydb
+RLS_REPLICA_SUPABASE_URL= ref:ihgcsrypblqkwommrkgj

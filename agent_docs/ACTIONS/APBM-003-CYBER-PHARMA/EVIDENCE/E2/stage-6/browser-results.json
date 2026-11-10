@@ -1,0 +1,78 @@
+{
+  "startedAt": "2026-11-06T14:18:20.435Z",
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "mode": "real",
+  "server": "127.0.0.1:3137 development build",
+  "status": "PASS",
+  "checks": [
+    "OWNER3 exact store picker scope",
+    "OWNER3 B1 50 claims",
+    "OWNER3 B2 50 claims",
+    "OWNER3 B3 50 claims",
+    "OWNER3 pagination",
+    "OWNER3 switch resets pager",
+    "OWNER3 summary",
+    "OWNER3 federal unavailable",
+    "OWNER3 forged foreign store rejected in UI",
+    "OWNER3 upload disabled",
+    "OWNER3 scoped admin stores",
+    "OWNER3 member roster",
+    "OWNER3 read-only billing",
+    "OWNER3 audited viewer",
+    "OWNER3 phone scope",
+    "ADMIN_B2 exact store picker scope",
+    "ADMIN_B2 B2 50 claims",
+    "ADMIN_B2 scoped admin stores",
+    "ADMIN_B2 member roster",
+    "ADMIN_B2 read-only billing",
+    "ADMIN_B2 audited viewer",
+    "MEMBER_B1 exact store picker scope",
+    "MEMBER_B1 B1 50 claims",
+    "MEMBER_B1 admin route denied",
+    "UNRELATED exact store picker scope",
+    "UNRELATED C1 50 claims",
+    "UNRELATED scoped admin stores",
+    "UNRELATED member roster",
+    "UNRELATED read-only billing",
+    "UNRELATED audited viewer"
+  ],
+  "failures": [],
+  "sessions": 4,
+  "unexpectedBackendRequests": 0,
+  "auditDelta": 82,
+  "auditFunctions": [
+    {
+      "fn": "admin_audit",
+      "count": 6
+    },
+    {
+      "fn": "admin_billing_status",
+      "count": 10
+    },
+    {
+      "fn": "admin_members",
+      "count": 6
+    },
+    {
+      "fn": "admin_stores",
+      "count": 18
+    },
+    {
+      "fn": "owedbook_kpis",
+      "count": 14
+    },
+    {
+      "fn": "owedbook_pbm_options",
+      "count": 10
+    },
+    {
+      "fn": "owedbook_rows",
+      "count": 17
+    },
+    {
+      "fn": "owedbook_summary",
+      "count": 1
+    }
+  ],
+  "finishedAt": "2026-11-06T14:18:54.574Z"
+}

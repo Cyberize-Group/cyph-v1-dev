@@ -1,0 +1,15 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+COMMAND: ["rg", "-n", "darkMode|ThemeToggle|setTheme|useTheme|next/font|@font-face|fonts.googleapis|:root|--background|lg:|md:", "tailwind.config.ts", "src/app/globals.css", "src/app/layout.tsx", "src/components/navbar"]
+EXIT: 2
+src/app/layout.tsx:2:import { Saira } from "next/font/google";
+src/app/globals.css:21:  :root {
+src/app/globals.css:22:    --background: 217 16% 90%;          /* #e2e5ea */
+src/app/globals.css:68:    --background: 222 18% 14%;          /* #1d212a — page (now darker than card) */
+src/app/globals.css:109:  .theme-bright { --background: 0 0% 100%; --secondary: 220 19% 96%; --muted: 220 16% 94%; }
+src/app/globals.css:111:  .dark.theme-deep { --background: 224 18% 12%; --card: 225 16% 16%; --popover: 225 16% 16%; }
+tailwind.config.ts:8:  darkMode: ["class"],
+tailwind.config.ts:29:        background: "hsl(var(--background))",
+tailwind.config.ts:84:        lg: "var(--radius)",
+tailwind.config.ts:85:        md: "calc(var(--radius) - 2px)",
+
+rg: src/components/navbar: No such file or directory (os error 2)

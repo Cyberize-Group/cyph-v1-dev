@@ -1,0 +1,30 @@
+{
+  "attack": false,
+  "baseline": "af2c7e5225d2d78925fd392e29a58b6bde830263",
+  "original": "308247a24e6ddd455842da5cd2e21541d7eae2c1",
+  "repaired": "dc44429f466dedcf35023342f68624c6cee062f0",
+  "fullProductPaths": 58,
+  "outsideAllowlist": [],
+  "repairProductPaths": [
+    "src/components/admin-portal/BillingScreen.tsx",
+    "src/components/admin-portal/DemoMarker.tsx",
+    "src/components/owedbook/OwedBookContext.tsx"
+  ],
+  "expectedRepair": [
+    "src/components/admin-portal/BillingScreen.tsx",
+    "src/components/admin-portal/DemoMarker.tsx",
+    "src/components/owedbook/OwedBookContext.tsx"
+  ],
+  "repairExact": true,
+  "forbiddenInRepair": [],
+  "protectedUnchanged": {
+    "src/proxy.ts": true,
+    "src/utils/supabase": true,
+    "src/app/api/auth": true,
+    "src/app/(auth)": true,
+    "next.config.js": true,
+    "package-lock.json": true
+  },
+  "migrations0001_0047Unchanged": true,
+  "result": "PASS"
+}

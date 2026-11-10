@@ -1,0 +1,224 @@
+{
+  "source": "direct_denials.json (cast-matrix.mjs run)",
+  "ranAt": "2026-11-09T04:02:38.495Z",
+  "note": "T-19 admin RPC scope/audit (AC-305, AC-603)",
+  "pass": 43,
+  "fail": 0,
+  "checks": [
+    {
+      "name": "T-19 OWNER1 admin_stores(A1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 OWNER1 admin_members(A1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 OWNER1 admin_billing_status(A1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 OWNER1 admin_audit(A1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 OWNER1 admin_audit snapshot excludes its own new row",
+      "result": "PASS",
+      "detail": "max id 995 \u2264 snapshot 995"
+    },
+    {
+      "name": "T-19 OWNER1 admin_audit rows scoped to permitted stores (A1), never A/C of others",
+      "result": "PASS",
+      "detail": "50 rows, 0 NULL-business rows"
+    },
+    {
+      "name": "T-19 OWNER3 admin_stores(B1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 OWNER3 admin_members(B1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 OWNER3 admin_billing_status(B1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 OWNER3 admin_audit(B1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 OWNER3 admin_audit snapshot excludes its own new row",
+      "result": "PASS",
+      "detail": "max id 1004 \u2264 snapshot 1004"
+    },
+    {
+      "name": "T-19 OWNER3 admin_audit rows scoped to permitted stores (B1\u222aB2\u222aB3 \u222a account-B NULL-business rows), never A/C of others",
+      "result": "PASS",
+      "detail": "50 rows, 0 NULL-business rows"
+    },
+    {
+      "name": "T-19 ADMIN_B2 admin_stores(B2) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 ADMIN_B2 admin_members(B2) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 ADMIN_B2 admin_billing_status(B2) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 ADMIN_B2 admin_audit(B2) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 ADMIN_B2 admin_audit snapshot excludes its own new row",
+      "result": "PASS",
+      "detail": "max id 1013 \u2264 snapshot 1013"
+    },
+    {
+      "name": "T-19 ADMIN_B2 admin_audit rows scoped to permitted stores (B2), never A/C of others",
+      "result": "PASS",
+      "detail": "50 rows, 0 NULL-business rows"
+    },
+    {
+      "name": "T-19 ADMIN_B3 admin_stores(B3) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 ADMIN_B3 admin_members(B3) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 ADMIN_B3 admin_billing_status(B3) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 ADMIN_B3 admin_audit(B3) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 ADMIN_B3 admin_audit snapshot excludes its own new row",
+      "result": "PASS",
+      "detail": "max id 1022 \u2264 snapshot 1022"
+    },
+    {
+      "name": "T-19 ADMIN_B3 admin_audit rows scoped to permitted stores (B3), never A/C of others",
+      "result": "PASS",
+      "detail": "50 rows, 0 NULL-business rows"
+    },
+    {
+      "name": "T-19 MEMBER_B1 admin_stores(B1) denied 42501 +0",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-19 MEMBER_B1 admin_members(B1) denied 42501 +0",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-19 MEMBER_B1 admin_billing_status(B1) denied 42501 +0",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-19 MEMBER_B1 admin_audit(B1) denied 42501 +0",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-19 MEMBER_B2B3 admin_stores(B2) denied 42501 +0",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-19 MEMBER_B2B3 admin_members(B2) denied 42501 +0",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-19 MEMBER_B2B3 admin_billing_status(B2) denied 42501 +0",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-19 MEMBER_B2B3 admin_audit(B2) denied 42501 +0",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-19 UNRELATED admin_stores(C1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 UNRELATED admin_members(C1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 UNRELATED admin_billing_status(C1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 UNRELATED admin_audit(C1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 UNRELATED admin_audit snapshot excludes its own new row",
+      "result": "PASS",
+      "detail": "max id 1041 \u2264 snapshot 1041"
+    },
+    {
+      "name": "T-19 UNRELATED admin_audit rows scoped to permitted stores (C1), never A/C of others",
+      "result": "PASS",
+      "detail": "50 rows, 0 NULL-business rows"
+    },
+    {
+      "name": "T-19 OWNER3 admin_members(B2) ok +1 (owner without junction)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-19 ADMIN_B2 admin_members(B3) \u2192 42501, +0",
+      "result": "PASS",
+      "detail": "42501"
+    },
+    {
+      "name": "T-19 UNRELATED admin_audit(B1) \u2192 42501",
+      "result": "PASS",
+      "detail": "42501"
+    },
+    {
+      "name": "T-19 ADMIN_B2 admin_audit returns only business_id=B2 rows (no NULL-business account rows)",
+      "result": "PASS",
+      "detail": "100 rows"
+    },
+    {
+      "name": "T-19 tenant_stores adds 0 audit rows",
+      "result": "PASS",
+      "detail": ""
+    }
+  ]
+}

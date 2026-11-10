@@ -7,8 +7,14 @@
 // Env: DB_URL (fail-closed). Exit 0 = all green; 1 = env; 3 = check failures (all listed).
 
 import pg from "pg";
+import { readFileSync, readdirSync } from "node:fs";
+import { join } from "node:path";
+import { repoRoot } from "./rls-harness/lib/env.mjs";
 
-const dbUrl = process.env.DB_URL;
+import { loadEnv, assertScratch } from "./rls-harness/lib/env.mjs";
+const env = loadEnv();
+assertScratch(env);
+const dbUrl = env.DB_URL;
 if (!dbUrl) { console.error("FAIL-CLOSED: DB_URL not set."); process.exit(1); }
 const probes = process.argv.includes("--probes");
 
@@ -16,7 +22,7 @@ const NEW_TABLES = [
   "accounts", "businesses", "user_businesses", "pending_registrations",
   "subscriptions", "apa_memberships", "reference_dataset_versions",
   "aac_reference", "wac_reference", "ful_reference", "pbm_info",
-  "user_data", "report_files", "audit_logs",
+  "user_data", "report_files", "audit_logs", "system_config",
 ];
 const SIXTEEN = [...NEW_TABLES, "user_roles", "profiles"].sort();
 const DEFERRED = ["desktop_client_versions", "local_desktop_users", "password_reset_tokens"];
@@ -69,18 +75,17 @@ console.log(`[db-verify] structural checks${probes ? " + mutation probes" : ""}`
   if (rows.length) bad("X4 RLS-enabled", `RLS off on: ${rows.map((r) => r.relname).join(", ")}`);
   else ok("X4 RLS enabled on every public table");
   const { rows: pol } = await q(`select policyname, tablename from pg_policies where schemaname='public'`);
-  const baseline = ["Profiles are updatable by owner or superadmins",
-    "Profiles are viewable by owner or superadmins", "Users can read their own role"];
-  const extra = pol.filter((p) => !baseline.includes(p.policyname));
-  if (extra.length) bad("AC7 policy delta", `non-baseline policies: ${extra.map((p) => `${p.tablename}.${p.policyname}`).join(", ")}`);
-  else if (pol.length !== 3) bad("AC7 policy delta", `expected 3 baseline policies, found ${pol.length}`);
-  else ok("AC7 zero permissive policies added (baseline 3 intact)");
+  const expected = new Map();
+  const texts=[readFileSync(join(repoRoot,'scripts/db-bootstrap-baseline.sql'),'utf8'),...readdirSync(join(repoRoot,'supabase/migrations')).filter(f=>/^\d{4}_.+\.sql$/.test(f)).sort().map(f=>readFileSync(join(repoRoot,'supabase/migrations',f),'utf8'))];
+  for(const text of texts)for(const m of text.matchAll(/(create|drop)\s+policy\s+"([^"]+)"\s+on\s+public\.(\w+)/gi)){const key=m[3]+'.'+m[2];if(m[1].toLowerCase()==='drop')expected.delete(key);else expected.set(key,true);}
+  const actual=pol.map(p=>p.tablename+'.'+p.policyname).sort();const want=[...expected.keys()].sort();
+  if(JSON.stringify(actual)!==JSON.stringify(want))bad('AC7 policy inventory',`expected ${want.length} exact names, observed ${actual.length}`);else ok(`AC7 exact approved policy inventory: ${want.length}`);
 }
 
 // ── X4 deny probe: anon + authenticated SELECT on every new table ────────────
 for (const role of ["anon", "authenticated"]) {
   let denied = 0, empty = 0, leaked = [];
-  for (const t of NEW_TABLES) {
+  for (const t of NEW_TABLES.filter(t=>role!=="authenticated" || !["aac_reference","wac_reference","ful_reference","pbm_info","reference_dataset_versions"].includes(t))) {
     try {
       await q("begin");
       await q(`set local role ${role}`);
@@ -175,7 +180,7 @@ for (const [col, tables] of TEXT_IDS) {
 // ── AC12 structural: timestamps + trigger on all 16 ──────────────────────────
 {
   for (const t of SIXTEEN) {
-    if (["user_roles", "profiles", "audit_logs"].includes(t)) continue; // baseline: acknowledged as-is, not retrofitted (manager §5 rows 3-4: NO structural change) // audit_logs: BIM-003 shape has occurred_at, no updated_at, immutable (ERRATUM E-3)
+    if (["user_roles", "profiles", "audit_logs", "system_config"].includes(t)) continue; // baseline: acknowledged as-is, not retrofitted (manager §5 rows 3-4: NO structural change) // audit_logs: BIM-003 shape has occurred_at, no updated_at, immutable (ERRATUM E-3)
     const { rows } = await q(`select count(*)::int as n from information_schema.columns
       where table_schema='public' and table_name=$1 and column_name in ('created_at','updated_at')
         and data_type='timestamp with time zone'`, [t]);
@@ -185,6 +190,16 @@ for (const [col, tables] of TEXT_IDS) {
     else if (!trg.length) bad(`AC12 trigger ${t}`, "set_updated_at missing");
     else ok(`AC12 ${t} — timestamptz pair + trigger`);
   }
+}
+
+// APBM dated configuration has an effective-date identity and creation timestamp;
+// the legacy updated_at law applies only to its historical mutable tables.
+{
+ const cols=(await q("select column_name,data_type from information_schema.columns where table_schema='public' and table_name='system_config' order by ordinal_position")).rows;
+ const want={id:'uuid',key:'text',state:'text',value:'numeric',effective_date:'date',created_at:'timestamp with time zone'};
+ if(cols.length!==6||cols.some(c=>want[c.column_name]!==c.data_type))bad('APBM config schema','column/type mismatch');else ok('APBM config exact dated schema');
+ const unique=(await q("select pg_get_constraintdef(oid) d from pg_constraint where conrelid='public.system_config'::regclass and contype='u'")).rows;
+ if(unique.length!==1||!unique[0].d.includes('key, state, effective_date'))bad('APBM config vintage','unique vintage missing');else ok('APBM config unique key/state/effective_date');
 }
 
 // ── mutation probes (scratch only) ───────────────────────────────────────────

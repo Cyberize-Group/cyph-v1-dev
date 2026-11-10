@@ -1,0 +1,8 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+COMMAND: ["rg", "-n", "375|sort|Escape|drawer|picker|light|dark", "agent_docs/ACTIONS/RRM-003-CYBER-PHARMA/QA/QA_CERTIFICATION.md"]
+EXIT: 0
+STDOUT:
+24:- Coverage included desktop and 375px, light and dark themes.
+25:- Sorting, focus traps, nested Escape behavior, routes, logout, and session protection passed.
+
+STDERR:

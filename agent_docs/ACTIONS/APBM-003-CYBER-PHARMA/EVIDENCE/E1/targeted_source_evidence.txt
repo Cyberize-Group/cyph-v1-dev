@@ -1,0 +1,3897 @@
+Read-only line-numbered source capture from /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+
+FILE: src/components/owedbook/FilterRail.tsx
+1: "use client";
+2: 
+3: import { useEffect, useRef, useState, type ChangeEvent } from "react";
+4: import MultiSelect from "@/components/common/MultiSelect";
+5: import {
+6:   Select,
+7:   SelectContent,
+8:   SelectItem,
+9:   SelectTrigger,
+10:   SelectValue,
+11: } from "@/components/ui/select";
+12: import { owedBookService } from "@/services/owedbook";
+13: import type { OwedBookFilters } from "@/types/OwedBook";
+14: import { countActiveFilters } from "./OwedBookContext";
+15: 
+16: interface FilterRailProps {
+17:   filters: OwedBookFilters; // committed filters — seed the controls + active count
+18:   pbmOptions: string[];
+19:   onApply: (filters: OwedBookFilters) => void;
+20:   onClear: () => void;
+21: }
+22: 
+23: const EMPTY: OwedBookFilters = { pbms: [] };
+24: 
+25: const FILTER_OPTIONS = [
+26:   { value: "all", label: "All" },
+27:   { value: "recovered", label: "Recovered" },
+28:   { value: "emailed_pbm", label: "Emailed PBM" },
+29:   { value: "pending", label: "Pending" },
+30:   { value: "underpaid", label: "Underpaid" },
+31:   { value: "new", label: "New" },
+32: ];
+33: 
+34: // Filter rail (UI_SPEC §5.4). UI-only: Apply re-queries the service. Upload Data
+35: // is a UI-FUNCTIONAL MOCK — opens a real picker and fakes success via the
+36: // service, but does NOT read/parse/send the file (real ingest = Phase 5).
+37: const FilterRail = ({ filters, pbmOptions, onApply, onClear }: FilterRailProps) => {
+38:   // Seed the controls from the committed filters so reopening the rail/drawer
+39:   // shows the active selection (FilterRail re-mounts each time the drawer opens).
+40:   const [draft, setDraft] = useState<OwedBookFilters>(filters);
+41:   const [upload, setUpload] = useState<{ name: string; status: "uploading" | "done" } | null>(null);
+42:   const [refresh, setRefresh] = useState<"idle" | "refreshing" | "done">("idle");
+43:   const fileInputRef = useRef<HTMLInputElement>(null);
+44: 
+45:   // Re-sync the draft when committed filters change externally (e.g. the
+46:   // main-screen "Clear filters"), so the persistent desktop rail isn't stale.
+47:   useEffect(() => {
+48:     setDraft(filters);
+49:   }, [filters]);
+50: 
+51:   // "N filters active" reflects the APPLIED (committed) set, not the draft.
+52:   const activeCount = countActiveFilters(filters);
+53: 
+54:   const handleClear = () => {
+55:     setDraft(EMPTY);
+56:     onClear();
+57:   };
+58: 
+59:   const handleFile = async (e: ChangeEvent<HTMLInputElement>) => {
+60:     const file = e.target.files?.[0];
+61:     if (!file) return;
+62:     setUpload({ name: file.name, status: "uploading" });
+63:     await owedBookService.uploadData(file); // mock: file is NOT read/parsed/sent
+64:     setUpload({ name: file.name, status: "done" });
+65:     e.target.value = ""; // allow re-selecting the same file
+66:   };
+67: 
+68:   const handleRefresh = async () => {
+69:     setRefresh("refreshing");
+70:     await owedBookService.refreshData(); // mock: no real fetch
+71:     setRefresh("done");
+72:   };
+73: 
+74:   return (
+75:     <aside className="flex flex-col gap-4 p-4 bg-card border border-border">
+76:       <div className="flex flex-col gap-1">
+77:         <button
+78:           type="button"
+79:           onClick={() => fileInputRef.current?.click()}
+80:           className="w-full bg-chart-5 text-white py-2 text-sm font-semibold"
+81:         >
+82:           Upload Data
+83:         </button>
+84:         <input
+85:           ref={fileInputRef}
+86:           type="file"
+87:           accept=".csv,.xlsx,.xls"
+88:           onChange={handleFile}
+89:           className="hidden"
+90:           aria-label="Upload claims file"
+91:         />
+92:         <p className="text-xs text-muted-foreground">Upload your dispensing report (.csv, .xlsx)</p>
+93:         {upload && (
+94:           <p className="text-xs text-muted-foreground truncate" role="status">
+95:             {upload.name} — {upload.status === "uploading" ? "Uploading…" : "Upload complete"}
+96:           </p>
+97:         )}
+98:       </div>
+99: 
+100:       <label className="flex flex-col gap-1 text-sm">
+101:         <span className="text-xs uppercase tracking-wide text-muted-foreground">From</span>
+102:         <input
+103:           type="date"
+104:           value={draft.from ?? ""}
+105:           onChange={(e) => setDraft({ ...draft, from: e.target.value || undefined })}
+106:           className="border border-input bg-background px-2 py-1"
+107:         />
+108:       </label>
+109: 
+110:       <label className="flex flex-col gap-1 text-sm">
+111:         <span className="text-xs uppercase tracking-wide text-muted-foreground">To</span>
+112:         <input
+113:           type="date"
+114:           value={draft.to ?? ""}
+115:           onChange={(e) => setDraft({ ...draft, to: e.target.value || undefined })}
+116:           className="border border-input bg-background px-2 py-1"
+117:         />
+118:       </label>
+119: 
+120:       <div className="flex flex-col gap-1 text-sm">
+121:         <span className="text-xs uppercase tracking-wide text-muted-foreground">Filter</span>
+122:         <Select
+123:           value={draft.filter ?? "all"}
+124:           onValueChange={(v) => setDraft({ ...draft, filter: v === "all" ? undefined : v })}
+125:         >
+126:           <SelectTrigger>
+127:             <SelectValue placeholder="All" />
+128:           </SelectTrigger>
+129:           <SelectContent>
+130:             {FILTER_OPTIONS.map((o) => (
+131:               <SelectItem key={o.value} value={o.value}>
+132:                 {o.label}
+133:               </SelectItem>
+134:             ))}
+135:           </SelectContent>
+136:         </Select>
+137:       </div>
+138: 
+139:       <div className="flex flex-col gap-1 text-sm">
+140:         <span className="text-xs uppercase tracking-wide text-muted-foreground">PBM</span>
+141:         <MultiSelect
+142:           options={pbmOptions}
+143:           selected={draft.pbms}
+144:           onChange={(pbms) => setDraft({ ...draft, pbms })}
+145:           triggerLabel="PBMs"
+146:           placeholder="Search PBMs..."
+147:         />
+148:       </div>
+149: 
+150:       <p className="text-xs text-muted-foreground">{activeCount} filters active</p>
+151: 
+152:       <div className="flex gap-2">
+153:         <button
+154:           type="button"
+155:           onClick={handleClear}
+156:           className="flex-1 border border-border py-2 text-sm"
+157:         >
+158:           Clear
+159:         </button>
+160:         <button
+161:           type="button"
+162:           onClick={() => onApply(draft)}
+163:           className="flex-1 bg-chart-5 text-white py-2 text-sm font-semibold"
+164:         >
+165:           Apply
+166:         </button>
+167:       </div>
+168: 
+169:       <div className="flex flex-col gap-1 mt-2">
+170:         <button
+171:           type="button"
+172:           onClick={handleRefresh}
+173:           disabled={refresh === "refreshing"}
+174:           className="w-full bg-secondary text-secondary-foreground py-2 text-sm font-semibold disabled:opacity-60"
+175:         >
+176:           Get Fresh Data
+177:         </button>
+178:         {refresh !== "idle" && (
+179:           <p className="text-xs text-muted-foreground" role="status">
+180:             {refresh === "refreshing" ? "Refreshing…" : "Done"}
+181:           </p>
+182:         )}
+183:       </div>
+184:     </aside>
+185:   );
+186: };
+187: 
+188: export default FilterRail;
+
+FILE: src/components/owedbook/KpiTiles.tsx
+1: import type { OwedBookKpis } from "@/types/OwedBook";
+2: import { usd, count } from "./format";
+3: 
+4: interface KpiTilesProps {
+5:   kpis: OwedBookKpis;
+6: }
+7: 
+8: interface Tile {
+9:   label: string;
+10:   value: string;
+11:   bg: string; // literal so Tailwind keeps it
+12: }
+13: 
+14: // 4 solid-color KPI tiles (UI_SPEC v1.3 §5.2). Tokens via --chart-* only (G10);
+15: // chart-1 red / chart-2 blue / chart-3 green / chart-4 maroon.
+16: const KpiTiles = ({ kpis }: KpiTilesProps) => {
+17:   const tiles: Tile[] = [
+18:     { label: "Commercial Underpaid", value: usd(kpis.commercial_underpaid), bg: "bg-chart-1" },
+19:     { label: "Commercial Scripts", value: count(kpis.commercial_scripts), bg: "bg-chart-2" },
+20:     { label: "Updated Difference", value: usd(kpis.updated_difference), bg: "bg-chart-3" },
+21:     { label: "Owed", value: usd(kpis.owed), bg: "bg-chart-4" },
+22:   ];
+23: 
+24:   return (
+25:     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+26:       {tiles.map((t) => (
+27:         <div key={t.label} className={`${t.bg} p-4 text-white`}>
+28:           <div className="text-xs uppercase tracking-wide font-medium opacity-90">
+29:             {t.label}
+30:           </div>
+31:           <div className="text-2xl font-bold tabular-nums mt-1">{t.value}</div>
+32:         </div>
+33:       ))}
+34:     </div>
+35:   );
+36: };
+37: 
+38: export default KpiTiles;
+
+FILE: src/components/owedbook/OwedBookContext.tsx
+1: "use client";
+2: 
+3: import {
+4:   createContext,
+5:   useCallback,
+6:   useContext,
+7:   useEffect,
+8:   useState,
+9:   type ReactNode,
+10: } from "react";
+11: import { owedBookService } from "@/services/owedbook";
+12: import type { OwedBookFilters } from "@/types/OwedBook";
+13: 
+14: // Filter state shared across the /owedbook surface so the FilterRail (which now
+15: // lives INSIDE the left sidebar) can drive the OwedBookScreen (which renders the
+16: // main pane). Surface-scoped React context — NOT global/Zustand state, so the
+17: // "surface is route-derived, no new global state" rule (§B) still holds.
+18: interface OwedBookCtx {
+19:   filters: OwedBookFilters;
+20:   pbmOptions: string[];
+21:   applyFilters: (f: OwedBookFilters) => void;
+22:   clearFilters: () => void;
+23:   appliedTick: number; // bumps on every apply/clear — drawer-close signal
+24: }
+25: 
+26: // Count of ACTIVE (applied) filters — shared by the rail + the main-screen badge.
+27: export const countActiveFilters = (f: OwedBookFilters): number =>
+28:   (f.from ? 1 : 0) + (f.to ? 1 : 0) + (f.pbms.length > 0 ? 1 : 0) + (f.filter ? 1 : 0);
+29: 
+30: const EMPTY: OwedBookFilters = { pbms: [] };
+31: 
+32: const OwedBookContext = createContext<OwedBookCtx>({
+33:   filters: EMPTY,
+34:   pbmOptions: [],
+35:   applyFilters: () => {},
+36:   clearFilters: () => {},
+37:   appliedTick: 0,
+38: });
+39: 
+40: export const useOwedBook = () => useContext(OwedBookContext);
+41: 
+42: export const OwedBookProvider = ({ children }: { children: ReactNode }) => {
+43:   const [filters, setFilters] = useState<OwedBookFilters>(EMPTY);
+44:   const [pbmOptions, setPbmOptions] = useState<string[]>([]);
+45:   const [appliedTick, setAppliedTick] = useState(0);
+46: 
+47:   // Distinct PBM names for the filter — load once.
+48:   useEffect(() => {
+49:     let cancelled = false;
+50:     owedBookService
+51:       .getPbmOptions()
+52:       .then((o) => !cancelled && setPbmOptions(o))
+53:       .catch(() => {});
+54:     return () => {
+55:       cancelled = true;
+56:     };
+57:   }, []);
+58: 
+59:   // Each apply/clear bumps appliedTick so the mobile drawer can dismiss itself
+60:   // (it covers the results otherwise) — same pattern as close-on-navigation.
+61:   const applyFilters = useCallback((f: OwedBookFilters) => {
+62:     setFilters(f);
+63:     setAppliedTick((t) => t + 1);
+64:   }, []);
+65:   const clearFilters = useCallback(() => {
+66:     setFilters(EMPTY);
+67:     setAppliedTick((t) => t + 1);
+68:   }, []);
+69: 
+70:   return (
+71:     <OwedBookContext.Provider
+72:       value={{ filters, pbmOptions, applyFilters, clearFilters, appliedTick }}
+73:     >
+74:       {children}
+75:     </OwedBookContext.Provider>
+76:   );
+77: };
+
+FILE: src/components/owedbook/OwedBookScreen.tsx
+1: "use client";
+2: 
+3: import { useCallback, useEffect, useState } from "react";
+4: import { Inbox } from "lucide-react";
+5: import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+6: import DataTable from "@/components/common/DataTable";
+7: import EmptyState from "@/components/common/EmptyState";
+8: import { owedBookService } from "@/services/owedbook";
+9: import type {
+10:   OwedBookFilters,
+11:   OwedBookKpis,
+12:   OwedBookPage,
+13:   OwedBookRow,
+14:   OwedBookSummaryRow,
+15:   OwedTab,
+16: } from "@/types/OwedBook";
+17: import KpiTiles from "./KpiTiles";
+18: import SummaryUnattributedNote from "./SummaryUnattributedNote";
+19: import { useOwedBook, countActiveFilters } from "./OwedBookContext";
+20: import {
+21:   COMMERCIAL_COLUMNS,
+22:   FEDERAL_COLUMNS,
+23:   SUMMARY_COLUMNS,
+24:   UPDATED_COLUMNS,
+25: } from "./columns";
+26: 
+27: const TABS: { value: OwedTab; label: string }[] = [
+28:   { value: "commercial_dollars", label: "Commercial Dollars" },
+29:   { value: "updated_commercial_payments", label: "Updated Payments" },
+30:   { value: "federal_dollars", label: "Federal Dollars" },
+31:   { value: "summary", label: "Summary" },
+32: ];
+33: 
+34: const ZERO_KPIS: OwedBookKpis = {
+35:   commercial_underpaid: 0,
+36:   commercial_scripts: 0,
+37:   updated_difference: 0,
+38:   owed: 0,
+39: };
+40: 
+41: const columnsForTab = (tab: OwedTab) =>
+42:   tab === "federal_dollars"
+43:     ? FEDERAL_COLUMNS
+44:     : tab === "updated_commercial_payments"
+45:       ? UPDATED_COLUMNS
+46:       : COMMERCIAL_COLUMNS;
+47: 
+48: const SkeletonRows = () => (
+49:   <div className="flex flex-col gap-2" data-testid="owedbook-skeleton">
+50:     {Array.from({ length: 6 }).map((_, i) => (
+51:       <div key={i} className="h-10 bg-muted animate-pulse" />
+52:     ))}
+53:   </div>
+54: );
+55: 
+56: // Main pane only (UI_SPEC v1.4 §A.1/§5.1). The filter rail lives in the left
+57: // sidebar (AdminSidebar); this consumes the shared filter state via context.
+58: const OwedBookScreen = () => {
+59:   const { filters, clearFilters } = useOwedBook();
+60:   const activeFilterCount = countActiveFilters(filters);
+61:   const [activeTab, setActiveTab] = useState<OwedTab>("commercial_dollars");
+62:   const [page, setPage] = useState(1);
+63:   const [sort, setSort] = useState<{ key: string; direction: "asc" | "desc" }>();
+64:   const [kpis, setKpis] = useState<OwedBookKpis>(ZERO_KPIS);
+65:   const [pageData, setPageData] = useState<OwedBookPage | null>(null);
+66:   const [summaryRows, setSummaryRows] = useState<OwedBookSummaryRow[]>([]);
+67:   // RRM-002 AC-103: which `filters` reference each aggregate was resolved for.
+68:   // The disclosure renders only when both tags === the current `filters`.
+69:   const [kpiFilters, setKpiFilters] = useState<OwedBookFilters | null>(null);
+70:   const [summaryFilters, setSummaryFilters] = useState<OwedBookFilters | null>(null);
+71:   const [loading, setLoading] = useState(true);
+72:   const [error, setError] = useState<string | null>(null);
+73:   const [reloadKey, setReloadKey] = useState(0);
+74: 
+75:   const isSummary = activeTab === "summary";
+76: 
+77:   // A new filter set resets to the first page.
+78:   useEffect(() => {
+79:     setPage(1);
+80:   }, [filters]);
+81: 
+82:   // KPI tiles react to the filter set.
+83:   useEffect(() => {
+84:     let cancelled = false;
+85:     owedBookService
+86:       .getKpis(filters)
+87:       .then((k) => {
+88:         if (cancelled) return;
+89:         setKpis(k);
+90:         setKpiFilters(filters);
+91:       })
+92:       .catch(() => {
+93:         if (cancelled) return;
+94:         setKpis(ZERO_KPIS);
+95:         setKpiFilters(null);
+96:       });
+97:     return () => {
+98:       cancelled = true;
+99:     };
+100:   }, [filters]);
+101: 
+102:   // Ledger rows / summary react to tab + filters + page.
+103:   useEffect(() => {
+104:     let cancelled = false;
+105:     setLoading(true);
+106:     setError(null);
+107:     (async () => {
+108:       try {
+109:         if (activeTab === "summary") {
+110:           const s = await owedBookService.getSummary(filters);
+111:           if (!cancelled) {
+112:             setSummaryRows(s);
+113:             setPageData(null);
+114:             setSummaryFilters(filters);
+115:           }
+116:         } else {
+117:           const p = await owedBookService.getRows(activeTab, filters, page);
+118:           if (!cancelled) setPageData(p);
+119:         }
+120:       } catch (e) {
+121:         if (!cancelled) setError(e instanceof Error ? e.message : "Failed to load data");
+122:       } finally {
+123:         if (!cancelled) setLoading(false);
+124:       }
+125:     })();
+126:     return () => {
+127:       cancelled = true;
+128:     };
+129:   }, [activeTab, filters, page, reloadKey]);
+130: 
+131:   const handleSort = useCallback((key: string) => {
+132:     setSort((prev) =>
+133:       prev?.key === key
+134:         ? { key, direction: prev.direction === "asc" ? "desc" : "asc" }
+135:         : { key, direction: "asc" }
+136:     );
+137:   }, []);
+138: 
+139:   // Client-side sort of the current page (server-side sort is a Phase-3 concern
+140:   // — the service contract takes no sort param yet).
+141:   const rows = pageData?.rows ?? [];
+142:   const sortedRows = sort
+143:     ? [...rows].sort((a, b) => {
+144:         const av = a[sort.key as keyof OwedBookRow];
+145:         const bv = b[sort.key as keyof OwedBookRow];
+146:         if (av == null) return 1;
+147:         if (bv == null) return -1;
+148:         const cmp =
+149:           typeof av === "number" && typeof bv === "number"
+150:             ? av - bv
+151:             : String(av).localeCompare(String(bv));
+152:         return sort.direction === "asc" ? cmp : -cmp;
+153:       })
+154:     : rows;
+155: 
+156:   const emptyState = (
+157:     <EmptyState
+158:       icon={<Inbox className="w-10 h-10 text-muted-foreground" />}
+159:       headline="No results"
+160:       subcopy="No rows match the current filters. Adjust or clear them to see data."
+161:       action={{ label: "Clear filters", onClick: clearFilters }}
+162:     />
+163:   );
+164: 
+165:   return (
+166:     <div className="flex flex-col gap-6 min-w-0 p-6">
+167:       <header>
+168:         <p className="text-xs uppercase tracking-wide text-muted-foreground">Dashboard</p>
+169:         <h1 className="text-3xl font-bold mt-1">OwedBook</h1>
+170:         <p className="text-muted-foreground mt-1">
+171:           Ledger-level clarity on every dollar you&apos;re owed.
+172:         </p>
+173:       </header>
+174: 
+175:       {/* At-a-glance active-filter badge (UI_SPEC §5.4) — reflects the APPLIED set. */}
+176:       {activeFilterCount > 0 && (
+177:         <div className="flex items-center gap-3" data-testid="active-filters">
+178:           <span className="inline-flex items-center bg-chart-5 text-white px-2.5 py-1 text-xs font-semibold">
+179:             {activeFilterCount} {activeFilterCount === 1 ? "filter" : "filters"} active
+180:           </span>
+181:           <button
+182:             type="button"
+183:             onClick={clearFilters}
+184:             className="text-primary text-xs underline-offset-2 hover:underline"
+185:           >
+186:             Clear filters
+187:           </button>
+188:         </div>
+189:       )}
+190: 
+191:       <KpiTiles kpis={kpis} />
+192: 
+193:       {!isSummary && pageData && (
+194:         <div className="flex items-center gap-3 text-sm text-muted-foreground">
+195:           <span>
+196:             Page {pageData.page} of {Math.max(pageData.pageCount, 1)}
+197:           </span>
+198:           <button
+199:             type="button"
+200:             disabled={pageData.page <= 1}
+201:             onClick={() => setPage((p) => Math.max(1, p - 1))}
+202:             className="disabled:opacity-40 hover:text-foreground"
+203:           >
+204:             Prev
+205:           </button>
+206:           <button
+207:             type="button"
+208:             disabled={pageData.page >= pageData.pageCount}
+209:             onClick={() => setPage((p) => p + 1)}
+210:             className="disabled:opacity-40 hover:text-foreground"
+211:           >
+212:             Next
+213:           </button>
+214:           <span>
+215:             Limit {pageData.limit} · Total {pageData.total}
+216:           </span>
+217:         </div>
+218:       )}
+219: 
+220:       <Tabs
+221:         value={activeTab}
+222:         onValueChange={(v) => {
+223:           setActiveTab(v as OwedTab);
+224:           setPage(1);
+225:         }}
+226:       >
+227:         <TabsList className="max-w-full justify-start overflow-x-auto">
+228:           {TABS.map((t) => (
+229:             <TabsTrigger key={t.value} value={t.value} className="shrink-0">
+230:               {t.label}
+231:             </TabsTrigger>
+232:           ))}
+233:         </TabsList>
+234:       </Tabs>
+235: 
+236:       <div>
+237:         {error ? (
+238:           <div className="flex items-center gap-3 text-sm text-destructive">
+239:             <span>{error}</span>
+240:             <button
+241:               type="button"
+242:               onClick={() => setReloadKey((k) => k + 1)}
+243:               className="underline"
+244:             >
+245:               Retry
+246:             </button>
+247:           </div>
+248:         ) : loading ? (
+249:           <SkeletonRows />
+250:         ) : isSummary ? (
+251:           <DataTable<OwedBookSummaryRow>
+252:             columns={SUMMARY_COLUMNS}
+253:             rows={summaryRows}
+254:             emptyState={emptyState}
+255:             getRowKey={(r) => r.pbm}
+256:           />
+257:         ) : (
+258:           <DataTable<OwedBookRow>
+259:             columns={columnsForTab(activeTab)}
+260:             rows={sortedRows}
+261:             sort={sort}
+262:             onSort={handleSort}
+263:             emptyState={emptyState}
+264:             getRowKey={(r) => r.id}
+265:           />
+266:         )}
+267:       </div>
+268: 
+269:       {/* RRM-002 D3 disclosure — Summary tab only, same-filters pair only (AC-101–104). */}
+270:       {isSummary && !loading && !error && kpiFilters === filters && summaryFilters === filters && (
+271:         <SummaryUnattributedNote underpaid={kpis.commercial_underpaid} summary={summaryRows} />
+272:       )}
+273:     </div>
+274:   );
+275: };
+276: 
+277: export default OwedBookScreen;
+
+FILE: src/components/owedbook/StatusChip.tsx
+1: import type { OwedStatus } from "@/types/OwedBook";
+2: 
+3: // Status → semantic token (UI_SPEC v1.3 §5.5). Class strings are literals so
+4: // Tailwind's content scanner keeps them. null → "—".
+5: const STATUS: Record<OwedStatus, { label: string; className: string }> = {
+6:   recovered: { label: "Recovered", className: "bg-success/10 text-success" },
+7:   emailed_pbm: { label: "Emailed PBM", className: "bg-info/10 text-info" },
+8:   pending: { label: "Pending", className: "bg-warning/10 text-warning" },
+9:   underpaid: { label: "Underpaid", className: "bg-destructive/10 text-destructive" },
+10:   new: { label: "New", className: "bg-muted text-muted-foreground" },
+11: };
+12: 
+13: interface StatusChipProps {
+14:   status: OwedStatus | null;
+15: }
+16: 
+17: const StatusChip = ({ status }: StatusChipProps) => {
+18:   if (!status) return <span className="text-muted-foreground">—</span>;
+19: 
+20:   const { label, className } = STATUS[status];
+21:   return (
+22:     <span
+23:       className={`inline-flex items-center px-2 py-0.5 text-xs font-medium ${className}`}
+24:     >
+25:       {label}
+26:     </span>
+27:   );
+28: };
+29: 
+30: export default StatusChip;
+
+FILE: src/components/owedbook/SummaryUnattributedNote.tsx
+1: import type { OwedBookSummaryRow } from "@/types/OwedBook";
+2: import { round2, usd } from "./format";
+3: 
+4: // RRM-002 disclosure (Director D3, ledger R-015). The Summary breakdown skips
+5: // claims with no PBM yet; the KPI total does not. This note states the gap
+6: // between the two aggregates the service already returns for the SAME filters:
+7: //   gap = round2(K − S), K = getKpis().commercial_underpaid,
+8: //                        S = Σ getSummary()[i].commercial_dollars
+9: // No other arithmetic, no count, no new bucket. Hidden when gap < 0.01
+10: // (so "$0.00" and negative gaps never render). Pairing of K and S to one
+11: // filters snapshot is the screen's job — this component only formats.
+12: const NOTE_COPY =
+13:   "in underpaid dollars belongs to claims awaiting a PBM match and isn't shown in this breakdown.";
+14: 
+15: interface SummaryUnattributedNoteProps {
+16:   underpaid: number;
+17:   summary: OwedBookSummaryRow[];
+18: }
+19: 
+20: const SummaryUnattributedNote = ({ underpaid, summary }: SummaryUnattributedNoteProps) => {
+21:   const attributed = summary.reduce((total, row) => total + row.commercial_dollars, 0);
+22:   const gap = round2(underpaid - attributed);
+23:   if (gap < 0.01) return null;
+24: 
+25:   return (
+26:     <p data-testid="summary-unattributed-note" className="text-sm text-muted-foreground">
+27:       {`${usd(gap)} ${NOTE_COPY}`}
+28:     </p>
+29:   );
+30: };
+31: 
+32: export default SummaryUnattributedNote;
+
+FILE: src/components/owedbook/columns.tsx
+1: import type { ColumnDef, SemanticColor } from "@/components/common/DataTable";
+2: import type { OwedBookRow, OwedBookSummaryRow } from "@/types/OwedBook";
+3: import StatusChip from "./StatusChip";
+4: import { usd } from "./format";
+5: 
+6: const money = (v: unknown) => usd(Number(v ?? 0));
+7: 
+8: const posNeg = (n: number | null): SemanticColor =>
+9:   n == null || n === 0 ? "foreground" : n > 0 ? "success" : "destructive";
+10: 
+11: // Report affordance — shows when a report exists; real view/download is Phase 5/6.
+12: const reportColumn: ColumnDef<OwedBookRow> = {
+13:   key: "report_file",
+14:   label: "Report",
+15:   render: (row) =>
+16:     row.report_file ? (
+17:       <button type="button" className="text-primary text-sm underline-offset-2 hover:underline">
+18:         Report
+19:       </button>
+20:     ) : (
+21:       <span className="text-muted-foreground">—</span>
+22:     ),
+23: };
+24: 
+25: // Commercial Dollars (§5.3): Date · Script · Qty · Medicaid Rate · Method ·
+26: // Expected · Original Paid · Owed · Report · Status. (commercial = demo spread.)
+27: export const COMMERCIAL_COLUMNS: ColumnDef<OwedBookRow>[] = [
+28:   { key: "date", label: "Date" },
+29:   { key: "script", label: "Script" },
+30:   { key: "qty", label: "Qty", align: "right", numeric: true },
+31:   { key: "medicaid_rate", label: "Medicaid Rate", align: "right", numeric: true, format: money },
+32:   { key: "method", label: "Method" },
+33:   { key: "expected", label: "Expected", align: "right", numeric: true, format: money },
+34:   { key: "original_paid", label: "Original Paid", align: "right", numeric: true, format: money },
+35:   { key: "owed", label: "Owed", align: "right", numeric: true, hero: true, format: money, semanticColor: (row) => posNeg(row.owed) },
+36:   reportColumn,
+37:   { key: "status", label: "Status", render: (row) => <StatusChip status={row.status} /> },
+38: ];
+39: 
+40: // Updated Commercial Payments (§5.3): Date · Script · Original Paid · New Paid · Updated Difference.
+41: export const UPDATED_COLUMNS: ColumnDef<OwedBookRow>[] = [
+42:   { key: "date", label: "Date" },
+43:   { key: "script", label: "Script", hero: true },
+44:   { key: "original_paid", label: "Original Paid", align: "right", numeric: true, format: money },
+45:   { key: "new_paid", label: "New Paid", align: "right", numeric: true, format: money },
+46:   { key: "updated_difference", label: "Updated Difference", align: "right", numeric: true, format: money, semanticColor: (row) => posNeg(row.updated_difference) },
+47: ];
+48: 
+49: // Federal Dollars (§5.3): Date · Script · Qty · AAC · Expected · Original Paid · Diff · Report.
+50: // Uses the REAL federal fields (aac / federal_expected / federal_diff).
+51: export const FEDERAL_COLUMNS: ColumnDef<OwedBookRow>[] = [
+52:   { key: "date", label: "Date" },
+53:   { key: "script", label: "Script" },
+54:   { key: "qty", label: "Qty", align: "right", numeric: true },
+55:   { key: "aac", label: "AAC", align: "right", numeric: true, format: money },
+56:   { key: "federal_expected", label: "Expected", align: "right", numeric: true, format: money },
+57:   { key: "original_paid", label: "Original Paid", align: "right", numeric: true, format: money },
+58:   { key: "federal_diff", label: "Diff", align: "right", numeric: true, hero: true, format: money, semanticColor: (row) => posNeg(row.federal_diff) },
+59:   reportColumn,
+60: ];
+61: 
+62: // Summary (§5.3): PBM Name · Commercial Dollars · Federal Dollars (getSummary).
+63: export const SUMMARY_COLUMNS: ColumnDef<OwedBookSummaryRow>[] = [
+64:   { key: "pbm", label: "PBM Name", hero: true },
+65:   { key: "commercial_dollars", label: "Commercial Dollars", align: "right", numeric: true, format: money },
+66:   { key: "federal_dollars", label: "Federal Dollars", align: "right", numeric: true, format: money },
+67: ];
+
+FILE: src/components/admin-portal/AddStoreButton.tsx
+1: "use client";
+2: 
+3: import { useState } from "react";
+4: import { Plus } from "lucide-react";
+5: import { Button } from "@/components/ui/button";
+6: import {
+7:   Dialog,
+8:   DialogContent,
+9:   DialogDescription,
+10:   DialogHeader,
+11:   DialogTitle,
+12:   DialogTrigger,
+13: } from "@/components/ui/dialog";
+14: import { Input } from "@/components/ui/input";
+15: import { Label } from "@/components/ui/label";
+16: import { Textarea } from "@/components/ui/textarea";
+17: import { useToast } from "@/components/ui/use-toast";
+18: import { ownerStoresService } from "@/services/adminDemo";
+19: 
+20: // Mock "add a store" harvest form. The four fields (name / NCPDP / NPI / address)
+21: // are local-state ONLY — they exist to show the domain expert the intended new-store field set
+22: // and harvest the real requirement. They deliberately do NOT flow to addStore()
+23: // (its signature is the frozen Phase-7 swap point); submit drops the generic mock
+24: // card. NO Stripe, NO charge. Caller reloads its list via onAdded.
+25: const AddStoreButton = ({ onAdded }: { onAdded: () => void }) => {
+26:   const { toast } = useToast();
+27:   const [open, setOpen] = useState(false);
+28:   const [busy, setBusy] = useState(false);
+29:   const [name, setName] = useState("");
+30:   const [ncpdp, setNcpdp] = useState("");
+31:   const [npi, setNpi] = useState("");
+32:   const [address, setAddress] = useState("");
+33: 
+34:   const handleSubmit = async (e: React.FormEvent) => {
+35:     e.preventDefault();
+36:     setBusy(true);
+37:     try {
+38:       const store = await ownerStoresService.addStore();
+39:       toast({ title: `${store.name} added (demo — no charge)` });
+40:       setName("");
+41:       setNcpdp("");
+42:       setNpi("");
+43:       setAddress("");
+44:       setOpen(false);
+45:       onAdded();
+46:     } catch (err) {
+47:       toast({
+48:         title: err instanceof Error ? err.message : "Failed to add store",
+49:         variant: "destructive",
+50:       });
+51:     } finally {
+52:       setBusy(false);
+53:     }
+54:   };
+55: 
+56:   return (
+57:     <Dialog open={open} onOpenChange={setOpen}>
+58:       <DialogTrigger asChild>
+59:         <Button>
+60:           <Plus className="mr-2 h-4 w-4" />
+61:           Add store
+62:         </Button>
+63:       </DialogTrigger>
+64:       <DialogContent>
+65:         <DialogHeader>
+66:           <DialogTitle>Add a store</DialogTitle>
+67:           <DialogDescription>
+68:             Demo only — real add-store + subscription checkout is Phase 7.
+69:           </DialogDescription>
+70:         </DialogHeader>
+71:         <form onSubmit={handleSubmit} className="space-y-4">
+72:           <div className="space-y-1.5">
+73:             <Label htmlFor="add-store-name">Store name</Label>
+74:             <Input
+75:               id="add-store-name"
+76:               value={name}
+77:               onChange={(e) => setName(e.target.value)}
+78:             />
+79:           </div>
+80:           <div className="space-y-1.5">
+81:             <Label htmlFor="add-store-ncpdp">NCPDP</Label>
+82:             <Input
+83:               id="add-store-ncpdp"
+84:               value={ncpdp}
+85:               onChange={(e) => setNcpdp(e.target.value)}
+86:             />
+87:           </div>
+88:           <div className="space-y-1.5">
+89:             <Label htmlFor="add-store-npi">NPI</Label>
+90:             <Input
+91:               id="add-store-npi"
+92:               value={npi}
+93:               onChange={(e) => setNpi(e.target.value)}
+94:             />
+95:           </div>
+96:           <div className="space-y-1.5">
+97:             <Label htmlFor="add-store-address">Address</Label>
+98:             <Textarea
+99:               id="add-store-address"
+100:               value={address}
+101:               onChange={(e) => setAddress(e.target.value)}
+102:             />
+103:           </div>
+104:           <Button type="submit" disabled={busy} className="w-full">
+105:             {busy ? "Adding…" : "Add store"}
+106:           </Button>
+107:         </form>
+108:       </DialogContent>
+109:     </Dialog>
+110:   );
+111: };
+112: 
+113: export default AddStoreButton;
+
+FILE: src/components/admin-portal/AuditScreen.tsx
+1: "use client";
+2: 
+3: import { useEffect, useState } from "react";
+4: import { ScrollText } from "lucide-react";
+5: import ScreenHeader from "@/components/admin-portal/ScreenHeader";
+6: import DataTable, { type ColumnDef } from "@/components/common/DataTable";
+7: import EmptyState from "@/components/common/EmptyState";
+8: import { auditActionLabel } from "@/components/admin-portal/statusPresentation";
+9: import { formatAuditTime } from "@/components/admin-portal/format";
+10: import { auditService } from "@/services/adminDemo";
+11: 
+12: // Pre-formatted display row (a type alias, so it satisfies DataTable's
+13: // Record<string, unknown> constraint). Result renders Done/Failed from the enum.
+14: type AuditRow = {
+15:   id: string;
+16:   time: string;
+17:   action: string;
+18:   target: string;
+19:   result: string;
+20: };
+21: 
+22: const COLUMNS: ColumnDef<AuditRow>[] = [
+23:   { key: "time", label: "Time", numeric: true },
+24:   { key: "action", label: "Action", hero: true },
+25:   { key: "target", label: "Target" },
+26:   {
+27:     key: "result",
+28:     label: "Result",
+29:     semanticColor: (row) => (row.result === "Failed" ? "destructive" : "success"),
+30:   },
+31: ];
+32: 
+33: const Skeleton = () => (
+34:   <div className="space-y-2" data-testid="audit-skeleton">
+35:     {Array.from({ length: 6 }).map((_, i) => (
+36:       <div key={i} className="h-10 bg-muted animate-pulse" />
+37:     ))}
+38:   </div>
+39: );
+40: 
+41: const AuditScreen = () => {
+42:   const [rows, setRows] = useState<AuditRow[] | null>(null);
+43:   const [loading, setLoading] = useState(true);
+44:   const [error, setError] = useState<string | null>(null);
+45: 
+46:   useEffect(() => {
+47:     let cancelled = false;
+48:     auditService
+49:       .listAudit()
+50:       .then((entries) => {
+51:         if (cancelled) return;
+52:         setRows(
+53:           entries.map((e) => ({
+54:             id: e.id,
+55:             time: formatAuditTime(e.occurredAt),
+56:             action: auditActionLabel[e.action],
+57:             target: e.target,
+58:             result: e.result === "failed" ? "Failed" : "Done",
+59:           }))
+60:         );
+61:         setLoading(false);
+62:       })
+63:       .catch((e) => {
+64:         if (cancelled) return;
+65:         setError(e instanceof Error ? e.message : "Failed to load audit log");
+66:         setLoading(false);
+67:       });
+68:     return () => {
+69:       cancelled = true;
+70:     };
+71:   }, []);
+72: 
+73:   return (
+74:     <div>
+75:       <ScreenHeader
+76:         title="Audit log"
+77:         subtitle="A record of actions across your stores."
+78:       />
+79:       <div className="mt-6">
+80:         {error ? (
+81:           <div className="text-sm text-destructive">{error}</div>
+82:         ) : loading ? (
+83:           <Skeleton />
+84:         ) : (
+85:           <DataTable<AuditRow>
+86:             columns={COLUMNS}
+87:             rows={rows!}
+88:             getRowKey={(r) => r.id}
+89:             emptyState={
+90:               <EmptyState
+91:                 icon={<ScrollText className="h-10 w-10" />}
+92:                 headline="No activity yet"
+93:                 subcopy="Actions you take across your stores will show up here."
+94:               />
+95:             }
+96:           />
+97:         )}
+98:       </div>
+99:     </div>
+100:   );
+101: };
+102: 
+103: export default AuditScreen;
+
+FILE: src/components/admin-portal/BillingRow.tsx
+1: "use client";
+2: 
+3: import { useState } from "react";
+4: import { Button } from "@/components/ui/button";
+5: import { useToast } from "@/components/ui/use-toast";
+6: import StatusPill from "@/components/admin-portal/StatusPill";
+7: import { subscriptionPill } from "@/components/admin-portal/statusPresentation";
+8: import { formatChargeDate } from "@/components/admin-portal/format";
+9: import { billingService } from "@/services/adminDemo";
+10: import type { ActionResult, BillingLine, BillingPlan } from "@/types/adminDemo";
+11: 
+12: const PLAN_LABEL: Record<BillingPlan, string> = {
+13:   standard: "Standard",
+14:   concierge: "Concierge",
+15: };
+16: 
+17: // One billing line. Manage payment / Cancel are VISUAL ONLY — they toast a
+18: // "demo — no charge" message and change no state (the service never charges).
+19: const BillingRow = ({ line }: { line: BillingLine }) => {
+20:   const { toast } = useToast();
+21:   const [busy, setBusy] = useState(false);
+22:   const pill = subscriptionPill[line.subscriptionStatus];
+23: 
+24:   const when = line.nextChargeDate
+25:     ? `Next charge ${formatChargeDate(line.nextChargeDate)}`
+26:     : line.retryDate
+27:       ? `Retry ${formatChargeDate(line.retryDate)}`
+28:       : "No upcoming charge";
+29: 
+30:   const run = async (fn: () => Promise<ActionResult>) => {
+31:     setBusy(true);
+32:     try {
+33:       const res = await fn();
+34:       toast({ title: res.message });
+35:     } finally {
+36:       setBusy(false);
+37:     }
+38:   };
+39: 
+40:   return (
+41:     <div className="flex flex-col gap-3 bg-card border border-border p-4 md:flex-row md:items-center md:justify-between">
+42:       <div className="min-w-0">
+43:         <p className="font-semibold">{line.storeName}</p>
+44:         <p className="text-[13px] text-muted-foreground">
+45:           {PLAN_LABEL[line.plan]} · {line.amountLabel} · {when}
+46:         </p>
+47:       </div>
+48:       <div className="flex items-center justify-between gap-3 md:justify-end">
+49:         <StatusPill tone={pill.tone}>{pill.label}</StatusPill>
+50:         <div className="flex gap-2">
+51:           <Button
+52:             variant="secondary"
+53:             size="sm"
+54:             disabled={busy}
+55:             onClick={() => run(() => billingService.managePayment(line.storeId))}
+56:           >
+57:             Manage payment
+58:           </Button>
+59:           <Button
+60:             variant="outline"
+61:             size="sm"
+62:             disabled={busy}
+63:             onClick={() => run(() => billingService.cancelSubscription(line.storeId))}
+64:           >
+65:             Cancel
+66:           </Button>
+67:         </div>
+68:       </div>
+69:     </div>
+70:   );
+71: };
+72: 
+73: export default BillingRow;
+
+FILE: src/components/admin-portal/BillingScreen.tsx
+1: "use client";
+2: 
+3: import { useCallback, useEffect, useState } from "react";
+4: import ScreenHeader from "@/components/admin-portal/ScreenHeader";
+5: import AddStoreButton from "@/components/admin-portal/AddStoreButton";
+6: import BillingRow from "@/components/admin-portal/BillingRow";
+7: import { billingService } from "@/services/adminDemo";
+8: import type { BillingLine } from "@/types/adminDemo";
+9: 
+10: const Skeleton = () => (
+11:   <div className="space-y-3" data-testid="billing-skeleton">
+12:     {Array.from({ length: 3 }).map((_, i) => (
+13:       <div key={i} className="h-20 bg-muted animate-pulse" />
+14:     ))}
+15:   </div>
+16: );
+17: 
+18: const BillingScreen = () => {
+19:   const [lines, setLines] = useState<BillingLine[] | null>(null);
+20:   const [loading, setLoading] = useState(true);
+21:   const [error, setError] = useState<string | null>(null);
+22:   const [reloadKey, setReloadKey] = useState(0);
+23: 
+24:   useEffect(() => {
+25:     let cancelled = false;
+26:     setLoading(true);
+27:     setError(null);
+28:     billingService
+29:       .listBilling()
+30:       .then((b) => {
+31:         if (!cancelled) {
+32:           setLines(b);
+33:           setLoading(false);
+34:         }
+35:       })
+36:       .catch((e) => {
+37:         if (!cancelled) {
+38:           setError(e instanceof Error ? e.message : "Failed to load billing");
+39:           setLoading(false);
+40:         }
+41:       });
+42:     return () => {
+43:       cancelled = true;
+44:     };
+45:   }, [reloadKey]);
+46: 
+47:   const reload = useCallback(() => setReloadKey((k) => k + 1), []);
+48: 
+49:   return (
+50:     <div>
+51:       <ScreenHeader
+52:         title="Billing & subscription"
+53:         subtitle="Your stores and their billing status."
+54:         action={<AddStoreButton onAdded={reload} />}
+55:       />
+56:       {error ? (
+57:         <div className="mt-6 flex items-center gap-3 text-sm text-destructive">
+58:           <span>{error}</span>
+59:           <button type="button" className="underline" onClick={reload}>
+60:             Retry
+61:           </button>
+62:         </div>
+63:       ) : loading ? (
+64:         <div className="mt-6">
+65:           <Skeleton />
+66:         </div>
+67:       ) : (
+68:         <>
+69:           <div className="mt-6 space-y-3">
+70:             {lines!.map((line) => (
+71:               <BillingRow key={line.storeId} line={line} />
+72:             ))}
+73:           </div>
+74:           <p className="mt-4 text-xs text-muted-foreground">
+75:             Visual only — no real charge is made in this demo.
+76:           </p>
+77:         </>
+78:       )}
+79:     </div>
+80:   );
+81: };
+82: 
+83: export default BillingScreen;
+
+FILE: src/components/admin-portal/Breadcrumb.tsx
+1: import Link from "next/link";
+2: import { ChevronRight } from "lucide-react";
+3: 
+4: export interface Crumb {
+5:   label: string;
+6:   href?: string;
+7: }
+8: 
+9: // Trail like "My Stores › Hyde Park Pharmacy › Invite member". The last crumb
+10: // is the current page (never a link). Earlier crumbs link if given an href.
+11: const Breadcrumb = ({ items }: { items: Crumb[] }) => {
+12:   return (
+13:     <nav aria-label="Breadcrumb" className="mb-3">
+14:       <ol className="flex flex-wrap items-center gap-1.5 text-[13px] text-muted-foreground">
+15:         {items.map((c, i) => {
+16:           const isLast = i === items.length - 1;
+17:           return (
+18:             <li key={i} className="flex items-center gap-1.5">
+19:               {i > 0 && (
+20:                 <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
+21:               )}
+22:               {c.href && !isLast ? (
+23:                 <Link href={c.href} className="hover:text-foreground">
+24:                   {c.label}
+25:                 </Link>
+26:               ) : (
+27:                 <span
+28:                   className={isLast ? "font-medium text-foreground" : ""}
+29:                   aria-current={isLast ? "page" : undefined}
+30:                 >
+31:                   {c.label}
+32:                 </span>
+33:               )}
+34:             </li>
+35:           );
+36:         })}
+37:       </ol>
+38:     </nav>
+39:   );
+40: };
+41: 
+42: export default Breadcrumb;
+
+FILE: src/components/admin-portal/DemoMarker.tsx
+1: // The one net-new visual in the Admin Portal Demo Shell (FFM §3): a "Demo ·
+2: // mock data" pill built ENTIRELY from the existing `--warning` token — no new
+3: // brand colors. Lives in CONTENT next to a page title, NEVER in the navbar
+4: // (the navbar is fixed chrome). Mirrors the mockup's `.demo-pill`.
+5: const DemoMarker = () => {
+6:   return (
+7:     <span className="inline-flex items-center border border-warning/40 bg-warning/10 px-2 py-0.5 text-[11px] font-semibold tracking-wide text-warning">
+8:       Demo · mock data
+9:     </span>
+10:   );
+11: };
+12: 
+13: export default DemoMarker;
+
+FILE: src/components/admin-portal/InviteMemberForm.tsx
+1: "use client";
+2: 
+3: import { useForm } from "react-hook-form";
+4: import { zodResolver } from "@hookform/resolvers/zod";
+5: import { z } from "zod";
+6: import { Lock } from "lucide-react";
+7: import { Button } from "@/components/ui/button";
+8: import { Input } from "@/components/ui/input";
+9: import {
+10:   Form,
+11:   FormControl,
+12:   FormField,
+13:   FormItem,
+14:   FormLabel,
+15:   FormMessage,
+16: } from "@/components/ui/form";
+17: import {
+18:   Select,
+19:   SelectContent,
+20:   SelectItem,
+21:   SelectTrigger,
+22:   SelectValue,
+23: } from "@/components/ui/select";
+24: import { useToast } from "@/components/ui/use-toast";
+25: import { storeMemberService } from "@/services/adminDemo";
+26: 
+27: // THE ONE HARD RULE, IN THE UI: Email + Job title ONLY. There is no password
+28: // field and no permission/role dropdown — V1 has exactly one admin (the owner;
+29: // 2nd admins only via MissionControl). Job title is demo-only display; the
+30: // member's permission role is ALWAYS 'member', hardcoded at the call site.
+31: // (memory: admin-v1-single-admin-model)
+32: const JOB_TITLES = ["Pharmacist", "Technician", "Staff"] as const;
+33: 
+34: const schema = z.object({
+35:   email: z.string().min(1, "Email is required").email("Enter a valid email"),
+36:   jobTitle: z.enum(JOB_TITLES, { required_error: "Select a job title" }),
+37: });
+38: type InviteValues = z.infer<typeof schema>;
+39: 
+40: interface InviteMemberFormProps {
+41:   storeId: string;
+42:   onInvited: () => void;
+43: }
+44: 
+45: const InviteMemberForm = ({ storeId, onInvited }: InviteMemberFormProps) => {
+46:   const { toast } = useToast();
+47:   const form = useForm<InviteValues>({
+48:     resolver: zodResolver(schema),
+49:     defaultValues: { email: "" },
+50:   });
+51: 
+52:   const onSubmit = async (values: InviteValues) => {
+53:     try {
+54:       const res = await storeMemberService.inviteMember({
+55:         storeId,
+56:         email: values.email,
+57:         role: "member", // V1: never a permission choice — always 'member'.
+58:         jobTitle: values.jobTitle,
+59:       });
+60:       toast({ title: res.message, variant: res.ok ? "default" : "destructive" });
+61:       form.reset({ email: "", jobTitle: undefined });
+62:       onInvited();
+63:     } catch (e) {
+64:       toast({
+65:         title: e instanceof Error ? e.message : "Invite failed",
+66:         variant: "destructive",
+67:       });
+68:     }
+69:   };
+70: 
+71:   return (
+72:     <Form {...form}>
+73:       <form
+74:         onSubmit={form.handleSubmit(onSubmit)}
+75:         className="w-full max-w-[560px] space-y-5"
+76:       >
+77:         <FormField
+78:           control={form.control}
+79:           name="email"
+80:           render={({ field }) => (
+81:             <FormItem>
+82:               <FormLabel className="text-xs font-bold uppercase text-muted-foreground">
+83:                 Email
+84:               </FormLabel>
+85:               <FormControl>
+86:                 <Input type="email" placeholder="name@pharmacy.com" {...field} />
+87:               </FormControl>
+88:               <FormMessage className="text-destructive" />
+89:             </FormItem>
+90:           )}
+91:         />
+92:         <FormField
+93:           control={form.control}
+94:           name="jobTitle"
+95:           render={({ field }) => (
+96:             <FormItem>
+97:               <FormLabel className="text-xs font-bold uppercase text-muted-foreground">
+98:                 Job title
+99:               </FormLabel>
+100:               <Select onValueChange={field.onChange} value={field.value}>
+101:                 <FormControl>
+102:                   <SelectTrigger>
+103:                     <SelectValue placeholder="Select a job title" />
+104:                   </SelectTrigger>
+105:                 </FormControl>
+106:                 <SelectContent>
+107:                   {JOB_TITLES.map((t) => (
+108:                     <SelectItem key={t} value={t}>
+109:                       {t}
+110:                     </SelectItem>
+111:                   ))}
+112:                 </SelectContent>
+113:               </Select>
+114:               <FormMessage className="text-destructive" />
+115:             </FormItem>
+116:           )}
+117:         />
+118:         <div className="flex gap-3 border border-info/40 bg-info/10 p-3 text-sm">
+119:           <Lock
+120:             className="mt-0.5 h-4 w-4 shrink-0 text-info"
+121:             aria-hidden="true"
+122:           />
+123:           <p className="text-muted-foreground">
+124:             <span className="font-semibold text-foreground">
+125:               Invite-based — no password here.
+126:             </span>{" "}
+127:             An invite email goes to this address; the member sets their own
+128:             password when they accept. You never set or see it.
+129:           </p>
+130:         </div>
+131:         <Button
+132:           type="submit"
+133:           className="w-full"
+134:           disabled={form.formState.isSubmitting}
+135:         >
+136:           Send invite
+137:         </Button>
+138:       </form>
+139:     </Form>
+140:   );
+141: };
+142: 
+143: export default InviteMemberForm;
+
+FILE: src/components/admin-portal/InviteScreen.tsx
+1: "use client";
+2: 
+3: import { useCallback, useEffect, useState } from "react";
+4: import Breadcrumb from "@/components/admin-portal/Breadcrumb";
+5: import ScreenHeader from "@/components/admin-portal/ScreenHeader";
+6: import InviteMemberForm from "@/components/admin-portal/InviteMemberForm";
+7: import MemberRow from "@/components/admin-portal/MemberRow";
+8: import { ownerStoresService, storeMemberService } from "@/services/adminDemo";
+9: import type { OwnedStore, StoreMember } from "@/types/adminDemo";
+10: 
+11: const InviteScreen = ({ storeId }: { storeId: string }) => {
+12:   const [store, setStore] = useState<OwnedStore | null>(null);
+13:   const [pending, setPending] = useState<StoreMember[]>([]);
+14:   const [error, setError] = useState<string | null>(null);
+15:   const [reloadKey, setReloadKey] = useState(0);
+16: 
+17:   useEffect(() => {
+18:     let cancelled = false;
+19:     setError(null);
+20:     Promise.all([
+21:       ownerStoresService.getStore(storeId),
+22:       storeMemberService.listPendingInvites(storeId),
+23:     ])
+24:       .then(([s, p]) => {
+25:         if (!cancelled) {
+26:           setStore(s);
+27:           setPending(p);
+28:         }
+29:       })
+30:       .catch((e) => {
+31:         if (!cancelled) {
+32:           setError(e instanceof Error ? e.message : "Failed to load store");
+33:         }
+34:       });
+35:     return () => {
+36:       cancelled = true;
+37:     };
+38:   }, [storeId, reloadKey]);
+39: 
+40:   const reload = useCallback(() => setReloadKey((k) => k + 1), []);
+41: 
+42:   if (error) {
+43:     return (
+44:       <div className="flex items-center gap-3 text-sm text-destructive">
+45:         <span>{error}</span>
+46:         <button type="button" className="underline" onClick={reload}>
+47:           Retry
+48:         </button>
+49:       </div>
+50:     );
+51:   }
+52: 
+53:   return (
+54:     <div className="mx-auto max-w-[560px]">
+55:       <Breadcrumb
+56:         items={[
+57:           { label: "My Stores", href: "/admin-portal" },
+58:           { label: store?.name ?? "Store", href: `/admin-portal/stores/${storeId}` },
+59:           { label: "Invite member" },
+60:         ]}
+61:       />
+62:       <ScreenHeader
+63:         eyebrow="Invite"
+64:         title="Invite a member"
+65:         subtitle={`Send an invite to add someone to ${store?.name ?? "this store"}.`}
+66:       />
+67: 
+68:       <div className="mt-6">
+69:         <InviteMemberForm storeId={storeId} onInvited={reload} />
+70:       </div>
+71: 
+72:       <div className="mt-10 w-full max-w-[560px]">
+73:         <h2 className="text-lg font-semibold">
+74:           Pending invites · {pending.length}
+75:         </h2>
+76:         {pending.length === 0 ? (
+77:           <p className="mt-3 text-sm text-muted-foreground">
+78:             No pending invites.
+79:           </p>
+80:         ) : (
+81:           <div className="mt-4 bg-card border border-border px-4">
+82:             {pending.map((m) => (
+83:               <MemberRow key={m.memberId} member={m} onChanged={reload} />
+84:             ))}
+85:           </div>
+86:         )}
+87:       </div>
+88:     </div>
+89:   );
+90: };
+91: 
+92: export default InviteScreen;
+
+FILE: src/components/admin-portal/MemberRoster.tsx
+1: "use client";
+2: 
+3: import { Users } from "lucide-react";
+4: import MemberRow from "@/components/admin-portal/MemberRow";
+5: import EmptyState from "@/components/common/EmptyState";
+6: import type { StoreMember } from "@/types/adminDemo";
+7: 
+8: interface MemberRosterProps {
+9:   members: StoreMember[];
+10:   onChanged: () => void;
+11: }
+12: 
+13: // Bordered roster container. Zero members → EmptyState (store-4 in the seed).
+14: const MemberRoster = ({ members, onChanged }: MemberRosterProps) => {
+15:   if (members.length === 0) {
+16:     return (
+17:       <div className="bg-card border border-border">
+18:         <EmptyState
+19:           icon={<Users className="h-10 w-10" />}
+20:           headline="No members yet"
+21:           subcopy="Invite someone to get started."
+22:         />
+23:       </div>
+24:     );
+25:   }
+26: 
+27:   return (
+28:     <div className="bg-card border border-border px-4">
+29:       {members.map((m) => (
+30:         <MemberRow key={m.memberId} member={m} onChanged={onChanged} />
+31:       ))}
+32:     </div>
+33:   );
+34: };
+35: 
+36: export default MemberRoster;
+
+FILE: src/components/admin-portal/MemberRow.tsx
+1: "use client";
+2: 
+3: import { useState } from "react";
+4: import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+5: import { Button } from "@/components/ui/button";
+6: import { useToast } from "@/components/ui/use-toast";
+7: import StatusPill from "@/components/admin-portal/StatusPill";
+8: import { memberStatusPill } from "@/components/admin-portal/statusPresentation";
+9: import { storeMemberService } from "@/services/adminDemo";
+10: import type { ActionResult, StoreMember } from "@/types/adminDemo";
+11: 
+12: interface MemberRowProps {
+13:   member: StoreMember;
+14:   // Re-fetch the roster after a state-changing action (suspend/un-suspend).
+15:   onChanged: () => void;
+16: }
+17: 
+18: // One roster row. Actions are derived from accountStatus (DATA_CONTRACT §2.3):
+19: //   active → [Send recovery, Suspend] · invite_pending → [Resend invite]
+20: //   suspended → [Un-suspend]. Secondary line shows email · jobTitle (demo-only).
+21: const MemberRow = ({ member, onChanged }: MemberRowProps) => {
+22:   const { toast } = useToast();
+23:   const [busy, setBusy] = useState(false);
+24:   const pill = memberStatusPill[member.accountStatus];
+25:   const display = member.name || member.email;
+26: 
+27:   const run = async (fn: () => Promise<ActionResult>) => {
+28:     setBusy(true);
+29:     try {
+30:       const res = await fn();
+31:       toast({ title: res.message, variant: res.ok ? "default" : "destructive" });
+32:       onChanged();
+33:     } catch (e) {
+34:       toast({
+35:         title: e instanceof Error ? e.message : "Action failed",
+36:         variant: "destructive",
+37:       });
+38:     } finally {
+39:       setBusy(false);
+40:     }
+41:   };
+42: 
+43:   return (
+44:     <div className="flex flex-col gap-3 border-b border-border py-3.5 last:border-0 md:flex-row md:items-center md:justify-between">
+45:       <div className="flex min-w-0 items-center gap-3">
+46:         <Avatar className="h-10 w-10">
+47:           <AvatarFallback className="bg-info/15 text-info">
+48:             {member.initials}
+49:           </AvatarFallback>
+50:         </Avatar>
+51:         <div className="min-w-0">
+52:           <p className="truncate font-semibold">{display}</p>
+53:           <p className="truncate text-[13px] text-muted-foreground">
+54:             {member.email}
+55:             {member.jobTitle ? ` · ${member.jobTitle}` : ""}
+56:           </p>
+57:         </div>
+58:       </div>
+59:       <div className="flex items-center justify-between gap-3 md:justify-end">
+60:         <StatusPill tone={pill.tone}>{pill.label}</StatusPill>
+61:         <div className="flex gap-2">
+62:           {member.accountStatus === "active" && (
+63:             <>
+64:               <Button
+65:                 variant="secondary"
+66:                 size="sm"
+67:                 disabled={busy}
+68:                 onClick={() => run(() => storeMemberService.sendRecovery(member.memberId))}
+69:               >
+70:                 Send recovery
+71:               </Button>
+72:               <Button
+73:                 variant="secondary"
+74:                 size="sm"
+75:                 disabled={busy}
+76:                 onClick={() => run(() => storeMemberService.suspendMember(member.memberId))}
+77:               >
+78:                 Suspend
+79:               </Button>
+80:             </>
+81:           )}
+82:           {member.accountStatus === "invite_pending" && (
+83:             <Button
+84:               variant="secondary"
+85:               size="sm"
+86:               disabled={busy}
+87:               onClick={() => run(() => storeMemberService.resendInvite(member.memberId))}
+88:             >
+89:               Resend invite
+90:             </Button>
+91:           )}
+92:           {member.accountStatus === "suspended" && (
+93:             <Button
+94:               variant="secondary"
+95:               size="sm"
+96:               disabled={busy}
+97:               onClick={() => run(() => storeMemberService.unsuspendMember(member.memberId))}
+98:             >
+99:               Un-suspend
+100:             </Button>
+101:           )}
+102:         </div>
+103:       </div>
+104:     </div>
+105:   );
+106: };
+107: 
+108: export default MemberRow;
+
+FILE: src/components/admin-portal/MyStoresScreen.tsx
+1: "use client";
+2: 
+3: import { useCallback, useEffect, useState } from "react";
+4: import { Store } from "lucide-react";
+5: import ScreenHeader from "@/components/admin-portal/ScreenHeader";
+6: import StoreCard from "@/components/admin-portal/StoreCard";
+7: import EmptyState from "@/components/common/EmptyState";
+8: import { storeNeedsAttention } from "@/components/admin-portal/statusPresentation";
+9: import { ownerStoresService } from "@/services/adminDemo";
+10: import type { OwnedStore } from "@/types/adminDemo";
+11: 
+12: const CardSkeleton = () => (
+13:   <div
+14:     className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3"
+15:     data-testid="stores-skeleton"
+16:   >
+17:     {Array.from({ length: 3 }).map((_, i) => (
+18:       <div key={i} className="h-[140px] bg-muted animate-pulse" />
+19:     ))}
+20:   </div>
+21: );
+22: 
+23: const MyStoresScreen = () => {
+24:   const [stores, setStores] = useState<OwnedStore[] | null>(null);
+25:   const [loading, setLoading] = useState(true);
+26:   const [error, setError] = useState<string | null>(null);
+27:   const [reloadKey, setReloadKey] = useState(0);
+28: 
+29:   useEffect(() => {
+30:     let cancelled = false;
+31:     setLoading(true);
+32:     setError(null);
+33:     ownerStoresService
+34:       .listMyStores()
+35:       .then((s) => {
+36:         if (!cancelled) {
+37:           setStores(s);
+38:           setLoading(false);
+39:         }
+40:       })
+41:       .catch((e) => {
+42:         if (!cancelled) {
+43:           setError(e instanceof Error ? e.message : "Failed to load stores");
+44:           setLoading(false);
+45:         }
+46:       });
+47:     return () => {
+48:       cancelled = true;
+49:     };
+50:   }, [reloadKey]);
+51: 
+52:   const reload = useCallback(() => setReloadKey((k) => k + 1), []);
+53:   const needAttention = stores?.filter(storeNeedsAttention).length ?? 0;
+54: 
+55:   return (
+56:     <div>
+57:       <ScreenHeader
+58:         title="My Stores"
+59:         subtitle="Manage your pharmacies, members, and billing."
+60:       />
+61:       {error ? (
+62:         <div className="mt-6 flex items-center gap-3 text-sm text-destructive">
+63:           <span>{error}</span>
+64:           <button type="button" className="underline" onClick={reload}>
+65:             Retry
+66:           </button>
+67:         </div>
+68:       ) : loading ? (
+69:         <div className="mt-6">
+70:           <CardSkeleton />
+71:         </div>
+72:       ) : stores && stores.length === 0 ? (
+73:         <div className="mt-6">
+74:           <EmptyState
+75:             icon={<Store className="h-10 w-10" />}
+76:             headline="No stores yet"
+77:             subcopy="Add a store from Billing to get started."
+78:           />
+79:         </div>
+80:       ) : (
+81:         <>
+82:           <p className="mb-3.5 mt-[18px] text-[13px] text-muted-foreground">
+83:             <b className="font-semibold text-foreground">
+84:               {stores!.length} {stores!.length === 1 ? "store" : "stores"}
+85:             </b>{" "}
+86:             ·{" "}
+87:             <b className="font-semibold text-foreground">{needAttention}</b>{" "}
+88:             {needAttention === 1 ? "needs" : "need"} attention
+89:           </p>
+90:           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+91:             {stores!.map((s) => (
+92:               <StoreCard key={s.storeId} store={s} />
+93:             ))}
+94:           </div>
+95:         </>
+96:       )}
+97:     </div>
+98:   );
+99: };
+100: 
+101: export default MyStoresScreen;
+
+FILE: src/components/admin-portal/ScreenHeader.tsx
+1: import type { ReactNode } from "react";
+2: import DemoMarker from "@/components/admin-portal/DemoMarker";
+3: 
+4: export interface ScreenHeaderProps {
+5:   /** Uppercase eyebrow above the title. Defaults to the portal name. */
+6:   eyebrow?: string;
+7:   title: string;
+8:   subtitle?: string;
+9:   /** Optional trailing slot (e.g. an "Add store" button) aligned with the title row. */
+10:   action?: ReactNode;
+11: }
+12: 
+13: // Shared page header for every Admin Portal screen (mockup `.eyebrow`/`.page`/
+14: // `.sub`). The DemoMarker rides in the eyebrow row so the "mock data" signal is
+15: // present on every screen. Token-only; no new brand colors.
+16: const ScreenHeader = ({
+17:   eyebrow = "Admin Portal",
+18:   title,
+19:   subtitle,
+20:   action,
+21: }: ScreenHeaderProps) => {
+22:   return (
+23:     <header className="mb-2">
+24:       <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+25:         <span>{eyebrow}</span>
+26:         <DemoMarker />
+27:       </div>
+28:       <div className="mt-2 flex items-start justify-between gap-4">
+29:         <div>
+30:           <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
+31:           {subtitle && (
+32:             <p className="mt-1 text-[15px] text-muted-foreground">{subtitle}</p>
+33:           )}
+34:         </div>
+35:         {action && <div className="shrink-0">{action}</div>}
+36:       </div>
+37:     </header>
+38:   );
+39: };
+40: 
+41: export default ScreenHeader;
+
+FILE: src/components/admin-portal/SettingsForm.tsx
+1: "use client";
+2: 
+3: import { useForm } from "react-hook-form";
+4: import { zodResolver } from "@hookform/resolvers/zod";
+5: import { z } from "zod";
+6: import { Button } from "@/components/ui/button";
+7: import { Input } from "@/components/ui/input";
+8: import {
+9:   Form,
+10:   FormControl,
+11:   FormField,
+12:   FormItem,
+13:   FormLabel,
+14:   FormMessage,
+15: } from "@/components/ui/form";
+16: import { useToast } from "@/components/ui/use-toast";
+17: import { settingsService } from "@/services/adminDemo";
+18: import type { PharmacySettings } from "@/types/adminDemo";
+19: 
+20: const schema = z.object({
+21:   pharmacyName: z.string().min(1, "Pharmacy name is required"),
+22:   contactPerson: z.string().min(1, "Contact person is required"),
+23:   phone: z.string().min(1, "Phone is required"),
+24:   address: z.string().min(1, "Address is required"),
+25:   pharmacySoftware: z.string().min(1, "Pharmacy software is required"),
+26: });
+27: type SettingsValues = z.infer<typeof schema>;
+28: 
+29: const FIELDS: { name: keyof SettingsValues; label: string }[] = [
+30:   { name: "pharmacyName", label: "Pharmacy name" },
+31:   { name: "contactPerson", label: "Contact person" },
+32:   { name: "phone", label: "Phone" },
+33:   { name: "address", label: "Address" },
+34:   { name: "pharmacySoftware", label: "Pharmacy software" },
+35: ];
+36: 
+37: // In-memory pharmacy settings (refresh resets). Save toasts + appends an audit
+38: // entry via the service; storeId rides along unchanged.
+39: const SettingsForm = ({ settings }: { settings: PharmacySettings }) => {
+40:   const { toast } = useToast();
+41:   const form = useForm<SettingsValues>({
+42:     resolver: zodResolver(schema),
+43:     defaultValues: {
+44:       pharmacyName: settings.pharmacyName,
+45:       contactPerson: settings.contactPerson,
+46:       phone: settings.phone,
+47:       address: settings.address,
+48:       pharmacySoftware: settings.pharmacySoftware,
+49:     },
+50:   });
+51: 
+52:   const onSubmit = async (values: SettingsValues) => {
+53:     try {
+54:       const res = await settingsService.saveSettings({
+55:         storeId: settings.storeId,
+56:         ...values,
+57:       });
+58:       toast({ title: res.message });
+59:     } catch (e) {
+60:       toast({
+61:         title: e instanceof Error ? e.message : "Save failed",
+62:         variant: "destructive",
+63:       });
+64:     }
+65:   };
+66: 
+67:   return (
+68:     <Form {...form}>
+69:       <form
+70:         onSubmit={form.handleSubmit(onSubmit)}
+71:         className="w-full max-w-[560px] space-y-5"
+72:       >
+73:         {FIELDS.map((f) => (
+74:           <FormField
+75:             key={f.name}
+76:             control={form.control}
+77:             name={f.name}
+78:             render={({ field }) => (
+79:               <FormItem>
+80:                 <FormLabel className="text-xs font-bold uppercase text-muted-foreground">
+81:                   {f.label}
+82:                 </FormLabel>
+83:                 <FormControl>
+84:                   <Input {...field} />
+85:                 </FormControl>
+86:                 <FormMessage className="text-destructive" />
+87:               </FormItem>
+88:             )}
+89:           />
+90:         ))}
+91:         <Button type="submit" disabled={form.formState.isSubmitting}>
+92:           Save changes
+93:         </Button>
+94:       </form>
+95:     </Form>
+96:   );
+97: };
+98: 
+99: export default SettingsForm;
+
+FILE: src/components/admin-portal/SettingsScreen.tsx
+1: "use client";
+2: 
+3: import { useCallback, useEffect, useState } from "react";
+4: import { Store } from "lucide-react";
+5: import ScreenHeader from "@/components/admin-portal/ScreenHeader";
+6: import SettingsForm from "@/components/admin-portal/SettingsForm";
+7: import EmptyState from "@/components/common/EmptyState";
+8: import { ownerStoresService, settingsService } from "@/services/adminDemo";
+9: import type { PharmacySettings } from "@/types/adminDemo";
+10: 
+11: const Skeleton = () => (
+12:   <div className="w-full max-w-[560px] space-y-5" data-testid="settings-skeleton">
+13:     {Array.from({ length: 5 }).map((_, i) => (
+14:       <div key={i} className="h-12 bg-muted animate-pulse" />
+15:     ))}
+16:   </div>
+17: );
+18: 
+19: // V1 simplification: the nav has a single Settings page but settings are
+20: // per-store. We load the owner's FIRST store. (Phase 7: a store picker, or
+21: // settings reached from store detail.)
+22: const SettingsScreen = () => {
+23:   const [settings, setSettings] = useState<PharmacySettings | null>(null);
+24:   const [empty, setEmpty] = useState(false);
+25:   const [loading, setLoading] = useState(true);
+26:   const [error, setError] = useState<string | null>(null);
+27:   const [reloadKey, setReloadKey] = useState(0);
+28: 
+29:   useEffect(() => {
+30:     let cancelled = false;
+31:     setLoading(true);
+32:     setError(null);
+33:     (async () => {
+34:       try {
+35:         const stores = await ownerStoresService.listMyStores();
+36:         if (stores.length === 0) {
+37:           if (!cancelled) {
+38:             setEmpty(true);
+39:             setLoading(false);
+40:           }
+41:           return;
+42:         }
+43:         const s = await settingsService.getSettings(stores[0].storeId);
+44:         if (!cancelled) {
+45:           setSettings(s);
+46:           setLoading(false);
+47:         }
+48:       } catch (e) {
+49:         if (!cancelled) {
+50:           setError(e instanceof Error ? e.message : "Failed to load settings");
+51:           setLoading(false);
+52:         }
+53:       }
+54:     })();
+55:     return () => {
+56:       cancelled = true;
+57:     };
+58:   }, [reloadKey]);
+59: 
+60:   const reload = useCallback(() => setReloadKey((k) => k + 1), []);
+61: 
+62:   return (
+63:     <div className="mx-auto max-w-[560px]">
+64:       <ScreenHeader
+65:         title="Pharmacy settings"
+66:         subtitle="Update your pharmacy information."
+67:       />
+68:       {error ? (
+69:         <div className="mt-6 flex items-center gap-3 text-sm text-destructive">
+70:           <span>{error}</span>
+71:           <button type="button" className="underline" onClick={reload}>
+72:             Retry
+73:           </button>
+74:         </div>
+75:       ) : loading ? (
+76:         <div className="mt-6">
+77:           <Skeleton />
+78:         </div>
+79:       ) : empty ? (
+80:         <div className="mt-6">
+81:           <EmptyState
+82:             icon={<Store className="h-10 w-10" />}
+83:             headline="No stores yet"
+84:             subcopy="Add a store from Billing to manage its settings."
+85:           />
+86:         </div>
+87:       ) : (
+88:         <div className="mt-6">
+89:           <SettingsForm key={settings!.storeId} settings={settings!} />
+90:         </div>
+91:       )}
+92:     </div>
+93:   );
+94: };
+95: 
+96: export default SettingsScreen;
+
+FILE: src/components/admin-portal/StatusPill.tsx
+1: import type { ReactNode } from "react";
+2: 
+3: // Generic status pill for the Admin Portal screens — mirrors owedbook's
+4: // StatusChip pattern (literal class strings so Tailwind's scanner keeps them)
+5: // but tone-driven so each surface maps its own vocab → tone + label. Matches the
+6: // mockup `.pill` styling; built from existing semantic tokens (no new colors).
+7: export type PillTone = "success" | "warning" | "destructive" | "info" | "neutral";
+8: 
+9: const TONE: Record<PillTone, string> = {
+10:   success: "bg-success/15 text-success",
+11:   warning: "bg-warning/15 text-warning",
+12:   destructive: "bg-destructive/15 text-destructive",
+13:   info: "bg-info/15 text-info",
+14:   neutral: "bg-muted text-muted-foreground",
+15: };
+16: 
+17: interface StatusPillProps {
+18:   tone: PillTone;
+19:   children: ReactNode;
+20: }
+21: 
+22: const StatusPill = ({ tone, children }: StatusPillProps) => {
+23:   return (
+24:     <span
+25:       className={`inline-flex items-center whitespace-nowrap px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide ${TONE[tone]}`}
+26:     >
+27:       {children}
+28:     </span>
+29:   );
+30: };
+31: 
+32: export default StatusPill;
+
+FILE: src/components/admin-portal/StoreCard.tsx
+1: import Link from "next/link";
+2: import StatusPill from "@/components/admin-portal/StatusPill";
+3: import {
+4:   storeStatusPill,
+5:   subscriptionPill,
+6: } from "@/components/admin-portal/statusPresentation";
+7: import type { OwnedStore } from "@/types/adminDemo";
+8: 
+9: // My Stores grid card → links to the store drill-down. Top pill = store-level
+10: // "Active / Needs attention"; footer pill mirrors the subscription.
+11: const StoreCard = ({ store }: { store: OwnedStore }) => {
+12:   const top = storeStatusPill(store);
+13:   const sub = subscriptionPill[store.subscriptionStatus];
+14: 
+15:   return (
+16:     <Link
+17:       href={`/admin-portal/stores/${store.storeId}`}
+18:       className="block bg-card border border-border p-[18px] transition-colors hover:border-primary"
+19:     >
+20:       <div className="flex items-start justify-between gap-2.5">
+21:         <h3 className="text-[17px] font-semibold tracking-tight">{store.name}</h3>
+22:         <StatusPill tone={top.tone}>{top.label}</StatusPill>
+23:       </div>
+24:       <p className="mt-[7px] text-[13px] text-muted-foreground">
+25:         NCPDP {store.ncpdp} · {store.memberCount}{" "}
+26:         {store.memberCount === 1 ? "member" : "members"}
+27:       </p>
+28:       <hr className="my-3.5 border-border" />
+29:       <div className="flex items-center justify-between">
+30:         <span className="text-[13px] text-muted-foreground">Subscription</span>
+31:         <StatusPill tone={sub.tone}>{sub.label}</StatusPill>
+32:       </div>
+33:     </Link>
+34:   );
+35: };
+36: 
+37: export default StoreCard;
+
+FILE: src/components/admin-portal/StoreDetailScreen.tsx
+1: "use client";
+2: 
+3: import { useCallback, useEffect, useState } from "react";
+4: import Link from "next/link";
+5: import { Button } from "@/components/ui/button";
+6: import Breadcrumb from "@/components/admin-portal/Breadcrumb";
+7: import DemoMarker from "@/components/admin-portal/DemoMarker";
+8: import StatusPill from "@/components/admin-portal/StatusPill";
+9: import MemberRoster from "@/components/admin-portal/MemberRoster";
+10: import { subscriptionPill } from "@/components/admin-portal/statusPresentation";
+11: import { ownerStoresService, storeMemberService } from "@/services/adminDemo";
+12: import type { OwnedStore, StoreMember } from "@/types/adminDemo";
+13: 
+14: const Skeleton = () => (
+15:   <div className="space-y-3" data-testid="store-detail-skeleton">
+16:     <div className="h-8 w-1/3 bg-muted animate-pulse" />
+17:     <div className="h-24 bg-muted animate-pulse" />
+18:   </div>
+19: );
+20: 
+21: const StoreDetailScreen = ({ storeId }: { storeId: string }) => {
+22:   const [store, setStore] = useState<OwnedStore | null>(null);
+23:   const [members, setMembers] = useState<StoreMember[]>([]);
+24:   const [loading, setLoading] = useState(true);
+25:   const [error, setError] = useState<string | null>(null);
+26:   const [reloadKey, setReloadKey] = useState(0);
+27: 
+28:   useEffect(() => {
+29:     let cancelled = false;
+30:     setLoading(true);
+31:     setError(null);
+32:     Promise.all([
+33:       ownerStoresService.getStore(storeId),
+34:       storeMemberService.listMembers(storeId),
+35:     ])
+36:       .then(([s, m]) => {
+37:         if (!cancelled) {
+38:           setStore(s);
+39:           setMembers(m);
+40:           setLoading(false);
+41:         }
+42:       })
+43:       .catch((e) => {
+44:         if (!cancelled) {
+45:           setError(e instanceof Error ? e.message : "Failed to load store");
+46:           setLoading(false);
+47:         }
+48:       });
+49:     return () => {
+50:       cancelled = true;
+51:     };
+52:   }, [storeId, reloadKey]);
+53: 
+54:   const reload = useCallback(() => setReloadKey((k) => k + 1), []);
+55: 
+56:   if (error) {
+57:     return (
+58:       <div className="flex items-center gap-3 text-sm text-destructive">
+59:         <span>{error}</span>
+60:         <button type="button" className="underline" onClick={reload}>
+61:           Retry
+62:         </button>
+63:       </div>
+64:     );
+65:   }
+66: 
+67:   if (loading || !store) {
+68:     return (
+69:       <div>
+70:         <Breadcrumb items={[{ label: "My Stores", href: "/admin-portal" }, { label: "Store" }]} />
+71:         <Skeleton />
+72:       </div>
+73:     );
+74:   }
+75: 
+76:   const sub = subscriptionPill[store.subscriptionStatus];
+77: 
+78:   return (
+79:     <div>
+80:       <Breadcrumb
+81:         items={[
+82:           { label: "My Stores", href: "/admin-portal" },
+83:           { label: store.name },
+84:         ]}
+85:       />
+86:       <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+87:         <span>Store</span>
+88:         <DemoMarker />
+89:       </div>
+90:       <div className="mt-2 flex flex-wrap items-center gap-3">
+91:         <h1 className="text-3xl font-bold tracking-tight">{store.name}</h1>
+92:         <StatusPill tone={sub.tone}>Subscription {sub.label}</StatusPill>
+93:       </div>
+94:       <p className="mt-1 text-[15px] text-muted-foreground">
+95:         NCPDP {store.ncpdp} · NPI {store.npi}
+96:       </p>
+97: 
+98:       <div className="mt-8 flex items-center justify-between gap-4">
+99:         <h2 className="text-lg font-semibold">Members · {members.length}</h2>
+100:         <Button asChild>
+101:           <Link href={`/admin-portal/stores/${storeId}/invite`}>
+102:             Invite member
+103:           </Link>
+104:         </Button>
+105:       </div>
+106:       <div className="mt-4">
+107:         <MemberRoster members={members} onChanged={reload} />
+108:       </div>
+109:     </div>
+110:   );
+111: };
+112: 
+113: export default StoreDetailScreen;
+
+FILE: src/components/layout/AdminSidebar.tsx
+1: "use client";
+2: 
+3: import { type ReactNode } from "react";
+4: import { usePathname } from "next/navigation";
+5: import {
+6:   Command,
+7:   CommandEmpty,
+8:   CommandGroup,
+9:   CommandItem,
+10:   CommandList,
+11: } from "@/components/ui/command";
+12: import { Store, CreditCard, Settings, ScrollText } from "lucide-react";
+13: import Link from "next/link";
+14: import FilterRail from "@/components/owedbook/FilterRail";
+15: import { useOwedBook } from "@/components/owedbook/OwedBookContext";
+16: 
+17: interface NavItem {
+18:   icon: ReactNode;
+19:   label: string;
+20:   href: string;
+21:   // Active-state predicate — a section can own more than its own href (My
+22:   // Stores owns the store drill-down at /admin-portal/stores/*).
+23:   isActive: (pathname: string) => boolean;
+24: }
+25: 
+26: // Surface-aware sidebar (UI_SPEC v1.4 §A.1/§C): ONE component, ONE container
+27: // (same Command + command input). Only the CONTENT below the input differs —
+28: // Admin Portal shows nav items; OwedBook shows the FilterRail.
+29: // Owner-scoped nav (Phase 2.2 route takeover): My Stores · Billing · Settings ·
+30: // Audit. The old user-CRUD at /admin-portal/users/* is removed.
+31: const ADMIN_ITEMS: NavItem[] = [
+32:   {
+33:     icon: <Store className="mr-2 h-4 w-4" />,
+34:     label: "My Stores",
+35:     href: "/admin-portal",
+36:     isActive: (p) => p === "/admin-portal" || p.startsWith("/admin-portal/stores"),
+37:   },
+38:   {
+39:     icon: <CreditCard className="mr-2 h-4 w-4" />,
+40:     label: "Billing",
+41:     href: "/admin-portal/billing",
+42:     isActive: (p) => p.startsWith("/admin-portal/billing"),
+43:   },
+44:   {
+45:     icon: <Settings className="mr-2 h-4 w-4" />,
+46:     label: "Settings",
+47:     href: "/admin-portal/settings",
+48:     isActive: (p) => p.startsWith("/admin-portal/settings"),
+49:   },
+50:   {
+51:     icon: <ScrollText className="mr-2 h-4 w-4" />,
+52:     label: "Audit log",
+53:     href: "/admin-portal/audit",
+54:     isActive: (p) => p.startsWith("/admin-portal/audit"),
+55:   },
+56: ];
+57: 
+58: const AdminSidebar = () => {
+59:   const pathname = usePathname() ?? "";
+60:   const onAdmin = pathname.startsWith("/admin-portal");
+61:   const { filters, pbmOptions, applyFilters, clearFilters } = useOwedBook();
+62: 
+63:   return (
+64:     <Command className="bg-secondary">
+65:       {onAdmin ? (
+66:         <CommandList className="px-8">
+67:           <CommandEmpty>No results found.</CommandEmpty>
+68:           <CommandGroup heading="Admin Portal">
+69:             {ADMIN_ITEMS.map((item) => {
+70:               const active = item.isActive(pathname);
+71:               return (
+72:                 <CommandItem key={item.href} className={active ? "font-bold text-primary" : ""}>
+73:                   {item.icon}
+74:                   <Link href={item.href} aria-current={active ? "page" : undefined}>
+75:                     {item.label}
+76:                   </Link>
+77:                 </CommandItem>
+78:               );
+79:             })}
+80:           </CommandGroup>
+81:         </CommandList>
+82:       ) : (
+83:         <div className="px-4 py-3">
+84:           <FilterRail
+85:             filters={filters}
+86:             pbmOptions={pbmOptions}
+87:             onApply={applyFilters}
+88:             onClear={clearFilters}
+89:           />
+90:         </div>
+91:       )}
+92:     </Command>
+93:   );
+94: };
+95: 
+96: export default AdminSidebar;
+
+FILE: src/components/layout/AuthedShell.tsx
+1: "use client";
+2: 
+3: import {
+4:   useEffect,
+5:   useRef,
+6:   useState,
+7:   type KeyboardEvent as ReactKeyboardEvent,
+8:   type ReactNode,
+9: } from "react";
+10: import { Menu, X } from "lucide-react";
+11: import { usePathname } from "next/navigation";
+12: import type { User as SupabaseUser } from "@supabase/auth-js";
+13: import Navbar from "@/components/global/Navbar";
+14: import AdminSidebar from "@/components/layout/AdminSidebar";
+15: import { useOwedBook } from "@/components/owedbook/OwedBookContext";
+16: import type { AppRole } from "@/utils/app-role";
+17: 
+18: // Authed chrome (Rule Zero — mobile-correct from the start). Desktop (lg+):
+19: // fixed sidebar column, identical to the prior shell. Below lg (tablet + phone):
+20: // the column is hidden and a trigger opens a left slide-over holding the same
+21: // AdminSidebar (nav items on /admin-portal, filter rail on /owedbook).
+22: // user/role come from the server layout's protectPage — forwarded to the Navbar
+23: // so nav identity is server-truth (no client fetch window).
+24: // Tabbable candidates inside the drawer; filtered by tabIndex at use (drops
+25: // tabindex=-1 helpers such as Radix's hidden native <select>).
+26: const FOCUSABLE =
+27:   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]';
+28: 
+29: interface AuthedShellProps {
+30:   user: SupabaseUser;
+31:   role: AppRole;
+32:   children: ReactNode;
+33: }
+34: 
+35: const AuthedShell = ({ user, role, children }: AuthedShellProps) => {
+36:   const [drawerOpen, setDrawerOpen] = useState(false);
+37:   const triggerRef = useRef<HTMLButtonElement>(null);
+38:   const drawerRef = useRef<HTMLDivElement>(null);
+39:   const wasOpen = useRef(false);
+40:   const pathname = usePathname() ?? "";
+41:   // /owedbook's filter rail is wide (KPI row + wide table) → it stays
+42:   // two-column only at xl+ and collapses to the drawer below xl. /admin-portal's
+43:   // narrow nav rail collapses at lg. (Full literal classes so Tailwind keeps them.)
+44:   const onOwedbook = pathname.startsWith("/owedbook");
+45:   const triggerLabel = onOwedbook ? "Filters" : "Menu";
+46:   const sidebarVisible = onOwedbook ? "hidden xl:block" : "hidden lg:block";
+47:   const collapsedBelow = onOwedbook ? "xl:hidden" : "lg:hidden";
+48: 
+49:   // appliedTick bumps whenever filters are applied/cleared (OwedBook surface;
+50:   // default 0 on /admin-portal where there's no provider).
+51:   const { appliedTick } = useOwedBook();
+52: 
+53:   // Close the drawer on navigation OR on filter apply/clear — otherwise the open
+54:   // drawer covers the freshly-filtered results.
+55:   useEffect(() => {
+56:     setDrawerOpen(false);
+57:   }, [pathname, appliedTick]);
+58: 
+59:   // Escape to close + lock body scroll while the drawer is open.
+60:   useEffect(() => {
+61:     if (!drawerOpen) return;
+62:     const onKey = (e: KeyboardEvent) => {
+63:       if (e.defaultPrevented) return; // a nested picker already handled it (A-06)
+64:       if (e.key === "Escape") setDrawerOpen(false);
+65:     };
+66:     document.addEventListener("keydown", onKey);
+67:     document.body.style.overflow = "hidden";
+68:     return () => {
+69:       document.removeEventListener("keydown", onKey);
+70:       document.body.style.overflow = "";
+71:     };
+72:   }, [drawerOpen]);
+73: 
+74:   // Focus management (R-010): on open, move focus to the first control inside
+75:   // the drawer; on close (any path), return it to the trigger that opened it.
+76:   useEffect(() => {
+77:     if (drawerOpen) {
+78:       wasOpen.current = true;
+79:       tabbables(drawerRef.current)[0]?.focus();
+80:     } else if (wasOpen.current) {
+81:       wasOpen.current = false;
+82:       if (triggerRef.current?.isConnected) triggerRef.current.focus();
+83:     }
+84:   }, [drawerOpen]);
+85: 
+86:   // Contain Tab/Shift-Tab inside the open drawer (wrap at the ends). Acts only
+87:   // when focus sits on the first/last control, so focus in a portal is left alone.
+88:   const onDrawerKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
+89:     if (e.key !== "Tab") return;
+90:     const items = tabbables(drawerRef.current);
+91:     if (items.length === 0) return;
+92:     const first = items[0];
+93:     const last = items[items.length - 1];
+94:     if (e.shiftKey && document.activeElement === first) {
+95:       e.preventDefault();
+96:       last.focus();
+97:     } else if (!e.shiftKey && document.activeElement === last) {
+98:       e.preventDefault();
+99:       first.focus();
+100:     }
+101:   };
+102: 
+103:   return (
+104:     <div className="flex flex-col min-h-screen">
+105:       <Navbar user={user} role={role} />
+106: 
+107:       {/* Mobile sidebar trigger (< lg) */}
+108:       <div className={`${collapsedBelow} border-b border-border px-4 py-2`}>
+109:         <button
+110:           ref={triggerRef}
+111:           type="button"
+112:           onClick={() => setDrawerOpen(true)}
+113:           aria-label={`Open ${triggerLabel}`}
+114:           aria-expanded={drawerOpen}
+115:           className="inline-flex items-center gap-2 text-sm font-medium text-foreground"
+116:         >
+117:           <Menu className="h-5 w-5" />
+118:           {triggerLabel}
+119:         </button>
+120:       </div>
+121: 
+122:       <section className="flex flex-1">
+123:         {/* Desktop fixed sidebar (lg+) — same box as before */}
+124:         <div
+125:           data-testid="desktop-sidebar"
+126:           className={`${sidebarVisible} h-auto flex-shrink-0 border-4 w-[25rem]`}
+127:         >
+128:           <AdminSidebar />
+129:         </div>
+130:         {/* min-w-0: let the main column shrink to the viewport so wide content
+131:             (e.g. the tab strip) scrolls internally instead of overflowing the
+132:             page horizontally (which made the navbar look "cut short"). */}
+133:         <div className="flex-grow min-w-0">{children}</div>
+134:       </section>
+135: 
+136:       {/* Mobile slide-over drawer (< lg) */}
+137:       {drawerOpen && (
+138:         <div className={`${collapsedBelow} fixed inset-0 z-50`} role="dialog" aria-modal="true">
+139:           <div
+140:             className="absolute inset-0 bg-black/50"
+141:             onClick={() => setDrawerOpen(false)}
+142:             aria-hidden
+143:           />
+144:           {/* Drawer width: 75% of viewport on phone (< md), 50% on tablet (md–<lg). */}
+145:           <div
+146:             ref={drawerRef}
+147:             onKeyDown={onDrawerKeyDown}
+148:             data-testid="sidebar-drawer"
+149:             className="absolute inset-y-0 left-0 w-3/4 md:w-1/2 bg-secondary shadow-xl overflow-y-auto"
+150:           >
+151:             <div className="flex justify-end p-2">
+152:               <button
+153:                 type="button"
+154:                 onClick={() => setDrawerOpen(false)}
+155:                 aria-label="Close"
+156:                 className="p-2 text-foreground hover:opacity-80"
+157:               >
+158:                 <X className="h-5 w-5" />
+159:               </button>
+160:             </div>
+161:             <AdminSidebar />
+162:           </div>
+163:         </div>
+164:       )}
+165:     </div>
+166:   );
+167: };
+168: 
+169: function tabbables(root: HTMLElement | null): HTMLElement[] {
+170:   if (!root) return [];
+171:   return Array.from(root.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+172:     (el) => el.tabIndex >= 0,
+173:   );
+174: }
+175: 
+176: export default AuthedShell;
+
+FILE: src/components/global/MobileNav.tsx
+1: "use client";
+2: 
+3: import { useState } from "react";
+4: import Link from "next/link";
+5: import { useRouter } from "next/navigation";
+6: import { Menu, X } from "lucide-react";
+7: import { User as SupabaseUser } from "@supabase/auth-js";
+8: import { useAuthStore } from "@/store/useAuthStore";
+9: import { AppRole } from "@/utils/app-role";
+10: 
+11: const marketingLinks = [
+12:   { href: "#features", label: "Features" },
+13:   { href: "#how-it-works", label: "How it works" },
+14:   { href: "#pricing", label: "Pricing" },
+15: ];
+16: 
+17: // Identity is SERVER-RESOLVED and passed as props (Navbar Law — KIP-2 kill):
+18: // no client auth fetch, no persisted-store role read, no loading window. The
+19: // store appears below ONLY as the logout action, mirroring the cured Navbar.
+20: interface MobileNavProps {
+21:   user: SupabaseUser | null;
+22:   role: AppRole | null;
+23: }
+24: 
+25: const MobileNav = ({ user, role }: MobileNavProps) => {
+26:   const [open, setOpen] = useState(false);
+27:   const router = useRouter();
+28:   const close = () => setOpen(false);
+29: 
+30:   const handleLogout = async () => {
+31:     close();
+32:     try {
+33:       await useAuthStore.getState().logout();
+34:       router.refresh();
+35:       router.push("/auth");
+36:     } catch {
+37:       console.error("Failed to log out");
+38:     }
+39:   };
+40: 
+41:   const portalHref = role === AppRole.ADMIN ? "/admin-portal" : "/owedbook";
+42:   const portalLabel = role === AppRole.ADMIN ? "Admin portal" : "OwedBook";
+43: 
+44:   return (
+45:     <>
+46:       <button
+47:         type="button"
+48:         onClick={() => setOpen((s) => !s)}
+49:         aria-label={open ? "Close menu" : "Open menu"}
+50:         aria-expanded={open}
+51:         className="p-2 text-foreground hover:bg-accent/10 transition-colors"
+52:       >
+53:         {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+54:       </button>
+55: 
+56:       {open && (
+57:         <div
+58:           className="absolute top-[84px] left-0 right-0 bg-card border-b-2 border-border shadow-lg z-50"
+59:           role="dialog"
+60:           aria-label="Mobile navigation"
+61:         >
+62:           <nav className="flex flex-col">
+63:             {marketingLinks.map(({ href, label }) => (
+64:               <Link
+65:                 key={href}
+66:                 href={href}
+67:                 onClick={close}
+68:                 className="uppercase text-xs font-bold tracking-wide px-7 py-4 text-foreground hover:bg-accent/10 border-b border-border transition-colors"
+69:               >
+70:                 {label}
+71:               </Link>
+72:             ))}
+73: 
+74:             {user && (
+75:               <>
+76:                 <Link
+77:                   href={portalHref}
+78:                   onClick={close}
+79:                   className="uppercase text-xs font-bold tracking-wide px-7 py-4 text-foreground hover:bg-accent/10 border-b border-border transition-colors"
+80:                 >
+81:                   {portalLabel}
+82:                 </Link>
+83:                 <button
+84:                   type="button"
+85:                   onClick={handleLogout}
+86:                   className="uppercase text-xs font-bold tracking-wide px-7 py-5 bg-secondary text-secondary-foreground hover:bg-secondary/80 text-left transition-colors"
+87:                 >
+88:                   Log out
+89:                 </button>
+90:               </>
+91:             )}
+92: 
+93:             {!user && (
+94:               <>
+95:                 <Link
+96:                   href="/auth"
+97:                   onClick={close}
+98:                   className="uppercase text-xs font-bold tracking-wide px-7 py-4 text-foreground hover:bg-accent/10 border-b border-border transition-colors"
+99:                 >
+100:                   Log in
+101:                 </Link>
+102:                 <Link
+103:                   href="/auth"
+104:                   onClick={close}
+105:                   className="uppercase text-xs font-bold tracking-wide px-7 py-5 bg-primary text-primary-foreground text-center hover:bg-primary/90 transition-colors"
+106:                 >
+107:                   Start free trial
+108:                 </Link>
+109:               </>
+110:             )}
+111:           </nav>
+112:         </div>
+113:       )}
+114:     </>
+115:   );
+116: };
+117: 
+118: export default MobileNav;
+
+FILE: src/components/global/NavAuthRefresh.tsx
+1: "use client";
+2: 
+3: import { useEffect } from "react";
+4: import { useRouter } from "next/navigation";
+5: import { createClient } from "@/utils/supabase/client";
+6: 
+7: // Nav identity is server-resolved props, so the ONLY client job left is
+8: // reactivity: when auth changes in another tab (or this one), re-render the
+9: // server layout so the public nav flips state. Renders nothing.
+10: const NavAuthRefresh = () => {
+11:   const router = useRouter();
+12: 
+13:   useEffect(() => {
+14:     const supabase = createClient();
+15:     const {
+16:       data: { subscription },
+17:     } = supabase.auth.onAuthStateChange((event) => {
+18:       if (event === "SIGNED_IN" || event === "SIGNED_OUT") {
+19:         router.refresh();
+20:       }
+21:     });
+22:     return () => subscription.unsubscribe();
+23:   }, [router]);
+24: 
+25:   return null;
+26: };
+27: 
+28: export default NavAuthRefresh;
+
+FILE: src/components/global/Navbar.tsx
+1: "use client";
+2: 
+3: import { useEffect, useRef, useState } from "react";
+4: import Image from "next/image";
+5: import Link from "next/link";
+6: import { usePathname, useRouter } from "next/navigation";
+7: import { Menu, X } from "lucide-react";
+8: import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+9: import {
+10:   DropdownMenu,
+11:   DropdownMenuContent,
+12:   DropdownMenuItem,
+13:   DropdownMenuLabel,
+14:   DropdownMenuSeparator,
+15:   DropdownMenuTrigger,
+16: } from "@/components/ui/dropdown-menu";
+17: import ThemeToggler from "./ThemeToggler";
+18: import Logout from "../auth/Logout";
+19: import { User as SupabaseUser } from "@supabase/auth-js";
+20: import { createClient } from "@/utils/supabase/client";
+21: import { useAuthStore } from "@/store/useAuthStore";
+22: import { AppRole } from "@/utils/app-role";
+23: 
+24: // Identity is SERVER-RESOLVED: every layout that mounts this Navbar already ran
+25: // protectPage, which guarantees an authenticated user with an allowed role and
+26: // passes both down as props. No client-side auth fetch → no empty-nav window on
+27: // mount/remount, and no dev/build divergence.
+28: interface NavbarProps {
+29:   user: SupabaseUser;
+30:   role: AppRole;
+31: }
+32: 
+33: const Navbar = ({ user, role }: NavbarProps) => {
+34:   const [menuOpen, setMenuOpen] = useState(false);
+35:   const headerRef = useRef<HTMLElement>(null);
+36:   const supabase = createClient();
+37:   const router = useRouter();
+38: 
+39:   // Role-aware top-level nav (UI_SPEC §E/§F): ADMIN → OwedBook · Admin Portal ·
+40:   // Profile. MEMBER → OwedBook · Profile. Never empty. Active is route-derived
+41:   // via usePathname.
+42:   const pathname = usePathname() ?? "";
+43:   const isAdmin = role === AppRole.ADMIN;
+44: 
+45:   const navLinks = [
+46:     { label: "OwedBook", href: "/owedbook" },
+47:     ...(isAdmin ? [{ label: "Admin Portal", href: "/admin-portal" }] : []),
+48:     { label: "Profile", href: "/profile" },
+49:   ];
+50: 
+51:   // Slim auth listener: identity comes from the server, so the ONLY event that
+52:   // matters here is a sign-out from elsewhere (another tab) — bounce to /auth.
+53:   useEffect(() => {
+54:     const {
+55:       data: { subscription },
+56:     } = supabase.auth.onAuthStateChange((event) => {
+57:       if (event === "SIGNED_OUT") {
+58:         router.refresh();
+59:         router.push("/auth");
+60:       }
+61:     });
+62:     return () => subscription.unsubscribe();
+63:   }, [supabase, router]);
+64: 
+65:   // A mobile menu must dismiss on an outside tap, not only via the X. Listen only
+66:   // while open: close on a pointerdown outside the whole <header> (so the
+67:   // hamburger toggle and in-panel taps don't double-fire) and on Escape. The X
+68:   // toggle and per-link closeMenu keep working untouched.
+69:   useEffect(() => {
+70:     if (!menuOpen) return;
+71:     const onPointerDown = (e: PointerEvent) => {
+72:       const target = e.target as Element | null;
+73:       if (!target) return;
+74:       // Inside the navbar itself → keep open (hamburger toggle + in-panel taps).
+75:       if (headerRef.current?.contains(target)) return;
+76:       // Inside an open Radix popper (e.g. the theme dropdown, which portals to
+77:       // document.body OUTSIDE the header) → keep open; that's a control of the
+78:       // menu, not an outside tap.
+79:       if (target.closest("[data-radix-popper-content-wrapper]")) return;
+80:       setMenuOpen(false);
+81:     };
+82:     const onKey = (e: KeyboardEvent) => {
+83:       if (e.key === "Escape") setMenuOpen(false);
+84:     };
+85:     document.addEventListener("pointerdown", onPointerDown);
+86:     document.addEventListener("keydown", onKey);
+87:     return () => {
+88:       document.removeEventListener("pointerdown", onPointerDown);
+89:       document.removeEventListener("keydown", onKey);
+90:     };
+91:   }, [menuOpen]);
+92: 
+93:   const closeMenu = () => setMenuOpen(false);
+94: 
+95:   const handleLogout = async () => {
+96:     closeMenu();
+97:     try {
+98:       await useAuthStore.getState().logout();
+99:       router.refresh();
+100:       router.push("/auth");
+101:     } catch {
+102:       console.error("Failed to log out");
+103:     }
+104:   };
+105: 
+106:   const navLinkClass = (href: string) => {
+107:     const active = pathname.startsWith(href);
+108:     return `px-3 py-1 text-sm font-medium transition-colors ${
+109:       active
+110:         ? "text-navbar-foreground border-b-2 border-navbar-foreground font-semibold"
+111:         : "text-navbar-foreground/70 hover:text-navbar-foreground"
+112:     }`;
+113:   };
+114: 
+115:   return (
+116:     <header ref={headerRef} className="bg-navbar text-navbar-foreground">
+117:       <div className="py-2 px-4 sm:px-5 flex justify-between items-center gap-2">
+118:         <Link
+119:           href="/"
+120:           aria-label="Cyber Pharma — Home"
+121:           onClick={closeMenu}
+122:           className="shrink-0"
+123:         >
+124:           <Image src="/brand/logo-color.svg" alt="Cyber Pharma" width={36} height={36} />
+125:         </Link>
+126: 
+127:         {/* Desktop nav (≥ lg, role-aware) */}
+128:         <nav aria-label="Primary" className="hidden lg:flex items-center gap-1">
+129:           {navLinks.map((l) => (
+130:             <Link
+131:               key={l.href}
+132:               href={l.href}
+133:               aria-current={pathname.startsWith(l.href) ? "page" : undefined}
+134:               className={navLinkClass(l.href)}
+135:             >
+136:               {l.label}
+137:             </Link>
+138:           ))}
+139:         </nav>
+140: 
+141:         {/* Desktop right cluster (≥ lg) */}
+142:         <div className="hidden lg:flex items-center">
+143:           <ThemeToggler />
+144:           <span className="mx-3 text-navbar-foreground">{user.email}</span>
+145:           <DropdownMenu>
+146:             <DropdownMenuTrigger className="cursor-pointer">
+147:               <Avatar>
+148:                 <AvatarFallback>{user.email?.[0]?.toUpperCase() ?? "U"}</AvatarFallback>
+149:               </Avatar>
+150:             </DropdownMenuTrigger>
+151:             <DropdownMenuContent className="bg-popover">
+152:               <DropdownMenuLabel>My Account</DropdownMenuLabel>
+153:               <DropdownMenuSeparator />
+154:               <DropdownMenuItem asChild>
+155:                 <Link href="/profile">Profile</Link>
+156:               </DropdownMenuItem>
+157:               <Logout />
+158:             </DropdownMenuContent>
+159:           </DropdownMenu>
+160:         </div>
+161: 
+162:         {/* Mobile hamburger (< lg) */}
+163:         <button
+164:           type="button"
+165:           onClick={() => setMenuOpen((s) => !s)}
+166:           aria-label={menuOpen ? "Close menu" : "Open menu"}
+167:           aria-expanded={menuOpen}
+168:           className="lg:hidden shrink-0 p-2 text-navbar-foreground hover:opacity-80"
+169:         >
+170:           {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+171:         </button>
+172:       </div>
+173: 
+174:       {/* Mobile panel (< lg) — same role-aware links + account actions */}
+175:       {menuOpen && (
+176:         <div
+177:           className="lg:hidden border-t border-navbar-foreground/20"
+178:           role="dialog"
+179:           aria-label="Menu"
+180:         >
+181:           <nav className="flex flex-col">
+182:             {navLinks.map((l) => (
+183:               <Link
+184:                 key={l.href}
+185:                 href={l.href}
+186:                 onClick={closeMenu}
+187:                 aria-current={pathname.startsWith(l.href) ? "page" : undefined}
+188:                 className={`px-5 py-3 text-sm font-medium border-b border-navbar-foreground/20 ${
+189:                   pathname.startsWith(l.href) ? "font-semibold" : "text-navbar-foreground/80"
+190:                 }`}
+191:               >
+192:                 {l.label}
+193:               </Link>
+194:             ))}
+195: 
+196:             <div className="flex items-center justify-between px-5 py-3 border-b border-navbar-foreground/20">
+197:               <span className="text-sm">{user.email}</span>
+198:               <ThemeToggler onSelect={closeMenu} />
+199:             </div>
+200: 
+201:             <button
+202:               type="button"
+203:               onClick={handleLogout}
+204:               className="px-5 py-3 text-sm text-left bg-secondary text-secondary-foreground"
+205:             >
+206:               Log out
+207:             </button>
+208:           </nav>
+209:         </div>
+210:       )}
+211:     </header>
+212:   );
+213: };
+214: 
+215: export default Navbar;
+
+FILE: src/components/global/NavbarHome.tsx
+1: import Image from "next/image";
+2: import Link from "next/link";
+3: import { User as SupabaseUser } from "@supabase/auth-js";
+4: import MobileNav from "./MobileNav";
+5: import NavAuthRefresh from "./NavAuthRefresh";
+6: import ThemeToggler from "./ThemeToggler";
+7: import UserMenu from "./UserMenu";
+8: import { AppRole } from "@/utils/app-role";
+9: 
+10: // Identity arrives server-resolved from (public)/layout.tsx (Navbar Law: props,
+11: // never client-persisted state). Both may be null — logged-out visitors are a
+12: // first-class state on the public nav.
+13: interface NavbarHomeProps {
+14:   user: SupabaseUser | null;
+15:   role: AppRole | null;
+16: }
+17: 
+18: const NavbarHome = ({ user, role }: NavbarHomeProps) => {
+19:   return (
+20:     <header className="relative flex items-center h-[84px] border-b-2 border-border px-7">
+21:       <Link href="/" className="flex items-center" aria-label="Cyber Pharma — Home">
+22:         <Image
+23:           src="/brand/logo-lockup.svg"
+24:           alt="Cyber Pharma"
+25:           width={180}
+26:           height={34}
+27:           priority
+28:         />
+29:       </Link>
+30: 
+31:       <nav className="ml-auto hidden lg:flex items-center h-full text-xs font-semibold tracking-wide">
+32:         <Link
+33:           href="#features"
+34:           className="uppercase px-5 h-full flex items-center text-muted-foreground hover:bg-accent/10 hover:text-foreground transition-colors"
+35:         >
+36:           Features
+37:         </Link>
+38:         <Link
+39:           href="#how-it-works"
+40:           className="uppercase px-5 h-full flex items-center text-muted-foreground hover:bg-accent/10 hover:text-foreground transition-colors"
+41:         >
+42:           How it works
+43:         </Link>
+44:         <Link
+45:           href="#pricing"
+46:           className="uppercase px-5 h-full flex items-center text-muted-foreground hover:bg-accent/10 hover:text-foreground transition-colors"
+47:         >
+48:           Pricing
+49:         </Link>
+50:         <ThemeToggler />
+51:         <UserMenu user={user} role={role} />
+52:       </nav>
+53: 
+54:       <div className="ml-auto flex items-center lg:hidden">
+55:         <ThemeToggler />
+56:         <MobileNav user={user} role={role} />
+57:       </div>
+58: 
+59:       {/* Single cross-tab listener — both nav variants are always mounted
+60:           (CSS-hidden), so the listener lives once up here, not per component. */}
+61:       <NavAuthRefresh />
+62:     </header>
+63:   );
+64: };
+65: 
+66: export default NavbarHome;
+
+FILE: src/components/global/NavbarLoginReg.tsx
+1: import Image from "next/image";
+2: import Link from "next/link";
+3: import ThemeToggler from "./ThemeToggler";
+4: 
+5: const NavbarLoginReg = () => {
+6:   return (
+7:     <>
+8:       <div className="bg-secondary py-2 px-5 flex justify-between">
+9:         <Link href={"/"} aria-label="Cyber Pharma — Home">
+10:           <Image
+11:             src="/brand/logo-lockup.svg"
+12:             alt="Cyber Pharma"
+13:             width={180}
+14:             height={34}
+15:             priority
+16:           />
+17:         </Link>
+18: 
+19:         <div className="flex items-center">
+20:           <ThemeToggler />
+21:         </div>
+22:       </div>
+23:       {/* <h1 className="text-center text-5xl mt-12">
+24:         Next.js 14, Shadcn, Tailwind, Supabase & Resend{" "}
+25:         <small>(Email Service)</small>
+26:       </h1>
+27:       <h3 className="text-center text-3xl mt-12 -mb-[8rem]">
+28:         Login/Logout, Registration, Middleware & Email Validation Setup
+29:       </h3> */}
+30:     </>
+31:   );
+32: };
+33: 
+34: export default NavbarLoginReg;
+
+FILE: src/components/global/ThemeToggler.tsx
+1: "use client";
+2: 
+3: import * as React from "react";
+4: import { useTheme } from "next-themes";
+5: 
+6: import { Button } from "@/components/ui/button";
+7: import {
+8:   DropdownMenu,
+9:   DropdownMenuContent,
+10:   DropdownMenuItem,
+11:   DropdownMenuTrigger,
+12: } from "@/components/ui/dropdown-menu";
+13: import { MoonIcon, SunIcon } from "lucide-react";
+14: 
+15: // `onSelect` fires after a theme is picked — lets a host (e.g. the Navbar mobile
+16: // menu) close itself once the choice is made. Optional; desktop usages omit it.
+17: const ThemeToggler = ({ onSelect }: { onSelect?: () => void } = {}) => {
+18:   const { setTheme } = useTheme();
+19: 
+20:   const pick = (theme: string) => {
+21:     setTheme(theme);
+22:     onSelect?.();
+23:   };
+24: 
+25:   return (
+26:     <DropdownMenu>
+27:       <DropdownMenuTrigger asChild>
+28:         <Button
+29:           variant="ghost"
+30:           size={null}
+31:           className="mr-5 p-2"
+32:         >
+33:           <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+34:           <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+35:           <span className="sr-only">Toggle theme</span>
+36:         </Button>
+37:       </DropdownMenuTrigger>
+38:       <DropdownMenuContent align="end">
+39:         <DropdownMenuItem onClick={() => pick("light")}>
+40:           Light
+41:         </DropdownMenuItem>
+42:         <DropdownMenuItem onClick={() => pick("dark")}>
+43:           Dark
+44:         </DropdownMenuItem>
+45:         <DropdownMenuItem onClick={() => pick("system")}>
+46:           System
+47:         </DropdownMenuItem>
+48:       </DropdownMenuContent>
+49:     </DropdownMenu>
+50:   );
+51: };
+52: 
+53: export default ThemeToggler;
+
+FILE: src/components/global/UserMenu.tsx
+1: "use client";
+2: 
+3: import Link from "next/link";
+4: import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+5: import {
+6:   DropdownMenu,
+7:   DropdownMenuContent,
+8:   DropdownMenuItem,
+9:   DropdownMenuLabel,
+10:   DropdownMenuSeparator,
+11:   DropdownMenuTrigger,
+12: } from "@/components/ui/dropdown-menu";
+13: import Logout from "../auth/Logout";
+14: import { User as SupabaseUser } from "@supabase/auth-js";
+15: import { AppRole } from "@/utils/app-role";
+16: 
+17: // Identity is SERVER-RESOLVED and passed as props (Navbar Law — KIP-2 kill):
+18: // no client auth fetch, no persisted-store role read, no loading window.
+19: interface UserMenuProps {
+20:   user: SupabaseUser | null;
+21:   role: AppRole | null;
+22: }
+23: 
+24: const UserMenu = ({ user, role }: UserMenuProps) => {
+25:   if (user) {
+26:     const portalHref = role === AppRole.ADMIN ? "/admin-portal" : "/owedbook";
+27:     const portalLabel = role === AppRole.ADMIN ? "Admin portal" : "OwedBook";
+28: 
+29:     return (
+30:       <div className="flex items-center px-3">
+31:         <DropdownMenu>
+32:           <DropdownMenuTrigger className="cursor-pointer">
+33:             <Avatar>
+34:               <AvatarFallback>{user.email?.[0]?.toUpperCase() ?? "U"}</AvatarFallback>
+35:             </Avatar>
+36:           </DropdownMenuTrigger>
+37:           <DropdownMenuContent className="bg-popover" align="end">
+38:             <DropdownMenuLabel className="font-normal">
+39:               <div className="flex flex-col gap-1">
+40:                 <span className="text-sm font-semibold truncate">{user.email}</span>
+41:                 {role && (
+42:                   <span className="text-xs text-muted-foreground capitalize">{role}</span>
+43:                 )}
+44:               </div>
+45:             </DropdownMenuLabel>
+46:             <DropdownMenuSeparator />
+47:             <DropdownMenuItem asChild>
+48:               <Link href={portalHref}>{portalLabel}</Link>
+49:             </DropdownMenuItem>
+50:             <Logout />
+51:           </DropdownMenuContent>
+52:         </DropdownMenu>
+53:       </div>
+54:     );
+55:   }
+56: 
+57:   return (
+58:     <>
+59:       <Link
+60:         href="/auth"
+61:         className="uppercase px-5 h-full flex items-center text-foreground hover:bg-accent/10 transition-colors"
+62:       >
+63:         Log in
+64:       </Link>
+65:       <Link
+66:         href="/auth"
+67:         className="uppercase px-7 h-full flex items-center bg-primary text-primary-foreground font-bold hover:bg-primary/90 transition-colors"
+68:       >
+69:         Start free trial
+70:       </Link>
+71:     </>
+72:   );
+73: };
+74: 
+75: export default UserMenu;
+
+FILE: src/app/(admin)/layout.tsx
+1: import { ReactNode } from "react";
+2: import { protectPage } from "@/utils/supabase/actions";
+3: import { AppRole } from "@/utils/app-role";
+4: import AuthedShell from "@/components/layout/AuthedShell";
+5: 
+6: interface LayoutProps {
+7:   children: ReactNode;
+8: }
+9: 
+10: export default async function AdminLayout({ children }: LayoutProps) {
+11:   // Admin-only surface. A MEMBER who types the URL is bounced to /owedbook
+12:   // (their landing), not the login page (UI_SPEC v1.3 §E).
+13:   const { user, role } = await protectPage([AppRole.ADMIN], {
+14:     unauthorizedRedirect: "/owedbook",
+15:   });
+16: 
+17:   // Content-column gutter for every admin-portal screen — the designer's `.main`
+18:   // padding (mockup: 26px 30px desktop, 18px 16px ≤900px ≈ below lg, where the
+19:   // sidebar stops being fixed). Applied here (admin-portal-only group) rather than
+20:   // in the shared AuthedShell so /owedbook + /moose-portal are physically out of
+21:   // scope. One place → all six screens (+ loading/error/not-found) inherit it.
+22:   return (
+23:     <AuthedShell user={user} role={role}>
+24:       <div className="px-4 py-[18px] lg:px-[30px] lg:py-[26px]">{children}</div>
+25:     </AuthedShell>
+26:   );
+27: }
+
+FILE: src/app/owedbook/layout.tsx
+1: import { ReactNode } from "react";
+2: import { protectPage } from "@/utils/supabase/actions";
+3: import { AppRole } from "@/utils/app-role";
+4: import AuthedShell from "@/components/layout/AuthedShell";
+5: import { OwedBookProvider } from "@/components/owedbook/OwedBookContext";
+6: 
+7: interface LayoutProps {
+8:   children: ReactNode;
+9: }
+10: 
+11: // OwedBook surface (UI_SPEC §A.1): post-login landing for ANY authenticated user
+12: // (ADMIN + MEMBER). AuthedShell provides the shared chrome (navbar + sidebar /
+13: // mobile slide-over); the AdminSidebar renders the FilterRail on this surface.
+14: // OwedBookProvider wraps the shell so the rail (even inside the mobile drawer)
+15: // shares filter state with the screen.
+16: export default async function OwedBookLayout({ children }: LayoutProps) {
+17:   const { user, role } = await protectPage([AppRole.ADMIN, AppRole.MEMBER]);
+18: 
+19:   return (
+20:     <OwedBookProvider>
+21:       <AuthedShell user={user} role={role}>
+22:         {children}
+23:       </AuthedShell>
+24:     </OwedBookProvider>
+25:   );
+26: }
+
+FILE: src/utils/supabase/actions.ts
+1: "use server";
+2: 
+3: import { redirect } from "next/navigation";
+4: import { getUserRole } from "../get-user-role";
+5: import type { AppRole } from "../app-role";
+6: import { createClient } from "./server";
+7: 
+8: export async function protectPage(
+9:   allowedRoles: AppRole[],
+10:   opts?: { unauthorizedRedirect?: string }
+11: ) {
+12:   const supabase = await createClient();
+13: 
+14:   const { data } = await supabase.auth.getUser();
+15:   const user = data?.user ?? null;
+16: 
+17:   // Unauthenticated → always to login, regardless of opts.
+18:   if (!user) {
+19:     return redirect("/auth");
+20:   }
+21: 
+22:   // Authenticated but wrong role → caller-chosen landing (default /auth).
+23:   // e.g. the admin surface bounces a MEMBER to /owedbook, not the login page.
+24:   const userRole = await getUserRole(user.id);
+25:   if (!userRole || !allowedRoles.includes(userRole)) {
+26:     return redirect(opts?.unauthorizedRedirect ?? "/auth");
+27:   }
+28: 
+29:   // Both are server-truth at this point — layouts pass them into the Navbar so
+30:   // nav identity never depends on a client-side auth fetch.
+31:   return { user, role: userRole };
+32: }
+
+FILE: src/utils/get-user-role.ts
+1: import { createClient } from './supabase/server';
+2: import { AppRole } from './app-role';
+3: 
+4: /**
+5:  * Fetches the user's role from the user_roles table in the database.
+6:  * This is the canonical source of truth for authorization.
+7:  * 
+8:  * @param userId - The authenticated user's ID from auth.users
+9:  * @returns The user's role or null if not found
+10:  */
+11: export const getUserRole = async (userId: string): Promise<AppRole | null> => {
+12:   if (!userId) return null;
+13: 
+14:   const supabase = await createClient();
+15:   
+16:   const { data, error } = await supabase
+17:     .from('user_roles')
+18:     .select('role')
+19:     .eq('user_id', userId)
+20:     .single();
+21: 
+22:   if (error || !data) {
+23:     console.error('Error fetching user role:', error);
+24:     return null;
+25:   }
+26: 
+27:   return data.role as AppRole;
+28: };
+
+FILE: src/types/adminDemo.ts
+1: // Admin Portal Demo Shell — types (Phase 2.2). Verbatim from DATA_CONTRACT §1–2.
+2: // Mock-functional, owner-scoped preview of the future StoreLens (NOT StoreLens).
+3: // The service layer is the sole Phase-7 swap point; these shapes stay frozen.
+4: 
+5: // ── §1. Status vocabularies (single source — back every pill) ────────────────
+6: 
+7: // Member account state (drives ACTIVE / INVITE PENDING / SUSPENDED pills)
+8: export type MemberAccountStatus = "active" | "invite_pending" | "suspended";
+9: 
+10: // Member permission role (domain-expert truth: admin | user). jobTitle is shown separately (§2.3).
+11: export type MemberRole = "admin" | "member";
+12: 
+13: // Store operational status
+14: export type StoreStatus = "active" | "suspended";
+15: 
+16: // Subscription mirror (drives SUB ACTIVE / PAST-DUE pills)
+17: export type SubscriptionStatus = "active" | "past_due" | "canceled";
+18: 
+19: // Billing plan (demo values; Phase-7 maps to real Stripe price/plan_type)
+20: export type BillingPlan = "standard" | "concierge";
+21: 
+22: // Audit action vocabulary (the owner's own actions)
+23: export type AuditAction =
+24:   | "invited_member"
+25:   | "resent_invite"
+26:   | "suspended_member"
+27:   | "unsuspended_member"
+28:   | "sent_recovery"
+29:   | "added_store"
+30:   | "updated_settings";
+31: 
+32: // ── §2. View-models (what the services return) ───────────────────────────────
+33: 
+34: // One owner, sourced from real auth (login stays real per OwedBook); his data is mock.
+35: export interface CurrentOwner {
+36:   ownerId: string;
+37:   name: string;
+38:   email: string;
+39:   initials: string; // derived from name, for the avatar
+40: }
+41: 
+42: // My Stores card + store-detail header
+43: export interface OwnedStore {
+44:   storeId: string;
+45:   name: string; // pharmacy name
+46:   ncpdp: string;
+47:   npi: string;
+48:   status: StoreStatus; // store-level pill
+49:   subscriptionStatus: SubscriptionStatus; // "SUB ACTIVE" / "PAST-DUE" footer pill
+50:   memberCount: number;
+51: }
+52: 
+53: // Roster row + invite result
+54: export interface StoreMember {
+55:   memberId: string;
+56:   storeId: string;
+57:   name: string; // for invite_pending rows may be empty → render email
+58:   email: string;
+59:   initials: string;
+60:   // ⚠️ DEMO-ONLY display (pharmacist/technician). Unbacked in the domain expert's schema —
+61:   // Phase-7 source-decision flag (DATA_CONTRACT §6). Do NOT pretend it's backed.
+62:   jobTitle?: string;
+63:   role: MemberRole; // permission role
+64:   accountStatus: MemberAccountStatus;
+65:   invitedAt?: string; // ISO; present when accountStatus === 'invite_pending'
+66:   // UI derives row actions from accountStatus:
+67:   //   active → [sendRecovery, suspend] · invite_pending → [resendInvite] · suspended → [unsuspend]
+68: }
+69: 
+70: // Per-store billing row
+71: export interface BillingLine {
+72:   storeId: string;
+73:   storeName: string;
+74:   plan: BillingPlan;
+75:   subscriptionStatus: SubscriptionStatus;
+76:   nextChargeDate?: string; // ISO; present when active
+77:   retryDate?: string; // ISO; present when past_due
+78:   amountLabel: string; // display only, e.g. "$49/mo" (demo; Phase-7 = real Stripe)
+79:   // Actions are VISUAL ONLY: managePayment, cancel — no checkout, no charge.
+80: }
+81: 
+82: // Owner's own actions
+83: export interface AuditEntry {
+84:   id: string;
+85:   occurredAt: string; // ISO
+86:   action: AuditAction;
+87:   target: string; // human label, e.g. "Tina Cho" or "Hyde Park Pharmacy"
+88:   result: "done" | "failed";
+89: }
+90: 
+91: // Editable, in-memory
+92: export interface PharmacySettings {
+93:   storeId: string;
+94:   pharmacyName: string;
+95:   contactPerson: string;
+96:   phone: string;
+97:   address: string;
+98:   pharmacySoftware: string;
+99: }
+100: 
+101: // Shared action result (toast copy)
+102: export interface ActionResult {
+103:   ok: boolean;
+104:   message: string;
+105: }
+106: 
+107: // ── §3. Zustand store shape (the live in-memory dataset) ─────────────────────
+108: // Seeded from /mocks, mutated ONLY by the service layer (never components).
+109: // Refresh resets to the seed — by design (in-memory, no persistence).
+110: export interface AdminDemoState {
+111:   owner: CurrentOwner;
+112:   stores: OwnedStore[];
+113:   members: StoreMember[]; // across all the owner's stores; filtered by storeId in services
+114:   billing: BillingLine[];
+115:   audit: AuditEntry[];
+116:   settings: PharmacySettings[]; // one per store
+117: }
+
+FILE: src/utils/supabase/admin.ts
+1: // Service-role Supabase client factory — BLESSED INFRA, currently UNCONSUMED.
+2: // Ledger E-04 (agent_docs/RRM_FINDINGS_DISPOSITION_LEDGER.md, 2026-09-20): this is the
+3: // single service-role factory in the repo. The duplicate copy that lived beside the
+4: // operator user-management portal was deleted with that portal in RRM-001 (2026-09-20).
+5: // Zero app consumers: nothing under src/ or scripts/ imports this file, and no route,
+6: // page, component or Server Action may.
+7: // FENCED to seeding and system jobs only — BIM-004's seed script decides its own import.
+8: // CRITICAL: uses the secret (service_role) key — server-side only. NEVER import this in
+9: // client components or expose the key to the browser.
+10: 
+11: import { createClient } from '@supabase/supabase-js'
+12: 
+13: /**
+14:  * Creates a Supabase admin client with service_role privileges.
+15:  * This client bypasses Row Level Security (RLS) and should only be used
+16:  * for privileged operations like creating admin users or updating roles.
+17:  * 
+18:  * @returns Supabase admin client
+19:  */
+20: export const createAdminClient = () => {
+21:   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+22:   const supabaseServiceKey = process.env.SUPABASE_SECRET_KEY!
+23: 
+24:   if (!supabaseUrl?.trim() || !supabaseServiceKey?.trim()) {
+25:     throw new Error('Missing Supabase admin credentials')
+26:   }
+27: 
+28:   return createClient(supabaseUrl, supabaseServiceKey, {
+29:     auth: {
+30:       autoRefreshToken: false,
+31:       persistSession: false
+32:     }
+33:   })
+34: }
+
+FILE: scripts/db-bootstrap-baseline.sql
+1: -- BIM-001 · db-bootstrap-baseline.sql — SCRATCH-ONLY baseline builder.
+2: -- Reproduces the LIVE baseline exactly as cataloged at X0 (X0_EVIDENCE.md,
+3: -- 2026-08-28): 2 tables, 3 policies (the live names — migration overlay, NOT
+4: -- setup.sql's originals), handle_new_user() (smart-trigger version),
+5: -- rls_auto_enable() + ensure_rls event trigger.
+6: -- Authored per X0 ruling rider 3: "the chain's bootstrap path may create ALL
+7: -- baseline objects it needs" on scratch-from-zero. NEVER run against live or
+8: -- baseline-replica — there, 0001 asserts and this file is not involved.
+9: -- Assembled from supabase/setup.sql + docs/migration_add_profiles.sql (the
+10: -- DB_BASELINE.md interpretation) + the ensure_rls pair absent from disk SQL
+11: -- (live-confirmed at X0; semantics per DATA_CONTRACT §3: auto-enable RLS on
+12: -- newly created tables).
+13: 
+14: -- [1] app_role enum (setup.sql STEP 1)
+15: CREATE TYPE public.app_role AS ENUM ('superadmin', 'admin', 'member');
+16: 
+17: -- [2] user_roles + its one live policy (setup.sql STEP 2)
+18: CREATE TABLE public.user_roles (
+19:   id         bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+20:   user_id    uuid NOT NULL REFERENCES auth.users (id) ON DELETE CASCADE,
+21:   role       public.app_role NOT NULL DEFAULT 'member',
+22:   created_at timestamp with time zone DEFAULT now(),
+23:   UNIQUE (user_id)
+24: );
+25: 
+26: ALTER TABLE public.user_roles ENABLE ROW LEVEL SECURITY;
+27: 
+28: CREATE POLICY "Users can read their own role"
+29:   ON public.user_roles
+30:   FOR SELECT
+31:   TO authenticated
+32:   USING (auth.uid() = user_id);
+33: 
+34: -- [3] profiles + the two LIVE (superadmin-variant) policies
+35: --     (migration_add_profiles.sql STEPS 1-2 — the live names; setup.sql's
+36: --      original profile policies never went live per DB_BASELINE.md)
+37: CREATE TABLE public.profiles (
+38:   id          uuid PRIMARY KEY REFERENCES auth.users (id) ON DELETE CASCADE,
+39:   full_name   text,
+40:   email       text,
+41:   created_at  timestamp with time zone DEFAULT now()
+42: );
+43: 
+44: ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+45: 
+46: CREATE POLICY "Profiles are viewable by owner or superadmins"
+47:   ON public.profiles
+48:   FOR SELECT
+49:   TO authenticated
+50:   USING (
+51:     auth.uid() = id
+52:     OR
+53:     (SELECT role FROM public.user_roles WHERE user_id = auth.uid()) = 'superadmin'
+54:   );
+55: 
+56: CREATE POLICY "Profiles are updatable by owner or superadmins"
+57:   ON public.profiles
+58:   FOR UPDATE
+59:   TO authenticated
+60:   USING (
+61:     auth.uid() = id
+62:     OR
+63:     (SELECT role FROM public.user_roles WHERE user_id = auth.uid()) = 'superadmin'
+64:   );
+65: 
+66: -- [4] handle_new_user() — the smart-trigger version (migration STEP 4, live)
+67: CREATE OR REPLACE FUNCTION public.handle_new_user()
+68: RETURNS trigger
+69: LANGUAGE plpgsql
+70: SECURITY DEFINER
+71: SET search_path = public
+72: AS $$
+73: DECLARE
+74:   assigned_role public.app_role;
+75: BEGIN
+76:   IF NEW.raw_user_meta_data ->> 'role' IS NOT NULL THEN
+77:     assigned_role := (NEW.raw_user_meta_data ->> 'role')::public.app_role;
+78:   ELSE
+79:     assigned_role := 'member'::public.app_role;
+80:   END IF;
+81: 
+82:   INSERT INTO public.user_roles (user_id, role)
+83:   VALUES (NEW.id, assigned_role)
+84:   ON CONFLICT (user_id) DO NOTHING;
+85: 
+86:   INSERT INTO public.profiles (id, email, full_name)
+87:   VALUES (
+88:     NEW.id,
+89:     NEW.email,
+90:     NEW.raw_user_meta_data ->> 'full_name'
+91:   )
+92:   ON CONFLICT (id) DO NOTHING;
+93: 
+94:   RETURN NEW;
+95: END;
+96: $$;
+97: 
+98: DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+99: 
+100: CREATE TRIGGER on_auth_user_created
+101:   AFTER INSERT ON auth.users
+102:   FOR EACH ROW
+103:   EXECUTE FUNCTION public.handle_new_user();
+104: 
+105: -- [5] rls_auto_enable() + ensure_rls event trigger (live-confirmed at X0;
+106: --     in no disk SQL — authored here from DATA_CONTRACT §3 semantics)
+107: CREATE OR REPLACE FUNCTION public.rls_auto_enable()
+108: RETURNS event_trigger
+109: LANGUAGE plpgsql
+110: AS $$
+111: DECLARE
+112:   obj record;
+113: BEGIN
+114:   FOR obj IN
+115:     SELECT * FROM pg_event_trigger_ddl_commands() WHERE command_tag = 'CREATE TABLE'
+116:   LOOP
+117:     IF obj.schema_name = 'public' THEN
+118:       EXECUTE format('ALTER TABLE %s ENABLE ROW LEVEL SECURITY', obj.object_identity);
+119:     END IF;
+120:   END LOOP;
+121: END;
+122: $$;
+123: 
+124: DROP EVENT TRIGGER IF EXISTS ensure_rls;
+125: 
+126: CREATE EVENT TRIGGER ensure_rls
+127:   ON ddl_command_end
+128:   WHEN TAG IN ('CREATE TABLE')
+129:   EXECUTE FUNCTION public.rls_auto_enable();
+
+FILE: scripts/rls-harness/expectations.json
+1: {
+2:   "_comment": "BIM-002 expectation matrix. default DENY; every ALLOW is an explicit override earned by a landed policy. Baseline notes: user_roles.select and profiles.select/update are ALLOWED by the three PRE-EXISTING baseline policies (own row) \u2014 not by this module. Tenant payloads target store A1, so ownerB's DENY on A1 rows is the cross-tenant proof. BIM-003 (R-1): audit_logs.select is ALLOWED for junction ADMINS of a business whose rows were written (ownerA, ownerB); members (staffA, multiStore) stay DENY; every audit_logs write stays DENY.",
+3:   "phase": "X3-FINAL-all-policies",
+4:   "identities": [
+5:     "anon",
+6:     "ownerA",
+7:     "staffA",
+8:     "ownerB",
+9:     "multiStore"
+10:   ],
+11:   "tables": [
+12:     "accounts",
+13:     "businesses",
+14:     "user_roles",
+15:     "profiles",
+16:     "user_businesses",
+17:     "pending_registrations",
+18:     "subscriptions",
+19:     "apa_memberships",
+20:     "user_data",
+21:     "report_files",
+22:     "aac_reference",
+23:     "wac_reference",
+24:     "ful_reference",
+25:     "pbm_info",
+26:     "audit_logs",
+27:     "reference_dataset_versions"
+28:   ],
+29:   "operations": [
+30:     "select",
+31:     "insert",
+32:     "update",
+33:     "delete"
+34:   ],
+35:   "default": "DENY",
+36:   "overrides": {
+37:     "ownerA": {
+38:       "user_roles": {
+39:         "select": "ALLOW"
+40:       },
+41:       "profiles": {
+42:         "select": "ALLOW",
+43:         "update": "ALLOW"
+44:       },
+45:       "user_businesses": {
+46:         "select": "ALLOW"
+47:       },
+48:       "accounts": {
+49:         "select": "ALLOW"
+50:       },
+51:       "businesses": {
+52:         "select": "ALLOW",
+53:         "update": "ALLOW"
+54:       },
+55:       "subscriptions": {
+56:         "select": "ALLOW"
+57:       },
+58:       "user_data": {
+59:         "select": "ALLOW",
+60:         "insert": "ALLOW",
+61:         "update": "ALLOW",
+62:         "delete": "ALLOW"
+63:       },
+64:       "report_files": {
+65:         "select": "ALLOW"
+66:       },
+67:       "aac_reference": {
+68:         "select": "ALLOW"
+69:       },
+70:       "wac_reference": {
+71:         "select": "ALLOW"
+72:       },
+73:       "ful_reference": {
+74:         "select": "ALLOW"
+75:       },
+76:       "pbm_info": {
+77:         "select": "ALLOW"
+78:       },
+79:       "reference_dataset_versions": {
+80:         "select": "ALLOW"
+81:       },
+82:       "audit_logs": {
+83:         "select": "ALLOW"
+84:       }
+85:     },
+86:     "staffA": {
+87:       "user_roles": {
+88:         "select": "ALLOW"
+89:       },
+90:       "profiles": {
+91:         "select": "ALLOW",
+92:         "update": "ALLOW"
+93:       },
+94:       "user_businesses": {
+95:         "select": "ALLOW"
+96:       },
+97:       "accounts": {
+98:         "select": "ALLOW"
+99:       },
+100:       "businesses": {
+101:         "select": "ALLOW"
+102:       },
+103:       "subscriptions": {
+104:         "select": "ALLOW"
+105:       },
+106:       "user_data": {
+107:         "select": "ALLOW",
+108:         "insert": "ALLOW",
+109:         "update": "ALLOW"
+110:       },
+111:       "report_files": {
+112:         "select": "ALLOW"
+113:       },
+114:       "aac_reference": {
+115:         "select": "ALLOW"
+116:       },
+117:       "wac_reference": {
+118:         "select": "ALLOW"
+119:       },
+120:       "ful_reference": {
+121:         "select": "ALLOW"
+122:       },
+123:       "pbm_info": {
+124:         "select": "ALLOW"
+125:       },
+126:       "reference_dataset_versions": {
+127:         "select": "ALLOW"
+128:       }
+129:     },
+130:     "ownerB": {
+131:       "user_roles": {
+132:         "select": "ALLOW"
+133:       },
+134:       "profiles": {
+135:         "select": "ALLOW",
+136:         "update": "ALLOW"
+137:       },
+138:       "user_businesses": {
+139:         "select": "ALLOW"
+140:       },
+141:       "accounts": {
+142:         "select": "ALLOW"
+143:       },
+144:       "businesses": {
+145:         "select": "ALLOW"
+146:       },
+147:       "subscriptions": {
+148:         "select": "ALLOW"
+149:       },
+150:       "user_data": {
+151:         "select": "ALLOW"
+152:       },
+153:       "report_files": {
+154:         "select": "ALLOW"
+155:       },
+156:       "aac_reference": {
+157:         "select": "ALLOW"
+158:       },
+159:       "wac_reference": {
+160:         "select": "ALLOW"
+161:       },
+162:       "ful_reference": {
+163:         "select": "ALLOW"
+164:       },
+165:       "pbm_info": {
+166:         "select": "ALLOW"
+167:       },
+168:       "reference_dataset_versions": {
+169:         "select": "ALLOW"
+170:       },
+171:       "audit_logs": {
+172:         "select": "ALLOW"
+173:       }
+174:     },
+175:     "multiStore": {
+176:       "user_roles": {
+177:         "select": "ALLOW"
+178:       },
+179:       "profiles": {
+180:         "select": "ALLOW",
+181:         "update": "ALLOW"
+182:       },
+183:       "user_businesses": {
+184:         "select": "ALLOW"
+185:       },
+186:       "accounts": {
+187:         "select": "ALLOW"
+188:       },
+189:       "businesses": {
+190:         "select": "ALLOW"
+191:       },
+192:       "subscriptions": {
+193:         "select": "ALLOW"
+194:       },
+195:       "user_data": {
+196:         "select": "ALLOW",
+197:         "insert": "ALLOW",
+198:         "update": "ALLOW"
+199:       },
+200:       "report_files": {
+201:         "select": "ALLOW"
+202:       },
+203:       "aac_reference": {
+204:         "select": "ALLOW"
+205:       },
+206:       "wac_reference": {
+207:         "select": "ALLOW"
+208:       },
+209:       "ful_reference": {
+210:         "select": "ALLOW"
+211:       },
+212:       "pbm_info": {
+213:         "select": "ALLOW"
+214:       },
+215:       "reference_dataset_versions": {
+216:         "select": "ALLOW"
+217:       }
+218:     }
+219:   }
+220: }
+
+FILE: package.json
+1: {
+2:   "name": "cyber-pharma",
+3:   "version": "0.1.0",
+4:   "private": true,
+5:   "scripts": {
+6:     "dev": "next dev",
+7:     "build": "next build",
+8:     "start": "next start",
+9:     "lint": "eslint .",
+10:     "test": "jest",
+11:     "test:e2e": "playwright test",
+12:     "test:e2e:ui": "playwright test --ui",
+13:     "db:reset": "node scripts/db-reset.mjs reset",
+14:     "db:apply": "node scripts/db-reset.mjs apply",
+15:     "db:inventory": "node scripts/db-reset.mjs inventory",
+16:     "db:verify": "node scripts/db-verify.mjs",
+17:     "db:verify:probes": "node scripts/db-verify.mjs --probes",
+18:     "rls:prove": "node scripts/rls-harness/prove.mjs",
+19:     "audit:prove": "node scripts/rls-harness/audit-prove.mjs"
+20:   },
+21:   "dependencies": {
+22:     "@heroicons/react": "^2.1.5",
+23:     "@hookform/resolvers": "^3.6.0",
+24:     "@radix-ui/react-avatar": "^1.0.4",
+25:     "@radix-ui/react-dialog": "^1.0.5",
+26:     "@radix-ui/react-dropdown-menu": "^2.0.6",
+27:     "@radix-ui/react-label": "^2.0.2",
+28:     "@radix-ui/react-select": "^2.2.6",
+29:     "@radix-ui/react-slot": "^1.0.2",
+30:     "@radix-ui/react-tabs": "^1.0.4",
+31:     "@radix-ui/react-toast": "^1.1.5",
+32:     "@shrutibalasa/tailwind-grid-auto-fit": "^1.1.0",
+33:     "@supabase/ssr": "^0.6.1",
+34:     "@supabase/supabase-js": "^2.44.0",
+35:     "@tailwindcss/aspect-ratio": "^0.4.2",
+36:     "@tailwindcss/typography": "^0.5.13",
+37:     "class-variance-authority": "^0.7.0",
+38:     "clsx": "^2.1.1",
+39:     "cmdk": "^1.1.1",
+40:     "lucide-react": "^1.16.0",
+41:     "next": "16.3.7",
+42:     "next-themes": "^0.4.6",
+43:     "react": "^19.2.4",
+44:     "react-dom": "^19.2.4",
+45:     "react-hook-form": "^7.51.5",
+46:     "tailwind-merge": "^2.3.0",
+47:     "tailwindcss-animate": "^1.0.7",
+48:     "zod": "^3.23.8",
+49:     "zustand": "^4.5.4"
+50:   },
+51:   "devDependencies": {
+52:     "@playwright/test": "^1.59.1",
+53:     "@testing-library/jest-dom": "^6.1.5",
+54:     "@testing-library/react": "^16.3.2",
+55:     "@testing-library/user-event": "^14.5.1",
+56:     "@types/jest": "^30.0.0",
+57:     "@types/node": "^20",
+58:     "@types/react": "^19.2.2",
+59:     "@types/react-dom": "^19.2.2",
+60:     "autoprefixer": "^10",
+61:     "dotenv": "^17.4.2",
+62:     "eslint": "^9.39.4",
+63:     "eslint-config-next": "16.3.7",
+64:     "jest": "^30.0.5",
+65:     "jest-environment-jsdom": "^30.0.5",
+66:     "pg": "^8.23.0",
+67:     "postcss": "^8.5.10",
+68:     "supabase": "^2.116.0",
+69:     "tailwindcss": "^3.4.1",
+70:     "ts-jest": "^29.4.1",
+71:     "typescript": "^5"
+72:   },
+73:   "overrides": {
+74:     "postcss": "^8.5.10",
+75:     "sharp": "0.35.5"
+76:   }
+77: }
+
+FILE: next.config.js
+1: /** @type {import('next').NextConfig} */
+2: const nextConfig = {
+3:   output: "standalone",
+4:   reactStrictMode: true,
+5:   // Do not let `next dev` write the managed agent-rules block into CLAUDE.md / AGENTS.md
+6:   // (root CLAUDE.md is the protected workflow entry; VIK round-two amendment, 2026-10-14).
+7:   agentRules: false,
+8:   async headers() {
+9:     return [
+10:       {
+11:         source: "/((?!_next/static/).*)",
+12:         headers: [
+13:           {
+14:             key: "Cache-Control",
+15:             value:
+16:               "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0",
+17:           },
+18:           {
+19:             key: "Pragma",
+20:             value: "no-cache",
+21:           },
+22:           {
+23:             key: "Expires",
+24:             value: "0",
+25:           },
+26:         ],
+27:       },
+28:     ];
+29:   },
+30: };
+31: 
+32: module.exports = nextConfig;
+
+FILE: tsconfig.json
+1: {
+2:   "compilerOptions": {
+3:     "target": "ES2020",
+4:     "lib": [
+5:       "dom",
+6:       "dom.iterable",
+7:       "esnext"
+8:     ],
+9:     "allowJs": true,
+10:     "skipLibCheck": true,
+11:     "strict": true,
+12:     "noEmit": true,
+13:     "esModuleInterop": true,
+14:     "module": "esnext",
+15:     "moduleResolution": "bundler",
+16:     "resolveJsonModule": true,
+17:     "isolatedModules": true,
+18:     "jsx": "react-jsx",
+19:     "incremental": true,
+20:     "baseUrl": "src",
+21:     "plugins": [
+22:       {
+23:         "name": "next"
+24:       }
+25:     ],
+26:     "paths": {
+27:       "@/*": [
+28:         "*"
+29:       ]
+30:     }
+31:   },
+32:   "include": [
+33:     "next-env.d.ts",
+34:     "**/*.ts",
+35:     "**/*.tsx",
+36:     ".next/types/**/*.ts",
+37:     ".next/dev/types/**/*.ts"
+38:   ],
+39:   "exclude": [
+40:     "node_modules",
+41:     "agent_docs/**",
+42:     "_SKILLS/**"
+43:   ]
+44: }
+
+FILE: jest.config.js
+1: // jest.config.js
+2: module.exports = {
+3:   // Use ts-jest to process TypeScript files
+4:   preset: 'ts-jest',
+5: 
+6:   // The environment in which the tests are run
+7:   testEnvironment: 'node',
+8: 
+9:   // Automatically clear mock calls and instances between every test
+10:   clearMocks: true,
+11: 
+12:   moduleNameMapper: {
+13:     '^@/(.*)$': '<rootDir>/src/$1',
+14:   },
+15: 
+16:   setupFilesAfterEnv: ['<rootDir>/src/__tests__/jest.setup.ts'],
+17: 
+18:   // A list of paths to directories that Jest should use to search for files in
+19:   roots: ['<rootDir>/src'],
+20: 
+21:   // The testMatch patterns Jest uses to detect test files
+22:   testMatch: [
+23:     '**/__tests__/**/*.+(ts|tsx|js)',
+24:     '**/?(*.)+(spec|test).+(ts|tsx|js)',
+25:   ],
+26: 
+27:   // A map from regular expressions to paths to transformers
+28:   transform: {
+29:     '^.+\\.(ts|tsx)$': 'ts-jest',
+30:   },
+31: 
+32:   testPathIgnorePatterns: ['/node_modules/', '/.next/', '<rootDir>/src/__tests__/jest.setup.ts'],
+33: };
+
+FILE: tailwind.config.ts
+1: import type { Config } from "tailwindcss";
+2: import typography from "@tailwindcss/typography";
+3: import aspectRatio from "@tailwindcss/aspect-ratio";
+4: import gridAutoFit from "@shrutibalasa/tailwind-grid-auto-fit";
+5: import tailwindcssAnimate from "tailwindcss-animate";
+6: 
+7: const config = {
+8:   darkMode: ["class"],
+9:   content: [
+10:     "./pages/**/*.{ts,tsx}",
+11:     "./components/**/*.{ts,tsx}",
+12:     "./app/**/*.{ts,tsx}",
+13:     "./src/**/*.{ts,tsx}",
+14:   ],
+15:   prefix: "",
+16:   theme: {
+17:     container: {
+18:       center: true,
+19:       padding: "2rem",
+20:       screens: {
+21:         "2xl": "1400px",
+22:       },
+23:     },
+24:     extend: {
+25:       colors: {
+26:         border: "hsl(var(--border))",
+27:         input: "hsl(var(--input))",
+28:         ring: "hsl(var(--ring))",
+29:         background: "hsl(var(--background))",
+30:         foreground: "hsl(var(--foreground))",
+31:         primary: {
+32:           DEFAULT: "hsl(var(--primary))",
+33:           foreground: "hsl(var(--primary-foreground))",
+34:         },
+35:         secondary: {
+36:           DEFAULT: "hsl(var(--secondary))",
+37:           foreground: "hsl(var(--secondary-foreground))",
+38:         },
+39:         destructive: {
+40:           DEFAULT: "hsl(var(--destructive))",
+41:           foreground: "hsl(var(--destructive-foreground))",
+42:         },
+43:         muted: {
+44:           DEFAULT: "hsl(var(--muted))",
+45:           foreground: "hsl(var(--muted-foreground))",
+46:         },
+47:         accent: {
+48:           DEFAULT: "hsl(var(--accent))",
+49:           foreground: "hsl(var(--accent-foreground))",
+50:         },
+51:         popover: {
+52:           DEFAULT: "hsl(var(--popover))",
+53:           foreground: "hsl(var(--popover-foreground))",
+54:         },
+55:         card: {
+56:           DEFAULT: "hsl(var(--card))",
+57:           foreground: "hsl(var(--card-foreground))",
+58:         },
+59:         navbar: {
+60:           DEFAULT: "hsl(var(--navbar))",
+61:           foreground: "hsl(var(--navbar-foreground))",
+62:         },
+63:         success: {
+64:           DEFAULT: "hsl(var(--success))",
+65:           foreground: "hsl(var(--success-foreground))",
+66:         },
+67:         warning: {
+68:           DEFAULT: "hsl(var(--warning))",
+69:           foreground: "hsl(var(--warning-foreground))",
+70:         },
+71:         info: {
+72:           DEFAULT: "hsl(var(--info))",
+73:           foreground: "hsl(var(--info-foreground))",
+74:         },
+75:         chart: {
+76:           1: "hsl(var(--chart-1))",
+77:           2: "hsl(var(--chart-2))",
+78:           3: "hsl(var(--chart-3))",
+79:           4: "hsl(var(--chart-4))",
+80:           5: "hsl(var(--chart-5))",
+81:         },
+82:       },
+83:       borderRadius: {
+84:         lg: "var(--radius)",
+85:         md: "calc(var(--radius) - 2px)",
+86:         sm: "calc(var(--radius) - 4px)",
+87:       },
+88:       keyframes: {
+89:         "accordion-down": {
+90:           from: { height: "0" },
+91:           to: { height: "var(--radix-accordion-content-height)" },
+92:         },
+93:         "accordion-up": {
+94:           from: { height: "var(--radix-accordion-content-height)" },
+95:           to: { height: "0" },
+96:         },
+97:       },
+98:       animation: {
+99:         "accordion-down": "accordion-down 0.2s ease-out",
+100:         "accordion-up": "accordion-up 0.2s ease-out",
+101:       },
+102:       fontFamily: {
+103:         brand: ["var(--font-brand)", "system-ui", "sans-serif"],
+104:       },
+105:     },
+106:   },
+107:   plugins: [typography, aspectRatio, gridAutoFit, tailwindcssAnimate],
+108: } satisfies Config;
+109: 
+110: export default config;

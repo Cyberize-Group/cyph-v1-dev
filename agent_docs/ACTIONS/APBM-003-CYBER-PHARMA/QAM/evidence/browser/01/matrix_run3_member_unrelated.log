@@ -1,0 +1,42 @@
+PASS T-33 MEMBER_B1 login lands on /owedbook /owedbook
+PASS T-33 MEMBER_B1 store picker offers exactly B1 ["SYNTHETIC STORE B1"]
+PASS T-33 MEMBER_B1 B1: Total 50, 25 rows on page, every script belongs to B1 25 rows
+PASS T-33 MEMBER_B1 B1: KPI tiles rendered with non-zero Commercial Underpaid $91.09
+PASS T-33 MEMBER_B1 Updated Payments tab loads (rows with new_paid: 17 expected per generator i%3===1) Limit 25 · Total 17
+PASS T-33 MEMBER_B1 Federal tab: "unavailable in this release" copy + No results, no rows 
+PASS T-33 MEMBER_B1 Summary: 3 PBM rows + unattributed note ["SYNTHETIC PBM 1","SYNTHETIC PBM 2","SYNTHETIC PBM 3"]
+PASS T-33 MEMBER_B1 status filter Underpaid → Total 10, all chips Underpaid, badge "1 filter active" 10 rows
+PASS T-33 MEMBER_B1 date range 06-10..06-12 → Total 6 (QA-derived: days 1–22 occur twice) 
+PASS T-33/T-35 MEMBER_B1 empty filter → "No results" empty state 
+PASS T-33 MEMBER_B1 PBM filter SYNTHETIC PBM 1 → Total 13 (QA-derived: i%4==0 for i in 0..49) Limit 25 · Total 13
+PASS T-33 MEMBER_B1 sort by Owed → aria-sort=ascending, page values ascending (client-side) ascending; first -2.5 last 4.7
+PASS T-33 MEMBER_B1 pager Next → Page 2 of 2 
+PASS T-33 MEMBER_B1 /admin-portal redirects to /owedbook (member) /owedbook
+PASS T-33/T-603 MEMBER_B1 /admin-portal/audit redirects (member denied) 
+PASS T-33 MEMBER_B1 navbar has no Admin Portal link ["OwedBook","Profile"]
+PASS T-33 MEMBER_B1 logout via /api/auth/logout 
+PASS T-33 UNRELATED login lands on /owedbook /owedbook
+PASS T-33 UNRELATED store picker offers exactly C1 ["SYNTHETIC STORE C1"]
+PASS T-33 UNRELATED C1: Total 50, 25 rows on page, every script belongs to C1 25 rows
+PASS T-33 UNRELATED C1: KPI tiles rendered with non-zero Commercial Underpaid $91.09
+PASS T-33 UNRELATED Updated Payments tab loads (rows with new_paid: 17 expected per generator i%3===1) Limit 25 · Total 17
+PASS T-33 UNRELATED Federal tab: "unavailable in this release" copy + No results, no rows 
+PASS T-33 UNRELATED Summary: 3 PBM rows + unattributed note ["SYNTHETIC PBM 1","SYNTHETIC PBM 2","SYNTHETIC PBM 3"]
+PASS T-33 UNRELATED status filter Underpaid → Total 10, all chips Underpaid, badge "1 filter active" 10 rows
+PASS T-33 UNRELATED date range 06-10..06-12 → Total 6 (QA-derived: days 1–22 occur twice) 
+PASS T-33/T-35 UNRELATED empty filter → "No results" empty state 
+PASS T-33 UNRELATED PBM filter SYNTHETIC PBM 1 → Total 13 (QA-derived: i%4==0 for i in 0..49) Limit 25 · Total 13
+PASS T-33 UNRELATED sort by Owed → aria-sort=ascending, page values ascending (client-side) ascending; first -2.5 last 4.7
+PASS T-33 UNRELATED pager Next → Page 2 of 2 
+PASS T-33/T-601 UNRELATED My Stores shows exactly SYNTHETIC STORE C1 ["SYNTHETIC STORE C1"]
+PASS T-33 UNRELATED navbar has Admin Portal link (after tenant_stores resolves) ["OwedBook","Admin Portal","Profile"]
+PASS T-33/T-601 UNRELATED store detail C1: heading + members roster (Members · 1) Members · 1
+PASS T-38 UNRELATED store detail shows "Demo · mock data" pill (pre-known R-5 defect) present
+PASS T-33/T-603 UNRELATED audit viewer rows (100) name only permitted stores / account events 
+PASS T-33/T-601 UNRELATED billing lists permitted stores read-only (Price unavailable, Billing dates unavailable, buttons disabled) ["SYNTHETIC STORE C1"]
+PASS T-38 UNRELATED billing shows "Visual only — no real charge is made in this demo" (pre-known R-5 defect) present
+PASS T-38 UNRELATED billing shows no fabricated plan/price (Plan unavailable · Price unavailable) 
+PASS T-33/T-602 UNRELATED settings: "Editing settings is not available in this release." 
+PASS T-33/T-602 UNRELATED invite page: error/unavailable state, no invite form 
+PASS T-33 UNRELATED logout via /api/auth/logout 
+summary matrix: 41 PASS / 0 FAIL; unexpected backend requests 0

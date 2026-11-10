@@ -1,0 +1,43 @@
+{
+  "tree": "/tmp/claude-1000/-home-moose-NEXTJS-CYBER-PHARMA-cyph-v1-dev/fa30ae5a-f519-405b-b673-4ca4f9937817/scratchpad/qa-tree",
+  "filesScanned": 356,
+  "counts": {
+    "scratch_ref": 0,
+    "dev_ref": 7,
+    "sb_secret_prefix": 0,
+    "service_role_literal": 0,
+    "jwt_service_role": 0
+  },
+  "sampleFiles": {
+    "scratch_ref": [],
+    "dev_ref": [
+      ".next/static/chunks/2q3as00_p5sj_.js",
+      ".next/standalone/.next/server/chunks/_0llx6m_._.js",
+      ".next/standalone/.next/server/chunks/[root-of-the-server]__0630y8u._.js",
+      ".next/standalone/.next/server/chunks/ssr/_0p0j8_e._.js",
+      ".next/standalone/.next/server/chunks/ssr/src_utils_supabase_client_ts_1i1ou4j._.js"
+    ],
+    "sb_secret_prefix": [],
+    "service_role_literal": [],
+    "jwt_service_role": []
+  },
+  "expected": {
+    "scratch_ref": 0,
+    "dev_ref": ">=1",
+    "sb_secret_prefix": 0,
+    "jwt_service_role": 0,
+    "service_role_literal": "informational (literal word in JS; not a key)"
+  },
+  "result": "PASS",
+  "negativeControl": {
+    "fixtureBuiltAtRuntime": true,
+    "fixtureCounts": {
+      "scratch_ref": 1,
+      "dev_ref": 0,
+      "sb_secret_prefix": 1,
+      "service_role_literal": 1,
+      "jwt_service_role": 0
+    },
+    "detected": true
+  }
+}

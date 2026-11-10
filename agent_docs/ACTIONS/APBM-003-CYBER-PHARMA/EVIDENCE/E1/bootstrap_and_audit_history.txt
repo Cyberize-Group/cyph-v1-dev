@@ -1,0 +1,21 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+COMMAND: ["rg", "-n", "handle_new_user|raw_user_meta_data|CREATE POLICY|create policy|viewer|R-1|R-7", "scripts/db-bootstrap-baseline.sql", "agent_docs/ACTIONS/BIM-003-CYBER-PHARMA/CLAUDE.md"]
+EXIT: 0
+STDOUT:
+agent_docs/ACTIONS/BIM-003-CYBER-PHARMA/CLAUDE.md:23:- **Scope firewall (map §8):** upload pipelines, Liberty, math, billing, permissions-v2, audit viewer UI, MissionControl, retention jobs, Storage policies, the BIM-005 service swap — all OUT. Route on sight to the Deferred Ledger in your report.
+agent_docs/ACTIONS/BIM-003-CYBER-PHARMA/CLAUDE.md:57:| R-1 | `audit_logs` access: junction-role **admin** may SELECT rows for businesses they belong to; **member** denied; **no tenant INSERT/UPDATE/DELETE policy**; writes land only via service role or the SECURITY DEFINER logging functions; **UPDATE/DELETE denied to every role, no exceptions** (see R-6). Supersedes BIM-001 R-4 "internal-only" for the DB layer; the tenant-facing *viewer* remains out of scope. |
+agent_docs/ACTIONS/BIM-003-CYBER-PHARMA/CLAUDE.md:63:| R-7 (Architect, engineering) | Read-audit granularity = **per page-read, one row per wrapper call** (pre-loaded from BIM-001 R-4; do not reopen). |
+agent_docs/ACTIONS/BIM-003-CYBER-PHARMA/CLAUDE.md:72:| TV-3 | Exact name and signature of the BIM-002 **role-gated** helper used in write policies (Formulation A). | R-1 admin SELECT policy reuses it; do not author a new helper if one fits. |
+agent_docs/ACTIONS/BIM-003-CYBER-PHARMA/CLAUDE.md:82:**IN:** `audit_logs` table + immutability guard + RLS (R-1) · `audit_write()` trigger function + stamping on sixteen tables · `owedbook_*` wrappers (count per TV-6) · `scripts/rls-harness/` extension proving the trail (`npm run audit:prove`) · migrations continuing the chain · regenerated types (Director-run per credential boundary) · README/RUN_NOTES touches strictly for the new commands · `BIM003_ACCEPTANCE_SPEC.md` evidence fill · retrospective.
+scripts/db-bootstrap-baseline.sql:4:-- setup.sql's originals), handle_new_user() (smart-trigger version),
+scripts/db-bootstrap-baseline.sql:28:CREATE POLICY "Users can read their own role"
+scripts/db-bootstrap-baseline.sql:46:CREATE POLICY "Profiles are viewable by owner or superadmins"
+scripts/db-bootstrap-baseline.sql:56:CREATE POLICY "Profiles are updatable by owner or superadmins"
+scripts/db-bootstrap-baseline.sql:66:-- [4] handle_new_user() — the smart-trigger version (migration STEP 4, live)
+scripts/db-bootstrap-baseline.sql:67:CREATE OR REPLACE FUNCTION public.handle_new_user()
+scripts/db-bootstrap-baseline.sql:76:  IF NEW.raw_user_meta_data ->> 'role' IS NOT NULL THEN
+scripts/db-bootstrap-baseline.sql:77:    assigned_role := (NEW.raw_user_meta_data ->> 'role')::public.app_role;
+scripts/db-bootstrap-baseline.sql:90:    NEW.raw_user_meta_data ->> 'full_name'
+scripts/db-bootstrap-baseline.sql:103:  EXECUTE FUNCTION public.handle_new_user();
+
+STDERR:

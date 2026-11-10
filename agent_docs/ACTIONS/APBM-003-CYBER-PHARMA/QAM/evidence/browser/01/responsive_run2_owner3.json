@@ -1,0 +1,195 @@
+{
+  "phase": "responsive",
+  "startedAt": "2026-11-09T04:24:39.408Z",
+  "base": "http://127.0.0.1:3138",
+  "devRef": "yrsuwikjnbmvpznrgydb",
+  "checks": [
+    {
+      "name": "T-40 OWNER3 1440×900 light: html theme class lacks \"dark\"; scrollWidth 1440 ≤ 1440; picker/tabs/pager/filter rail reachable",
+      "result": "PASS",
+      "detail": "class=\"saira_30d0f00a-module__F8AMRG__variable light\" sw=1440 picker=true tabs=true pager=true filters=true"
+    },
+    {
+      "name": "T-40 keyboard: Tab from the Store select reaches pager (Next) → tabs → table sort buttons, in DOM/visual order; all reachable",
+      "result": "PASS",
+      "detail": "BUTTON:Next > tab:Commercial Dollars > BUTTON:Date"
+    },
+    {
+      "name": "T-40 keyboard: Enter/Space activate sort (aria-sort ascending → descending)",
+      "result": "PASS",
+      "detail": "ascending → descending"
+    },
+    {
+      "name": "T-40 keyboard: focused sort button shows a visible focus ring (outline or ring box-shadow)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-40 role=alert present on the KPI error state",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-40 OWNER3 1440×900 dark: html theme class has \"dark\"; scrollWidth 1440 ≤ 1440; picker/tabs/pager/filter rail reachable",
+      "result": "PASS",
+      "detail": "class=\"saira_30d0f00a-module__F8AMRG__variable dark\" sw=1440 picker=true tabs=true pager=true filters=true"
+    },
+    {
+      "name": "T-40 OWNER3 1280×800 light: html theme class lacks \"dark\"; scrollWidth 1280 ≤ 1280; picker/tabs/pager/filter rail reachable",
+      "result": "PASS",
+      "detail": "class=\"saira_30d0f00a-module__F8AMRG__variable light\" sw=1280 picker=true tabs=true pager=true filters=true"
+    },
+    {
+      "name": "T-40 OWNER3 1280×800 dark: html theme class has \"dark\"; scrollWidth 1280 ≤ 1280; picker/tabs/pager/filter rail reachable",
+      "result": "PASS",
+      "detail": "class=\"saira_30d0f00a-module__F8AMRG__variable dark\" sw=1280 picker=true tabs=true pager=true filters=true"
+    },
+    {
+      "name": "T-40 OWNER3 768×1024 light: html theme class lacks \"dark\"; scrollWidth 768 ≤ 768; picker/tabs/pager/filter rail reachable",
+      "result": "PASS",
+      "detail": "class=\"saira_30d0f00a-module__F8AMRG__variable light\" sw=768 picker=true tabs=true pager=true filters=true"
+    },
+    {
+      "name": "T-40 OWNER3 768×1024 dark: html theme class has \"dark\"; scrollWidth 768 ≤ 768; picker/tabs/pager/filter rail reachable",
+      "result": "PASS",
+      "detail": "class=\"saira_30d0f00a-module__F8AMRG__variable dark\" sw=768 picker=true tabs=true pager=true filters=true"
+    },
+    {
+      "name": "T-40 OWNER3 375×812 light: html theme class lacks \"dark\"; scrollWidth 375 ≤ 375; picker/tabs/pager/filter rail reachable",
+      "result": "PASS",
+      "detail": "class=\"saira_30d0f00a-module__F8AMRG__variable light\" sw=375 picker=true tabs=true pager=true filters=true"
+    },
+    {
+      "name": "T-40 375px filter drawer opens and traps focus (first control focused)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-40 Escape closes the drawer and returns focus to the trigger",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-40 MobileNav opens (dialog \"Menu\") and closes",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-40 MobileNav closed",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-40 OWNER3 375×812 dark: html theme class has \"dark\"; scrollWidth 375 ≤ 375; picker/tabs/pager/filter rail reachable",
+      "result": "PASS",
+      "detail": "class=\"saira_30d0f00a-module__F8AMRG__variable dark\" sw=375 picker=true tabs=true pager=true filters=true"
+    }
+  ],
+  "signIns": {
+    "OWNER3": 8
+  },
+  "unexpectedBackendRequests": 0,
+  "failures": [],
+  "metrics": [
+    {
+      "who": "OWNER3",
+      "w": 1440,
+      "h": 900,
+      "theme": "light",
+      "htmlClass": "saira_30d0f00a-module__F8AMRG__variable light",
+      "scrollWidth": 1440,
+      "pickerVisible": true,
+      "tabsVisible": true,
+      "pagerVisible": true,
+      "filterRailReachable": true
+    },
+    {
+      "who": "OWNER3",
+      "w": 1440,
+      "h": 900,
+      "theme": "dark",
+      "htmlClass": "saira_30d0f00a-module__F8AMRG__variable dark",
+      "scrollWidth": 1440,
+      "pickerVisible": true,
+      "tabsVisible": true,
+      "pagerVisible": true,
+      "filterRailReachable": true
+    },
+    {
+      "who": "OWNER3",
+      "w": 1280,
+      "h": 800,
+      "theme": "light",
+      "htmlClass": "saira_30d0f00a-module__F8AMRG__variable light",
+      "scrollWidth": 1280,
+      "pickerVisible": true,
+      "tabsVisible": true,
+      "pagerVisible": true,
+      "filterRailReachable": true
+    },
+    {
+      "who": "OWNER3",
+      "w": 1280,
+      "h": 800,
+      "theme": "dark",
+      "htmlClass": "saira_30d0f00a-module__F8AMRG__variable dark",
+      "scrollWidth": 1280,
+      "pickerVisible": true,
+      "tabsVisible": true,
+      "pagerVisible": true,
+      "filterRailReachable": true
+    },
+    {
+      "who": "OWNER3",
+      "w": 768,
+      "h": 1024,
+      "theme": "light",
+      "htmlClass": "saira_30d0f00a-module__F8AMRG__variable light",
+      "scrollWidth": 768,
+      "pickerVisible": true,
+      "tabsVisible": true,
+      "pagerVisible": true,
+      "filterRailReachable": true
+    },
+    {
+      "who": "OWNER3",
+      "w": 768,
+      "h": 1024,
+      "theme": "dark",
+      "htmlClass": "saira_30d0f00a-module__F8AMRG__variable dark",
+      "scrollWidth": 768,
+      "pickerVisible": true,
+      "tabsVisible": true,
+      "pagerVisible": true,
+      "filterRailReachable": true
+    },
+    {
+      "who": "OWNER3",
+      "w": 375,
+      "h": 812,
+      "theme": "light",
+      "htmlClass": "saira_30d0f00a-module__F8AMRG__variable light",
+      "scrollWidth": 375,
+      "pickerVisible": true,
+      "tabsVisible": true,
+      "pagerVisible": true,
+      "filterRailReachable": true
+    },
+    {
+      "who": "OWNER3",
+      "w": 375,
+      "h": 812,
+      "theme": "dark",
+      "htmlClass": "saira_30d0f00a-module__F8AMRG__variable dark",
+      "scrollWidth": 375,
+      "pickerVisible": true,
+      "tabsVisible": true,
+      "pagerVisible": true,
+      "filterRailReachable": true
+    }
+  ],
+  "finishedAt": "2026-11-09T04:25:13.488Z",
+  "pass": 16,
+  "fail": 0,
+  "status": "PASS"
+}

@@ -1,0 +1,55 @@
+diff --git a/src/components/admin-portal/BillingScreen.tsx b/src/components/admin-portal/BillingScreen.tsx
+index bc76b2f..84f664b 100644
+--- a/src/components/admin-portal/BillingScreen.tsx
++++ b/src/components/admin-portal/BillingScreen.tsx
+@@ -5,6 +5,7 @@ import ScreenHeader from "@/components/admin-portal/ScreenHeader";
+ import AddStoreButton from "@/components/admin-portal/AddStoreButton";
+ import BillingRow from "@/components/admin-portal/BillingRow";
+ import { billingService } from "@/services/adminDemo";
++import { isDemoMode } from "@/services/tenantScope";
+ import type { BillingLine } from "@/types/adminDemo";
+ 
+ const Skeleton = () => (
+@@ -72,7 +73,9 @@ const BillingScreen = () => {
+             ))}
+           </div>
+           <p className="mt-4 text-xs text-muted-foreground">
+-            Visual only — no real charge is made in this demo.
++            {isDemoMode()
++              ? "Visual only — no real charge is made in this demo."
++              : "Billing actions are unavailable in this release"}
+           </p>
+         </>
+       )}
+diff --git a/src/components/admin-portal/DemoMarker.tsx b/src/components/admin-portal/DemoMarker.tsx
+index cbc7254..53b558b 100644
+--- a/src/components/admin-portal/DemoMarker.tsx
++++ b/src/components/admin-portal/DemoMarker.tsx
+@@ -1,3 +1,5 @@
++import { isDemoMode } from "@/services/tenantScope";
++
+ // The one net-new visual in the Admin Portal Demo Shell (FFM §3): a "Demo ·
+ // mock data" pill built ENTIRELY from the existing `--warning` token — no new
+ // brand colors. Lives in CONTENT next to a page title, NEVER in the navbar
+@@ -5,7 +7,7 @@
+ const DemoMarker = () => {
+   return (
+     <span className="inline-flex items-center border border-warning/40 bg-warning/10 px-2 py-0.5 text-[11px] font-semibold tracking-wide text-warning">
+-      Demo · mock data
++      {isDemoMode() ? "Demo · mock data" : "Synthetic test data"}
+     </span>
+   );
+ };
+diff --git a/src/components/owedbook/OwedBookContext.tsx b/src/components/owedbook/OwedBookContext.tsx
+index 6711831..a309faa 100644
+--- a/src/components/owedbook/OwedBookContext.tsx
++++ b/src/components/owedbook/OwedBookContext.tsx
+@@ -39,7 +39,7 @@ export const OwedBookProvider=({children}:{children:ReactNode})=>{
+  },[service,request,scopeReady]);
+  const applyFilters=useCallback((f:OwedBookFilters)=>{setFilters(f);setAppliedTick(t=>t+1);},[]);
+  const clearFilters=useCallback(()=>applyFilters({pbms:[]}),[applyFilters]);
+- const selectStore=useCallback((id:string)=>{if(!stores.some(s=>s.id===id))return;setStoreId(id);setFilters({pbms:[]});setOptions(null);setAppliedTick(t=>t+1);},[stores]);
++ const selectStore=useCallback((id:string)=>{if(id===storeId||!stores.some(s=>s.id===id))return;setStoreId(id);setFilters({pbms:[]});setOptions(null);setAppliedTick(t=>t+1);},[stores,storeId]);
+  const refresh=useCallback(()=>setRefreshTick(t=>t+1),[]);
+  return <OwedBookContext.Provider value={{filters,pbmOptions:scopeReady&&options?.request===request?options.values:[],applyFilters,clearFilters,appliedTick,service,stores,storeId,selectStore,scopeLoading,scopeError,scopeReady,optionsError:options?.request===request?options.error:null,refreshTick,refresh}}>{children}</OwedBookContext.Provider>;
+ };

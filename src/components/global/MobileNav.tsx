@@ -1,6 +1,7 @@
 "use client";
+import { canAdminister, isDemoMode, listTenantStores } from "@/services/tenantScope";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
@@ -23,6 +24,16 @@ interface MobileNavProps {
 }
 
 const MobileNav = ({ user, role }: MobileNavProps) => {
+  const userId = user?.id;
+  const [tenantAccess, setTenantAccess] = useState<{userId:string;allowed:boolean}|null>(null);
+  useEffect(() => {
+    if (isDemoMode() || !userId) return;
+    let cancelled = false;
+    listTenantStores().then(stores => { if(!cancelled)setTenantAccess({userId,allowed:canAdminister(stores)}); }).catch(() => {if(!cancelled)setTenantAccess(null);});
+    return () => {cancelled=true;};
+  }, [userId]);
+  const hasAdminAccess = isDemoMode() ? role === AppRole.ADMIN : tenantAccess?.userId === user?.id && tenantAccess?.allowed === true;
+
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const close = () => setOpen(false);
@@ -38,8 +49,8 @@ const MobileNav = ({ user, role }: MobileNavProps) => {
     }
   };
 
-  const portalHref = role === AppRole.ADMIN ? "/admin-portal" : "/owedbook";
-  const portalLabel = role === AppRole.ADMIN ? "Admin portal" : "OwedBook";
+  const portalHref = hasAdminAccess ? "/admin-portal" : "/owedbook";
+  const portalLabel = hasAdminAccess ? "Admin portal" : "OwedBook";
 
   return (
     <>

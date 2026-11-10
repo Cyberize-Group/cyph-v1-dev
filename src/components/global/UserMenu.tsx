@@ -1,5 +1,7 @@
 "use client";
+import { canAdminister, isDemoMode, listTenantStores } from "@/services/tenantScope";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -22,9 +24,19 @@ interface UserMenuProps {
 }
 
 const UserMenu = ({ user, role }: UserMenuProps) => {
+  const userId = user?.id;
+  const [tenantAccess, setTenantAccess] = useState<{userId:string;allowed:boolean}|null>(null);
+  useEffect(() => {
+    if (isDemoMode() || !userId) return;
+    let cancelled = false;
+    listTenantStores().then(stores => { if(!cancelled)setTenantAccess({userId,allowed:canAdminister(stores)}); }).catch(() => {if(!cancelled)setTenantAccess(null);});
+    return () => {cancelled=true;};
+  }, [userId]);
+  const hasAdminAccess = isDemoMode() ? role === AppRole.ADMIN : tenantAccess?.userId === user?.id && tenantAccess?.allowed === true;
+
   if (user) {
-    const portalHref = role === AppRole.ADMIN ? "/admin-portal" : "/owedbook";
-    const portalLabel = role === AppRole.ADMIN ? "Admin portal" : "OwedBook";
+    const portalHref = hasAdminAccess ? "/admin-portal" : "/owedbook";
+    const portalLabel = hasAdminAccess ? "Admin portal" : "OwedBook";
 
     return (
       <div className="flex items-center px-3">

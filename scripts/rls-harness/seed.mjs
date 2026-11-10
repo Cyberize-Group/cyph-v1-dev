@@ -15,11 +15,13 @@
 // Every one of the sixteen tables is seeded with at least one row, so that a
 // DENY verdict means "policy refused" and never "table happened to be empty".
 import { writeFileSync } from "node:fs";
-import { join } from "node:path";
-import { loadEnv, harnessRoot, CAST_PASSWORD } from "./lib/env.mjs";
+
+import { evidencePath, assertScratch, loadEnv, CAST_PASSWORD } from "./lib/env.mjs";
 import { pgClient, serviceClient } from "./lib/db.mjs";
 
 const env = loadEnv();
+assertScratch(env);
+if (!CAST_PASSWORD) throw new Error("APBM_CAST_PASSWORD required for synthetic SCRATCH cast");
 const svc = serviceClient(env);
 const db = await pgClient(env);
 const one = async (s, p) => (await db.query(s, p)).rows[0];
@@ -53,11 +55,11 @@ console.log("  reset: thirteen public tables emptied (before the auth purge — 
 // harness asserts the cast it created and never the absence of others.
 const { data: existing, error: listErr } = await svc.auth.admin.listUsers({ perPage: 1000 });
 if (listErr) { console.error("FAIL: listUsers — " + listErr.message); process.exit(2); }
-for (const u of existing?.users ?? []) {
+for (const u of (existing?.users ?? []).filter(u => CAST.some(c => c.email === u.email))) {
   const { error } = await svc.auth.admin.deleteUser(u.id);
   if (error) { console.error(`FAIL: deleteUser ${u.id} (${u.email}) — ${error.message}`); process.exit(2); }
 }
-console.log(`  reset: purged ${existing?.users?.length ?? 0} pre-existing auth.users`);
+console.log(`  reset: removed only matching legacy harness identities; preserved all other Auth users`);
 
 // ── the cast ──
 const users = {};
@@ -114,7 +116,10 @@ const factB1 = await one(`select id from public.user_data where business_id=$1 l
 const rfA1 = await one(`select id from public.report_files where business_id=$1 limit 1`, [a1.id]);
 const subA = await one(`select id from public.subscriptions where account_id=$1 limit 1`, [accA.id]);
 
-writeFileSync(join(harnessRoot, "seed-map.json"), JSON.stringify({
+const targets = {};
+for (const table of ["user_roles","user_businesses","pending_registrations","apa_memberships","aac_reference","wac_reference","ful_reference","pbm_info","reference_dataset_versions"]) targets[table] = (await one(`select id from public.${table} order by id limit 1`)).id;
+writeFileSync(evidencePath("seed-map.json"), JSON.stringify({
+  targets,
   users, cast: CAST,
   accounts: { A: accA.id, B: accB.id },
   businesses: { a1: a1.id, a2: a2.id, b1: b1.id },

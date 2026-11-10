@@ -1,0 +1,38 @@
+{
+  "verdict": "BLOCKED",
+  "devProjectRef": "yrsuwikjnbmvpznrgydb",
+  "disposableProjectRef": "ihgcsrypblqkwommrkgj",
+  "tools": {
+    "pg_dump": "17.11",
+    "pg_restore": "17.11"
+  },
+  "devCredentialSetComplete": true,
+  "dotenvDBURLUsesSessionPooler": false,
+  "executionDBURL": "explicit in-memory binding to verified APBM_DEV_DB_POOL",
+  "backup": {
+    "status": "DATABASE_SNAPSHOT_COMPLETE",
+    "sha256": "1d33881a1b49f85d20ecee6514a56f94552055efd6dc19f58942b12316dda692",
+    "sharedReadOnlySnapshot": true,
+    "coveredTables": 30,
+    "private": true,
+    "providerAuthSettingsCovered": false
+  },
+  "blocker": "Four DEV auth.users indexes are absent on SCRATCH; postgres lacks ownership, superuser, membership and SET ROLE rights required to restore them. The only authorized exception covers three default ACL entries.",
+  "missingAuthIndexes": [
+    "idx_users_created_at_desc",
+    "idx_users_email",
+    "idx_users_last_sign_in_at_desc",
+    "idx_users_name"
+  ],
+  "restore": "NOT_RUN",
+  "ledgerInitialization": "NOT_RUN",
+  "forward0048to0052": "NOT_RUN",
+  "seedAndOwnerProof": "NOT_RUN",
+  "aclException": "16 local evaluator controls PASS; live restored-copy evaluation NOT_RUN",
+  "signupEvidence": "No DEV signup-disabled evidence or checkpoint waiver found; setting not changed or probed",
+  "devWrites": false,
+  "scratchWrites": false,
+  "gitCommits": false,
+  "finishedAt": "2026-11-06T10:53:00.001293+00:00",
+  "devAPIKeyChecks": "PASS: publishable zero-row GET 200, secret schema GET 200; no sessions"
+}

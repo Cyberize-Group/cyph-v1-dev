@@ -1,0 +1,291 @@
+{
+  "phase": "counts",
+  "startedAt": "2026-11-09T04:06:23.835Z",
+  "base": "http://127.0.0.1:3138",
+  "devRef": "yrsuwikjnbmvpznrgydb",
+  "checks": [
+    {
+      "name": "T-37 login → 0",
+      "result": "PASS",
+      "detail": "observed {}"
+    },
+    {
+      "name": "T-37 open /owedbook (initial load) → {\"owedbook_kpis\":1,\"owedbook_pbm_options\":1,\"owedbook_rows\":1}",
+      "result": "PASS",
+      "detail": "observed {\"owedbook_kpis\":1,\"owedbook_pbm_options\":1,\"owedbook_rows\":1}"
+    },
+    {
+      "name": "T-37 switch tab → Updated Payments → {\"owedbook_rows\":1}",
+      "result": "PASS",
+      "detail": "observed {\"owedbook_rows\":1}"
+    },
+    {
+      "name": "T-37 switch tab → Commercial → {\"owedbook_rows\":1}",
+      "result": "PASS",
+      "detail": "observed {\"owedbook_rows\":1}"
+    },
+    {
+      "name": "T-37 next page → {\"owedbook_rows\":1}",
+      "result": "PASS",
+      "detail": "observed {\"owedbook_rows\":1}"
+    },
+    {
+      "name": "T-37 prev page → {\"owedbook_rows\":1}",
+      "result": "PASS",
+      "detail": "observed {\"owedbook_rows\":1}"
+    },
+    {
+      "name": "T-37 sort by Owed (client-side) → 0",
+      "result": "PASS",
+      "detail": "observed {}"
+    },
+    {
+      "name": "T-37 apply status filter from page 1 → {\"owedbook_kpis\":1,\"owedbook_rows\":1}",
+      "result": "PASS",
+      "detail": "observed {\"owedbook_kpis\":1,\"owedbook_rows\":1}"
+    },
+    {
+      "name": "T-37 clear filters → {\"owedbook_kpis\":1,\"owedbook_rows\":1}",
+      "result": "PASS",
+      "detail": "observed {\"owedbook_kpis\":1,\"owedbook_rows\":1}"
+    },
+    {
+      "name": "T-37 switch store B1→B2 from page 1 → {\"owedbook_kpis\":1,\"owedbook_pbm_options\":1,\"owedbook_rows\":1}",
+      "result": "PASS",
+      "detail": "observed {\"owedbook_kpis\":1,\"owedbook_pbm_options\":1,\"owedbook_rows\":1}"
+    },
+    {
+      "name": "T-37 Refresh (Get Fresh Data) → {\"owedbook_kpis\":1,\"owedbook_pbm_options\":1,\"owedbook_rows\":1}",
+      "result": "PASS",
+      "detail": "observed {\"owedbook_kpis\":1,\"owedbook_pbm_options\":1,\"owedbook_rows\":1}"
+    },
+    {
+      "name": "T-37 switch tab → Summary → {\"owedbook_summary\":1}",
+      "result": "PASS",
+      "detail": "observed {\"owedbook_summary\":1}"
+    },
+    {
+      "name": "T-37 /admin-portal (My Stores) → {\"admin_stores\":1}",
+      "result": "PASS",
+      "detail": "observed {\"admin_stores\":1}"
+    },
+    {
+      "name": "T-37 store detail B2 → {\"admin_stores\":1,\"admin_members\":1}",
+      "result": "PASS",
+      "detail": "observed {\"admin_members\":1,\"admin_stores\":1}"
+    },
+    {
+      "name": "T-37 /admin-portal/audit → {\"admin_audit\":1}",
+      "result": "PASS",
+      "detail": "observed {\"admin_audit\":1}"
+    },
+    {
+      "name": "T-37 /admin-portal/billing (1 admin_stores + 3 admin_billing_status) → {\"admin_stores\":1,\"admin_billing_status\":3}",
+      "result": "PASS",
+      "detail": "observed {\"admin_billing_status\":3,\"admin_stores\":1}"
+    },
+    {
+      "name": "T-37 /admin-portal/settings → {\"admin_stores\":2}",
+      "result": "PASS",
+      "detail": "observed {\"admin_stores\":2}"
+    },
+    {
+      "name": "T-37 every OWNER3 row this session: actor_user_id = OWNER3, business_id = selected store (NULL only for admin_stores()), context.fn present",
+      "result": "PASS",
+      "detail": "{\"n\":142,\"actor_ok\":true,\"biz_ok\":true,\"fn_ok\":true}"
+    }
+  ],
+  "signIns": {
+    "OWNER3": 1
+  },
+  "unexpectedBackendRequests": 0,
+  "failures": [],
+  "operationLog": [
+    {
+      "step": "login",
+      "expected": 0,
+      "observed": {},
+      "total": 0
+    },
+    {
+      "step": "open /owedbook (initial load)",
+      "expected": {
+        "owedbook_kpis": 1,
+        "owedbook_pbm_options": 1,
+        "owedbook_rows": 1
+      },
+      "observed": {
+        "owedbook_kpis": 1,
+        "owedbook_pbm_options": 1,
+        "owedbook_rows": 1
+      },
+      "total": 3
+    },
+    {
+      "step": "switch tab → Updated Payments",
+      "expected": {
+        "owedbook_rows": 1
+      },
+      "observed": {
+        "owedbook_rows": 1
+      },
+      "total": 1
+    },
+    {
+      "step": "switch tab → Commercial",
+      "expected": {
+        "owedbook_rows": 1
+      },
+      "observed": {
+        "owedbook_rows": 1
+      },
+      "total": 1
+    },
+    {
+      "step": "next page",
+      "expected": {
+        "owedbook_rows": 1
+      },
+      "observed": {
+        "owedbook_rows": 1
+      },
+      "total": 1
+    },
+    {
+      "step": "prev page",
+      "expected": {
+        "owedbook_rows": 1
+      },
+      "observed": {
+        "owedbook_rows": 1
+      },
+      "total": 1
+    },
+    {
+      "step": "sort by Owed (client-side)",
+      "expected": 0,
+      "observed": {},
+      "total": 0
+    },
+    {
+      "step": "apply status filter from page 1",
+      "expected": {
+        "owedbook_kpis": 1,
+        "owedbook_rows": 1
+      },
+      "observed": {
+        "owedbook_kpis": 1,
+        "owedbook_rows": 1
+      },
+      "total": 2
+    },
+    {
+      "step": "clear filters",
+      "expected": {
+        "owedbook_kpis": 1,
+        "owedbook_rows": 1
+      },
+      "observed": {
+        "owedbook_kpis": 1,
+        "owedbook_rows": 1
+      },
+      "total": 2
+    },
+    {
+      "step": "switch store B1→B2 from page 1",
+      "expected": {
+        "owedbook_kpis": 1,
+        "owedbook_pbm_options": 1,
+        "owedbook_rows": 1
+      },
+      "observed": {
+        "owedbook_kpis": 1,
+        "owedbook_pbm_options": 1,
+        "owedbook_rows": 1
+      },
+      "total": 3
+    },
+    {
+      "step": "Refresh (Get Fresh Data)",
+      "expected": {
+        "owedbook_kpis": 1,
+        "owedbook_pbm_options": 1,
+        "owedbook_rows": 1
+      },
+      "observed": {
+        "owedbook_kpis": 1,
+        "owedbook_pbm_options": 1,
+        "owedbook_rows": 1
+      },
+      "total": 3
+    },
+    {
+      "step": "switch tab → Summary",
+      "expected": {
+        "owedbook_summary": 1
+      },
+      "observed": {
+        "owedbook_summary": 1
+      },
+      "total": 1
+    },
+    {
+      "step": "/admin-portal (My Stores)",
+      "expected": {
+        "admin_stores": 1
+      },
+      "observed": {
+        "admin_stores": 1
+      },
+      "total": 1
+    },
+    {
+      "step": "store detail B2",
+      "expected": {
+        "admin_stores": 1,
+        "admin_members": 1
+      },
+      "observed": {
+        "admin_members": 1,
+        "admin_stores": 1
+      },
+      "total": 2
+    },
+    {
+      "step": "/admin-portal/audit",
+      "expected": {
+        "admin_audit": 1
+      },
+      "observed": {
+        "admin_audit": 1
+      },
+      "total": 1
+    },
+    {
+      "step": "/admin-portal/billing (1 admin_stores + 3 admin_billing_status)",
+      "expected": {
+        "admin_stores": 1,
+        "admin_billing_status": 3
+      },
+      "observed": {
+        "admin_billing_status": 3,
+        "admin_stores": 1
+      },
+      "total": 4
+    },
+    {
+      "step": "/admin-portal/settings",
+      "expected": {
+        "admin_stores": 2
+      },
+      "observed": {
+        "admin_stores": 2
+      },
+      "total": 2
+    }
+  ],
+  "finishedAt": "2026-11-09T04:09:38.188Z",
+  "pass": 18,
+  "fail": 0,
+  "status": "PASS"
+}

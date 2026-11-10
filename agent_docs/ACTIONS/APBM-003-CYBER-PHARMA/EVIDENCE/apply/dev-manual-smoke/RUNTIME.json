@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "url": "http://127.0.0.1:3137/auth",
+  "httpStatus": 200,
+  "builtRuntimeRefs": {
+    "dev": 7,
+    "scratch": 0
+  },
+  "dataMode": "real",
+  "authenticatedProbeRun": false,
+  "checkedAt": "2026-11-07T08:18:25.710Z"
+}

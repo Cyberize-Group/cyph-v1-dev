@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-11-06T12:52:37.377Z",
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "directorReportedRestorePoint": "2026-11-06T07:37:54Z",
+  "referenceSnapshotFinishedAt": "2026-11-06T10:46:52.259Z",
+  "status": "BLOCKED",
+  "effects": "SQL reads only; no Auth/API calls, imports, migrations, seed or ledger writes",
+  "backup": {
+    "dev-before.dump": {
+      "sha256": "1d33881a1b49f85d20ecee6514a56f94552055efd6dc19f58942b12316dda692",
+      "matchesReceipt": true,
+      "mode": "600"
+    },
+    "source-proof.private.json": {
+      "sha256": "da66a9e80edf45999acae890f4f933dee27d356d68c4bff260d21165012c2600",
+      "matchesReceipt": true,
+      "mode": "600"
+    }
+  },
+  "target": {
+    "sqlAndApiRefMatch": true,
+    "sqlVariable": "APBM_DEV_DB_POOL (explicit in-memory mapping)"
+  },
+  "error": {
+    "code": "28P01"
+  },
+  "finishedAt": "2026-11-06T12:52:41.620Z"
+}

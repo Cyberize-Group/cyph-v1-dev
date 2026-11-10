@@ -1,0 +1,699 @@
+{
+  "startedAt": "2026-11-06T13:07:18.537Z",
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "status": "INSPECTION_COMPLETE_REQUIRES_REVIEW",
+  "configuration": {
+    "dbUrlUsesSessionPooler": false,
+    "sqlVariable": "APBM_DEV_DB_POOL",
+    "sqlApiRefMatch": true
+  },
+  "checks": {
+    "extensions": [
+      {
+        "extname": "pg_stat_statements",
+        "extversion": "1.11",
+        "schema": "extensions"
+      },
+      {
+        "extname": "pgcrypto",
+        "extversion": "1.3",
+        "schema": "extensions"
+      },
+      {
+        "extname": "plpgsql",
+        "extversion": "1.0",
+        "schema": "pg_catalog"
+      },
+      {
+        "extname": "supabase_vault",
+        "extversion": "0.3.1",
+        "schema": "vault"
+      },
+      {
+        "extname": "uuid-ossp",
+        "extversion": "1.1",
+        "schema": "extensions"
+      }
+    ],
+    "workerSettings": [
+      {
+        "name": "cron.database_name",
+        "setting": "postgres"
+      },
+      {
+        "name": "cron.launch_active_jobs",
+        "setting": "on"
+      },
+      {
+        "name": "cron.timezone",
+        "setting": "GMT"
+      },
+      {
+        "name": "local_preload_libraries",
+        "setting": ""
+      },
+      {
+        "name": "session_preload_libraries",
+        "setting": "supautils"
+      },
+      {
+        "name": "shared_preload_libraries",
+        "setting": "pg_stat_statements, pgaudit, plpgsql, plpgsql_check, pg_cron, pg_net, pgsodium, auto_explain, pg_tle, plan_filter, supabase_vault"
+      }
+    ],
+    "databases": [
+      {
+        "datname": "postgres",
+        "datallowconn": true
+      }
+    ],
+    "optionalTables": {
+      "cron.job": {
+        "present": false
+      },
+      "pgagent.pga_job": {
+        "present": false
+      },
+      "net.http_request_queue": {
+        "present": false
+      },
+      "net._http_response": {
+        "present": false
+      },
+      "supabase_functions.hooks": {
+        "present": false
+      },
+      "vault.secrets": {
+        "present": true,
+        "count": 0
+      }
+    },
+    "foreignWrappers": [],
+    "foreignServers": [],
+    "foreignTables": [],
+    "subscriptions": [],
+    "roleStartupSettingNames": [
+      {
+        "database": "ALL",
+        "role": "anon",
+        "setting_name": "statement_timeout"
+      },
+      {
+        "database": "ALL",
+        "role": "authenticated",
+        "setting_name": "statement_timeout"
+      },
+      {
+        "database": "ALL",
+        "role": "authenticator",
+        "setting_name": "lock_timeout"
+      },
+      {
+        "database": "ALL",
+        "role": "authenticator",
+        "setting_name": "session_preload_libraries"
+      },
+      {
+        "database": "ALL",
+        "role": "authenticator",
+        "setting_name": "statement_timeout"
+      },
+      {
+        "database": "ALL",
+        "role": "postgres",
+        "setting_name": "search_path"
+      },
+      {
+        "database": "ALL",
+        "role": "supabase_admin",
+        "setting_name": "log_statement"
+      },
+      {
+        "database": "ALL",
+        "role": "supabase_admin",
+        "setting_name": "search_path"
+      },
+      {
+        "database": "ALL",
+        "role": "supabase_auth_admin",
+        "setting_name": "idle_in_transaction_session_timeout"
+      },
+      {
+        "database": "ALL",
+        "role": "supabase_auth_admin",
+        "setting_name": "log_statement"
+      },
+      {
+        "database": "ALL",
+        "role": "supabase_auth_admin",
+        "setting_name": "search_path"
+      },
+      {
+        "database": "ALL",
+        "role": "supabase_read_only_user",
+        "setting_name": "default_transaction_read_only"
+      },
+      {
+        "database": "ALL",
+        "role": "supabase_storage_admin",
+        "setting_name": "log_statement"
+      },
+      {
+        "database": "ALL",
+        "role": "supabase_storage_admin",
+        "setting_name": "search_path"
+      },
+      {
+        "database": "postgres",
+        "role": "ALL",
+        "setting_name": "app.settings.jwt_exp"
+      }
+    ],
+    "functionInventory": {
+      "total": 110,
+      "candidates": [
+        {
+          "schema": "extensions",
+          "name": "grant_pg_graphql_access",
+          "args": "",
+          "language": "plpgsql",
+          "extensionOwned": false,
+          "definitionSHA256": "9ec845adab4ba00bbf7740458b6c4461094697023f0f7adc693b373e2ea54f68",
+          "signals": {
+            "network": false,
+            "urlLiteral": false,
+            "dynamicSql": true,
+            "program": false
+          }
+        },
+        {
+          "schema": "extensions",
+          "name": "grant_pg_net_access",
+          "args": "",
+          "language": "plpgsql",
+          "extensionOwned": false,
+          "definitionSHA256": "e38c4060751c9695123350596f1cb0d0c943015f3267a2a455d8efe02c711184",
+          "signals": {
+            "network": true,
+            "urlLiteral": false,
+            "dynamicSql": true,
+            "program": false
+          }
+        },
+        {
+          "schema": "extensions",
+          "name": "pgrst_ddl_watch",
+          "args": "",
+          "language": "plpgsql",
+          "extensionOwned": false,
+          "definitionSHA256": "2b4b5d702ddf70fbd1a05c9825f9f9016d5c0ef97dd3df5f5b012ea23d9b94b1",
+          "signals": {
+            "network": true,
+            "urlLiteral": false,
+            "dynamicSql": false,
+            "program": false
+          }
+        },
+        {
+          "schema": "extensions",
+          "name": "pgrst_drop_watch",
+          "args": "",
+          "language": "plpgsql",
+          "extensionOwned": false,
+          "definitionSHA256": "3a2696133853e17a0456cbfbb233a03815f50895492143e84df983b558d76593",
+          "signals": {
+            "network": true,
+            "urlLiteral": false,
+            "dynamicSql": false,
+            "program": false
+          }
+        },
+        {
+          "schema": "public",
+          "name": "rls_auto_enable",
+          "args": "",
+          "language": "plpgsql",
+          "extensionOwned": false,
+          "definitionSHA256": "dd9ce3fd3905d621611cf0ea2e7591bada6d61f827445cfa2afe27e69b03f271",
+          "signals": {
+            "network": false,
+            "urlLiteral": false,
+            "dynamicSql": true,
+            "program": false
+          }
+        },
+        {
+          "schema": "realtime",
+          "name": "apply_rls",
+          "args": "wal jsonb, max_record_bytes integer",
+          "language": "plpgsql",
+          "extensionOwned": false,
+          "definitionSHA256": "b455782c3c10fe5f7d36d9b4f27ad531191fb7693ce55dd88cc639e8bf36ea83",
+          "signals": {
+            "network": false,
+            "urlLiteral": false,
+            "dynamicSql": true,
+            "program": false
+          }
+        },
+        {
+          "schema": "realtime",
+          "name": "cast",
+          "args": "val text, type_ regtype",
+          "language": "plpgsql",
+          "extensionOwned": false,
+          "definitionSHA256": "66045bb2d0564fbee8ce156ddd29bf5ff554614c755f9a66902dbff131721993",
+          "signals": {
+            "network": false,
+            "urlLiteral": false,
+            "dynamicSql": true,
+            "program": false
+          }
+        },
+        {
+          "schema": "realtime",
+          "name": "check_equality_op",
+          "args": "op realtime.equality_op, type_ regtype, val_1 text, val_2 text",
+          "language": "plpgsql",
+          "extensionOwned": false,
+          "definitionSHA256": "bc47685b70704c535aa1f7ae9b36e1a2d7a379499ee70462f4fa4f06e6bef98b",
+          "signals": {
+            "network": false,
+            "urlLiteral": false,
+            "dynamicSql": true,
+            "program": false
+          }
+        },
+        {
+          "schema": "realtime",
+          "name": "check_equality_op",
+          "args": "op realtime.equality_op, type_ regtype, val_1 text, val_2 text, negate boolean",
+          "language": "plpgsql",
+          "extensionOwned": false,
+          "definitionSHA256": "4579e8273553e43f102fb70a03872ff3dab25408895af3184907e76a04cf06f9",
+          "signals": {
+            "network": false,
+            "urlLiteral": false,
+            "dynamicSql": true,
+            "program": false
+          }
+        },
+        {
+          "schema": "realtime",
+          "name": "send",
+          "args": "payload jsonb, event text, topic text, private boolean",
+          "language": "plpgsql",
+          "extensionOwned": false,
+          "definitionSHA256": "a59ff7fd7608eb6b987fbeb20e49aacb0b29f7ee75dbf5046e10bc5f1d058f33",
+          "signals": {
+            "network": false,
+            "urlLiteral": false,
+            "dynamicSql": true,
+            "program": false
+          }
+        },
+        {
+          "schema": "realtime",
+          "name": "send_binary",
+          "args": "payload bytea, event text, topic text, private boolean",
+          "language": "plpgsql",
+          "extensionOwned": false,
+          "definitionSHA256": "73a170d9b813d8e1835c1484bc46c9e06ab9038c8910e5b5789d994146d373b9",
+          "signals": {
+            "network": false,
+            "urlLiteral": false,
+            "dynamicSql": true,
+            "program": false
+          }
+        },
+        {
+          "schema": "storage",
+          "name": "list_objects_with_delimiter",
+          "args": "_bucket_id text, prefix_param text, delimiter_param text, max_keys integer, start_after text, next_token text, sort_order text, noncurrent_versions text, delete_markers text, next_token_archived_at timestamp with time zone, next_token_version text",
+          "language": "plpgsql",
+          "extensionOwned": false,
+          "definitionSHA256": "2ea5b0041a685b122bc06e975e186c7b8bb6159c4561ff1e82c9ee142230a30e",
+          "signals": {
+            "network": false,
+            "urlLiteral": false,
+            "dynamicSql": true,
+            "program": false
+          }
+        },
+        {
+          "schema": "storage",
+          "name": "search",
+          "args": "prefix text, bucketname text, limits integer, levels integer, offsets integer, search text, sortcolumn text, sortorder text, noncurrent_versions text, delete_markers text",
+          "language": "plpgsql",
+          "extensionOwned": false,
+          "definitionSHA256": "554f4855e4490792b6c854ba68e622f39f004515d092e7409b0167a44b4acc99",
+          "signals": {
+            "network": false,
+            "urlLiteral": false,
+            "dynamicSql": true,
+            "program": false
+          }
+        },
+        {
+          "schema": "storage",
+          "name": "search_by_timestamp",
+          "args": "p_prefix text, p_bucket_id text, p_limit integer, p_level integer, p_start_after text, p_sort_order text, p_sort_column text, p_sort_column_after text, noncurrent_versions text, delete_markers text, p_start_after_version text",
+          "language": "plpgsql",
+          "extensionOwned": false,
+          "definitionSHA256": "00035e14f49a1cd28b87d80e0aefde8e4bf1fb91fe4f8facbcb6001c27f8849b",
+          "signals": {
+            "network": false,
+            "urlLiteral": false,
+            "dynamicSql": true,
+            "program": false
+          }
+        }
+      ]
+    },
+    "triggers": [
+      {
+        "schema": "auth",
+        "relname": "users",
+        "tgname": "on_auth_user_created",
+        "tgenabled": "O",
+        "function_oid": "17652",
+        "proname": "handle_new_user",
+        "function_schema": "public",
+        "functionSignals": {
+          "network": false,
+          "urlLiteral": false,
+          "dynamicSql": false,
+          "program": false
+        },
+        "definitionInspected": true
+      },
+      {
+        "schema": "realtime",
+        "relname": "subscription",
+        "tgname": "tr_check_filters",
+        "tgenabled": "O",
+        "function_oid": "17207",
+        "proname": "subscription_check_filters",
+        "function_schema": "realtime",
+        "functionSignals": {
+          "network": false,
+          "urlLiteral": false,
+          "dynamicSql": false,
+          "program": false
+        },
+        "definitionInspected": true
+      },
+      {
+        "schema": "storage",
+        "relname": "buckets",
+        "tgname": "enforce_bucket_name_length_trigger",
+        "tgenabled": "O",
+        "function_oid": "17476",
+        "proname": "enforce_bucket_name_length",
+        "function_schema": "storage",
+        "functionSignals": {
+          "network": false,
+          "urlLiteral": false,
+          "dynamicSql": false,
+          "program": false
+        },
+        "definitionInspected": true
+      },
+      {
+        "schema": "storage",
+        "relname": "buckets",
+        "tgname": "enforce_versioning_status_transition",
+        "tgenabled": "O",
+        "function_oid": "18875",
+        "proname": "enforce_versioning_status_transition",
+        "function_schema": "storage",
+        "functionSignals": {
+          "network": false,
+          "urlLiteral": false,
+          "dynamicSql": false,
+          "program": false
+        },
+        "definitionInspected": true
+      },
+      {
+        "schema": "storage",
+        "relname": "buckets",
+        "tgname": "protect_active_lifecycle_states",
+        "tgenabled": "O",
+        "function_oid": "18898",
+        "proname": "protect_active_lifecycle_states",
+        "function_schema": "storage",
+        "functionSignals": {
+          "network": false,
+          "urlLiteral": false,
+          "dynamicSql": false,
+          "program": false
+        },
+        "definitionInspected": true
+      },
+      {
+        "schema": "storage",
+        "relname": "buckets",
+        "tgname": "protect_bucket_control_insert",
+        "tgenabled": "O",
+        "function_oid": "18574",
+        "proname": "protect_bucket_control_columns",
+        "function_schema": "storage",
+        "functionSignals": {
+          "network": false,
+          "urlLiteral": false,
+          "dynamicSql": false,
+          "program": false
+        },
+        "definitionInspected": true
+      },
+      {
+        "schema": "storage",
+        "relname": "buckets",
+        "tgname": "protect_bucket_control_update",
+        "tgenabled": "O",
+        "function_oid": "18574",
+        "proname": "protect_bucket_control_columns",
+        "function_schema": "storage",
+        "functionSignals": {
+          "network": false,
+          "urlLiteral": false,
+          "dynamicSql": false,
+          "program": false
+        },
+        "definitionInspected": true
+      },
+      {
+        "schema": "storage",
+        "relname": "buckets",
+        "tgname": "protect_bucket_control_update_role",
+        "tgenabled": "O",
+        "function_oid": "18575",
+        "proname": "enforce_bucket_lifecycle_service_role",
+        "function_schema": "storage",
+        "functionSignals": {
+          "network": false,
+          "urlLiteral": false,
+          "dynamicSql": false,
+          "program": false
+        },
+        "definitionInspected": true
+      },
+      {
+        "schema": "storage",
+        "relname": "buckets",
+        "tgname": "protect_buckets_delete",
+        "tgenabled": "O",
+        "function_oid": "17539",
+        "proname": "protect_delete",
+        "function_schema": "storage",
+        "functionSignals": {
+          "network": false,
+          "urlLiteral": false,
+          "dynamicSql": false,
+          "program": false
+        },
+        "definitionInspected": true
+      },
+      {
+        "schema": "storage",
+        "relname": "buckets",
+        "tgname": "wake_lifecycle_on_policy_write",
+        "tgenabled": "O",
+        "function_oid": "18901",
+        "proname": "wake_lifecycle_state",
+        "function_schema": "storage",
+        "functionSignals": {
+          "network": false,
+          "urlLiteral": false,
+          "dynamicSql": false,
+          "program": false
+        },
+        "definitionInspected": true
+      },
+      {
+        "schema": "storage",
+        "relname": "buckets",
+        "tgname": "wake_lifecycle_on_versioning_enable",
+        "tgenabled": "O",
+        "function_oid": "18901",
+        "proname": "wake_lifecycle_state",
+        "function_schema": "storage",
+        "functionSignals": {
+          "network": false,
+          "urlLiteral": false,
+          "dynamicSql": false,
+          "program": false
+        },
+        "definitionInspected": true
+      },
+      {
+        "schema": "storage",
+        "relname": "objects",
+        "tgname": "protect_objects_delete",
+        "tgenabled": "O",
+        "function_oid": "17539",
+        "proname": "protect_delete",
+        "function_schema": "storage",
+        "functionSignals": {
+          "network": false,
+          "urlLiteral": false,
+          "dynamicSql": false,
+          "program": false
+        },
+        "definitionInspected": true
+      },
+      {
+        "schema": "storage",
+        "relname": "objects",
+        "tgname": "update_objects_updated_at",
+        "tgenabled": "O",
+        "function_oid": "17410",
+        "proname": "update_updated_at_column",
+        "function_schema": "storage",
+        "functionSignals": {
+          "network": false,
+          "urlLiteral": false,
+          "dynamicSql": false,
+          "program": false
+        },
+        "definitionInspected": true
+      }
+    ],
+    "eventTriggers": [
+      {
+        "evtname": "ensure_rls",
+        "evtevent": "ddl_command_end",
+        "evtenabled": "O",
+        "function_oid": "17170",
+        "function_schema": "public",
+        "proname": "rls_auto_enable",
+        "functionSignals": {
+          "network": false,
+          "urlLiteral": false,
+          "dynamicSql": true,
+          "program": false
+        },
+        "definitionInspected": true
+      },
+      {
+        "evtname": "issue_graphql_placeholder",
+        "evtevent": "sql_drop",
+        "evtenabled": "O",
+        "function_oid": "16574",
+        "function_schema": "extensions",
+        "proname": "set_graphql_placeholder",
+        "functionSignals": {
+          "network": false,
+          "urlLiteral": false,
+          "dynamicSql": false,
+          "program": false
+        },
+        "definitionInspected": true
+      },
+      {
+        "evtname": "issue_pg_cron_access",
+        "evtevent": "ddl_command_end",
+        "evtenabled": "O",
+        "function_oid": "16551",
+        "function_schema": "extensions",
+        "proname": "grant_pg_cron_access",
+        "functionSignals": {
+          "network": false,
+          "urlLiteral": false,
+          "dynamicSql": false,
+          "program": false
+        },
+        "definitionInspected": true
+      },
+      {
+        "evtname": "issue_pg_graphql_access",
+        "evtevent": "ddl_command_end",
+        "evtenabled": "O",
+        "function_oid": "16572",
+        "function_schema": "extensions",
+        "proname": "grant_pg_graphql_access",
+        "functionSignals": {
+          "network": false,
+          "urlLiteral": false,
+          "dynamicSql": true,
+          "program": false
+        },
+        "definitionInspected": true
+      },
+      {
+        "evtname": "issue_pg_net_access",
+        "evtevent": "ddl_command_end",
+        "evtenabled": "O",
+        "function_oid": "16553",
+        "function_schema": "extensions",
+        "proname": "grant_pg_net_access",
+        "functionSignals": {
+          "network": true,
+          "urlLiteral": false,
+          "dynamicSql": true,
+          "program": false
+        },
+        "definitionInspected": true
+      },
+      {
+        "evtname": "pgrst_ddl_watch",
+        "evtevent": "ddl_command_end",
+        "evtenabled": "O",
+        "function_oid": "16563",
+        "function_schema": "extensions",
+        "proname": "pgrst_ddl_watch",
+        "functionSignals": {
+          "network": true,
+          "urlLiteral": false,
+          "dynamicSql": false,
+          "program": false
+        },
+        "definitionInspected": true
+      },
+      {
+        "evtname": "pgrst_drop_watch",
+        "evtevent": "sql_drop",
+        "evtenabled": "O",
+        "function_oid": "16564",
+        "function_schema": "extensions",
+        "proname": "pgrst_drop_watch",
+        "functionSignals": {
+          "network": true,
+          "urlLiteral": false,
+          "dynamicSql": false,
+          "program": false
+        },
+        "definitionInspected": true
+      }
+    ]
+  },
+  "gaps": [],
+  "transaction": {
+    "read_only": "on",
+    "isolation": "repeatable read",
+    "database": "postgres",
+    "observed_at": "2026-11-06T13:07:22.415Z"
+  },
+  "finishedAt": "2026-11-06T13:07:38.919Z"
+}

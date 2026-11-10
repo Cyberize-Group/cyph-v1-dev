@@ -1,0 +1,331 @@
+[
+  {
+    "path": "supabase/migrations/0001_baseline_acknowledge.sql",
+    "sha256": "c2eb94604534c8b787bf435579ab45e0ae87a768f9ff607e7a81621010264461",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0002_accounts.sql",
+    "sha256": "46d39e8925b35e8af72c7a6509242facedb8b8062f306e6c2eb5f9e7a2fc7b11",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0003_businesses.sql",
+    "sha256": "b7a4e193060e7d3df6d62c85f0fe189b6079a1ebea95ab8fe84c17169018591d",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0004_user_businesses.sql",
+    "sha256": "5bda37d78efa2a53d436c0400319875aeb6ef3285243046c73afdab9e3420ecb",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0005_pending_registrations.sql",
+    "sha256": "0634ef1cf5943f867e0d44c8a88e345f3a54fc7f534af969b0b913cb3ff116a2",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0006_subscriptions.sql",
+    "sha256": "e6b98a6c4f3bbbedc00d8ec1a86f50d2ab529ff59d09bc74aa86ddcde1c386ed",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0007_apa_memberships.sql",
+    "sha256": "f0196fd16467f20e37f16520cf79abf07e8dba8fd1c0744bde09bddddcf9d0bf",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0008_reference_dataset_versions.sql",
+    "sha256": "c5335defa023d771546681cdade811a87b4ad13edf3b30b3182ad7d2a5fc1058",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0009_aac_reference.sql",
+    "sha256": "dc1f94d22aa07c80b3f99ee3583004e586a928ee346e6382450906dc0a80f5ef",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0010_wac_reference.sql",
+    "sha256": "6b0d8690fddc92f73ba74d6d63d8a49500673afbaf2d263b1cb97f9f654d2790",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0011_ful_reference.sql",
+    "sha256": "a5beaa5942e54c553a104d207c91bb411cdb7236b88b71773843397252c23ce9",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0012_pbm_info.sql",
+    "sha256": "7b9ff099bd6ad9fbc4af86decc0e05920d4e87cb68a590fbb4a7985a8722cab4",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0013_user_data.sql",
+    "sha256": "621fb4b344ad2b0b2806fc5980975ef39bc1569609d3d59cad7b247cb578d338",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0014_report_files.sql",
+    "sha256": "2512e555cf53c9f060d20f6490b77f95256e944e2a9ebed403810cb64099b1da",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0015_audit_logs.sql",
+    "sha256": "610f588805c8cf8ad04b604923c4e7b67d895d75333152ecf9debeb24aea796f",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0016_rls_helpers.sql",
+    "sha256": "8fd63a19e6f088ccb895da5d1c8d88a93aa588e3719701e1c5498858f0b24084",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0017_rls_user_businesses.sql",
+    "sha256": "a3b062e2a08b662af705b5d01aef4241a4b5c475c3d2d584cd5afca727d035cf",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0018_rls_accounts.sql",
+    "sha256": "643737798ebd9febbc64bc71a162eca4d7ca9e3ab86a479e499cf41abcce629e",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0019_rls_businesses.sql",
+    "sha256": "0c95375a5d66d4080ba9b54c6ae13e5ce82e73d893de969953d50357ad466383",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0020_rls_subscriptions.sql",
+    "sha256": "bd2b0605b117edde9af9c0b669bf35b6d861e5f8b937fb5802b2c799710f7242",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0021_rls_user_data.sql",
+    "sha256": "d57d4970e2c017abcd22694f9be51fd0e7359bde27303e05fd453d685072ca6a",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0022_rls_report_files.sql",
+    "sha256": "92cc3555eca51c63bcd8abc3b0594aeab840bca0fb61db1d571b2e147f6ab943",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0023_rls_aac_reference.sql",
+    "sha256": "1792f0968291e378c2bd929fbdba8b06156cdd23892fedc09d21ecd445084124",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0024_rls_wac_reference.sql",
+    "sha256": "2254d3a79b7a5d851545977c807467b26b02fca2d9c323cdf837a0b1e09de8df",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0025_rls_ful_reference.sql",
+    "sha256": "9f0dadbcbe9797e6f3f396575fc497782ca9340f45e9f47f8e59e55a5fc93b2d",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0026_rls_pbm_info.sql",
+    "sha256": "d821b2cb83b8f95e0aef23b77c592d2165f77245a09407acf453c56d0664641c",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0027_rls_reference_dataset_versions.sql",
+    "sha256": "e2edec0090d4b019554efab3457a130d965fd3c3caa0c49897e8c56069400bb9",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0028_audit_logs_reshape.sql",
+    "sha256": "b295ef59b9f55c981f7f446d1a90bd97ddcd604de023dfd9b438fcac34fd3899",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0029_rls_audit_logs.sql",
+    "sha256": "41d25734bfc647ef411e5896d2b3b8dbf12efdd3451e8c9ab4ea5fdae2ad2226",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0030_audit_write.sql",
+    "sha256": "e8ac2181c265d16e3b1253b5ba328ad7a86e5d2907e65a8e2e1890fe1d9f4f9f",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0031_audit_stamp_businesses.sql",
+    "sha256": "d0126208f941ca7b147aacf95f14e69936933cddd5f2ee220f0a34af9dda15ab",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0032_audit_stamp_user_businesses.sql",
+    "sha256": "7f405fcb74ad0f247e6c14cb8e5a1ddb2c87c81e01c7a720e2bb16fed87b0193",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0033_audit_stamp_pending_registrations.sql",
+    "sha256": "3f583b40b90f6814bb5d5d39b892470018c0ddfd4dac985fd35e5d9d83e65fd6",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0034_audit_stamp_user_data.sql",
+    "sha256": "26912146ac8dccf0a983ee3c644c24dece9bf4cd403e775ddd2ca6b2f6de944a",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0035_audit_stamp_report_files.sql",
+    "sha256": "3ce3dcfdfed8744f9cd87893575c9e4a3ec24db614ec25ba51b9cc33874d4ab0",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0036_audit_stamp_accounts.sql",
+    "sha256": "c285e8700e987051f79ed979489778e352efc26d3e3da0606853cfb1053ac982",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0037_audit_stamp_subscriptions.sql",
+    "sha256": "61c6a3b1f7343ca9ecb7572a851ea3960f56407f5dcbdce8f648ace301afe7e9",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0038_audit_stamp_apa_memberships.sql",
+    "sha256": "91b234c4cff90a0105f0a4604d8140f6ecbc0c18cf4b3636372d3394920a70d1",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0039_audit_stamp_reference_dataset_versions.sql",
+    "sha256": "f3a338f73db5c0757b7b65e40128beb570f41ac059599fb55d0cede543e043e2",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0040_audit_stamp_aac_reference.sql",
+    "sha256": "7de203f360b11de5f0c39b982fe8a8e6518d5fc4c96c4f0c8bb991ea075aa22b",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0041_audit_stamp_wac_reference.sql",
+    "sha256": "5bfffc5696e7a2bb3b45387275c9aec045b0766c18e842b590bd51cc6c8a3402",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0042_audit_stamp_ful_reference.sql",
+    "sha256": "ed85fc8c9db3722e260808965a7e0419d99e3817df0de13c27afdeb733e1c18f",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0043_audit_stamp_pbm_info.sql",
+    "sha256": "358bd392053d1d77bf8835aa29594a7bc40cb267cb4bf929be63b5bf7ad00435",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0044_owedbook_kpis.sql",
+    "sha256": "ef6799653f1182818f67b92d7731240f535992cbeb5cbebe0cc8c6d78fe25007",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0045_owedbook_rows.sql",
+    "sha256": "346392f525ed33ed6786232972e2c07e26cfe91581cad551d27bbdd76be98a6d",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0046_owedbook_summary.sql",
+    "sha256": "8bef6f5da5a8586ccbcdde85157846d3caea25fa9d3c65ce4daaa648e29dd209",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  },
+  {
+    "path": "supabase/migrations/0047_owedbook_pbm_options.sql",
+    "sha256": "40128d08ede7bc485c05a4cfda11d660a8ab6225e03dd9f53932267113be7977",
+    "baseline_equal": true,
+    "bim003_certified_equal": null,
+    "bim003_certified_status": "GAP: c45949e does not resolve in this checkout"
+  }
+]

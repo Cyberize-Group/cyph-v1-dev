@@ -217,3 +217,18 @@
 ## Harvest (at campaign close)
 
 *(graded predictions P1–P5 · Keep/Change/Drop rollup · the BIM_PLAYBOOK v1.1 amendment kit draft)*
+
+
+## APBM-003 — DEV APPLY complete, manual smoke pending — 2026-11-07
+
+**Cody engineering update, appended at Tony's explicit request (not an Architect or QA certification).** Tony executed the committed v2 runner; final receipt at 08:14:23.719 UTC passes ledger 52, preservation, accepted exact-three managed ACL treatment, 250 synthetic claims and 19 Owner/154 user checks on Dev v1. Four Auth indexes retained. Accepted narrow rehearsal reused; no full provider restore was claimed.
+
+Handoff friction: buffered child output made a progressing apply appear stalled. Read-only inspection found seed and user proofs advancing with no blocking locks; no duplicate writer or termination was needed. Frontend .env pointed to DEV while old build bytes still pointed to SCRATCH: a fresh explicit-target real-service build corrected the local runtime. Keep runtime-target verification at the manual-smoke handoff and consider streamed phase progress in a separately reviewed runner change.
+
+Tony's manual app smoke remains pending. Independent QA/Gate Q is not released; Gate D remains subsequent to approved deployment. No Git mutation or repeated database apply by Cody. Evidence: agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply/dev-manual-smoke/SMOKE.md.
+
+## APBM-003 — Director accepts Target One; closeout/integration prepared — 2026-11-09
+
+Tony declares APBM-003 successful and accepts Target One with recorded limitations. Director-observed Owner smoke: admin views render correctly; OwedBook filters, store switching and pagination work; mobile passed. MEMBER_B1: filters work, mobile passed, no admin page access reported. Tony manually reviewed the pagination usability repair and explicitly approved it as beautiful/perfect. No Director UNRELATED-account test, exact picker verification or complete seven-account smoke is claimed.
+
+Friday Gate Q binds dc44429f: 40 PASS, 1 accepted restore limitation, 3 NOT RUN. Pagination successor is separately validated; targeted QA disposition and final cleanup acceptance remain pending. DEV APPLY succeeded; deployment deferred and Gate D/production readiness pending. APBM-004 starts from the eventual approved main integration SHA, carries the open follow-up register and applies the local lessons before broader Factory Doc Sync. Retrospective responses from Friday/Claudy and JARVIS synthesis pending. Evidence and complete scoped Git plan: agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/CLOSEOUT/.

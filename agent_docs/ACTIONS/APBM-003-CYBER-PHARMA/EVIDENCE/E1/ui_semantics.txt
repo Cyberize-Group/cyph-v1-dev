@@ -1,0 +1,54 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+COMMAND: ["rg", "-n", "Theme|theme|UserMenu|AppRole|aria-sort|onKeyDown|Escape|tabIndex", "src/components/global", "src/components/common", "src/components/layout"]
+EXIT: 0
+src/components/global/NavbarLoginReg.tsx:3:import ThemeToggler from "./ThemeToggler";
+src/components/global/NavbarLoginReg.tsx:20:          <ThemeToggler />
+src/components/global/UserMenu.tsx:15:import { AppRole } from "@/utils/app-role";
+src/components/global/UserMenu.tsx:19:interface UserMenuProps {
+src/components/global/UserMenu.tsx:21:  role: AppRole | null;
+src/components/global/UserMenu.tsx:24:const UserMenu = ({ user, role }: UserMenuProps) => {
+src/components/global/UserMenu.tsx:26:    const portalHref = role === AppRole.ADMIN ? "/admin-portal" : "/owedbook";
+src/components/global/UserMenu.tsx:27:    const portalLabel = role === AppRole.ADMIN ? "Admin portal" : "OwedBook";
+src/components/global/UserMenu.tsx:75:export default UserMenu;
+src/components/global/Navbar.tsx:17:import ThemeToggler from "./ThemeToggler";
+src/components/global/Navbar.tsx:22:import { AppRole } from "@/utils/app-role";
+src/components/global/Navbar.tsx:30:  role: AppRole;
+src/components/global/Navbar.tsx:43:  const isAdmin = role === AppRole.ADMIN;
+src/components/global/Navbar.tsx:67:  // hamburger toggle and in-panel taps don't double-fire) and on Escape. The X
+src/components/global/Navbar.tsx:76:      // Inside an open Radix popper (e.g. the theme dropdown, which portals to
+src/components/global/Navbar.tsx:83:      if (e.key === "Escape") setMenuOpen(false);
+src/components/global/Navbar.tsx:143:          <ThemeToggler />
+src/components/global/Navbar.tsx:198:              <ThemeToggler onSelect={closeMenu} />
+src/components/global/MobileNav.tsx:9:import { AppRole } from "@/utils/app-role";
+src/components/global/MobileNav.tsx:22:  role: AppRole | null;
+src/components/global/MobileNav.tsx:41:  const portalHref = role === AppRole.ADMIN ? "/admin-portal" : "/owedbook";
+src/components/global/MobileNav.tsx:42:  const portalLabel = role === AppRole.ADMIN ? "Admin portal" : "OwedBook";
+src/components/global/ThemeToggler.tsx:4:import { useTheme } from "next-themes";
+src/components/global/ThemeToggler.tsx:15:// `onSelect` fires after a theme is picked — lets a host (e.g. the Navbar mobile
+src/components/global/ThemeToggler.tsx:17:const ThemeToggler = ({ onSelect }: { onSelect?: () => void } = {}) => {
+src/components/global/ThemeToggler.tsx:18:  const { setTheme } = useTheme();
+src/components/global/ThemeToggler.tsx:20:  const pick = (theme: string) => {
+src/components/global/ThemeToggler.tsx:21:    setTheme(theme);
+src/components/global/ThemeToggler.tsx:35:          <span className="sr-only">Toggle theme</span>
+src/components/global/ThemeToggler.tsx:53:export default ThemeToggler;
+src/components/global/NavbarHome.tsx:6:import ThemeToggler from "./ThemeToggler";
+src/components/global/NavbarHome.tsx:7:import UserMenu from "./UserMenu";
+src/components/global/NavbarHome.tsx:8:import { AppRole } from "@/utils/app-role";
+src/components/global/NavbarHome.tsx:15:  role: AppRole | null;
+src/components/global/NavbarHome.tsx:50:        <ThemeToggler />
+src/components/global/NavbarHome.tsx:51:        <UserMenu user={user} role={role} />
+src/components/global/NavbarHome.tsx:55:        <ThemeToggler />
+src/components/layout/AuthedShell.tsx:16:import type { AppRole } from "@/utils/app-role";
+src/components/layout/AuthedShell.tsx:24:// Tabbable candidates inside the drawer; filtered by tabIndex at use (drops
+src/components/layout/AuthedShell.tsx:31:  role: AppRole;
+src/components/layout/AuthedShell.tsx:59:  // Escape to close + lock body scroll while the drawer is open.
+src/components/layout/AuthedShell.tsx:64:      if (e.key === "Escape") setDrawerOpen(false);
+src/components/layout/AuthedShell.tsx:147:            onKeyDown={onDrawerKeyDown}
+src/components/layout/AuthedShell.tsx:172:    (el) => el.tabIndex >= 0,
+src/components/common/DataTable.tsx:76:                    aria-sort={
+src/components/common/MultiSelect.tsx:51:  // Keyboard (R-010). Escape closes the picker only and returns focus to the
+src/components/common/MultiSelect.tsx:54:  const onKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
+src/components/common/MultiSelect.tsx:56:    if (e.key === "Escape") {
+src/components/common/MultiSelect.tsx:66:    ).filter((el) => el.tabIndex >= 0 && !el.hasAttribute("disabled"));
+src/components/common/MultiSelect.tsx:101:    <div ref={containerRef} className="relative" onKeyDown={onKeyDown}>
+

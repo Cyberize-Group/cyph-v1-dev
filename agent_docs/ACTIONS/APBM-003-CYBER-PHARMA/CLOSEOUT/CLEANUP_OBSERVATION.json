@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-09",
+  "codyOwnedDuplicateTemporaryFilesRemoved": [
+    "/tmp/apbm-manual-private.json",
+    "/tmp/apbm-manual-sheet.html"
+  ],
+  "retainedForTony": [
+    ".env.qa.local",
+    "/tmp/apbm003-dev-v2-cast-20261107T080333Z-1347924.json",
+    "/home/moose/Downloads/APBM-003_Tony_Manual_Test_Login_Sheet_2026-11-09.md",
+    "/home/moose/Documents/APBM-003_Tony_Manual_Test_Login_Sheet_2026-11-09.pdf",
+    "private verified DEV backup"
+  ],
+  "qaReport": "QAM_CLEANUP_REPORT.md still template; no acceptance invented",
+  "qa3138": "no listener observed",
+  "local3000": "stopped at Tony request",
+  "local3137": "retained old local server; untouched",
+  "databaseCleanup": "none; retain sessions/audit history; no SCRATCH reset"
+}

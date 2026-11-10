@@ -1,0 +1,44 @@
+{
+  "source": "direct_denials.json (cast-matrix.mjs run)",
+  "ranAt": "2026-11-09T04:02:38.495Z",
+  "note": "T-14 exact cast (AC-203)",
+  "pass": 7,
+  "fail": 0,
+  "checks": [
+    {
+      "name": "T-14 auth.users seeded cast = exactly the 7 handles (one each), no OPERATOR, no metadata role key on any cast user",
+      "result": "PASS",
+      "detail": "{\"n\":13,\"cast_n\":7,\"cast_with_role_key\":0,\"operator_n\":0,\"other_preexisting\":6,\"handles\":[\"ADMIN_B2\",\"ADMIN_B3\",\"MEMBER_B1\",\"MEMBER_B2B3\",\"OWNER1\",\"OWNER3\",\"UNRELATED\"],\"note\":\"other_preexisting = non-seed users already on the disposable SCRATCH (reset.mjs preserves them by design)\"}"
+    },
+    {
+      "name": "T-14 user_roles = 7 \u00d7 member",
+      "result": "PASS",
+      "detail": "[{\"role\":\"member\",\"n\":7}]"
+    },
+    {
+      "name": "T-14 accounts 3 with owners A/OWNER1 B/OWNER3 C/UNRELATED",
+      "result": "PASS",
+      "detail": "[{\"name\":\"SYNTHETIC ACCOUNT A\",\"email\":\"apbm003-owner1@example.invalid\"},{\"name\":\"SYNTHETIC ACCOUNT B\",\"email\":\"apbm003-owner3@example.invalid\"},{\"name\":\"SYNTHETIC ACCOUNT C\",\"email\":\"apbm003-unrelated@example.invalid\"}]"
+    },
+    {
+      "name": "T-14 businesses 5 = A1(A) B1,B2,B3(B) C1(C)",
+      "result": "PASS",
+      "detail": "[{\"pharmacy_name\":\"SYNTHETIC STORE A1\",\"acct\":\"SYNTHETIC ACCOUNT A\"},{\"pharmacy_name\":\"SYNTHETIC STORE B1\",\"acct\":\"SYNTHETIC ACCOUNT B\"},{\"pharmacy_name\":\"SYNTHETIC STORE B2\",\"acct\":\"SYNTHETIC ACCOUNT B\"},{\"pharmacy_name\":\"SYNTHETIC STORE B3\",\"acct\":\"SYNTHETIC ACCOUNT B\"},{\"pharmacy_name\":\"SYNTHETIC STORE C1\",\"acct\":\"SYNTHETIC ACCOUNT C\"}]"
+    },
+    {
+      "name": "T-14 user_businesses = exactly the 8 SFC \u00a72 junction rows",
+      "result": "PASS",
+      "detail": "[\"ADMIN_B2:B2:admin\",\"ADMIN_B3:B3:admin\",\"MEMBER_B1:B1:member\",\"MEMBER_B2B3:B2:member\",\"MEMBER_B2B3:B3:member\",\"OWNER1:A1:admin\",\"OWNER3:B1:admin\",\"UNRELATED:C1:admin\"]"
+    },
+    {
+      "name": "T-14 negative control: a deliberately wrong expected junction table must mismatch",
+      "result": "PASS",
+      "detail": "mismatch detected"
+    },
+    {
+      "name": "T-14 profiles 7 for the cast",
+      "result": "PASS",
+      "detail": ""
+    }
+  ]
+}

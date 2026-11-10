@@ -1,0 +1,141 @@
+{
+  "who": "MEMBER_B1",
+  "rpc": [
+    {
+      "fn": "owedbook_pbm_options",
+      "status": 200,
+      "optionCount": 3,
+      "at": "2026-11-09T04:19:49.078Z"
+    },
+    {
+      "fn": "owedbook_pbm_options",
+      "status": 200,
+      "optionCount": 3,
+      "at": "2026-11-09T04:20:05.329Z"
+    },
+    {
+      "fn": "owedbook_pbm_options",
+      "status": 200,
+      "optionCount": 3,
+      "at": "2026-11-09T04:20:09.486Z"
+    }
+  ],
+  "console": [],
+  "steps": [
+    {
+      "label": "after initial load",
+      "alerts": [
+        "OwedBook"
+      ],
+      "optionTexts": [
+        "SYNTHETIC PBM 1",
+        "SYNTHETIC PBM 2",
+        "SYNTHETIC PBM 3"
+      ],
+      "noOptionsShown": false
+    },
+    {
+      "label": "after status filter Underpaid",
+      "alerts": [
+        "OwedBook"
+      ],
+      "optionTexts": [
+        "SYNTHETIC PBM 1",
+        "SYNTHETIC PBM 2",
+        "SYNTHETIC PBM 3"
+      ],
+      "noOptionsShown": false
+    },
+    {
+      "label": "after Clear",
+      "alerts": [
+        "OwedBook"
+      ],
+      "optionTexts": [
+        "SYNTHETIC PBM 1",
+        "SYNTHETIC PBM 2",
+        "SYNTHETIC PBM 3"
+      ],
+      "noOptionsShown": false
+    },
+    {
+      "label": "after date filter",
+      "alerts": [
+        "OwedBook"
+      ],
+      "optionTexts": [
+        "SYNTHETIC PBM 1",
+        "SYNTHETIC PBM 2",
+        "SYNTHETIC PBM 3"
+      ],
+      "noOptionsShown": false
+    },
+    {
+      "label": "after Clear 2",
+      "alerts": [
+        "OwedBook"
+      ],
+      "optionTexts": [
+        "SYNTHETIC PBM 1",
+        "SYNTHETIC PBM 2",
+        "SYNTHETIC PBM 3"
+      ],
+      "noOptionsShown": false
+    },
+    {
+      "label": "after empty-range filter (No results)",
+      "alerts": [
+        "OwedBook"
+      ],
+      "optionTexts": [
+        "SYNTHETIC PBM 1",
+        "SYNTHETIC PBM 2",
+        "SYNTHETIC PBM 3"
+      ],
+      "noOptionsShown": false
+    },
+    {
+      "label": "after Clear 3",
+      "alerts": [
+        "OwedBook"
+      ],
+      "optionTexts": [
+        "SYNTHETIC PBM 1",
+        "SYNTHETIC PBM 2",
+        "SYNTHETIC PBM 3"
+      ],
+      "noOptionsShown": false
+    },
+    {
+      "label": "after typing search",
+      "noOptionsShown": false,
+      "visibleOptions": [
+        "From",
+        "To",
+        "SYNTHETIC PBM 1"
+      ]
+    },
+    {
+      "label": "after Refresh",
+      "alerts": [
+        "OwedBook"
+      ],
+      "optionTexts": [
+        "SYNTHETIC PBM 1"
+      ],
+      "noOptionsShown": false
+    },
+    {
+      "label": "after hard reload",
+      "alerts": [
+        ""
+      ],
+      "optionTexts": [
+        "SYNTHETIC PBM 1",
+        "SYNTHETIC PBM 2",
+        "SYNTHETIC PBM 3"
+      ],
+      "noOptionsShown": false
+    }
+  ]
+}

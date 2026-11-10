@@ -1,0 +1,23 @@
+{
+  "mode": "mocks",
+  "file": "src/mocks/owedbook.ts",
+  "rows": 50,
+  "failures": 0,
+  "failing": [],
+  "coverage": {
+    "statuses": [
+      "emailed_pbm",
+      "new",
+      "pending",
+      "recovered",
+      "underpaid"
+    ],
+    "distinctPbms": 3,
+    "nullPbmRows": 12,
+    "negativeOwed": 17,
+    "positiveOwed": 33,
+    "federalNull": true
+  },
+  "rule6": "not applicable to the mock shape (no bin/pbm_key)",
+  "result": "PASS"
+}

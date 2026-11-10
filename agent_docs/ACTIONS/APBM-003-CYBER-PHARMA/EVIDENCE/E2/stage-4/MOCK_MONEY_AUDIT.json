@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "rows": 50,
+  "moneyFailures": 0,
+  "methods": [
+    "AAC",
+    "BWAC",
+    "FUL"
+  ],
+  "syntheticOnly": true,
+  "federalV1AllNull": true
+}

@@ -1,4 +1,5 @@
 "use client";
+import { isDemoMode } from "@/services/tenantScope";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -67,6 +68,8 @@ const InviteMemberForm = ({ storeId, onInvited }: InviteMemberFormProps) => {
       });
     }
   };
+
+  if (!isDemoMode()) return <div role="status">Inviting members is not available in this release.</div>;
 
   return (
     <Form {...form}>

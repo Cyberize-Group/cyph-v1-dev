@@ -1,4 +1,5 @@
 "use client";
+import { isDemoMode } from "@/services/tenantScope";
 
 import { useState } from "react";
 import { Plus } from "lucide-react";
@@ -52,6 +53,8 @@ const AddStoreButton = ({ onAdded }: { onAdded: () => void }) => {
       setBusy(false);
     }
   };
+
+  if (!isDemoMode()) return <div><Button disabled>Add store</Button><p className="text-xs text-muted-foreground">Not available in this release.</p></div>;
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

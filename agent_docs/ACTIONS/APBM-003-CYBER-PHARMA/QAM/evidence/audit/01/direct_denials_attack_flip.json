@@ -1,0 +1,874 @@
+{
+  "ranAt": "2026-11-09T04:03:03.331Z",
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "attackFlip": true,
+  "pass": 171,
+  "fail": 2,
+  "checks": [
+    {
+      "name": "T-14 auth.users seeded cast = exactly the 7 handles (one each), no OPERATOR, no metadata role key on any cast user",
+      "result": "PASS",
+      "detail": "{\"n\":13,\"cast_n\":7,\"cast_with_role_key\":0,\"operator_n\":0,\"other_preexisting\":6,\"handles\":[\"ADMIN_B2\",\"ADMIN_B3\",\"MEMBER_B1\",\"MEMBER_B2B3\",\"OWNER1\",\"OWNER3\",\"UNRELATED\"],\"note\":\"other_preexisting = non-seed users already on the disposable SCRATCH (reset.mjs preserves them by design)\"}"
+    },
+    {
+      "name": "T-14 user_roles = 7 × member",
+      "result": "PASS",
+      "detail": "[{\"role\":\"member\",\"n\":7}]"
+    },
+    {
+      "name": "T-14 accounts 3 with owners A/OWNER1 B/OWNER3 C/UNRELATED",
+      "result": "PASS",
+      "detail": "[{\"name\":\"SYNTHETIC ACCOUNT A\",\"email\":\"apbm003-owner1@example.invalid\"},{\"name\":\"SYNTHETIC ACCOUNT B\",\"email\":\"apbm003-owner3@example.invalid\"},{\"name\":\"SYNTHETIC ACCOUNT C\",\"email\":\"apbm003-unrelated@example.invalid\"}]"
+    },
+    {
+      "name": "T-14 businesses 5 = A1(A) B1,B2,B3(B) C1(C)",
+      "result": "PASS",
+      "detail": "[{\"pharmacy_name\":\"SYNTHETIC STORE A1\",\"acct\":\"SYNTHETIC ACCOUNT A\"},{\"pharmacy_name\":\"SYNTHETIC STORE B1\",\"acct\":\"SYNTHETIC ACCOUNT B\"},{\"pharmacy_name\":\"SYNTHETIC STORE B2\",\"acct\":\"SYNTHETIC ACCOUNT B\"},{\"pharmacy_name\":\"SYNTHETIC STORE B3\",\"acct\":\"SYNTHETIC ACCOUNT B\"},{\"pharmacy_name\":\"SYNTHETIC STORE C1\",\"acct\":\"SYNTHETIC ACCOUNT C\"}]"
+    },
+    {
+      "name": "T-14 user_businesses = exactly the 8 SFC §2 junction rows",
+      "result": "PASS",
+      "detail": "[\"ADMIN_B2:B2:admin\",\"ADMIN_B3:B3:admin\",\"MEMBER_B1:B1:member\",\"MEMBER_B2B3:B2:member\",\"MEMBER_B2B3:B3:member\",\"OWNER1:A1:admin\",\"OWNER3:B1:admin\",\"UNRELATED:C1:admin\"]"
+    },
+    {
+      "name": "T-14 negative control: a deliberately wrong expected junction table must mismatch",
+      "result": "PASS",
+      "detail": "mismatch detected"
+    },
+    {
+      "name": "T-14 profiles 7 for the cast",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "login OWNER1 via publishable key",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "login OWNER3 via publishable key",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "login ADMIN_B2 via publishable key",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "login ADMIN_B3 via publishable key",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "login MEMBER_B1 via publishable key",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "login MEMBER_B2B3 via publishable key",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "login UNRELATED via publishable key",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-17c OWNER1 tenant_stores = exactly A1",
+      "result": "PASS",
+      "detail": "got 1 stores"
+    },
+    {
+      "name": "T-17a OWNER1 direct SELECT user_data → 42501 (not an empty set)",
+      "result": "PASS",
+      "detail": "code=42501 rows=undefined"
+    },
+    {
+      "name": "T-17a OWNER1 direct SELECT audit_logs → 42501",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17 control OWNER1 SELECT profiles allowed (probe distinguishes deny from empty)",
+      "result": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "T-17b OWNER1 INSERT/UPDATE/DELETE user_data → 42501 ×3, rows unchanged (service-side read after)",
+      "result": "PASS",
+      "detail": "codes 42501/42501/42501"
+    },
+    {
+      "name": "T-17b/AC-104 OWNER1 accounts/subscriptions UPDATE (safe + entitlement) / INSERT / DELETE → 42501, unchanged",
+      "result": "PASS",
+      "detail": "codes 42501/42501/42501/42501/42501"
+    },
+    {
+      "name": "T-17 observation OWNER1 INSERT audit_logs (privilege granted by default ACL) → denied by FORCE RLS 42501, no row",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17 OWNER1 system_config scoped read (0052) = 2 rows",
+      "result": "PASS",
+      "detail": "rows=2"
+    },
+    {
+      "name": "T-17 OWNER1 system_config UPDATE → 42501",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17/T-20 OWNER1 owedbook_rows(A1) succeeds: total 50, 25 rows, +1 read_page",
+      "result": "PASS",
+      "detail": "audit +1"
+    },
+    {
+      "name": "T-20 OWNER1 owedbook_kpis +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 OWNER1 owedbook_summary +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 OWNER1 owedbook_pbm_options +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-18 OWNER1 owedbook_rows(B1) → 'not a member of business', +0 audit",
+      "result": "PASS",
+      "detail": "msg=not a member of business"
+    },
+    {
+      "name": "T-19 OWNER1 admin_stores(A1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 OWNER1 admin_members(A1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 OWNER1 admin_billing_status(A1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 OWNER1 admin_audit(A1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 OWNER1 admin_audit snapshot excludes its own new row",
+      "result": "PASS",
+      "detail": "max id 1056 ≤ snapshot 1056"
+    },
+    {
+      "name": "T-19 OWNER1 admin_audit rows scoped to permitted stores (A1), never A/C of others",
+      "result": "PASS",
+      "detail": "50 rows, 0 NULL-business rows"
+    },
+    {
+      "name": "T-17c OWNER3 tenant_stores = exactly B1,B2,B3",
+      "result": "FAIL",
+      "detail": "got 3 stores"
+    },
+    {
+      "name": "T-17a OWNER3 direct SELECT user_data → 42501 (not an empty set)",
+      "result": "PASS",
+      "detail": "code=42501 rows=undefined"
+    },
+    {
+      "name": "T-17a OWNER3 direct SELECT audit_logs → 42501",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17 control OWNER3 SELECT profiles allowed (probe distinguishes deny from empty)",
+      "result": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "T-17b OWNER3 INSERT/UPDATE/DELETE user_data → 42501 ×3, rows unchanged (service-side read after)",
+      "result": "PASS",
+      "detail": "codes 42501/42501/42501"
+    },
+    {
+      "name": "T-17b/AC-104 OWNER3 accounts/subscriptions UPDATE (safe + entitlement) / INSERT / DELETE → 42501, unchanged",
+      "result": "PASS",
+      "detail": "codes 42501/42501/42501/42501/42501"
+    },
+    {
+      "name": "T-17 observation OWNER3 INSERT audit_logs (privilege granted by default ACL) → denied by FORCE RLS 42501, no row",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17 OWNER3 system_config scoped read (0052) = 2 rows",
+      "result": "PASS",
+      "detail": "rows=2"
+    },
+    {
+      "name": "T-17 OWNER3 system_config UPDATE → 42501",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17/T-20 OWNER3 owedbook_rows(B1) succeeds: total 50, 25 rows, +1 read_page",
+      "result": "PASS",
+      "detail": "audit +1"
+    },
+    {
+      "name": "T-20 OWNER3 owedbook_kpis +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 OWNER3 owedbook_summary +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 OWNER3 owedbook_pbm_options +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-18 OWNER3 owedbook_rows(A1) → 'not a member of business', +0 audit",
+      "result": "PASS",
+      "detail": "msg=not a member of business"
+    },
+    {
+      "name": "T-19 OWNER3 admin_stores(B1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 OWNER3 admin_members(B1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 OWNER3 admin_billing_status(B1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 OWNER3 admin_audit(B1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 OWNER3 admin_audit snapshot excludes its own new row",
+      "result": "PASS",
+      "detail": "max id 1065 ≤ snapshot 1065"
+    },
+    {
+      "name": "T-19 OWNER3 admin_audit rows scoped to permitted stores (B1∪B2∪B3 ∪ account-B NULL-business rows), never A/C of others",
+      "result": "PASS",
+      "detail": "50 rows, 0 NULL-business rows"
+    },
+    {
+      "name": "T-17c ADMIN_B2 tenant_stores = exactly B2",
+      "result": "PASS",
+      "detail": "got 1 stores"
+    },
+    {
+      "name": "T-17a ADMIN_B2 direct SELECT user_data → 42501 (not an empty set)",
+      "result": "PASS",
+      "detail": "code=42501 rows=undefined"
+    },
+    {
+      "name": "T-17a ADMIN_B2 direct SELECT audit_logs → 42501",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17 control ADMIN_B2 SELECT profiles allowed (probe distinguishes deny from empty)",
+      "result": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "T-17b ADMIN_B2 INSERT/UPDATE/DELETE user_data → 42501 ×3, rows unchanged (service-side read after)",
+      "result": "PASS",
+      "detail": "codes 42501/42501/42501"
+    },
+    {
+      "name": "T-17b/AC-104 ADMIN_B2 accounts/subscriptions UPDATE (safe + entitlement) / INSERT / DELETE → 42501, unchanged",
+      "result": "PASS",
+      "detail": "codes 42501/42501/42501/42501/42501"
+    },
+    {
+      "name": "T-17 observation ADMIN_B2 INSERT audit_logs (privilege granted by default ACL) → denied by FORCE RLS 42501, no row",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17 ADMIN_B2 system_config scoped read (0052) = 2 rows",
+      "result": "PASS",
+      "detail": "rows=2"
+    },
+    {
+      "name": "T-17 ADMIN_B2 system_config UPDATE → 42501",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17/T-20 ADMIN_B2 owedbook_rows(B2) succeeds: total 50, 25 rows, +1 read_page",
+      "result": "PASS",
+      "detail": "audit +1"
+    },
+    {
+      "name": "T-20 ADMIN_B2 owedbook_kpis +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 ADMIN_B2 owedbook_summary +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 ADMIN_B2 owedbook_pbm_options +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-18 ADMIN_B2 owedbook_rows(A1) → 'not a member of business', +0 audit",
+      "result": "PASS",
+      "detail": "msg=not a member of business"
+    },
+    {
+      "name": "T-19 ADMIN_B2 admin_stores(B2) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 ADMIN_B2 admin_members(B2) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 ADMIN_B2 admin_billing_status(B2) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 ADMIN_B2 admin_audit(B2) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 ADMIN_B2 admin_audit snapshot excludes its own new row",
+      "result": "PASS",
+      "detail": "max id 1074 ≤ snapshot 1074"
+    },
+    {
+      "name": "T-19 ADMIN_B2 admin_audit rows scoped to permitted stores (B2), never A/C of others",
+      "result": "PASS",
+      "detail": "50 rows, 0 NULL-business rows"
+    },
+    {
+      "name": "T-17c ADMIN_B3 tenant_stores = exactly B3",
+      "result": "PASS",
+      "detail": "got 1 stores"
+    },
+    {
+      "name": "T-17a ADMIN_B3 direct SELECT user_data → 42501 (not an empty set)",
+      "result": "PASS",
+      "detail": "code=42501 rows=undefined"
+    },
+    {
+      "name": "T-17a ADMIN_B3 direct SELECT audit_logs → 42501",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17 control ADMIN_B3 SELECT profiles allowed (probe distinguishes deny from empty)",
+      "result": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "T-17b ADMIN_B3 INSERT/UPDATE/DELETE user_data → 42501 ×3, rows unchanged (service-side read after)",
+      "result": "PASS",
+      "detail": "codes 42501/42501/42501"
+    },
+    {
+      "name": "T-17b/AC-104 ADMIN_B3 accounts/subscriptions UPDATE (safe + entitlement) / INSERT / DELETE → 42501, unchanged",
+      "result": "PASS",
+      "detail": "codes 42501/42501/42501/42501/42501"
+    },
+    {
+      "name": "T-17 observation ADMIN_B3 INSERT audit_logs (privilege granted by default ACL) → denied by FORCE RLS 42501, no row",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17 ADMIN_B3 system_config scoped read (0052) = 2 rows",
+      "result": "PASS",
+      "detail": "rows=2"
+    },
+    {
+      "name": "T-17 ADMIN_B3 system_config UPDATE → 42501",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17/T-20 ADMIN_B3 owedbook_rows(B3) succeeds: total 50, 25 rows, +1 read_page",
+      "result": "PASS",
+      "detail": "audit +1"
+    },
+    {
+      "name": "T-20 ADMIN_B3 owedbook_kpis +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 ADMIN_B3 owedbook_summary +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 ADMIN_B3 owedbook_pbm_options +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-18 ADMIN_B3 owedbook_rows(A1) → 'not a member of business', +0 audit",
+      "result": "PASS",
+      "detail": "msg=not a member of business"
+    },
+    {
+      "name": "T-19 ADMIN_B3 admin_stores(B3) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 ADMIN_B3 admin_members(B3) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 ADMIN_B3 admin_billing_status(B3) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 ADMIN_B3 admin_audit(B3) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 ADMIN_B3 admin_audit snapshot excludes its own new row",
+      "result": "PASS",
+      "detail": "max id 1083 ≤ snapshot 1083"
+    },
+    {
+      "name": "T-19 ADMIN_B3 admin_audit rows scoped to permitted stores (B3), never A/C of others",
+      "result": "PASS",
+      "detail": "50 rows, 0 NULL-business rows"
+    },
+    {
+      "name": "T-17c MEMBER_B1 tenant_stores = exactly B1",
+      "result": "PASS",
+      "detail": "got 1 stores"
+    },
+    {
+      "name": "T-17a MEMBER_B1 direct SELECT user_data → 42501 (not an empty set)",
+      "result": "PASS",
+      "detail": "code=42501 rows=undefined"
+    },
+    {
+      "name": "T-17a MEMBER_B1 direct SELECT audit_logs → 42501",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17 control MEMBER_B1 SELECT profiles allowed (probe distinguishes deny from empty)",
+      "result": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "T-17b MEMBER_B1 INSERT/UPDATE/DELETE user_data → 42501 ×3, rows unchanged (service-side read after)",
+      "result": "PASS",
+      "detail": "codes 42501/42501/42501"
+    },
+    {
+      "name": "T-17b/AC-104 MEMBER_B1 accounts/subscriptions UPDATE (safe + entitlement) / INSERT / DELETE → 42501, unchanged",
+      "result": "PASS",
+      "detail": "codes 42501/42501/42501/42501/42501"
+    },
+    {
+      "name": "T-17 observation MEMBER_B1 INSERT audit_logs (privilege granted by default ACL) → denied by FORCE RLS 42501, no row",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17 MEMBER_B1 system_config scoped read (0052) = 2 rows",
+      "result": "PASS",
+      "detail": "rows=2"
+    },
+    {
+      "name": "T-17 MEMBER_B1 system_config UPDATE → 42501",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17/T-20 MEMBER_B1 owedbook_rows(B1) succeeds: total 50, 25 rows, +1 read_page",
+      "result": "PASS",
+      "detail": "audit +1"
+    },
+    {
+      "name": "T-20 MEMBER_B1 owedbook_kpis +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 MEMBER_B1 owedbook_summary +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 MEMBER_B1 owedbook_pbm_options +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-18 MEMBER_B1 owedbook_rows(A1) → 'not a member of business', +0 audit",
+      "result": "PASS",
+      "detail": "msg=not a member of business"
+    },
+    {
+      "name": "T-19 MEMBER_B1 admin_stores(B1) denied 42501 +0",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-19 MEMBER_B1 admin_members(B1) denied 42501 +0",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-19 MEMBER_B1 admin_billing_status(B1) denied 42501 +0",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-19 MEMBER_B1 admin_audit(B1) denied 42501 +0",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17c MEMBER_B2B3 tenant_stores = exactly B2,B3",
+      "result": "PASS",
+      "detail": "got 2 stores"
+    },
+    {
+      "name": "T-17a MEMBER_B2B3 direct SELECT user_data → 42501 (not an empty set)",
+      "result": "PASS",
+      "detail": "code=42501 rows=undefined"
+    },
+    {
+      "name": "T-17a MEMBER_B2B3 direct SELECT audit_logs → 42501",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17 control MEMBER_B2B3 SELECT profiles allowed (probe distinguishes deny from empty)",
+      "result": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "T-17b MEMBER_B2B3 INSERT/UPDATE/DELETE user_data → 42501 ×3, rows unchanged (service-side read after)",
+      "result": "PASS",
+      "detail": "codes 42501/42501/42501"
+    },
+    {
+      "name": "T-17b/AC-104 MEMBER_B2B3 accounts/subscriptions UPDATE (safe + entitlement) / INSERT / DELETE → 42501, unchanged",
+      "result": "PASS",
+      "detail": "codes 42501/42501/42501/42501/42501"
+    },
+    {
+      "name": "T-17 observation MEMBER_B2B3 INSERT audit_logs (privilege granted by default ACL) → denied by FORCE RLS 42501, no row",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17 MEMBER_B2B3 system_config scoped read (0052) = 2 rows",
+      "result": "PASS",
+      "detail": "rows=2"
+    },
+    {
+      "name": "T-17 MEMBER_B2B3 system_config UPDATE → 42501",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17/T-20 MEMBER_B2B3 owedbook_rows(B2) succeeds: total 50, 25 rows, +1 read_page",
+      "result": "PASS",
+      "detail": "audit +1"
+    },
+    {
+      "name": "T-20 MEMBER_B2B3 owedbook_kpis +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 MEMBER_B2B3 owedbook_summary +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 MEMBER_B2B3 owedbook_pbm_options +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-18 MEMBER_B2B3 owedbook_rows(A1) → 'not a member of business', +0 audit",
+      "result": "PASS",
+      "detail": "msg=not a member of business"
+    },
+    {
+      "name": "T-19 MEMBER_B2B3 admin_stores(B2) denied 42501 +0",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-19 MEMBER_B2B3 admin_members(B2) denied 42501 +0",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-19 MEMBER_B2B3 admin_billing_status(B2) denied 42501 +0",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-19 MEMBER_B2B3 admin_audit(B2) denied 42501 +0",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17c UNRELATED tenant_stores = exactly C1",
+      "result": "PASS",
+      "detail": "got 1 stores"
+    },
+    {
+      "name": "T-17a UNRELATED direct SELECT user_data → 42501 (not an empty set)",
+      "result": "PASS",
+      "detail": "code=42501 rows=undefined"
+    },
+    {
+      "name": "T-17a UNRELATED direct SELECT audit_logs → 42501",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17 control UNRELATED SELECT profiles allowed (probe distinguishes deny from empty)",
+      "result": "PASS",
+      "detail": "rows=1"
+    },
+    {
+      "name": "T-17b UNRELATED INSERT/UPDATE/DELETE user_data → 42501 ×3, rows unchanged (service-side read after)",
+      "result": "PASS",
+      "detail": "codes 42501/42501/42501"
+    },
+    {
+      "name": "T-17b/AC-104 UNRELATED accounts/subscriptions UPDATE (safe + entitlement) / INSERT / DELETE → 42501, unchanged",
+      "result": "PASS",
+      "detail": "codes 42501/42501/42501/42501/42501"
+    },
+    {
+      "name": "T-17 observation UNRELATED INSERT audit_logs (privilege granted by default ACL) → denied by FORCE RLS 42501, no row",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17 UNRELATED system_config scoped read (0052) = 2 rows",
+      "result": "PASS",
+      "detail": "rows=2"
+    },
+    {
+      "name": "T-17 UNRELATED system_config UPDATE → 42501",
+      "result": "PASS",
+      "detail": "code=42501"
+    },
+    {
+      "name": "T-17/T-20 UNRELATED owedbook_rows(C1) succeeds: total 50, 25 rows, +1 read_page",
+      "result": "PASS",
+      "detail": "audit +1"
+    },
+    {
+      "name": "T-20 UNRELATED owedbook_kpis +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 UNRELATED owedbook_summary +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 UNRELATED owedbook_pbm_options +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-18 UNRELATED owedbook_rows(A1) → 'not a member of business', +0 audit",
+      "result": "PASS",
+      "detail": "msg=not a member of business"
+    },
+    {
+      "name": "T-19 UNRELATED admin_stores(C1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 UNRELATED admin_members(C1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 UNRELATED admin_billing_status(C1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 UNRELATED admin_audit(C1) allowed +1",
+      "result": "PASS",
+      "detail": "ok"
+    },
+    {
+      "name": "T-19 UNRELATED admin_audit snapshot excludes its own new row",
+      "result": "PASS",
+      "detail": "max id 1102 ≤ snapshot 1102"
+    },
+    {
+      "name": "T-19 UNRELATED admin_audit rows scoped to permitted stores (C1), never A/C of others",
+      "result": "PASS",
+      "detail": "50 rows, 0 NULL-business rows"
+    },
+    {
+      "name": "T-18 OWNER3 has no junction row for B2/B3 (reach by ownership alone)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-18 OWNER3 → owedbook_rows(B2) succeeds without junction, +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-18 OWNER3 → owedbook_rows(B3) succeeds without junction, +1",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-18 OWNER3 → owedbook_rows(A1) refused 'not a member of business', +0",
+      "result": "PASS",
+      "detail": "not a member of business"
+    },
+    {
+      "name": "T-18 OWNER3 → owedbook_rows(C1) refused 'not a member of business', +0",
+      "result": "PASS",
+      "detail": "not a member of business"
+    },
+    {
+      "name": "T-19 OWNER3 admin_members(B2) ok +1 (owner without junction)",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-18 UNRELATED → A1 refused, +0",
+      "result": "PASS",
+      "detail": "not a member of business"
+    },
+    {
+      "name": "T-18 UNRELATED → B1 refused, +0",
+      "result": "PASS",
+      "detail": "not a member of business"
+    },
+    {
+      "name": "T-18 OWNER1 → B1 refused, +0",
+      "result": "PASS",
+      "detail": "not a member of business"
+    },
+    {
+      "name": "T-18 MEMBER_B2B3 → B1 refused, +0",
+      "result": "PASS",
+      "detail": "not a member of business"
+    },
+    {
+      "name": "T-19 ADMIN_B2 admin_members(B3) → 42501, +0",
+      "result": "PASS",
+      "detail": "42501"
+    },
+    {
+      "name": "T-19 UNRELATED admin_audit(B1) → 42501",
+      "result": "PASS",
+      "detail": "42501"
+    },
+    {
+      "name": "T-19 ADMIN_B2 admin_audit returns only business_id=B2 rows (no NULL-business account rows)",
+      "result": "PASS",
+      "detail": "100 rows"
+    },
+    {
+      "name": "T-19 tenant_stores adds 0 audit rows",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 lost-response retry (same call twice) → 2 committed read_page rows",
+      "result": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "T-20 rejected call (invalid limit 22023) → 0 rows",
+      "result": "PASS",
+      "detail": "22023"
+    },
+    {
+      "name": "T-17 anon tenant_stores refused",
+      "result": "PASS",
+      "detail": "42501"
+    },
+    {
+      "name": "T-17 anon owedbook_kpis refused",
+      "result": "PASS",
+      "detail": "42501"
+    },
+    {
+      "name": "T-17 anon owedbook_rows refused",
+      "result": "PASS",
+      "detail": "42501"
+    },
+    {
+      "name": "T-17 anon admin_stores refused",
+      "result": "PASS",
+      "detail": "42501"
+    },
+    {
+      "name": "T-17 anon admin_audit refused",
+      "result": "PASS",
+      "detail": "42501"
+    },
+    {
+      "name": "OBSERVATION authenticated role TRUNCATE public.user_data (SQL-level, inside a rolled-back transaction)",
+      "result": "FAIL",
+      "detail": "result=TRUNCATE EXECUTED (privilege effective; RLS does not govern TRUNCATE); rows after rollback=250"
+    },
+    {
+      "name": "OBSERVATION authenticated role TRUNCATE public.audit_logs → blocked by BEFORE TRUNCATE guard (P0001)",
+      "result": "PASS",
+      "detail": "result=P0001"
+    }
+  ]
+}

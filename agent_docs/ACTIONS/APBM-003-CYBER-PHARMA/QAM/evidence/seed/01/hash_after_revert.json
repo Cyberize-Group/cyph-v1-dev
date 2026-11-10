@@ -1,0 +1,27 @@
+{
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "qaCanonicalSHA256": "fec090d2cd0d2040e22a1da1dda695e3fc2ec54cb8013a5aacc7e3b424d9c236",
+  "counts": {
+    "accounts": 3,
+    "businesses": 5,
+    "user_businesses": 8,
+    "subscriptions": 3,
+    "reference_dataset_versions": 4,
+    "aac_reference": 2,
+    "wac_reference": 4,
+    "ful_reference": 1,
+    "pbm_info": 3,
+    "system_config": 2,
+    "user_data": 250,
+    "profiles": 7,
+    "user_roles": 7
+  },
+  "excluded": [
+    "id",
+    "created_at",
+    "updated_at",
+    "joined_at"
+  ],
+  "authUuidMapping": "profile email",
+  "at": "2026-11-09T03:51:48.623Z"
+}

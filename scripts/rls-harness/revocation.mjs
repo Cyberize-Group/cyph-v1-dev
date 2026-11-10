@@ -9,12 +9,13 @@
 // detail. ONE session, signed in ONCE, never refreshed, queried across the
 // revocation.
 import { readFileSync, writeFileSync } from "node:fs";
-import { join } from "node:path";
-import { loadEnv, harnessRoot, repoRoot, CAST_PASSWORD } from "./lib/env.mjs";
+import { evidencePath, assertScratch, loadEnv, CAST_PASSWORD } from "./lib/env.mjs";
 import { anonClient, serviceClient } from "./lib/db.mjs";
 
 const env = loadEnv();
-const m = JSON.parse(readFileSync(join(harnessRoot, "seed-map.json"), "utf8"));
+assertScratch(env);
+if (!CAST_PASSWORD) throw new Error("APBM_CAST_PASSWORD required for synthetic SCRATCH cast");
+const m = JSON.parse(readFileSync(evidencePath("seed-map.json"), "utf8"));
 const svc = serviceClient(env);
 const lines = [];
 const log = (s) => { lines.push(s); console.log(s); };
@@ -30,10 +31,10 @@ const { data: signIn, error } = await c.auth.signInWithPassword({ email: who.ema
 if (error) { console.error(`FAIL-CLOSED: sign-in multiStore: ${error.message}`); process.exit(1); }
 if (signIn?.user?.id !== m.users.multiStore) { console.error("FAIL-CLOSED: identity mismatch"); process.exit(1); }
 const tokenBefore = signIn.session.access_token;
-log(`  signed in as multiStore once; access token captured (fingerprint ${tokenBefore.slice(-12)})`);
+log("  signed in as multiStore once; token compared only in memory");
 
 // ── step 1: baseline visibility across both stores ──
-const rowsOf = async (biz) => (await c.from("user_data").select("*", { count: "exact", head: true }).eq("business_id", biz)).count;
+const rowsOf = async (biz) => { const r=await c.rpc("owedbook_kpis",{p_business_id:biz}); if(r.error){if(r.error.message === "not a member of business")return 0;throw new Error(`unexpected wrapper failure ${r.error.code}`);}return Number(r.data[0].commercial_scripts); };
 const a1Before = await rowsOf(m.businesses.a1);
 const b1Before = await rowsOf(m.businesses.b1);
 const storesBefore = (await c.from("businesses").select("pharmacy_name").order("pharmacy_name")).data.map((b) => b.pharmacy_name);
@@ -71,5 +72,5 @@ await c.auth.signOut();
 
 log(`\n[revocation] ${failures === 0 ? "R-C PROVEN — revocation and re-grant both take effect immediately, with no token refresh" : `${failures} FAILURE(S)`}`);
 const ts = new Date().toISOString().replace(/[:.]/g, "").slice(0, 15);
-writeFileSync(join(repoRoot, "agent_docs/ACTIONS/BIM-002-CYBER-PHARMA/evidence", `X4_revocation_${ts}.log`), lines.join("\n") + "\n");
+writeFileSync(evidencePath(`X4_revocation_${ts}.log`), lines.join("\n") + "\n");
 process.exit(failures === 0 ? 0 : 3);

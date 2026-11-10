@@ -1,0 +1,2 @@
+{"projectRef":"ihgcsrypblqkwommrkgj","readOnly":"on","catalogSHA256":"66782ff92213415443d428ade161b165e04a5aba29999453cb0ab34a7160d061","tables":17,"policies":15,"functions":19}
+Bounded authenticated reads PASS: 154 checks

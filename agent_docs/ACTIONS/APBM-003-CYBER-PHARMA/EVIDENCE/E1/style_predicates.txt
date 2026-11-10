@@ -1,0 +1,5 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+COMMAND: ["rg", "-n", "(slate|zinc|gray|red|green|blue|purple|amber)-[0-9]+", "src/components", "src/app"]
+EXIT: 0
+src/app/globals.css:10: * text-destructive, bg-card) — NEVER numbered colors (bg-slate-800).
+

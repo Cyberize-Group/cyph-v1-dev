@@ -1,0 +1,7 @@
+PASS §3 mock mode: login lands on /owedbook 
+PASS §3 mock mode: "Synthetic demo data" replaces the store picker (unchanged) 
+PASS §3 mock mode: fixture rows render (A1, Total 50) 25 rows
+PASS §3 mock mode: /admin-portal follows the mock gate (platform role member → /owedbook) — unchanged /owedbook
+PASS §3 mock mode: 0 read_page rows for OWNER3 since the phase started (no owedbook_* RPC reached DEV) []
+PASS §3 mock mode: HAR shows 0 /rest/* calls to Dev v1 rest calls=0
+summary mockmode: 6 PASS / 0 FAIL; unexpected backend requests 0

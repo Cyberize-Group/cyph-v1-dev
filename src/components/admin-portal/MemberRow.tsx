@@ -1,4 +1,5 @@
 "use client";
+import { isDemoMode } from "@/services/tenantScope";
 
 import { useState } from "react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -59,12 +60,13 @@ const MemberRow = ({ member, onChanged }: MemberRowProps) => {
       <div className="flex items-center justify-between gap-3 md:justify-end">
         <StatusPill tone={pill.tone}>{pill.label}</StatusPill>
         <div className="flex gap-2">
+          {!isDemoMode() && <p className="text-xs text-muted-foreground">Member actions are not available in this release.</p>}
           {member.accountStatus === "active" && (
             <>
               <Button
                 variant="secondary"
                 size="sm"
-                disabled={busy}
+                disabled={busy || !isDemoMode()}
                 onClick={() => run(() => storeMemberService.sendRecovery(member.memberId))}
               >
                 Send recovery
@@ -72,7 +74,7 @@ const MemberRow = ({ member, onChanged }: MemberRowProps) => {
               <Button
                 variant="secondary"
                 size="sm"
-                disabled={busy}
+                disabled={busy || !isDemoMode()}
                 onClick={() => run(() => storeMemberService.suspendMember(member.memberId))}
               >
                 Suspend
@@ -83,7 +85,7 @@ const MemberRow = ({ member, onChanged }: MemberRowProps) => {
             <Button
               variant="secondary"
               size="sm"
-              disabled={busy}
+              disabled={busy || !isDemoMode()}
               onClick={() => run(() => storeMemberService.resendInvite(member.memberId))}
             >
               Resend invite
@@ -93,7 +95,7 @@ const MemberRow = ({ member, onChanged }: MemberRowProps) => {
             <Button
               variant="secondary"
               size="sm"
-              disabled={busy}
+              disabled={busy || !isDemoMode()}
               onClick={() => run(() => storeMemberService.unsuspendMember(member.memberId))}
             >
               Un-suspend

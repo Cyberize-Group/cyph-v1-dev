@@ -1,0 +1,18 @@
+[
+  {
+    "endpoint": "/rest/v1/",
+    "method": "GET",
+    "keyName": "RLS_REPLICA_PUBLISHABLE_KEY",
+    "authorizationHeader": false,
+    "status": 401,
+    "error": "{\"message\":\"Secret API key required\",\"hint\":\"Only secret API keys can be used for this endpoint.\"}"
+  },
+  {
+    "endpoint": "/auth/v1/health",
+    "method": "GET",
+    "keyName": "RLS_REPLICA_PUBLISHABLE_KEY",
+    "authorizationHeader": false,
+    "status": 200,
+    "error": null
+  }
+]

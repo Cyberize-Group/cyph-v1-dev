@@ -1,0 +1,687 @@
+Local read-only source capture; CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+
+FILE: src/services/owedbook.ts
+1: import type {
+2:   OwedBookFilters,
+3:   OwedBookKpis,
+4:   OwedBookPage,
+5:   OwedBookRow,
+6:   OwedBookSummaryRow,
+7:   OwedTab,
+8: } from "@/types/OwedBook";
+9: import { owedBookFixtures } from "@/mocks/owedbook";
+10: 
+11: export interface OwedBookService {
+12:   /**
+13:    * KPI tile values for the current filter set.
+14:    * BACKEND_SWAP_NOTES (Phase 3): mock aggregates fixtures; real impl aggregates
+15:    * user_data joined with reference tables, scoped by RLS to the caller's business_id(s).
+16:    */
+17:   getKpis(filters: OwedBookFilters): Promise<OwedBookKpis>;
+18: 
+19:   /**
+20:    * Paginated ledger rows for a given tab + filter set.
+21:    * BACKEND_SWAP_NOTES (Phase 3): mock filters/paginates fixtures in-memory;
+22:    * real impl queries user_data with WHERE/ORDER/LIMIT, RLS-scoped.
+23:    */
+24:   getRows(tab: OwedTab, filters: OwedBookFilters, page: number): Promise<OwedBookPage>;
+25: 
+26:   /**
+27:    * Summary-tab aggregate (PBM -> commercial/federal dollars).
+28:    * BACKEND_SWAP_NOTES (Phase 3): mock aggregates fixtures; real impl GROUP BY pbm.
+29:    */
+30:   getSummary(filters: OwedBookFilters): Promise<OwedBookSummaryRow[]>;
+31: 
+32:   /**
+33:    * Distinct PBM names for the MultiSelect filter.
+34:    * BACKEND_SWAP_NOTES (Phase 3): mock returns the fixture PBM list; real impl
+35:    * SELECT DISTINCT pbm FROM user_data (RLS-scoped).
+36:    */
+37:   getPbmOptions(): Promise<string[]>;
+38: 
+39:   /**
+40:    * Upload a claims file. UI-FUNCTIONAL MOCK (Phase 2): fakes success after a
+41:    * short delay — it does NOT read, parse, send, or store the file. Explicit
+42:    * boundary: real CSV/XLSX ingest is Phase 5. BACKEND_SWAP_NOTES (Phase 5):
+43:    * stream `file` to the ingest endpoint here; the signature does not change.
+44:    */
+45:   uploadData(file: File): Promise<void>;
+46: 
+47:   /**
+48:    * Re-pull the latest claims/reference data. UI-FUNCTIONAL MOCK (Phase 2):
+49:    * fakes success after a short delay — no real fetch/ingest. BACKEND_SWAP_NOTES
+50:    * (Phase 5): pull fresh data here; the signature does not change.
+51:    */
+52:   refreshData(): Promise<void>;
+53: }
+54: 
+55: const DEFAULT_LIMIT = 25;
+56: const round2 = (n: number) => +n.toFixed(2);
+57: 
+58: // Date range + PBM multiselect + the generic status "Filter" dropdown, applied
+59: // in the service (NOT the component). Real impl pushes these into the SQL WHERE.
+60: const applyFilters = (rows: OwedBookRow[], f: OwedBookFilters): OwedBookRow[] =>
+61:   rows.filter((r) => {
+62:     if (f.from && r.date < f.from) return false;
+63:     if (f.to && r.date > f.to) return false;
+64:     if (f.pbms.length > 0 && (!r.pbm || !f.pbms.includes(r.pbm))) return false;
+65:     if (f.filter && r.status !== f.filter) return false;
+66:     return true;
+67:   });
+68: 
+69: export const owedBookService: OwedBookService = {
+70:   async getKpis(filters) {
+71:     const rows = applyFilters(owedBookFixtures, filters);
+72:     const underpaid = round2(
+73:       rows.filter((r) => r.owed > 0).reduce((s, r) => s + r.owed, 0)
+74:     );
+75:     return {
+76:       commercial_underpaid: underpaid,
+77:       commercial_scripts: rows.length,
+78:       updated_difference: round2(
+79:         rows.reduce((s, r) => s + (r.updated_difference ?? 0), 0)
+80:       ),
+81:       owed: underpaid,
+82:     };
+83:   },
+84: 
+85:   async getRows(tab, filters, page) {
+86:     let rows = applyFilters(owedBookFixtures, filters);
+87:     // Per-tab dataset (UI_SPEC §5.3). Commercial = all; Updated = engineered
+88:     // new-paid subset; Federal = rows that carry real federal data.
+89:     if (tab === "updated_commercial_payments") {
+90:       rows = rows.filter((r) => r.new_paid !== null);
+91:     } else if (tab === "federal_dollars") {
+92:       rows = rows.filter((r) => r.federal_expected !== null);
+93:     }
+94: 
+95:     const total = rows.length;
+96:     const pageCount = Math.max(1, Math.ceil(total / DEFAULT_LIMIT));
+97:     const safePage = Math.min(Math.max(1, page), pageCount);
+98:     const start = (safePage - 1) * DEFAULT_LIMIT;
+99: 
+100:     return {
+101:       rows: rows.slice(start, start + DEFAULT_LIMIT),
+102:       page: safePage,
+103:       pageCount,
+104:       limit: DEFAULT_LIMIT,
+105:       total,
+106:     };
+107:   },
+108: 
+109:   async getSummary(filters) {
+110:     const rows = applyFilters(owedBookFixtures, filters);
+111:     const byPbm = new Map<string, OwedBookSummaryRow>();
+112:     for (const r of rows) {
+113:       if (!r.pbm) continue;
+114:       const entry =
+115:         byPbm.get(r.pbm) ?? { pbm: r.pbm, commercial_dollars: 0, federal_dollars: 0 };
+116:       entry.commercial_dollars += r.owed > 0 ? r.owed : 0;
+117:       entry.federal_dollars += r.federal_diff && r.federal_diff > 0 ? r.federal_diff : 0;
+118:       byPbm.set(r.pbm, entry);
+119:     }
+120:     return Array.from(byPbm.values())
+121:       .map((e) => ({
+122:         ...e,
+123:         commercial_dollars: round2(e.commercial_dollars),
+124:         federal_dollars: round2(e.federal_dollars),
+125:       }))
+126:       .sort((a, b) => b.commercial_dollars - a.commercial_dollars);
+127:   },
+128: 
+129:   async getPbmOptions() {
+130:     return Array.from(
+131:       new Set(owedBookFixtures.map((r) => r.pbm).filter((p): p is string => Boolean(p)))
+132:     ).sort();
+133:   },
+134: 
+135:   // UI-functional mock — the file is intentionally NEVER read/parsed/sent/stored.
+136:   async uploadData(_file: File): Promise<void> {
+137:     await new Promise((resolve) => setTimeout(resolve, 600));
+138:   },
+139: 
+140:   // UI-functional mock — no real re-pull happens.
+141:   async refreshData(): Promise<void> {
+142:     await new Promise((resolve) => setTimeout(resolve, 600));
+143:   },
+144: };
+
+FILE: src/services/adminDemo.ts
+1: import { useAdminDemoStore } from "@/store/useAdminDemoStore";
+2: import type {
+3:   ActionResult,
+4:   AuditEntry,
+5:   BillingLine,
+6:   CurrentOwner,
+7:   MemberRole,
+8:   OwnedStore,
+9:   PharmacySettings,
+10:   StoreMember,
+11: } from "@/types/adminDemo";
+12: 
+13: // ─────────────────────────────────────────────────────────────────────────────
+14: // Admin Portal Demo Shell — service layer (the SOLE Phase-7 swap point).
+15: //
+16: // Components call ONLY these services — never the Zustand store, never /mocks.
+17: // In the demo, bodies read/mutate the in-memory store via its vanilla getState()
+18: // API (the same pattern Navbar uses for useAuthStore.getState()). At Phase 7 the
+19: // bodies become Supabase + RLS + Stripe; these signatures stay FROZEN.
+20: //
+21: // HARD INVARIANTS held here in code (and asserted in the tests):
+22: //   • inviteMember takes { email, role, jobTitle? } only — NEVER a password.
+23: //   • managePayment / cancelSubscription never charge — mock result only.
+24: //   • Everything owner-scoped — no method takes an ownerId or crosses tenants.
+25: //   • Every STATE-MUTATING action appends an AuditEntry. (Billing actions are
+26: //     visual-only and the AuditAction vocab has no billing verb → they append
+27: //     nothing — deliberate, see BillingService.)
+28: // ─────────────────────────────────────────────────────────────────────────────
+29: 
+30: // Vanilla store access (non-React call sites).
+31: const store = () => useAdminDemoStore.getState();
+32: 
+33: // Demo-local id generators. Uniqueness only — not stable across reloads.
+34: let memberSeq = 0;
+35: let storeSeq = 0;
+36: let auditSeq = 0;
+37: const nextMemberId = () => `member-gen-${(memberSeq += 1)}`;
+38: const nextStoreId = () => `store-gen-${(storeSeq += 1)}`;
+39: const nextAuditId = () => `audit-gen-${(auditSeq += 1)}`;
+40: 
+41: // Avatar initials from a display name (falls back to the email's first letter).
+42: const initialsFrom = (nameOrEmail: string): string => {
+43:   const parts = nameOrEmail.trim().split(/\s+/).filter(Boolean);
+44:   if (parts.length >= 2) return (parts[0][0] + parts[1][0]).toUpperCase();
+45:   return (parts[0]?.[0] ?? nameOrEmail[0] ?? "?").toUpperCase();
+46: };
+47: 
+48: // Human label for an audit row given a member.
+49: const memberLabel = (m: StoreMember | undefined, fallback: string): string =>
+50:   m ? m.name || m.email : fallback;
+51: 
+52: // ── §4. Service contracts ────────────────────────────────────────────────────
+53: 
+54: export interface OwnerStoresService {
+55:   getOwner(): Promise<CurrentOwner>;
+56:   listMyStores(params?: { search?: string }): Promise<OwnedStore[]>;
+57:   getStore(storeId: string): Promise<OwnedStore>;
+58:   addStore(): Promise<OwnedStore>;
+59: }
+60: 
+61: export interface StoreMemberService {
+62:   listMembers(storeId: string, params?: { search?: string }): Promise<StoreMember[]>;
+63:   listPendingInvites(storeId: string): Promise<StoreMember[]>;
+64:   // INVITE ONLY — the input type has no password key, by design (the one hard rule).
+65:   inviteMember(input: {
+66:     storeId: string;
+67:     email: string;
+68:     role: MemberRole;
+69:     jobTitle?: string;
+70:   }): Promise<ActionResult>;
+71:   resendInvite(memberId: string): Promise<ActionResult>;
+72:   suspendMember(memberId: string): Promise<ActionResult>;
+73:   unsuspendMember(memberId: string): Promise<ActionResult>;
+74:   sendRecovery(memberId: string): Promise<ActionResult>;
+75: }
+76: 
+77: export interface BillingService {
+78:   listBilling(): Promise<BillingLine[]>;
+79:   // VISUAL ONLY — no checkout, no charge, no state change.
+80:   managePayment(storeId: string): Promise<ActionResult>;
+81:   cancelSubscription(storeId: string): Promise<ActionResult>;
+82: }
+83: 
+84: export interface SettingsService {
+85:   getSettings(storeId: string): Promise<PharmacySettings>;
+86:   saveSettings(settings: PharmacySettings): Promise<ActionResult>;
+87: }
+88: 
+89: export interface AuditService {
+90:   listAudit(): Promise<AuditEntry[]>;
+91:   append(entry: Omit<AuditEntry, "id" | "occurredAt">): Promise<AuditEntry>;
+92: }
+93: 
+94: // ── Audit (internal-ish: other services call append after a mutation) ─────────
+95: 
+96: export const auditService: AuditService = {
+97:   /**
+98:    * The owner's own action ledger (newest first).
+99:    * BACKEND_SWAP_NOTES (Phase 7): SELECT FROM audit_log WHERE owner = me, RLS-scoped.
+100:    */
+101:   async listAudit() {
+102:     return store().audit;
+103:   },
+104: 
+105:   /**
+106:    * Stamp an id + occurredAt and record the entry. Called by the other services
+107:    * after every state mutation — not by components.
+108:    * BACKEND_SWAP_NOTES (Phase 7): INSERT INTO audit_log; the server stamps id/time.
+109:    */
+110:   async append(entry) {
+111:     const full: AuditEntry = {
+112:       ...entry,
+113:       id: nextAuditId(),
+114:       occurredAt: new Date().toISOString(),
+115:     };
+116:     store().appendAudit(full);
+117:     return full;
+118:   },
+119: };
+120: 
+121: // ── Owner + stores ────────────────────────────────────────────────────────────
+122: 
+123: export const ownerStoresService: OwnerStoresService = {
+124:   /**
+125:    * The single logged-in owner. Owner-scoped: there is no ownerId parameter.
+126:    * BACKEND_SWAP_NOTES (Phase 7): derive from the authed session, not a param.
+127:    */
+128:   async getOwner() {
+129:     return store().owner;
+130:   },
+131: 
+132:   /**
+133:    * The owner's own stores ("my stores"). No cross-tenant listing exists.
+134:    * BACKEND_SWAP_NOTES (Phase 7): SELECT my stores, RLS-scoped; search → SQL ILIKE.
+135:    */
+136:   async listMyStores(params) {
+137:     const q = params?.search?.trim().toLowerCase();
+138:     const stores = store().stores;
+139:     if (!q) return stores;
+140:     return stores.filter((s) => s.name.toLowerCase().includes(q));
+141:   },
+142: 
+143:   /**
+144:    * One owned store by id. Fails loud if it isn't the owner's (no silent null).
+145:    * BACKEND_SWAP_NOTES (Phase 7): SELECT … WHERE id = $1, RLS-scoped.
+146:    */
+147:   async getStore(storeId) {
+148:     const found = store().stores.find((s) => s.storeId === storeId);
+149:     if (!found) throw new Error(`Store not found: ${storeId}`);
+150:     return found;
+151:   },
+152: 
+153:   /**
+154:    * MOCK: drops a fresh store card so the demo feels alive. NO Stripe, NO charge.
+155:    * BACKEND_SWAP_NOTES (Phase 7): real add-store + Stripe checkout (payment-creates-account).
+156:    * The demo's harvest form proposes these new-store fields — name / NCPDP / NPI /
+157:    * address — to elicit the real requirement from the domain expert; this signature stays no-arg
+158:    * until that contract is locked, so those typed values are not yet persisted.
+159:    */
+160:   async addStore() {
+161:     const newStore: OwnedStore = {
+162:       storeId: nextStoreId(),
+163:       name: "New Pharmacy",
+164:       ncpdp: "0000000",
+165:       npi: "0000000000",
+166:       status: "active",
+167:       subscriptionStatus: "active",
+168:       memberCount: 0,
+169:     };
+170:     store().addStore(newStore);
+171:     await auditService.append({
+172:       action: "added_store",
+173:       target: newStore.name,
+174:       result: "done",
+175:     });
+176:     return newStore;
+177:   },
+178: };
+179: 
+180: // ── Members (invite-only) ─────────────────────────────────────────────────────
+181: 
+182: export const storeMemberService: StoreMemberService = {
+183:   /**
+184:    * Roster for one store, optionally filtered by a name/email search.
+185:    * BACKEND_SWAP_NOTES (Phase 7): SELECT members WHERE store = $1, RLS-scoped.
+186:    */
+187:   async listMembers(storeId, params) {
+188:     const q = params?.search?.trim().toLowerCase();
+189:     const rows = store().members.filter((m) => m.storeId === storeId);
+190:     if (!q) return rows;
+191:     return rows.filter(
+192:       (m) =>
+193:         m.name.toLowerCase().includes(q) || m.email.toLowerCase().includes(q)
+194:     );
+195:   },
+196: 
+197:   /**
+198:    * The store's outstanding invites (accountStatus === 'invite_pending').
+199:    * BACKEND_SWAP_NOTES (Phase 7): SELECT … WHERE status = 'invite_pending'.
+200:    */
+201:   async listPendingInvites(storeId) {
+202:     return store().members.filter(
+203:       (m) => m.storeId === storeId && m.accountStatus === "invite_pending"
+204:     );
+205:   },
+206: 
+207:   /**
+208:    * THE ONE HARD RULE, IN CODE: invite by email + role only. There is NO password
+209:    * parameter — a new member starts as 'invite_pending' with no credential.
+210:    * BACKEND_SWAP_NOTES (Phase 7): real Supabase invite (magic link) + RLS; STILL no
+211:    * password set here — the invitee sets their own credential out of band.
+212:    */
+213:   async inviteMember({ storeId, email, role, jobTitle }) {
+214:     const member: StoreMember = {
+215:       memberId: nextMemberId(),
+216:       storeId,
+217:       name: "",
+218:       email,
+219:       initials: initialsFrom(email),
+220:       jobTitle,
+221:       role,
+222:       accountStatus: "invite_pending",
+223:       invitedAt: new Date().toISOString(),
+224:     };
+225:     store().addMember(member);
+226:     await auditService.append({
+227:       action: "invited_member",
+228:       target: email,
+229:       result: "done",
+230:     });
+231:     return { ok: true, message: `Invite sent to ${email}` };
+232:   },
+233: 
+234:   /**
+235:    * Re-send an outstanding invite. Mock: toast only; no credential involved.
+236:    * BACKEND_SWAP_NOTES (Phase 7): re-trigger the Supabase invite email.
+237:    */
+238:   async resendInvite(memberId) {
+239:     const m = store().members.find((x) => x.memberId === memberId);
+240:     await auditService.append({
+241:       action: "resent_invite",
+242:       target: memberLabel(m, memberId),
+243:       result: "done",
+244:     });
+245:     return { ok: true, message: "Invite re-sent" };
+246:   },
+247: 
+248:   /**
+249:    * Suspend a member (flips the account pill to SUSPENDED).
+250:    * BACKEND_SWAP_NOTES (Phase 7): UPDATE members SET status = 'suspended', RLS-scoped.
+251:    */
+252:   async suspendMember(memberId) {
+253:     const m = store().members.find((x) => x.memberId === memberId);
+254:     store().setMemberStatus(memberId, "suspended");
+255:     await auditService.append({
+256:       action: "suspended_member",
+257:       target: memberLabel(m, memberId),
+258:       result: "done",
+259:     });
+260:     return { ok: true, message: "Member suspended" };
+261:   },
+262: 
+263:   /**
+264:    * Un-suspend a member (flips the pill back to ACTIVE).
+265:    * BACKEND_SWAP_NOTES (Phase 7): UPDATE members SET status = 'active', RLS-scoped.
+266:    */
+267:   async unsuspendMember(memberId) {
+268:     const m = store().members.find((x) => x.memberId === memberId);
+269:     store().setMemberStatus(memberId, "active");
+270:     await auditService.append({
+271:       action: "unsuspended_member",
+272:       target: memberLabel(m, memberId),
+273:       result: "done",
+274:     });
+275:     return { ok: true, message: "Member un-suspended" };
+276:   },
+277: 
+278:   /**
+279:    * Send an account-recovery link. Mock: toast only; no password is set or shown.
+280:    * BACKEND_SWAP_NOTES (Phase 7): trigger Supabase password-recovery email.
+281:    */
+282:   async sendRecovery(memberId) {
+283:     const m = store().members.find((x) => x.memberId === memberId);
+284:     await auditService.append({
+285:       action: "sent_recovery",
+286:       target: memberLabel(m, memberId),
+287:       result: "done",
+288:     });
+289:     return { ok: true, message: "Recovery link sent" };
+290:   },
+291: };
+292: 
+293: // ── Billing (VISUAL ONLY — never charges) ─────────────────────────────────────
+294: 
+295: export const billingService: BillingService = {
+296:   /**
+297:    * Per-store billing lines (display strings — demo, not real money).
+298:    * BACKEND_SWAP_NOTES (Phase 7): join Stripe subscriptions; amounts become real.
+299:    */
+300:   async listBilling() {
+301:     return store().billing;
+302:   },
+303: 
+304:   /**
+305:    * VISUAL ONLY. Opens a mock "manage payment" dialog — no checkout, no charge,
+306:    * no state change, no audit entry (the AuditAction vocab has no billing verb).
+307:    * BACKEND_SWAP_NOTES (Phase 7): open the real Stripe customer portal.
+308:    */
+309:   async managePayment(_storeId) {
+310:     return { ok: true, message: "Opening payment management (demo — no charge)" };
+311:   },
+312: 
+313:   /**
+314:    * VISUAL ONLY. Mock cancel dialog — no real cancellation, no charge, no state
+315:    * change, no audit entry.
+316:    * BACKEND_SWAP_NOTES (Phase 7): real Stripe subscription cancel.
+317:    */
+318:   async cancelSubscription(_storeId) {
+319:     return { ok: true, message: "Subscription cancel (demo — no charge)" };
+320:   },
+321: };
+322: 
+323: // ── Settings (in-memory) ──────────────────────────────────────────────────────
+324: 
+325: export const settingsService: SettingsService = {
+326:   /**
+327:    * One store's pharmacy settings. Fails loud if missing (no silent null).
+328:    * BACKEND_SWAP_NOTES (Phase 7): SELECT settings WHERE store = $1, RLS-scoped.
+329:    */
+330:   async getSettings(storeId) {
+331:     const found = store().settings.find((s) => s.storeId === storeId);
+332:     if (!found) throw new Error(`Settings not found for store: ${storeId}`);
+333:     return found;
+334:   },
+335: 
+336:   /**
+337:    * Save edits in-memory (refresh resets — by design).
+338:    * BACKEND_SWAP_NOTES (Phase 7): UPDATE pharmacy_settings, RLS-scoped.
+339:    */
+340:   async saveSettings(settings) {
+341:     store().setSettings(settings);
+342:     await auditService.append({
+343:       action: "updated_settings",
+344:       target: settings.pharmacyName,
+345:       result: "done",
+346:     });
+347:     return { ok: true, message: "Settings saved" };
+348:   },
+349: };
+
+FILE: src/types/OwedBook.ts
+1: // `type` (not interface) so the generic DataTable's `Record<string, unknown>`
+2: // constraint is satisfied. Cluster-3 extension (2026-06-22): added the
+3: // updated-payment pair, the REAL federal fields, report_file, and made pbm
+4: // nullable — backs all 4 tabs honestly per UI_SPEC §5.3. See DATA_CONTRACT §4.
+5: export type OwedBookRow = {
+6:   id: string;
+7:   date: string;                       // ISO yyyy-mm-dd
+8:   script: string;
+9:   qty: number;
+10:   pbm: string | null;                 // null → renders "—"
+11:   status: OwedStatus | null;          // null → renders "—"
+12:   report_file: string | null;         // Report column; null → "—"
+13:   // commercial
+14:   original_paid: number;
+15:   medicaid_rate: number;
+16:   method: string;
+17:   expected: number;                   // commercial expected
+18:   owed: number;                       // commercial: expected − original_paid
+19:   // updated commercial payments (Updated tab)
+20:   new_paid: number | null;
+21:   updated_difference: number | null;  // new_paid − original_paid
+22:   // federal — REAL, distinct from the commercial/demo values above
+23:   aac: number | null;
+24:   federal_expected: number | null;    // aac × qty
+25:   federal_diff: number | null;        // federal_expected − original_paid
+26: };
+27: 
+28: export type OwedStatus =
+29:   | "recovered"
+30:   | "emailed_pbm"
+31:   | "pending"
+32:   | "underpaid"
+33:   | "new";
+34: 
+35: export interface OwedBookKpis {
+36:   commercial_underpaid: number;
+37:   commercial_scripts: number;
+38:   updated_difference: number;
+39:   owed: number;
+40: }
+41: 
+42: export type OwedTab =
+43:   | "commercial_dollars"
+44:   | "updated_commercial_payments"
+45:   | "federal_dollars"
+46:   | "summary";
+47: 
+48: export interface OwedBookFilters {
+49:   from?: string;
+50:   to?: string;
+51:   pbms: string[];
+52:   filter?: string;
+53: }
+54: 
+55: export interface OwedBookPage {
+56:   rows: OwedBookRow[];
+57:   page: number;
+58:   pageCount: number;
+59:   limit: number;
+60:   total: number;
+61: }
+62: 
+63: // `type` (not interface) for the DataTable generic constraint — see OwedBookRow.
+64: export type OwedBookSummaryRow = {
+65:   pbm: string;
+66:   commercial_dollars: number;
+67:   federal_dollars: number;
+68: };
+
+FILE: src/types/adminDemo.ts
+1: // Admin Portal Demo Shell — types (Phase 2.2). Verbatim from DATA_CONTRACT §1–2.
+2: // Mock-functional, owner-scoped preview of the future StoreLens (NOT StoreLens).
+3: // The service layer is the sole Phase-7 swap point; these shapes stay frozen.
+4: 
+5: // ── §1. Status vocabularies (single source — back every pill) ────────────────
+6: 
+7: // Member account state (drives ACTIVE / INVITE PENDING / SUSPENDED pills)
+8: export type MemberAccountStatus = "active" | "invite_pending" | "suspended";
+9: 
+10: // Member permission role (domain-expert truth: admin | user). jobTitle is shown separately (§2.3).
+11: export type MemberRole = "admin" | "member";
+12: 
+13: // Store operational status
+14: export type StoreStatus = "active" | "suspended";
+15: 
+16: // Subscription mirror (drives SUB ACTIVE / PAST-DUE pills)
+17: export type SubscriptionStatus = "active" | "past_due" | "canceled";
+18: 
+19: // Billing plan (demo values; Phase-7 maps to real Stripe price/plan_type)
+20: export type BillingPlan = "standard" | "concierge";
+21: 
+22: // Audit action vocabulary (the owner's own actions)
+23: export type AuditAction =
+24:   | "invited_member"
+25:   | "resent_invite"
+26:   | "suspended_member"
+27:   | "unsuspended_member"
+28:   | "sent_recovery"
+29:   | "added_store"
+30:   | "updated_settings";
+31: 
+32: // ── §2. View-models (what the services return) ───────────────────────────────
+33: 
+34: // One owner, sourced from real auth (login stays real per OwedBook); his data is mock.
+35: export interface CurrentOwner {
+36:   ownerId: string;
+37:   name: string;
+38:   email: string;
+39:   initials: string; // derived from name, for the avatar
+40: }
+41: 
+42: // My Stores card + store-detail header
+43: export interface OwnedStore {
+44:   storeId: string;
+45:   name: string; // pharmacy name
+46:   ncpdp: string;
+47:   npi: string;
+48:   status: StoreStatus; // store-level pill
+49:   subscriptionStatus: SubscriptionStatus; // "SUB ACTIVE" / "PAST-DUE" footer pill
+50:   memberCount: number;
+51: }
+52: 
+53: // Roster row + invite result
+54: export interface StoreMember {
+55:   memberId: string;
+56:   storeId: string;
+57:   name: string; // for invite_pending rows may be empty → render email
+58:   email: string;
+59:   initials: string;
+60:   // ⚠️ DEMO-ONLY display (pharmacist/technician). Unbacked in the domain expert's schema —
+61:   // Phase-7 source-decision flag (DATA_CONTRACT §6). Do NOT pretend it's backed.
+62:   jobTitle?: string;
+63:   role: MemberRole; // permission role
+64:   accountStatus: MemberAccountStatus;
+65:   invitedAt?: string; // ISO; present when accountStatus === 'invite_pending'
+66:   // UI derives row actions from accountStatus:
+67:   //   active → [sendRecovery, suspend] · invite_pending → [resendInvite] · suspended → [unsuspend]
+68: }
+69: 
+70: // Per-store billing row
+71: export interface BillingLine {
+72:   storeId: string;
+73:   storeName: string;
+74:   plan: BillingPlan;
+75:   subscriptionStatus: SubscriptionStatus;
+76:   nextChargeDate?: string; // ISO; present when active
+77:   retryDate?: string; // ISO; present when past_due
+78:   amountLabel: string; // display only, e.g. "$49/mo" (demo; Phase-7 = real Stripe)
+79:   // Actions are VISUAL ONLY: managePayment, cancel — no checkout, no charge.
+80: }
+81: 
+82: // Owner's own actions
+83: export interface AuditEntry {
+84:   id: string;
+85:   occurredAt: string; // ISO
+86:   action: AuditAction;
+87:   target: string; // human label, e.g. "Tina Cho" or "Hyde Park Pharmacy"
+88:   result: "done" | "failed";
+89: }
+90: 
+91: // Editable, in-memory
+92: export interface PharmacySettings {
+93:   storeId: string;
+94:   pharmacyName: string;
+95:   contactPerson: string;
+96:   phone: string;
+97:   address: string;
+98:   pharmacySoftware: string;
+99: }
+100: 
+101: // Shared action result (toast copy)
+102: export interface ActionResult {
+103:   ok: boolean;
+104:   message: string;
+105: }
+106: 
+107: // ── §3. Zustand store shape (the live in-memory dataset) ─────────────────────
+108: // Seeded from /mocks, mutated ONLY by the service layer (never components).
+109: // Refresh resets to the seed — by design (in-memory, no persistence).
+110: export interface AdminDemoState {
+111:   owner: CurrentOwner;
+112:   stores: OwnedStore[];
+113:   members: StoreMember[]; // across all the owner's stores; filtered by storeId in services
+114:   billing: BillingLine[];
+115:   audit: AuditEntry[];
+116:   settings: PharmacySettings[]; // one per store
+117: }

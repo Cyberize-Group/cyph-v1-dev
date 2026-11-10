@@ -1,0 +1,90 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+COMMAND: ["rg", "-n", "system_config|create policy|create or replace function|create function|create trigger|grant |revoke ", "supabase/migrations"]
+EXIT: 0
+supabase/migrations/0045_owedbook_rows.sql:29:create function public.owedbook_rows(
+supabase/migrations/0045_owedbook_rows.sql:139:revoke execute on function public.owedbook_rows(uuid, text, date, date, text[], text, integer, integer) from public;
+supabase/migrations/0045_owedbook_rows.sql:140:revoke execute on function public.owedbook_rows(uuid, text, date, date, text[], text, integer, integer) from anon;
+supabase/migrations/0045_owedbook_rows.sql:141:grant  execute on function public.owedbook_rows(uuid, text, date, date, text[], text, integer, integer) to authenticated;
+supabase/migrations/0028_audit_logs_reshape.sql:63:create or replace function public.audit_logs_immutable()
+supabase/migrations/0028_audit_logs_reshape.sql:73:create trigger audit_logs_immutable
+supabase/migrations/0028_audit_logs_reshape.sql:78:create trigger audit_logs_no_truncate
+supabase/migrations/0028_audit_logs_reshape.sql:87:revoke update, delete on public.audit_logs from anon, authenticated;
+supabase/migrations/0014_report_files.sql:28:create trigger set_updated_at
+supabase/migrations/0038_audit_stamp_apa_memberships.sql:16:create trigger audit_write
+supabase/migrations/0021_rls_user_data.sql:28:create policy "user_data_select_member"
+supabase/migrations/0021_rls_user_data.sql:32:create policy "user_data_insert_member"
+supabase/migrations/0021_rls_user_data.sql:36:create policy "user_data_update_member"
+supabase/migrations/0021_rls_user_data.sql:41:create policy "user_data_delete_admin"
+supabase/migrations/0042_audit_stamp_ful_reference.sql:16:create trigger audit_write
+supabase/migrations/0040_audit_stamp_aac_reference.sql:16:create trigger audit_write
+supabase/migrations/0018_rls_accounts.sql:16:create policy "account_select_member"
+supabase/migrations/0007_apa_memberships.sql:23:create trigger set_updated_at
+supabase/migrations/0043_audit_stamp_pbm_info.sql:16:create trigger audit_write
+supabase/migrations/0001_baseline_acknowledge.sql:46:create or replace function public.update_updated_at()
+supabase/migrations/0015_audit_logs.sql:32:create trigger set_updated_at
+supabase/migrations/0004_user_businesses.sql:28:create trigger set_updated_at
+supabase/migrations/0026_rls_pbm_info.sql:15:create policy "pbm_info_select_authenticated"
+supabase/migrations/0037_audit_stamp_subscriptions.sql:16:create trigger audit_write
+supabase/migrations/0012_pbm_info.sql:27:create trigger set_updated_at
+supabase/migrations/0019_rls_businesses.sql:23:create policy "business_select_member"
+supabase/migrations/0019_rls_businesses.sql:27:create policy "business_update_admin"
+supabase/migrations/0046_owedbook_summary.sql:20:create function public.owedbook_summary(
+supabase/migrations/0046_owedbook_summary.sql:75:revoke execute on function public.owedbook_summary(uuid, date, date, text[], text) from public;
+supabase/migrations/0046_owedbook_summary.sql:76:revoke execute on function public.owedbook_summary(uuid, date, date, text[], text) from anon;
+supabase/migrations/0046_owedbook_summary.sql:77:grant  execute on function public.owedbook_summary(uuid, date, date, text[], text) to authenticated;
+supabase/migrations/0036_audit_stamp_accounts.sql:16:create trigger audit_write
+supabase/migrations/0011_ful_reference.sql:22:create trigger set_updated_at
+supabase/migrations/0009_aac_reference.sql:23:create trigger set_updated_at
+supabase/migrations/0022_rls_report_files.sql:17:create policy "report_files_select_member"
+supabase/migrations/0006_subscriptions.sql:28:create trigger set_updated_at
+supabase/migrations/0031_audit_stamp_businesses.sql:16:create trigger audit_write
+supabase/migrations/0041_audit_stamp_wac_reference.sql:16:create trigger audit_write
+supabase/migrations/0044_owedbook_kpis.sql:27:create function public.owedbook_kpis(
+supabase/migrations/0044_owedbook_kpis.sql:82:revoke execute on function public.owedbook_kpis(uuid, date, date, text[], text) from public;
+supabase/migrations/0044_owedbook_kpis.sql:83:revoke execute on function public.owedbook_kpis(uuid, date, date, text[], text) from anon;
+supabase/migrations/0044_owedbook_kpis.sql:84:grant  execute on function public.owedbook_kpis(uuid, date, date, text[], text) to authenticated;
+supabase/migrations/0002_accounts.sql:15:create trigger set_updated_at
+supabase/migrations/0016_rls_helpers.sql:42:create or replace function public.is_member_of(biz uuid)
+supabase/migrations/0016_rls_helpers.sql:57:create or replace function public.is_admin_of(biz uuid)
+supabase/migrations/0016_rls_helpers.sql:81:create or replace function public.my_business_ids()
+supabase/migrations/0016_rls_helpers.sql:93:create or replace function public.is_account_member(acct uuid)
+supabase/migrations/0016_rls_helpers.sql:109:-- 2026-09-01): the template's `revoke ... from anon` is a NO-OP — Postgres grants
+supabase/migrations/0016_rls_helpers.sql:111:-- revoke must target it. Proto 06 missed this because its matrix asserted table
+supabase/migrations/0016_rls_helpers.sql:119:revoke execute on function public.is_member_of(uuid) from public;      -- ERRATUM E-2
+supabase/migrations/0016_rls_helpers.sql:120:revoke execute on function public.is_admin_of(uuid) from public;       -- ERRATUM E-2
+supabase/migrations/0016_rls_helpers.sql:121:revoke execute on function public.is_account_member(uuid) from public; -- ERRATUM E-2
+supabase/migrations/0016_rls_helpers.sql:122:revoke execute on function public.my_business_ids() from public;       -- ERRATUM E-2
+supabase/migrations/0016_rls_helpers.sql:123:revoke execute on function public.is_member_of(uuid) from anon;        -- ERRATUM E-4
+supabase/migrations/0016_rls_helpers.sql:124:revoke execute on function public.is_admin_of(uuid) from anon;         -- ERRATUM E-4
+supabase/migrations/0016_rls_helpers.sql:125:revoke execute on function public.is_account_member(uuid) from anon;   -- ERRATUM E-4
+supabase/migrations/0016_rls_helpers.sql:126:revoke execute on function public.my_business_ids() from anon;         -- ERRATUM E-4
+supabase/migrations/0016_rls_helpers.sql:128:grant execute on function public.is_member_of(uuid) to authenticated;
+supabase/migrations/0016_rls_helpers.sql:129:grant execute on function public.is_admin_of(uuid) to authenticated;
+supabase/migrations/0016_rls_helpers.sql:130:grant execute on function public.is_account_member(uuid) to authenticated;
+supabase/migrations/0016_rls_helpers.sql:131:grant execute on function public.my_business_ids() to authenticated;
+supabase/migrations/0034_audit_stamp_user_data.sql:16:create trigger audit_write
+supabase/migrations/0024_rls_wac_reference.sql:15:create policy "wac_reference_select_authenticated"
+supabase/migrations/0039_audit_stamp_reference_dataset_versions.sql:16:create trigger audit_write
+supabase/migrations/0017_rls_user_businesses.sql:19:create policy "ub_select_self"
+supabase/migrations/0027_rls_reference_dataset_versions.sql:15:create policy "reference_dataset_versions_select_authenticated"
+supabase/migrations/0033_audit_stamp_pending_registrations.sql:16:create trigger audit_write
+supabase/migrations/0029_rls_audit_logs.sql:24:create policy "audit_logs_select_admin"
+supabase/migrations/0032_audit_stamp_user_businesses.sql:16:create trigger audit_write
+supabase/migrations/0047_owedbook_pbm_options.sql:18:create function public.owedbook_pbm_options(
+supabase/migrations/0047_owedbook_pbm_options.sql:55:revoke execute on function public.owedbook_pbm_options(uuid) from public;
+supabase/migrations/0047_owedbook_pbm_options.sql:56:revoke execute on function public.owedbook_pbm_options(uuid) from anon;
+supabase/migrations/0047_owedbook_pbm_options.sql:57:grant  execute on function public.owedbook_pbm_options(uuid) to authenticated;
+supabase/migrations/0013_user_data.sql:88:create trigger set_updated_at
+supabase/migrations/0003_businesses.sql:59:create trigger set_updated_at
+supabase/migrations/0025_rls_ful_reference.sql:15:create policy "ful_reference_select_authenticated"
+supabase/migrations/0010_wac_reference.sql:30:create trigger set_updated_at
+supabase/migrations/0020_rls_subscriptions.sql:14:create policy "subscription_select_account_member"
+supabase/migrations/0030_audit_write.sql:30:create function public.audit_write()
+supabase/migrations/0030_audit_write.sql:78:-- explicit default-ACL grant to anon. Trigger firing never checks EXECUTE, so nothing
+supabase/migrations/0030_audit_write.sql:80:revoke execute on function public.audit_write() from public;
+supabase/migrations/0030_audit_write.sql:81:revoke execute on function public.audit_write() from anon;
+supabase/migrations/0035_audit_stamp_report_files.sql:16:create trigger audit_write
+supabase/migrations/0008_reference_dataset_versions.sql:18:create trigger set_updated_at
+supabase/migrations/0023_rls_aac_reference.sql:15:create policy "aac_reference_select_authenticated"
+supabase/migrations/0005_pending_registrations.sql:52:create trigger set_updated_at
+

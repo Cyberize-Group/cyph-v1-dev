@@ -1,0 +1,93 @@
+CWD: /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev
+UTC: 2026-11-05T13:53:33.443167+00:00
+COMMAND: ["git", "log", "-3", "--format=commit %H%nparents %P%nsubject %s", "--name-status"]
+EXIT: 0
+STDOUT:
+commit b23372d24d79b6460f746a191e824224ba5f8900
+parents 7abd8a66886a6f3a26ffbc59ba6c8c929f84790d
+subject skill added
+
+R100	_SKILLS/README.md	agent_docs/SKILLS/README.md
+R100	_SKILLS/stark-cloud-deploy-skills/CLAUDE.md	agent_docs/SKILLS/stark-cloud-deploy-skills/CLAUDE.md
+R100	_SKILLS/stark-cloud-deploy-skills/V3_RELEASE_NOTES.md	agent_docs/SKILLS/stark-cloud-deploy-skills/V3_RELEASE_NOTES.md
+R100	_SKILLS/stark-cloud-deploy-skills/next-deploy-execute/SKILL.md	agent_docs/SKILLS/stark-cloud-deploy-skills/next-deploy-execute/SKILL.md
+R100	_SKILLS/stark-cloud-deploy-skills/next-deploy-execute/examples/PHASE_0_TO_1_WALKTHROUGH.md	agent_docs/SKILLS/stark-cloud-deploy-skills/next-deploy-execute/examples/PHASE_0_TO_1_WALKTHROUGH.md
+R100	_SKILLS/stark-cloud-deploy-skills/next-deploy-execute/references/ANTI_PATTERNS.md	agent_docs/SKILLS/stark-cloud-deploy-skills/next-deploy-execute/references/ANTI_PATTERNS.md
+R100	_SKILLS/stark-cloud-deploy-skills/next-deploy-generate/SKILL.md	agent_docs/SKILLS/stark-cloud-deploy-skills/next-deploy-generate/SKILL.md
+R100	_SKILLS/stark-cloud-deploy-skills/next-deploy-generate/references/TEMPLATES.md	agent_docs/SKILLS/stark-cloud-deploy-skills/next-deploy-generate/references/TEMPLATES.md
+R100	_SKILLS/stark-cloud-deploy-skills/scripts/install-gcloud.sh	agent_docs/SKILLS/stark-cloud-deploy-skills/scripts/install-gcloud.sh
+R100	_SKILLS/stark-kit-residue-cleaner-skill/CLAUDE.md	agent_docs/SKILLS/stark-kit-residue-cleaner-skill/CLAUDE.md
+R100	_SKILLS/stark-kit-residue-cleaner-skill/README.md	agent_docs/SKILLS/stark-kit-residue-cleaner-skill/README.md
+R100	_SKILLS/stark-kit-residue-cleaner-skill/SKILL.md	agent_docs/SKILLS/stark-kit-residue-cleaner-skill/SKILL.md
+R100	_SKILLS/stark-kit-residue-cleaner-skill/examples/mission-control-2026-07/README.md	agent_docs/SKILLS/stark-kit-residue-cleaner-skill/examples/mission-control-2026-07/README.md
+R100	_SKILLS/stark-kit-residue-cleaner-skill/references/ANTI_PATTERNS.md	agent_docs/SKILLS/stark-kit-residue-cleaner-skill/references/ANTI_PATTERNS.md
+R100	_SKILLS/stark-kit-residue-cleaner-skill/references/KIT_DEMO_MANIFEST.md	agent_docs/SKILLS/stark-kit-residue-cleaner-skill/references/KIT_DEMO_MANIFEST.md
+R100	_SKILLS/stark-kit-residue-cleaner-skill/workflow/00-trace.md	agent_docs/SKILLS/stark-kit-residue-cleaner-skill/workflow/00-trace.md
+R100	_SKILLS/stark-kit-residue-cleaner-skill/workflow/01-cleanup.md	agent_docs/SKILLS/stark-kit-residue-cleaner-skill/workflow/01-cleanup.md
+R100	_SKILLS/stark-recon-skill-v1.1/CLAUDE.md	agent_docs/SKILLS/stark-recon-skill-v1.1/CLAUDE.md
+R100	_SKILLS/stark-recon-skill-v1.1/README.md	agent_docs/SKILLS/stark-recon-skill-v1.1/README.md
+R100	_SKILLS/stark-recon-skill-v1.1/SKILL.md	agent_docs/SKILLS/stark-recon-skill-v1.1/SKILL.md
+R100	_SKILLS/stark-recon-skill-v1.1/examples/cyber-pharma-v1-phase2-recon-2026-06-08.md	agent_docs/SKILLS/stark-recon-skill-v1.1/examples/cyber-pharma-v1-phase2-recon-2026-06-08.md
+R100	_SKILLS/stark-recon-skill-v1.1/references/ANTI_PATTERNS.md	agent_docs/SKILLS/stark-recon-skill-v1.1/references/ANTI_PATTERNS.md
+R100	_SKILLS/stark-recon-skill-v1.1/references/EVIDENCE_DISCIPLINE.md	agent_docs/SKILLS/stark-recon-skill-v1.1/references/EVIDENCE_DISCIPLINE.md
+R100	_SKILLS/stark-recon-skill-v1.1/templates/RECON_MISSION.md	agent_docs/SKILLS/stark-recon-skill-v1.1/templates/RECON_MISSION.md
+R100	_SKILLS/stark-recon-skill-v1.1/templates/RECON_REPORT_TEMPLATE.md	agent_docs/SKILLS/stark-recon-skill-v1.1/templates/RECON_REPORT_TEMPLATE.md
+commit 7abd8a66886a6f3a26ffbc59ba6c8c929f84790d
+parents af2c7e5225d2d78925fd392e29a58b6bde830263
+subject apbm-003 placed
+
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/AGENTS.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_ACCEPTANCE_LEDGER.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_ACCEPTANCE_SPEC.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_BRIEF.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_ENTRY.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_EXECUTION_PLAN.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_JOURNAL.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_RULINGS.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_SKILLS_MANIFEST.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APBM_STATE.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/APPLY_CHECKPOINT.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/CLAUDE.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/CODY_LAUNCH_PROMPT.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/CONTRACTS/OWNERSHIP_AND_AUDIT_CONTRACT.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/CONTRACTS/SEED_AND_FIXTURE_CONTRACT.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/CONTRACTS/SUCCESSION_RECORD.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/CONTRACTS/TARGET_ONE_RELEASE_CONTRACT.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/E1_RECON_MISSION.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/E2_EXECUTION_INSTRUCTIONS.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/README.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/MISSING_INPUTS.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/PROVENANCE.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/AC_EVIDENCE_MATRIX.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/AGENTS.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/AUTOMATION/README.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/CLAUDE.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/FINDINGS.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/GOVERNING/README.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/HANDOFFS/ENGINEERING_HANDOFF.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/HANDOFFS/FILE_INDEX.template.json
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/HANDOFFS/QA_HANDOFF.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/HANDOFFS/README.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/HANDOFFS/REVIEW_START_HERE.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/PARENT_ENTRY_ROUTING.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_APPROVAL.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_CERTIFICATION.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_CLEANUP_REPORT.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_ENTRY.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_EXECUTION_REPORT.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_MANIFEST.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_PACKAGING.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_PREFLIGHT.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_RECON_REPORT.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_RISK_REQUIREMENTS.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_STATE.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/QAM_TEST_PLAN.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence/README.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/README.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/RETROSPECTIVE.md
+A	agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/REVIEW_NOTE_FOR_JARVIS.md
+commit af2c7e5225d2d78925fd392e29a58b6bde830263
+parents 7de7b4db71f62921bfd690a7946a37eb9ac0cf7c 2939358e0b1f699a7d85bdb513db09d6a14874eb
+subject Merge pull request #8 from Cyberize-Group/guest/frank-2026-10-22
+
+STDERR:
