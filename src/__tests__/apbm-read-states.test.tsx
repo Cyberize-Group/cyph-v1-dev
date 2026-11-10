@@ -5,6 +5,7 @@ import OwedBookScreen from "@/components/owedbook/OwedBookScreen";
 import { OwedBookProvider,useOwedBook } from "@/components/owedbook/OwedBookContext";
 import { createOwedBookService } from "@/services/owedbook";
 import { listTenantStores } from "@/services/tenantScope";
+import { owedBookFixtures } from "@/mocks/owedbook";
 import type { OwedBookKpis,OwedBookPage } from "@/types/OwedBook";
 jest.mock("@/services/owedbook",()=>({owedBookService:{},createOwedBookService:jest.fn()}));
 jest.mock("@/services/tenantScope",()=>({...jest.requireActual("@/services/tenantScope"),listTenantStores:jest.fn()}));
@@ -12,7 +13,7 @@ const A="11111111-1111-4111-8111-111111111111",B="22222222-2222-4222-8222-222222
 const kpi={commercial_underpaid:42,commercial_scripts:1,updated_difference:0,owed:42};
 const empty={rows:[],page:1,pageCount:1,limit:25,total:0};
 const deferred=<T,>()=>{let resolve!:(x:T)=>void;const promise=new Promise<T>(r=>{resolve=r;});return {promise,resolve};};
-const Options=()=>{const {pbmOptions,refresh}=useOwedBook();return <><span data-testid="options">{pbmOptions.join(",")}</span><button onClick={refresh}>Refresh all</button></>;};
+const Options=()=>{const {pbmOptions,refresh,applyFilters}=useOwedBook();return <><span data-testid="options">{pbmOptions.join(",")}</span><button onClick={refresh}>Refresh all</button><button onClick={()=>applyFilters({pbms:[],filter:"new"})}>Apply test filter</button></>;};
 const renderPage=()=>render(<OwedBookProvider><Options/><OwedBookScreen/></OwedBookProvider>);
 let a:ReturnType<typeof createOwedBookService>,b:ReturnType<typeof createOwedBookService>;
 const originalMode=process.env.NEXT_PUBLIC_APBM_DATA_MODE;
@@ -31,7 +32,7 @@ describe("APBM real-mode asynchronous states",()=>{
   fireEvent.change(screen.getByRole("combobox",{name:"Store"}),{target:{value:B}});
   expect(screen.queryByText("$999.00")).not.toBeInTheDocument();
   await screen.findByText("No results");await act(async()=>{k.resolve({...kpi,commercial_underpaid:999,owed:999});r.resolve({...empty,total:999});o.resolve(["OLD STORE PBM"]);});
-  expect(screen.queryByText("$999.00")).not.toBeInTheDocument();expect(screen.queryByText(/Total 999/)).not.toBeInTheDocument();expect(screen.getByTestId("options")).not.toHaveTextContent("OLD STORE PBM");
+  expect(screen.queryByText("$999.00")).not.toBeInTheDocument();expect(screen.queryByText(/of 999 claims/)).not.toBeInTheDocument();expect(screen.getByTestId("options")).not.toHaveTextContent("OLD STORE PBM");
  });
  it("clears already visible values immediately when changing stores",async()=>{
   jest.mocked(a.getKpis).mockResolvedValue({...kpi,commercial_underpaid:999,owed:999});
@@ -52,5 +53,32 @@ describe("APBM real-mode asynchronous states",()=>{
  });
  it("failed store discovery starts no claim RPC and offers retry",async()=>{
   jest.mocked(listTenantStores).mockRejectedValue(new Error("offline"));renderPage();await screen.findByRole("button",{name:"Retry stores"});expect(a.getKpis).not.toHaveBeenCalled();expect(a.getRows).not.toHaveBeenCalled();
+ });
+});
+
+
+describe("results toolbar integration",()=>{
+ it("keeps request counts, placement, filter/store resets, and non-paginated tabs",async()=>{
+  const response=(total:number,page:number):OwedBookPage=>({rows:owedBookFixtures.slice((page-1)*25,Math.min(page*25,total)),page,pageCount:Math.ceil(total/25),limit:25,total});
+  jest.mocked(a.getRows).mockImplementation(async(tab,filters,page=1)=>response(tab==="federal_dollars"?0:filters.filter?31:50,page));
+  jest.mocked(b.getRows).mockImplementation(async(_tab,_filters,page=1)=>response(50,page));
+  renderPage();await screen.findByText("Showing 1–25 of 50 claims");
+  const toolbar=screen.getByRole("navigation",{name:"Results pagination"});
+  const table=screen.getByTestId("datatable-desktop");
+  expect(table.compareDocumentPosition(toolbar)&Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  expect(table.contains(toolbar)).toBe(false);
+  expect(a.getRows).toHaveBeenCalledTimes(1);expect(a.getKpis).toHaveBeenCalledTimes(1);expect(a.getPbmOptions).toHaveBeenCalledTimes(1);
+  fireEvent.click(screen.getByRole("button",{name:"Next page"}));await screen.findByText("Showing 26–50 of 50 claims");
+  expect(a.getRows).toHaveBeenCalledTimes(2);expect(a.getKpis).toHaveBeenCalledTimes(1);expect(a.getPbmOptions).toHaveBeenCalledTimes(1);
+  fireEvent.click(screen.getByRole("button",{name:"Previous page"}));await screen.findByText("Showing 1–25 of 50 claims");
+  expect(a.getRows).toHaveBeenCalledTimes(3);
+  fireEvent.click(screen.getByRole("button",{name:"Next page"}));await screen.findByText("Showing 26–50 of 50 claims");
+  fireEvent.click(screen.getByRole("button",{name:"Apply test filter"}));await screen.findByText("Showing 1–25 of 31 claims");
+  fireEvent.click(screen.getByRole("button",{name:"Next page"}));await screen.findByText("Showing 26–31 of 31 claims");
+  fireEvent.change(screen.getByRole("combobox",{name:"Store"}),{target:{value:B}});await screen.findByText("Showing 1–25 of 50 claims");
+  fireEvent.mouseDown(screen.getByRole("tab",{name:"Summary"}),{button:0,ctrlKey:false});await waitFor(()=>expect(b.getSummary).toHaveBeenCalled());
+  expect(screen.queryByRole("navigation",{name:"Results pagination"})).not.toBeInTheDocument();
+  fireEvent.mouseDown(screen.getByRole("tab",{name:"Federal Dollars"}),{button:0,ctrlKey:false});await screen.findByText("Federal reimbursement data is unavailable in this release.");
+  expect(screen.queryByRole("navigation",{name:"Results pagination"})).not.toBeInTheDocument();
  });
 });

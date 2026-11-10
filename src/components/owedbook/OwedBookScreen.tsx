@@ -6,6 +6,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DataTable from "@/components/common/DataTable";
 import EmptyState from "@/components/common/EmptyState";
 import StoreSelector from "./StoreSelector";
+import ResultsToolbar from "./ResultsToolbar";
 import type {
   OwedBookFilters,
   OwedBookKpis,
@@ -197,33 +198,6 @@ const OwedBookScreen = () => {
 
       {!scopeReady && !scopeLoading ? <p role="status">Select a permitted store to view KPIs.</p> : kpiReady && kpis ? <KpiTiles kpis={kpis} /> : kpiReady && kpiError ? <div role="alert">{kpiError} <button onClick={refresh}>Retry KPIs</button></div> : <div aria-busy="true" aria-label="Loading KPIs" className="grid grid-cols-2 gap-4">{["Commercial Underpaid","Scripts","Updated Difference","Owed"].map(label=><div key={label}>{label}<p>—</p></div>)}</div>}
 
-      {!isSummary && dataReady && !error && pageData && (
-        <div className="flex items-center gap-3 text-sm text-muted-foreground">
-          <span>
-            Page {pageData.page} of {Math.max(pageData.pageCount, 1)}
-          </span>
-          <button
-            type="button"
-            disabled={pageData.page <= 1}
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
-            className="disabled:opacity-40 hover:text-foreground"
-          >
-            Prev
-          </button>
-          <button
-            type="button"
-            disabled={pageData.page >= pageData.pageCount}
-            onClick={() => setPage((p) => p + 1)}
-            className="disabled:opacity-40 hover:text-foreground"
-          >
-            Next
-          </button>
-          <span>
-            Limit {pageData.limit} · Total {pageData.total}
-          </span>
-        </div>
-      )}
-
       <Tabs
         value={activeTab}
         onValueChange={(v) => {
@@ -270,6 +244,13 @@ const OwedBookScreen = () => {
             onSort={handleSort}
             emptyState={emptyState}
             getRowKey={(r) => r.id}
+          />
+        )}
+        {!isSummary && activeTab !== "federal_dollars" && scopeReady && dataReady && !loading && !error && pageData && (
+          <ResultsToolbar
+            results={pageData}
+            onPrevious={() => setPage((p) => Math.max(1, p - 1))}
+            onNext={() => setPage((p) => p + 1)}
           />
         )}
       </div>
