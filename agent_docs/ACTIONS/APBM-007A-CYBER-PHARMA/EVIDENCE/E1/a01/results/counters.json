@@ -1,0 +1,10 @@
+{
+ "stripe_read": 83,
+ "supabase_read": 147,
+ "stripe_mutate": 46,
+ "auth_identity": 4,
+ "auth_session": 30,
+ "auth_signout": 3,
+ "email": 5,
+ "stripe_portal_session": 3
+}

@@ -1,0 +1,35 @@
+{
+ "at": "2026-11-13T04:21:04.527Z",
+ "results": [
+  {
+   "name": "H5a the Undo button posts to the app and the app answers",
+   "status": "PASS",
+   "detail": "200 {\"cleared\":true}"
+  },
+  {
+   "name": "H5 undo from the banner cleared the schedule on the same subscription; still active",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "name": "H6 the undo produced a second signed event, recorded as processed",
+   "status": "PASS",
+   "detail": "[\"04:20:55 customer.subscription.updated:processed\"]"
+  },
+  {
+   "name": "H7 the mirror ends clear and active",
+   "status": "PASS",
+   "detail": "{\"status\":\"active\",\"cancel_at\":null,\"cancel_at_period_end\":false}"
+  },
+  {
+   "name": "H8 the billing page no longer shows a cancellation",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "name": "H10 still exactly one subscription for the customer, active; nothing new created or charged",
+   "status": "PASS",
+   "detail": ""
+  }
+ ]
+}

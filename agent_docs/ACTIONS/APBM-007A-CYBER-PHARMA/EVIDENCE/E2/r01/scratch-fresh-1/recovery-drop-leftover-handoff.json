@@ -1,0 +1,9 @@
+{
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "ledgerBefore": {
+    "n": 58,
+    "last": "0058_provisioning.sql"
+  },
+  "action": "DROP SCHEMA handoff CASCADE (leftover of rehearsal 1)",
+  "at": "2026-11-12T10:49:07.157Z"
+}

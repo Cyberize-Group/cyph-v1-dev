@@ -1,0 +1,416 @@
+{
+ "initial": {
+  "A": {
+   "status": "active",
+   "cancel_at_period_end": false,
+   "cancel_at": null,
+   "items": [
+    {
+     "price": "A1",
+     "qty": 1
+    }
+   ],
+   "discounts": 0,
+   "latestInvoice": {
+    "status": "paid",
+    "total": 9900,
+    "paid": 9900
+   }
+  },
+  "B": {
+   "status": "active",
+   "cancel_at_period_end": false,
+   "cancel_at": null,
+   "items": [
+    {
+     "price": "B",
+     "qty": 1
+    }
+   ],
+   "discounts": 0,
+   "latestInvoice": {
+    "status": "paid",
+    "total": 9900,
+    "paid": 9900
+   }
+  }
+ },
+ "changes": [
+  {
+   "change": "1→2",
+   "A": {
+    "prorationLines": [
+     [
+      "Remaining time on E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+      4900
+     ]
+    ],
+    "prorationNet": 4900,
+    "nextRegular": 14800,
+    "after": [
+     {
+      "price": "A1",
+      "qty": 1
+     },
+     {
+      "price": "A2",
+      "qty": 1
+     }
+    ]
+   },
+   "B": {
+    "prorationLines": [
+     [
+      "Unused time on E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      -9900
+     ],
+     [
+      "Remaining time on 2 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      14800
+     ]
+    ],
+    "prorationNet": 4900,
+    "nextRegular": 14800,
+    "after": [
+     {
+      "price": "B",
+      "qty": 2
+     }
+    ]
+   }
+  },
+  {
+   "change": "2→3",
+   "A": {
+    "prorationLines": [
+     [
+      "Unused time on E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+      -4900
+     ],
+     [
+      "Remaining time on 2 × E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+      9800
+     ],
+     [
+      "Remaining time on E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+      4900
+     ]
+    ],
+    "prorationNet": 9800,
+    "nextRegular": 19700,
+    "after": [
+     {
+      "price": "A1",
+      "qty": 1
+     },
+     {
+      "price": "A2",
+      "qty": 2
+     }
+    ]
+   },
+   "B": {
+    "prorationLines": [
+     [
+      "Unused time on 2 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      -14800
+     ],
+     [
+      "Remaining time on 3 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      19700
+     ],
+     [
+      "Unused time on E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      -9900
+     ],
+     [
+      "Remaining time on 2 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      14800
+     ]
+    ],
+    "prorationNet": 9800,
+    "nextRegular": 19700,
+    "after": [
+     {
+      "price": "B",
+      "qty": 3
+     }
+    ]
+   }
+  },
+  {
+   "change": "3→2",
+   "A": {
+    "prorationLines": [
+     [
+      "Unused time on 2 × E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+      -9800
+     ],
+     [
+      "Remaining time on E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+      4900
+     ],
+     [
+      "Unused time on E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+      -4900
+     ],
+     [
+      "Remaining time on 2 × E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+      9800
+     ],
+     [
+      "Remaining time on E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+      4900
+     ]
+    ],
+    "prorationNet": 4900,
+    "nextRegular": 14800,
+    "after": [
+     {
+      "price": "A1",
+      "qty": 1
+     },
+     {
+      "price": "A2",
+      "qty": 1
+     }
+    ]
+   },
+   "B": {
+    "prorationLines": [
+     [
+      "Unused time on 3 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      -19700
+     ],
+     [
+      "Remaining time on 2 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      14800
+     ],
+     [
+      "Unused time on 2 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      -14800
+     ],
+     [
+      "Remaining time on 3 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      19700
+     ],
+     [
+      "Unused time on E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      -9900
+     ],
+     [
+      "Remaining time on 2 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      14800
+     ]
+    ],
+    "prorationNet": 4900,
+    "nextRegular": 14800,
+    "after": [
+     {
+      "price": "B",
+      "qty": 2
+     }
+    ]
+   }
+  },
+  {
+   "change": "2→1",
+   "A": {
+    "prorationLines": [
+     [
+      "Unused time on E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+      -4900
+     ],
+     [
+      "Unused time on 2 × E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+      -9800
+     ],
+     [
+      "Remaining time on E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+      4900
+     ],
+     [
+      "Unused time on E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+      -4900
+     ],
+     [
+      "Remaining time on 2 × E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+      9800
+     ],
+     [
+      "Remaining time on E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+      4900
+     ]
+    ],
+    "prorationNet": 0,
+    "nextRegular": 9900,
+    "after": [
+     {
+      "price": "A1",
+      "qty": 1
+     }
+    ]
+   },
+   "B": {
+    "prorationLines": [
+     [
+      "Unused time on 2 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      -14800
+     ],
+     [
+      "Remaining time on E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      9900
+     ],
+     [
+      "Unused time on 3 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      -19700
+     ],
+     [
+      "Remaining time on 2 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      14800
+     ],
+     [
+      "Unused time on 2 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      -14800
+     ],
+     [
+      "Remaining time on 3 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      19700
+     ],
+     [
+      "Unused time on E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      -9900
+     ],
+     [
+      "Remaining time on 2 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+      14800
+     ]
+    ],
+    "prorationNet": 0,
+    "nextRegular": 9900,
+    "after": [
+     {
+      "price": "B",
+      "qty": 1
+     }
+    ]
+   }
+  }
+ ],
+ "cancel_A": {
+  "scheduled": [
+   "active",
+   true,
+   true
+  ],
+  "undone": [
+   "active",
+   false,
+   null
+  ],
+  "promoApplied": 1,
+  "upcoming": {
+   "subtotal": 9900,
+   "total": 8910,
+   "discount": 990,
+   "amount_due": 8910,
+   "lines": [
+    [
+     "Unused time on E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+     -4900
+    ],
+    [
+     "Unused time on 2 × E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+     -9800
+    ],
+    [
+     "Remaining time on E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+     4900
+    ],
+    [
+     "Unused time on E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+     -4900
+    ],
+    [
+     "Remaining time on 2 × E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+     9800
+    ],
+    [
+     "Remaining time on E1_ONLY OwedBook additional store (cand A) after 12 Nov 2026",
+     4900
+    ],
+    [
+     "1 × E1_ONLY OwedBook first store (cand A) (at $99.00 / month)",
+     9900
+    ]
+   ]
+  },
+  "rest": [
+   "active",
+   true,
+   "2026-12-12"
+  ]
+ },
+ "cancel_B": {
+  "scheduled": [
+   "active",
+   true,
+   true
+  ],
+  "undone": [
+   "active",
+   false,
+   null
+  ],
+  "promoApplied": 1,
+  "upcoming": {
+   "subtotal": 9900,
+   "total": 8910,
+   "discount": 990,
+   "amount_due": 8910,
+   "lines": [
+    [
+     "Unused time on 2 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+     -14800
+    ],
+    [
+     "Remaining time on E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+     9900
+    ],
+    [
+     "Unused time on 3 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+     -19700
+    ],
+    [
+     "Remaining time on 2 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+     14800
+    ],
+    [
+     "Unused time on 2 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+     -14800
+    ],
+    [
+     "Remaining time on 3 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+     19700
+    ],
+    [
+     "Unused time on E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+     -9900
+    ],
+    [
+     "Remaining time on 2 × E1_ONLY OwedBook stores (cand B graduated) after 12 Nov 2026",
+     14800
+    ],
+    [
+     "1 × E1_ONLY OwedBook stores (cand B graduated) (Tier 1 at $99.00 / month)",
+     9900
+    ]
+   ]
+  },
+  "rest": [
+   "active",
+   true,
+   "2026-12-12"
+  ]
+ }
+}

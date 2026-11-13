@@ -1,0 +1,237 @@
+{
+ "identities": {
+  "OWNER_1": {
+   "id": "72521a97…",
+   "createdNow": true,
+   "via": "createUser",
+   "err": null,
+   "confirmed": true,
+   "platformRoles": [
+    "member"
+   ],
+   "profileRows": 1,
+   "memberships": 0
+  },
+  "STORE_ADMIN": {
+   "id": "a144a6ba…",
+   "createdNow": true,
+   "via": "createUser",
+   "err": null,
+   "confirmed": true,
+   "platformRoles": [
+    "member"
+   ],
+   "profileRows": 1,
+   "memberships": 0
+  },
+  "OWNER_2": {
+   "id": "f679249a…",
+   "createdNow": true,
+   "via": "magiclink",
+   "err": null,
+   "linkTypeReturned": "signup",
+   "confirmed": false,
+   "platformRoles": [
+    "member"
+   ],
+   "profileRows": 1,
+   "memberships": 0,
+   "creationLinkRedeem": {
+    "ok": true,
+    "subjectMatches": true,
+    "sessionId": "c7037c41…",
+    "aal": "aal1",
+    "amr": [
+     "otp"
+    ],
+    "role": "authenticated",
+    "lifetimeSec": 3600,
+    "isAnon": false
+   }
+  },
+  "MEMBER": {
+   "id": "1ac3394c…",
+   "createdNow": true,
+   "via": "invite",
+   "err": null,
+   "linkTypeReturned": "invite",
+   "confirmed": false,
+   "platformRoles": [
+    "member"
+   ],
+   "profileRows": 1,
+   "memberships": 0,
+   "creationLinkRedeem": {
+    "ok": true,
+    "subjectMatches": true,
+    "sessionId": "e4705857…",
+    "aal": "aal1",
+    "amr": [
+     "otp"
+    ],
+    "role": "authenticated",
+    "lifetimeSec": 3600,
+    "isAnon": false
+   }
+  },
+  "userRoleRowsBeforeAfter": [
+   12,
+   16
+  ]
+ },
+ "primitive": {
+  "exchange": {
+   "linkType": "magiclink",
+   "generatedForExpectedUser": true,
+   "ok": true,
+   "subjectMatches": true,
+   "sessionId": "28a6a15f…",
+   "aal": "aal1",
+   "amr": [
+    "otp"
+   ],
+   "role": "authenticated",
+   "lifetimeSec": 3600,
+   "isAnon": false
+  },
+  "reuseSameToken": {
+   "ok": false,
+   "err": {
+    "name": "AuthApiError",
+    "status": 403,
+    "code": "otp_expired",
+    "msg": "Email link is invalid or has expired"
+   }
+  },
+  "verifyAsTypeEmail": {
+   "ok": true,
+   "subjectMatches": true,
+   "sessionId": "29a210cb…",
+   "aal": "aal1",
+   "amr": [
+    "otp"
+   ],
+   "role": "authenticated",
+   "lifetimeSec": 3600,
+   "isAnon": false
+  },
+  "firstSessionStillValidAfterLaterExchanges": true
+ },
+ "collisions": {
+  "order1_emailLinkThenHandoff": {
+   "handoffExchange": {
+    "ok": true,
+    "subjectMatches": true,
+    "sessionId": "507619c6…",
+    "aal": "aal1",
+    "amr": [
+     "otp"
+    ],
+    "role": "authenticated",
+    "lifetimeSec": 3600,
+    "isAnon": false
+   },
+   "earlierLinkAfterwards": {
+    "ok": false,
+    "err": {
+     "name": "AuthApiError",
+     "status": 403,
+     "code": "otp_expired",
+     "msg": "Email link is invalid or has expired"
+    }
+   }
+  },
+  "order2_handoffIssuedThenNewLink": {
+   "earlierHandoffToken": {
+    "ok": false,
+    "err": {
+     "name": "AuthApiError",
+     "status": 403,
+     "code": "otp_expired",
+     "msg": "Email link is invalid or has expired"
+    }
+   },
+   "newerLink": {
+    "ok": true,
+    "subjectMatches": true,
+    "sessionId": "08c443e5…",
+    "aal": "aal1",
+    "amr": [
+     "otp"
+    ],
+    "role": "authenticated",
+    "lifetimeSec": 3600,
+    "isAnon": false
+   }
+  },
+  "concurrentSameToken": [
+   {
+    "ok": true,
+    "subjectMatches": true,
+    "sessionId": "ae93ca1d…",
+    "aal": "aal1",
+    "amr": [
+     "otp"
+    ],
+    "role": "authenticated",
+    "lifetimeSec": 3600,
+    "isAnon": false
+   },
+   {
+    "ok": false,
+    "err": {
+     "name": "AuthApiError",
+     "status": 403,
+     "code": "otp_expired",
+     "msg": "Email link is invalid or has expired"
+    }
+   }
+  ],
+  "concurrentTwoIssues": [
+   {
+    "ok": true,
+    "subjectMatches": true,
+    "sessionId": "6b4d79b3…",
+    "aal": "aal1",
+    "amr": [
+     "otp"
+    ],
+    "role": "authenticated",
+    "lifetimeSec": 3600,
+    "isAnon": false
+   },
+   {
+    "ok": false,
+    "err": {
+     "name": "AuthApiError",
+     "status": 403,
+     "code": "otp_expired",
+     "msg": "Email link is invalid or has expired"
+    }
+   }
+  ],
+  "crossUserIsolation": "OWNER_1 exchanges above were unaffected by OWNER_2 token churn: true"
+ },
+ "cookies": {
+  "named": {
+   "obLogin": true,
+   "jarAfterObLogin": [
+    "cyph-ob-auth-local"
+   ],
+   "ppStartsWithoutSession": true,
+   "ppLogin": true,
+   "jarAfterBoth": [
+    "cyph-ob-auth-local",
+    "cyph-pp-auth-local"
+   ],
+   "obStillStoreAdmin": true,
+   "ppIsOwner1": true
+  },
+  "defaultNames": {
+   "cookieNamesAfterFirstAppLogin": [
+    "sb-<ref>-auth-token"
+   ],
+   "secondAppSeesFirstAppsUser": true
+  }
+ }
+}

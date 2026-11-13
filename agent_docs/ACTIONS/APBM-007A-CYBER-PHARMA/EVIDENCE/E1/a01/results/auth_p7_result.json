@@ -1,0 +1,90 @@
+{
+ "at": "2026-11-12T09:18:19.169Z",
+ "role": "OWNER_2",
+ "subject": "f679249a…",
+ "within60s": true,
+ "totalMs": 4589,
+ "portalJarEmptyBeforeFirstHandoff": true,
+ "steps": [
+  {
+   "label": "1 OwedBook sign-in (stands for the source session)",
+   "dest": "cyph-ob-auth-local",
+   "startMs": 0,
+   "linkUserIsSubject": true,
+   "sessionUserIsSubject": true,
+   "sessionId": "906994ab…",
+   "endMs": 1159,
+   "tookMs": 1159
+  },
+  {
+   "label": "2 OwedBook → Payment Portal",
+   "dest": "cyph-pp-auth-local",
+   "startMs": 1159,
+   "linkUserIsSubject": true,
+   "sessionUserIsSubject": true,
+   "sessionId": "c34da95b…",
+   "endMs": 2303,
+   "tookMs": 1144
+  },
+  {
+   "label": "3 Payment Portal → OwedBook",
+   "dest": "cyph-ob-auth-local",
+   "startMs": 2303,
+   "linkUserIsSubject": true,
+   "sessionUserIsSubject": true,
+   "sessionId": "4b17561f…",
+   "endMs": 3451,
+   "tookMs": 1148
+  },
+  {
+   "label": "4 OwedBook → Payment Portal again",
+   "dest": "cyph-pp-auth-local",
+   "startMs": 3451,
+   "linkUserIsSubject": true,
+   "sessionUserIsSubject": true,
+   "sessionId": "3f579c62…",
+   "endMs": 4589,
+   "tookMs": 1138
+  }
+ ],
+ "distinctSessions": 4,
+ "earlierSessionsAfterAllExchanges": [
+  {
+   "label": "1 OwedBook sign-in (stands for the source session)",
+   "stillLive": true,
+   "user": true
+  },
+  {
+   "label": "2 OwedBook → Payment Portal",
+   "stillLive": true,
+   "user": true
+  },
+  {
+   "label": "3 Payment Portal → OwedBook",
+   "stillLive": true,
+   "user": true
+  },
+  {
+   "label": "4 OwedBook → Payment Portal again",
+   "stillLive": true,
+   "user": true
+  }
+ ],
+ "jars": {
+  "ob": {
+   "cookieNames": [
+    "cyph-ob-auth-local"
+   ],
+   "userIsSubject": true,
+   "err": null
+  },
+  "pp": {
+   "cookieNames": [
+    "cyph-pp-auth-local"
+   ],
+   "userIsSubject": true,
+   "err": null
+  }
+ },
+ "jarsShareNoCookie": true
+}

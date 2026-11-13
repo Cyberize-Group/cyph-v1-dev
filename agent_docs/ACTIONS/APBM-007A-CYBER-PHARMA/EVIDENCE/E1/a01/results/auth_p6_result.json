@@ -1,0 +1,10 @@
+{
+ "role": "OWNER_1",
+ "addressMatchesPrivateFile": true,
+ "accepted": true,
+ "err": null,
+ "ms": 3005,
+ "at": "2026-11-12T08:27:24.399Z",
+ "redirect": "http://localhost:3000/api/auth/confirm",
+ "shouldCreateUser": false
+}

@@ -1,0 +1,10 @@
+import { chromium, PP, cast, signInUrl, scrub, cookieNames } from './lib.mjs';
+const browser = await chromium.launch({ executablePath: '/home/moose/.cache/ms-playwright/chromium-1194/chrome-linux/chrome' }); const ctx = await browser.newContext(); const page = await ctx.newPage();
+const log = []; page.on('response', (r) => { if (r.request().resourceType() === 'document' || r.url().includes('/api/')) log.push(`${r.request().method()} ${r.url().replace(/\?.*/, '')} -> ${r.status()} ${r.headers()['location'] ?? ''}`); });
+await page.goto(await signInUrl('pp', cast.OWNER_1));
+console.log('cookies after GET', await cookieNames(ctx));
+const html = await page.locator('form').first().evaluate((f) => ({ method: f.getAttribute('method'), action: f.getAttribute('action'), inputs: [...f.querySelectorAll('input')].map((i) => i.name) }));
+console.log('form', html);
+await page.getByTestId('confirm-sign-in').click(); await page.waitForTimeout(5000);
+console.log(scrub(log.join('\n'))); console.log('url', page.url(), 'cookies', await cookieNames(ctx));
+await browser.close();

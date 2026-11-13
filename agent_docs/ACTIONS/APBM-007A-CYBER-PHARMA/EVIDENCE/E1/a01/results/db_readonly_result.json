@@ -1,0 +1,785 @@
+{
+ "identity": {
+  "urlProjectRef": "yrsuwikjnbmvpznrgydb",
+  "matchesDEV": true,
+  "matchesAppApiRef": true,
+  "hostKind": "pooler",
+  "port": "5432",
+  "db": "/postgres",
+  "transactionReadOnly": "on",
+  "database": "postgres",
+  "role": "postgres",
+  "postgres": "17.6",
+  "apiCreatedIdentitiesFoundInThisDatabase": "4/4"
+ },
+ "ledger": {
+  "rows": 52,
+  "sourceFiles": 52,
+  "first": "0001_baseline_acknowledge.sql",
+  "last": "0052_system_config.sql",
+  "appliedRange": [
+   "2026-11-07T08:06:21.794Z",
+   "2026-11-07T08:07:43.827Z"
+  ],
+  "missingFromLedger": [],
+  "extraInLedger": [],
+  "checksumMismatch": [],
+  "otherMigrationTables": [
+   {
+    "t": "auth.schema_migrations"
+   },
+   {
+    "t": "realtime.schema_migrations"
+   },
+   {
+    "t": "storage.migrations"
+   },
+   {
+    "t": "supabase_migrations.schema_migrations"
+   }
+  ]
+ },
+ "trigger": {
+  "functionPresent": true,
+  "securityDefiner": true,
+  "config": [
+   "search_path=\"\""
+  ],
+  "owner": "postgres",
+  "acl": "{postgres=X/postgres,service_role=X/postgres}",
+  "bodyEqualsMigration0049": true,
+  "insertsMember": true,
+  "readsRoleFromMetadata": false,
+  "triggersOnAuthUsers": [
+   {
+    "tgname": "on_auth_user_created",
+    "tgenabled": "O",
+    "proname": "handle_new_user"
+   }
+  ]
+ },
+ "grants": {
+  "tables": [
+   {
+    "t": "aac_reference",
+    "g": "anon",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "aac_reference",
+    "g": "authenticated",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "accounts",
+    "g": "anon",
+    "p": "REFERENCES,SELECT,TRIGGER,TRUNCATE"
+   },
+   {
+    "t": "accounts",
+    "g": "authenticated",
+    "p": "REFERENCES,SELECT,TRIGGER,TRUNCATE"
+   },
+   {
+    "t": "apa_memberships",
+    "g": "anon",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "apa_memberships",
+    "g": "authenticated",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "audit_logs",
+    "g": "anon",
+    "p": "INSERT,REFERENCES,TRIGGER,TRUNCATE"
+   },
+   {
+    "t": "audit_logs",
+    "g": "authenticated",
+    "p": "INSERT,REFERENCES,TRIGGER,TRUNCATE"
+   },
+   {
+    "t": "businesses",
+    "g": "anon",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "businesses",
+    "g": "authenticated",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "ful_reference",
+    "g": "anon",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "ful_reference",
+    "g": "authenticated",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "pbm_info",
+    "g": "anon",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "pbm_info",
+    "g": "authenticated",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "pending_registrations",
+    "g": "anon",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "pending_registrations",
+    "g": "authenticated",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "profiles",
+    "g": "anon",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "profiles",
+    "g": "authenticated",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "reference_dataset_versions",
+    "g": "anon",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "reference_dataset_versions",
+    "g": "authenticated",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "report_files",
+    "g": "anon",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "report_files",
+    "g": "authenticated",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "subscriptions",
+    "g": "anon",
+    "p": "REFERENCES,SELECT,TRIGGER,TRUNCATE"
+   },
+   {
+    "t": "subscriptions",
+    "g": "authenticated",
+    "p": "REFERENCES,SELECT,TRIGGER,TRUNCATE"
+   },
+   {
+    "t": "system_config",
+    "g": "authenticated",
+    "p": "SELECT"
+   },
+   {
+    "t": "user_businesses",
+    "g": "anon",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "user_businesses",
+    "g": "authenticated",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "user_data",
+    "g": "anon",
+    "p": "REFERENCES,TRIGGER,TRUNCATE"
+   },
+   {
+    "t": "user_data",
+    "g": "authenticated",
+    "p": "REFERENCES,TRIGGER,TRUNCATE"
+   },
+   {
+    "t": "user_roles",
+    "g": "anon",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "user_roles",
+    "g": "authenticated",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "wac_reference",
+    "g": "anon",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   },
+   {
+    "t": "wac_reference",
+    "g": "authenticated",
+    "p": "DELETE,INSERT,REFERENCES,SELECT,TRIGGER,TRUNCATE,UPDATE"
+   }
+  ],
+  "defaultAcls": [
+   {
+    "owner": "postgres",
+    "ns": "public",
+    "typ": "S",
+    "acl": "{postgres=rwU/postgres,anon=rwU/postgres,authenticated=rwU/postgres,service_role=rwU/postgres}"
+   },
+   {
+    "owner": "postgres",
+    "ns": "public",
+    "typ": "f",
+    "acl": "{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+   },
+   {
+    "owner": "postgres",
+    "ns": "public",
+    "typ": "r",
+    "acl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+   },
+   {
+    "owner": "supabase_admin",
+    "ns": "public",
+    "typ": "S",
+    "acl": "{postgres=rwU/supabase_admin,anon=rwU/supabase_admin,authenticated=rwU/supabase_admin,service_role=rwU/supabase_admin}"
+   },
+   {
+    "owner": "supabase_admin",
+    "ns": "public",
+    "typ": "f",
+    "acl": "{postgres=X/supabase_admin,anon=X/supabase_admin,authenticated=X/supabase_admin,service_role=X/supabase_admin}"
+   },
+   {
+    "owner": "supabase_admin",
+    "ns": "public",
+    "typ": "r",
+    "acl": "{postgres=arwdDxtm/supabase_admin,anon=arwdDxtm/supabase_admin,authenticated=arwdDxtm/supabase_admin,service_role=arwdDxtm/supabase_admin}"
+   }
+  ],
+  "functions": [
+   {
+    "f": "admin_audit",
+    "args": "p_business_id uuid, p_limit integer, p_before bigint",
+    "secdef": true,
+    "cfg": [
+     "search_path=\"\""
+    ],
+    "owner": "postgres",
+    "anon": false,
+    "auth": true
+   },
+   {
+    "f": "admin_billing_status",
+    "args": "p_business_id uuid",
+    "secdef": true,
+    "cfg": [
+     "search_path=\"\""
+    ],
+    "owner": "postgres",
+    "anon": false,
+    "auth": true
+   },
+   {
+    "f": "admin_members",
+    "args": "p_business_id uuid",
+    "secdef": true,
+    "cfg": [
+     "search_path=\"\""
+    ],
+    "owner": "postgres",
+    "anon": false,
+    "auth": true
+   },
+   {
+    "f": "admin_stores",
+    "args": "p_business_id uuid",
+    "secdef": true,
+    "cfg": [
+     "search_path=\"\""
+    ],
+    "owner": "postgres",
+    "anon": false,
+    "auth": true
+   },
+   {
+    "f": "audit_logs_immutable",
+    "args": "",
+    "secdef": false,
+    "cfg": [
+     "search_path=\"\""
+    ],
+    "owner": "postgres",
+    "anon": true,
+    "auth": true
+   },
+   {
+    "f": "audit_write",
+    "args": "",
+    "secdef": true,
+    "cfg": [
+     "search_path=\"\""
+    ],
+    "owner": "postgres",
+    "anon": false,
+    "auth": true
+   },
+   {
+    "f": "handle_new_user",
+    "args": "",
+    "secdef": true,
+    "cfg": [
+     "search_path=\"\""
+    ],
+    "owner": "postgres",
+    "anon": false,
+    "auth": false
+   },
+   {
+    "f": "is_account_member",
+    "args": "acct uuid",
+    "secdef": true,
+    "cfg": [
+     "search_path=\"\""
+    ],
+    "owner": "postgres",
+    "anon": false,
+    "auth": true
+   },
+   {
+    "f": "is_admin_of",
+    "args": "biz uuid",
+    "secdef": true,
+    "cfg": [
+     "search_path=\"\""
+    ],
+    "owner": "postgres",
+    "anon": false,
+    "auth": true
+   },
+   {
+    "f": "is_member_of",
+    "args": "biz uuid",
+    "secdef": true,
+    "cfg": [
+     "search_path=\"\""
+    ],
+    "owner": "postgres",
+    "anon": false,
+    "auth": true
+   },
+   {
+    "f": "is_owner_of_account",
+    "args": "acct uuid",
+    "secdef": true,
+    "cfg": [
+     "search_path=\"\""
+    ],
+    "owner": "postgres",
+    "anon": false,
+    "auth": true
+   },
+   {
+    "f": "my_business_ids",
+    "args": "",
+    "secdef": true,
+    "cfg": [
+     "search_path=\"\""
+    ],
+    "owner": "postgres",
+    "anon": false,
+    "auth": true
+   },
+   {
+    "f": "owedbook_kpis",
+    "args": "p_business_id uuid, p_from date, p_to date, p_pbms text[], p_filter text",
+    "secdef": true,
+    "cfg": [
+     "search_path=\"\""
+    ],
+    "owner": "postgres",
+    "anon": false,
+    "auth": true
+   },
+   {
+    "f": "owedbook_pbm_options",
+    "args": "p_business_id uuid",
+    "secdef": true,
+    "cfg": [
+     "search_path=\"\""
+    ],
+    "owner": "postgres",
+    "anon": false,
+    "auth": true
+   },
+   {
+    "f": "owedbook_rows",
+    "args": "p_business_id uuid, p_tab text, p_from date, p_to date, p_pbms text[], p_filter text, p_page integer, p_limit integer",
+    "secdef": true,
+    "cfg": [
+     "search_path=\"\""
+    ],
+    "owner": "postgres",
+    "anon": false,
+    "auth": true
+   },
+   {
+    "f": "owedbook_summary",
+    "args": "p_business_id uuid, p_from date, p_to date, p_pbms text[], p_filter text",
+    "secdef": true,
+    "cfg": [
+     "search_path=\"\""
+    ],
+    "owner": "postgres",
+    "anon": false,
+    "auth": true
+   },
+   {
+    "f": "rls_auto_enable",
+    "args": "",
+    "secdef": false,
+    "cfg": null,
+    "owner": "postgres",
+    "anon": true,
+    "auth": true
+   },
+   {
+    "f": "tenant_stores",
+    "args": "",
+    "secdef": true,
+    "cfg": [
+     "search_path=\"\""
+    ],
+    "owner": "postgres",
+    "anon": false,
+    "auth": true
+   },
+   {
+    "f": "update_updated_at",
+    "args": "",
+    "secdef": false,
+    "cfg": null,
+    "owner": "postgres",
+    "anon": true,
+    "auth": true
+   }
+  ],
+  "rlsAutoEnable": [
+   {
+    "eventTrigger": "ensure_rls",
+    "event": "ddl_command_end",
+    "lines": 17
+   }
+  ]
+ },
+ "rls": [
+  {
+   "t": "aac_reference",
+   "rls": true,
+   "force": false,
+   "policies": 1
+  },
+  {
+   "t": "accounts",
+   "rls": true,
+   "force": false,
+   "policies": 1
+  },
+  {
+   "t": "apa_memberships",
+   "rls": true,
+   "force": false,
+   "policies": 0
+  },
+  {
+   "t": "audit_logs",
+   "rls": true,
+   "force": true,
+   "policies": 0
+  },
+  {
+   "t": "businesses",
+   "rls": true,
+   "force": false,
+   "policies": 2
+  },
+  {
+   "t": "ful_reference",
+   "rls": true,
+   "force": false,
+   "policies": 1
+  },
+  {
+   "t": "pbm_info",
+   "rls": true,
+   "force": false,
+   "policies": 1
+  },
+  {
+   "t": "pending_registrations",
+   "rls": true,
+   "force": false,
+   "policies": 0
+  },
+  {
+   "t": "profiles",
+   "rls": true,
+   "force": false,
+   "policies": 2
+  },
+  {
+   "t": "reference_dataset_versions",
+   "rls": true,
+   "force": false,
+   "policies": 1
+  },
+  {
+   "t": "report_files",
+   "rls": true,
+   "force": false,
+   "policies": 1
+  },
+  {
+   "t": "subscriptions",
+   "rls": true,
+   "force": false,
+   "policies": 1
+  },
+  {
+   "t": "system_config",
+   "rls": true,
+   "force": false,
+   "policies": 1
+  },
+  {
+   "t": "user_businesses",
+   "rls": true,
+   "force": false,
+   "policies": 1
+  },
+  {
+   "t": "user_data",
+   "rls": true,
+   "force": false,
+   "policies": 0
+  },
+  {
+   "t": "user_roles",
+   "rls": true,
+   "force": false,
+   "policies": 1
+  },
+  {
+   "t": "wac_reference",
+   "rls": true,
+   "force": false,
+   "policies": 1
+  }
+ ],
+ "policies": [
+  {
+   "t": "accounts",
+   "p": "account_select_member_or_owner",
+   "cmd": "SELECT",
+   "r": "{authenticated}"
+  },
+  {
+   "t": "businesses",
+   "p": "business_select_member_or_owner",
+   "cmd": "SELECT",
+   "r": "{authenticated}"
+  },
+  {
+   "t": "businesses",
+   "p": "business_update_admin",
+   "cmd": "UPDATE",
+   "r": "{authenticated}"
+  },
+  {
+   "t": "subscriptions",
+   "p": "subscription_select_member_or_owner",
+   "cmd": "SELECT",
+   "r": "{authenticated}"
+  },
+  {
+   "t": "user_businesses",
+   "p": "user_business_select_self_or_owner",
+   "cmd": "SELECT",
+   "r": "{authenticated}"
+  }
+ ],
+ "indexes": [
+  {
+   "t": "accounts",
+   "i": "accounts_pkey",
+   "d": "CREATE UNIQUE INDEX accounts_pkey ON public.accounts USING btree (id)"
+  },
+  {
+   "t": "businesses",
+   "i": "businesses_activation_key_key",
+   "d": "CREATE UNIQUE INDEX businesses_activation_key_key ON public.businesses USING btree (activation_key)"
+  },
+  {
+   "t": "businesses",
+   "i": "businesses_pharmacy_slug_key",
+   "d": "CREATE UNIQUE INDEX businesses_pharmacy_slug_key ON public.businesses USING btree (pharmacy_slug)"
+  },
+  {
+   "t": "businesses",
+   "i": "businesses_pkey",
+   "d": "CREATE UNIQUE INDEX businesses_pkey ON public.businesses USING btree (id)"
+  },
+  {
+   "t": "businesses",
+   "i": "idx_businesses_account_id",
+   "d": "CREATE INDEX idx_businesses_account_id ON public.businesses USING btree (account_id)"
+  },
+  {
+   "t": "businesses",
+   "i": "uq_businesses_ncpdp_npi",
+   "d": "CREATE UNIQUE INDEX uq_businesses_ncpdp_npi ON public.businesses USING btree (ncpdp, npi)"
+  },
+  {
+   "t": "subscriptions",
+   "i": "idx_subscriptions_account_id",
+   "d": "CREATE INDEX idx_subscriptions_account_id ON public.subscriptions USING btree (account_id)"
+  },
+  {
+   "t": "subscriptions",
+   "i": "subscriptions_pkey",
+   "d": "CREATE UNIQUE INDEX subscriptions_pkey ON public.subscriptions USING btree (id)"
+  },
+  {
+   "t": "subscriptions",
+   "i": "subscriptions_stripe_subscription_id_key",
+   "d": "CREATE UNIQUE INDEX subscriptions_stripe_subscription_id_key ON public.subscriptions USING btree (stripe_subscription_id)"
+  },
+  {
+   "t": "user_businesses",
+   "i": "idx_user_businesses_business_id",
+   "d": "CREATE INDEX idx_user_businesses_business_id ON public.user_businesses USING btree (business_id)"
+  },
+  {
+   "t": "user_businesses",
+   "i": "idx_user_businesses_user_id",
+   "d": "CREATE INDEX idx_user_businesses_user_id ON public.user_businesses USING btree (user_id)"
+  },
+  {
+   "t": "user_businesses",
+   "i": "uq_user_business",
+   "d": "CREATE UNIQUE INDEX uq_user_business ON public.user_businesses USING btree (user_id, business_id)"
+  },
+  {
+   "t": "user_businesses",
+   "i": "user_businesses_one_admin",
+   "d": "CREATE UNIQUE INDEX user_businesses_one_admin ON public.user_businesses USING btree (business_id) WHERE (role = 'admin'::text)"
+  },
+  {
+   "t": "user_businesses",
+   "i": "user_businesses_pkey",
+   "d": "CREATE UNIQUE INDEX user_businesses_pkey ON public.user_businesses USING btree (id)"
+  }
+ ],
+ "authSessions": {
+  "readableByThisRole": true,
+  "columns": [
+   "id",
+   "user_id",
+   "created_at",
+   "updated_at",
+   "factor_id",
+   "aal",
+   "not_after",
+   "refreshed_at",
+   "user_agent",
+   "ip",
+   "tag",
+   "oauth_client_id",
+   "refresh_token_hmac_key",
+   "refresh_token_counter",
+   "scopes"
+  ],
+  "liveSessionsByLabel": {
+   "OWNER_1": 4,
+   "OWNER_2": 5,
+   "STORE_ADMIN": 3,
+   "MEMBER": 1
+  },
+  "totalSessionsAllUsers": 17,
+  "privilege": {
+   "postgres": true,
+   "authenticated": false,
+   "service_role": false,
+   "auth_schema_usage_authenticated": true
+  }
+ },
+ "users": [
+  {
+   "created": "2026-05-15",
+   "users": 1,
+   "member": 1,
+   "admin": 0,
+   "superadmin": 0,
+   "with_membership": 0,
+   "owns_account": 0,
+   "has_password": 1
+  },
+  {
+   "created": "2026-05-26",
+   "users": 2,
+   "member": 0,
+   "admin": 1,
+   "superadmin": 1,
+   "with_membership": 0,
+   "owns_account": 0,
+   "has_password": 2
+  },
+  {
+   "created": "2026-06-23",
+   "users": 1,
+   "member": 1,
+   "admin": 0,
+   "superadmin": 0,
+   "with_membership": 0,
+   "owns_account": 0,
+   "has_password": 1
+  },
+  {
+   "created": "2026-08-02",
+   "users": 1,
+   "member": 1,
+   "admin": 0,
+   "superadmin": 0,
+   "with_membership": 0,
+   "owns_account": 0,
+   "has_password": 1
+  },
+  {
+   "created": "2026-11-07",
+   "users": 7,
+   "member": 7,
+   "admin": 0,
+   "superadmin": 0,
+   "with_membership": 7,
+   "owns_account": 3,
+   "has_password": 7
+  },
+  {
+   "created": "2026-11-12",
+   "users": 4,
+   "member": 4,
+   "admin": 0,
+   "superadmin": 0,
+   "with_membership": 0,
+   "owns_account": 0,
+   "has_password": 4
+  }
+ ]
+}

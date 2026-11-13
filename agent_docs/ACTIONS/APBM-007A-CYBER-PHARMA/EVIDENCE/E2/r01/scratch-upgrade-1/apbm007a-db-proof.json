@@ -1,0 +1,335 @@
+{
+  "status": "PASS",
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "run": "apbm007a-proof-1794480993258",
+  "checks": [
+    {
+      "name": "handoff issue for a live source session",
+      "status": "PASS"
+    },
+    {
+      "name": "only the hash of the code is stored",
+      "status": "PASS"
+    },
+    {
+      "name": "code lifetime is 60 seconds",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong verifier is rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong state is rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong audience is rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong environment is rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "correct caller still claims after four bad bindings (code was not consumed)",
+      "status": "PASS"
+    },
+    {
+      "name": "a claimed code cannot be claimed again",
+      "status": "PASS"
+    },
+    {
+      "name": "completion succeeds once",
+      "status": "PASS"
+    },
+    {
+      "name": "completion cannot repeat",
+      "status": "PASS"
+    },
+    {
+      "name": "six concurrent correct claims: exactly one wins",
+      "status": "PASS"
+    },
+    {
+      "name": "an expired code is rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "return path \"//evil.example\" cannot be stored",
+      "status": "PASS"
+    },
+    {
+      "name": "return path \"/a//b\" cannot be stored",
+      "status": "PASS"
+    },
+    {
+      "name": "return path \"https://evil.example\" cannot be stored",
+      "status": "PASS"
+    },
+    {
+      "name": "return path \"/a?b=1\" cannot be stored",
+      "status": "PASS"
+    },
+    {
+      "name": "return path \"/a\\\\b\" cannot be stored",
+      "status": "PASS"
+    },
+    {
+      "name": "return path \"/%2f%2fevil\" cannot be stored",
+      "status": "PASS"
+    },
+    {
+      "name": "source and destination must differ",
+      "status": "PASS"
+    },
+    {
+      "name": "issue refuses a session that does not exist",
+      "status": "PASS"
+    },
+    {
+      "name": "issue refuses another user's session",
+      "status": "PASS"
+    },
+    {
+      "name": "logout invalidates pending codes",
+      "status": "PASS"
+    },
+    {
+      "name": "a code invalidated by logout is rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "logout after claim: completion is revoked",
+      "status": "PASS"
+    },
+    {
+      "name": "a failed claim cannot complete",
+      "status": "PASS"
+    },
+    {
+      "name": "a failed claim cannot be claimed again",
+      "status": "PASS"
+    },
+    {
+      "name": "two logins give two sessions",
+      "status": "PASS"
+    },
+    {
+      "name": "per-session sign-out call accepted",
+      "status": "PASS"
+    },
+    {
+      "name": "the revoked session is rejected by getUser",
+      "status": "PASS"
+    },
+    {
+      "name": "the other session of the same user stays valid",
+      "status": "PASS"
+    },
+    {
+      "name": "auth.sessions lost exactly the revoked session",
+      "status": "PASS"
+    },
+    {
+      "name": "source signed out elsewhere: unclaimed code is rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "source signed out elsewhere: claimed code cannot complete",
+      "status": "PASS"
+    },
+    {
+      "name": "eleventh issue inside a minute is refused",
+      "status": "PASS"
+    },
+    {
+      "name": "old finished rows are removed opportunistically on issue",
+      "status": "PASS"
+    },
+    {
+      "name": "the row just issued is still claimable after retention ran",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong-length NPI is invalid",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong check digit is invalid",
+      "status": "PASS"
+    },
+    {
+      "name": "six registrants racing for one NPI: exactly one holds it",
+      "status": "PASS"
+    },
+    {
+      "name": "the holder re-reserving keeps its hold",
+      "status": "PASS"
+    },
+    {
+      "name": "an expired unbound hold frees lazily for the next registrant",
+      "status": "PASS"
+    },
+    {
+      "name": "the expired hold is recorded as released, not deleted",
+      "status": "PASS"
+    },
+    {
+      "name": "changing NPI lets go of the earlier hold",
+      "status": "PASS"
+    },
+    {
+      "name": "a second unresolved operation for the same draft is refused",
+      "status": "PASS"
+    },
+    {
+      "name": "hold binds to its checkout operation",
+      "status": "PASS"
+    },
+    {
+      "name": "a bound NPI is unavailable to others",
+      "status": "PASS"
+    },
+    {
+      "name": "an expired bound reservation is NOT freed by time: proof is demanded",
+      "status": "PASS"
+    },
+    {
+      "name": "release is refused while the checkout is not proven unpaid",
+      "status": "PASS"
+    },
+    {
+      "name": "a paid operation never releases its reservation",
+      "status": "PASS"
+    },
+    {
+      "name": "proof of an unpaid expired checkout releases it",
+      "status": "PASS"
+    },
+    {
+      "name": "the NPI is then available",
+      "status": "PASS"
+    },
+    {
+      "name": "provisioning refuses a mismatched customer/subscription mapping",
+      "status": "PASS"
+    },
+    {
+      "name": "provisioning refuses a missing owner identity",
+      "status": "PASS"
+    },
+    {
+      "name": "refused provisioning wrote nothing",
+      "status": "PASS"
+    },
+    {
+      "name": "three concurrent provisioning calls: one creates, the rest find it done",
+      "status": "PASS"
+    },
+    {
+      "name": "exactly one account, store, admin membership, mapping and subscription were created",
+      "status": "PASS"
+    },
+    {
+      "name": "provisioned facts are exact",
+      "status": "PASS"
+    },
+    {
+      "name": "the new owner's platform role stays member",
+      "status": "PASS"
+    },
+    {
+      "name": "repeating provisioning is a no-op with the same identifiers",
+      "status": "PASS"
+    },
+    {
+      "name": "an owner who already has an account cannot be given a second one",
+      "status": "PASS"
+    },
+    {
+      "name": "a registered NPI is unavailable to a new draft",
+      "status": "PASS"
+    },
+    {
+      "name": "a second store with the same NPI is refused by the unique index",
+      "status": "PASS"
+    },
+    {
+      "name": "an unpaid operation cannot be provisioned",
+      "status": "PASS"
+    },
+    {
+      "name": "the five legacy fixture stores remain updatable by trusted SQL (no CHECK on their NPI)",
+      "status": "PASS"
+    },
+    {
+      "name": "a newer read is applied",
+      "status": "PASS"
+    },
+    {
+      "name": "portal-style cancellation (cancel_at only) reads as scheduled",
+      "status": "PASS"
+    },
+    {
+      "name": "an older read cannot overwrite a newer one",
+      "status": "PASS"
+    },
+    {
+      "name": "undo clears the schedule",
+      "status": "PASS"
+    },
+    {
+      "name": "an unknown subscription is reported, not created",
+      "status": "PASS"
+    },
+    {
+      "name": "first renewal failure starts grace",
+      "status": "PASS"
+    },
+    {
+      "name": "Stripe's retry of the same invoice does not restart the clock",
+      "status": "PASS"
+    },
+    {
+      "name": "after seven days the state is read-only, computed from server time",
+      "status": "PASS"
+    },
+    {
+      "name": "payment of a different invoice does not clear the delinquency",
+      "status": "PASS"
+    },
+    {
+      "name": "payment of the failed invoice clears it",
+      "status": "PASS"
+    },
+    {
+      "name": "access returns to active after recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "a late failure event for the paid invoice does not reopen grace",
+      "status": "PASS"
+    },
+    {
+      "name": "ending the subscription gives the retained read-only state",
+      "status": "PASS"
+    },
+    {
+      "name": "a stale active event cannot revive an ended subscription",
+      "status": "PASS"
+    },
+    {
+      "name": "the synthetic past-due fixture shows a reminder with no grace clock",
+      "status": "PASS"
+    },
+    {
+      "name": "a 'stripe' subscription row without Stripe identifiers is refused",
+      "status": "PASS"
+    },
+    {
+      "name": "a second current subscription for one account is refused",
+      "status": "PASS"
+    }
+  ]
+}

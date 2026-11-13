@@ -1,0 +1,11 @@
+{
+ "columns": "identical",
+ "tables": "identical",
+ "policies": "identical",
+ "functions": "identical",
+ "constraints": "identical",
+ "indexes": "identical",
+ "triggers": "identical",
+ "defaultACLs": "only-DEV 3, only-SCRATCH 0",
+ "enums": "identical"
+}

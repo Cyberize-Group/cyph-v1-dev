@@ -1,0 +1,90 @@
+{
+ "at": "2026-11-12T14:53:52.931Z",
+ "results": [
+  {
+   "name": "B1 one account owned by OWNER_1, one active store with the registered NPI, OWNER_1 its designated admin",
+   "status": "PASS",
+   "detail": "{\"npi\":\"1960329666\",\"pharmacy_name\":\"SYNTHETIC E2 STORE 9666\",\"status\":\"active\",\"ncpdp\":null,\"role\":\"admin\",\"origin\":\"stripe\",\"sub_status\":\"active\",\"raw_status\":\"active\",\"quantity\":1,\"promotion_code\":\"APA10SANDBOX\",\"stripe_price_id\":\"price_1UavqdGnEQDyu3RRcj32U2Ob\",\"current_period_end\":\"2026-12-12T1"
+  },
+  {
+   "name": "B2 subscription mirrored from Stripe: origin stripe, active, quantity 1, APA code, the configured price",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "name": "B3 OWNER_1's platform role stays member; reservation consumed; signed-in purchase recorded as an in-app notice (no email)",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "name": "B4 signed webhook events reached the portal and were processed",
+   "status": "FAIL",
+   "detail": "NONE RECEIVED: the portal webhook secret is not the listener secret, so every delivery was refused (400). Provisioning came from the status page reconcile path"
+  },
+  {
+   "name": "B5 Stripe agrees: subscription active, first invoice paid 8,910 USD cents, one item at quantity 1",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "name": "B6 portal dashboard shows the plan and the new store",
+   "status": "PASS",
+   "detail": "ACTIVE"
+  },
+  {
+   "name": "B7 portal billing shows the card on file read live from Stripe",
+   "status": "PASS",
+   "detail": "Visa •••• 4242"
+  },
+  {
+   "name": "B8 before the handoff this browser holds a portal session only",
+   "status": "PASS",
+   "detail": "cyph-pp-cf-local@localhost,cyph-pp-auth-local@localhost,cyph-pp-reg-local@localhost,__cf_bm@.hcaptcha.com,m@m.stripe.com,__stripe_mid@.checkout.stripe.com,__stripe_sid@.checkout.stripe.com,session-id-time@.amazon.com,session-token@.amazon.com,session-id@.amazon.com,session-id-apay@.amazon.com,apay-s"
+  },
+  {
+   "name": "B9 portal → OwedBook handoff lands in OwedBook signed in, under its own cookie, with no code in the final address",
+   "status": "PASS",
+   "detail": "5282 ms; http://localhost:3000/owedbook"
+  },
+  {
+   "name": "B10 OwedBook shows the owner the new store (true empty claims state)",
+   "status": "PASS",
+   "detail": "store visible"
+  },
+  {
+   "name": "B11 OwedBook access state for the new store: active, owner",
+   "status": "PASS",
+   "detail": "{\"access\":{\"state\":\"active\",\"readOnly\":false,\"isOwner\":true,\"policyVersion\":\"access-v1\"}}"
+  },
+  {
+   "name": "B12 OwedBook → portal with the same user already signed in: arrives without minting a session (same_user)",
+   "status": "PASS",
+   "detail": "13258 ms; sessions 16 → 16"
+  },
+  {
+   "name": "B13 two sequential crossings, both directions, inside 60 seconds",
+   "status": "PASS",
+   "detail": "57356 ms"
+  },
+  {
+   "name": "B14 OwedBook button-confirm sign-in lands on OwedBook with only the OwedBook cookie",
+   "status": "PASS",
+   "detail": "cyph-ob-cf-local@localhost,cyph-ob-auth-local@localhost"
+  },
+  {
+   "name": "B15 OwedBook → portal handoff mints the portal session and lands on billing as the owner",
+   "status": "PASS",
+   "detail": "7000 ms; overview 200"
+  },
+  {
+   "name": "B16 and straight back to OwedBook inside 60 seconds of the first crossing",
+   "status": "PASS",
+   "detail": "16397 ms total"
+  },
+  {
+   "name": "B17 handoff codes in the database: hash-only rows, completed or invalidated, none left open",
+   "status": "PASS",
+   "detail": "{\"total\":3,\"completed\":3,\"invalidated\":0}"
+  }
+ ]
+}

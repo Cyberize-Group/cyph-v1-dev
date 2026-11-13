@@ -1,0 +1,152 @@
+CYBER PHARMA — SUBSCRIPTION PORTAL LAB CLOSEOUT & REPLANNING BRIEF
+Prepared for Tony, Coach, Frank and the next planning lab
+5 November 2026 · Working brief, not a replacement plan or new approval
+
+PURPOSE AND EVIDENCE
+
+This brief captures the Subscription Portal FFM work, decisions exposed by product review, stakeholder feedback, and changes the next eight-phase plan must address. It is based on this lab's conversation and supplied screenshots, CYBER_PHARMA_8_PHASE_PLAN_v2_0.md, the supplied Phase 3 campaign journal, and OWEDBOOK_MATH_ENGINE_KNOWLEDGE_BASE_v1_0.md. Frank's request for both magic-link and Google OAuth 2.0 login is newly reported by Tony in this request.
+
+The deployed repository, current database and complete QA archive were not independently inspected for this brief. Distinguish documented decisions, reported implementation, and work still required. The Phase 3 journal supplied here contains starting conditions rather than a completed campaign inventory. Its absence of later entries cannot establish which migrations or modules are currently complete.
+
+1. WHERE WE HAVE ARRIVED
+
+The Subscription Portal frontend-first module was built, reviewed, repaired, independently tested, closed out, and deployed to cloud staging. Tony manually explored registration, payment stand-ins, activation, recovery states, account management and demo controls; his acceptance remains recorded. He subsequently reported the deployed custom domain working and a successful email/password login.
+
+This is a deployed FFM, not the live subscription business. Payment flows remain mocked. A successful demo checkout does not establish that Stripe charged a card, a customer account was provisioned, a pharmacy was created in the production database, or an access email was sent. Existing real authentication and simulated commerce coexist; the next plan must retain that distinction.
+
+The cloud screenshot shows three separate services in cyberize-nextjs-staging, us-east1: cyber-pharma-prod, cyph-mission-ctrl-prod and cyph-sub-portal-prod. The subscription portal has its own service. The configured portal domain discussed in this lab is cyph-payment.cyberizedev.com. The service suffix '-prod' does not make the shared staging environment production.
+
+Gate Q PASS was reported for the exact independently tested snapshot. A subsequent read-only binding output identifies commit f27261734fd0a3ac96253aa6c55e3b9e911125a8 and tested manifest SHA-256 f7181d3c7c537e27ebc43403c8727a39084aae723ba895cb89acf7622d56e9ab, with no mismatched/missing or additional inputs and match=true. The verifier itself returned certificationGranted=false: it established byte identity; it did not issue a new QA verdict. A later QA-branch push ended at 037a7cbd5bca191229f987c737fc0ebe017b14bd. Do not substitute that later SHA for the tested binding without its own evidence. Retrieve the actual closeout and deployment receipts for the next plan's release inventory.
+
+Successful deployment and Tony's live login are established by his report. Formal Gate D completion is not established by the material reviewed here. Preserve the original Gate Q scope, limitations and accepted nonblocking observation; its exact wording belongs to the decision artifact and must not be reconstructed from memory.
+
+2. WHAT WE BUILT AND LEARNED FROM THE FOUNDATION
+
+We chose the cleaned Mission Control FFM as the starting shell because it already shared the product's appearance and Supabase authentication foundation. The generic starter would have required another cleanup; the Stripe demo remained a reference for later billing integration rather than the application's base.
+
+Cleanup removed Mission Control-specific pages, mocks, services and types; introduced the portal shell and route group; moved reusable components and authentication helpers; and updated app identity, documentation and deployment scaffolding. The initial foundation commit reported in this lab was 1d15918.
+
+A significant inherited defect survived the first cleanup: the cloned application still rejected admins because Mission Control was restricted to superadmins. The engineer corrected the login form, protected layout and login-page redirect logic to use one server-backed admin-or-superadmin access rule. A page-level guard also addressed protected dashboard content appearing in a redirect response. Tony then successfully tested a real admin login.
+
+That was an interim access repair, not implementation of the final owner/store-manager model. Once admin means a store manager and superadmin means an account owner, the old admin-or-superadmin billing admission rule needs revision. A successful admin login must not later become evidence that every store manager is entitled to billing.
+
+Lesson: when cloning an app, inspect its authorization assumptions, navigation, service names, deployment exclusions and recovery instructions as carefully as its visible pages.
+
+3. DESIGN AND FACTORY WORKFLOW
+
+The Designer was retained so Coach could review the intended experience before engineering. Design progressed through a style tile and canonical screen review, then revisions and handoff. The portal uses the shared Pharmacy Books visual direction: coral actions, Saira, flat corners, Mist/Slate themes, a top bar and centered content flow.
+
+The design work exposed readability problems in older tokens. Reported checks covered mobile/desktop overflow across several account states and theme-specific contrast combinations. Historical failing examples and any remaining contrast finding must remain distinguishable from approved current styling; screenshots alone are not a complete accessibility certification.
+
+The module kept FFM in its identity and used the FFM-ABM label to distinguish its execution style. It followed the simplified sequence: engineering recon/plan, continuous implementation with self-checks and handoff, independent QA planning, QA Lead approval, QA execution, bounded repairs and affected retests, Tony's product review, and closeout. Actual ABMs/APBMs are intended to replace BIM-style backend delivery, not rename FFMs out of existence.
+
+The originally discussed '12-screen cut' was not a permanent scope authority. The accepted design package, amended acceptance specification and implemented route/state inventory must define the new baseline. The plan's old 'three pages, two API routes' description is also too small to describe registration, activation, recovery and account-management behavior discovered here.
+
+4. THE MAJOR BUSINESS CHANGE: ONE OWNER, ONE SUBSCRIPTION, MULTIPLE STORES
+
+Our working assumption had been one store per subscription, one admin per store, and superadmin reserved for our internal team. Coach's portal flow introduced an account subscription covering multiple pharmacies. That changes ownership, subscription attachment, invitations, access control and onboarding.
+
+The new model separates account-wide authority from store-specific operations. One owner controls the account's subscription, billing and store additions. Each store has one designated manager/admin who manages that store and its members. The owner may also be a store's designated admin; this is the recommended answer to Coach's clarification and is already represented by the 'Me / Someone else' design. Record that answer explicitly rather than treating it as a separate approved stakeholder response.
+
+Proposed role mapping for the new plan:
+
+Super Admin / Account Owner — one customer account; manages billing, subscription, stores and store-admin assignments. Never implies platform-wide or cross-customer privilege.
+Admin / Store Manager — assigned store; manages its operations and workers. Does not gain billing, subscription or account-wide store-creation authority.
+Member / Store Worker — assigned store and approved worker capabilities. No billing or account ownership rights.
+App Manager / Internal Operator — internal Mission Control operations across customer accounts, with explicitly bounded support capabilities and auditing. Subscription oversight does not automatically grant Stripe money access or PHI access.
+
+These are four responsibility levels. They do not require four mutually exclusive global user labels. A person can own an account and also manage one of its stores. Account ownership and store membership need explicit scope. The exact tables, identifiers and policy functions must be designed after current-database recon.
+
+Existing internal superadmin users must not silently become customer owners when the label is repurposed. Existing customer admins must not silently become owners either. Audit and map existing identities before migrating their permissions.
+
+5. COACH'S REGISTRATION AND OWNERSHIP FEEDBACK
+
+The original registration dropdown offered Owner, Pharmacist in charge, Manager and Other. These describe job titles, but the purchasing identity was going to receive account control. Tony highlighted the practical failure case: Frank owns seven stores; Heather registers with her email and pays using Frank's card; Heather's login could then control the whole subscription even though Frank supplies the money.
+
+Coach approved owner-only registration, removal of the job-title dropdown, and the four-level access direction. He requested a required checkbox confirming that the registrant is the pharmacy owner, because software cannot infer ownership from a form submission.
+
+Important correction for the next plan: email verification proves access to an inbox. Payment confirmation proves a payment outcome. Neither proves pharmacy ownership or Frank's authorization. Using Frank's card does not itself establish that he authorized Heather to own the account. The lean v1 approach is an explicit ownership declaration plus verified identity access, not a claim of independently verified legal ownership. Any stronger verification would be a separate product decision.
+
+Coach also required a support-assisted ownership-transfer path for pharmacy sales and retirement; it need not be self-service in v1. The new plan should specify who authorizes transfer, which account/stores move, how old access is removed and how the change is audited. Do not implement it as an unrestricted edit to an email address.
+
+Coach asked how many days the Phase 3 changes add. No defensible estimate was established in this lab. Targeted rework appears manageable, but current-schema and policy recon must precede a duration commitment. Retain applicable tenant-isolation and audit work rather than rebuilding Phase 3 indiscriminately.
+
+6. STRIPE, ACTIVATION AND LOGIN
+
+The public registration journey begins without signing in. After verified payment and account setup, the owner receives access. Returning authorized owners sign in to manage their subscription. Store-management invitations are distinct from the owner's account access and do not transfer billing authority.
+
+Stripe Checkout is the hosted payment step for a new purchase. Stripe Customer Portal handles subsequent billing self-service such as payment methods and invoices, and configured subscription actions. They are different destinations. Our application creates the appropriate session; webhooks confirm and synchronize backend events. A webhook does not open the user's browser or launch a portal screen.
+
+The FFM activation sequence demonstrated payment confirmation, pharmacy/account provisioning, then access-email delivery. The production plan must define separate states for payment pending/failed/confirmed, setup in progress/failed/completed, and email delivery failed/sent. Payment success with delayed provisioning must recover without charging again. Retried or out-of-order events must not create duplicate accounts, stores or invitations.
+
+The existing plan specifies magic-link access after payment and rejects automatic login merely because the browser returned from Stripe. That is separate from an already authenticated owner moving between OwedBook and the billing app. Shared sessions remain an intended experience, not something established solely by using one Supabase database or deploying under sibling subdomains. Test the actual cross-app auth flow later; Mission Control retains a separate internal access boundary.
+
+NEW REQUIREMENT REPORTED BY TONY: Frank wants BOTH passwordless magic-link login AND Google OAuth 2.0 login. Record this now for the authentication workstream; implementation is a later concern, not a reason to reopen the deployed FFM.
+
+The later auth scope must define first access, returning-user sign-in, invitation acceptance, provider identity linking, expired/used links, approved redirect destinations, and whether email/password remains available. Google sign-in must resolve an authorized account and its entitlements; it must not create a paid subscription or bypass owner registration. Keep this separate from deciding which roles can access which resources.
+
+7. COACH AND FRANK: PHARMACY SOFTWARE AND V1 LIMITS
+
+Coach explicitly set two v1 data paths: a Liberty connection and manual file upload. Pioneer, DRX and Rx30 automated connections are outside this v1 scope. Customers using those systems or 'Other' use manual upload. Billing starts at purchase, and pharmacy-software choice does not block checkout or trigger a prepayment compatibility review.
+
+This reverses our earlier proposed compatibility gate. The new plan should follow Coach's ruling, while clearly explaining the supported import method before payment. A software-selection dropdown must not imply that every named vendor has a working automatic connection.
+
+Manual upload still needs a defined supported format. 'Available to everyone' cannot mean 'every arbitrary CSV/XLSX file works.' Decide which source exports are supported or provide a canonical template with mapping guidance. Define validation, rejected-row feedback, duplicate prevention and a sample-file acceptance suite.
+
+Frank suggested screenshots/videos for API-key setup for Liberty and DRX. Guidance for the in-scope Liberty connection can be considered within its onboarding design; DRX integration remains outside the agreed v1 connector scope.
+
+Frank also suggested letting unpaid prospects connect/import data to demonstrate potential recovery. That is a separate acquisition model, requiring prepayment identities, data permissions, retention/deletion rules, abuse controls, usage limits and conversion behavior. It is outside current v1 scope. Record it as a future proposal rather than letting it enter through a small onboarding change. The existing plan already mentions trial mechanics, so reconcile or defer those explicitly instead of silently assuming a free data-analysis trial is authorized.
+
+Coach left setup responsibility, required customer inputs, pre-import experience and mixed import methods across stores for us to propose. Recommended direction: configure data connection per store, provide a clear empty state before first import, and allow stores to use supported methods independently. These remain proposals pending acceptance.
+
+8. CLAIM DATA, REFERENCE DATA AND GOLDEN DATA ARE DIFFERENT
+
+Pharmacy-system exports or APIs provide the claim transactions: drug identifiers, quantities, fill dates, payer information and amounts paid. Pricing/reference feeds provide the benchmark inputs and classifications used by the calculation engine. OwedBook combines the two according to the approved math specification. A prescription document uploaded by a patient is not established as a required input in this workflow.
+
+The golden dataset is controlled validation evidence with expected results or reviewed outcomes. It is neither a live customer feed nor the production drug-price source.
+
+The math knowledge base records public AAC/FUL sources for historical validation and a commercial reference-vendor decision involving Medi-Span/Elsevier for production. Do not assume that choosing or paying a vendor makes every field authoritative for every calculation. Confirm the licensed datasets, units, historical coverage, update process and precedence. Preserve append-only versions and the reference provenance of each calculated claim.
+
+Two document conflicts need explicit reconciliation. First, the math knowledge base describes Liberty API, DRX API, Pioneer SFTP and Rx30 upload; Coach's later v1 ruling narrows automated integration to Liberty. Preserve the other information as future integration knowledge, not current delivery scope. Second, the eight-phase plan still lists five blocking math rulings as outstanding; the math knowledge base records them as resolved, with additional questions such as the U&C fee treatment remaining open. Carry forward the actual current ruling register rather than asking Frank the same settled questions again.
+
+9. REQUIRED CHANGES TO THE EIGHT-PHASE PLAN
+
+Phases 1–2: retain historical closure. Add the Subscription Portal FFM and staging release as completed frontend milestones. Do not mark backend commerce complete because these screens are deployed.
+
+Phase 3: reconcile the current migration baseline; model account ownership and account-to-store relationships; scope owner/admin/member/internal permissions; revise database and Storage policies, backend guards, invitation authority and account provisioning. Include tests proving an owner can access only their account's stores, managers/workers only assigned stores, and store admins cannot mutate billing. Preserve audit and tenant-isolation work that remains valid. Resolve the old user_roles-versus-membership-role precedence question explicitly.
+
+Phase 4: retain the reference-data pipeline, versioning and effective-date requirements. Refresh the vendor/source decision and historical-data availability from the math lab. This phase supplies benchmarks; it does not replace claim ingestion.
+
+Phase 5: scope delivery to Liberty plus a specified manual-import path. Expand the plan's 'scoped-down CSV fallback' into the usable day-one path Coach now requires for non-Liberty customers. Define connection setup, import validation, duplicate handling and pre-import UI. Reconcile the latest math rulings and golden-data acceptance method. Keep additional automated connectors deferred.
+
+Phase 6: retain reports/PBM correspondence/GHL boundaries, but explicitly assign transactional onboarding messages: owner access, store-admin invitations, retries and delivery failures. Decide which messages are owned by Supabase Auth and which by the application email service so we do not invent two competing access-link systems. Subscription and marketing surfaces remain free of claim data.
+
+Phase 7: replace ambiguous store/business-scoped billing language with the agreed account subscription covering multiple stores. Reconcile account/tenant terminology with actual tables. Define owner-only signup, add-store payment and activation, Stripe Checkout versus Customer Portal, webhook recovery, subscription mirror, entitlements and support-assisted ownership transfer. Reassess legacy GHL/manual onboarding doors, APA licensing and trials against the owner-first policy before carrying them forward. Those earlier plan entries are not automatically canceled by this brief.
+
+Phase 8: retain production security, compliance, backup/restore and operational gates. Map all application surfaces and their separate services; the plan's 'both apps' wording is now incomplete. Include final owner/store/internal isolation checks, separate Mission Control access, login-method security and cross-app-session verification. A public staging Mission Control service is not evidence that its intended internal production posture has been implemented. Stage authentication design and implementation early enough for Phase 7 journeys, then verify production hardening here rather than postponing all auth decisions to the end.
+
+Execution doctrine: preserve the eight phase numbers. Update module grammar to Tony's FFM-ABM approach for frontend modules and ABM/APBM delivery for backend work. Reconcile the old Engineer-cloud-zero rule with the now-approved agent-owned deployment workflow. Tony retains target decisions, user-only login and agreed approvals; the agent performs authorized deployment work. Independent QA and deployment verification remain separate responsibilities.
+
+10. LESSONS FROM REVIEW, QA AND DEPLOYMENT
+
+The FFM proved valuable because it exposed ownership, billing and onboarding ambiguities before live money and provisioning were connected. Tony's manual exploration was a requirements-discovery activity as well as product acceptance.
+
+Demo controls must be understandable. 'Next activation check' appeared ineffective to the reviewer and reset to ready; controls that silently affect a later step need clear labeling or a simpler scenario mechanism. Do not expose internal testing vocabulary as customer-facing product behavior.
+
+Copy must match the actual state. 'Payment wasn't completed' contradicts 'we are checking whether payment went through.' Pending confirmation needs neutral language and a blocked duplicate-payment attempt. Quote expiry and saved-signup retention are separate concepts; an 'advance 31 minutes' test control does not settle the business retention policy.
+
+Keep provisional pricing, cancellation policy, grace periods, branding and support/legal links visibly provisional until approved. A mock rule such as pausing store additions during scheduled cancellation must not become an unreviewed production policy.
+
+QA closeout preserves the decision and accepted observations. Documentation-only closeout followed by matching build-input bytes does not require another routine product campaign. Actual product changes require proportionate affected verification. Do not remove harmless unused exports after certification merely to tidy the code.
+
+The deployment workflow initially behaved like a long manual walkthrough. Tony redirected it toward the intended automation: inspect what exists, prepare one discoverable configuration file, explain only missing values, guide user-only authentication, then execute approved work and record evidence. The reusable procedure must carry this behavior so a second architect is not needed to interpret every deployment.
+
+Operational lessons included preserving useful Docker exclusions, excluding documentation/test/auth artifacts from uploads, verifying upload contents despite broken local symlinks, checking active cloud identity/project, using a distinct service per independent app, and distinguishing DNS setup from Cloud Run domain mapping and HTTPS readiness. Domain login redirects must be configured when magic-link/OAuth flows are introduced; successful email/password login alone does not prove those flows work.
+
+11. INPUTS NEEDED BEFORE WRITING THE REPLACEMENT PLAN
+
+Retrieve current repository SHAs and release receipts for each app; the current schema/migrations, policies and role assignments; the exact Gate Q decision, binding receipt and Gate D status; the accepted FFM route/state and design inventory; and the latest math rulings.
+
+Then make a short delta inventory: already built, approved but not built, proposed, deferred and blocked. Estimate the targeted Phase 3 repair after that inventory. Explicitly settle the owner-as-store-admin confirmation, ownership-transfer boundaries, manual-upload format, Liberty setup responsibilities, pricing/cancellation/grace rules, login-method rollout and any remaining legacy onboarding/trial conflicts.
+
+Recommended planning order: baseline recon; account/role and billing-scope contract; focused Phase 3 permission repair; reference and import scope reconciliation; backend commerce/auth/onboarding module sequence; production gates. Preserve completed FFM work and current QA evidence throughout. This brief supports that planning exercise; it does not authorize new product scope or declare unresolved gates complete.

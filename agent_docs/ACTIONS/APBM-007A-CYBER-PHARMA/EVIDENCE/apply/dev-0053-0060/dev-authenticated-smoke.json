@@ -1,0 +1,109 @@
+{
+  "status": "PASS",
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "at": "2026-11-12T12:55:04.715Z",
+  "counters": {
+    "sessions": 3,
+    "signOuts": 3,
+    "identitiesCreated": 0,
+    "emails": 0
+  },
+  "checks": [
+    {
+      "name": "OWNER3 reads 1 subscription row(s)",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 reads 0 subscription row(s)",
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 reads 0 subscription row(s)",
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 store update denied (42501)",
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 store update denied (42501)",
+      "status": "PASS"
+    },
+    {
+      "name": "stores unchanged after the denied updates",
+      "status": "PASS"
+    },
+    {
+      "name": "owner admin_billing_status allowed",
+      "status": "PASS"
+    },
+    {
+      "name": "store admin admin_billing_status denied",
+      "status": "PASS"
+    },
+    {
+      "name": "owner admin_stores: three stores with subscription status",
+      "status": "PASS"
+    },
+    {
+      "name": "store admin admin_stores: one store, no billing field",
+      "status": "PASS"
+    },
+    {
+      "name": "member store_access_state: active, synthetic, no billing detail",
+      "status": "PASS"
+    },
+    {
+      "name": "member refused another account's store",
+      "status": "PASS"
+    },
+    {
+      "name": "owner billing overview: synthetic subscription, three stores",
+      "status": "PASS"
+    },
+    {
+      "name": "store admin billing overview denied",
+      "status": "PASS"
+    },
+    {
+      "name": "customer cannot execute npi_reserve",
+      "status": "PASS"
+    },
+    {
+      "name": "customer cannot execute handoff_invalidate_user",
+      "status": "PASS"
+    },
+    {
+      "name": "customer cannot execute provision_paid_registration",
+      "status": "PASS"
+    },
+    {
+      "name": "customer cannot read billing_customers",
+      "status": "PASS"
+    },
+    {
+      "name": "customer cannot read registration_drafts",
+      "status": "PASS"
+    },
+    {
+      "name": "customer cannot read checkout_operations",
+      "status": "PASS"
+    },
+    {
+      "name": "customer cannot read stripe_events",
+      "status": "PASS"
+    },
+    {
+      "name": "existing claims read still works for a member",
+      "status": "PASS"
+    },
+    {
+      "name": "existing store scope unchanged for the owner",
+      "status": "PASS"
+    },
+    {
+      "name": "existing member list still works for a store admin",
+      "status": "PASS"
+    }
+  ]
+}

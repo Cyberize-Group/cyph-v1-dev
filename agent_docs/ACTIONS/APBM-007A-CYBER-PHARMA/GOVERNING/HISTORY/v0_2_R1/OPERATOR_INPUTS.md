@@ -1,0 +1,11 @@
+# Private operator inputs and test-cast precedence
+
+The final mapping supplied by Tony replaces the earlier list. OWNER_1, OWNER_2, STORE_ADMIN and MEMBER are four distinct addresses. STORE_ADMIN and MEMBER must not be swapped. The earlier plus-tag admin address is no longer used.
+
+The mapping is supplied in the separate APBM007A_TEST_INBOXES_PRIVATE.env operator file. It contains test-recipient addresses only, no mailbox password/API key. Keep it outside every Git repository and all review/evidence exports, for example /home/moose/.config/cyph/apbm007a-test-inboxes.env with owner-only file permissions. The agent verifies that location is private/untracked before an authorized helper loads values into memory. Never copy the file into QAM, a report, ZIP, screenshot or normal app build environment. Operator test addresses are not public NEXT_PUBLIC variables.
+
+Resolve config precedence explicitly: final operator file wins over any older fixture, QA config, task prompt or recon. Fail a cast mismatch rather than fall back to the retired plus-tag or guess another recipient. Evidence labels are OWNER_1 / OWNER_2 / STORE_ADMIN / MEMBER, with sanitized provider/user IDs only when needed. Raw recipient values may exist in the necessary private provider/test records; redact exported traces and messages.
+
+E1 may discover a supplied email already belongs to an existing Auth identity. Do not overwrite that identity's role, password, owner relations or subscriptions, and do not assume inbox ownership makes its existing data disposable. Create a new Auth identity only if absent and within the release capsule; existing users with unrelated/internal records are held for grouped disposition. Do not auto-create another plus-tag identity to bypass a collision. Role fixtures in the customer database are E2/QA preparation, not E1 writes.
+
+No mailbox read access is supplied by this list. Use a permitted delivery-observation path or an explicit operator inbox checkpoint; distinguish provider accepted from inbox delivered and link exercised. Do not pretend the agent can fetch Gmail messages without its own supported authorization. Group any necessary inbox checks, while retaining the one final Director product walk.

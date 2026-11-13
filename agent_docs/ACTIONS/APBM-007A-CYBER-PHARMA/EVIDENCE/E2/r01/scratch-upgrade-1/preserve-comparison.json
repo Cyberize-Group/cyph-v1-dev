@@ -1,0 +1,30 @@
+{
+ "tablesCompared": 16,
+ "changedTables": [],
+ "authUsersSameSet": true,
+ "auditRows": [
+  285,
+  288
+ ],
+ "allOldIndexesKept": true,
+ "newIndexes": [
+  "billing_customers_account_id_key",
+  "billing_customers_pkey",
+  "billing_customers_stripe_customer_id_key",
+  "checkout_operations_idempotency_key_key",
+  "checkout_operations_one_open",
+  "checkout_operations_pkey",
+  "checkout_operations_stripe_checkout_session_id_key",
+  "checkout_operations_stripe_subscription_id_key",
+  "notification_operations_dedupe_key_key",
+  "notification_operations_pkey",
+  "npi_reservations_draft",
+  "npi_reservations_one_active",
+  "npi_reservations_pkey",
+  "registration_drafts_pkey",
+  "registration_drafts_secret_hash_key",
+  "stripe_events_pkey",
+  "subscriptions_one_current",
+  "uq_businesses_npi"
+ ]
+}

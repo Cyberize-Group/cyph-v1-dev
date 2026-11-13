@@ -1,0 +1,10 @@
+{
+ "at": "2026-11-12T14:47:44.518Z",
+ "results": [
+  {
+   "name": "A0 abandoning an open checkout expires the Stripe session first and releases the NPI",
+   "status": "PASS",
+   "detail": "{\"http\":200,\"status\":\"expired_unpaid\",\"res\":\"released\"}"
+  }
+ ]
+}

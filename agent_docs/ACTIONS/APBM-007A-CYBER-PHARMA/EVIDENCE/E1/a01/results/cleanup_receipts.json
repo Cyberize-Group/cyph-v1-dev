@@ -1,0 +1,63 @@
+{
+ "cleanupReceipts": {
+  "subA": {
+   "id": "sub_1UaobwGnEQDyu3RR6nd3Oulo",
+   "status": "canceled",
+   "ended": true
+  },
+  "subB": {
+   "id": "sub_1UaobzGnEQDyu3RRr923vkuQ",
+   "status": "canceled",
+   "ended": true
+  },
+  "priceA1": {
+   "id": "price_1UaobRGnEQDyu3RRYgKzFlpV",
+   "active": false
+  },
+  "priceA2": {
+   "id": "price_1UaobRGnEQDyu3RRsgJq8Hdj",
+   "active": false
+  },
+  "priceB": {
+   "id": "price_1UaobSGnEQDyu3RR90PY7tFT",
+   "active": false
+  },
+  "prodA1": {
+   "id": "prod_Vc2g2nPOYSTauF",
+   "active": false
+  },
+  "prodA2": {
+   "id": "prod_Vc2gxOVANjYaVU",
+   "active": false
+  },
+  "prodB": {
+   "id": "prod_Vc2gMGvRFE0Za6",
+   "active": false
+  },
+  "promo": {
+   "id": "promo_1UaobTGnEQDyu3RRPquD3f2X",
+   "active": false
+  },
+  "coupon": {
+   "id": "TOkaCg0S",
+   "state": "deleted",
+   "stillRetrievable": false
+  },
+  "portalConfig": {
+   "id": "bpc_1UapfzGnEQDyu3RR3M3rwV9q",
+   "active": true,
+   "is_default": true,
+   "deactivation": "REFUSED by Stripe: cannot deactivate the default configuration"
+  },
+  "customersRetained": [
+   "cus_Vc2gXzFpAOl8jv",
+   "cus_Vc2gm7iPPE6cTx"
+  ],
+  "sandboxAfter": {
+   "activeProducts": 0,
+   "activePrices": 0,
+   "activePortalConfigs": 1,
+   "coupons": 0
+  }
+ }
+}
