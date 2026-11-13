@@ -23,6 +23,7 @@ const NEW_TABLES = [
   "subscriptions", "apa_memberships", "reference_dataset_versions",
   "aac_reference", "wac_reference", "ful_reference", "pbm_info",
   "user_data", "report_files", "audit_logs", "system_config",
+  "billing_customers", "registration_drafts", "npi_reservations", "checkout_operations", "stripe_events", "notification_operations", // APBM007A 0055–0057
 ];
 const SIXTEEN = [...NEW_TABLES, "user_roles", "profiles"].sort();
 const DEFERRED = ["desktop_client_versions", "local_desktop_users", "password_reset_tokens"];
@@ -180,7 +181,7 @@ for (const [col, tables] of TEXT_IDS) {
 // ── AC12 structural: timestamps + trigger on all 16 ──────────────────────────
 {
   for (const t of SIXTEEN) {
-    if (["user_roles", "profiles", "audit_logs", "system_config"].includes(t)) continue; // baseline: acknowledged as-is, not retrofitted (manager §5 rows 3-4: NO structural change) // audit_logs: BIM-003 shape has occurred_at, no updated_at, immutable (ERRATUM E-3)
+    if (["user_roles", "profiles", "audit_logs", "system_config", "billing_customers", "stripe_events"].includes(t)) continue; // baseline: acknowledged as-is, not retrofitted (manager §5 rows 3-4: NO structural change) // audit_logs: BIM-003 shape has occurred_at, no updated_at, immutable (ERRATUM E-3)
     const { rows } = await q(`select count(*)::int as n from information_schema.columns
       where table_schema='public' and table_name=$1 and column_name in ('created_at','updated_at')
         and data_type='timestamp with time zone'`, [t]);

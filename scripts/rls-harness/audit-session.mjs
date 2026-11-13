@@ -10,10 +10,11 @@ const credentials=JSON.parse(readFileSync(privatePath));assert.equal(credentials
 const m=JSON.parse(readFileSync(evidencePath('seed-map.json')));const db=await pgClient(env);const clients={};const checks=[];
 const visible={OWNER1:['A1'],OWNER3:['B1','B2','B3'],ADMIN_B2:['B2'],ADMIN_B3:['B3'],MEMBER_B1:['B1'],MEMBER_B2B3:['B2','B3'],UNRELATED:['C1']};
 const admin={OWNER1:['A1'],OWNER3:['B1','B2','B3'],ADMIN_B2:['B2'],ADMIN_B3:['B3'],MEMBER_B1:[],MEMBER_B2B3:[],UNRELATED:['C1']};
+const owners=['OWNER1','OWNER3','UNRELATED']; // APBM007A: billing reads are owner-only
 const auditCount=async()=>Number((await db.query('select count(*)::int n from public.audit_logs')).rows[0].n);
 const snapshot=async table=>(await db.query(`select coalesce(jsonb_agg(to_jsonb(t) order by id),'[]')::text value from public.${table} t`)).rows[0].value;
 const check=(name,condition)=>{assert.ok(condition,name);checks.push({name,status:'PASS'});};
-async function rpc(who,name,args,allowed=true){const before=await auditCount();const r=await clients[who].rpc(name,args);if(allowed){assert.equal(r.error,null,`${who} ${name} error ${r.error?.code}`);assert.equal(await auditCount()-before,name==='tenant_stores'?0:1,`${name} audit count`);}else{assert.ok(['42501','P0001','22023'].includes(r.error?.code),`expected denial ${who} ${name}, got ${r.error?.code}`);assert.equal(await auditCount(),before,'rejection must not append audit');}checks.push({name:`${who} ${name} ${args.p_business_id||'scope'} ${allowed?'allow + exact audit':'deny + zero audit'}`,status:'PASS'});return r.data;}
+async function rpc(who,name,args,allowed=true){const before=await auditCount();const r=await clients[who].rpc(name,args);if(allowed){assert.equal(r.error,null,`${who} ${name} error ${r.error?.code}`);assert.equal(await auditCount()-before,['tenant_stores','store_access_state'].includes(name)?0:1,`${name} audit count`);}else{assert.ok(['42501','P0001','22023'].includes(r.error?.code),`expected denial ${who} ${name}, got ${r.error?.code}`);assert.equal(await auditCount(),before,'rejection must not append audit');}checks.push({name:`${who} ${name} ${args.p_business_id||'scope'} ${allowed?'allow + exact audit':'deny + zero audit'}`,status:'PASS'});return r.data;}
 try{
  for(const [key,user]of Object.entries(credentials.identities)){const c=anonClient(env);const r=await c.auth.signInWithPassword({email:user.email,password:user.password});assert.equal(r.error,null,`login ${key}`);assert.equal(r.data.user.id,m.users[key]);const claims=JSON.parse(Buffer.from(r.data.session.access_token.split('.')[1],'base64url').toString());assert.equal(claims.role,'authenticated');assert.equal(claims.sub,m.users[key]);clients[key]=c;}
  clients.anon=anonClient(env);
@@ -31,7 +32,7 @@ try{
   const summary=await rpc(who,'owedbook_summary',{p_business_id:own});assert.equal(summary.length,3);
   const federal=await rpc(who,'owedbook_rows',{p_business_id:own,p_tab:'federal_dollars'});assert.equal(federal.total,0);
   for(const fn of ['admin_stores','admin_members','admin_billing_status','admin_audit']){
-   const yes=admin[who].length>0;const result=await rpc(who,fn,{p_business_id:own},yes);
+   const yes=fn==='admin_billing_status'?owners.includes(who):admin[who].length>0;const result=await rpc(who,fn,{p_business_id:own},yes);
    if(yes&&fn==='admin_audit'){
     assert.ok(result.rows.every(r=>Number(r.id)<=Number(result.snapshot_id)),'viewer excludes own new event');
     const businessSet=who==='OWNER3'?['B1','B2','B3']:allowed;
@@ -43,6 +44,18 @@ try{
  // Unqualified admin store selection still derives its list from server capabilities.
  const allOwner=await rpc('OWNER3','admin_stores',{});assert.deepEqual(allOwner.map(r=>r.id).sort(),['B1','B2','B3'].map(k=>m.businesses[k]).sort());
  const allAdmin=await rpc('ADMIN_B2','admin_stores',{});assert.deepEqual(allAdmin.map(r=>r.id),[m.businesses.B2]);
+ // APBM007A RA-3 intentional permission changes, each with a trusted unchanged-state check.
+ check('owner admin_stores carries subscription status',allOwner.every(r=>'subscription_status' in r));
+ check('store admin admin_stores has no billing field',allAdmin.every(r=>!('subscription_status' in r)&&r.npi&&r.name));
+ for(const [who,expectRows]of [['OWNER3',1],['ADMIN_B2',0],['MEMBER_B1',0],['MEMBER_B2B3',0]]){const r=await clients[who].from('subscriptions').select('id');check(`${who} direct subscriptions read ${expectRows} rows`,!r.error&&r.data.length===expectRows);}
+ const anonSub=await clients.anon.from('subscriptions').select('id');check('anon subscriptions read denied',anonSub.error?.code==='42501');
+ for(const [who,store]of [['ADMIN_B2','B2'],['OWNER3','B1'],['MEMBER_B1','B1']]){const before=await snapshot('businesses');const r=await clients[who].from('businesses').update({pharmacy_name:'SYNTHETIC-DENIED'}).eq('id',m.businesses[store]);check(`${who} businesses update denied`,r.error?.code==='42501');check(`${who} businesses unchanged`,await snapshot('businesses')===before);}
+ await rpc('OWNER3','owner_billing_overview',{});await rpc('ADMIN_B2','owner_billing_overview',{},false);await rpc('MEMBER_B1','owner_billing_overview',{},false);await rpc('anon','owner_billing_overview',{},false);
+ const access=await rpc('MEMBER_B1','store_access_state',{p_business_id:m.businesses.B1});check('member access state has no billing detail',access.state==='active'&&access.origin==='synthetic_seed'&&!('subscription' in access)&&access.is_owner===false);
+ await rpc('MEMBER_B1','store_access_state',{p_business_id:m.businesses.C1},false);await rpc('anon','store_access_state',{p_business_id:m.businesses.B1},false);
+ for(const who of ['OWNER3','anon'])for(const table of ['billing_customers','registration_drafts','npi_reservations','checkout_operations','stripe_events','notification_operations']){const r=await clients[who].from(table).select('*').limit(1);check(`${who} ${table} unreachable`,r.error?.code==='42501');}
+ for(const who of ['OWNER3','anon'])for(const [fn,args]of [['npi_reserve',{p_draft:m.accounts.B,p_npi:'1234567893'}],['npi_is_valid',{p_npi:'1234567893'}],['provision_paid_registration',{p_operation:m.accounts.B,p_owner_user:m.users.OWNER3,p_sub:{}}],['account_access_state',{p_account:m.accounts.B}],['handoff_invalidate_user',{p_user:m.users.OWNER3}],['handoff_complete',{p_claim_id:m.accounts.B,p_dest_session:m.accounts.B}],['subscription_grace_clear',{p_stripe_subscription_id:'sub_x',p_invoice:'in_x'}],['operation_lease',{p_operation:m.accounts.B,p_owner:'x',p_seconds:5}]]){const r=await clients[who].rpc(fn,args);check(`${who} ${fn} not executable`,r.error?.code==='42501');}
+ const handoffTable=await clients.OWNER3.schema('handoff').from('codes').select('id').limit(1);check('handoff.codes not exposed through the data API',!!handoffTable.error);
  // Two committed retries are two rows; invalid calls/rolled-back transactions are zero.
  const beforeRetry=await auditCount();for(let i=0;i<2;i++)await rpc('OWNER3','owedbook_kpis',{p_business_id:m.businesses.B2});check('lost-response retry counts two commits',await auditCount()-beforeRetry===2);
  await rpc('OWNER3','admin_audit',{p_business_id:m.businesses.B2,p_limit:101},false);

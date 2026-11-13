@@ -88,7 +88,7 @@ await db.query(
 console.log("  tenants: 2 accounts, 3 stores, 6 junction rows");
 
 // ── one row minimum in every remaining table, so DENY is never vacuous ──
-await db.query(`insert into public.subscriptions (account_id, status) values ($1,'active'), ($2,'trialing')`, [accA.id, accB.id]);
+await db.query(`insert into public.subscriptions (account_id, status, origin) values ($1,'active','synthetic_seed'), ($2,'trialing','synthetic_seed')`, [accA.id, accB.id]);
 for (const [biz, tag] of [[a1.id, "A1"], [a2.id, "A2"], [b1.id, "B1"]]) {
   await db.query(
     `insert into public.user_data (business_id, script, drug_ndc, drug_name, qty, payment, expected_paid, owed, date_dispensed)

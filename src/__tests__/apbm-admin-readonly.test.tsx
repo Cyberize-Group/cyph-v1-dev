@@ -12,7 +12,7 @@ afterAll(()=>{process.env.NEXT_PUBLIC_APBM_DATA_MODE=previous;});
 function connection(){return {rpc:jest.fn(async(name:string):Promise<{data:unknown;error:null}>=>({data:name==="admin_stores"?[{id:A,name:"Synthetic A",ncpdp:null,npi:null,status:"active",subscription_status:null,member_count:1}]:[],error:null}))};}
 describe("APBM read-only admin adapter",()=>{
  it("shows unknown billing values truthfully without mock prices",async()=>{
-  const c=connection();c.rpc.mockImplementation(async name=>({data:name==="admin_stores"?[{id:A,name:"Synthetic A",status:"active",subscription_status:null,member_count:1}]:{account_id:B,subscriptions:[]} as never,error:null}));
+  const c=connection();c.rpc.mockImplementation(async name=>({data:(name==="tenant_stores"?[{id:A,account_id:B,name:"Synthetic A",capability:"owner"}]:name==="admin_stores"?[{id:A,name:"Synthetic A",status:"active",subscription_status:null,member_count:1}]:{account_id:B,subscriptions:[]}) as never,error:null})); // APBM007A: billing read is owner-only; the fixture states the owner capability
   const lines=await createAdminServices(c).billingService.listBilling();expect(lines[0]).toMatchObject({plan:"unavailable",amountLabel:"Price unavailable",subscriptionStatus:"unavailable"});expect(lines[0].nextChargeDate).toBeUndefined();
  });
  it("uses the selected store for member and settings reads",async()=>{

@@ -1,5 +1,5 @@
 {
-  "_comment": "APBM A01 approved delta: all direct claim access denied; audit viewer requires audited RPC. Other certified cells unchanged. See E2 EXPECTED_MATRIX_DELTA.json.",
+  "_comment": "APBM A01 approved delta: all direct claim access denied; audit viewer requires audited RPC. Other certified cells unchanged. See E2 EXPECTED_MATRIX_DELTA.json. APBM007A RA-3 intentional delta: customer UPDATE on businesses denied (policy business_update_admin dropped); subscriptions SELECT is owner-only, so staffA and multiStore are denied.",
   "phase": "APBM-003",
   "identities": [
     "anon",
@@ -50,7 +50,7 @@
       },
       "businesses": {
         "select": "ALLOW",
-        "update": "ALLOW"
+        "update": "DENY"
       },
       "subscriptions": {
         "select": "ALLOW"
@@ -101,7 +101,7 @@
         "select": "ALLOW"
       },
       "subscriptions": {
-        "select": "ALLOW"
+        "select": "DENY"
       },
       "user_data": {
         "select": "DENY",
@@ -190,7 +190,7 @@
         "select": "ALLOW"
       },
       "subscriptions": {
-        "select": "ALLOW"
+        "select": "DENY"
       },
       "user_data": {
         "select": "DENY",

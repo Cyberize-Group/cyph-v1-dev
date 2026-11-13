@@ -29,7 +29,9 @@ describe("/auth page (login-only)", () => {
     expect(screen.queryByRole("tablist")).not.toBeInTheDocument();
     expect(screen.queryByRole("tab")).not.toBeInTheDocument();
     expect(screen.queryAllByRole("link")).toHaveLength(0);
-    expect(screen.getAllByRole("button")).toHaveLength(1);
+    // APBM007A (intentional): the returning-user sign-in link request is a second button. It is not a sign-up:
+    // the request never creates a user (shouldCreateUser:false) and the removed-affordance pattern below still holds.
+    expect(screen.getAllByRole("button").map((b) => b.textContent)).toEqual(["Login", "Email me a sign-in link"]);
     expect(container.textContent).not.toMatch(REMOVED_AFFORDANCE);
     expect(container.innerHTML).not.toMatch(REMOVED_AFFORDANCE);
   });

@@ -24,6 +24,7 @@ import {
 } from "../ui/card";
 import { useState } from "react";
 import { useAuthStore } from "@/store/useAuthStore";
+import { LinkRequestForm } from "@/components/auth/LinkRequestForm";
 
 const formSchema = z.object({
   email: z
@@ -65,6 +66,13 @@ const LoginForm = () => {
     });
 
     if (!redirectPath) return;
+
+    // APBM007A: a sign-in that was asked for by the other app resumes that handoff (state is in an httpOnly cookie).
+    if (new URLSearchParams(window.location.search).get("next") === "continue" && redirectPath !== "/access-denied") {
+      // A full navigation, not router.push: the route handler answers with a redirect to the other app's origin.
+      window.location.assign(new URL("/api/handoff/authorize?resume=1", window.location.origin).toString());
+      return;
+    }
 
     router.refresh();
     router.push(redirectPath);
@@ -143,6 +151,10 @@ const LoginForm = () => {
           </Form>
         </CardContent>
       </Card>
+      {/* APBM007A: emailed sign-in link, alongside the password form (password login is preserved). */}
+      <div className="mt-4 p-6 border border-border rounded-lg bg-card">
+        <LinkRequestForm />
+      </div>
     </>
   );
 };

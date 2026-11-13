@@ -49,8 +49,8 @@ const BillingRow = ({ line }: { line: BillingLine }) => {
       </div>
       <div className="flex items-center justify-between gap-3 md:justify-end">
         <StatusPill tone={pill.tone}>{pill.label}</StatusPill>
-        {!isDemoMode() && <p className="text-xs text-muted-foreground">Billing changes are not available in this release.</p>}
-        <div className="flex gap-2">
+        {/* APBM007A: in real mode billing actions live in the billing portal (one link on the screen), not per store. */}
+        <div className={isDemoMode() ? "flex gap-2" : "hidden"}>
           <Button
             variant="secondary"
             size="sm"

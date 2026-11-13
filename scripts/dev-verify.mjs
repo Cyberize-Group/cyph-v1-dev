@@ -48,7 +48,7 @@ export async function authenticatedReads(env) {
    const scope=await c.rpc('tenant_stores');requireCheck(!scope.error&&JSON.stringify(scope.data.map(r=>r.id).sort())===JSON.stringify(scopes.map(s=>stores[s]).sort()),who+' exact stores');
    const direct=await c.from('user_data').select('id').limit(1);requireCheck(direct.error?.code==='42501',who+' direct SELECT denied');
    for(const fn of ['owedbook_kpis','owedbook_rows','owedbook_summary','owedbook_pbm_options','admin_stores','admin_members','admin_audit','admin_billing_status']){
-    const before=await count(identity.id,fn);const allowed=!fn.startsWith('admin_')||!who.startsWith('MEMBER_');
+    const before=await count(identity.id,fn);const allowed=fn==='admin_billing_status'?['OWNER1','OWNER3','UNRELATED'].includes(who):(!fn.startsWith('admin_')||!who.startsWith('MEMBER_')); // APBM007A: billing status is owner-only
     const r=await c.rpc(fn,{p_business_id:stores[scopes[0]],...(fn==='owedbook_rows'?{p_tab:'commercial_dollars'}:{})});
     requireCheck(allowed?!r.error:['42501','P0001'].includes(r.error?.code),who+' '+fn+' capability');requireCheck(await count(identity.id,fn)-before===(allowed?1:0),who+' '+fn+' exact audit delta');
    }

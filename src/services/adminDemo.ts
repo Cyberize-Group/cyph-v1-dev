@@ -349,6 +349,11 @@ export const mockSettingsService: SettingsService = {
   },
 };
 
+/** Thrown by the real billing read for anyone who is not the account owner. The screen shows it as information. */
+export class BillingOwnerOnlyError extends Error {
+  constructor() { super("Billing is managed by the account owner."); this.name = "BillingOwnerOnlyError"; }
+}
+
 // Real admin reads are capability-scoped server RPCs. No client business mutation.
 export function createAdminServices(client?: RpcClient) {
   const unavailable = async (): Promise<ActionResult> => ({ ok: false, message: unavailableMessage });
@@ -387,7 +392,11 @@ export function createAdminServices(client?: RpcClient) {
   };
   const billing: BillingService = {
     async listBilling() {
-      const permitted = await stores.listMyStores();
+      // APBM007A (RA-3): billing is owner-only. A store admin who is not the account owner gets a plain statement,
+      // never the owner's billing data and never a raw permission error.
+      const owned = new Set((await listTenantStores(client)).filter(s => s.capability === "owner").map(s => s.id));
+      if (!owned.size) throw new BillingOwnerOnlyError();
+      const permitted = (await stores.listMyStores()).filter(s => owned.has(s.storeId));
       return Promise.all(permitted.map(async s => {
         const b = await readRpc<{account_id:string;subscriptions:{status:string;current_period_end:string|null}[]}>("admin_billing_status", {p_business_id:s.storeId}, client);
         const latest = b.subscriptions.at(-1);

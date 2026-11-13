@@ -18,6 +18,7 @@ import type {
 import KpiTiles from "./KpiTiles";
 import SummaryUnattributedNote from "./SummaryUnattributedNote";
 import { useOwedBook, countActiveFilters } from "./OwedBookContext";
+import { AccessBanner } from "./AccessBanner";
 import {
   COMMERCIAL_COLUMNS,
   FEDERAL_COLUMNS,
@@ -169,6 +170,7 @@ const OwedBookScreen = () => {
 
   return (
     <div className="flex flex-col gap-6 min-w-0 p-6">
+      <AccessBanner />
       <header>
         <p className="text-xs uppercase tracking-wide text-muted-foreground">Dashboard</p>
         <h1 className="text-3xl font-bold mt-1">OwedBook</h1>
