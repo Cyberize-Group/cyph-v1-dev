@@ -15,3 +15,15 @@
 | FB-16; FC-4 | AUTH/AC-018..020: non-redeeming email GET, explicit CSRF-bound button POST |
 
 No acceptance result is claimed. All changed requirements must be independently mapped during Q1. Earlier contradictory proposal words are historical evidence only.
+
+## Amendment A1 — 13 November 2026 (Director rulings via JARVIS; APBM_RULINGS.md "Amendment A1")
+
+| Source | Destination (original wording preserved; A1 section operative) |
+|---|---|
+| A1-1 F-Q1-01 | APBM_ACCEPTANCE_SPEC "Amendment A1" (AC-014, AC-015, new expansion row 014–015); BILLING_AND_PAYMENTS_CONTRACT "Amendment A1 — durable events"; AC-038 operator event recovery |
+| A1-2 G2 | APBM_ACCEPTANCE_SPEC "Amendment A1" (AC-031, AC-032, expansion 031–032); IMPLEMENTATION_REQUIREMENTS RA-6 "Amendment A1"; BILLING "Amendment A1 — lifecycle"; CARRY_FORWARD_007B O-1 |
+| A1-3 G5 | APBM_ACCEPTANCE_SPEC "Amendment A1" (AC-031); BILLING "Amendment A1 — lifecycle"; CARRY_FORWARD_007B O-2 |
+| A1-4 G1 | ENVIRONMENT_AND_EFFECTS "Amendment A1"; QAM/HANDOFFS/QA_HANDOFF.md |
+| Explicitly unchanged | AC-029, AC-030, RA-6 only-card removal, all other ACs and expansions |
+
+Q1 must remap AC-014, AC-015, AC-031 and AC-032 (and the 014–015 / 031–032 expansions) against the operative A1 text. No result is claimed.

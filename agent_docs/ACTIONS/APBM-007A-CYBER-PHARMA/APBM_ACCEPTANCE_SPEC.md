@@ -1,5 +1,7 @@
 # Canonical acceptance specification — frozen v1.0
 
+**Operative from 13 November 2026: v1.0 as amended by "Amendment A1" at the end of this file (APBM_RULINGS.md, Amendment A1). The v1.0 rows below are preserved unchanged as the original requirement.**
+
 AC-001–040 remain stable. The expansions below are normative, not prefilled results. Q1 maps every AC plus its expansions to independent tests. E1 evidence is reusable only for its exact provider/baseline scope; it does not certify the application build.
 
 | ID | Area | Observable requirement |
@@ -72,3 +74,23 @@ Staging Gate D is a separate deployed verification plan with its own release. AC
 | 003–004,037 | Per-object privilege revokes and catalogue assertion each migration; source-session definer access proved on SCRATCH; no broad default-ACL mutation; backup/restore rehearsal and old fixture preservation. |
 
 Renewal grace remains in v1.0 scope. FC-6's deferral is an optional Director change, not applied here. If selected, issue v1.1 acceptance/contract changes before release; do not merely skip AC-031 in testing.
+
+
+## Amendment A1 — operative from 13 November 2026
+
+Authority: APBM_RULINGS.md "Amendment A1" (Director rulings relayed by JARVIS). Each row below replaces the named v1.0 clause for acceptance; the v1.0 wording above stays as the original requirement and amendment history. Where a row says "unchanged", the v1.0 text applies in full. No result is claimed.
+
+| AC / row | Change | Operative requirement |
+|---|---|---|
+| AC-014 | Amended (A1-1) | v1.0 text, plus: an unfinished supported event (no mapping yet, operation busy, payment not yet settled, provider or database failure) is never recorded as processed and never answered 2xx unless a durable retry mechanism actually exists (none exists in 007A); it answers retryable non-2xx and stays visible as unfinished with its reason. A duplicate delivery of an unfinished event is processed again; only a duplicate of a finished event answers 2xx without a second action. Recovery never duplicates provisioning or billing effects. |
+| AC-015 | Amended (A1-1) | v1.0 text, plus: a missing mapping alone is not evidence of foreign ownership. App-owned, genuinely foreign and unresolved objects are distinguished by trusted server-side evidence (this database's mappings; the application's ownership marker on the object as retrieved from Stripe with the server key). Only a positively foreign object, an unsupported type or an event with nothing to apply may be finalised as ignored with 2xx. Events finalised as ignored or processed without completion before the repair are recoverable through a bounded, exact-ID procedure that preserves their history; the ledger is not blindly reset. |
+| 014–015 (new expansion) | Added (A1-1) | Prove: (a) late mapping followed by successful recovery; (b) duplicate delivery before and after recovery; (c) busy operation followed by recovery; (d) a genuinely foreign sandbox object; (e) recovery of incorrectly finalised historical events with history preserved; (f) no duplicate provisioning or billing effects. Late mapping and foreign outcomes are proved separately, never assumed interchangeable. The recovery entrypoint is the operator command `--event <evt_ID>` (with `--list`), pinned by the candidate pair. |
+| AC-029 | Unchanged | Explicit configuration, wrong/missing configuration fails closed, only-card-removal behaviour proved, raw quantity/price changes cannot desynchronise stores. |
+| AC-030 | Unchanged | End-period cancellation and same-subscription undo; provisional retained-read-only default after paid-through. |
+| AC-031 | Amended (A1-2, A1-3) | Prove in 007A: server-computed seven-day grace from the stored start, non-resetting clock (one start per invoice, retries do not reset), clearing by payment of the same invoice, a late failure after payment does not reopen, server-time evaluation, the write-denial hook (labelled contract test where 007A has no write), the in-app reminder banner, and one recorded reminder notification per failed renewal invoice (`notification_operations`, kind `renewal_reminder`). Proof layers: SQL (SCRATCH/DEV) and unit/contract tests. The live sandbox failed-renewal / seven-day-grace journey with a test clock is **NOT RUN BY DIRECTOR RULING**, has never passed, is not a 007A pass criterion, and must be proven before production billing (007B obligation O-1). Reminder email delivery is deferred and tracked (O-2); no reminder email is expected in 007A. |
+| AC-032 | Amended (A1-2) | v1.0 text applies, except that renewal past-due behaviour is proved at the SQL/unit layer only in 007A; the live renewal journey follows AC-031's deferral. "Initial failure never provisions" remains a live 007A requirement. |
+| 029–030 expansion | Unchanged | As v1.0. |
+| 031–032 expansion | Amended (A1-2) | "Real sandbox renewal failure via test clock" moves to 007B (O-1). Retained for 007A: server-time grace/enforcement proof at SQL/unit layer; retries do not reset; late failed event after paid recovery does not reopen; initial failure never provisions; synthetic rows keep exact-ID, environment-fenced exemption and truthful not-billable UI. |
+| RA-6 | Split (A1-2) | Only-card removal: unchanged, required in 007A (AC-029). Renewal failure: SQL/unit checks in 007A; live test-clock journey deferred to 007B (see CONTRACTS/IMPLEMENTATION_REQUIREMENTS.md, RA-6 "Amendment A1"). |
+
+The closing note above ("Renewal grace remains in v1.0 scope … do not merely skip AC-031 in testing") is satisfied by this amendment for the live journey only: grace itself stays in 007A scope at the SQL/unit layer.

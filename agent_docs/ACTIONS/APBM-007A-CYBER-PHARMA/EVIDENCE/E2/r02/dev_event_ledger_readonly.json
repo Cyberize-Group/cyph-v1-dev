@@ -1,0 +1,47 @@
+{
+ "note": "READ ONLY transaction on DEV, rolled back; no write",
+ "query_at": "2026-11-13T07:16:25.799Z",
+ "project": "yrsuwikjnbmvpznrgydb",
+ "events": [
+  {
+   "event_id": "evt_1UbBtoGnEQDyu3RRkNvmPQOh",
+   "type": "customer.subscription.updated",
+   "status": "processed",
+   "error_code": null,
+   "attempts": 0,
+   "has_operation": false,
+   "received_at": "2026-11-13T04:15:41.049Z",
+   "processed_at": "2026-11-13T04:15:41.906Z"
+  },
+  {
+   "event_id": "evt_1UbBysGnEQDyu3RRLFtpQcZB",
+   "type": "customer.subscription.updated",
+   "status": "processed",
+   "error_code": null,
+   "attempts": 0,
+   "has_operation": false,
+   "received_at": "2026-11-13T04:20:55.021Z",
+   "processed_at": "2026-11-13T04:20:57.886Z"
+  }
+ ],
+ "operations_by_status": [
+  {
+   "status": "expired_unpaid",
+   "last_error_code": null,
+   "n": 5
+  },
+  {
+   "status": "provisioned",
+   "last_error_code": null,
+   "n": 1
+  }
+ ],
+ "service_role_may_insert_audit_logs": true,
+ "stripe_events_triggers": [],
+ "ledger": {
+  "n": 60,
+  "last": "0060_billing_reads.sql"
+ },
+ "suspect_rows_by_isSuspect": 0,
+ "unfinished_rows": 0
+}

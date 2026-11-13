@@ -101,6 +101,15 @@ Neither was exercised in E1. The hosted portal showed "add or delete payment met
 
 Test clocks need customers created on a clock, so this is a sandbox effect for E2 or QA to request, not something E1 did.
 
+**Amendment A1 (13 November 2026, APBM_RULINGS.md A1-2/A1-3) — operative; the tables above are preserved as the original requirement.**
+
+| Part | 007A requirement |
+|---|---|
+| Only-card removal | Unchanged. Required in 007A (AC-029) |
+| Renewal failure, SQL and unit layer | Required in 007A: grace starts once per invoice, does not restart on retries, clears on payment of the same invoice, a late failure after payment does not reopen, read-only after day 7 computed from server time, first-invoice failure provisions nothing |
+| Renewal failure, live test-clock journey | Deferred to 007B. **NOT RUN BY DIRECTOR RULING**; never passed; must be proven before production billing (CARRY_FORWARD_007B.md O-1). No test-clock seam is built in 007A |
+| "Days 0–7: reminder banner" | In-app banner plus one recorded `renewal_reminder` notification per failed renewal invoice. Reminder email deferred (O-2) |
+
 ## RA-7 NPI validation and reservation expiry
 
 **Validation.** One shared function used by the server and the form:

@@ -62,3 +62,21 @@ Local listener forwards to localhost:3001/api/webhooks/stripe and supplies that 
 RA-4/5/6 in IMPLEMENTATION_REQUIREMENTS.md are normative: mirror both cancellation fields; undo clears and verifies the actual schedule on the same subscription; always pass explicit configuration; test only-card removal and real renewal failure. Payment-method display must account for a subscription-level default as well as customer defaults; do not infer absence from one field alone.
 
 The sandbox 10%-once whole-invoice APA fixture requires Tony's explicit approval in the E2 release. It is never a commercial or production decision.
+
+
+## Amendment A1 — 13 November 2026 (operative; APBM_RULINGS.md A1-1..A1-3; text above preserved)
+
+### Durable events (A1-1, F-Q1-01)
+
+- A supported event is finished only when its transition is applied (`processed`), or when trusted evidence shows there is nothing of ours to apply (`ignored`: unsupported type, positively foreign object, other environment's object, invoice without subscription). Only finished events answer 2xx.
+- Missing mapping is not foreign. Trusted evidence, in order: this database's mappings (checkout operation, billing customer, subscription mirror); the application's ownership marker (`apbm_run`, `apbm_operation`, `apbm_db`) written by checkout on the customer, session and subscription and read back with the server key. A marker naming only other databases is foreign to this environment; a marker without `apbm_db` is treated as ours.
+- Owned or unresolved events awaiting mapping, events whose operation is busy, and completion events whose payment is not yet settled stay `failed` with their reason and answer retryable non-2xx. A failure never overwrites a processed row.
+- A duplicate of an unfinished event is processed again; a duplicate of a finished event answers 2xx with no second action.
+- No durable worker exists in 007A, so 2xx-after-enqueue is not used. After Stripe stops retrying, the operator lists unfinished and suspect events and re-runs one exact event ID; recovery retrieves the event from Stripe, applies the same idempotent decision, and audits any change to a final row (old and new row) before making it. No ledger reset or deletion.
+- Metadata decides only retry versus foreign; it never authorises provisioning. "Metadata is a mapping aid; it cannot override trusted DB ownership" stands.
+
+### Lifecycle (A1-2, A1-3)
+
+- Seven-day renewal grace stays in 007A at the SQL and unit layer. The live failed-renewal / grace journey with a test clock is deferred to 007B, **NOT RUN BY DIRECTOR RULING**, and must be proven before production billing.
+- "Stage reminders are sent only to approved test inboxes" is replaced for 007A by: the in-app reminder banner plus one recorded `renewal_reminder` notification per failed renewal invoice, with no email sent. Reminder email delivery is deferred to 007B and tracked.
+- "RA-4/5/6 … test only-card removal and real renewal failure": only-card removal unchanged; real renewal failure follows the deferral above.

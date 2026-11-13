@@ -1,0 +1,261 @@
+{
+ "runner": "jest (portal, unit layer)",
+ "numPassed": 61,
+ "numFailed": 0,
+ "suites": [
+  {
+   "file": "src/__tests__/apbm007a-webhook-recovery.test.ts",
+   "tests": [
+    {
+     "title": "a. late mapping, then recovery \u203a a paid session whose mapping is not yet recorded is not acknowledged; once mapped, the redelivery provisions",
+     "status": "passed"
+    },
+    {
+     "title": "a. late mapping, then recovery \u203a with nothing in the database yet, the object's own marker keeps it retryable rather than foreign",
+     "status": "passed"
+    },
+    {
+     "title": "a. late mapping, then recovery \u203a a subscription event for an owned customer whose subscription is not mirrored yet is not acknowledged",
+     "status": "passed"
+    },
+    {
+     "title": "a. late mapping, then recovery \u203a a renewal invoice for an unmirrored subscription that carries our marker is not acknowledged",
+     "status": "passed"
+    },
+    {
+     "title": "b. duplicate delivery before and after recovery \u203a a duplicate of an unfinished event is processed again, not answered \"duplicate\"; after recovery it is",
+     "status": "passed"
+    },
+    {
+     "title": "c. busy operation, then recovery \u203a a subscription event that finds its operation busy is never recorded as processed",
+     "status": "passed"
+    },
+    {
+     "title": "c. busy operation, then recovery \u203a a checkout event that finds its operation busy answers non-2xx and is retryable",
+     "status": "passed"
+    },
+    {
+     "title": "c. busy operation, then recovery \u203a a late \"busy\" from one delivery cannot undo another delivery that already finished the event",
+     "status": "passed"
+    },
+    {
+     "title": "c. busy operation, then recovery \u203a completion events whose payment is not yet settled stay retryable; a failed first invoice is final and provisions nothing",
+     "status": "passed"
+    },
+    {
+     "title": "d. genuinely foreign sandbox objects \u203a a session with no database link and no marker on the session or its customer is ignored as foreign, and stays final",
+     "status": "passed"
+    },
+    {
+     "title": "d. genuinely foreign sandbox objects \u203a an object marked by another environment sharing the sandbox is foreign; a marker with no environment is not",
+     "status": "passed"
+    },
+    {
+     "title": "d. genuinely foreign sandbox objects \u203a a renewal invoice on a foreign subscription is ignored; a non-subscription invoice needs nothing",
+     "status": "passed"
+    },
+    {
+     "title": "d. genuinely foreign sandbox objects \u203a an unsupported verified type is ignored with a reason and no business call",
+     "status": "passed"
+    },
+    {
+     "title": "e. recovery of events finalised before the repair \u203a lists exactly the suspect rows, and recovers each with its earlier state kept in the row and an audit record",
+     "status": "passed"
+    },
+    {
+     "title": "e. recovery of events finalised before the repair \u203a refuses final rows that are not suspect, unknown IDs, malformed IDs and a type mismatch; changes nothing",
+     "status": "passed"
+    },
+    {
+     "title": "e. recovery of events finalised before the repair \u203a a redelivery of a pre-repair \"ignored/unmapped\" event is processed again and audited, not answered \"duplicate\"",
+     "status": "passed"
+    },
+    {
+     "title": "e. recovery of events finalised before the repair \u203a when the audit record cannot be written, the row keeps its earlier state and the attempt fails",
+     "status": "passed"
+    },
+    {
+     "title": "f. no duplicate provisioning or billing effects \u203a distinct and repeated events, busy retries and recoveries for one purchase provision once and never call a Stripe mutation",
+     "status": "passed"
+    },
+    {
+     "title": "f. no duplicate provisioning or billing effects \u203a checkout writes the ownership marker, including this database, on the customer, session and subscription",
+     "status": "passed"
+    },
+    {
+     "title": "G5 renewal reminder record (Amendment A1-3, AC-031) \u203a a failed renewal records one pending reminder for the owner, whatever the number of events; no email is sent",
+     "status": "passed"
+    },
+    {
+     "title": "G5 renewal reminder record (Amendment A1-3, AC-031) \u203a a paid renewal invoice records no reminder",
+     "status": "passed"
+    },
+    {
+     "title": "ledger state rules \u203a final means processed, or ignored for a reason other than the pre-repair \"unmapped\"",
+     "status": "passed"
+    }
+   ]
+  },
+  {
+   "file": "src/__tests__/apbm007a-server.test.ts",
+   "tests": [
+    {
+     "title": "app identity and return paths (FC-1) \u203a uses distinct per-app, per-environment names and the frozen local origins",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"//evil.example\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"/\\\\evil\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"/%2f%2fevil\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"https://evil.example\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"/dashboard?x=1\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"/dashboard#x\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"/a//b\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"/unknown\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects null",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects undefined",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"/dashboard/\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a accepts only exact allowlisted relative paths",
+     "status": "passed"
+    },
+    {
+     "title": "NPI rule (RA-7) \u203a accepts a valid NPI and strips spaces and hyphens",
+     "status": "passed"
+    },
+    {
+     "title": "NPI rule (RA-7) \u203a rejects wrong length, wrong check digit and other characters",
+     "status": "passed"
+    },
+    {
+     "title": "server pricing and the APA allowlist (AC-009, AC-010) \u203a computes 9900 / 14800 / 19700 cents for one, two and three stores",
+     "status": "passed"
+    },
+    {
+     "title": "server pricing and the APA allowlist (AC-009, AC-010) \u203a applies the 10% fixture to the whole first invoice",
+     "status": "passed"
+    },
+    {
+     "title": "server pricing and the APA allowlist (AC-009, AC-010) \u203a refuses a code that is not on the server allowlist without asking Stripe",
+     "status": "passed"
+    },
+    {
+     "title": "server pricing and the APA allowlist (AC-009, AC-010) \u203a refuses an allowlisted code that Stripe does not hold as active, and an expired one",
+     "status": "passed"
+    },
+    {
+     "title": "server pricing and the APA allowlist (AC-009, AC-010) \u203a accepts an allowlisted, active percent-off code",
+     "status": "passed"
+    },
+    {
+     "title": "cancellation mirror reads both fields (RA-4, F-S1) \u203a carries a portal-style cancel_at with the flag false",
+     "status": "passed"
+    },
+    {
+     "title": "cancellation mirror reads both fields (RA-4, F-S1) \u203a maps provider statuses onto the six stored values",
+     "status": "passed"
+    },
+    {
+     "title": "webhook: signature, ledger, idempotency (AC-012, AC-014) \u203a rejects a missing signature, a wrong secret and mutated bytes without recording anything",
+     "status": "passed"
+    },
+    {
+     "title": "webhook: signature, ledger, idempotency (AC-012, AC-014) \u203a rejects live-mode events and events for another account",
+     "status": "passed"
+    },
+    {
+     "title": "webhook: signature, ledger, idempotency (AC-012, AC-014) \u203a records the event, advances the mapped operation once, and answers a duplicate without a second action",
+     "status": "passed"
+    },
+    {
+     "title": "webhook: signature, ledger, idempotency (AC-012, AC-014) \u203a a distinct event for the same business outcome is applied idempotently by the operation, not skipped",
+     "status": "passed"
+    },
+    {
+     "title": "webhook: signature, ledger, idempotency (AC-012, AC-014) \u203a answers non-2xx and leaves the event unprocessed when the transition fails, then succeeds on retry",
+     "status": "passed"
+    },
+    {
+     "title": "webhook: signature, ledger, idempotency (AC-012, AC-014) \u203a a busy operation is not acknowledged, so the provider retries (F-Q1-01)",
+     "status": "passed"
+    },
+    {
+     "title": "webhook: signature, ledger, idempotency (AC-012, AC-014) \u203a logs an unsupported verified type as ignored with a reason (unmapped supported events: apbm007a-webhook-recovery.test.ts)",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a a non-owner is refused by the database function",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a a synthetic subscription grants nothing when the environment flag is off, and never reaches Stripe",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a a portal session cannot be created without an explicit configuration",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a the configuration check fails closed on a missing, inactive or permissive configuration",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a clears the cancel_at date that the hosted portal sets, on the same subscription",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a a second undo of the same schedule uses a new idempotency key (a reused key would be replayed by Stripe and change nothing)",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a clears the flag when the flag is what is set",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a does not report success while a schedule is still set after the update",
+     "status": "passed"
+    },
+    {
+     "title": "public error bodies \u203a never include internal detail and stay neutral about NPI conflicts",
+     "status": "passed"
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,400 @@
+{
+ "generated_at": "2026-11-13T07:33:07.406359+00:00",
+ "repos": {
+  "owedbook": {
+   "records_parent": "base",
+   "path": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev",
+   "branch": "apbm-007a",
+   "base": "e30e216607f6d286452192d715ae154d2c181aaf",
+   "product": [],
+   "records": [
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/AMENDMENT_LEDGER.md",
+     "change": "M",
+     "sha256": "a257e8748d23a4572973db1370e759a51acc43598bde072719f6f70e8b09cb53",
+     "blob": "32763e0d9c3d582d6b706e00c179220bdd7b2801",
+     "bytes": 2546
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_ACCEPTANCE_SPEC.md",
+     "change": "M",
+     "sha256": "c9c9f65106b110683527d1a2bff818867a36d2b75f03961e8570728b3d0ffaa2",
+     "blob": "23a1336efd5be39f23ff35fe50d696ecae56d9e1",
+     "bytes": 17349
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_JOURNAL.md",
+     "change": "M",
+     "sha256": "8030f072063ebfbbdecb32d5144a7815ac5f919f06deb63db6cdc63838c579ac",
+     "blob": "5d3a4847b51d0fc7a279f428defc69caf10b7965",
+     "bytes": 15119
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_RULINGS.md",
+     "change": "M",
+     "sha256": "b77c8d1cf17bebf09e2c1e7e00862c630b9e66e02bec1ca9f248764d6b0ce78f",
+     "blob": "b0a5bd9c00e46085fc614fd93dfe89ff955774c5",
+     "bytes": 14525
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_STATE.md",
+     "change": "M",
+     "sha256": "2971a93e6ac8c0fdb695deac4880c42c1d13543067715473649d8c12ef3db240",
+     "blob": "1620b25d586598212f39bdc3d07458e9907f9fdd",
+     "bytes": 21277
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CONTRACTS/BILLING_AND_PAYMENTS_CONTRACT.md",
+     "change": "M",
+     "sha256": "a7ef0137f6355b92a9ae9829a7b5431ea54fb2eea89fb721bec5ceaa89590ba2",
+     "blob": "d00b45064a76436af9fe9c0d7b685f3b7fcdf84c",
+     "bytes": 13049
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CONTRACTS/ENVIRONMENT_AND_EFFECTS.md",
+     "change": "M",
+     "sha256": "f276fee4f30204d7bcf51eb452842e878e0b938d5b5f9055dc8213821f74bc89",
+     "blob": "2091baf05ea7fecd4b7a15a50d1f8f9f019ac0e3",
+     "bytes": 2920
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CONTRACTS/IMPLEMENTATION_REQUIREMENTS.md",
+     "change": "M",
+     "sha256": "8d6ffa1cfcb248329cac305e0673306e38afaa8728e92902f7f71c20cf24f293",
+     "blob": "ce8dce4a6f0542237c802163159df59f2b1a2621",
+     "bytes": 13918
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/QA_HANDOFF.md",
+     "change": "M",
+     "sha256": "b913cd23e9b9f81bde49c94438d07c851604a392db7935bd8294b1cccb2b4b12",
+     "blob": "2b70035592cafc45634d4bd405070f3c0565d10f",
+     "bytes": 3384
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CARRY_FORWARD_007B.md",
+     "change": "A",
+     "sha256": "48aae2557a9606b71f2d6ffdfad35faa1692061a76e6a2b4e260ae04a3d8226f",
+     "blob": "7f22ede9bdddf1acf692668e41285ccde32d255a",
+     "bytes": 1108
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/REPAIR_F-Q1-01.md",
+     "change": "A",
+     "sha256": "30fea0703f858d79227d7b4f516ed08fb424a818515df640380e20a711cb9e7b",
+     "blob": "7f181d0cb7826b4813ccc25d7d1953f8af19df6c",
+     "bytes": 12999
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/dev_event_ledger_readonly.json",
+     "change": "A",
+     "sha256": "5d311e69bcad156bae96ad4fb2fe8e7e29636d7e8f2a91df3799099346ee8ef8",
+     "blob": "8a4124b484313d8d9ddc593836f5477eb26009cf",
+     "bytes": 1109
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/focused_tests.json",
+     "change": "A",
+     "sha256": "cb47b4da45b6aafbfb6d30c95006cf212d3a0f5b92fe1504c9c25a2aa18151ab",
+     "blob": "662a9bcdb21971dcece1ce7f919fc7dedfab5d4e",
+     "bytes": 10946
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/mutation_controls.txt",
+     "change": "A",
+     "sha256": "9f348eb50c1e568c34144fc79e1b87748a37e689a188589fcbc8c8dc1c6a414d",
+     "blob": "aa80da6b41085b36a95188d1c6b90ed90f6ec146",
+     "bytes": 977
+    }
+   ]
+  },
+  "portal": {
+   "records_parent": "product",
+   "path": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-payment-portal-dev-v1",
+   "branch": "apbm-007a",
+   "base": "2bb13b9471bd19a1dc5e711dbd6ec0bf19bf2b34",
+   "product": [
+    {
+     "path": "scripts/operator-reconcile.mjs",
+     "change": "M",
+     "sha256": "b752e0a361b978aaf96160d95f3715036ffd7b8a947807b58bcd8cf470e6dbe1",
+     "blob": "e6f93e62a0c3a37b71680a435181fa7ba2561ee6",
+     "bytes": 2667
+    },
+    {
+     "path": "src/__tests__/apbm007a-server.test.ts",
+     "change": "M",
+     "sha256": "abbcce3de1e17d10fbcd6580abfae6dc4eefcc0151de3a443b08f05570b13a3d",
+     "blob": "d3a6271b4817b500d2cb57546c6e92521a463a1b",
+     "bytes": 18519
+    },
+    {
+     "path": "src/app/api/operator/operations/route.ts",
+     "change": "M",
+     "sha256": "6eb3235143a7f9ad0c2abaa63f12e29b8fe0654edee102fc240d891ee67bd483",
+     "blob": "745d3aca8005a980c3bdeb3705543c68635564cd",
+     "bytes": 1325
+    },
+    {
+     "path": "src/server/checkout.ts",
+     "change": "M",
+     "sha256": "d4fb65662ee1d7f26324475fd26933aa618a73e6f9f98d9a202c3e99356a9a47",
+     "blob": "68937451aa02d1f0e935ac51a79eb96c7721c1ef",
+     "bytes": 13044
+    },
+    {
+     "path": "src/server/operator.ts",
+     "change": "M",
+     "sha256": "b987d3410ab2a2b04edf88c96aef0d2f1d256dd3c01255d38a95063651ba1a21",
+     "blob": "f5618d5e09e093318dcb54fadef5c0d766fb3280",
+     "bytes": 2772
+    },
+    {
+     "path": "src/server/stripeMirror.ts",
+     "change": "M",
+     "sha256": "016b286800d20efea02e69a6ea1ddc56e305c9e5f25199ffaed4bce3ed98c359",
+     "blob": "eb2c2200c7c86ad7ad1bc5d2434ea5b3a369b27e",
+     "bytes": 2891
+    },
+    {
+     "path": "src/server/webhook.ts",
+     "change": "M",
+     "sha256": "3e87041c08a2e34c07aec7832e94ee71db2f6a2ecae9b8188464cc4306e0d88e",
+     "blob": "37a51a4580380ee09cd87ae8ac12c0f72e7f835b",
+     "bytes": 20225
+    },
+    {
+     "path": "src/__tests__/apbm007a-webhook-recovery.test.ts",
+     "change": "A",
+     "sha256": "876121e3431f0eaccced07e41ba60b26d33c82fab2b5e96af007ead32935a5a1",
+     "blob": "66a5ebb4584e431b38271276afd0bac9583fecf7",
+     "bytes": 27293
+    }
+   ],
+   "records": [
+    {
+     "path": "RECOVERY.md",
+     "change": "M",
+     "sha256": "54807d7ca20d5609727d78342d040323b5e7be86adeb75c9b3db641887fc940e",
+     "blob": "d8db3edb852c3d686d9dc99a758ba60d13d208ac",
+     "bytes": 20018
+    },
+    {
+     "path": "agent_docs/SESSIONS/session_2026-11-13.md",
+     "change": "M",
+     "sha256": "998ff865c8086b624602adcb613bfd49843a7796b57f489e4c838264e19c1e22",
+     "blob": "fbab858b295cba0045dd638a8acd6e54b3e80242",
+     "bytes": 3392
+    },
+    {
+     "path": "agent_docs/RESPONSES/response_2026-11-13_122840_repair-blocker.md",
+     "change": "A",
+     "sha256": "88566879b8aec2b591f1b848445da912474288c6d98d42314a42e785368f8472",
+     "blob": "800f1814cefcc2bcc3817b90978555fac9aaf8c9",
+     "bytes": 898
+    },
+    {
+     "path": "agent_docs/RESPONSES/response_2026-11-13_130120_qa-preserve-switch.md",
+     "change": "A",
+     "sha256": "a99e4c56d33760b99ae70f16770d23ea9edaa51c1d2c15b72481b4555f707d43",
+     "blob": "56e6f81171bad7fe6ee5ff355f7492ce04ce179b",
+     "bytes": 724
+    },
+    {
+     "path": "agent_docs/RESPONSES/response_2026-11-13_133229_f-q1-01-repair.md",
+     "change": "A",
+     "sha256": "40cdf9c260d1e7f417534030f7c4e9c06e3e99578a19f9210c34e64ea2c16760",
+     "blob": "f9ee46595ec4304ccb838e050349d7eec8fc6967",
+     "bytes": 6078
+    }
+   ]
+  }
+ },
+ "excluded_in_repo": [
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AC_EVIDENCE_MATRIX.md",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 c10f0bb5b531b0379aaf8a41382a9d97850039ee22308c0aa6b8d256b4745c53"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/REVIEW_START_HERE.md",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 d76076cb5c4ecb0efe2cf535199a3a7ad404e3fa840d5e1bcf590e81ca3e301b"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_RECON_REPORT.md",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 eeb01a2a0b4f87f9a6af6b53a49a500537a3a65ad4c9717d6345119cd23b99d8"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_STATE.md",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 7e081228da52010b3eea1c6803230df69479f12c858644d22cb079951f178b9f"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_TEST_PLAN.md",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 785ba42d841f0b3df2c1240cc6016292ae07e907dac47902598d2173536db7f6"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_APPLY_REVIEW_r01.zip",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 3bcfb74217093eb82479f83914b8c80c6a46a07de15d0ab2a35a3cd06ba0e015"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01.zip",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 283f00cd517c991ad87ede7d977d8d29d33fa80659edf19175c5fc95dac110a9"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r2.zip",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 e30233b89a71f40666d2ee889f3433d223f0f5ec0ec009e7fb5ea4c9351e408c"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r3.zip",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 c6b7e9552534241450a7454acc51318cc20cc4c40f74cfe318d63313986e6ec8"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r4.zip",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 752e34734b96354c08faf9fd80863a3f4e4163c5b76bb619d1dfb302d7510eaa"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r5.zip",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 3c36712675c78ee1c16b4bc1811f55a0f526291419b080bee92312eab0f224de"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r6.zip",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 8d2aea485d2d86ab3ef504f1e19a5d19156687d74c5dec1e3b9abfac86dcead2"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E2_ENGINEERING_r01.zip",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 9be2a131ec74ea9928f511e40870ae392e15cab35aab28bbaed6e5117e2fda55"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E2_ENGINEERING_r02.zip",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 0e39567443889cba48e62b2076164f41eaf3338b8325cba8ae7298187fc45d75"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q1_REVIEW_a01.receipt.json",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 46a28553d1e2fb2d4b432036697fe442304792e9aba1f542749b527b697ea106"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q1_REVIEW_a01.zip",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 7a5c478bc8163d2caf94931f2544749d7f11ba2aa2277768aa9507c040886d02"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a01/contract_hashes.json",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 144fdea9cc933b899e235aa82656e232fafe24a1b4df6ebbc45ed7ad984c4e98"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a01/identity.json",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 9bdc7a73aff93f4345e233db651856e5275fe489e7392eccebbb700d571964dc"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a01/packaging_controls.json",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 e9ed8aa74105366e16d42c40bb65fa74cbc3ab5a22a1867487e825f670b8be78"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a01/preserved_archives.json",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 f6c876318446aa9b965030c16687b92692f6f11fee0be588ee9b0f3a17959e22"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/AC_EVIDENCE_MATRIX.md.diff",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 d565496e9adad00667eb36d422b299b05ced0aaadfb1830332456ed10505f976"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/QAM_RECON_REPORT.md.diff",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 8f7cbb539b5637ccb24b011bd7a361a568230cbec30c49feba8265bab313aefe"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/QAM_STATE.md.diff",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 455070fa22a3451eaff48428024f79551a9696fcdde76b89e8e204f23aea5b05"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/QAM_TEST_PLAN.md.diff",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 a07ed682d794b5e957e9c82eee17c6add3429f6f3f895894d603d4dd8e7def2f"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/a01_AC_EVIDENCE_MATRIX.md",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 28504e024508d6bbe55b7f6e4ddd48d585b0f5c06fc418a3cd337e4cec31f8c7"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/a01_QAM_RECON_REPORT.md",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 2069b7692f7224ac260bc8620a5a7718c979fe2c9c33d3f884a44215f927ac98"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/a01_QAM_STATE.md",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 054a4e5cb92993fc701389b43884dcce3579778b245e2f90513ba52027121bdf"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/a01_QAM_TEST_PLAN.md",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 39c5609785217fa2cc40c88224071531659a30ed8274983928bd405b8a165857"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/browsers.json",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 d9b35676e7b425ab0634128ed57c73bf665d0278b92789763258d218d418f55c"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/cast_schema.json",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 642ec123c8323c29fa87a4719d9dccff731105733a3a4ec022dc0690610b5692"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/credential_schema.json",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 fdc0582882fec646206d4cc28229c9b6c04dabfd95d2ced8ddb78adf54b910da"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/database.json",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 624414c73f8bd07d2896e7ea944d0249cd04bc876683db774a357667eb8b8a77"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/isolation.json",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 b4298edb9c72acb2a9f840123cd9e96b9191b50ab9a60c640ddd85b954b212ab"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/listener.json",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 f9cadce3121d6ee3ce38fbc1c9ed33db8bb2285f7976caa0cccdd40dd083b567"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/processes.json",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 37c551cb4891c05cc71a95aaef9f30cc8e45c0ade86d1803ea70f528d964fcad"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/readiness.cjs",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 6ec96e7959b2779720ab8e9bbf7b80563b4752f45e41849ba4fc6928379b22e0"
+  },
+  {
+   "repo": "owedbook",
+   "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/working_plan_hash.json",
+   "reason": "independent QA (Cody) uncommitted work, preserved and untouched; sha256 59eec94ad2774825f2da458f34022f06074f0a1838aed10013ea85de955ec6b5"
+  }
+ ]
+}

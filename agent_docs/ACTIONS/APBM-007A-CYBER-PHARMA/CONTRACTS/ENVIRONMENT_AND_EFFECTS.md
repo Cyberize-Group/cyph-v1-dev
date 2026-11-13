@@ -13,3 +13,8 @@ Local origins OB http://localhost:3000, PP http://localhost:3001. Staging origin
 Approved recipients are loaded only from /home/moose/.config/cyph/apbm007a-test-inboxes.env using OWNER_1, OWNER_2, STORE_ADMIN, MEMBER. Never export addresses or restore the obsolete plus-tag mapping. No invented password/reset for an existing user.
 
 All effects follow their recorded release. DEV apply is a separate exact-migration checkpoint; sample loading is a separate operator action; Q2 and deployment need independent release. Global logout is allowed only for named synthetic users within capsule; MC/all-device impact and direct-token residual remain explicit. No rotation, DEV reset, production or live payments.
+
+
+## Amendment A1 — 13 November 2026 (APBM_RULINGS.md A1-4)
+
+Exactly one additional brand-new DEV Auth identity is approved, for independent QA's new-owner journey only, under the approved QA capsule. Its inbox is Director-controlled and privately identified; the address is never written into the pack, evidence or chat. Engineering does not create the user, does not send its access email and does not consume the allowance. Every other identity limit stands (12 of 12 used on SCRATCH; no further extension).

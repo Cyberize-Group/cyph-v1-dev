@@ -1,0 +1,10 @@
+F-Q1-01 poison controls — each line: one deliberate regression applied to src/server/webhook.ts, the recovery suite run,
+the file restored (SHA-256 verified identical afterwards). Every regression is caught by at least one test. M1–M6 ran before the two G5 tests were added (20-test suite).
+M1 ignored/unmapped treated as final             => Tests: 2 failed, 18 passed, 20 total
+M2 busy recorded as processed                    => Tests: 4 failed, 16 passed, 20 total
+M3 missing mapping treated as foreign            => Tests: 3 failed, 17 passed, 20 total
+M4 failure write overwrites a processed row      => Tests: 1 failed, 19 passed, 20 total
+M5 unsettled completion event acknowledged       => Tests: 1 failed, 19 passed, 20 total
+M6 audit-write failure ignored                   => Tests: 1 failed, 19 passed, 20 total
+M7 renewal reminder record removed (A1-3)        => Tests: 1 failed, 21 passed, 22 total (suite size after the G5 tests)
+restored: yes (after each)
