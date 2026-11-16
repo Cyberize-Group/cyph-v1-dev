@@ -1,0 +1,178 @@
+{
+ "run": "candidate provisioning.ts, checkout.ts and accessEmail.ts (93add6f) with the final r05 tests (control)",
+ "cwd": "r05/candidate: the tested copy with the three candidate product files",
+ "passed": 25,
+ "total": 34,
+ "tests": [
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-001 \u2014 lost provider answer, then a retry with a different operation key \u203a resumes the original operation: one customer, one Checkout session, one operation, nothing marked unpaid",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-001 \u2014 lost provider answer, then a retry with a different operation key \u203a also when the customer answer was the one lost: the retry gets the same customer back",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-001 \u2014 lost provider answer, then a retry with a different operation key \u203a the same-key retry after a lost answer gets the original session even seconds later (identical parameters)",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-001 \u2014 lost provider answer, then a retry with a different operation key \u203a two retries with different keys at the same moment still produce one customer, one session and one operation",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-001 \u2014 lost provider answer, then a retry with a different operation key \u203a a request that never reached Stripe is resumed later with a fresh expiry, once (Stripe saved nothing under the key)",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-001 \u2014 lost provider answer, then a retry with a different operation key \u203a a resumed attempt whose session already lapsed is released only on that provider proof; a later attempt starts cleanly",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-001 \u2014 lost provider answer, then a retry with a different operation key \u203a after an edit, the earlier unknown attempt is settled with Stripe first and the new attempt keeps the same customer",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-001 \u2014 lost provider answer, then a retry with a different operation key \u203a after an edit with the customer answer also lost and the email changed, nothing is duplicated or released (stays recoverable)",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-001 \u2014 existing protections kept \u203a a new key cannot bypass an operation whose Checkout session is recorded",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-001 \u2014 existing protections kept \u203a a double submit with one key creates one operation and one session",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-001 \u2014 existing protections kept \u203a missing consent and a stale quote are refused before any provider call",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-001 \u2014 existing protections kept \u203a a draft secret that is not this draft's reaches nothing",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-001 \u2014 existing protections kept \u203a a lost reservation still expires the new session through Stripe and closes the attempt",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-002 \u2014 a checkout begun for an earlier revision, quote or consent is never resumed \u203a same-key retry after an edit: the earlier attempt is settled with Stripe, the new one charges the current quote with renewed consent",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-002 \u2014 a checkout begun for an earlier revision, quote or consent is never resumed \u203a different-key retry after an edit behaves the same, and the old Checkout is never returned",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-002 \u2014 a checkout begun for an earlier revision, quote or consent is never resumed \u203a a re-quote without an edit (consent cleared, same revision) also settles the earlier attempt first",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-002 \u2014 a checkout begun for an earlier revision, quote or consent is never resumed \u203a without renewed consent nothing happens: refused before any provider call, the earlier attempt untouched",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-002 \u2014 a checkout begun for an earlier revision, quote or consent is never resumed \u203a a stale attempt whose session was already paid is never released or replaced: it goes on to provisioning",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-002 \u2014 a checkout begun for an earlier revision, quote or consent is never resumed \u203a an unchanged checkout keeps F-Q4-001 recovery: one customer, one session, one operation",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-001 \u2014 release requires provider proof \u203a an operation with no recorded session is never released as unpaid",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-checkout-recovery.test.ts",
+   "title": "F-Q4-001 \u2014 release requires provider proof \u203a an open recorded session is kept; an expired unpaid one is released",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-provisioning-concurrency.test.ts",
+   "title": "F-Q4-003 \u2014 concurrent events and polls converge on one provisioning outcome \u203a three webhook events and a status poll at once: provisioned once, exactly one identity, account, store, admin, mapping and subscription",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/apbm007a-provisioning-concurrency.test.ts",
+   "title": "F-Q4-003 \u2014 concurrent events and polls converge on one provisioning outcome \u203a the interleaving behind DEV operation 25acbfb9: a second run starting after the identity was created cannot reclassify it or break provisioning",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/apbm007a-provisioning-concurrency.test.ts",
+   "title": "F-Q4-003 \u2014 concurrent events and polls converge on one provisioning outcome \u203a a run that lost its lease mid-way writes nothing; the run that took over stands",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/apbm007a-provisioning-concurrency.test.ts",
+   "title": "F-Q4-003 \u2014 concurrent events and polls converge on one provisioning outcome \u203a a crash after the identity was created, before it was recorded: the next run recognises its own identity and provisions once",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/apbm007a-provisioning-concurrency.test.ts",
+   "title": "F-Q4-003 \u2014 concurrent events and polls converge on one provisioning outcome \u203a a genuinely pre-existing identity still has to sign in; after sign-in it is attached once",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-provisioning-concurrency.test.ts",
+   "title": "F-Q4-003 \u2014 concurrent events and polls converge on one provisioning outcome \u203a an identity created by another operation is not this operation's, even if it appeared after it began",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-provisioning-concurrency.test.ts",
+   "title": "F-Q4-003 \u2014 concurrent events and polls converge on one provisioning outcome \u203a payment truth survives a recoverable failure: a later run re-reads Stripe and finishes",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-provisioning-concurrency.test.ts",
+   "title": "F-Q4-003 \u2014 recovery of an operation left by the race (equivalent of DEV 25acbfb9) \u203a operator reconcile provisions it once for its own identity; repeating changes nothing; no second identity or email",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/apbm007a-provisioning-concurrency.test.ts",
+   "title": "F-Q4-003 \u2014 recovery of an operation left by the race (equivalent of DEV 25acbfb9) \u203a the same row is NOT recovered if its identity existed before the operation began (existing-owner protection)",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-provisioning-concurrency.test.ts",
+   "title": "F-Q4-003 \u2014 recovery of an operation left by the race (equivalent of DEV 25acbfb9) \u203a nor if the purchaser was signed in as someone else at checkout",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-provisioning-concurrency.test.ts",
+   "title": "F-Q4-004 \u2014 one access email per attempt, even under concurrency \u203a concurrent advances send one link, and the result stays \"sent\"",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/apbm007a-provisioning-concurrency.test.ts",
+   "title": "F-Q4-004 \u2014 one access email per attempt, even under concurrency \u203a two direct calls at the same moment (poll and resend) claim one attempt: one send, no 429 overwrite",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/apbm007a-provisioning-concurrency.test.ts",
+   "title": "F-Q4-004 \u2014 one access email per attempt, even under concurrency \u203a a genuine provider refusal is recorded with its code and is not retried within the interval",
+   "status": "passed"
+  }
+ ]
+}

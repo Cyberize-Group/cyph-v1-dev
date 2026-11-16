@@ -62,3 +62,10 @@ Technical design frozen; E2 not released. Director readiness: Git T1, DEV toolin
 - Found while modelling Stripe faithfully: the session expiry was recomputed on every attempt, and Stripe refuses a repeated idempotency key whose parameters changed. QA's same-key pass came from an adapter that does not compare parameters. Lesson: a provider model must compare parameters on a repeated key.
 - Repair resumes the operation under its own keys with a stored expiry; release always needs a recorded session judged by Stripe.
 - Proof at two layers: a unit model with Stripe-like idempotency, and a rolled-back SCRATCH run with real SQL. My first SCRATCH harness ordered operations by created_at, which is constant inside one transaction; corrected before the recorded runs.
+
+## 16 November 2026 — Q4 repair r05 (engineering seat)
+
+- QA's a04 return was sealed at 12:14:59 with no later writes; one QA helper was asleep with dead connections. Backed up QA's 6,613 paths (byte copy) before writing.
+- F-Q4-003 confirmed from code, not assumed: `operation_lease` is re-entrant for the same owner, and the owner was one constant per server process. The DEV row admits only one path: an overlapping stale run reclassifying the new identity, with its write landing between the first run's `provisioning` write and the provisioning call.
+- F-Q4-004 is very likely the same mechanism seen through the mailer: concurrent sends to one address, a 429 from Auth's interval, last write wins. Kept as a probable cause with a stated evidence gap.
+- The SCRATCH harness needed three instrument corrections (savepoints interleaved across runs on one connection; the updated_at trigger defeating back-dating; interleaving left to timing). All attempts preserved. Lesson: concurrency proofs need a deterministic schedule, and one connection needs atomic statements.

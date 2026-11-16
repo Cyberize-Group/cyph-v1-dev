@@ -66,3 +66,20 @@ Recorded by the engineering seat under JARVIS's single bounded repair for F-Q4-0
 | Runtime | After the commits the portal must be rebuilt and restarted on the repaired candidate before Friday binds the pair |
 | Retest impact | REPAIR_F-Q4-001.md §8 |
 | Release | Engineering releases both checkouts to QA once the Director's r04 commits verify against `EVIDENCE/E2/r04/commit/COMMIT_MANIFEST.json` |
+
+## Engineering repair r05 record — 16 November 2026 (Asia/Dhaka)
+
+Recorded by the engineering seat under JARVIS's consolidated repair for F-Q4-003, F-Q4-002 and the F-Q4-004 diagnosis. The repair was made on `qa/apbm-007a` in the existing checkouts; no branch switch, worktree, stash or Git mutation. QA's uncommitted work (6,613 OwedBook paths, one ignored portal output) was backed up privately and verified unchanged; Engineering edited none of it.
+
+| Field | Value |
+|---|---|
+| Record | `EVIDENCE/E2/r05/REPAIR_F-Q4-003_F-Q4-002_F-Q4-004.md` |
+| Verdict | Friday's FAIL stands. Engineering evidence closes no finding |
+| Product change | Payment Portal `src/server/provisioning.ts`, `src/server/checkout.ts`, `src/server/accessEmail.ts` plus tests. No migration. OwedBook product unchanged |
+| Bases | Payment Portal `93add6f` (product `c638f79`), OwedBook `0249109`; new commits pending the Director (`EVIDENCE/E2/r05/commit/`) |
+| DEV 25acbfb9 | Not repaired, advanced, resent or deleted. QA's recovery under AC-038: REPAIR §6 (needs the rebuilt and restarted portal) |
+| QA backup | `~/APBM007A_QA_BACKUPS/q4_r05_20261116_124823/`, manifest `SHA256SUMS.before` (6,614 entries) |
+| Pending | The proposed additional QA identity and sandbox purchase remain PENDING Director confirmation; not consumed |
+| Runtime | Rebuild and restart the portal on the repaired candidate before Friday binds the pair |
+| Retest impact | REPAIR §10 |
+| Release | Engineering releases both checkouts to QA once the Director's r05 commits verify against `EVIDENCE/E2/r05/commit/COMMIT_MANIFEST.json` |

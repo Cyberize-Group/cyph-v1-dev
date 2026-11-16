@@ -1,0 +1,51 @@
+APBM007A r05 poison controls — 2026-11-16T06:44:21Z. Each control restores the repaired file, applies one mutation (refusing to run if the anchor is not unique or nothing changed), runs the provisioning and checkout suites, and restores the file.
+
+## baseline (repaired)
+Tests: 0 failed, 34 passed
+
+## P1 one lease owner per process again
+Tests: 1 failed, 33 passed
+  FAIL three webhook events and a status poll at once: provisioned once, exactly one identity, account, store, admin, mapping and subscription
+
+## P2 operation writes not fenced by the lease
+Tests: 1 failed, 33 passed
+  FAIL a run that lost its lease mid-way writes nothing; the run that took over stands
+
+## P3 no bounded wait for a held lease
+Tests: 2 failed, 32 passed
+  FAIL three webhook events and a status poll at once: provisioned once, exactly one identity, account, store, admin, mapping and subscription
+  FAIL the interleaving behind DEV operation 25acbfb9: a second run starting after the identity was created cannot reclassify it or break provision
+
+## P4 new identity created without the operation marker
+Tests: 3 failed, 31 passed
+  FAIL three webhook events and a status poll at once: provisioned once, exactly one identity, account, store, admin, mapping and subscription
+  FAIL a run that lost its lease mid-way writes nothing; the run that took over stands
+  FAIL a crash after the identity was created, before it was recorded: the next run recognises its own identity and provisions once
+
+## P5 legacy provenance rule removed
+Tests: 1 failed, 33 passed
+  FAIL operator reconcile provisions it once for its own identity; repeating changes nothing; no second identity or email
+
+## P6 legacy rule without the created-after-the-operation check
+Tests: 1 failed, 33 passed
+  FAIL the same row is NOT recovered if its identity existed before the operation began (existing-owner protection)
+
+## P7 access-email attempt not claimed before sending
+Tests: 1 failed, 33 passed
+  FAIL two direct calls at the same moment (poll and resend) claim one attempt: one send, no 429 overwrite
+
+## C1 staleness judged by revision only (quote and consent ignored)
+Tests: 1 failed, 33 passed
+  FAIL a re-quote without an edit (consent cleared, same revision) also settles the earlier attempt first
+
+## C2 stale attempt resumed for the same key (no settlement)
+Tests: 2 failed, 32 passed
+  FAIL same-key retry after an edit: the earlier attempt is settled with Stripe, the new one charges the current quote with renewed consent
+  FAIL a re-quote without an edit (consent cleared, same revision) also settles the earlier attempt first
+
+## C3 no successor key after settling
+Tests: 2 failed, 32 passed
+  FAIL same-key retry after an edit: the earlier attempt is settled with Stripe, the new one charges the current quote with renewed consent
+  FAIL a re-quote without an edit (consent cleared, same revision) also settles the earlier attempt first
+
+Repaired files restored byte for byte.

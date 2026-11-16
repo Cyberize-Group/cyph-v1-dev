@@ -194,3 +194,21 @@ Checks: portal 444/444 (tested copy and QA checkout), focused 15/15 (9 fail on t
 Effects: none outside two rolled-back SCRATCH transactions.
 QA's 3,422 paths backed up privately and verified unchanged.
 Record: EVIDENCE/E2/r04/REPAIR_F-Q4-001.md; commit handoff EVIDENCE/E2/r04/commit/. Next owner: Tony (commits, then rebuild and restart the portal on the repaired candidate); then Friday binds the pair and retests. No deployment before 007B.
+
+## Q4 repair r05 — F-Q4-003, F-Q4-002, F-Q4-004, 16 November 2026 (engineering seat)
+
+Recorded r04 commits (from Git): portal product `c638f79b8e40b8fbddc269634c96cd2c05ef7807`, portal records `93add6f32be53da34ac6fb6fff7fa85076f97a1c`, OwedBook records `0249109f9b688e89c6a3c2bc64ab87167e89d9c9`. QA Q4 a04 ran on this pair; Friday's FAIL stands.
+Causes:
+- F-Q4-003: one lease owner per server process let concurrent advances share the lease; a stale run reclassified the operation's own new identity as existing, and provisioning then returned `not_paid`. Reproduced from the code alone on real SCRATCH SQL: the candidate ends in DEV 25acbfb9's exact state.
+- F-Q4-004: Supabase Auth refused a link request with 429. Most probably the same concurrency sent two requests for one address and the refusal overwrote the first result; the exact limit is not established without Auth logs.
+- F-Q4-002: a same-key retry, or a re-quote, resumed a checkout for an earlier revision or quote.
+Repair (portal only: `provisioning.ts`, `checkout.ts`, `accessEmail.ts` and tests):
+- per-call lease with a bounded wait and fenced writes;
+- operation marker on new identities, with a provenance rule for older ones;
+- access-email attempt claimed before sending, and Auth's error code kept;
+- stale attempts settled with Stripe under any key, with a successor key.
+No migration.
+Checks: portal 463/463 (tested copy and QA checkout), focused 42/42, 10 poison controls caught, typecheck clean, lint 0 errors, production build and bundle scan clean; real SCRATCH 6/6 (candidate 5/6 fail).
+DEV 25acbfb9 untouched; its operator recovery is described for QA (REPAIR §6).
+QA's 6,613 paths backed up privately and verified unchanged.
+Record: EVIDENCE/E2/r05/REPAIR_F-Q4-003_F-Q4-002_F-Q4-004.md; commit handoff EVIDENCE/E2/r05/commit/. Next owner: Tony (commits, rebuild and restart the portal); then Friday binds and retests. No deployment.
