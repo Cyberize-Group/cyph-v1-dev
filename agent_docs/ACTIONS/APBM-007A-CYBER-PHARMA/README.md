@@ -1,5 +1,8 @@
 # APBM007A — v1.0 technical freeze
 
+> **Current status (16 November 2026): Gate Q PASS WITH KNOWN RISK; Q5 cleanup complete; closeout prepared; Director merge/push pending.** Read `CLOSEOUT_REPORT.md` first. The status text below is historical and kept unchanged.
+
+
 E1 COMPLETE. E2 NOT RELEASED. This is the full documentation module, not product implementation.
 
 Start at APBM_ENTRY.md. Final technical contracts, acceptance and migration responsibilities are frozen after Friday Review 3. Historical evidence/proposals are retained for provenance and do not override the frozen files. All execution permissions remain explicit.

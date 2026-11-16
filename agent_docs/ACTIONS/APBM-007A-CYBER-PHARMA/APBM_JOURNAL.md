@@ -77,3 +77,11 @@ Technical design frozen; E2 not released. Director readiness: Git T1, DEV toolin
 - U-2's "unavailable" text was hard-coded in real mode; the Portal and OwedBook now read the same row. A price was never available anywhere authorized; the honest outcome is a pointer and a recorded limitation.
 - The browser walk earned its keep: unit tests (jsdom) passed while Chromium reset the caret on every toggle, and the first fix then raced fast typing. Lesson: input-type changes need a real-browser check.
 - Instrument corrections in the walk (transition timing, rounding of a hard-coded colour, an ambiguous locator) are preserved as attempts.
+
+## 16 November 2026 — closeout preparation (engineering seat)
+
+- Gate Q PASS WITH KNOWN RISK, Q5 cleanup, and Tony's r06 and Q5 commits were all in place; both checkouts were clean on `qa/apbm-007a`.
+- The successor diff was checked by blob, not by commit message. Product changes after certification are exactly the r06 U-1/U-2/U-3 files; every other path is a record.
+- U-1/U-2/U-3 stay Director-accepted, not QA-certified; the certificate states it covers only the certified pair.
+- QA's value scan found an exact private-cast value inside the two earliest Engineering return ZIPs (E2 r01/r02). This was a packaging failure in Engineering. The archives stay restricted outside Git. Lesson: scan returned packages for exact private values, not only for patterns, before handing them over.
+- The closeout is records-only. Tony's integration is a fast-forward of `main` to `origin/main`, then an explicit `--no-ff` merge with a tree-equality guard and a normal push, in each repository.

@@ -1,5 +1,8 @@
 # Current state — APBM007A v1.0
 
+> **Current status (16 November 2026): Gate Q PASS WITH KNOWN RISK; Q5 cleanup complete; closeout prepared; Director merge/push pending.** Read `CLOSEOUT_REPORT.md` first. The status text below is historical and kept unchanged.
+
+
 **E1 COMPLETE. TECHNICAL DESIGN FROZEN. E2 NOT RELEASED.**
 
 Friday Review 3 is final E1 acceptance. FC edits are applied in this package. No provider settings, product code, live repo, database, branch or deployment was changed by package authoring.
@@ -223,3 +226,17 @@ Checks: OwedBook 309/309, Portal 468/468 (tested copies and QA checkouts); typec
 Director rulings on Mission Control and placeholders recorded (APBM_RULINGS.md; STAGING_RELEASE.md; CARRY_FORWARD_007B.md O-3).
 QA's 9,805 paths backed up privately and verified unchanged. No database, Stripe, Auth, email or payment effect.
 Record: EVIDENCE/E2/r06/REPAIR_U-1_U-2_U-3.md; commit handoff EVIDENCE/E2/r06/commit/. Next owner: Tony (commits, rebuild both apps); Friday binds; Cody's focused retest. No deployment.
+
+## Closeout prepared, 16 November 2026 (engineering seat, under JARVIS's final closeout instruction)
+
+**Status: closeout prepared; Director merge/push pending.** Not CLOSED until Tony's merge and push of both repositories are verified. No deployment; Gate D not run.
+- Gate Q **PASS WITH KNOWN RISK** (Friday), certificate `QAM/QAM_CERTIFICATION.md` unchanged (SHA-256 `ac7d0ab2e377e207c7eba039c2ffc883bae8055889f45230c19d696e90c6b493`), on OwedBook `c976968b20ee724f7390d5e0e008215f50ab6f25` / Payment Portal `54a56b55ea7c72783d17d06ff45cd27b5426803f` (product `6ed09ffc05685a163833cb68fcae4383c67ae349`).
+- r06 commits (Director-accepted U-1/U-2/U-3, not QA-certified):
+  - OwedBook: product `c554c2dc9eba302cd8d4ba2da24da05990e0afd0`, records `c59ead583c9d20328d1a85af60d015753b62abf7`.
+  - Portal: product `516b49f5912e31bca3bb903dd262994c0e83fcbf`, records `1a3913262ed0f8e8303823d92d2551fd9cc725b3`.
+- Q5 QA records commit: OwedBook `af1b4af04592f04689de2e4de59f28db65437f8b`. Cleanup package `Q5_CLEANUP_a01`, SHA-256 `7c6c33edb074a9575b6817d4a782dd6a620d577f355bebfb456f4be6bd5f8e28`.
+- Successor diff verified by path and blob: the only product deltas after certification are the 12 OwedBook and 3 Portal r06 paths, byte-identical to the r06 manifest. Everything else is records (65 engineering and 378 QA in OwedBook; 3 in the Portal).
+- `main` in both repositories (OwedBook `bc4e4336f80d2e8cdbb628d4de29d08f8fc95694`, Portal `c89572a45210e7d6f098c2878cfabe9a1c5326f1`, equal to the last-fetched `origin/main`) is an ancestor of `qa/apbm-007a`.
+- Carried forward: certificate risks 1–11, O-1, O-2, O-3, the U-2 price limitation, and retained fixtures (`CARRY_FORWARD_007B.md`, closeout section). Mission Control is out of scope.
+- Restricted: the two Engineering ZIPs E2_ENGINEERING r01/r02 stay outside Git.
+Record: `CLOSEOUT_REPORT.md`; Git handoff `EVIDENCE/CLOSEOUT/commit/COMMIT_HANDOFF.md`. Next owner: Tony (closeout commit, `--no-ff` merge into `main`, push, both repositories), then the merge SHAs are recorded and 007A becomes CLOSED.
