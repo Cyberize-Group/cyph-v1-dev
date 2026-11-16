@@ -32,3 +32,20 @@ Recorded by the engineering seat under the JARVIS repair assignment. QA (Cody) w
 | QA files to re-map | QA-owned AC_EVIDENCE_MATRIX, QAM_TEST_PLAN, QAM_RECON_REPORT and QAM_STATE reference the pre-amendment wording; Engineering left them untouched for QA to update |
 | Processes | None started by Engineering. The servers on :3000/:3001 are the Director's; changed portal source may have hot-reloaded in the Director's dev server |
 | Release | Engineering releases both checkouts once the Director's r02 commits verify against `EVIDENCE/E2/r02/commit/COMMIT_MANIFEST.json` |
+
+## Engineering repair r03 record — 16 November 2026 (Asia/Dhaka)
+
+Recorded by the engineering seat under JARVIS's Q2 repair instruction. The repair was made on `qa/apbm-007a` in the existing checkouts; no branch switch, worktree, stash or Git mutation. QA's uncommitted work (5,011 OwedBook paths, one ignored portal output) was backed up privately and verified unchanged; Engineering edited none of it.
+
+| Field | Value |
+|---|---|
+| Findings repaired | F-Q2-001 (AC-007, AC-009, AC-034 and dependent purchase proofs); F-Q2-002 (RA-4 / AC-030). Record `EVIDENCE/E2/r03/REPAIR_F-Q2.md` |
+| Verdict | Friday's Q2 a01 FAIL stands. Engineering evidence closes no finding |
+| Product change | Payment Portal only, 5 paths (`PharmacyStepView.tsx`, `billing.ts`, three test files). OwedBook product unchanged |
+| Bases | Payment Portal `9d938f6`, OwedBook `37f6c0d`; new commits pending the Director (`EVIDENCE/E2/r03/commit/`) |
+| QA backup | `~/APBM007A_QA_BACKUPS/q2_r03_20261116_100605/`, manifest `SHA256SUMS.before` (5,012 entries) |
+| Running QA helpers | `Q2-a01/new-owner.cjs` and `new-owner-retry.cjs` (sleeping, no sockets) left running for QA to dispose of |
+| DEV effects for QA's ledger | 1 synthetic draft (owner `eng.proof.r03@example.test`, NPI `1373398746`, 3 revisions, 3 quotes) and its NPI hold, left in place; no identity, email, checkout, payment or Stripe mutation |
+| Identity allowance | The one approved new DEV identity is untouched and still reserved for QA's new-owner journey |
+| Retest impact | REPAIR_F-Q2.md §11 |
+| Release | Engineering releases both checkouts to QA once the Director's r03 commits verify against `EVIDENCE/E2/r03/commit/COMMIT_MANIFEST.json` |

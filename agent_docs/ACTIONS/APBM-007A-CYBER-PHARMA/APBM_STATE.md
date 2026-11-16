@@ -173,3 +173,14 @@ Assignment: JARVIS consolidated repair after Q1 finding F-Q1-01. Director paused
 Repair (Payment Portal, 8 paths): unfinished supported events are never processed or 2xx; owned/unresolved/foreign classified from database mappings and the application's marker; busy and unsettled stay retryable; guarded ledger writes; exact-ID audited recovery of unfinished and pre-repair suspect events; checkout marker now names its database. Added the G5 renewal_reminder record (r01 I1 had overstated it). Unit proofs a–f PASS; portal 412/412, typecheck clean, lint 0 errors, disposable build and bundle scan clean; 7 poison controls caught. DEV read-only: 2 events, 0 suspect, 0 unfinished. No schema change, no live effect beyond that read.
 Amendment A1 recorded: APBM_RULINGS, AMENDMENT_LEDGER, ACCEPTANCE_SPEC, BILLING, IMPLEMENTATION_REQUIREMENTS RA-6, ENVIRONMENT_AND_EFFECTS, QA_HANDOFF, CARRY_FORWARD_007B (O-1 live renewal/grace NOT RUN BY DIRECTOR RULING; O-2 reminder email).
 Record: EVIDENCE/E2/r02/REPAIR_F-Q1-01.md; commit handoff EVIDENCE/E2/r02/commit/. Next owner: Tony (two commits per repo, verify), then QA rebinds the candidate pair. No deployment before 007B.
+
+## Q2 repair r03 — F-Q2-001 and F-Q2-002, 16 November 2026 (engineering seat)
+
+Recorded r02 commits (from Git): portal product `9322405fe0238882c21c75ef62733fc8c732fed0`, portal records `9d938f62bff6172f9332ae6c67775e4b8feea379`, OwedBook records `37f6c0dd63f7a087ec44dd9d3ef79b74bb203f40`. These are the pair QA ran Q2 a01 against. Friday adjudicated Q2 a01 **FAIL** (relayed by JARVIS; QA's records still say awaiting adjudication and are untouched).
+Repair on `qa/apbm-007a` (QA line; no branch switch), Payment Portal only, 5 paths:
+- F-Q2-001: the pharmacy step adopts the saved server draft before clearing its temporary input, and a completed save can no longer trigger the stale owner guard.
+- F-Q2-002: undo clears the flag, re-reads, clears the date if still set, re-reads, and reports success only when both are clear.
+Checks: portal 429/429 (tested copy and QA checkout), focused 69/69, typecheck clean, lint 0 errors, production build and bundle scan clean, poison controls caught. Production-browser walk on a disposable build reached review with the server's $99.00 quote, survived refresh and edit/back/return, and stopped before checkout.
+Effects: DEV 1 synthetic draft (3 saves, 3 quotes) and 1 NPI hold; nothing else.
+QA's 5,011 uncommitted paths backed up privately and verified unchanged. Erratum E-A1-1 recorded.
+Record: EVIDENCE/E2/r03/REPAIR_F-Q2.md; commit handoff EVIDENCE/E2/r03/commit/. Next owner: Tony (portal product and records commits, OwedBook records commit, verified), then Cody binds the new pair and retests under Friday. No deployment before 007B.

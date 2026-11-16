@@ -95,3 +95,15 @@ Authority: the Director's approved rulings, relayed by JARVIS in the consolidate
 | A1-4 G1 new-owner identity for QA | Identity ceiling 12/12, consumed on SCRATCH (rulings of 12 November) | Exactly **one** additional brand-new DEV Auth identity is approved, for independent QA's new-owner journey under Cody's approved QA capsule, using a privately identified Director-controlled inbox. Not for engineering consumption. Engineering does not pre-create the user or send its access email | ENVIRONMENT_AND_EFFECTS; QA capsule; AC-016/AC-018 new-owner journey (r01 NOT RUN item N1) | The brand-new-owner path may be proved only by QA with that identity; OWNER_1's existing identity still does not count |
 
 Unchanged by A1: AC-029 (explicit configuration, only-card removal, raw quantity/price), AC-030 (end-period cancellation and same-subscription undo), the only-card-removal half of RA-6, every other AC, and every other expansion row. No acceptance result is claimed by recording these rulings.
+
+### Erratum E-A1-1 — 16 November 2026 (recorded by the engineering seat)
+
+Source: QA Lead (Friday) ruling B2 on F-Q1-02 and ruling B3 on F-Q1-03 (`QAM/QAM_APPROVAL.md`), relayed again in JARVIS's Q2 repair instruction. The A1 table above keeps its original words.
+
+| Location | Original words (preserved) | Read as |
+|---|---|---|
+| A1-1, Evidence impact | "AC-014/015 need fresh independent Q1 evidence on the repaired candidate" | fresh evidence by independent QA in Q2 on the repaired candidate |
+| A1-3, Evidence impact | "Banner and notification record must be shown by Q1" | shown by independent QA in Q2 |
+| Any A1 evidence that independent QA proves in SQL | (not stated) | Independent SQL and fixture proofs are SCRATCH-only; DEV receives only the application-mediated effects in the approved capsule |
+
+No requirement, deferral or result changes. A1-2 (G2, NOT RUN BY DIRECTOR RULING), A1-3's reminder-email deferral and CARRY_FORWARD_007B O-1/O-2 stand as approved.

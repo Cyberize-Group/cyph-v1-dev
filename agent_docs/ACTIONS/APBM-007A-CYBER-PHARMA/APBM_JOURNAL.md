@@ -46,3 +46,11 @@ Technical design frozen; E2 not released. Director readiness: Git T1, DEV toolin
 - r01 I1 said the reminder had a notification record; it did not. Added it under A1-3 and recorded the correction.
 - Amendment A1 written into rulings, ledger, acceptance spec, contracts, QA handoff and a new 007B carry-forward list. AC-029/030 explicitly unchanged.
 - No Stripe call, email, identity, SCRATCH use, server start or Git operation.
+
+## 16 November 2026 — Q2 repair r03, F-Q2-001 and F-Q2-002 (engineering seat)
+
+- First asked Tony to switch both checkouts back to apbm-007a, following r02 practice. JARVIS then settled it from QAM §11 and RRM §§7/9: repairs stay on qa/apbm-007a. Nothing was switched. Lesson: once QA starts, the QA branch is the line for repairs.
+- F-Q2-001 confirmed: clearing the tab's unsaved input after a successful save let the pharmacy page's owner guard read a stale empty draft and replace the pending navigation to review. The old unit test mocked the router and only checked that push was called; the new journey test checks the page the journey ends on.
+- F-Q2-002: the undo cleared only one field. Now sequential with re-reads; never both parameters in one call.
+- Built and tested in a disposable copy, proved in a production browser on 3101 (origin harness patch outside the repair), then transferred byte for byte into the QA checkout.
+- Disk at 100% (about 345 MB free) limited the QA backup: QA records were byte-copied and the regenerable build mirrors and npm cache hard-linked, all checksummed.

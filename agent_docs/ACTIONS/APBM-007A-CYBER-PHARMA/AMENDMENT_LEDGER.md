@@ -27,3 +27,9 @@ No acceptance result is claimed. All changed requirements must be independently 
 | Explicitly unchanged | AC-029, AC-030, RA-6 only-card removal, all other ACs and expansions |
 
 Q1 must remap AC-014, AC-015, AC-031 and AC-032 (and the 014–015 / 031–032 expansions) against the operative A1 text. No result is claimed.
+
+## Erratum E-A1-1 — 16 November 2026
+
+| Source | Destination |
+|---|---|
+| Friday B2 (F-Q1-02) and B3 (F-Q1-03), `QAM/QAM_APPROVAL.md`; JARVIS Q2 repair instruction | APBM_RULINGS.md "Erratum E-A1-1": "by Q1" / "independent Q1 evidence" in the A1 evidence-impact column means by independent QA in Q2; independent SQL proofs are SCRATCH-only. Wording only; no requirement or deferral changed |

@@ -1,0 +1,12 @@
+{
+ "client_files": 31,
+ "value_of_SUPABASE_SECRET_KEY": 0,
+ "value_of_STRIPE_SECRET_KEY": 0,
+ "value_of_STRIPE_WEBHOOK_SECRET": 0,
+ "name_SUPABASE_SECRET_KEY": 0,
+ "name_STRIPE_SECRET_KEY": 0,
+ "name_STRIPE_WEBHOOK_SECRET": 0,
+ "name_api.stripe.com": 0,
+ "name_createAdminClient": 0,
+ "name_service_role": 0
+}

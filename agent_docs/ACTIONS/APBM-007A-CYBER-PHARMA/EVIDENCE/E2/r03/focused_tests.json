@@ -1,0 +1,302 @@
+{
+ "command": "node_modules/.bin/jest --ci src/__tests__/portal-registration-journey.test.tsx src/__tests__/portal-owner.test.tsx src/__tests__/apbm007a-server.test.ts",
+ "cwd": "Payment Portal checkout (qa/apbm-007a, base 9d938f6, r03 working tree)",
+ "passed": 69,
+ "total": 69,
+ "suites": [
+  {
+   "file": "__tests__/apbm007a-server.test.ts",
+   "status": "passed",
+   "tests": [
+    {
+     "title": "app identity and return paths (FC-1) \u203a uses distinct per-app, per-environment names and the frozen local origins",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"//evil.example\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"/\\\\evil\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"/%2f%2fevil\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"https://evil.example\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"/dashboard?x=1\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"/dashboard#x\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"/a//b\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"/unknown\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects null",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects undefined",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a rejects \"/dashboard/\"",
+     "status": "passed"
+    },
+    {
+     "title": "app identity and return paths (FC-1) \u203a accepts only exact allowlisted relative paths",
+     "status": "passed"
+    },
+    {
+     "title": "NPI rule (RA-7) \u203a accepts a valid NPI and strips spaces and hyphens",
+     "status": "passed"
+    },
+    {
+     "title": "NPI rule (RA-7) \u203a rejects wrong length, wrong check digit and other characters",
+     "status": "passed"
+    },
+    {
+     "title": "server pricing and the APA allowlist (AC-009, AC-010) \u203a computes 9900 / 14800 / 19700 cents for one, two and three stores",
+     "status": "passed"
+    },
+    {
+     "title": "server pricing and the APA allowlist (AC-009, AC-010) \u203a applies the 10% fixture to the whole first invoice",
+     "status": "passed"
+    },
+    {
+     "title": "server pricing and the APA allowlist (AC-009, AC-010) \u203a refuses a code that is not on the server allowlist without asking Stripe",
+     "status": "passed"
+    },
+    {
+     "title": "server pricing and the APA allowlist (AC-009, AC-010) \u203a refuses an allowlisted code that Stripe does not hold as active, and an expired one",
+     "status": "passed"
+    },
+    {
+     "title": "server pricing and the APA allowlist (AC-009, AC-010) \u203a accepts an allowlisted, active percent-off code",
+     "status": "passed"
+    },
+    {
+     "title": "cancellation mirror reads both fields (RA-4, F-S1) \u203a carries a portal-style cancel_at with the flag false",
+     "status": "passed"
+    },
+    {
+     "title": "cancellation mirror reads both fields (RA-4, F-S1) \u203a maps provider statuses onto the six stored values",
+     "status": "passed"
+    },
+    {
+     "title": "webhook: signature, ledger, idempotency (AC-012, AC-014) \u203a rejects a missing signature, a wrong secret and mutated bytes without recording anything",
+     "status": "passed"
+    },
+    {
+     "title": "webhook: signature, ledger, idempotency (AC-012, AC-014) \u203a rejects live-mode events and events for another account",
+     "status": "passed"
+    },
+    {
+     "title": "webhook: signature, ledger, idempotency (AC-012, AC-014) \u203a records the event, advances the mapped operation once, and answers a duplicate without a second action",
+     "status": "passed"
+    },
+    {
+     "title": "webhook: signature, ledger, idempotency (AC-012, AC-014) \u203a a distinct event for the same business outcome is applied idempotently by the operation, not skipped",
+     "status": "passed"
+    },
+    {
+     "title": "webhook: signature, ledger, idempotency (AC-012, AC-014) \u203a answers non-2xx and leaves the event unprocessed when the transition fails, then succeeds on retry",
+     "status": "passed"
+    },
+    {
+     "title": "webhook: signature, ledger, idempotency (AC-012, AC-014) \u203a a busy operation is not acknowledged, so the provider retries (F-Q1-01)",
+     "status": "passed"
+    },
+    {
+     "title": "webhook: signature, ledger, idempotency (AC-012, AC-014) \u203a logs an unsupported verified type as ignored with a reason (unmapped supported events: apbm007a-webhook-recovery.test.ts)",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a a non-owner is refused by the database function",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a a synthetic subscription grants nothing when the environment flag is off, and never reaches Stripe",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a a portal session cannot be created without an explicit configuration",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a the configuration check fails closed on a missing, inactive or permissive configuration",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a clears the cancel_at date that the hosted portal sets, on the same subscription",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a a second undo of the same schedule uses a new idempotency key (a reused key would be replayed by Stripe and change nothing)",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a clears the flag when the flag is what is set",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a does not report success while a schedule is still set after the update",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a both fields set and the provider keeps the date: clears the flag, re-reads, clears the date, re-reads",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a both fields set and the provider clears the date with the flag: one update, no second one",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a flag only: sends exactly the update that state needs and ends clear",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a date only: sends exactly the update that state needs and ends clear",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a already clear: sends exactly the update that state needs and ends clear",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a a failure after the flag is cleared is reported, and a retry clears the remaining date with a new key",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a a failure on the first update changes nothing, and a retry clears both",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a does not claim success when the date is still set after both updates",
+     "status": "passed"
+    },
+    {
+     "title": "owner billing (AC-027, RA-2, RA-4, RA-5) \u203a an ended subscription or another customer's subscription is refused before any update",
+     "status": "passed"
+    },
+    {
+     "title": "public error bodies \u203a never include internal detail and stay neutral about NPI conflicts",
+     "status": "passed"
+    }
+   ]
+  },
+  {
+   "file": "__tests__/portal-owner.test.tsx",
+   "status": "passed",
+   "tests": [
+    {
+     "title": "PlanView \u2014 one store only \u203a has no store-count control and says more stores are not available yet",
+     "status": "passed"
+    },
+    {
+     "title": "OwnerView \u2014 owner declaration (R-011) \u203a has no job-title control and an unchecked, exactly worded, required declaration",
+     "status": "passed"
+    },
+    {
+     "title": "OwnerView \u2014 owner declaration (R-011) \u203a blocks Continue without the declaration: summary + inline error, no navigation",
+     "status": "passed"
+    },
+    {
+     "title": "OwnerView \u2014 owner declaration (R-011) \u203a continues once the owner ticks the declaration, keeping the input for this tab only (no save yet)",
+     "status": "passed"
+    },
+    {
+     "title": "OwnerView \u2014 owner declaration (R-011) \u203a prefills from the server draft",
+     "status": "passed"
+    },
+    {
+     "title": "OwnerView \u2014 owner declaration (R-011) \u203a a draft that is no longer editable hands over to the status page",
+     "status": "passed"
+    },
+    {
+     "title": "PharmacyStepView \u2014 one pharmacy, saved with the owner \u203a without owner details it goes back to the owner step",
+     "status": "passed"
+    },
+    {
+     "title": "PharmacyStepView \u2014 one pharmacy, saved with the owner \u203a NCPDP is optional; \"someone else\" as store admin is shown as not available yet",
+     "status": "passed"
+    },
+    {
+     "title": "PharmacyStepView \u2014 one pharmacy, saved with the owner \u203a checks the NPI check digit inline before any request",
+     "status": "passed"
+    },
+    {
+     "title": "PharmacyStepView \u2014 one pharmacy, saved with the owner \u203a saves owner and pharmacy in one request, then goes to review",
+     "status": "passed"
+    },
+    {
+     "title": "PharmacyStepView \u2014 one pharmacy, saved with the owner \u203a an unavailable NPI shows the neutral server message on the field and keeps the input",
+     "status": "passed"
+    },
+    {
+     "title": "PharmacyStepView \u2014 one pharmacy, saved with the owner \u203a server field errors land on their fields",
+     "status": "passed"
+    },
+    {
+     "title": "PharmacyStepView \u2014 one pharmacy, saved with the owner \u203a prefills a saved pharmacy, mapping a custom software name to \"Other\"",
+     "status": "passed"
+    }
+   ]
+  },
+  {
+   "file": "__tests__/portal-registration-journey.test.tsx",
+   "status": "passed",
+   "tests": [
+    {
+     "title": "registration journey \u2014 a first registration reaches review (F-Q2-001) \u203a owner, then pharmacy, lands on review with the server quote; nothing sends the browser back",
+     "status": "passed"
+    },
+    {
+     "title": "registration journey \u2014 a first registration reaches review (F-Q2-001) \u203a the saved details survive a refresh of the review page",
+     "status": "passed"
+    },
+    {
+     "title": "registration journey \u2014 a first registration reaches review (F-Q2-001) \u203a edit from review, change a detail and return: review shows the new saved value and a new quote",
+     "status": "passed"
+    },
+    {
+     "title": "registration journey \u2014 incomplete registrations still cannot reach review \u203a review opened with no saved draft goes to the owner step",
+     "status": "passed"
+    },
+    {
+     "title": "registration journey \u2014 incomplete registrations still cannot reach review \u203a the pharmacy step opened with no owner details goes to the owner step",
+     "status": "passed"
+    },
+    {
+     "title": "registration journey \u2014 incomplete registrations still cannot reach review \u203a owner details typed but never saved do not open review",
+     "status": "passed"
+    },
+    {
+     "title": "registration journey \u2014 incomplete registrations still cannot reach review \u203a a save the server refuses stays on the pharmacy step and keeps what was typed",
+     "status": "passed"
+    },
+    {
+     "title": "registration journey \u2014 incomplete registrations still cannot reach review \u203a a saved draft without a pharmacy does not open review",
+     "status": "passed"
+    }
+   ]
+  }
+ ]
+}

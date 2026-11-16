@@ -1,0 +1,81 @@
+{
+ "candidate": {
+  "payment_portal": "9d938f62bff6172f9332ae6c67775e4b8feea379",
+  "owedbook": "37f6c0dd63f7a087ec44dd9d3ef79b74bb203f40",
+  "branch": "qa/apbm-007a"
+ },
+ "repair_files": [
+  {
+   "path": "src/server/billing.ts",
+   "change": "M",
+   "candidate_blob": "e690d40f0403c16512262aad4ec5bc1bb4d9ec5d",
+   "checkout_sha256": "1e6eae2076daa203480cddb55f02e97798548093be69f37fb90bfaafc4eeaebf",
+   "tested_copy_sha256": "1e6eae2076daa203480cddb55f02e97798548093be69f37fb90bfaafc4eeaebf",
+   "proof_build_copy_sha256": "1e6eae2076daa203480cddb55f02e97798548093be69f37fb90bfaafc4eeaebf",
+   "checkout_git_blob": "f135c4d211acb00e3cee817583f2781c766fb15b"
+  },
+  {
+   "path": "src/components/portal/register/PharmacyStepView.tsx",
+   "change": "M",
+   "candidate_blob": "5161389b106655de52f64312e5405323f43c3ec0",
+   "checkout_sha256": "6a59849d8ecabaf891398e06eca9a86a51f5ff5fae6bab19e6d76e4c3331768e",
+   "tested_copy_sha256": "6a59849d8ecabaf891398e06eca9a86a51f5ff5fae6bab19e6d76e4c3331768e",
+   "proof_build_copy_sha256": "6a59849d8ecabaf891398e06eca9a86a51f5ff5fae6bab19e6d76e4c3331768e",
+   "checkout_git_blob": "8a5705646d4e7568b5ed95b0ab4567cb093b21e3"
+  },
+  {
+   "path": "src/__tests__/apbm007a-server.test.ts",
+   "change": "M",
+   "candidate_blob": "d3a6271b4817b500d2cb57546c6e92521a463a1b",
+   "checkout_sha256": "dca8e91a6cc8c97568cb615a41344314358439d203686cebdb6658738db9ba03",
+   "tested_copy_sha256": "dca8e91a6cc8c97568cb615a41344314358439d203686cebdb6658738db9ba03",
+   "proof_build_copy_sha256": "dca8e91a6cc8c97568cb615a41344314358439d203686cebdb6658738db9ba03",
+   "checkout_git_blob": "2f0d629f13b86cb3c9304d07e5484edca2e9d406"
+  },
+  {
+   "path": "src/__tests__/portal-owner.test.tsx",
+   "change": "M",
+   "candidate_blob": "d407a67ec5bff2034e901ba15420489112f3bdec",
+   "checkout_sha256": "ff5905011b4932362784b8e2ed9901f488da123f3df75a98152c4d7331436dad",
+   "tested_copy_sha256": "ff5905011b4932362784b8e2ed9901f488da123f3df75a98152c4d7331436dad",
+   "proof_build_copy_sha256": "ff5905011b4932362784b8e2ed9901f488da123f3df75a98152c4d7331436dad",
+   "checkout_git_blob": "4ef2c097c335bc9a2699f44bf6d2e5a2d340662c"
+  },
+  {
+   "path": "src/__tests__/portal-registration-journey.test.tsx",
+   "change": "A",
+   "candidate_blob": null,
+   "checkout_sha256": "ced76353c3f7e57296f16e95dd6679fb2cd0c5fec6d677229fef9376b0dcd8a8",
+   "tested_copy_sha256": "ced76353c3f7e57296f16e95dd6679fb2cd0c5fec6d677229fef9376b0dcd8a8",
+   "proof_build_copy_sha256": "ced76353c3f7e57296f16e95dd6679fb2cd0c5fec6d677229fef9376b0dcd8a8",
+   "checkout_git_blob": "eab120eda4970a84dc473d11f7d391a6898d5707"
+  }
+ ],
+ "equivalence": "Each repair file is byte-identical in the QA checkout, the tested disposable copy (ARCHIVE/APBM007A_E2_WORK/r03/pp) and the proof-build copy (r03/proof-pp). Every other source file of the tested copy equals the candidate (diff -r excluding node_modules, .next, generated next-env.d.ts/tsbuildinfo, .git, agent_docs, env files, test-results).",
+ "proof_build": {
+  "copy": "ARCHIVE/APBM007A_E2_WORK/r03/proof-pp",
+  "next": "16.4.3 (Turbopack)",
+  "build_id": "5PHBDZwHVyF0Ahf3kcXjj",
+  "mode": "next build + next start -p 3101, NODE_ENV=production",
+  "env": "DEV settings loaded in-process from the portal .env.local by helpers/with-env.mjs (never copied or printed); NEXT_PUBLIC_SITE_URL=http://localhost:3101",
+  "only_difference_from_tested_copy": {
+   "path": "src/lib/appIdentity.ts",
+   "tested_copy_sha256": "74df3be3b09fc7345377cde9b089d773e1b2b48d41e53166895de50ba6011376",
+   "candidate_blob": "6cc76282222eeafd17a56939cbca0d9ea05c1c4c",
+   "proof_copy_sha256": "791ad8455881e561bb6caba033177eea97f72ba18a907dca39ab130f268fa686",
+   "patch": "proof_harness.patch",
+   "why": "QA servers hold 3000/3001; the local origin table is frozen to 3001, so same-origin checks need the proof port. Not part of the repair or of any commit."
+  },
+  "source_mtime_before_build": true
+ },
+ "checks": {
+  "unit_full_tested_copy": "429/429 (21 suites)",
+  "unit_full_checkout": "429/429 (21 suites), run in the QA checkout after transfer",
+  "focused_checkout": "69/69",
+  "typecheck": "clean (tested copy)",
+  "lint": "0 errors, 24 warnings (equal to candidate count; none new)",
+  "production_build": "pass",
+  "bundle_scan": "bundle_scan.json \u2014 0 secret values, 0 forbidden names",
+  "poison_controls": "mutation_controls.txt"
+ }
+}

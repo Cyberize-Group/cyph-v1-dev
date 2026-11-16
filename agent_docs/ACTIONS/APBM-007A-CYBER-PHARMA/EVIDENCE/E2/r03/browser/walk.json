@@ -1,0 +1,398 @@
+{
+ "started_at": "2026-11-16T03:46:14.899Z",
+ "base": "http://localhost:3101",
+ "viewport": "1440x1000",
+ "synthetic": {
+  "owner_email_domain": "example.test",
+  "npi": "1373398746"
+ },
+ "steps": [
+  {
+   "at": "2026-11-16T03:46:15.586Z",
+   "name": "owner step reached from plan",
+   "path": "/register/owner"
+  },
+  {
+   "at": "2026-11-16T03:46:15.831Z",
+   "name": "owner submitted, pharmacy step shown",
+   "path": "/register/pharmacy"
+  },
+  {
+   "at": "2026-11-16T03:46:22.581Z",
+   "name": "review: 1-first-arrival",
+   "path": "/register/review",
+   "heading": "Review and pay",
+   "due_today": "$99.00",
+   "pharmacy": true,
+   "pharmacy_text_has_npi": true,
+   "consents_ticked": [
+    false,
+    false,
+    false
+   ],
+   "payment_button_enabled": true,
+   "screenshot": "1-first-arrival.png"
+  },
+  {
+   "at": "2026-11-16T03:46:26.612Z",
+   "name": "review: 2-after-refresh",
+   "path": "/register/review",
+   "heading": "Review and pay",
+   "due_today": "$99.00",
+   "pharmacy": true,
+   "pharmacy_text_has_npi": true,
+   "consents_ticked": [
+    false,
+    false,
+    false
+   ],
+   "payment_button_enabled": true,
+   "screenshot": "2-after-refresh.png"
+  },
+  {
+   "at": "2026-11-16T03:46:27.471Z",
+   "name": "edit pharmacy from review",
+   "path": "/register/pharmacy",
+   "prefilled_name_matches": true,
+   "prefilled_npi_matches": true
+  },
+  {
+   "at": "2026-11-16T03:46:33.125Z",
+   "name": "review: 3-after-pharmacy-edit",
+   "path": "/register/review",
+   "heading": "Review and pay",
+   "due_today": "$99.00",
+   "pharmacy": true,
+   "pharmacy_text_has_npi": true,
+   "consents_ticked": [
+    false,
+    false,
+    false
+   ],
+   "payment_button_enabled": true,
+   "screenshot": "3-after-pharmacy-edit.png"
+  },
+  {
+   "at": "2026-11-16T03:46:33.980Z",
+   "name": "edit owner from review",
+   "path": "/register/owner",
+   "prefilled_first_matches": true,
+   "declaration_still_ticked": true
+  },
+  {
+   "at": "2026-11-16T03:46:35.705Z",
+   "name": "back from pharmacy to owner",
+   "path": "/register/owner",
+   "first_name_kept": true
+  },
+  {
+   "at": "2026-11-16T03:46:36.559Z",
+   "name": "pharmacy again",
+   "path": "/register/pharmacy",
+   "name_kept": true
+  },
+  {
+   "at": "2026-11-16T03:46:42.183Z",
+   "name": "review: 4-after-edit-back-return",
+   "path": "/register/review",
+   "heading": "Review and pay",
+   "due_today": "$99.00",
+   "pharmacy": true,
+   "pharmacy_text_has_npi": true,
+   "consents_ticked": [
+    false,
+    false,
+    false
+   ],
+   "payment_button_enabled": true,
+   "screenshot": "4-after-edit-back-return.png"
+  },
+  {
+   "at": "2026-11-16T03:46:42.183Z",
+   "name": "STOP at review — no consent ticked, payment not pressed",
+   "reached_review_with_quote": true,
+   "no_consent_ticked": true,
+   "checkout_requests_attempted": 0,
+   "stopped_at": "/register/review"
+  }
+ ],
+ "routes": [
+  "/register/plan",
+  "/register/plan",
+  "/register/owner",
+  "/register/pharmacy",
+  "/register/review",
+  "/register/review",
+  "/register/review",
+  "/register/pharmacy",
+  "/register/review",
+  "/register/owner",
+  "/register/pharmacy",
+  "/register/owner",
+  "/register/pharmacy",
+  "/register/review"
+ ],
+ "api": [
+  {
+   "method": "GET",
+   "path": "/api/registration/draft",
+   "status": 200,
+   "draft": null
+  },
+  {
+   "method": "GET",
+   "path": "/api/registration/draft",
+   "status": 200,
+   "draft": null
+  },
+  {
+   "method": "GET",
+   "path": "/api/registration/draft",
+   "status": 200,
+   "draft": null
+  },
+  {
+   "method": "POST",
+   "path": "/api/registration/draft",
+   "status": 200,
+   "draft": {
+    "revision": 1,
+    "status": "draft",
+    "owner_saved": true,
+    "pharmacy_saved": true,
+    "quote": null
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/registration/draft",
+   "status": 200,
+   "draft": {
+    "revision": 1,
+    "status": "draft",
+    "owner_saved": true,
+    "pharmacy_saved": true,
+    "quote": null
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/registration/quote",
+   "status": 200,
+   "draft": {
+    "revision": 1,
+    "status": "draft",
+    "owner_saved": true,
+    "pharmacy_saved": true,
+    "quote": {
+     "totalCents": 9900,
+     "currency": "USD",
+     "promotionCode": null,
+     "expired": false,
+     "expiresAt": "2026-11-16T04:16:18.88+00:00"
+    }
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/registration/draft",
+   "status": 200,
+   "draft": {
+    "revision": 1,
+    "status": "draft",
+    "owner_saved": true,
+    "pharmacy_saved": true,
+    "quote": {
+     "totalCents": 9900,
+     "currency": "USD",
+     "promotionCode": null,
+     "expired": false,
+     "expiresAt": "2026-11-16T04:16:18.88+00:00"
+    }
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/registration/draft",
+   "status": 200,
+   "draft": {
+    "revision": 1,
+    "status": "draft",
+    "owner_saved": true,
+    "pharmacy_saved": true,
+    "quote": {
+     "totalCents": 9900,
+     "currency": "USD",
+     "promotionCode": null,
+     "expired": false,
+     "expiresAt": "2026-11-16T04:16:18.88+00:00"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/registration/draft",
+   "status": 200,
+   "draft": {
+    "revision": 2,
+    "status": "draft",
+    "owner_saved": true,
+    "pharmacy_saved": true,
+    "quote": null
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/registration/draft",
+   "status": 200,
+   "draft": {
+    "revision": 2,
+    "status": "draft",
+    "owner_saved": true,
+    "pharmacy_saved": true,
+    "quote": null
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/registration/quote",
+   "status": 200,
+   "draft": {
+    "revision": 2,
+    "status": "draft",
+    "owner_saved": true,
+    "pharmacy_saved": true,
+    "quote": {
+     "totalCents": 9900,
+     "currency": "USD",
+     "promotionCode": null,
+     "expired": false,
+     "expiresAt": "2026-11-16T04:16:29.457+00:00"
+    }
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/registration/draft",
+   "status": 200,
+   "draft": {
+    "revision": 2,
+    "status": "draft",
+    "owner_saved": true,
+    "pharmacy_saved": true,
+    "quote": {
+     "totalCents": 9900,
+     "currency": "USD",
+     "promotionCode": null,
+     "expired": false,
+     "expiresAt": "2026-11-16T04:16:29.457+00:00"
+    }
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/registration/draft",
+   "status": 200,
+   "draft": {
+    "revision": 2,
+    "status": "draft",
+    "owner_saved": true,
+    "pharmacy_saved": true,
+    "quote": {
+     "totalCents": 9900,
+     "currency": "USD",
+     "promotionCode": null,
+     "expired": false,
+     "expiresAt": "2026-11-16T04:16:29.457+00:00"
+    }
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/registration/draft",
+   "status": 200,
+   "draft": {
+    "revision": 2,
+    "status": "draft",
+    "owner_saved": true,
+    "pharmacy_saved": true,
+    "quote": {
+     "totalCents": 9900,
+     "currency": "USD",
+     "promotionCode": null,
+     "expired": false,
+     "expiresAt": "2026-11-16T04:16:29.457+00:00"
+    }
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/registration/draft",
+   "status": 200,
+   "draft": {
+    "revision": 2,
+    "status": "draft",
+    "owner_saved": true,
+    "pharmacy_saved": true,
+    "quote": {
+     "totalCents": 9900,
+     "currency": "USD",
+     "promotionCode": null,
+     "expired": false,
+     "expiresAt": "2026-11-16T04:16:29.457+00:00"
+    }
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/registration/draft",
+   "status": 200,
+   "draft": {
+    "revision": 3,
+    "status": "draft",
+    "owner_saved": true,
+    "pharmacy_saved": true,
+    "quote": null
+   }
+  },
+  {
+   "method": "GET",
+   "path": "/api/registration/draft",
+   "status": 200,
+   "draft": {
+    "revision": 3,
+    "status": "draft",
+    "owner_saved": true,
+    "pharmacy_saved": true,
+    "quote": null
+   }
+  },
+  {
+   "method": "POST",
+   "path": "/api/registration/quote",
+   "status": 200,
+   "draft": {
+    "revision": 3,
+    "status": "draft",
+    "owner_saved": true,
+    "pharmacy_saved": true,
+    "quote": {
+     "totalCents": 9900,
+     "currency": "USD",
+     "promotionCode": null,
+     "expired": false,
+     "expiresAt": "2026-11-16T04:16:38.504+00:00"
+    }
+   }
+  }
+ ],
+ "blocked": [],
+ "console_errors": [],
+ "result": {
+  "reached_review_with_quote": true,
+  "no_consent_ticked": true,
+  "checkout_requests_attempted": 0,
+  "stopped_at": "/register/review"
+ },
+ "finished_at": "2026-11-16T03:46:42.183Z"
+}
