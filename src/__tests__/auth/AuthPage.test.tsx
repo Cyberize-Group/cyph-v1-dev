@@ -31,7 +31,8 @@ describe("/auth page (login-only)", () => {
     expect(screen.queryAllByRole("link")).toHaveLength(0);
     // APBM007A (intentional): the returning-user sign-in link request is a second button. It is not a sign-up:
     // the request never creates a user (shouldCreateUser:false) and the removed-affordance pattern below still holds.
-    expect(screen.getAllByRole("button").map((b) => b.textContent)).toEqual(["Login", "Email me a sign-in link"]);
+    // U-3: the password field's show/hide control is a third button (type="button"; it submits nothing).
+    expect(screen.getAllByRole("button").map((b) => b.getAttribute("aria-label") ?? b.textContent)).toEqual(["Show password", "Login", "Email me a sign-in link"]);
     expect(container.textContent).not.toMatch(REMOVED_AFFORDANCE);
     expect(container.innerHTML).not.toMatch(REMOVED_AFFORDANCE);
   });

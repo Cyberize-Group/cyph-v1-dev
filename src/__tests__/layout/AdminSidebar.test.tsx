@@ -17,7 +17,8 @@ class ResizeObserverStub {
 // cmdk also scrolls the active item into view; jsdom has no layout engine.
 Element.prototype.scrollIntoView = () => {};
 
-import AdminSidebar from "@/components/layout/AdminSidebar";
+import { fireEvent } from "@testing-library/react";
+import AdminSidebar, { selectedAdminHref } from "@/components/layout/AdminSidebar";
 
 // next/navigation is globally mocked in jest.setup; override usePathname per test.
 const mockUsePathname = usePathname as jest.Mock;
@@ -53,7 +54,73 @@ describe("AdminSidebar surface-awareness", () => {
   it("marks My Stores active on a /stores/* drill-down, not Billing", () => {
     mockUsePathname.mockReturnValue("/admin-portal/stores/store-1");
     render(<AdminSidebar />);
-    expect(screen.getByText("My Stores").closest("[cmdk-item]")).toHaveClass("font-bold");
-    expect(screen.getByText("Billing").closest("[cmdk-item]")).not.toHaveClass("font-bold");
+    expect(screen.getByRole("link", { name: "My Stores" })).toHaveAttribute("aria-current", "page");
+    expect(screen.getByRole("link", { name: "Billing" })).not.toHaveAttribute("aria-current");
+  });
+});
+
+// U-1: the route is the only source of the selected item.
+describe("AdminSidebar route-driven selection (U-1)", () => {
+  const links = () => screen.getAllByRole("link");
+  const selectedLinks = () => links().filter((l) => l.getAttribute("aria-current") === "page");
+  const expectOnlySelected = (label: string) => {
+    expect(selectedLinks().map((l) => l.textContent)).toEqual([label]);
+    for (const l of links()) {
+      const on = l.textContent === label;
+      // Selected: solid coral fill with white text. Every other item: no fill, a coral outline on hover only.
+      expect(l.className.includes("bg-primary")).toBe(on);
+      expect(l.className.includes("text-primary-foreground")).toBe(on);
+      expect(l.className.includes("hover:border-primary")).toBe(!on);
+      expect(l).toHaveClass("focus-visible:ring-2");   // a visible keyboard focus ring on every item
+    }
+  };
+
+  it.each([
+    ["/admin-portal", "/admin-portal"],
+    ["/admin-portal/", "/admin-portal"],
+    ["/admin-portal/stores/abc", "/admin-portal"],
+    ["/admin-portal/stores/abc/invite", "/admin-portal"],
+    ["/admin-portal/billing", "/admin-portal/billing"],
+    ["/admin-portal/billing/", "/admin-portal/billing"],
+    ["/admin-portal/settings", "/admin-portal/settings"],
+    ["/admin-portal/audit", "/admin-portal/audit"],
+    ["/admin-portal/billingx", null],
+    ["/admin-portal/unknown", null],
+    ["/owedbook", null],
+  ])("%s selects %s", (path, href) => {
+    expect(selectedAdminHref(path)).toBe(href);
+  });
+
+  it("exactly one item is selected on each admin route, and it is the route's own", () => {
+    for (const [path, label] of [["/admin-portal", "My Stores"], ["/admin-portal/billing", "Billing"], ["/admin-portal/settings", "Settings"], ["/admin-portal/audit", "Audit log"], ["/admin-portal/stores/s1/invite", "My Stores"]]) {
+      mockUsePathname.mockReturnValue(path);
+      const { unmount } = render(<AdminSidebar />);
+      expectOnlySelected(label);
+      unmount();
+    }
+  });
+
+  it("moving from Audit log to Billing moves the selection; nothing stays highlighted from the click", () => {
+    mockUsePathname.mockReturnValue("/admin-portal/audit");
+    const { rerender } = render(<AdminSidebar />);
+    expectOnlySelected("Audit log");
+    const billing = screen.getByRole("link", { name: "Billing" });
+    fireEvent.pointerMove(billing); fireEvent.mouseEnter(billing); fireEvent.focus(billing); fireEvent.click(billing);
+    expectOnlySelected("Audit log");   // pointer, focus and click do not select anything: only the route does
+    mockUsePathname.mockReturnValue("/admin-portal/billing");   // the navigation lands (the layout keeps the sidebar mounted)
+    rerender(<AdminSidebar />);
+    expectOnlySelected("Billing");
+    mockUsePathname.mockReturnValue("/admin-portal/audit");
+    rerender(<AdminSidebar />);
+    expectOnlySelected("Audit log");
+  });
+
+  it("the items are plain links in a labelled navigation, reachable by keyboard", () => {
+    mockUsePathname.mockReturnValue("/admin-portal/billing");
+    render(<AdminSidebar />);
+    expect(screen.getByRole("navigation", { name: "Admin Portal" })).toBeInTheDocument();
+    expect(links().map((l) => l.getAttribute("href"))).toEqual(["/admin-portal", "/admin-portal/billing", "/admin-portal/settings", "/admin-portal/audit"]);
+    for (const l of links()) { l.focus(); expect(document.activeElement).toBe(l); }
+    expect(document.querySelectorAll("[cmdk-item]")).toHaveLength(0);   // no command-palette selection state remains
   });
 });

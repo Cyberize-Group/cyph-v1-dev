@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Button } from "@/components/ui/button";
 import Spinner from "@/components/common/Spinner";
 import { useRouter } from "next/navigation";
@@ -123,8 +124,7 @@ const LoginForm = () => {
                       Password
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
+                      <PasswordInput
                         className="p-6 bg-muted"
                         placeholder="Please Enter password"
                         {...field}

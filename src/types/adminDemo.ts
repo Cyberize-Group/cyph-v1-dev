@@ -17,7 +17,9 @@ export type StoreStatus = "active" | "suspended" | "unavailable";
 export type SubscriptionStatus = "active" | "past_due" | "canceled" | "trialing" | "unpaid" | "incomplete" | "incomplete_expired" | "paused" | "unavailable";
 
 // Billing plan (demo values; Phase-7 maps to real Stripe price/plan_type)
-export type BillingPlan = "standard" | "concierge" | "unavailable";
+// "owedbook" and "synthetic" are the real-mode plans read from the owner's subscription (U-2); "standard" and
+// "concierge" belong to the demo seed only.
+export type BillingPlan = "standard" | "concierge" | "owedbook" | "synthetic" | "unavailable";
 
 // Audit action vocabulary (the owner's own actions)
 export type AuditAction =
@@ -74,6 +76,8 @@ export interface BillingLine {
   plan: BillingPlan;
   subscriptionStatus: SubscriptionStatus;
   nextChargeDate?: string; // ISO; present when active
+  paidThroughDate?: string; // ISO; real mode, when the subscription ends or is set to end (no further charge)
+  coveredStores?: number; // real mode: pharmacies covered by the subscription (its quantity)
   retryDate?: string; // ISO; present when past_due
   amountLabel: string; // display only, e.g. "$49/mo" (demo; Phase-7 = real Stripe)
   // Actions are VISUAL ONLY: managePayment, cancel — no checkout, no charge.

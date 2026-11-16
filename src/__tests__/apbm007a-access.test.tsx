@@ -59,10 +59,12 @@ describe("owner-only billing read (RA-3)", () => {
     const c = rpcBy({
       tenant_stores: [{ id: A, account_id: ACCOUNT, name: "A", capability: "owner" }],
       admin_stores: [{ id: A, name: "A", ncpdp: null, npi: "1234567893", status: "active", subscription_status: "active", member_count: 1 }],
-      admin_billing_status: { account_id: ACCOUNT, subscriptions: [{ status: "active", current_period_end: null }] },
+      // U-2: the owner's current subscription comes from owner_billing_overview (0060), as in the Payment Portal.
+      owner_billing_overview: { account_id: ACCOUNT, subscription: { origin: "stripe", status: "active", quantity: 1, current_period_end: null, cancel_at: null, cancel_at_period_end: false, paid_through: null } },
     });
     const lines = await createAdminServices(c).billingService.listBilling();
     expect(lines).toEqual([expect.objectContaining({ storeId: A, subscriptionStatus: "active" })]);
+    expect(c.rpc.mock.calls.map(([n]) => n)).toEqual(["tenant_stores", "admin_stores", "owner_billing_overview"]);
   });
   it("a store row without a billing field (non-owner redaction) maps to unavailable, not to a guess", async () => {
     const c = rpcBy({ admin_stores: [{ id: A, name: "A", ncpdp: null, npi: "1234567893", status: "active", member_count: 1 }] });
