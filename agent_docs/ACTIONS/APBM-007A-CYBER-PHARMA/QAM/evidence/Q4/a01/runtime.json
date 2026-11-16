@@ -1,0 +1,18 @@
+[
+  {
+    "port": 3000,
+    "pid": 2015772,
+    "cwd": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev",
+    "start": "Sun Nov 15 14:17:19 2026",
+    "disk_build_id": "tFYOPTmsXGyRhhOdVCb3n",
+    "note": "Same PIDs as accepted Q2/B1 runtime; no r03 restarted process observed. Disk BUILD_ID alone is not served-binary attestation."
+  },
+  {
+    "port": 3001,
+    "pid": 2015203,
+    "cwd": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-payment-portal-dev-v1",
+    "start": "Sun Nov 15 14:16:25 2026",
+    "disk_build_id": "UcGrgkjeh6U2Vn9zbwDN0",
+    "note": "Same PIDs as accepted Q2/B1 runtime; no r03 restarted process observed. Disk BUILD_ID alone is not served-binary attestation."
+  }
+]

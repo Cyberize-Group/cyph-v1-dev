@@ -1,0 +1,151 @@
+{
+  "counts": {
+    "accounts": 4,
+    "businesses": 6,
+    "checkout_operations": 9,
+    "stripe_events": 10,
+    "audit_logs": 1721,
+    "registration_drafts": 19,
+    "npi_reservations": 20,
+    "notification_operations": 3
+  },
+  "events": [
+    {
+      "event_id": "evt_1UbBtoGnEQDyu3RRkNvmPQOh",
+      "type": "customer.subscription.updated",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0
+    },
+    {
+      "event_id": "evt_1UbBysGnEQDyu3RRLFtpQcZB",
+      "type": "customer.subscription.updated",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0
+    },
+    {
+      "event_id": "evt_QA007AIndependentSignature01",
+      "type": "qa.instrument_control",
+      "status": "ignored",
+      "error_code": "unsupported",
+      "attempts": 0
+    },
+    {
+      "event_id": "evt_1UbIDoGnEQDyu3RRRL0kOfXS",
+      "type": "checkout.session.expired",
+      "status": "ignored",
+      "error_code": "foreign",
+      "attempts": 0
+    },
+    {
+      "event_id": "evt_1UcJ5fGnEQDyu3RRoWYqYk1E",
+      "type": "checkout.session.completed",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0
+    },
+    {
+      "event_id": "evt_1UcJ5fGnEQDyu3RR3PGuN1yX",
+      "type": "customer.subscription.created",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0
+    },
+    {
+      "event_id": "evt_1UcJ5fGnEQDyu3RRCf4C7Udu",
+      "type": "invoice.paid",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0
+    },
+    {
+      "event_id": "evt_1UcJ76GnEQDyu3RRK8meeTQC",
+      "type": "invoice.paid",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0
+    },
+    {
+      "event_id": "evt_1UcJ76GnEQDyu3RRlAutnc9I",
+      "type": "customer.subscription.created",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0
+    },
+    {
+      "event_id": "evt_1UcJ76GnEQDyu3RRh4nYg9EL",
+      "type": "checkout.session.completed",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0
+    }
+  ],
+  "auth_user_count": 17,
+  "new_owner_identity_count": 1,
+  "new_owner_draft_ids": [
+    "fc74cf41-9d7e-4909-8d7a-35190bec6ecf",
+    "7b0cd258-1d0e-4c35-ad21-418c5557eb57",
+    "44d124d2-3621-4dba-a3d6-233ebb93af3c"
+  ],
+  "owner2": [
+    {
+      "id": "f679249a-d83d-4353-87be-363090f59d73",
+      "accounts": 0,
+      "memberships": 0
+    }
+  ],
+  "engineering_hold": [
+    {
+      "id": "868ebb06-7e28-43f0-81c5-4b152c85650b",
+      "draft_id": "c59bd738-df18-4a39-be65-e90057435632",
+      "status": "held"
+    }
+  ],
+  "partial_drafts": [
+    {
+      "id": "56715f5e-83ae-40e0-9cc0-d8e27ae5058d",
+      "npi": "1961161308",
+      "revision": 3,
+      "quote_total_cents": 9900,
+      "status": "draft"
+    },
+    {
+      "id": "6f83b8da-6c52-48a1-9bbd-bb3fa3ff7b04",
+      "npi": "1961161407",
+      "revision": 3,
+      "quote_total_cents": 9900,
+      "status": "draft"
+    },
+    {
+      "id": "eb99dca3-73b2-4021-a121-0f03955d27ce",
+      "npi": "1961161506",
+      "revision": 3,
+      "quote_total_cents": 9900,
+      "status": "draft"
+    },
+    {
+      "id": "210fa572-b9cb-4489-a228-beb2d04ffb27",
+      "npi": "1941161303",
+      "revision": 1,
+      "quote_total_cents": 8910,
+      "status": "checkout_started"
+    },
+    {
+      "id": "429e2e3f-8a63-4fdc-be0c-5e224decd7e5",
+      "npi": "1921161307",
+      "revision": 3,
+      "quote_total_cents": 9900,
+      "status": "draft"
+    },
+    {
+      "id": "0168262e-ece0-4b94-9764-53269aa39e7a",
+      "npi": "1911161309",
+      "revision": 3,
+      "quote_total_cents": 9900,
+      "status": "draft"
+    }
+  ],
+  "current_recent_session_count": 3,
+  "session_count_limitation": "Current rows only: logout/revocation removes prior sessions; use dispatched counters for ceilings, not this as total mints."
+}

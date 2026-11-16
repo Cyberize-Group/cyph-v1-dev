@@ -1,0 +1,33 @@
+{
+  "a03": {
+    "drafts": 3,
+    "reservations": 3,
+    "password_sessions": 3,
+    "handoffs": 6,
+    "session_upper_bound": 9,
+    "global_signouts": 3,
+    "checkout_requests": 0,
+    "purchases": 0,
+    "emails": 0,
+    "new_auth_identities": 0,
+    "stripe_mutations": 0,
+    "SCRATCH_writes": 0
+  },
+  "cumulative": {
+    "QA_drafts": 5,
+    "QA_reservations": 5,
+    "engineering_draft_hold_separate": 1,
+    "conservative_drafts_reservations": 6,
+    "draft_reservation_ceiling": 6,
+    "session_upper_bound": 32,
+    "session_ceiling": 40,
+    "global_signouts": 7,
+    "global_signout_ceiling": 8,
+    "Stripe_mutations": 3,
+    "new_identities": 0,
+    "emails": 0,
+    "payments": 0
+  },
+  "retained": "all drafts/reservations; no cleanup",
+  "held": "all purchases/newidentity/paidbilling/Director session"
+}

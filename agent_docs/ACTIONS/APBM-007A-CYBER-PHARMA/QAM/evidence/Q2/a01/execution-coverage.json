@@ -1,0 +1,242 @@
+{
+  "AC-001": {
+    "status": "RAN \u2014 identity checks matched",
+    "evidence": "Q1/a02/repaired_identity.json; B1/runtime.json; final-identity.json",
+    "observed": "Pair, finite eight-path repair manifest, records-only deltas and approved plan match.",
+    "remaining_dependency_owner": "None for checked identity; Gate Q remains Lead decision."
+  },
+  "AC-002": {
+    "status": "RAN \u2014 baseline passed (Q1 reused)",
+    "evidence": "Q1/a02/build_clean_retry_results.json; build_results.json",
+    "observed": "Fresh install/typecheck/lint/unit/build for both pinned candidates passed in isolated guarded copies. Initial guard/build retries retained.",
+    "remaining_dependency_owner": "No new Q2 build needed: pins/product unchanged. Maintained suites are baseline, not independent acceptance."
+  },
+  "AC-003": {
+    "status": "PARTIAL",
+    "evidence": "independent-readonly.json; privilege-scope-review.json",
+    "observed": "Both ledgers 60/60 with matching hashes; scoped tenant grants and catalog checked.",
+    "remaining_dependency_owner": "Bootstrap/setup misuse not independently executed; QA coverage gap LR-04."
+  },
+  "AC-004": {
+    "status": "REUSED + READ-ONLY; NOT RUN independent rehearsal",
+    "evidence": "STOP-001/REPORT.md; independent-readonly.json; E2/r01 scratch evidence",
+    "observed": "Reused engineering evidence + independent read-only verification, exactly as Lead directed.",
+    "remaining_dependency_owner": "Restore NOT PROVEN; independent fresh/upgrade NOT RUN by Lead; LR-01."
+  },
+  "AC-005": {
+    "status": "PARTIAL \u2014 executed assertions passed",
+    "evidence": "npi-independent.json; npi-concurrency.json; pure-pricing.json",
+    "observed": "Independent Luhn, normalization, held collision, lazy expiry, real two-connection race yielded one holder.",
+    "remaining_dependency_owner": "Bound/paid reservation lifecycle and duplicate-store provisioning BLOCKED F-Q2-001; LR-04."
+  },
+  "AC-006": {
+    "status": "PARTIAL",
+    "evidence": "new-owner-db-observation.json; scratch-final-id-diff.json",
+    "observed": "Blank optional NCPDP accepted in two saved drafts; no snapshot IDs removed.",
+    "remaining_dependency_owner": "Five legacy-fixture update/column preservation assertions NOT RUN; QA gap LR-04. No broad preservation pass."
+  },
+  "AC-007": {
+    "status": "FAILED journey \u2014 F-Q2-001",
+    "evidence": "new-owner*.json; STOP-002/REPORT.md",
+    "observed": "Valid owner/pharmacy submission should reach review; twice returned to owner with unquoted saved draft.",
+    "remaining_dependency_owner": "Alternate-admin/second-store API negatives NOT RUN; QA gap LR-04."
+  },
+  "AC-008": {
+    "status": "NOT RUN \u2014 coverage gap",
+    "evidence": "STOP-002/REPORT.md",
+    "observed": "No claim of draft/quote context isolation proof.",
+    "remaining_dependency_owner": "Direct cross-draft adversarial API proof absent; QA owner LR-04. Registration failure does not itself prove an isolation failure."
+  },
+  "AC-009": {
+    "status": "PARTIAL; live BLOCKED F-Q2-001",
+    "evidence": "pure-pricing.json; STOP-002/REPORT.md",
+    "observed": "Unit recurring cents 9900/14800/19700; first-store quote 9900 and expiry correct.",
+    "remaining_dependency_owner": "Live quote/tamper/consent/expiry path blocked before review. Placeholder consent remains OPEN LR-06."
+  },
+  "AC-010": {
+    "status": "PARTIAL; live BLOCKED F-Q2-001",
+    "evidence": "pure-pricing.json",
+    "observed": "Unit 10% first invoice gives 8910; outside allowlist never queries provider; expired rejected.",
+    "remaining_dependency_owner": "No real APA checkout/duration/whole multi-unit invoice agreement; no commercial discount assumption."
+  },
+  "AC-011": {
+    "status": "BLOCKED live F-Q2-001; NOT RUN fault proof",
+    "evidence": "STOP-002/REPORT.md",
+    "observed": "No owned Checkout reached; no double-submit/unknown-outcome proof claimed.",
+    "remaining_dependency_owner": "Product-unmodified response-drop control not executed; dedicated SCRATCH runtime absent; LR-02."
+  },
+  "AC-012": {
+    "status": "PARTIAL \u2014 signature controls passed",
+    "evidence": "signature-live.json; boundary-http.json; foreign-live.json",
+    "observed": "Wrong secret/tamper/account/mode 400; valid signed synthetic unsupported and real foreign event 200.",
+    "remaining_dependency_owner": "Paid return-only bypass/settlement authorization NOT RUN, blocked owned journey F-Q2-001."
+  },
+  "AC-013": {
+    "status": "BLOCKED F-Q2-001",
+    "evidence": "STOP-002/REPORT.md; foreign-live.json",
+    "observed": "Foreign unpaid expiry creates no tenant mapping/operation; this is not owned declined-payment proof.",
+    "remaining_dependency_owner": "Owned decline/settlement positive and mismatch cases unavailable before review."
+  },
+  "AC-014": {
+    "status": "PARTIAL \u2014 unit recovery passed; live foreign passed",
+    "evidence": "webhook-independent.json; foreign-live.json",
+    "observed": "Independent late mapping/retry/duplicates/busy/persistence-fault/historical adapters pass with no duplicate modeled effect.",
+    "remaining_dependency_owner": "Real owned crash/concurrent distinct-event/DB durable retry proof BLOCKED LR-02; natural foreign delivery HTTP unobserved LR-05."
+  },
+  "AC-015": {
+    "status": "PARTIAL \u2014 unit recovery passed",
+    "evidence": "webhook-independent.json; operator-live.json",
+    "observed": "Historical ignored and processed-without-completion recovery modeled with audit; operator list empty; own final foreign event stays final.",
+    "remaining_dependency_owner": "Actual owned historical recovery and full obsolete-subscription ordering not independently executed; LR-02/LR-04."
+  },
+  "AC-016": {
+    "status": "BLOCKED F-Q2-001",
+    "evidence": "new-owner-db-observation.json; final-dev-observation.json",
+    "observed": "No payment/provisioning; new alias still has zero Auth identities.",
+    "remaining_dependency_owner": "No paid saga success claim; new-owner inbox also DEFERRED-TO-DIRECTOR-WALK."
+  },
+  "AC-017": {
+    "status": "BLOCKED \u2014 real-Auth crash gap",
+    "evidence": "webhook-independent.json; STOP-001/REPORT.md",
+    "observed": "Webhook adapters are not real-Auth saga crash coverage.",
+    "remaining_dependency_owner": "No allowed Auth reset/fixture mutation, no SCRATCH app runtime. Carry explicit certification gap B10; LR-02."
+  },
+  "AC-018": {
+    "status": "BLOCKED + DEFERRED-TO-DIRECTOR-WALK",
+    "evidence": "sample-loader-gap.md; STOP-002/REPORT.md",
+    "observed": "No sample loader or owned-inbox link sent.",
+    "remaining_dependency_owner": "Loader fixed50 exceeds approved20 rows, safety-isolated BLOCKED; empty paid store F-Q2-001; access email/walk deferred LR-03/LR-07."
+  },
+  "AC-019": {
+    "status": "PARTIAL + DEFERRED-TO-DIRECTOR-WALK",
+    "evidence": "confirm-switch.json",
+    "observed": "Both apps/all3 engines: synthetic GET/HEAD303 clean non-auth cookie; explicit POST form; wrong CSRF403.",
+    "remaining_dependency_owner": "Synthetic unusable context is not valid emailed-link redemption, replay, expiry or rate-limit proof. Real inbox checks deferred; remaining API coverage LR-04."
+  },
+  "AC-020": {
+    "status": "DEFERRED-TO-DIRECTOR-WALK; fault path BLOCKED",
+    "evidence": "STOP-002/REPORT.md",
+    "observed": "No email sent, resend or wrong-email identity change.",
+    "remaining_dependency_owner": "Paid provision/email failure recovery also blocked F-Q2-001/LR-02; no real-Auth authority changes improvised."
+  },
+  "AC-021": {
+    "status": "PARTIAL \u2014 browser isolation passed",
+    "evidence": "auth-browser.json; identity-contract.json",
+    "observed": "All3 engines: OB cookie alone PP401; distinct app cookie names.",
+    "remaining_dependency_owner": "Full storage/PKCE factory enumeration not independently exercised; LR-04."
+  },
+  "AC-022": {
+    "status": "PARTIAL \u2014 integrated handoffs passed",
+    "evidence": "auth-browser.json",
+    "observed": "All3 engines OB\u2192PP\u2192OB; reverse completes about11\u201312s; selected app routes/access correct.",
+    "remaining_dependency_owner": "Not a full proof of every internal claim/mint/persistence invariant; QA gap LR-04."
+  },
+  "AC-023": {
+    "status": "NOT RUN subcases; inbox collision DEFERRED-TO-DIRECTOR-WALK",
+    "evidence": "auth-browser.json",
+    "observed": "Positive integrated exchange does not prove all adversarial code bindings.",
+    "remaining_dependency_owner": "Expired/reused/concurrent/wrong-verifier/state/audience/environment controls absent; QA gap LR-04. No fabricated pass from engineering tests."
+  },
+  "AC-024": {
+    "status": "PARTIAL \u2014 redirect/switch controls passed",
+    "evidence": "confirm-switch.json; auth-browser.json; identity-contract.json",
+    "observed": "Encoded/open redirects denied; different-user GET preserves account; deliberate POST changes it in all3 engines.",
+    "remaining_dependency_owner": "Arbitrary-user mint and all claim-consumption/restart negatives not independently run; LR-04."
+  },
+  "AC-025": {
+    "status": "PARTIAL \u2014 logout and residual measured",
+    "evidence": "auth-browser.json; logout-residual.json",
+    "observed": "Peer protectedAPI401 after global logout; direct data JWT200 after419ms, remainingTTL3598s.",
+    "remaining_dependency_owner": "Immediate residual only, not full-lifetime elapsed measurement. Refresh/restart/logout-at-mint races NOT RUN; LR-04/LR-08."
+  },
+  "AC-026": {
+    "status": "PARTIAL; Mission Control NOT RUN",
+    "evidence": "identity-contract.json; QAM_APPROVAL.md",
+    "observed": "App return allowlists exclude Mission Control; provider-wide same-identity logout carried D02.",
+    "remaining_dependency_owner": "Mission Control UI remains NOT RUN, Director limitation acceptance pending LR-08."
+  },
+  "AC-027": {
+    "status": "PARTIAL \u2014 executed owner/role checks passed",
+    "evidence": "sql-independent.json; auth-browser.json; tenant-readonly.json",
+    "observed": "Owner subscriptions visible; admin/member0; portal billing owner200/nonowners403.",
+    "remaining_dependency_owner": "Foreign-ID query status alone not full IDOR body/sentinel proof; paid owner B not established F-Q2-001; LR-04."
+  },
+  "AC-028": {
+    "status": "PARTIAL \u2014 privilege/update negatives passed",
+    "evidence": "privilege-scope-review.json; sql-independent.json",
+    "observed": "Tenant anon grants absent; business customer writes absent; admin UPDATE42501; definer/catalog observations captured.",
+    "remaining_dependency_owner": "Every protected-field/function call permutation not executed; LR-04."
+  },
+  "AC-029": {
+    "status": "PARTIAL \u2014 isolated portal controls passed",
+    "evidence": "billing-independent.json; auth-browser.json",
+    "observed": "Missing config rejects; explicit config forwarded; synthetic portal409/no modeled provider call.",
+    "remaining_dependency_owner": "Live only-card-removal/config wrong/inactive startup and paid portal BLOCKED F-Q2-001 plus inbox restriction; LR-02."
+  },
+  "AC-030": {
+    "status": "FAILED unit \u2014 F-Q2-002; live BLOCKED",
+    "evidence": "billing-independent.json",
+    "observed": "Flag-only/date-only undo passes; both fields fails provider_unavailable, date remains.",
+    "remaining_dependency_owner": "Live Stripe both-field reachability not proved. Live cancel/undo/paid-through/stale-event path lacks paid owner; LR-02."
+  },
+  "AC-031": {
+    "status": "PARTIAL \u2014 required executed SQL/unit/banner checks passed",
+    "evidence": "sql-independent.json; reminder-scratch.json; browser-banner.json; access-hook-unit.json",
+    "observed": "Grace clock nonreset, seven-day boundary, banner four combinations; one renewal_reminder pending/email_deferred_007b, deduped.",
+    "remaining_dependency_owner": "Live renewal UNPROVEN-BY-RULING O1; reminder email O2; owner live billing recovery blocked. Mixed adapter/real SQL notification proof explicitly labeled."
+  },
+  "AC-032": {
+    "status": "PARTIAL + UNPROVEN-BY-RULING live renewal",
+    "evidence": "sql-independent.json; reminder-scratch.json; access-hook-unit.json",
+    "observed": "Same-invoice payment clears, wrong invoice does not, late failure cannot reopen; hook states denied correctly.",
+    "remaining_dependency_owner": "Initial failed owned payment remains live007A requirement BLOCKED F-Q2-001. Live renewal deferred O1, never passed."
+  },
+  "AC-033": {
+    "status": "PARTIAL",
+    "evidence": "final-dev-observation.json; scratch-final-id-diff.json; privacy-value-scan.json",
+    "observed": "Read audit additions retained; event reason/status/attempts recorded; privacy controls.",
+    "remaining_dependency_owner": "Full financial/provisioning correlation blocked F-Q2-001. Original foreign natural-delivery HTTP absent LR-05."
+  },
+  "AC-034": {
+    "status": "FAILED registration flow F-Q2-001; other screens PARTIAL",
+    "evidence": "boundary-http.json; STOP-002/REPORT.md",
+    "observed": "Three old demo routes404; registration path fails honest progress to quote.",
+    "remaining_dependency_owner": "Pending/unknown/email-failed/empty paid screens blocked; no all-demo-route absence claim."
+  },
+  "AC-035": {
+    "status": "PARTIAL; full matrix BLOCKED F-Q2-001",
+    "evidence": "browser-banner.json; auth-browser.json; confirm-switch.json",
+    "observed": "Chromium reminder both themes375/1440 no overflow; all3 engines targeted auth1440light.",
+    "remaining_dependency_owner": "Full journeys/both themes/keyboard/focus/paid billing clipping not completed; QA gap LR-04, paidjourneys blocked."
+  },
+  "AC-036": {
+    "status": "PARTIAL \u2014 tenant/RPC assertions passed",
+    "evidence": "tenant-readonly.json; sql-independent.json",
+    "observed": "12 seeded/preserved roles store sets match independently derived ownership/membership; page\u226410; no foreign store visible.",
+    "remaining_dependency_owner": "Full filters/pagination/admin-member audit/one-admin invariant not independently exhausted; QA gap LR-04."
+  },
+  "AC-037": {
+    "status": "PARTIAL \u2014 export/client privacy scan passed",
+    "evidence": "privacy-value-scan.json; export-validation.json; Q1/a02 guard evidence",
+    "observed": "Actual private values checked in memory against evidence and client assets; poison/clean controls; no private file exported.",
+    "remaining_dependency_owner": "Exhaustive provider-material persistence/exact-user source validation not proved by scan alone; LR-04."
+  },
+  "AC-038": {
+    "status": "PARTIAL \u2014 operator read/final-event controls passed",
+    "evidence": "operator-live.json; webhook-independent.json",
+    "observed": "Pinned CLI --list empty; own final foreign --event already_final; invalid id invalid_id; historical unit audit.",
+    "remaining_dependency_owner": "Real paid-but-locked repair BLOCKED F-Q2-001/LR-02. No inherited recovery or cleanup attempted."
+  },
+  "AC-039": {
+    "status": "RAN \u2014 evidence/authority recorded",
+    "evidence": "QAM_APPROVAL.md; final-identity.json; FILE_INDEX.json",
+    "observed": "Pair/contract/plan bindings and failure attempts retained; engineering separate from independent proof.",
+    "remaining_dependency_owner": "Lead adjudication pending; no self-certification."
+  },
+  "AC-040": {
+    "status": "PARTIAL \u2014 manifests verified; Gate Q pending",
+    "evidence": "Q1/a02/repaired_identity.json; final-identity.json",
+    "observed": "Finite repair manifest exact; records-only deltas; integrated product unchanged, QA-only writes.",
+    "remaining_dependency_owner": "Grade at Gate Q by Lead. Director acceptance/Git receipts closeout; staging/Gate D separately NOT RUN."
+  }
+}

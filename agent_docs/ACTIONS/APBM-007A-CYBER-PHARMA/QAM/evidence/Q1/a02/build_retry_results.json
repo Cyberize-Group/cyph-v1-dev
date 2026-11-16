@@ -1,0 +1,32 @@
+{
+  "portal": {
+    "head": "9d938f62bff6172f9332ae6c67775e4b8feea379",
+    "env_files": [],
+    "commands": [
+      {
+        "step": "build-r2",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "exit": 1
+      }
+    ]
+  },
+  "owedbook": {
+    "head": "37f6c0dd63f7a087ec44dd9d3ef79b74bb203f40",
+    "env_files": [],
+    "commands": [
+      {
+        "step": "build-r2",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "exit": 1
+      }
+    ]
+  }
+}

@@ -1,3 +1,68 @@
-# Q1 independent recon
+# Q1 independent recon — a01, 2026-11-13
+Scope: source/Git/document inspection only. No acceptance campaign, provider requests, login, email, checkout, database change, install, build or server start. QA Executor independent of engineering; Tony is Director; Lead reached only through Tony and this ZIP.
 
-NOT RUN. Executor records exact candidate pair, environment/contract identity, factual handoff challenges, instructions, tool/browser/instrument readiness, allowed probes/results, gaps/contradictions and proposed consolidated plan. Preserve actual recon response in Q1 export. No PASS or implied plan approval here.
+Both qa/apbm-007a pins match the Director's corrected invocation: OwedBook e30e216607f6d286452192d715ae154d2c181aaf; Portal 2bb13b9471bd19a1dc5e711dbd6ec0bf19bf2b34. Full ancestry/inventories are evidence/Q1/a01/identity.json. Nine prior untracked ZIPs deliberately excluded, preserved and unstaged; hashes recorded. No Git mutations. Engineer release: EVIDENCE/E2/r01/ENGINEERING_HANDOFF.md §8; Director transfers Q1 in this conversation. Historical pending-SHA and unreleased-Q1 text is superseded only for this Q1 invocation.
+
+Canonical contract is frozen v1.0, not the stale v0.2 draft in packed QAM_STATE. Exact hashes recorded. Final expansion table and RA-1–7 govern. Restore NOT PROVEN remains the Director's recorded option-B exception, not a QA restore PASS. E2 receipt reports DEV ledger 60; this was not independently queried.
+
+Independent source observation F-Q1-01 (high-risk candidate concern, not executed failure): Portal src/server/webhook.ts lines 39,48–49,61,80,94,100,117 mark supported unmapped events ignored and return 200; duplicates short-circuit. AC-014/015 require recoverable missing mappings. Also subscription event busy outcome becomes pending then processed (lines 119–120), requiring crash/race challenge. Owner: Engineer for explanation/repair through Architect; QA Lead for test priority/adjudication. No repair performed.
+
+Readiness: Node v22.17.0, npm 11.15.0. Both manifests provide build/lint/test/e2e scripts; Portal has typecheck, OB can use local tsc --noEmit. Ports 3000/3001 already listening; engineering attributes servers/listener to Director, ownership/runtime SHA not independently proven. Do not kill/restart them. No provider or database readiness inferred from open ports. Source search found customer creation in Portal checkout.ts and no test_clock reference in searched server/API paths, corroborating the reported missing seam, not proving a universal absence.
+
+Grouped open gaps:
+G1 Director: approve exactly one new DEV Auth identity for brand-new owner or retain blocked coverage. Existing OWNER_1 cannot prove new-owner creation.
+G2 Director/Architect/Engineer: retain v1.0 renewal scope and supply reviewed sandbox test-clock seam/new candidate, or issue explicit v1.1 change before release. AC-031/032 remain required and blocked. QA cannot patch the product.
+G3 Director/operator + Executor: resolve actual DEV/SCRATCH/account/config/API/listener identities, ledger hashes, runtime candidate, private cast availability/ignored status and separate credentials without exporting values. Not verified in Q1; gate all live work.
+G4 Executor/Lead: independent harness, browser binaries/basic interactions and mail/DB/provider interception controls not yet established. Existing Portal e2e specs are reported stale; do not use Engineer integrated harness as proof. Build/test execution deferred to Q2 approval.
+G5 Architect/Director: reminder-email mismatch, placeholder Terms/Privacy/support and price-consent approval require disposition against frozen contract. Commercial APA values remain open; only labeled sandbox fixture considered.
+G6 Director/Lead: full live effect budget and private exact target/cast binding need approval. Proposed bounded subset is in plan; broader effects remain explicit gaps, not implied allowances.
+G7 Lead: retained engineering build/rehearsal/apply evidence is provenance only; decide reuse scope and independent SCRATCH obligations. No restore PASS inferred.
+G8 Director: Mission Control target/session availability and separate staging release unavailable; local QA cannot certify Gate D.
+
+No engineering PASS has been promoted to independent evidence. No private env/cast read or credential value scan claimed. Export uses explicit textual/source allowlist, synthetic clean/poison pattern controls and expanded-member scan; limitations retained in packaging receipt.
+
+## a02 amendment checkpoint supersedes a01 open-ruling status
+Full Lead decision A1–A9/RETURN received; HOLD remains. F-Q1-01 is Lead-classified source-observed candidate acceptance failure AC-014/015, not runtime-tested. Architect bounded repair/new pins pending. G1 approved exactly one new DEV identity, inbox pending; G2 live renewal/test-clock deferred to 007B, SQL/unit retained; G5 banner+notification accepted and reminder mail deferred. Placeholder policy/support/consent copy remains unresolved. Formal Architect amendment documents not located in ruling lane at inspection; Architect owns this gap. No frozen canonical file edited by QA.
+
+A2 actual results: DEV and SCRATCH each one READ ONLY transaction, database postgres/read_only on, project-bound SQL/API configuration; 60/60 migration names and hashes exactly match candidate. Rolled back both; no changes. Evidence database.json retains checksums. Node/npm unchanged. Browser launch attempted for Chromium/Firefox/WebKit on an offline in-memory button interaction: all three missing executable, no interaction PASS. No install attempted after isolation probes failed. OS unshare denied uid_map; bwrap failed loopback RTM_NEWADDR. Fresh install/type/lint/unit/build therefore BLOCKED before execution; need a fenced runtime with proven network/mail interception. No failed builds relabeled PASS.
+
+Both app .env.local files ignored/untracked; OB complete DEV/SCRATCH tooling schema. Portal QA env exists ignored/untracked; OB QA env absent. Private inbox mapping four distinct role addresses, owner-only outside repositories, no values emitted. Separate cast_schema.json records role field checks, missing mappings remain a private-loader gap. processes.json identifies port owner UIDs/PIDs/cwd and checkout HEAD, not served commit attestation. listener.json records forwarding target and comparison availability; absence of exported CLI secret is NOT equality. Running process byte identity and listener-secret comparison remain operator/Executor gaps. No process stopped or restarted.
+
+A1 and A3–A9 working amendments saved with per-file diffs from immutable a01 archive. Proposed SCRATCH fixture counts remain subject to actual-table manifest approval; no SCRATCH write authorized or run. G3/G4 partially closed, not closed wholesale. Final a02 ZIP and finalized plan hash held for new pins and repeat identity/build checks. Existing a01 and Downloads copy unchanged. No Q2, login, email, provider write, checkout or identity creation.
+
+## Final repaired candidate recon — supersedes earlier a02 pending statements
+Verified both qa/apbm-007a: OwedBook 37f6c0dd63f7a087ec44dd9d3ef79b74bb203f40; Portal 9d938f62bff6172f9332ae6c67775e4b8feea379. Portal product repair 9322405fe0238882c21c75ef62733fc8c732fed0. Exact 8 product paths match r02 manifest. OB predecessor diff entirely module records; Portal post-product diff RECOVERY.md and agent_docs records only. No outside product path. Full lists in repaired_identity.json. Director Git operations only; QA made none.
+
+Spec Amendment A1 and carry-forward O-1/O-2 now on disk; plan grades against recorded amendment. F-Q1-01 repair source/context accepted as candidate input, independent recovery proofs still NOT RUN. F-Q1-02 (Architect): ruling evidence-impact phrases fresh independent evidence and banner/record proof by Q1, wider than authorized readiness-only Q1; keep Q2 held. F-Q1-03 (Architect): amended AC-031 allows SQL SCRATCH/DEV whereas Lead retained SCRATCH; no DEV fixture proof authorized. No self-resolution or new effect. Placeholder policy/support/consent copy still unresolved.
+
+Fresh npm ci with scripts disabled used public registry in isolated git-archive copies, no env files; environment allowlist has reserved qa.invalid and placeholders only. Tests/type/lint/build inherit Node guard blocking net/tls/DNS/fetch/datagram transports. Poison controls for Supabase, Stripe, SMTP and running local Portal sockets throw before connect; clean arithmetic passes. Turbopack createIpc loopback only is permitted in revised guard, excluding app/DB ports. Guard logs record loads/blocks, no endpoint or secret values. No service request issued by guarded Node transport. Limitation: not an OS packet-capture/firewall proof for arbitrary native subprocesses; no real service credentials/settings supplied, no native provider probe invoked. Install lifecycle scripts deliberately disabled; this restriction recorded, never called identical to unrestricted npm ci.
+
+Both installs, typechecks, lint and unit checks passed: Portal 20 suites/412 tests; OwedBook 43 suites/276 tests. Initial production builds failed on QA guard blocking local IPC; first retry reused failed cache; original failures retained. Clean-cache retry result is in build_clean_retry_results.json, not inferred from engineering evidence. Check logs carry warnings and exact exits. No independent acceptance PASS inferred from existing test suites.
+
+Chromium, Firefox and WebKit installed and offline basic button interaction passed. No cast sign-in. Canonical private cast file /home/moose/.config/cyph/apbm007a-qa-cast.env absent: all 17 keys EMPTY (cast_status.json). No fallback to repo file. Runtime ports 3000/3001 still same pre-repair processes (UID 1000, PIDs 1847043/1909434); current checkout pins match but served commit unproven. Stop runtime item; Director restart required. Listener printed secret source unavailable, equality NOT PERFORMED; private comparison input needed. No listener/app stopped by QA.
+
+Prior Q1b DB receipts retained by exact scope: 60/60 both targets at preceding candidate; OB product/migrations unchanged by records-only diff. No new DB connection, login, email, provider mutation, identity, checkout or payment in this resumed Q1. One new DEV identity remains proposed Q2 use only; no other identity creation authorized.
+
+Final clean-cache guarded build result: Portal PASS exit 0; OwedBook PASS exit 0. Both current candidates compiled. First two guard/cache failures retained as instrument failures.
+
+Canonical cast key status (file absent):
+
+| Key | Status |
+|---|---|
+| QA_NEW_OWNER_EMAIL | EMPTY |
+| QA_OWNER_2_EMAIL | EMPTY |
+| QA_OWNER_2_PASSWORD | EMPTY |
+| QA_OWNER1_EMAIL | EMPTY |
+| QA_OWNER1_PASSWORD | EMPTY |
+| QA_OWNER3_EMAIL | EMPTY |
+| QA_OWNER3_PASSWORD | EMPTY |
+| QA_ADMIN_B2_EMAIL | EMPTY |
+| QA_ADMIN_B2_PASSWORD | EMPTY |
+| QA_ADMIN_B3_EMAIL | EMPTY |
+| QA_ADMIN_B3_PASSWORD | EMPTY |
+| QA_MEMBER_B1_EMAIL | EMPTY |
+| QA_MEMBER_B1_PASSWORD | EMPTY |
+| QA_MEMBER_B2B3_EMAIL | EMPTY |
+| QA_MEMBER_B2B3_PASSWORD | EMPTY |
+| QA_UNRELATED_EMAIL | EMPTY |
+| QA_UNRELATED_PASSWORD | EMPTY |

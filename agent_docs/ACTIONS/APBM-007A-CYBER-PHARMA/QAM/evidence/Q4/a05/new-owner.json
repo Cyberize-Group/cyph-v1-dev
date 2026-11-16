@@ -1,0 +1,12 @@
+{
+  "journey": "new_owner_r05",
+  "npi": "1881161305",
+  "stage": "after_payment",
+  "checkout_submits": 1,
+  "payment_submits": 1,
+  "sandbox_account_match": true,
+  "standard_total": "$99.00",
+  "discounted_total": "$89.10",
+  "host": "localhost",
+  "path": "/register/activation"
+}

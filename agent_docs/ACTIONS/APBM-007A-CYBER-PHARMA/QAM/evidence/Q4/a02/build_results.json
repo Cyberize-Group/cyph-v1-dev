@@ -1,0 +1,56 @@
+{
+  "portal": {
+    "head": "357c274284f48ed5ad3bf8407ca0a14d0d9b99e8",
+    "env_files": [],
+    "commands": [
+      {
+        "step": "install",
+        "command": [
+          "npm",
+          "ci",
+          "--ignore-scripts",
+          "--no-audit",
+          "--no-fund",
+          "--registry=https://registry.npmjs.org"
+        ],
+        "exit": 0
+      },
+      {
+        "step": "typecheck",
+        "command": [
+          "./node_modules/.bin/tsc",
+          "--noEmit"
+        ],
+        "exit": 0
+      },
+      {
+        "step": "lint",
+        "command": [
+          "npm",
+          "run",
+          "lint"
+        ],
+        "exit": 0
+      },
+      {
+        "step": "unit",
+        "command": [
+          "npm",
+          "test",
+          "--",
+          "--runInBand"
+        ],
+        "exit": 0
+      },
+      {
+        "step": "build",
+        "command": [
+          "npm",
+          "run",
+          "build"
+        ],
+        "exit": 0
+      }
+    ]
+  }
+}

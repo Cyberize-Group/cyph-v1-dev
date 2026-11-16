@@ -1,0 +1,17 @@
+{
+  "path": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q4_REVIEW_a05.zip",
+  "downloads_copy": "/home/moose/Downloads/APBM-007A-CYBER-PHARMA_Q4_REVIEW_a05.zip",
+  "members": 230,
+  "sha256": "e700ab73ea2eb42e7329f8d508a84e35ddeb795e025bb1106e5d93f627ba4f4b",
+  "plan_sha256": "2ffbfd8b12b195b06b0e278f2fd487904d338bb0fda2de4c738fbdb2d6c39672",
+  "owedbook": "c976968b20ee724f7390d5e0e008215f50ab6f25",
+  "portal": "54a56b55ea7c72783d17d06ff45cd27b5426803f",
+  "product": "6ed09ffc05685a163833cb68fcae4383c67ae349",
+  "status": "Q4 a05 recovery and new purchase provisioned; Director session pending",
+  "copies_equal": true,
+  "previous_Q4_a01_preserved": true,
+  "archived_path": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q4_REVIEW_a05.zip",
+  "archive_sha256": "e700ab73ea2eb42e7329f8d508a84e35ddeb795e025bb1106e5d93f627ba4f4b",
+  "in_repo_zip_removed": true,
+  "private_quarantine": false
+}

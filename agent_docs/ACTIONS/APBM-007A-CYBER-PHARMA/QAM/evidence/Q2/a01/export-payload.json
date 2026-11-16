@@ -1,0 +1,1237 @@
+{
+  "selected_files": [
+    {
+      "path": "AMENDMENT_LEDGER.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/AMENDMENT_LEDGER.md",
+      "purpose": "Canonical contract/ruling/release boundary",
+      "sanitized_copy": false
+    },
+    {
+      "path": "APBM_ACCEPTANCE_SPEC.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_ACCEPTANCE_SPEC.md",
+      "purpose": "Canonical contract/ruling/release boundary",
+      "sanitized_copy": false
+    },
+    {
+      "path": "APBM_RULINGS.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_RULINGS.md",
+      "purpose": "Canonical contract/ruling/release boundary",
+      "sanitized_copy": false
+    },
+    {
+      "path": "CARRY_FORWARD_007B.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CARRY_FORWARD_007B.md",
+      "purpose": "Canonical contract/ruling/release boundary",
+      "sanitized_copy": false
+    },
+    {
+      "path": "CONTRACTS/AUTH_HANDOFF_CONTRACT.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CONTRACTS/AUTH_HANDOFF_CONTRACT.md",
+      "purpose": "Normative frozen contract including Spec Amendment A1",
+      "sanitized_copy": false
+    },
+    {
+      "path": "CONTRACTS/BILLING_AND_PAYMENTS_CONTRACT.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CONTRACTS/BILLING_AND_PAYMENTS_CONTRACT.md",
+      "purpose": "Normative frozen contract including Spec Amendment A1",
+      "sanitized_copy": false
+    },
+    {
+      "path": "CONTRACTS/DATA_AND_PROVISIONING_CONTRACT.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CONTRACTS/DATA_AND_PROVISIONING_CONTRACT.md",
+      "purpose": "Normative frozen contract including Spec Amendment A1",
+      "sanitized_copy": false
+    },
+    {
+      "path": "CONTRACTS/DEV_SAMPLE_CLAIMS.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CONTRACTS/DEV_SAMPLE_CLAIMS.md",
+      "purpose": "Normative frozen contract including Spec Amendment A1",
+      "sanitized_copy": false
+    },
+    {
+      "path": "CONTRACTS/ENVIRONMENT_AND_EFFECTS.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CONTRACTS/ENVIRONMENT_AND_EFFECTS.md",
+      "purpose": "Normative frozen contract including Spec Amendment A1",
+      "sanitized_copy": false
+    },
+    {
+      "path": "CONTRACTS/IMPLEMENTATION_REQUIREMENTS.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CONTRACTS/IMPLEMENTATION_REQUIREMENTS.md",
+      "purpose": "Normative frozen contract including Spec Amendment A1",
+      "sanitized_copy": false
+    },
+    {
+      "path": "DIRECTOR_RULINGS_2026-11-11.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/DIRECTOR_RULINGS_2026-11-11.md",
+      "purpose": "Canonical contract/ruling/release boundary",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/ENGINEERING_HANDOFF.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/ENGINEERING_HANDOFF.md",
+      "purpose": "Engineering rehearsal provenance reused only as Lead authorized",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/scratch-fresh-1/apbm007a-db-proof.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/scratch-fresh-1/apbm007a-db-proof.json",
+      "purpose": "Reused engineering SCRATCH rehearsal receipt; NOT independent QA execution",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/scratch-fresh-1/catalog-approved.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/scratch-fresh-1/catalog-approved.json",
+      "purpose": "Reused engineering SCRATCH rehearsal receipt; NOT independent QA execution",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/scratch-fresh-1/forward-apply-1794480549866.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/scratch-fresh-1/forward-apply-1794480549866.json",
+      "purpose": "Reused engineering SCRATCH rehearsal receipt; NOT independent QA execution",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/scratch-fresh-1/forward-scratch-reset-1794480462187.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/scratch-fresh-1/forward-scratch-reset-1794480462187.json",
+      "purpose": "Reused engineering SCRATCH rehearsal receipt; NOT independent QA execution",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/scratch-fresh-1/forward-scratch-reset-1794480506762.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/scratch-fresh-1/forward-scratch-reset-1794480506762.json",
+      "purpose": "Reused engineering SCRATCH rehearsal receipt; NOT independent QA execution",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/scratch-fresh-1/migration-inventory.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/scratch-fresh-1/migration-inventory.json",
+      "purpose": "Reused engineering SCRATCH rehearsal receipt; NOT independent QA execution",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/scratch-fresh-1/seed-receipt-1794480583950.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/scratch-fresh-1/seed-receipt-1794480583950.json",
+      "purpose": "Reused engineering SCRATCH rehearsal receipt; NOT independent QA execution",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/scratch-fresh-1/seed-verify-attacked.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/scratch-fresh-1/seed-verify-attacked.json",
+      "purpose": "Reused engineering SCRATCH rehearsal receipt; NOT independent QA execution",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/scratch-upgrade-1/apbm007a-db-proof.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/scratch-upgrade-1/apbm007a-db-proof.json",
+      "purpose": "Reused engineering SCRATCH rehearsal receipt; NOT independent QA execution",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/scratch-upgrade-1/catalog-approved.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/scratch-upgrade-1/catalog-approved.json",
+      "purpose": "Reused engineering SCRATCH rehearsal receipt; NOT independent QA execution",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/scratch-upgrade-1/forward-apply-1794480883065.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/scratch-upgrade-1/forward-apply-1794480883065.json",
+      "purpose": "Reused engineering SCRATCH rehearsal receipt; NOT independent QA execution",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/scratch-upgrade-1/forward-scratch-reset-1794480838181.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/scratch-upgrade-1/forward-scratch-reset-1794480838181.json",
+      "purpose": "Reused engineering SCRATCH rehearsal receipt; NOT independent QA execution",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/scratch-upgrade-1/migration-inventory.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/scratch-upgrade-1/migration-inventory.json",
+      "purpose": "Reused engineering SCRATCH rehearsal receipt; NOT independent QA execution",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/scratch-upgrade-1/preserve-after-at-0060.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/scratch-upgrade-1/preserve-after-at-0060.json",
+      "purpose": "Reused engineering SCRATCH rehearsal receipt; NOT independent QA execution",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/scratch-upgrade-1/preserve-before-at-0052.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/scratch-upgrade-1/preserve-before-at-0052.json",
+      "purpose": "Reused engineering SCRATCH rehearsal receipt; NOT independent QA execution",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/scratch-upgrade-1/preserve-comparison.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/scratch-upgrade-1/preserve-comparison.json",
+      "purpose": "Reused engineering SCRATCH rehearsal receipt; NOT independent QA execution",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/scratch-upgrade-1/seed-receipt-1794480865989.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/scratch-upgrade-1/seed-receipt-1794480865989.json",
+      "purpose": "Reused engineering SCRATCH rehearsal receipt; NOT independent QA execution",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r01/scratch-upgrade-1/seed-verify-attacked.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r01/scratch-upgrade-1/seed-verify-attacked.json",
+      "purpose": "Reused engineering SCRATCH rehearsal receipt; NOT independent QA execution",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r02/REPAIR_F-Q1-01.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/REPAIR_F-Q1-01.md",
+      "purpose": "Repair provenance and finite commit manifest",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r02/commit/COMMIT_HANDOFF.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/commit/COMMIT_HANDOFF.md",
+      "purpose": "Repair provenance and finite commit manifest",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r02/commit/COMMIT_MANIFEST.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/commit/COMMIT_MANIFEST.json",
+      "purpose": "Repair provenance and finite commit manifest",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r02/commit/owedbook-product-add.txt",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/commit/owedbook-product-add.txt",
+      "purpose": "Repair provenance and finite commit manifest",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r02/commit/owedbook-product-rm.txt",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/commit/owedbook-product-rm.txt",
+      "purpose": "Repair provenance and finite commit manifest",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r02/commit/owedbook-records-add.txt",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/commit/owedbook-records-add.txt",
+      "purpose": "Repair provenance and finite commit manifest",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r02/commit/owedbook-records-rm.txt",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/commit/owedbook-records-rm.txt",
+      "purpose": "Repair provenance and finite commit manifest",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r02/commit/portal-product-add.txt",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/commit/portal-product-add.txt",
+      "purpose": "Repair provenance and finite commit manifest",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r02/commit/portal-product-rm.txt",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/commit/portal-product-rm.txt",
+      "purpose": "Repair provenance and finite commit manifest",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r02/commit/portal-records-add.txt",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/commit/portal-records-add.txt",
+      "purpose": "Repair provenance and finite commit manifest",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r02/commit/portal-records-rm.txt",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/commit/portal-records-rm.txt",
+      "purpose": "Repair provenance and finite commit manifest",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r02/commit/verify_commit.py",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/commit/verify_commit.py",
+      "purpose": "Repair provenance and finite commit manifest",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r02/dev_event_ledger_readonly.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/dev_event_ledger_readonly.json",
+      "purpose": "Repair provenance and finite commit manifest",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r02/focused_tests.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/focused_tests.json",
+      "purpose": "Repair provenance and finite commit manifest",
+      "sanitized_copy": false
+    },
+    {
+      "path": "EVIDENCE/E2/r02/mutation_controls.txt",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r02/mutation_controls.txt",
+      "purpose": "Repair provenance and finite commit manifest",
+      "sanitized_copy": false
+    },
+    {
+      "path": "GOVERNING/APBM_PLAYBOOK_v1_0.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/APBM_PLAYBOOK_v1_0.md",
+      "purpose": "Applicable governing source",
+      "sanitized_copy": false
+    },
+    {
+      "path": "GOVERNING/HANDOFF_PACKAGE_PLAYBOOK.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HANDOFF_PACKAGE_PLAYBOOK.md",
+      "purpose": "Applicable governing source",
+      "sanitized_copy": false
+    },
+    {
+      "path": "GOVERNING/PROVENANCE.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/PROVENANCE.md",
+      "purpose": "Applicable governing source",
+      "sanitized_copy": false
+    },
+    {
+      "path": "GOVERNING/QAM_PLAYBOOK.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/QAM_PLAYBOOK.md",
+      "purpose": "Applicable governing source",
+      "sanitized_copy": false
+    },
+    {
+      "path": "GOVERNING/QA_PLAYBOOK.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/QA_PLAYBOOK.md",
+      "purpose": "Applicable governing source",
+      "sanitized_copy": false
+    },
+    {
+      "path": "GOVERNING/STRIPE_SUBSCRIPTIONS_PLAYBOOK.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/STRIPE_SUBSCRIPTIONS_PLAYBOOK.md",
+      "purpose": "Applicable governing source",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AC_EVIDENCE_MATRIX.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AC_EVIDENCE_MATRIX.md",
+      "purpose": "Current independent QA operating record/report",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AGENTS.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AGENTS.md",
+      "purpose": "Current independent QA operating record/report",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/auth-browser.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/auth-browser.cjs",
+      "purpose": "Independent QA helper; not automatically executable authorization",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/billing-unit.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/billing-unit.cjs",
+      "purpose": "Independent QA helper; not automatically executable authorization",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/browser-banner.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/browser-banner.cjs",
+      "purpose": "Independent QA helper; not automatically executable authorization",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/confirm-switch.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/confirm-switch.cjs",
+      "purpose": "Independent QA helper; not automatically executable authorization",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/final-read.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/final-read.cjs",
+      "purpose": "Independent QA helper; not automatically executable authorization",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/foreign-live.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/foreign-live.cjs",
+      "purpose": "Independent QA helper; not automatically executable authorization",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/new-owner-retry.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/new-owner-retry.cjs",
+      "purpose": "Independent QA helper; not automatically executable authorization",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/new-owner.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/new-owner.cjs",
+      "purpose": "Independent QA helper; not automatically executable authorization",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/npi-concurrency.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/npi-concurrency.cjs",
+      "purpose": "Independent QA helper; not automatically executable authorization",
+      "sanitized_copy": true
+    },
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/npi-sql.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/npi-sql.cjs",
+      "purpose": "Independent QA helper; not automatically executable authorization",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/pure-pricing.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/pure-pricing.cjs",
+      "purpose": "Independent QA helper; not automatically executable authorization",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/readiness.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/readiness.cjs",
+      "purpose": "Independent QA helper; not automatically executable authorization",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/reminder-scratch.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/reminder-scratch.cjs",
+      "purpose": "Independent QA helper; not automatically executable authorization",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/residual.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/residual.cjs",
+      "purpose": "Independent QA helper; not automatically executable authorization",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/signature-live.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/signature-live.cjs",
+      "purpose": "Independent QA helper; not automatically executable authorization",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/sql-independent.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/sql-independent.cjs",
+      "purpose": "Independent QA helper; not automatically executable authorization",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/tenant-readonly.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/tenant-readonly.cjs",
+      "purpose": "Independent QA helper; not automatically executable authorization",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/webhook-independent.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/webhook-independent.cjs",
+      "purpose": "Independent QA helper; not automatically executable authorization",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/CLAUDE.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/CLAUDE.md",
+      "purpose": "Current independent QA operating record/report",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/FINDINGS.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/FINDINGS.md",
+      "purpose": "Current independent QA operating record/report",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/HANDOFFS/ENGINEERING_HANDOFF.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/ENGINEERING_HANDOFF.md",
+      "purpose": "Engineering provenance, not independent result",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/HANDOFFS/QA_HANDOFF.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/QA_HANDOFF.md",
+      "purpose": "Engineering provenance, not independent result",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/LEAD_REVIEW_ITEMS.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/LEAD_REVIEW_ITEMS.md",
+      "purpose": "Current independent QA operating record/report",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/QAM_APPROVAL.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_APPROVAL.md",
+      "purpose": "Current independent QA operating record/report",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/QAM_CERTIFICATION.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_CERTIFICATION.md",
+      "purpose": "Current independent QA operating record/report",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/QAM_CLEANUP_REPORT.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_CLEANUP_REPORT.md",
+      "purpose": "Current independent QA operating record/report",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/QAM_ENTRY.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_ENTRY.md",
+      "purpose": "Current independent QA operating record/report",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/QAM_EXECUTION_REPORT.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_EXECUTION_REPORT.md",
+      "purpose": "Current independent QA operating record/report",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/QAM_MANIFEST.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_MANIFEST.md",
+      "purpose": "Current independent QA operating record/report",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/QAM_PACKAGING.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_PACKAGING.md",
+      "purpose": "Current independent QA operating record/report",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/QAM_PREFLIGHT.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_PREFLIGHT.md",
+      "purpose": "Current independent QA operating record/report",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/QAM_RECON_REPORT.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_RECON_REPORT.md",
+      "purpose": "Current independent QA operating record/report",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/QAM_RISK_REQUIREMENTS.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_RISK_REQUIREMENTS.md",
+      "purpose": "Current independent QA operating record/report",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/QAM_STATE.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_STATE.md",
+      "purpose": "Current independent QA operating record/report",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/QAM_TEST_PLAN.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_TEST_PLAN.md",
+      "purpose": "Current independent QA operating record/report",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/B1/REPORT.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/B1/REPORT.md",
+      "purpose": "Accepted B1 baseline/provenance; historical status may be superseded",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/B1/binding_result.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/B1/binding_result.json",
+      "purpose": "Accepted B1 baseline/provenance; historical status may be superseded",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/B1/bootstrap_seed_inventory.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/B1/bootstrap_seed_inventory.json",
+      "purpose": "Accepted B1 baseline/provenance; historical status may be superseded",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/B1/cast.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/B1/cast.json",
+      "purpose": "Accepted B1 baseline/provenance; historical status may be superseded",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/B1/fixture_manifest.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/B1/fixture_manifest.json",
+      "purpose": "Accepted B1 baseline/provenance; historical status may be superseded",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/B1/listener_sources.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/B1/listener_sources.json",
+      "purpose": "Accepted B1 baseline/provenance; historical status may be superseded",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/B1/manifest.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/B1/manifest.cjs",
+      "purpose": "Accepted B1 baseline/provenance; historical status may be superseded",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/B1/runtime.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/B1/runtime.json",
+      "purpose": "Accepted B1 baseline/provenance; historical status may be superseded",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/browsers.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/browsers.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/browsers_recheck.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/browsers_recheck.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/build_clean_retry_results.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/build_clean_retry_results.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/build_results.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/build_results.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/build_retry_results.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/build_retry_results.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/cast_schema.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/cast_schema.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/cast_status.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/cast_status.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/contract_hashes.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/contract_hashes.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/credential_schema.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/credential_schema.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/database.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/database.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/export_controls.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/export_controls.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/guard-control-r2.jsonl",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/guard-control-r2.jsonl",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/guard-control.jsonl",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/guard-control.jsonl",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/guard-controls-r2.txt",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/guard-controls-r2.txt",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/guard-controls.txt",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/guard-controls.txt",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/isolation.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/isolation.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/listener.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/listener.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/listener_repaired.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/listener_repaired.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/network-guard-v1.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/network-guard-v1.cjs",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/owedbook-build-r2.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/owedbook-build-r2.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/owedbook-build-r3.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/owedbook-build-r3.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/owedbook-build.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/owedbook-build.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/owedbook-install.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/owedbook-install.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/owedbook-lint.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/owedbook-lint.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/owedbook-network.jsonl",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/owedbook-network.jsonl",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/owedbook-typecheck.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/owedbook-typecheck.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/owedbook-unit.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/owedbook-unit.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/plan_sha256.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/plan_sha256.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/portal-build-r2.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/portal-build-r2.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/portal-build-r3.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/portal-build-r3.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/portal-build.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/portal-build.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/portal-install.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/portal-install.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/portal-lint.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/portal-lint.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/portal-network.jsonl",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/portal-network.jsonl",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/portal-typecheck.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/portal-typecheck.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/portal-unit.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/portal-unit.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/processes.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/processes.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/readiness.cjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/readiness.cjs",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/repaired_identity.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/repaired_identity.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/runtime_repaired.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/runtime_repaired.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/sanitized_logs/owedbook-build-r2.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/owedbook-build-r2.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/sanitized_logs/owedbook-build-r3.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/owedbook-build-r3.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/sanitized_logs/owedbook-build.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/owedbook-build.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/sanitized_logs/owedbook-install.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/owedbook-install.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/sanitized_logs/owedbook-lint.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/owedbook-lint.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/sanitized_logs/owedbook-typecheck.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/owedbook-typecheck.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/sanitized_logs/owedbook-unit.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/owedbook-unit.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/sanitized_logs/portal-build-r2.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/portal-build-r2.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/sanitized_logs/portal-build-r3.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/portal-build-r3.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/sanitized_logs/portal-build.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/portal-build.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/sanitized_logs/portal-install.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/portal-install.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/sanitized_logs/portal-lint.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/portal-lint.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/sanitized_logs/portal-typecheck.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/portal-typecheck.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/sanitized_logs/portal-unit.log",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/portal-unit.log",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q1/a02/working_plan_hash.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/working_plan_hash.json",
+      "purpose": "Pinned Q1 build/readiness provenance; not Q2 acceptance",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/STOP-001/REPORT.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/STOP-001/REPORT.md",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/STOP-001/seed-reset.mjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/STOP-001/seed-reset.mjs",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/STOP-001/seed-run.mjs",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/STOP-001/seed-run.mjs",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/STOP-001/timestamp.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/STOP-001/timestamp.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/STOP-002/PharmacyStepView.tsx",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/STOP-002/PharmacyStepView.tsx",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/STOP-002/REPORT.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/STOP-002/REPORT.md",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/STOP-002/ReviewView.tsx",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/STOP-002/ReviewView.tsx",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/STOP-002/observed_at.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/STOP-002/observed_at.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/STOP-002/useRegistrationDraft.ts",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/STOP-002/useRegistrationDraft.ts",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/access-hook-unit.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/access-hook-unit.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/auth-browser.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/auth-browser.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/billing-independent.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/billing-independent.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/boundary-http.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/boundary-http.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/browser-banner.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/browser-banner.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/confirm-switch.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/confirm-switch.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/effect-ledger.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/effect-ledger.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/execution-coverage.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/execution-coverage.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/final-dev-observation.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/final-dev-observation.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/final-identity.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/final-identity.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/foreign-live.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/foreign-live.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/helper-corrections.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/helper-corrections.md",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/identity-contract.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/identity-contract.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/independent-readonly.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/independent-readonly.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/logout-residual.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/logout-residual.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/new-owner-alert.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/new-owner-alert.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/new-owner-attempt1.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/new-owner-attempt1.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/new-owner-db-observation.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/new-owner-db-observation.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/new-owner-runtime-observation.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/new-owner-runtime-observation.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/new-owner.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/new-owner.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/npi-attempt1.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/npi-attempt1.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/npi-concurrency.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/npi-concurrency.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/npi-independent.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/npi-independent.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/operator-live.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/operator-live.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/pre-final-AC_EVIDENCE_MATRIX.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/pre-final-AC_EVIDENCE_MATRIX.md",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/pre-final-FINDINGS.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/pre-final-FINDINGS.md",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/pre-final-QAM_EXECUTION_REPORT.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/pre-final-QAM_EXECUTION_REPORT.md",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/pre-final-QAM_STATE.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/pre-final-QAM_STATE.md",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/privacy-value-scan.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/privacy-value-scan.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/privilege-scope-review.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/privilege-scope-review.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/pure-pricing.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/pure-pricing.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/reminder-scratch.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/reminder-scratch.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/sample-loader-gap.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/sample-loader-gap.md",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/scratch-final-id-diff.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/scratch-final-id-diff.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/scratch-prewrite-ids.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/scratch-prewrite-ids.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/signature-live.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/signature-live.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/sql-independent.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/sql-independent.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/tenant-direct-select-attempt.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/tenant-direct-select-attempt.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/tenant-readonly.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/tenant-readonly.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/webhook-independent-attempt1.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/webhook-independent-attempt1.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "QAM/evidence/Q2/a01/webhook-independent.json",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/webhook-independent.json",
+      "purpose": "Independent Q2 observation, retained attempt or source snapshot",
+      "sanitized_copy": false
+    },
+    {
+      "path": "REVIEW_START_HERE.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/REVIEW_START_HERE.md",
+      "purpose": "Review entrypoint",
+      "sanitized_copy": false
+    },
+    {
+      "path": "STAGING_RELEASE.md",
+      "source": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/STAGING_RELEASE.md",
+      "purpose": "Canonical contract/ruling/release boundary",
+      "sanitized_copy": false
+    }
+  ],
+  "exclusions": [
+    "prior ZIPs",
+    "private env/cast/login sheet",
+    "auth state",
+    "raw sensitive traces",
+    "Git",
+    "dependencies",
+    "builds"
+  ],
+  "redacted_export_copies": [
+    {
+      "path": "QAM/AUTOMATION/Q2-a01/npi-concurrency.cjs",
+      "reason": "exact private value or secret-token pattern removed from exported copy only"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "draft_ids": [
+    "9ece444d-9dba-46bf-a760-1bbc9d4a112a",
+    "27ad35fc-d3e6-4505-9a65-13612d977c86"
+  ],
+  "layer": "SCRATCH rolled-back SQL; sequential collision, not concurrent-race proof",
+  "max_rows": {
+    "registration_drafts": 2,
+    "npi_reservations": 2
+  },
+  "checks": [
+    {
+      "test": "independent Luhn vector",
+      "input": "1998131308",
+      "expected": true,
+      "actual": true
+    },
+    {
+      "test": "independent Luhn vector",
+      "input": "199813130",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "test": "independent Luhn vector",
+      "input": "1998131309",
+      "expected": false,
+      "actual": false
+    },
+    {
+      "test": "second draft cannot take active reservation",
+      "actual": true,
+      "expected": true
+    },
+    {
+      "test": "one active reservation",
+      "actual": 1,
+      "expected": 1
+    },
+    {
+      "test": "expired hold releases lazily to second draft",
+      "actual": 1,
+      "expected": 1
+    }
+  ]
+}

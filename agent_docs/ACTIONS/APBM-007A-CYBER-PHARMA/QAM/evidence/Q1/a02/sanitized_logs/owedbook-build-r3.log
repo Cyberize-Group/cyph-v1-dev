@@ -1,0 +1,60 @@
+
+> cyber-pharma@0.1.0 build
+> next build
+
+▲ Next.js 16.3.7 (Turbopack)
+⚠ Warning: Next.js ignored package-lock.json in /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev because it would include your home directory (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02).
+ To use this directory, set `turbopack.root` in your Next.js config.
+
+✓ Running next.config.js took 26ms
+⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 11.3s
+  Running TypeScript ...
+  Finished TypeScript in 8.5s ...
+  Collecting page data using 3 workers ...
+  Generating static pages using 3 workers (0/17) ...
+  Generating static pages using 3 workers (4/17) 
+  Generating static pages using 3 workers (8/17) 
+  Generating static pages using 3 workers (12/17) 
+✓ Generating static pages using 3 workers (17/17) in 453ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ƒ /access-denied
+├ ƒ /admin-portal
+├ ƒ /admin-portal/audit
+├ ƒ /admin-portal/billing
+├ ƒ /admin-portal/settings
+├ ƒ /admin-portal/stores/[id]
+├ ƒ /admin-portal/stores/[id]/invite
+├ ƒ /api/access-state
+├ ƒ /api/auth/confirm
+├ ƒ /api/auth/link
+├ ƒ /api/auth/login
+├ ƒ /api/auth/logout
+├ ƒ /api/handoff/authorize
+├ ƒ /api/handoff/callback
+├ ƒ /api/handoff/start
+├ ƒ /api/handoff/switch
+├ ○ /auth
+├ ƒ /auth/confirm
+├ ○ /auth/handoff-recovery
+├ ○ /auth/link-expired
+├ ○ /auth/sign-in-to-continue
+├ ○ /auth/signed-out
+├ ƒ /auth/switch
+├ ○ /error
+├ ○ /icon.png
+├ ƒ /owedbook
+└ ƒ /profile
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

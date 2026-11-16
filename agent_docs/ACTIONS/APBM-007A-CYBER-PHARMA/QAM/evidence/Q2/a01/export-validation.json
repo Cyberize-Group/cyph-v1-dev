@@ -1,0 +1,14 @@
+{
+  "clean_control": "PASS",
+  "actual_value_poison_control": "PASS",
+  "pattern_poison_control": "PASS",
+  "selected_content_privacy": "PASS",
+  "expanded_zip_privacy": "PASS",
+  "unique_safe_paths": "PASS",
+  "symlinks": "NONE",
+  "index_membership_hash_size": "PASS",
+  "zip_integrity": "PASS",
+  "private_values_emitted": false,
+  "redacted_export_copies": 1,
+  "note": "Validation repeated against final archive below; failures abort publication. Index intentionally excludes itself."
+}

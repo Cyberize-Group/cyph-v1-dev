@@ -1,0 +1,360 @@
+{
+  "checks": [
+    {
+      "engine": "chromium",
+      "port": 3000,
+      "test": "unbound callback",
+      "path": "/auth/handoff-recovery",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "chromium",
+      "port": 3000,
+      "test": "forged same_user",
+      "path": "/auth/handoff-recovery",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "chromium",
+      "port": 3000,
+      "test": "forged switch",
+      "path": "/auth/handoff-recovery",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "chromium",
+      "port": 3000,
+      "test": "arbitrary subject authorize",
+      "path": "/api/handoff/authorize",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "chromium",
+      "port": 3000,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "port": 3000,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "port": 3000,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "port": 3000,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "port": 3000,
+      "test": "switch without browser binding denied",
+      "http": 403,
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "port": 3001,
+      "test": "unbound callback",
+      "path": "/auth/handoff-recovery",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "chromium",
+      "port": 3001,
+      "test": "forged same_user",
+      "path": "/auth/handoff-recovery",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "chromium",
+      "port": 3001,
+      "test": "forged switch",
+      "path": "/auth/handoff-recovery",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "chromium",
+      "port": 3001,
+      "test": "arbitrary subject authorize",
+      "path": "/api/handoff/authorize",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "chromium",
+      "port": 3001,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "port": 3001,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "port": 3001,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "port": 3001,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "port": 3001,
+      "test": "switch without browser binding denied",
+      "http": 403,
+      "pass": true
+    },
+    {
+      "engine": "firefox",
+      "port": 3000,
+      "test": "unbound callback",
+      "path": "/auth/handoff-recovery",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "firefox",
+      "port": 3000,
+      "test": "forged same_user",
+      "path": "/auth/handoff-recovery",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "firefox",
+      "port": 3000,
+      "test": "forged switch",
+      "path": "/auth/handoff-recovery",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "firefox",
+      "port": 3000,
+      "test": "arbitrary subject authorize",
+      "path": "/api/handoff/authorize",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "firefox",
+      "port": 3000,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "firefox",
+      "port": 3000,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "firefox",
+      "port": 3000,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "firefox",
+      "port": 3000,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "firefox",
+      "port": 3000,
+      "test": "switch without browser binding denied",
+      "http": 403,
+      "pass": true
+    },
+    {
+      "engine": "firefox",
+      "port": 3001,
+      "test": "unbound callback",
+      "path": "/auth/handoff-recovery",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "firefox",
+      "port": 3001,
+      "test": "forged same_user",
+      "path": "/auth/handoff-recovery",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "firefox",
+      "port": 3001,
+      "test": "forged switch",
+      "path": "/auth/handoff-recovery",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "firefox",
+      "port": 3001,
+      "test": "arbitrary subject authorize",
+      "path": "/api/handoff/authorize",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "firefox",
+      "port": 3001,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "firefox",
+      "port": 3001,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "firefox",
+      "port": 3001,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "firefox",
+      "port": 3001,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "firefox",
+      "port": 3001,
+      "test": "switch without browser binding denied",
+      "http": 403,
+      "pass": true
+    },
+    {
+      "engine": "webkit",
+      "port": 3000,
+      "test": "unbound callback",
+      "path": "/auth/handoff-recovery",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "webkit",
+      "port": 3000,
+      "test": "forged same_user",
+      "path": "/auth/handoff-recovery",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "webkit",
+      "port": 3000,
+      "test": "forged switch",
+      "path": "/auth/handoff-recovery",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "webkit",
+      "port": 3000,
+      "test": "arbitrary subject authorize",
+      "path": "/api/handoff/authorize",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "webkit",
+      "port": 3000,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "webkit",
+      "port": 3000,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "webkit",
+      "port": 3000,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "webkit",
+      "port": 3000,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "webkit",
+      "port": 3000,
+      "test": "switch without browser binding denied",
+      "http": 403,
+      "pass": true
+    },
+    {
+      "engine": "webkit",
+      "port": 3001,
+      "test": "unbound callback",
+      "path": "/auth/handoff-recovery",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "webkit",
+      "port": 3001,
+      "test": "forged same_user",
+      "path": "/auth/handoff-recovery",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "webkit",
+      "port": 3001,
+      "test": "forged switch",
+      "path": "/auth/handoff-recovery",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "webkit",
+      "port": 3001,
+      "test": "arbitrary subject authorize",
+      "path": "/api/handoff/authorize",
+      "no_auth_cookie": true
+    },
+    {
+      "engine": "webkit",
+      "port": 3001,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "webkit",
+      "port": 3001,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "webkit",
+      "port": 3001,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "webkit",
+      "port": 3001,
+      "test": "browser open redirect denied",
+      "pass": true
+    },
+    {
+      "engine": "webkit",
+      "port": 3001,
+      "test": "switch without browser binding denied",
+      "http": 403,
+      "pass": true
+    }
+  ],
+  "emails": 0,
+  "sessions": 0
+}

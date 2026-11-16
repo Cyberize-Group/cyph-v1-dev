@@ -1,0 +1,176 @@
+{
+  "layer": "actual candidate webhook+provisioning+checkout modules; real SCRATCH transaction/RPC; provider and Auth lookups mocked; no Auth writes, rollback",
+  "checks": [
+    {
+      "name": "owned late mapping duplicates stay503 and visible",
+      "status": "PASS"
+    },
+    {
+      "name": "initial unsettled completion remains retryable without business",
+      "status": "PASS"
+    },
+    {
+      "name": "real operation lease busy is not processed",
+      "status": "PASS"
+    },
+    {
+      "name": "DB commit fault remains retryable, then recovery provisions once",
+      "status": "PASS"
+    },
+    {
+      "name": "equivalent distinct event has no second account/store/billing effect",
+      "status": "PASS"
+    },
+    {
+      "name": "historical ignored exact-ID recovery preserves audit",
+      "status": "PASS"
+    },
+    {
+      "name": "historical processed exact-ID recovery preserves audit",
+      "status": "PASS"
+    },
+    {
+      "name": "receipt fault nonack and clean twin",
+      "status": "PASS"
+    },
+    {
+      "name": "foreign mocked object writes only final ignored receipt",
+      "status": "FAIL",
+      "code": "ERR_ASSERTION"
+    }
+  ],
+  "fault_controls": [
+    "rpc:provision_paid_registration",
+    "stripe_events:insert"
+  ],
+  "emails": 0,
+  "auth_writes": 0,
+  "fixture": {
+    "draft_id": "75498089-2d24-419e-abb6-da93843a56ce",
+    "operation_id": "99444e87-c753-4c90-b8f3-ce241934c1da",
+    "existing_auth_user_id": "04f42fcb-62da-4626-8cfd-aed844348412"
+  },
+  "handler_errors": [
+    {
+      "label": "advance",
+      "code": "QA_INJECTED",
+      "safe_message": "omitted"
+    },
+    {
+      "label": "webhook checkout.session.completed",
+      "code": "QA_INJECTED",
+      "safe_message": "omitted"
+    }
+  ],
+  "stop": "ERR_ASSERTION",
+  "responses": [
+    {
+      "event": "evt_Q4Late",
+      "http": 503,
+      "result": {
+        "error": "not_finished"
+      }
+    },
+    {
+      "event": "evt_Q4Late",
+      "http": 503,
+      "result": {
+        "error": "not_finished"
+      }
+    },
+    {
+      "event": "evt_Q4Late",
+      "http": 503,
+      "result": {
+        "error": "not_finished"
+      }
+    },
+    {
+      "event": "evt_Q4Late",
+      "http": 503,
+      "result": {
+        "error": "not_finished"
+      }
+    },
+    {
+      "event": "evt_Q4Late",
+      "http": 500,
+      "result": {
+        "error": "processing_failed"
+      }
+    },
+    {
+      "event": "evt_Q4Late",
+      "http": 200,
+      "result": {
+        "result": "duplicate"
+      }
+    },
+    {
+      "event": "evt_Q4Equivalent",
+      "http": 200,
+      "result": {
+        "result": "provisioned"
+      }
+    },
+    {
+      "event": "evt_Q4Receipt",
+      "http": 500,
+      "result": {
+        "error": "receipt_failed"
+      }
+    },
+    {
+      "event": "evt_Q4Receipt",
+      "http": 200,
+      "result": {
+        "result": "provisioned"
+      }
+    },
+    {
+      "event": "evt_Q4Foreign",
+      "http": 503,
+      "result": {
+        "error": "not_finished"
+      }
+    }
+  ],
+  "failure_events": [
+    {
+      "event_id": "evt_Q4OldProcessed",
+      "status": "processed",
+      "error_code": "recovered_from_processed",
+      "attempts": 0
+    },
+    {
+      "event_id": "evt_Q4Receipt",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0
+    },
+    {
+      "event_id": "evt_Q4Foreign",
+      "status": "failed",
+      "error_code": "awaiting_mapping",
+      "attempts": 1
+    },
+    {
+      "event_id": "evt_Q4Late",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 5
+    },
+    {
+      "event_id": "evt_Q4Equivalent",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0
+    },
+    {
+      "event_id": "evt_Q4OldIgnored",
+      "status": "processed",
+      "error_code": "recovered_from_ignored_unmapped",
+      "attempts": 0
+    }
+  ]
+}

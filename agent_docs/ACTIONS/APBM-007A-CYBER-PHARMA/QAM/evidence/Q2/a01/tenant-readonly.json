@@ -1,0 +1,125 @@
+{
+  "layer": "SCRATCH authenticated SQL + audited owedbook_rows; audit writes rolled back; no raw claim evidence; expected store sets independently derived",
+  "checks": [
+    {
+      "role": "PRESERVED-0",
+      "expected_stores": 0,
+      "actual_stores": 0,
+      "store_set_equal": true,
+      "rows_returned": 0,
+      "page_limit_respected": true,
+      "foreign_store_visible": false,
+      "pass": true
+    },
+    {
+      "role": "PRESERVED-1",
+      "expected_stores": 0,
+      "actual_stores": 0,
+      "store_set_equal": true,
+      "rows_returned": 0,
+      "page_limit_respected": true,
+      "foreign_store_visible": false,
+      "pass": true
+    },
+    {
+      "role": "PRESERVED-2",
+      "expected_stores": 0,
+      "actual_stores": 0,
+      "store_set_equal": true,
+      "rows_returned": 0,
+      "page_limit_respected": true,
+      "foreign_store_visible": false,
+      "pass": true
+    },
+    {
+      "role": "PRESERVED-3",
+      "expected_stores": 0,
+      "actual_stores": 0,
+      "store_set_equal": true,
+      "rows_returned": 0,
+      "page_limit_respected": true,
+      "foreign_store_visible": false,
+      "pass": true
+    },
+    {
+      "role": "PRESERVED-4",
+      "expected_stores": 0,
+      "actual_stores": 0,
+      "store_set_equal": true,
+      "rows_returned": 0,
+      "page_limit_respected": true,
+      "foreign_store_visible": false,
+      "pass": true
+    },
+    {
+      "role": "ADMIN_B3",
+      "expected_stores": 1,
+      "actual_stores": 1,
+      "store_set_equal": true,
+      "rows_returned": 10,
+      "page_limit_respected": true,
+      "foreign_store_visible": false,
+      "pass": true
+    },
+    {
+      "role": "MEMBER_B2B3",
+      "expected_stores": 2,
+      "actual_stores": 2,
+      "store_set_equal": true,
+      "rows_returned": 10,
+      "page_limit_respected": true,
+      "foreign_store_visible": false,
+      "pass": true
+    },
+    {
+      "role": "OWNER1",
+      "expected_stores": 1,
+      "actual_stores": 1,
+      "store_set_equal": true,
+      "rows_returned": 10,
+      "page_limit_respected": true,
+      "foreign_store_visible": false,
+      "pass": true
+    },
+    {
+      "role": "UNRELATED",
+      "expected_stores": 1,
+      "actual_stores": 1,
+      "store_set_equal": true,
+      "rows_returned": 10,
+      "page_limit_respected": true,
+      "foreign_store_visible": false,
+      "pass": true
+    },
+    {
+      "role": "OWNER3",
+      "expected_stores": 3,
+      "actual_stores": 3,
+      "store_set_equal": true,
+      "rows_returned": 10,
+      "page_limit_respected": true,
+      "foreign_store_visible": false,
+      "pass": true
+    },
+    {
+      "role": "MEMBER_B1",
+      "expected_stores": 1,
+      "actual_stores": 1,
+      "store_set_equal": true,
+      "rows_returned": 10,
+      "page_limit_respected": true,
+      "foreign_store_visible": false,
+      "pass": true
+    },
+    {
+      "role": "ADMIN_B2",
+      "expected_stores": 1,
+      "actual_stores": 1,
+      "store_set_equal": true,
+      "rows_returned": 10,
+      "page_limit_respected": true,
+      "foreign_store_visible": false,
+      "pass": true
+    }
+  ]
+}

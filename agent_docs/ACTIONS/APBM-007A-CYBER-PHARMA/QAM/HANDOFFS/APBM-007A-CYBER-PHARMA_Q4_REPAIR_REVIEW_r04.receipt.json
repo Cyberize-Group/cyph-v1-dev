@@ -1,0 +1,22 @@
+{
+  "package": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q4_REPAIR_REVIEW_r04.zip",
+  "sha256": "79613aacf2d57786f4ff23887ebe929ad55245d84f779555ee6d3007268b9046",
+  "bytes": 260336,
+  "members": 44,
+  "members_excluding_index": 43,
+  "created_at": "2026-11-16T05:54:03.407940+00:00",
+  "checks": {
+    "zip_integrity": "testzip OK",
+    "index_membership": "exact",
+    "member_hashes_and_sizes": "all match",
+    "paths": "relative, unique, no traversal, no symlink sources",
+    "privacy_scan": "clean over all 44 extracted members; controls: Stripe-key, private-inbox, env-value and LAN-address poisons caught, synthetic example.test address passed; env-value check covers every env value of 12+ characters except STRIPE_EXPECTED_ACCOUNT and APA_PROMOTION_CODES (non-secret identifiers already committed at the bases)",
+    "excluded": "env/credential files, cast/inbox files, auth state, browser profiles, private backup, dependencies, builds, Git internals, disposable copies, prior ZIPs"
+  },
+  "downloads_copy": "/home/moose/Downloads/APBM-007A-CYBER-PHARMA_Q4_REPAIR_REVIEW_r04.zip",
+  "decision_requested": "Tony: three guarded commits per engineering/r04/commit/COMMIT_HANDOFF.md, then rebuild and restart the portal on the repaired candidate; then Friday binds the pair and retests",
+  "archived_path": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q4_REPAIR_REVIEW_r04.zip",
+  "archive_sha256": "79613aacf2d57786f4ff23887ebe929ad55245d84f779555ee6d3007268b9046",
+  "in_repo_zip_removed": true,
+  "private_quarantine": false
+}

@@ -1,0 +1,21 @@
+{
+  "owedbook_head": "c59ead583c9d20328d1a85af60d015753b62abf7",
+  "portal_head": "1a3913262ed0f8e8303823d92d2551fd9cc725b3",
+  "owedbook_tracked_diff": [
+    "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AC_EVIDENCE_MATRIX.md",
+    "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/FINDINGS.md",
+    "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/REVIEW_START_HERE.md",
+    "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_APPROVAL.md",
+    "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_CERTIFICATION.md",
+    "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_CLEANUP_REPORT.md",
+    "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_EXECUTION_REPORT.md",
+    "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_RECON_REPORT.md",
+    "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_STATE.md",
+    "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_TEST_PLAN.md"
+  ],
+  "portal_tracked_diff": [],
+  "all_changes_QAM_only": true,
+  "product_tests_configuration_contract_unchanged": true,
+  "credential_absent": true,
+  "review_ZIPs_in_repo": 0
+}

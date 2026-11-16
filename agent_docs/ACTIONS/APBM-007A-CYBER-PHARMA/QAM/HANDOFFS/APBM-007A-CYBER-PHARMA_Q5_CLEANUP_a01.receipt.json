@@ -1,0 +1,19 @@
+{
+  "original_package_path": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q5_CLEANUP_a01.zip",
+  "archived_path": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q5_CLEANUP_a01.zip",
+  "downloads_copy": "/home/moose/Downloads/APBM-007A-CYBER-PHARMA_Q5_CLEANUP_a01.zip",
+  "members": 392,
+  "sha256": "7c6c33edb074a9575b6817d4a782dd6a620d577f355bebfb456f4be6bd5f8e28",
+  "archive_sha256": "7c6c33edb074a9575b6817d4a782dd6a620d577f355bebfb456f4be6bd5f8e28",
+  "in_repo_zip_removed": true,
+  "copies_equal": true,
+  "commit_pathspec": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/commit-Q5/qa-pathspec.txt",
+  "verifier": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/commit-Q5/verify_commit.py",
+  "commit_manifest": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/commit-Q5/COMMIT_MANIFEST.json",
+  "literal_path_count": 391,
+  "pattern_redacted_export_copies": [],
+  "credential_absent": true,
+  "certificate_exact": true,
+  "next_owner": "DirectorcommitthenArchitectcloseout",
+  "no_deployment": true
+}

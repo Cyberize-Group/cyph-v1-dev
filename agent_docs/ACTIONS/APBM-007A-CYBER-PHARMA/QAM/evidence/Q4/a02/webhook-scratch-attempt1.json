@@ -1,0 +1,23 @@
+{
+  "layer": "actual candidate webhook+provisioning+checkout modules; real SCRATCH transaction/RPC; provider and Auth lookups mocked; no Auth writes, rollback",
+  "checks": [
+    {
+      "name": "owned late mapping duplicates stay503 and visible",
+      "status": "PASS"
+    },
+    {
+      "name": "initial unsettled completion remains retryable without business",
+      "status": "FAIL",
+      "code": "ERR_ASSERTION"
+    }
+  ],
+  "fault_controls": [],
+  "emails": 0,
+  "auth_writes": 0,
+  "fixture": {
+    "draft_id": "381f8c2c-92bd-40b0-97ef-4f845f2a2a19",
+    "operation_id": "f3886555-bb68-4e33-8bc6-2743223bdea1",
+    "existing_auth_user_id": "04f42fcb-62da-4626-8cfd-aed844348412"
+  },
+  "stop": "ERR_ASSERTION"
+}

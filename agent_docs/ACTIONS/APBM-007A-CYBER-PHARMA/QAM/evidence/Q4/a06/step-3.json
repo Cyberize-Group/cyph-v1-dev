@@ -1,0 +1,37 @@
+{
+  "step": 3,
+  "observed_at": "2026-11-16T08:09:31.233Z",
+  "mode": "read-only DEV bindings + Stripe test API",
+  "subscriptions": [
+    {
+      "operation_id": "1e59cf3b-ca6b-4873-804f-8c087fd13489",
+      "recorded_subscription_id": "sub_1UcKMSGnEQDyu3RRx5DLB8cC",
+      "live_subscription_id": "sub_1UcKMSGnEQDyu3RRx5DLB8cC",
+      "same_subscription_id": true,
+      "status": "active",
+      "cancel_at_period_end": false,
+      "cancel_at": null,
+      "current_period_end": "2026-12-16T07:29:54.000Z"
+    },
+    {
+      "operation_id": "25acbfb9-9969-44b1-8b45-928d71f99ad6",
+      "recorded_subscription_id": "sub_1UcJ5dGnEQDyu3RRIaYl4Byz",
+      "live_subscription_id": "sub_1UcJ5dGnEQDyu3RRIaYl4Byz",
+      "same_subscription_id": true,
+      "status": "active",
+      "cancel_at_period_end": false,
+      "cancel_at": null,
+      "current_period_end": "2026-12-16T06:08:27.000Z"
+    },
+    {
+      "operation_id": "d1c76239-cdfa-4c60-9304-aa397eade5cb",
+      "recorded_subscription_id": "sub_1UcJ74GnEQDyu3RR1jv0xTGw",
+      "live_subscription_id": "sub_1UcJ74GnEQDyu3RR1jv0xTGw",
+      "same_subscription_id": true,
+      "status": "active",
+      "cancel_at_period_end": false,
+      "cancel_at": null,
+      "current_period_end": "2026-12-16T06:09:56.000Z"
+    }
+  ]
+}

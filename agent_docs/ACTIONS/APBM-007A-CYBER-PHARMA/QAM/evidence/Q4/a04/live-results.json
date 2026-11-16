@@ -1,0 +1,157 @@
+{
+  "operations": [
+    {
+      "id": "25acbfb9-9969-44b1-8b45-928d71f99ad6",
+      "draft_id": "44d124d2-3621-4dba-a3d6-233ebb93af3c",
+      "npi": "1951161300",
+      "status": "attention",
+      "last_error_code": "not_paid",
+      "owner_user_id": "bb75fc38-f62c-4988-9e4e-6e882d90670f",
+      "owner_was_existing": true,
+      "account_id": null,
+      "business_id": null,
+      "stripe_customer_id": "cus_VdaCVaqeLJj3qh",
+      "stripe_checkout_session_id": "cs_test_a0q4YzOPztpUSmztvQVbEEW2hkIMamGPRwa9DUC0v1KsdfothjKYT8wiSm",
+      "stripe_subscription_id": "sub_1UcJ5dGnEQDyu3RRIaYl4Byz",
+      "stripe_invoice_id": "in_1UcJ5cGnEQDyu3RRGO1XEirt"
+    },
+    {
+      "id": "885b2ed5-0aca-4558-be19-7822cd1bb180",
+      "draft_id": "210fa572-b9cb-4489-a228-beb2d04ffb27",
+      "npi": "1941161303",
+      "status": "checkout_open",
+      "last_error_code": null,
+      "owner_user_id": null,
+      "owner_was_existing": null,
+      "account_id": null,
+      "business_id": null,
+      "stripe_customer_id": "cus_VdaGp0FnoRfc4m",
+      "stripe_checkout_session_id": "cs_test_a08HGAsIwvenZddskjaQn2GlAKjUIZFeD7IHyDVRwt01dhL0AhSe4ZkOZ9",
+      "stripe_subscription_id": null,
+      "stripe_invoice_id": null
+    },
+    {
+      "id": "d1c76239-cdfa-4c60-9304-aa397eade5cb",
+      "draft_id": "a458bdd5-98c4-4626-a448-5d72845d0d9c",
+      "npi": "1931161305",
+      "status": "attention",
+      "last_error_code": "owner_signin_required",
+      "owner_user_id": null,
+      "owner_was_existing": true,
+      "account_id": null,
+      "business_id": null,
+      "stripe_customer_id": "cus_VdaHbF51TssnqU",
+      "stripe_checkout_session_id": "cs_test_a0EZVa5a3OM65ZjHXEIj8aft9DlxrlcBH4lqejwnLTLEXfSIz6Ji7fEqJx",
+      "stripe_subscription_id": "sub_1UcJ74GnEQDyu3RR1jv0xTGw",
+      "stripe_invoice_id": "in_1UcJ72GnEQDyu3RRv8FL3c3w"
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_1UbBtoGnEQDyu3RRkNvmPQOh",
+      "type": "customer.subscription.updated",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": null
+    },
+    {
+      "event_id": "evt_1UbBysGnEQDyu3RRLFtpQcZB",
+      "type": "customer.subscription.updated",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": null
+    },
+    {
+      "event_id": "evt_QA007AIndependentSignature01",
+      "type": "qa.instrument_control",
+      "status": "ignored",
+      "error_code": "unsupported",
+      "attempts": 0,
+      "operation_id": null
+    },
+    {
+      "event_id": "evt_1UbIDoGnEQDyu3RRRL0kOfXS",
+      "type": "checkout.session.expired",
+      "status": "ignored",
+      "error_code": "foreign",
+      "attempts": 0,
+      "operation_id": null
+    },
+    {
+      "event_id": "evt_1UcJ5fGnEQDyu3RRoWYqYk1E",
+      "type": "checkout.session.completed",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": "25acbfb9-9969-44b1-8b45-928d71f99ad6"
+    },
+    {
+      "event_id": "evt_1UcJ5fGnEQDyu3RR3PGuN1yX",
+      "type": "customer.subscription.created",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": "25acbfb9-9969-44b1-8b45-928d71f99ad6"
+    },
+    {
+      "event_id": "evt_1UcJ5fGnEQDyu3RRCf4C7Udu",
+      "type": "invoice.paid",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": "25acbfb9-9969-44b1-8b45-928d71f99ad6"
+    },
+    {
+      "event_id": "evt_1UcJ76GnEQDyu3RRK8meeTQC",
+      "type": "invoice.paid",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": "d1c76239-cdfa-4c60-9304-aa397eade5cb"
+    },
+    {
+      "event_id": "evt_1UcJ76GnEQDyu3RRlAutnc9I",
+      "type": "customer.subscription.created",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": "d1c76239-cdfa-4c60-9304-aa397eade5cb"
+    },
+    {
+      "event_id": "evt_1UcJ76GnEQDyu3RRh4nYg9EL",
+      "type": "checkout.session.completed",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": "d1c76239-cdfa-4c60-9304-aa397eade5cb"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "65c61cb1-2d9a-423a-9efd-443371290054",
+      "kind": "purchase_notice",
+      "status": "sent",
+      "attempts": 0,
+      "last_error_code": null,
+      "operation_id": "736258da-c74e-447d-83b6-0af2050e906b"
+    },
+    {
+      "id": "1f31240b-df6c-4527-99ef-c4a362a19d20",
+      "kind": "access_link",
+      "status": "sent",
+      "attempts": 1,
+      "last_error_code": null,
+      "operation_id": "25acbfb9-9969-44b1-8b45-928d71f99ad6"
+    },
+    {
+      "id": "232a6a52-db4a-409f-a627-df56a4514212",
+      "kind": "access_link",
+      "status": "failed",
+      "attempts": 1,
+      "last_error_code": "429",
+      "operation_id": "d1c76239-cdfa-4c60-9304-aa397eade5cb"
+    }
+  ]
+}

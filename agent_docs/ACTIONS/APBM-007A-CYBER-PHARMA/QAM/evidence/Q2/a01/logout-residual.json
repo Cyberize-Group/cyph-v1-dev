@@ -1,0 +1,12 @@
+{
+  "role": "OWNER1",
+  "login_requests": 1,
+  "logout_requests": 1,
+  "login_http": 200,
+  "logout_http": 200,
+  "direct_api_http": 200,
+  "elapsed_ms_after_logout": 419,
+  "token_seconds_remaining_at_probe": 3598,
+  "residual_interpretation": "Direct data API JWT remains accepted immediately after provider-wide logout; TTL is a bound, not measured full duration.",
+  "server_protected_http": 401
+}

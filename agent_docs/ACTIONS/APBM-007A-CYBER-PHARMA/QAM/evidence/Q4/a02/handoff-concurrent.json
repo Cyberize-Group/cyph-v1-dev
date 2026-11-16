@@ -1,0 +1,11 @@
+{
+  "layer": "two real SCRATCH connections; one persistent QA handoff fixture; Auth read-only",
+  "fixture_id": "e4a290a7-c923-45d8-92f8-915e8e126505",
+  "second_waited_on_row_lock": true,
+  "outcomes": [
+    "claimed",
+    "rejected"
+  ],
+  "pass": true,
+  "retained": true
+}

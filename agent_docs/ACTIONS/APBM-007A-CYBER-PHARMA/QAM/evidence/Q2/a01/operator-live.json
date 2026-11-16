@@ -1,0 +1,53 @@
+[
+  {
+    "args": [
+      "--list"
+    ],
+    "exit": 0,
+    "response": {
+      "status": 200,
+      "body": {
+        "operations": [],
+        "events": {
+          "unfinished": [],
+          "suspect": []
+        }
+      }
+    }
+  },
+  {
+    "args": [
+      "--event",
+      "evt_1UbIDoGnEQDyu3RRRL0kOfXS"
+    ],
+    "exit": 0,
+    "response": {
+      "status": 200,
+      "body": {
+        "result": "already_final",
+        "before": {
+          "event_id": "evt_1UbIDoGnEQDyu3RRRL0kOfXS",
+          "type": "checkout.session.expired",
+          "status": "ignored",
+          "error_code": "foreign",
+          "attempts": 0,
+          "operation_id": null,
+          "processed_at": "2026-11-13T11:00:49.997+00:00"
+        }
+      }
+    }
+  },
+  {
+    "args": [
+      "--event",
+      "invalid"
+    ],
+    "exit": 0,
+    "response": {
+      "status": 200,
+      "body": {
+        "result": "invalid_id"
+      }
+    }
+  }
+]

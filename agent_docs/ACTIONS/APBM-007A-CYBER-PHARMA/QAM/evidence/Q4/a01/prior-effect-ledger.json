@@ -1,0 +1,89 @@
+{
+  "binding": {
+    "plan_sha256": "2ffbfd8b12b195b06b0e278f2fd487904d338bb0fda2de4c738fbdb2d6c39672"
+  },
+  "DEV": {
+    "password_login_requests": 14,
+    "handoff_attempts": 6,
+    "different_user_switch_attempts": 3,
+    "session_mint_upper_bound_from_requests": 23,
+    "session_ceiling": 40,
+    "session_count_note": "14 password + up to6 handoffs +3 switches; reverse same-user likely no mint, conservative upper bound23. Current rows10 not historic total.",
+    "global_logout_requests": 4,
+    "global_logout_ceiling": 8,
+    "isolated_revocation_upper_bound": 3,
+    "isolated_revocation_ceiling": 4,
+    "draft_ids": [
+      "fc74cf41-9d7e-4909-8d7a-35190bec6ecf",
+      "7b0cd258-1d0e-4c35-ad21-418c5557eb57"
+    ],
+    "drafts": 2,
+    "draft_ceiling": 3,
+    "reservations_added": 2,
+    "reservation_ceiling": 3,
+    "owned_checkout_submits": 0,
+    "new_provider_customers": 1,
+    "customer_ceiling": 4,
+    "provider_checkout_sessions": 1,
+    "checkout_ceiling": 4,
+    "new_subscriptions": 0,
+    "subscription_ceiling": 2,
+    "payments": 0,
+    "payment_ceiling": 2,
+    "provider_mutations": 3,
+    "provider_mutation_ceiling": 40,
+    "provider_mutations_detail": [
+      "create unmarked customer",
+      "create unpaid checkout",
+      "expire unpaid checkout as supported-event stimulus"
+    ],
+    "new_auth_identities": 0,
+    "identity_ceiling": 1,
+    "emails": 0,
+    "current_email_authorization": "none to Director inboxes",
+    "new_event_rows": 2,
+    "event_row_ceiling": 60,
+    "audit_before": 1587,
+    "audit_after": 1641,
+    "audit_net_added": 54,
+    "audit_ceiling": 120,
+    "notifications_net_added": 0,
+    "unfinished_events": 0,
+    "auth_user_count_after": 16
+  },
+  "SCRATCH": {
+    "snapshot": "scratch-prewrite-ids.json",
+    "final_id_diff": "scratch-final-id-diff.json",
+    "persistent_added": {
+      "public.audit_logs": [
+        "682"
+      ],
+      "public.npi_reservations": [
+        "67e31848-37e4-44e0-8d85-58199faa834f"
+      ],
+      "public.registration_drafts": [
+        "31e2aa86-289d-4558-8aa7-cf26aebf7b28",
+        "0eaf51d6-f67d-45f9-b112-355e5fa68f42"
+      ]
+    },
+    "missing_ids": {},
+    "rolled_back_fixtures": {
+      "subscription_explicit_updates": 4,
+      "additional_grace_start_clear_calls": 2,
+      "npi_draft_inserts_across_attempts": 4,
+      "npi_reservation_inserts_across_attempts": 4,
+      "notification_rows": 1,
+      "notification_duplicate_attempts": 1,
+      "audited_role_reads": 7
+    },
+    "auth_writes": 0,
+    "reset_runs": 0,
+    "seed_runs": 0,
+    "ledger_insertions": 0,
+    "note": "Two concurrent draft rows, one reservation, one audit row retained. Rolled-back trigger/write attempts and sequence increments not claimed zero. No Auth identity attached or modified by SQL; fixed existing cast subjects only."
+  },
+  "cleanup": 0,
+  "deployments": 0,
+  "test_clocks": 0,
+  "state": "execution concluded; awaiting QA Lead adjudication"
+}

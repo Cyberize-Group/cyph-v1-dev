@@ -1,0 +1,12 @@
+# B1 entry gate — STOP, Lead confirmation pending
+Approval recorded verbatim in QAM_APPROVAL.md, source QA Lead (Friday) via Director. a02 archive/plan retained unchanged. B-series governs execution when separately released.
+
+B1a: external cast template created at /home/moose/.config/cyph/apbm007a-qa-cast.env, mode 600. All 17 keys EMPTY. Canonical OwedBook .env.qa.local absent. Alternate Portal .env.qa.local contains only QA_PORTAL_ADMIN_EMAIL/PASSWORD, not the seven seeded identities. No guessing or resets. Director supplies the 9 November sheet/private seeded source and fills his three fields. cast.json lists every missing key; no values exported.
+
+B1b: new OwedBook PID 2015772, started 2026-11-13 15:07:57 Asia/Dhaka; Portal PID 2015203, started 15:07:03. Both later than commit timestamps; cwd/HEAD match pins. Production BUILD_ID exists and app-path manifest equals independent QA build. Director attests production builds from pins. Independent reproducible full binary equality is not claimed (different build settings/IDs); runtime.json records exact build IDs and scope.
+
+B1c: restarted Stripe listener PID 2013691, started 15:03:34. No regular-file stdout/stderr log available. Signing-secret equality NOT PERFORMED. Need private log containing listener printed secret, or later Lead-authorized signed positive control. No webhook sent: even an unsupported signed event can persist a receipt and violates this no-effects gate.
+
+B1d: one read-only transaction per target, rolled back; actual table names/counts in fixture_manifest.json, bootstrap/seed hashes in bootstrap_seed_inventory.json. SCRATCH includes 10 accounts, 12 businesses, 300 user_data, 14 checkout operations, 12 events, 652 audit rows; these exceed base seed because retained engineering fixtures exist. No reset/writes. DEV ID-only account/owner/store/subscription inventory retained. Binding NEW_OWNER/OWNER_2 privately to IDs remains blocked by missing cast; no addresses inferred or exported. Seed expected 7 users/5 stores/3 accounts/3 subscriptions/250 claims; full preservation/disposal and reset row bounds require Lead approval.
+
+B2/B3 disposed by Lead: Q2 meaning of by-Q1 goes to Architect erratum; SQL proofs SCRATCH only. B4 ceilings accepted but B1 confirmation and Director Q2 release remain absent. B5–B11 recorded verbatim; no cleanup permission. No sign-in, email, provider write, identity, checkout, payment, migration or DB mutation performed. Stop for Lead confirmation and missing inputs.

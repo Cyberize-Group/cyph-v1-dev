@@ -1,0 +1,64 @@
+{
+  "counts": {
+    "accounts": 4,
+    "businesses": 6,
+    "checkout_operations": 6,
+    "stripe_events": 4,
+    "audit_logs": 1644,
+    "registration_drafts": 9,
+    "npi_reservations": 10,
+    "notification_operations": 1
+  },
+  "events": [
+    {
+      "event_id": "evt_1UbBtoGnEQDyu3RRkNvmPQOh",
+      "type": "customer.subscription.updated",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0
+    },
+    {
+      "event_id": "evt_1UbBysGnEQDyu3RRLFtpQcZB",
+      "type": "customer.subscription.updated",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0
+    },
+    {
+      "event_id": "evt_QA007AIndependentSignature01",
+      "type": "qa.instrument_control",
+      "status": "ignored",
+      "error_code": "unsupported",
+      "attempts": 0
+    },
+    {
+      "event_id": "evt_1UbIDoGnEQDyu3RRRL0kOfXS",
+      "type": "checkout.session.expired",
+      "status": "ignored",
+      "error_code": "foreign",
+      "attempts": 0
+    }
+  ],
+  "auth_user_count": 16,
+  "new_owner_identity_count": 0,
+  "new_owner_draft_ids": [
+    "fc74cf41-9d7e-4909-8d7a-35190bec6ecf",
+    "7b0cd258-1d0e-4c35-ad21-418c5557eb57"
+  ],
+  "owner2": [
+    {
+      "id": "f679249a-d83d-4353-87be-363090f59d73",
+      "accounts": 0,
+      "memberships": 0
+    }
+  ],
+  "engineering_hold": [
+    {
+      "id": "868ebb06-7e28-43f0-81c5-4b152c85650b",
+      "draft_id": "c59bd738-df18-4a39-be65-e90057435632",
+      "status": "held"
+    }
+  ],
+  "current_recent_session_count": 10,
+  "session_count_limitation": "Current rows only: logout/revocation removes prior sessions; use dispatched counters for ceilings, not this as total mints."
+}

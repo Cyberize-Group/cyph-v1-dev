@@ -1,0 +1,1 @@
+T-018 sample-loader write/idempotence BLOCKED: candidate inserts fixed 50 rows, while approved a02 scenario ceiling is 20. No Auth writes in loader source (read-only owner classification query), but effect ceiling mismatch prevents execution. No reset/seed invoked. Lead must approve changed count if this test is to run.

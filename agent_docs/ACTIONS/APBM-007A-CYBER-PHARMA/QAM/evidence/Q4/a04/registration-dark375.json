@@ -1,0 +1,112 @@
+{
+  "drafts_attempted": 1,
+  "checkout_requests": 0,
+  "checks": [
+    {
+      "engine": "chromium",
+      "test": "empty deep-link returns owner",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "test": "incomplete owner does not advance",
+      "pass": true,
+      "focus_tag": "DIV"
+    },
+    {
+      "engine": "chromium",
+      "test": "incomplete pharmacy stays",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "test": "saved pharmacy reaches review quote",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "test": "refresh retains server quote",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "test": "edit and return shows saved name",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "light",
+      "test": "consent gating does not leave review",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "light",
+      "test": "review quote/keyboard/no overflow",
+      "pass": true,
+      "focus_present": true,
+      "quote": "$99.00"
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "dark",
+      "test": "consent gating does not leave review",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "dark",
+      "test": "review quote/keyboard/no overflow",
+      "pass": true,
+      "focus_present": true,
+      "quote": "$99.00"
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "theme": "light",
+      "test": "consent gating does not leave review",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "theme": "light",
+      "test": "review quote/keyboard/no overflow",
+      "pass": true,
+      "focus_present": true,
+      "quote": "$99.00"
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "theme": "dark",
+      "test": "consent gating does not leave review",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "theme": "dark",
+      "test": "review quote/keyboard/no overflow",
+      "pass": true,
+      "focus_present": true,
+      "quote": "$99.00"
+    },
+    {
+      "engine": "chromium",
+      "test": "email/guessed ID cannot read another draft",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "test": "quote without registration context denied",
+      "http": 404,
+      "pass": true
+    }
+  ]
+}

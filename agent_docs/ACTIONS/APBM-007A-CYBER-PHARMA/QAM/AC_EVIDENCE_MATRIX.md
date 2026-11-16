@@ -1,48 +1,46 @@
-> v1.0 freeze: read canonical acceptance including final expansion table and CONTRACTS/IMPLEMENTATION_REQUIREMENTS. Q1/Q2 remain independent and unreleased; no prefilled PASS. E1 complete does not mean Gate Q.
+# Q4 a05 coverage
 
-# Independent AC evidence matrix
+| AC | a05 result |
+|---|---|
+| AC-001 | PASS scopedbinding/preflight |
+| AC-002 | PASS freshPortalbaseline |
+| AC-003 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-004 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-005 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-006 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-007 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-008 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-009 | PARTIAL repair:editedrevisionandconsentmatch bothkeys;promotionchangepositivegap |
+| AC-010 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-011 | CARRY closedcasesF-Q4-001;staleeditcontrolsnewpair |
+| AC-012 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-013 | PASS sandboxpaidpositive scopednewowner; priornegativepaircarry |
+| AC-014 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-015 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-016 | PASS observed concurrentSQL + recoveredowner + live newowner counts; Lead closurepending |
+| AC-017 | PARTIAL concurrency/recoveryproven; realAuthcrashgapcarried |
+| AC-018 | PARTIAL emailaccepted, ownedinbox/directorclickpending |
+| AC-019 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-020 | PARTIAL singleemailclaim no429 newjourney; OWNER2resendpending |
+| AC-021 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-022 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-023 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-024 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-025 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-026 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-027 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-028 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-029 | DIRECTOR SESSION PENDING |
+| AC-030 | Unitaccepted/liveDIRECTORSESSIONPENDING |
+| AC-031 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-032 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-033 | PARTIAL eventstatusreasonattempts; naturalHTTPnotcaptured |
+| AC-034 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-035 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-036 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-037 | CARRY prior scoped evidence with original pair/layer; changed paths not assumed |
+| AC-038 | PASS scopedexact-IDrecoveryandsecondidempotentrun |
+| AC-039 | PARTIAL auditablebind/effects; providerHTTPcountgap |
+| AC-040 | GateQ/Directorcloseout/GateDpending |
 
-All rows are NOT RUN. Executor fills only from actual approved execution; include evidence layer and attempt/candidate.
-
-| AC | Status | Test/evidence/layer | Limitation/ruling |
-|---|---|---|---|
-| AC-001 | NOT RUN | — | — |
-| AC-002 | NOT RUN | — | — |
-| AC-003 | NOT RUN | — | — |
-| AC-004 | NOT RUN | — | — |
-| AC-005 | NOT RUN | — | — |
-| AC-006 | NOT RUN | — | — |
-| AC-007 | NOT RUN | — | — |
-| AC-008 | NOT RUN | — | — |
-| AC-009 | NOT RUN | — | — |
-| AC-010 | NOT RUN | — | — |
-| AC-011 | NOT RUN | — | — |
-| AC-012 | NOT RUN | — | — |
-| AC-013 | NOT RUN | — | — |
-| AC-014 | NOT RUN | — | — |
-| AC-015 | NOT RUN | — | — |
-| AC-016 | NOT RUN | — | — |
-| AC-017 | NOT RUN | — | — |
-| AC-018 | NOT RUN | — | — |
-| AC-019 | NOT RUN | — | — |
-| AC-020 | NOT RUN | — | — |
-| AC-021 | NOT RUN | — | — |
-| AC-022 | NOT RUN | — | — |
-| AC-023 | NOT RUN | — | — |
-| AC-024 | NOT RUN | — | — |
-| AC-025 | NOT RUN | — | — |
-| AC-026 | NOT RUN | — | — |
-| AC-027 | NOT RUN | — | — |
-| AC-028 | NOT RUN | — | — |
-| AC-029 | NOT RUN | — | — |
-| AC-030 | NOT RUN | — | — |
-| AC-031 | NOT RUN | — | — |
-| AC-032 | NOT RUN | — | — |
-| AC-033 | NOT RUN | — | — |
-| AC-034 | NOT RUN | — | — |
-| AC-035 | NOT RUN | — | — |
-| AC-036 | NOT RUN | — | — |
-| AC-037 | NOT RUN | — | — |
-| AC-038 | NOT RUN | — | — |
-| AC-039 | NOT RUN | — | — |
-| AC-040 | NOT RUN | — | — |
+Final expansions and RA1–7 retain prior explicit mapping. Newproof advances AC014/016/017 concurrency atrealSCRATCH/mockprovider layer, AC009stalequote/revision, AC038realrecovery; RA4/6livebilling/onlycard remainDirector-sessionpending. O1/O2 UNPROVEN-BY-RULING, restoreNOTPROVEN, realAuthcrash/MCgapscarry. Evidence through changedcheckout/provisioning/accessEmail is limited to a05executedcases, never wholesaleoldpass.

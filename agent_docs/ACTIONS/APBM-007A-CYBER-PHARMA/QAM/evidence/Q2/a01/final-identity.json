@@ -1,0 +1,31 @@
+{
+  "heads": [
+    "37f6c0dd63f7a087ec44dd9d3ef79b74bb203f40",
+    "9d938f62bff6172f9332ae6c67775e4b8feea379"
+  ],
+  "branches": [
+    "qa/apbm-007a",
+    "qa/apbm-007a"
+  ],
+  "plan_sha256": "2ffbfd8b12b195b06b0e278f2fd487904d338bb0fda2de4c738fbdb2d6c39672",
+  "tracked_changes": {
+    "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev": [
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AC_EVIDENCE_MATRIX.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/FINDINGS.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/REVIEW_START_HERE.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_APPROVAL.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_CLEANUP_REPORT.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_EXECUTION_REPORT.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_RECON_REPORT.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_STATE.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_TEST_PLAN.md"
+    ],
+    "/home/moose/NEXTJS/CYBER_PHARMA/cyph-payment-portal-dev-v1": []
+  },
+  "preserved_engineering_archives": {
+    "count": 9,
+    "all_hashes_equal": true
+  },
+  "product_worktree_unchanged": true,
+  "recorded_at_utc": "2026-11-13T11:23:14.418059+00:00"
+}

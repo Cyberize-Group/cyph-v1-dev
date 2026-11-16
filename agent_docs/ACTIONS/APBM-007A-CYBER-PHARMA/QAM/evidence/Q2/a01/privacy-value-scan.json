@@ -1,0 +1,9 @@
+{
+  "actual_value_scan": true,
+  "source_values_not_exported": true,
+  "files_scanned": 114,
+  "clean_control": true,
+  "poison_control": true,
+  "matches": [],
+  "status": "PASS"
+}

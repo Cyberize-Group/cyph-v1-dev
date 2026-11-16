@@ -1,0 +1,34 @@
+{
+  "Q4_product_effects": {
+    "database_reads": 0,
+    "database_writes": 0,
+    "logins": 0,
+    "emails": 0,
+    "auth_identities": 0,
+    "customers": 0,
+    "checkouts": 0,
+    "subscriptions": 0,
+    "payments": 0,
+    "stripe_mutations": 0
+  },
+  "prior_Q2_usage": "prior-effect-ledger.json (unchanged)",
+  "cumulative_ceilings": {
+    "DEV_drafts": 6,
+    "DEV_reservations": 6,
+    "customers": 4,
+    "checkout_sessions": 4,
+    "subscriptions": 2,
+    "payments": 2,
+    "stripe_mutations": 40,
+    "new_DEV_identity": 1
+  },
+  "engineering_fixture": {
+    "npi": "1373398746",
+    "reported_source": "Q4 Lead release",
+    "ownership": "Engineering",
+    "used_or_removed": false,
+    "database_verified_this_attempt": false
+  },
+  "housekeeping": "housekeeping.json; not business/provider cleanup",
+  "stop": "STOP-IDENTITY"
+}

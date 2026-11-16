@@ -1,0 +1,8 @@
+{
+  "poison_controls": 6,
+  "clean_control": "PASS",
+  "selected_and_expanded_member_scan": "PASS",
+  "redacted_synthetic_log_patterns": 0,
+  "no_private_files": true,
+  "limitations": "Pattern scan plus explicit source allowlist; no credential-value scan. Native-process network telemetry not captured; Node transport guard and placeholder-only environment used."
+}

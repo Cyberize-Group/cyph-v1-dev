@@ -1,0 +1,12 @@
+# One grouped Director session — Q4 a04
+
+Not executed. No extra emails sent by QA; existing product-generated links only. No clicks until the Director joins and affected product repair/binding has Lead disposition.
+
+1. QA presents operation25acbfb9-9969-44b1-8b45-928d71f99ad6: newownerpaymentpaid8910, accessmaileraccepted, account/storeabsent attention/not_paid. Director looks in his privatelybound newowner alias inbox for OwedBook/Supabase sign-in email generated duringa04; do not request another. If absent, record deliverygap; no speculative resend.
+2. Director clicks that accesslink in designatedfreshcontext, then explicitconfirmation button. QA drives SAMEcontext to verify exactuser, accessdenial/emptytenant state or repairedprovisioning. Currentfailure means correctrealstore proof BLOCKED F-Q4-003; no bootstrap/manualSQLrepair.
+3. Director reuses sameemail link for replay check; QA observes nonredeemingGET/confirm and usedlinkrecovery. Expiry onlywithnaturallyexpired availablelink; do notfabricateclock. Realvalidlink state/PKCE races need QA preparedcontexts andbudgetchecks.
+4. OWNER_2 operationd1c76239-cdfa-4c60-9304-aa397eade5cb paid, accessnotificationfailed429. There maybeno email toclick. If none, markOWNER2sign-in/provisioning/isolationBLOCKEDmailfailure; anynewsend requires remainingauthorizedproductsendmethod andLead/Director handling, not assumed. Never usepassword orcreateidentity.
+5. Onceactualpaidownercontextexists: QA insamecontext drivesownerbilling andportal; Director performsintentionalportalbuttons. Flag-only/date-only/bothifreachable cancellation/undo, already-clear, liveproviderre-read exactsamesubscription. Max6cancel/undomutations cumulative; no cleanupcancellation. F-Q2-002 remainsopen pendingthisproof.
+6. Only-cardremoval once: Directorclick; QArecord allowed/refused and no-methodUI/accesspaid-through. Max4cardmutations,6portalsessions,40totalStripe budgetrequires auditedremainingcount. No testclock/renewal/livepayment.
+7. Complete grouped returning/expired/replayed/pending-email handoff checks usingavailablelinks inbothdirections; QA drivessamecontexts, Directoronlyinbox/intentionalclicks. Noevidencecontainsaddresses/tokens/cookies.
+8. Oneproductwalk Terms/Privacy/support/price-consentOPEN, MC/restore/realAuthgap carried. QA returnsobservations forLead; Directoracceptance/Gitcloseout/GateDseparate. No identitydeletion orfixturecleanup.

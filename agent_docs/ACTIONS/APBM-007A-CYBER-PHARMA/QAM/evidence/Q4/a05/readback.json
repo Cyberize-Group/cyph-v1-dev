@@ -1,0 +1,224 @@
+{
+  "counts": {
+    "accounts": 6,
+    "businesses": 8,
+    "checkout_operations": 10,
+    "stripe_events": 14,
+    "notification_operations": 4,
+    "registration_drafts": 20,
+    "npi_reservations": 21,
+    "audit_logs": 1764
+  },
+  "identities": [
+    {
+      "id": "329ac0c5-50eb-40bc-8fd3-1fd684648f90",
+      "created_at": "2026-11-16T07:30:02.755Z"
+    }
+  ],
+  "operations": [
+    {
+      "id": "1e59cf3b-ca6b-4873-804f-8c087fd13489",
+      "status": "provisioned",
+      "last_error_code": null,
+      "owner_user_id": "329ac0c5-50eb-40bc-8fd3-1fd684648f90",
+      "owner_was_existing": false,
+      "account_id": "1a9beff5-b08f-4414-b533-259f24af4209",
+      "business_id": "b3564076-ef64-43b9-8cd2-210eb2ebf163",
+      "stripe_customer_id": "cus_VdbZZ4cNy7cy82",
+      "stripe_checkout_session_id": "cs_test_a04J8PFjGHleALb8OCAAgnXdbIUDn52yfDBHEK15mAmRtKGVp9KtQCQ5sH",
+      "stripe_subscription_id": "sub_1UcKMSGnEQDyu3RRx5DLB8cC"
+    },
+    {
+      "id": "25acbfb9-9969-44b1-8b45-928d71f99ad6",
+      "status": "provisioned",
+      "last_error_code": null,
+      "owner_user_id": "bb75fc38-f62c-4988-9e4e-6e882d90670f",
+      "owner_was_existing": false,
+      "account_id": "649f64d3-f9b3-466f-84de-383065445517",
+      "business_id": "c44477bf-2523-4074-806b-366e8086d1ae",
+      "stripe_customer_id": "cus_VdaCVaqeLJj3qh",
+      "stripe_checkout_session_id": "cs_test_a0q4YzOPztpUSmztvQVbEEW2hkIMamGPRwa9DUC0v1KsdfothjKYT8wiSm",
+      "stripe_subscription_id": "sub_1UcJ5dGnEQDyu3RRIaYl4Byz"
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_1UbBtoGnEQDyu3RRkNvmPQOh",
+      "type": "customer.subscription.updated",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": null
+    },
+    {
+      "event_id": "evt_1UbBysGnEQDyu3RRLFtpQcZB",
+      "type": "customer.subscription.updated",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": null
+    },
+    {
+      "event_id": "evt_QA007AIndependentSignature01",
+      "type": "qa.instrument_control",
+      "status": "ignored",
+      "error_code": "unsupported",
+      "attempts": 0,
+      "operation_id": null
+    },
+    {
+      "event_id": "evt_1UbIDoGnEQDyu3RRRL0kOfXS",
+      "type": "checkout.session.expired",
+      "status": "ignored",
+      "error_code": "foreign",
+      "attempts": 0,
+      "operation_id": null
+    },
+    {
+      "event_id": "evt_1UcJ5fGnEQDyu3RRoWYqYk1E",
+      "type": "checkout.session.completed",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": "25acbfb9-9969-44b1-8b45-928d71f99ad6"
+    },
+    {
+      "event_id": "evt_1UcJ5fGnEQDyu3RR3PGuN1yX",
+      "type": "customer.subscription.created",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": "25acbfb9-9969-44b1-8b45-928d71f99ad6"
+    },
+    {
+      "event_id": "evt_1UcJ5fGnEQDyu3RRCf4C7Udu",
+      "type": "invoice.paid",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": "25acbfb9-9969-44b1-8b45-928d71f99ad6"
+    },
+    {
+      "event_id": "evt_1UcJ76GnEQDyu3RRK8meeTQC",
+      "type": "invoice.paid",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": "d1c76239-cdfa-4c60-9304-aa397eade5cb"
+    },
+    {
+      "event_id": "evt_1UcJ76GnEQDyu3RRlAutnc9I",
+      "type": "customer.subscription.created",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": "d1c76239-cdfa-4c60-9304-aa397eade5cb"
+    },
+    {
+      "event_id": "evt_1UcJ76GnEQDyu3RRh4nYg9EL",
+      "type": "checkout.session.completed",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": "d1c76239-cdfa-4c60-9304-aa397eade5cb"
+    },
+    {
+      "event_id": "evt_1UcJaKGnEQDyu3RRTJeNvSMS",
+      "type": "checkout.session.expired",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": "885b2ed5-0aca-4558-be19-7822cd1bb180"
+    },
+    {
+      "event_id": "evt_1UcKMTGnEQDyu3RRk9TpRCJd",
+      "type": "checkout.session.completed",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": "1e59cf3b-ca6b-4873-804f-8c087fd13489"
+    },
+    {
+      "event_id": "evt_1UcKMTGnEQDyu3RRGFysL8Oh",
+      "type": "invoice.paid",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": "1e59cf3b-ca6b-4873-804f-8c087fd13489"
+    },
+    {
+      "event_id": "evt_1UcKMTGnEQDyu3RRqlldNnMt",
+      "type": "customer.subscription.created",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0,
+      "operation_id": "1e59cf3b-ca6b-4873-804f-8c087fd13489"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "65c61cb1-2d9a-423a-9efd-443371290054",
+      "operation_id": "736258da-c74e-447d-83b6-0af2050e906b",
+      "kind": "purchase_notice",
+      "status": "sent",
+      "attempts": 0,
+      "last_error_code": null
+    },
+    {
+      "id": "1f31240b-df6c-4527-99ef-c4a362a19d20",
+      "operation_id": "25acbfb9-9969-44b1-8b45-928d71f99ad6",
+      "kind": "access_link",
+      "status": "sent",
+      "attempts": 1,
+      "last_error_code": null
+    },
+    {
+      "id": "232a6a52-db4a-409f-a627-df56a4514212",
+      "operation_id": "d1c76239-cdfa-4c60-9304-aa397eade5cb",
+      "kind": "access_link",
+      "status": "failed",
+      "attempts": 1,
+      "last_error_code": "429"
+    },
+    {
+      "id": "57192d52-bf0a-4128-93f9-79fa3d068813",
+      "operation_id": "1e59cf3b-ca6b-4873-804f-8c087fd13489",
+      "kind": "access_link",
+      "status": "sent",
+      "attempts": 1,
+      "last_error_code": null
+    }
+  ],
+  "owner_counts": [
+    {
+      "operation_id": "1e59cf3b-ca6b-4873-804f-8c087fd13489",
+      "accounts": 1,
+      "stores": 1,
+      "admins": 1,
+      "mapping": 1
+    },
+    {
+      "operation_id": "25acbfb9-9969-44b1-8b45-928d71f99ad6",
+      "accounts": 1,
+      "stores": 1,
+      "admins": 1,
+      "mapping": 1
+    }
+  ],
+  "provider": [
+    {
+      "operation_id": "1e59cf3b-ca6b-4873-804f-8c087fd13489",
+      "livemode": false,
+      "status": "complete",
+      "payment_status": "paid",
+      "amount_total": 8910
+    },
+    {
+      "operation_id": "25acbfb9-9969-44b1-8b45-928d71f99ad6",
+      "livemode": false,
+      "status": "complete",
+      "payment_status": "paid",
+      "amount_total": 8910
+    }
+  ]
+}

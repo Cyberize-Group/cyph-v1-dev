@@ -1,0 +1,30 @@
+{
+  "package": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q2_REVIEW_a01.zip",
+  "downloads_copy": "/home/moose/Downloads/APBM-007A-CYBER-PHARMA_Q2_REVIEW_a01.zip",
+  "members": 206,
+  "sha256": "8680ff27dad448515633dc2ec675ce86afb7e7365e2a1cae4f8a0fdee07747f9",
+  "plan_sha256": "2ffbfd8b12b195b06b0e278f2fd487904d338bb0fda2de4c738fbdb2d6c39672",
+  "owedbook_sha": "37f6c0dd63f7a087ec44dd9d3ef79b74bb203f40",
+  "portal_sha": "9d938f62bff6172f9332ae6c67775e4b8feea379",
+  "portal_repair_sha": "9322405fe0238882c21c75ef62733fc8c732fed0",
+  "validation": {
+    "clean_control": "PASS",
+    "actual_value_poison_control": "PASS",
+    "pattern_poison_control": "PASS",
+    "selected_content_privacy": "PASS",
+    "expanded_zip_privacy": "PASS",
+    "unique_safe_paths": "PASS",
+    "symlinks": "NONE",
+    "index_membership_hash_size": "PASS",
+    "zip_integrity": "PASS",
+    "private_values_emitted": false,
+    "redacted_export_copies": 1,
+    "note": "Validation repeated against final archive below; failures abort publication. Index intentionally excludes itself."
+  },
+  "copy_identical": true,
+  "old_nine_archives_unchanged": true,
+  "archived_path": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q2_REVIEW_a01.zip",
+  "archive_sha256": "8680ff27dad448515633dc2ec675ce86afb7e7365e2a1cae4f8a0fdee07747f9",
+  "in_repo_zip_removed": true,
+  "private_quarantine": false
+}

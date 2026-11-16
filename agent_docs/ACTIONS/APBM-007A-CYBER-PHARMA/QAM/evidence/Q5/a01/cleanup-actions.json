@@ -1,0 +1,204 @@
+{
+  "sequence": [
+    "Scanned all retained files and expanded review ZIPs in memory while cast source existed; preserved originals privately, sanitized retained helper.",
+    "Deleted external QA cast file; verified absent. Director inbox file untouched.",
+    "Stopped only module-owned QA Node helpers and their browser descendants; Director apps/listener excluded.",
+    "Removed enumerated disposable build mirrors/npm caches; reports/logs/JSON/helpers/failed attempts retained.",
+    "Moved all HANDOFFS ZIPs to mode700 external archive, filesmode600; retained/updated individual receipts and original hashes."
+  ],
+  "redacted_files": [
+    {
+      "path": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/npi-concurrency.cjs",
+      "quarantined_original": "/home/moose/APBM007A_QA_ARCHIVE/PRIVATE_QUARANTINE/npi-concurrency.cjs.original",
+      "matched_value_count": 1
+    }
+  ],
+  "quarantined_archives": [
+    {
+      "path": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_E2_ENGINEERING_r01.zip",
+      "sha256": "9be2a131ec74ea9928f511e40870ae392e15cab35aab28bbaed6e5117e2fda55",
+      "note": "Immutable original contains exact cast value; mode600 under mode700 archive; never nested in new exports."
+    },
+    {
+      "path": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_E2_ENGINEERING_r02.zip",
+      "sha256": "0e39567443889cba48e62b2076164f41eaf3338b8325cba8ae7298187fc45d75",
+      "note": "Immutable original contains exact cast value; mode600 under mode700 archive; never nested in new exports."
+    }
+  ],
+  "moved": [
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_APPLY_REVIEW_r01.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_APPLY_REVIEW_r01.zip",
+      "sha256": "3bcfb74217093eb82479f83914b8c80c6a46a07de15d0ab2a35a3cd06ba0e015",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_B1_REVIEW_a01.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_B1_REVIEW_a01.zip",
+      "sha256": "918f25a5047a395fb2f714cf96ff66e2e0048f9cb66da429afe790c0210171b5",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01.zip",
+      "sha256": "283f00cd517c991ad87ede7d977d8d29d33fa80659edf19175c5fc95dac110a9",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r2.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r2.zip",
+      "sha256": "e30233b89a71f40666d2ee889f3433d223f0f5ec0ec009e7fb5ea4c9351e408c",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r3.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r3.zip",
+      "sha256": "c6b7e9552534241450a7454acc51318cc20cc4c40f74cfe318d63313986e6ec8",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r4.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r4.zip",
+      "sha256": "752e34734b96354c08faf9fd80863a3f4e4163c5b76bb619d1dfb302d7510eaa",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r5.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r5.zip",
+      "sha256": "3c36712675c78ee1c16b4bc1811f55a0f526291419b080bee92312eab0f224de",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r6.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r6.zip",
+      "sha256": "8d2aea485d2d86ab3ef504f1e19a5d19156687d74c5dec1e3b9abfac86dcead2",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E2_ENGINEERING_r01.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_E2_ENGINEERING_r01.zip",
+      "sha256": "9be2a131ec74ea9928f511e40870ae392e15cab35aab28bbaed6e5117e2fda55",
+      "private_cast_match_quarantined": true
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E2_ENGINEERING_r02.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_E2_ENGINEERING_r02.zip",
+      "sha256": "0e39567443889cba48e62b2076164f41eaf3338b8325cba8ae7298187fc45d75",
+      "private_cast_match_quarantined": true
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q1_REVIEW_a01.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q1_REVIEW_a01.zip",
+      "sha256": "7a5c478bc8163d2caf94931f2544749d7f11ba2aa2277768aa9507c040886d02",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q1_REVIEW_a02.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q1_REVIEW_a02.zip",
+      "sha256": "adfc6e473a4d7e2094c0d9cf8029ebe36a8b30852962e1dd7bbb521128020763",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q2_REPAIR_REVIEW_r03.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q2_REPAIR_REVIEW_r03.zip",
+      "sha256": "0e6d42dedc112d524e1352262536771b6b94dc826bd5ea307b9d5da4d44bda22",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q2_REVIEW_a01.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q2_REVIEW_a01.zip",
+      "sha256": "8680ff27dad448515633dc2ec675ce86afb7e7365e2a1cae4f8a0fdee07747f9",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q2_STOP-001_REVIEW_a01.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q2_STOP-001_REVIEW_a01.zip",
+      "sha256": "ce243f1ef33db95e84c4866b834da9caf594dbcbc4effcd229f1cd06a368d029",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q2_STOP-002_REVIEW_a01.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q2_STOP-002_REVIEW_a01.zip",
+      "sha256": "b27fbd2adb995edcec54ad33e3e62e57489248adbce5ea187137edbe4e73905a",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q4_REPAIR_REVIEW_r04.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q4_REPAIR_REVIEW_r04.zip",
+      "sha256": "79613aacf2d57786f4ff23887ebe929ad55245d84f779555ee6d3007268b9046",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q4_REPAIR_REVIEW_r05.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q4_REPAIR_REVIEW_r05.zip",
+      "sha256": "f82ea7c6b36fa4c127360125540ca33a7ba8d7a5dc0b278d4886f51f4ef20209",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q4_REVIEW_a01.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q4_REVIEW_a01.zip",
+      "sha256": "99608d62dddfc05b09dde9af6bf99ce96b996d14cbcbb2c4024a5f9ee49396f5",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q4_REVIEW_a02.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q4_REVIEW_a02.zip",
+      "sha256": "c989104b2694ceba7ea474dfaaa7b1b269596ba944d24aa4eb35646cc7884c33",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q4_REVIEW_a03.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q4_REVIEW_a03.zip",
+      "sha256": "5cae2e54eabb9830ed2608496438c5fa40150b5d821b769a480350ee7e134473",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q4_REVIEW_a04.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q4_REVIEW_a04.zip",
+      "sha256": "02dfd97f76ecee675f29680e65a1c04b48e44620abc89d998f396af4f8aaeb6f",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q4_REVIEW_a05.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q4_REVIEW_a05.zip",
+      "sha256": "e700ab73ea2eb42e7329f8d508a84e35ddeb795e025bb1106e5d93f627ba4f4b",
+      "private_cast_match_quarantined": false
+    },
+    {
+      "original": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_UI_REPAIR_REVIEW_r06.zip",
+      "archive": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_UI_REPAIR_REVIEW_r06.zip",
+      "sha256": "30902cf12c54242cd1605a32ef00aeadbaa2bdfdd34b8b8730e5831b3f6a069e",
+      "private_cast_match_quarantined": false
+    }
+  ],
+  "deleted_debris": [
+    "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q4-a02/.npm",
+    "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q4-a02/build-portal",
+    "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q4-a04/.npm",
+    "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q4-a04/build-portal",
+    "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q4-a05/.npm",
+    "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q4-a05/build-portal"
+  ],
+  "closed_processes": [
+    2426950,
+    2426871,
+    2426865,
+    2426849,
+    2426848,
+    2426846,
+    2426808
+  ],
+  "inbox_unchanged": true,
+  "value_scan": {
+    "retained_files": 392,
+    "archives": 27,
+    "expanded_members": 2755,
+    "original_matching_files": 1,
+    "original_matching_archive_members": 2,
+    "retained_nonarchive_matches_after_redaction": 0,
+    "clean_control": true,
+    "poison_control": true,
+    "source_values_or_hashes_retained": false
+  },
+  "cast_absent": true
+}

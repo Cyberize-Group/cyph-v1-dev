@@ -1,0 +1,1 @@
+Unit adapter attempt 1 returned a mutable row reference for maybeSingle; subsequent update changed audit old_data in the fake only. Corrected adapter to deep-copy database responses as the actual client does. Original failed attempt retained. Product unchanged.

@@ -1,0 +1,12 @@
+{
+  "selected_and_expanded_privacy": "PASS",
+  "clean_poison_controls": "PASS",
+  "zip_integrity": "PASS",
+  "safe_unique_member_names": "PASS",
+  "indexed_size_hash_membership": "PASS",
+  "plan_sha256": "2ffbfd8b12b195b06b0e278f2fd487904d338bb0fda2de4c738fbdb2d6c39672",
+  "repair_package_sha256": "0e6d42dedc112d524e1352262536771b6b94dc826bd5ea307b9d5da4d44bda22",
+  "no_nested_archives": true,
+  "scope": "Safe partial STOP-IDENTITY return, not completed Q4 acceptance",
+  "generated_at_utc": "2026-11-16T04:25:39.340130+00:00"
+}

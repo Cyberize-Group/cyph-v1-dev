@@ -1,0 +1,282 @@
+{
+  "AC-001": {
+    "status": "PARTIAL",
+    "evidence": "identity.json; runtime.json; served-build-stop.json",
+    "result_and_gap": "Committed pair exact; served identity STOP-IDENTITY.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-002": {
+    "status": "PASS baseline only",
+    "evidence": "build_results.json; baseline-context.json",
+    "result_and_gap": "Fresh Portal baseline all exit0; unchanged OB baseline carries Q1 originalpair.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-003": {
+    "status": "PARTIAL",
+    "evidence": "independent-readonly.json",
+    "result_and_gap": "Both migration ledgers60/60, grants; no migration execution.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-004": {
+    "status": "CARRIED LIMITATION",
+    "evidence": "QAM_APPROVAL.md",
+    "result_and_gap": "LR-01 accepted reused engineering + independent readonly; restore NOT PROVEN.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-005": {
+    "status": "PARTIAL CARRY",
+    "evidence": "Q2/a01/npi*.json",
+    "result_and_gap": "Unchanged NPI logic prior race/expiry evidence; paid/bound lifecycle remains unproved.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-006": {
+    "status": "PARTIAL",
+    "evidence": "authorization.json",
+    "result_and_gap": "Five legacy invalid-length NPIs still updateable; unchanged IDs/NPI asserted rollback.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-007": {
+    "status": "BLOCKED STOP-IDENTITY",
+    "evidence": "served-build-stop.json",
+    "result_and_gap": "F-Q2-001 repaired screen not served.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-008": {
+    "status": "PARTIAL",
+    "evidence": "checkout-timeout.json",
+    "result_and_gap": "Actual loadDraft rejects guessedID/randomsecret; live API cross-context attack blocked.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-009": {
+    "status": "PARTIAL",
+    "evidence": "checkout-timeout.json",
+    "result_and_gap": "Actual server quote/consent exercised SQL; live review/tamper blocked.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-010": {
+    "status": "CARRY PARTIAL",
+    "evidence": "Q2/a01/pure-pricing.json",
+    "result_and_gap": "Unchanged pricing unit; live APA blocked.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-011": {
+    "status": "FAIL proposed F-Q4-001",
+    "evidence": "checkout-timeout.json; checkout-timeout-same-key.json",
+    "result_and_gap": "After-create timeout: newkey produces2objects, samekey1. Live double-submit blocked.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-012": {
+    "status": "PARTIAL CARRY",
+    "evidence": "Q2/a01/signature-live.json; webhook-scratch.json",
+    "result_and_gap": "Prior signatures unchanged; real natural signed positive blocked no listener.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-013": {
+    "status": "PARTIAL",
+    "evidence": "webhook-scratch.json",
+    "result_and_gap": "RealSQL unsettled completion no business; live decline/settlement blocked.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-014": {
+    "status": "PARTIAL",
+    "evidence": "webhook-scratch.json; foreign-scratch.json",
+    "result_and_gap": "Actualhandler/realDB late-map/busy/fault/recovery/duplicate pass; provider mocked.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-015": {
+    "status": "PARTIAL",
+    "evidence": "webhook-scratch.json",
+    "result_and_gap": "Historical exactID recovery/audit realDB; no claim all obsolete-state/live orders.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-016": {
+    "status": "PARTIAL",
+    "evidence": "webhook-scratch.json",
+    "result_and_gap": "RealSQL saga once for existing fixture, no live newAuth; liveownerA blocked.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-017": {
+    "status": "CARRIED GAP",
+    "evidence": "webhook-scratch.json",
+    "result_and_gap": "Pre-RPC fault/no partial business proved; realAuth crash retainedB10.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-018": {
+    "status": "PARTIAL / DIRECTOR-WALK",
+    "evidence": "sample-loader.json; sample/*.json",
+    "result_and_gap": "Sample50then0 done; paid real empty store/link blocked/deferred.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-019": {
+    "status": "PARTIAL CARRY / DIRECTOR-WALK",
+    "evidence": "Q2/a01/confirm-switch.json",
+    "result_and_gap": "Unchanged synthetic GET/HEAD/CSRF; real links deferred.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-020": {
+    "status": "BLOCKED / DIRECTOR-WALK",
+    "evidence": "DIRECTOR_SESSION_Q4.md",
+    "result_and_gap": "No real email sent; recovery/support checks require paid journey/context.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-021": {
+    "status": "PARTIAL CARRY",
+    "evidence": "Q2/a01/auth-browser.json",
+    "result_and_gap": "Cookie isolation unchanged, originalpair only; finalruntime recheckblocked.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-022": {
+    "status": "PARTIAL CARRY",
+    "evidence": "Q2/a01/auth-browser.json; source-session.json",
+    "result_and_gap": "Original integrated handoffs; exact-token function controls newunit.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-023": {
+    "status": "PARTIAL",
+    "evidence": "handoff-sql.json; handoff-concurrent.json",
+    "result_and_gap": "Wrongbindings preservevalidclaim; expired/replay/onewinner realSQL; emailedcollision deferred.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-024": {
+    "status": "PARTIAL",
+    "evidence": "source-session.json; Q2/a01/confirm-switch.json",
+    "result_and_gap": "Same-token mismatchnegative; priorredirect/switch carry. Live repairedruntimeblocked.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-025": {
+    "status": "PARTIAL",
+    "evidence": "handoff-sql.json; Q2/a01/logout-residual.json",
+    "result_and_gap": "SQL before/afterclaim invalidation, failureone-shot; actual provider mint/revoke races gap.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-026": {
+    "status": "CARRIED LIMITATION",
+    "evidence": "QAM_APPROVAL.md; Q2/a01/identity-contract.json",
+    "result_and_gap": "MissionControl NOTRUN, D02 impact carriedLR08.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-027": {
+    "status": "PARTIAL",
+    "evidence": "authorization.json",
+    "result_and_gap": "Exact admin_stores redaction/foreignbilling denial; livepaidA/Bblocked.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-028": {
+    "status": "PARTIAL",
+    "evidence": "authorization.json; independent-readonly.json",
+    "result_and_gap": "Customerprotectedfieldsdeny; tenantprivileges; source-session functionunit.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-029": {
+    "status": "PARTIAL",
+    "evidence": "billing-independent.json",
+    "result_and_gap": "Unsafe configs fail closed unit; live only-card/portal requires Directorcontext.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-030": {
+    "status": "PARTIAL repair proof",
+    "evidence": "billing-independent.json",
+    "result_and_gap": "Bothclear unit and partialfailure retry pass; livesandboxF-Q2-002stillblocked.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-031": {
+    "status": "PARTIAL CARRY / UNPROVEN-BY-RULING",
+    "evidence": "Q2/a01/sql-independent.json; reminder-scratch.json; browser-banner.json",
+    "result_and_gap": "Unchanged SQL/unit/banner proof retains originalpair; liveO1/emailO2 deferred.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-032": {
+    "status": "PARTIAL / UNPROVEN-BY-RULING",
+    "evidence": "webhook-scratch.json; Q2/a01/sql-independent.json",
+    "result_and_gap": "Unsettled no business fixture; liveinitialfailure stillrequired butblocked.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-033": {
+    "status": "PARTIAL",
+    "evidence": "final-inventory.json; webhook-scratch.json",
+    "result_and_gap": "RealDB recoveryaudit/read audit/sampleaudit; naturalDEVdeliveryblocked.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-034": {
+    "status": "BLOCKED repair screens",
+    "evidence": "served-build-stop.json",
+    "result_and_gap": "No repairedruntimeUI verdict; prior demo404 historical.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-035": {
+    "status": "BLOCKED fullmatrix",
+    "evidence": "served-build-stop.json",
+    "result_and_gap": "Allrequiredthemes/engines repairedregistration awaitservedpin, no silent reduction.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-036": {
+    "status": "PARTIAL",
+    "evidence": "authorization.json",
+    "result_and_gap": "Legacyupdate/memberread/filter/pagination/admininvariant pass SQL; browserblocked.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-037": {
+    "status": "PARTIAL",
+    "evidence": "export-validation.json; source-session.json",
+    "result_and_gap": "No privateoutput; candidatefunctionunit; client/exportscan, no exhaustive logproof.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-038": {
+    "status": "PARTIAL",
+    "evidence": "webhook-scratch.json; Q2/a01/operator-live.json",
+    "result_and_gap": "Actual recoveryfunction realDB; CLIbyteunchanged priorread control. Paidliveblocked.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-039": {
+    "status": "PARTIAL",
+    "evidence": "QAM_APPROVAL.md; final-binding.json",
+    "result_and_gap": "Authority/evidence/pair recorded; liveconfig mismatch explicit.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  },
+  "AC-040": {
+    "status": "PARTIAL GateQ pending",
+    "evidence": "identity.json; final-binding.json",
+    "result_and_gap": "Exactly5productfiles; records-onlysuccessors; servedtreefailure explicit. Closeout/GateDseparate.",
+    "prior_pair": "37f6c0d / 9d938f6 where carried",
+    "owner": "QA Executor remaining proof; Director runtime/inbox; Lead adjudication"
+  }
+}

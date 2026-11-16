@@ -1,0 +1,24 @@
+{
+  "time": "2026-11-16T05:10:40.052Z",
+  "checks": {
+    "heads": true,
+    "apps_up": [
+      true,
+      true
+    ],
+    "cast": true,
+    "listener_present": true,
+    "secret": "EQUAL",
+    "ledgers": {
+      "DEV": {
+        "count": 60,
+        "hashes_equal": true
+      },
+      "SCRATCH": {
+        "count": 60,
+        "hashes_equal": true
+      }
+    },
+    "free_bytes": 3390910464
+  }
+}

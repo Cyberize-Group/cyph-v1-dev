@@ -1,0 +1,27 @@
+[
+  {
+    "name": "wrong account",
+    "http": 400,
+    "expected": 400
+  },
+  {
+    "name": "wrong mode",
+    "http": 400,
+    "expected": 400
+  },
+  {
+    "path": "/demo",
+    "http": 404,
+    "expected": 404
+  },
+  {
+    "path": "/demo/activation",
+    "http": 404,
+    "expected": 404
+  },
+  {
+    "path": "/demo/references/email",
+    "http": 404,
+    "expected": 404
+  }
+]

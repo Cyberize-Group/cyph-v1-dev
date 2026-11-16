@@ -1,0 +1,6 @@
+{
+  "unshare": "FAIL: uid_map operation not permitted",
+  "bwrap": "FAIL: loopback RTM_NEWADDR operation not permitted",
+  "fresh_install_typecheck_lint_unit_build": "BLOCKED before execution: network/mail isolation not established; no scripts run, no dependencies installed",
+  "owner": "Executor/runtime operator; re-establish fenced runtime before new-pin builds"
+}

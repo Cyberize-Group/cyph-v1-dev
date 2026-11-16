@@ -1,0 +1,21 @@
+{
+  "layer": "candidate decide() + real SCRATCH notification SQL; mocked provider retrieval/mirror; rollback",
+  "auth_writes": 0,
+  "emails": 0,
+  "rows": [
+    {
+      "id": "fc3572ab-1df5-4cc3-80b9-4ef674b08458",
+      "kind": "renewal_reminder",
+      "status": "pending",
+      "last_error_code": "email_deferred_007b",
+      "user_id": "132e601c-cbac-4a95-b3c3-6a7980aa7792"
+    }
+  ],
+  "deduped_one": true,
+  "expected_kind": true,
+  "expected_status": true,
+  "email_deferred": true,
+  "owner_matches": true,
+  "paid_adds_none": true,
+  "rolled_back": true
+}

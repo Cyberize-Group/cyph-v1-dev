@@ -1,0 +1,6 @@
+{
+  "status": "GAP",
+  "comparison": "NOT PERFORMED: printed listener secret source not located; no equality inferred from Portal env",
+  "required": "Director supplies private listener output file or restarts listener with private log, then QA compares to Next resolved Portal value without outputting either",
+  "provider_requests": 0
+}

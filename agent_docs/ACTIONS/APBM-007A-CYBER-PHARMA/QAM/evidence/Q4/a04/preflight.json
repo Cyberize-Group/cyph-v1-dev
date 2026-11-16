@@ -1,0 +1,23 @@
+{
+  "heads": [
+    "0249109f9b688e89c6a3c2bc64ab87167e89d9c9",
+    "93add6f32be53da34ac6fb6fff7fa85076f97a1c"
+  ],
+  "apps_ports": [
+    3000,
+    3001
+  ],
+  "portal_pid": 2423839,
+  "source_map_entries_match": [
+    41,
+    51
+  ],
+  "listener_present": true,
+  "secret_comparison": "EQUAL",
+  "cast_mode": "600",
+  "cast_expected_schema": "PASS;OWNER_2_PASSWORDpermittedempty",
+  "DEV_ledger": 60,
+  "SCRATCH_ledger": 60,
+  "hashes_match": true,
+  "free_bytes_at_preflight": 2908536832
+}

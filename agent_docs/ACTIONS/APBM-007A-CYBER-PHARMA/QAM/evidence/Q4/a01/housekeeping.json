@@ -1,0 +1,33 @@
+{
+  "removed_disposable_only": [
+    {
+      "path": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-owedbook",
+      "files_removed": 44106
+    },
+    {
+      "path": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal",
+      "files_removed": 44788
+    },
+    {
+      "path": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/.npm",
+      "files_removed": 1701
+    }
+  ],
+  "helper_processes": [
+    {
+      "pid": 2035625,
+      "helper": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/new-owner.cjs",
+      "still_present": false
+    },
+    {
+      "pid": 2036628,
+      "helper": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/new-owner-retry.cjs",
+      "still_present": false
+    }
+  ],
+  "preserved_record_count": 196,
+  "preserved_records_hashes_equal": true,
+  "free_bytes_before": 299442176,
+  "free_bytes_after": 2145300480,
+  "business_provider_cleanup": 0
+}

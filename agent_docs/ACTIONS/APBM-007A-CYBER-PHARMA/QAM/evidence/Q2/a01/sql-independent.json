@@ -1,0 +1,93 @@
+{
+  "layer": "real SCRATCH SQL; explicit existing subscription ID; all fixture mutations rolled back",
+  "fixture_subscription_id": "26ab5f4e-7b30-4a99-b054-e79b1477449d",
+  "fixture_account_id": "f1bbd6b8-8813-4d1b-b730-984b421e9340",
+  "fixture_updates": 4,
+  "auth_writes": 0,
+  "checks": [
+    {
+      "name": "first renewal failure starts grace",
+      "actual": "started",
+      "expected": "started",
+      "status": "PASS"
+    },
+    {
+      "name": "retry does not restart",
+      "actual": "unchanged",
+      "expected": "unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "stored first timestamp retained",
+      "actual": "2026-11-07 10:09:50.755241+00",
+      "expected": "2026-11-07 10:09:50.755241+00",
+      "status": "PASS"
+    },
+    {
+      "name": "day six access is grace",
+      "actual": "grace",
+      "expected": "grace",
+      "status": "PASS"
+    },
+    {
+      "name": "exact seventh-day boundary server read-only",
+      "actual": true,
+      "expected": true,
+      "status": "PASS"
+    },
+    {
+      "name": "different invoice cannot clear",
+      "actual": "unchanged",
+      "expected": "unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "matching invoice clears",
+      "actual": "cleared",
+      "expected": "cleared",
+      "status": "PASS"
+    },
+    {
+      "name": "late same-invoice failure cannot reopen",
+      "actual": "unchanged",
+      "expected": "unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "late failure timestamp stays null",
+      "actual": null,
+      "expected": null,
+      "status": "PASS"
+    },
+    {
+      "name": "OWNER3 billing rows",
+      "actual": 1,
+      "expected": 1,
+      "status": "PASS"
+    },
+    {
+      "name": "ADMIN_B2 billing rows",
+      "actual": 0,
+      "expected": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "MEMBER_B1 billing rows",
+      "actual": 0,
+      "expected": 0,
+      "status": "PASS"
+    },
+    {
+      "name": "UNRELATED billing rows",
+      "actual": 1,
+      "expected": 1,
+      "status": "PASS"
+    },
+    {
+      "name": "store-admin UPDATE denied",
+      "actual": true,
+      "expected": true,
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "attempt": 2,
+  "journey": "new_owner_A",
+  "npi": "1997131408",
+  "stage": "preflight",
+  "checkout_submits": 0,
+  "payment_submits": 0,
+  "sandbox_account_match": true,
+  "safe_error": "page.waitForURL: Timeout 30000ms exceeded.",
+  "error": "JOURNEY_SETUP_FAILED"
+}

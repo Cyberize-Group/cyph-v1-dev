@@ -1,0 +1,15 @@
+# Consolidated Lead-review items
+
+| ID | Conservative choice and reason | Owner / requested disposition |
+|---|---|---|
+| LR-01 | No reset/seed or independent fresh/upgrade rehearsal; retain E2 provenance plus current read-only60/60 hashes/catalog. Restore NOT PROVEN. | Lead already directed method; carry certification limitation, Director optionB preserved. |
+| LR-02 | No real owned crash/recovery/paid portal proof without approved reachable fixture/runtime. No DEV fixture faults/Auth mutations/startup changes improvised. Unit models labeled. | Lead/Architect define repair/retest runtime and scoped real-Auth coverage; B10 certification gap retained. |
+| LR-03 | Sample loader fixed50 rows exceeds20-row scenario ceiling. Did not run or change tool/product. | Lead approve future bounded count/method or retain BLOCKED. |
+| LR-04 | Independent coverage gaps: draft-context attack, exhaustive code-claim negative/concurrency/races, source same-token proof, all fields/RPC/IDOR body and admin_stores redaction, five legacy updates, full filters/pagination/one-admin invariant, keyboard/full themes, startup wrong/inactive config. Positive suites/source inspection are not substitutes. | QA Executor owns missing evidence; Lead specifies required consolidated retest. Not product defects or assumed waivers. |
+| LR-05 | Foreign event initially received; QA signed redelivery200 produced ignored/foreign with no mapping. Natural listener original HTTP not captured. | Lead assesses B5 limitation; no claim manual recovery was necessary or natural delivery passed. |
+| LR-06 | Placeholder Terms/Privacy/support/price-consent OPEN. Limited route observations do not accept legal/product content. | Director/Architect resolve; not pass. |
+| LR-07 | Real access/returning/expired/replayed link, pending-email interactions, owned-inbox delivery and intentional Director clicks deferred. No email sent. | DEFERRED-TO-DIRECTOR-WALK after repair; grouped sequence below. |
+| LR-08 | Mission Control app NOT RUN. Provider-wide logout D02 carried. Immediate JWT residual observed, full TTL not waited and app restart not attempted. | Director limitation acceptance and Lead certification/retest scope. |
+| LR-09 | No cleanup performed; retained QA browser contexts and business/provider fixtures. Session accounting is dispatched upper bound, not deleted-session historic row count. | Lead cleanup release required; retained inventory supplied. |
+
+Grouped Director walk after repair: (1) confirm corrected product/placeholder disposition in one walk; (2) new-owner approved payment/access delivery, open the single intended email and use explicit confirm; (3) returning OWNER_2 link-only access, confirm/replay/expiry and pending-email/handoff interactions in both orders; (4) owned-inbox resend/wrong-email support checks only under the remaining or newly approved email/effect budget; (5) Director product acceptance and Git receipts, separate from staging/Gate D. This is a deferred checklist, not authorization to send emails or spend additional effects now.

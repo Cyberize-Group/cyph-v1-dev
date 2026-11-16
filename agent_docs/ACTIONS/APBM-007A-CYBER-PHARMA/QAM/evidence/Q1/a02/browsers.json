@@ -1,0 +1,17 @@
+{
+  "chromium": {
+    "available": false,
+    "status": "GAP",
+    "reason": "browserType.launch: Executable doesn't exist at [local path]"
+  },
+  "firefox": {
+    "available": false,
+    "status": "GAP",
+    "reason": "browserType.launch: Executable doesn't exist at [local path]"
+  },
+  "webkit": {
+    "available": false,
+    "status": "GAP",
+    "reason": "browserType.launch: Executable doesn't exist at [local path]"
+  }
+}

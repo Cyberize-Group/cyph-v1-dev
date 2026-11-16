@@ -1,0 +1,35 @@
+{
+  "layer": "labelled unit contract hook, not a real claims-write feature",
+  "checks": [
+    {
+      "state": "active",
+      "denied": false,
+      "expected": false
+    },
+    {
+      "state": "grace",
+      "denied": false,
+      "expected": false
+    },
+    {
+      "state": "read_only",
+      "denied": true,
+      "expected": true
+    },
+    {
+      "state": "ended",
+      "denied": true,
+      "expected": true
+    },
+    {
+      "state": "none",
+      "denied": true,
+      "expected": true
+    },
+    {
+      "test": "synthetic flag off grants no access",
+      "actual": "none",
+      "expected": "none"
+    }
+  ]
+}

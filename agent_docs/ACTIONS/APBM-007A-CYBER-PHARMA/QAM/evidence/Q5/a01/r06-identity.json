@@ -1,0 +1,11 @@
+{
+  "heads": {
+    "cyph-v1-dev": "c59ead583c9d20328d1a85af60d015753b62abf7",
+    "cyph-payment-portal-dev-v1": "1a3913262ed0f8e8303823d92d2551fd9cc725b3"
+  },
+  "owedbook_product": "c554c2dc9eba302cd8d4ba2da24da05990e0afd0",
+  "portal_product": "516b49f5912e31bca3bb903dd262994c0e83fcbf",
+  "r06_retest": false,
+  "precleanup_tracked_changes": "OB QAM only; Portal none",
+  "certificate_bytes_equal": true
+}

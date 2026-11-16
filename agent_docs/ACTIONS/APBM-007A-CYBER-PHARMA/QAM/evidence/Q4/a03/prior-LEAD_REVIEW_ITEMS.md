@@ -1,0 +1,12 @@
+# Q4 a02 consolidated Lead-review items
+
+1. F-Q4-001 proposed HIGH AC-011: distinct-key retry after lost provider response duplicates objects. Classify and route bounded repair; same-key control passes. No real duplicate payment alleged.
+2. STOP-IDENTITY live: restart occurred but .next still old repair logic. Director rebuilds pinned Portal and restarts; QA re-attests. STOP-ENV: no Stripe listener; Director restarts intended forwarding listener. No payment attempted while delivery unavailable.
+3. F-Q2-002 unit repair passes; live flag/date/both-ifreachable/clear and only-card require paid signed-in owner + Director session. F-Q2-001 live recheck not run against wrongbuild. Neither prior failure self-closed.
+4. LR-02 approved realSCRATCH handler method implemented with actual saga SQL and existingAuth lookup adapter. BeforeRPC fault and recovery proved; true realAuth crash and aftercommit-beforeack/providerfail races remain carried or unproved. Do not inflate scope of these controls.
+5. LR-04 advanced:44 SQL auth/regression assertions,10 code-binding checks,2connection claim winner,4 same-token controls, realdraftsecret/consent negatives. Remaining HTTP arbitraryuser/callback/isolatedmintrevocation/rate-limit/full UI/drafttamper and simultaneousdistinctevent proof remain required; live work blocked, isolatedsubproof gaps Executor-owned. No blanket LR-04 closure.
+6. LR-03 closed at executed scope: authorized50rows then0, guard negative, unrelatedIDs stable. No reset/seed. Dataset50/audit50 retained.
+7. Cumulative DEV effects unchanged fromQ2. Engineering additionaldraft/hold recorded separately. No new identity/email/payment. SCRATCH rolledback SQL attempts preserved, no Auth writes. Full attempted-trigger insertion count is not reconstructed from final row counts; receipt/effect ledger distinguishes attempted fixtures from persistentdelta.
+8. Record-only manifest metadata files are additional OB paths under EVIDENCE/E2/r03/commit; no productdiff. Full filenames inidentity.json, accepted as records-only underrelease; not hidden.
+9. No Director question midrun. Grouped session script retains exact prerequisites and no speculativemail. Terms/Privacy/support/consentOPEN, MissionControl/restore limitations, O1/O2 and realAuthgap carried. No cleanupofbusiness/providerfixtures.
+10. a01 is immutable identity-stop return; a02 is continuation results to avoid overwriting reviewed evidence. Next resume uses sameapprovedplan, re-verifies any newproduct/configimpact withLead.

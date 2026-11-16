@@ -1,0 +1,13 @@
+{
+  "path": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q4_REVIEW_a01.zip",
+  "downloads": "/home/moose/Downloads/APBM-007A-CYBER-PHARMA_Q4_REVIEW_a01.zip",
+  "members": 52,
+  "sha256": "99608d62dddfc05b09dde9af6bf99ce96b996d14cbcbb2c4024a5f9ee49396f5",
+  "plan_sha256": "2ffbfd8b12b195b06b0e278f2fd487904d338bb0fda2de4c738fbdb2d6c39672",
+  "status": "STOP-IDENTITY; Q4 candidate unbound; zero Q4 product effects",
+  "copies_equal": true,
+  "archived_path": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q4_REVIEW_a01.zip",
+  "archive_sha256": "99608d62dddfc05b09dde9af6bf99ce96b996d14cbcbb2c4024a5f9ee49396f5",
+  "in_repo_zip_removed": true,
+  "private_quarantine": false
+}

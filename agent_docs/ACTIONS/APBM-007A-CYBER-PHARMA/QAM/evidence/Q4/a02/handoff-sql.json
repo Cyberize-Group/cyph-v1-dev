@@ -1,0 +1,48 @@
+{
+  "layer": "real SCRATCH handoff SQL using existing Auth session read-only; scoped handoff fixture inserts/updates rollback; no token/session IDs exported",
+  "checks": [
+    {
+      "name": "wrong source session rejected without code",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong verifier does not consume correct binding",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong state does not consume correct binding",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong audience does not consume correct binding",
+      "status": "PASS"
+    },
+    {
+      "name": "wrong environment does not consume correct binding",
+      "status": "PASS"
+    },
+    {
+      "name": "expired code rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "invalidated before claim rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "invalidated after claim prevents completion",
+      "status": "PASS"
+    },
+    {
+      "name": "mint failure never restores reusable code",
+      "status": "PASS"
+    },
+    {
+      "name": "completion is one-shot",
+      "status": "PASS"
+    }
+  ],
+  "rows_inserted": 9,
+  "rolled_back": true,
+  "limitations": "Sequential replay, not two-connection concurrency; destination session mint/revoke and provider-global logout are not SQL-fixture proof."
+}

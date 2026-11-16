@@ -1,0 +1,14 @@
+{
+  "ob": {
+    "negative_returns_denied": true,
+    "mission_control_not_allowlisted": true,
+    "cookie_name": "cyph-ob-auth-local",
+    "valid_default_accepted": true
+  },
+  "pp": {
+    "negative_returns_denied": true,
+    "mission_control_not_allowlisted": true,
+    "cookie_name": "cyph-pp-auth-local",
+    "valid_default_accepted": true
+  }
+}

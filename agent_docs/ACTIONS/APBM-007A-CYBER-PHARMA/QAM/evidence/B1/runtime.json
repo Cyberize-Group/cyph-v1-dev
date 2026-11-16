@@ -1,0 +1,36 @@
+{
+  "OwedBook": {
+    "pid": 2015772,
+    "uid": 1000,
+    "cwd": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev",
+    "start": "Fri Nov 13 15:07:57 2026",
+    "candidate_commit_time": "2026-11-13T14:36:37+06:00",
+    "head": "37f6c0dd63f7a087ec44dd9d3ef79b74bb203f40",
+    "build_id": "tFYOPTmsXGyRhhOdVCb3n",
+    "build_mtime": 1794560871.5394092,
+    "manifest_comparison_to_QA_build": [
+      {
+        "file": "server/app-paths-manifest.json",
+        "exact_equal": true
+      }
+    ],
+    "attestation": "Director reports build from pin; independent cwd/head/build presence and manifest comparison, not reproducible binary attestation"
+  },
+  "Portal": {
+    "pid": 2015203,
+    "uid": 1000,
+    "cwd": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-payment-portal-dev-v1",
+    "start": "Fri Nov 13 15:07:03 2026",
+    "candidate_commit_time": "2026-11-13T14:18:23+06:00",
+    "head": "9d938f62bff6172f9332ae6c67775e4b8feea379",
+    "build_id": "UcGrgkjeh6U2Vn9zbwDN0",
+    "build_mtime": 1794560708.3195217,
+    "manifest_comparison_to_QA_build": [
+      {
+        "file": "server/app-paths-manifest.json",
+        "exact_equal": true
+      }
+    ],
+    "attestation": "Director reports build from pin; independent cwd/head/build presence and manifest comparison, not reproducible binary attestation"
+  }
+}
