@@ -1,0 +1,11 @@
+{
+  "fields": [
+    {
+      "id": "enableStripePass",
+      "name": "enableStripePass",
+      "type": "checkbox"
+    }
+  ],
+  "frame_count": 14,
+  "operation_id": "25acbfb9-9969-44b1-8b45-928d71f99ad6"
+}

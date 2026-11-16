@@ -1,0 +1,277 @@
+{
+  "sessions_requested": 6,
+  "handoffs_attempted": 6,
+  "logout_requests": 3,
+  "checks": [
+    {
+      "engine": "chromium",
+      "test": "seeded OB password login",
+      "actual": 200,
+      "expected": 200
+    },
+    {
+      "engine": "chromium",
+      "test": "OB cookie alone does not authenticate PP",
+      "actual": 401,
+      "expected": 401
+    },
+    {
+      "engine": "chromium",
+      "test": "OB to PP integrated handoff",
+      "actual": 200,
+      "expected": 200,
+      "path": "/billing"
+    },
+    {
+      "engine": "chromium",
+      "test": "PP to OB integrated handoff under 60 seconds",
+      "path": "/owedbook",
+      "expected_path": "/owedbook",
+      "elapsed_ms": 11892
+    },
+    {
+      "engine": "chromium",
+      "test": "redirect negative",
+      "actual": 400,
+      "external_redirect": false,
+      "expected_external_redirect": false
+    },
+    {
+      "engine": "chromium",
+      "test": "redirect negative",
+      "actual": 400,
+      "external_redirect": false,
+      "expected_external_redirect": false
+    },
+    {
+      "engine": "chromium",
+      "test": "redirect negative",
+      "actual": 400,
+      "external_redirect": false,
+      "expected_external_redirect": false
+    },
+    {
+      "engine": "chromium",
+      "test": "redirect negative",
+      "actual": 400,
+      "external_redirect": false,
+      "expected_external_redirect": false
+    },
+    {
+      "engine": "chromium",
+      "test": "synthetic cannot open Stripe portal",
+      "actual": 409,
+      "expected": 409
+    },
+    {
+      "engine": "chromium",
+      "test": "global logout",
+      "actual": 200,
+      "expected": 200
+    },
+    {
+      "engine": "chromium",
+      "test": "peer protected API after logout",
+      "actual": 401,
+      "expected": 401
+    },
+    {
+      "engine": "firefox",
+      "test": "seeded OB password login",
+      "actual": 200,
+      "expected": 200
+    },
+    {
+      "engine": "firefox",
+      "test": "OB cookie alone does not authenticate PP",
+      "actual": 401,
+      "expected": 401
+    },
+    {
+      "engine": "firefox",
+      "test": "OB to PP integrated handoff",
+      "actual": 200,
+      "expected": 200,
+      "path": "/billing"
+    },
+    {
+      "engine": "firefox",
+      "test": "PP to OB integrated handoff under 60 seconds",
+      "path": "/owedbook",
+      "expected_path": "/owedbook",
+      "elapsed_ms": 11717
+    },
+    {
+      "engine": "firefox",
+      "test": "redirect negative",
+      "actual": 400,
+      "external_redirect": false,
+      "expected_external_redirect": false
+    },
+    {
+      "engine": "firefox",
+      "test": "redirect negative",
+      "actual": 400,
+      "external_redirect": false,
+      "expected_external_redirect": false
+    },
+    {
+      "engine": "firefox",
+      "test": "redirect negative",
+      "actual": 400,
+      "external_redirect": false,
+      "expected_external_redirect": false
+    },
+    {
+      "engine": "firefox",
+      "test": "redirect negative",
+      "actual": 400,
+      "external_redirect": false,
+      "expected_external_redirect": false
+    },
+    {
+      "engine": "firefox",
+      "test": "synthetic cannot open Stripe portal",
+      "actual": 409,
+      "expected": 409
+    },
+    {
+      "engine": "firefox",
+      "test": "global logout",
+      "actual": 200,
+      "expected": 200
+    },
+    {
+      "engine": "firefox",
+      "test": "peer protected API after logout",
+      "actual": 401,
+      "expected": 401
+    },
+    {
+      "engine": "webkit",
+      "test": "seeded OB password login",
+      "actual": 200,
+      "expected": 200
+    },
+    {
+      "engine": "webkit",
+      "test": "OB cookie alone does not authenticate PP",
+      "actual": 401,
+      "expected": 401
+    },
+    {
+      "engine": "webkit",
+      "test": "OB to PP integrated handoff",
+      "actual": 200,
+      "expected": 200,
+      "path": "/billing"
+    },
+    {
+      "engine": "webkit",
+      "test": "PP to OB integrated handoff under 60 seconds",
+      "path": "/owedbook",
+      "expected_path": "/owedbook",
+      "elapsed_ms": 11452
+    },
+    {
+      "engine": "webkit",
+      "test": "redirect negative",
+      "actual": 400,
+      "external_redirect": false,
+      "expected_external_redirect": false
+    },
+    {
+      "engine": "webkit",
+      "test": "redirect negative",
+      "actual": 400,
+      "external_redirect": false,
+      "expected_external_redirect": false
+    },
+    {
+      "engine": "webkit",
+      "test": "redirect negative",
+      "actual": 400,
+      "external_redirect": false,
+      "expected_external_redirect": false
+    },
+    {
+      "engine": "webkit",
+      "test": "redirect negative",
+      "actual": 400,
+      "external_redirect": false,
+      "expected_external_redirect": false
+    },
+    {
+      "engine": "webkit",
+      "test": "synthetic cannot open Stripe portal",
+      "actual": 409,
+      "expected": 409
+    },
+    {
+      "engine": "webkit",
+      "test": "global logout",
+      "actual": 200,
+      "expected": 200
+    },
+    {
+      "engine": "webkit",
+      "test": "peer protected API after logout",
+      "actual": 401,
+      "expected": 401
+    },
+    {
+      "role": "ADMIN_B2",
+      "test": "PP password login",
+      "actual": 200,
+      "expected": 200
+    },
+    {
+      "role": "ADMIN_B2",
+      "test": "billing ownership / foreign-ID query",
+      "actual": 403,
+      "expected": 403
+    },
+    {
+      "role": "ADMIN_B2",
+      "test": "billing ownership / foreign-ID query",
+      "actual": 403,
+      "expected": 403
+    },
+    {
+      "role": "MEMBER_B1",
+      "test": "PP password login",
+      "actual": 200,
+      "expected": 200
+    },
+    {
+      "role": "MEMBER_B1",
+      "test": "billing ownership / foreign-ID query",
+      "actual": 403,
+      "expected": 403
+    },
+    {
+      "role": "MEMBER_B1",
+      "test": "billing ownership / foreign-ID query",
+      "actual": 403,
+      "expected": 403
+    },
+    {
+      "role": "OWNER3",
+      "test": "PP password login",
+      "actual": 200,
+      "expected": 200
+    },
+    {
+      "role": "OWNER3",
+      "test": "billing ownership / foreign-ID query",
+      "actual": 200,
+      "expected": 200
+    },
+    {
+      "role": "OWNER3",
+      "test": "billing ownership / foreign-ID query",
+      "actual": 200,
+      "expected": 200
+    }
+  ]
+}

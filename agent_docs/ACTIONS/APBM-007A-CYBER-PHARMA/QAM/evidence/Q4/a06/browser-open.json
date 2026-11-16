@@ -1,0 +1,6 @@
+{
+  "owner": "ownerA",
+  "visible": true,
+  "port": 3000,
+  "auth_state_exported": false
+}

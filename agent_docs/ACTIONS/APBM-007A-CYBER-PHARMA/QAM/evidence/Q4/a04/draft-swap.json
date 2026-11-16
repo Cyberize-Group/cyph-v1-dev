@@ -1,0 +1,19 @@
+{
+  "checks": [
+    {
+      "name": "valid attacker context body victim identifiers cannot write victim",
+      "http": 200,
+      "pass": true
+    },
+    {
+      "name": "valid attacker context quote targets own draft only",
+      "http": 200,
+      "pass": true
+    },
+    {
+      "name": "registration cookie protected",
+      "pass": true
+    }
+  ],
+  "drafts": 2
+}

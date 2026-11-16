@@ -1,0 +1,26 @@
+{
+ "checked_at": "2026-11-16 (Asia/Dhaka), after transfer and records, before packaging",
+ "backup": "~/APBM007A_QA_BACKUPS/q4_r05_20261116_124823/ (private, mode 700, outside both repositories)",
+ "manifest": {
+  "file": "SHA256SUMS.before",
+  "entries": 6614,
+  "sha256": "bd951f512a223adb0b3181526cafc85ed7092d4787e66a86c4f29dd52e8747c2"
+ },
+ "inventory": {
+  "owedbook_uncommitted_qa_paths": 6613,
+  "all_under": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/",
+  "bytes": 488044965,
+  "portal_ignored_qa_output": [
+   "test-results/transition-matrix.json"
+  ],
+  "portal_changes_before_work": 0
+ },
+ "backup_method": "full byte copy of all 6,613 QA paths plus the portal output; env, cast, inbox, auth-state and browser-profile files not copied or hashed",
+ "qa_paused": "QA Q4 a04 return sealed 12:14:59 with no later QA write through packaging; QAM_STATE.md: returned, pending Lead adjudication; the one QA helper process (Q4-a04/resume-payment.cjs, PID 2426808, under Cody's Codex app-server) was sleeping with only CLOSE-WAIT sockets and was not touched",
+ "verification": {
+  "backup_vs_manifest": "verified with sha256sum -c",
+  "after_work_vs_manifest": "0 mismatches across 6,614 entries",
+  "owedbook_status_excluding_engineering_records": "identical to the before-work status"
+ },
+ "qa_runtime": "servers :3000, :3001, :3457 and the Stripe listener untouched"
+}

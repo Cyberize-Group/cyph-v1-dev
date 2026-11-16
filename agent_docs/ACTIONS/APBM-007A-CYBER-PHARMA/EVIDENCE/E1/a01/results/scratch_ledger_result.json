@@ -1,0 +1,30 @@
+{
+ "at": "2026-11-12T09:13:09.610Z",
+ "url": {
+  "refEqualsRecorded": true,
+  "refDiffersFromDev": true,
+  "hostKind": "pooler",
+  "port": "5432",
+  "database": "/postgres"
+ },
+ "readOnly": "on",
+ "systemIdentifier": "7606130613603586966",
+ "sameClusterAsEarlierScratchCheck": true,
+ "differsFromDevCluster": true,
+ "ledger": {
+  "rows": 52,
+  "sourceFiles": 52,
+  "distinctNames": 52,
+  "first": "0001_baseline_acknowledge.sql",
+  "last": "0052_system_config.sql",
+  "appliedRange": [
+   "2026-11-09T04:05:50.409Z",
+   "2026-11-09T04:06:02.858Z"
+  ],
+  "namesAndChecksumsEqual": 52,
+  "missingFromLedger": [],
+  "extraInLedger": [],
+  "checksumMismatch": []
+ },
+ "sourceSetDigest": "dcabe2e1644ae57a1c4e449d24c0a89ce90017bafe5333c33c3e59d5e23dde80"
+}

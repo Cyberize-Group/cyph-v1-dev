@@ -1,0 +1,60 @@
+{
+ "at": "2026-11-13T04:17:35.550Z",
+ "results": [
+  {
+   "name": "H0 starting point: the existing subscription is active with no cancellation scheduled",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "name": "H1 hosted-portal cancellation scheduled on Stripe (cancel_at set, same subscription)",
+   "status": "PASS",
+   "detail": "{\"cancel_at\":1797086946,\"flag\":false}"
+  },
+  {
+   "name": "H2 the signed customer.subscription.updated event reached the portal and was recorded as processed",
+   "status": "PASS",
+   "detail": "[\"customer.subscription.updated:processed\"]"
+  },
+  {
+   "name": "H3 the mirror was updated by the webhook: cancel_at set, flag false, still active, newer verification time",
+   "status": "PASS",
+   "detail": "{\"cancel_at\":\"2026-12-12T14:49:06.000Z\",\"flag\":false,\"status\":\"active\"}"
+  },
+  {
+   "name": "H4 the app shows the scheduled cancellation with an Undo button (from the webhook-updated mirror)",
+   "status": "PASS",
+   "detail": "Your subscription ends on 12 Dec 2026 You keep full access until then. Changed your mind? Undo the cancellation and your"
+  },
+  {
+   "name": "H5 undo from the banner cleared the schedule on the same subscription; still active",
+   "status": "FAIL",
+   "detail": ""
+  },
+  {
+   "name": "H6 the undo produced a second signed event, recorded as processed",
+   "status": "FAIL",
+   "detail": "[]"
+  },
+  {
+   "name": "H7 the mirror ends clear and active",
+   "status": "FAIL",
+   "detail": "{\"cancel_at\":\"2026-12-12T14:49:06.000Z\",\"flag\":false,\"status\":\"active\"}"
+  },
+  {
+   "name": "H8 the billing page no longer shows a cancellation",
+   "status": "FAIL",
+   "detail": ""
+  },
+  {
+   "name": "H9 no event in this window failed or stayed unprocessed; a duplicate delivery would have been a no-op",
+   "status": "PASS",
+   "detail": "1 events: 04:15:41 customer.subscription.updated:processed attempts=0"
+  },
+  {
+   "name": "H-ERROR",
+   "status": "FAIL",
+   "detail": "Cannot read properties of null (reading 'customer')"
+  }
+ ]
+}

@@ -1,0 +1,51 @@
+{
+  "operation_id": "25acbfb9-9969-44b1-8b45-928d71f99ad6",
+  "checks": {
+    "sandbox": true,
+    "payment_paid": true,
+    "recorded_owner_exists": true,
+    "identity_after_operation": true,
+    "buyer_signed_out": true,
+    "identity_owns_nothing": true
+  },
+  "runs": [
+    {
+      "exit": 0,
+      "result": {
+        "status": 200,
+        "body": {
+          "result": "provisioned",
+          "before": "attention",
+          "after": "provisioned",
+          "lastErrorCode": null,
+          "accountId": "649f64d3-f9b3-466f-84de-383065445517",
+          "businessId": "c44477bf-2523-4074-806b-366e8086d1ae"
+        }
+      }
+    },
+    {
+      "exit": 0,
+      "result": {
+        "status": 200,
+        "body": {
+          "result": "provisioned",
+          "before": "provisioned",
+          "after": "provisioned",
+          "lastErrorCode": null,
+          "accountId": "649f64d3-f9b3-466f-84de-383065445517",
+          "businessId": "c44477bf-2523-4074-806b-366e8086d1ae"
+        }
+      }
+    }
+  ],
+  "owner_id": "bb75fc38-f62c-4988-9e4e-6e882d90670f",
+  "created_at": "2026-11-16T06:04:42.035Z",
+  "identity_created_at": "2026-11-16T06:08:35.982Z",
+  "after": {
+    "status": "provisioned",
+    "last_error_code": null,
+    "owner_user_id": "bb75fc38-f62c-4988-9e4e-6e882d90670f",
+    "account_id": "649f64d3-f9b3-466f-84de-383065445517",
+    "business_id": "c44477bf-2523-4074-806b-366e8086d1ae"
+  }
+}

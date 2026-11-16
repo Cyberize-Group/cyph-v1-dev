@@ -1,0 +1,452 @@
+{
+ "generated_at": "2026-11-16T04:13:03.849824+00:00",
+ "run": "r03",
+ "repos": {
+  "owedbook": {
+   "records_parent": "base",
+   "path": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev",
+   "branch": "qa/apbm-007a",
+   "base": "37f6c0dd63f7a087ec44dd9d3ef79b74bb203f40",
+   "product": [],
+   "records": [
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/AMENDMENT_LEDGER.md",
+     "change": "M",
+     "sha256": "cb8af7d2e144364da1fe6b505bc2a973caf9e16ce79f876154e1b15b432e6b59",
+     "blob": "8505aaf6d9a67d7ffc1e98f73fd0798edbc6ffc8",
+     "bytes": 2942
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_JOURNAL.md",
+     "change": "M",
+     "sha256": "5b54af699fed25c49d2f3b56e991b40f44f8285801438a72bcdb1e17a61b65d4",
+     "blob": "c87e1d7e2ddcdd29ae153bd74fd2c6d80aaf98a7",
+     "bytes": 16226
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_RULINGS.md",
+     "change": "M",
+     "sha256": "5eab2926a7ab363c02b99bde3f84ab198174acb780b9993245625d26c89e763e",
+     "blob": "f06ce9792f2647291445b265ab7601329bd8ae79",
+     "bytes": 15505
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_STATE.md",
+     "change": "M",
+     "sha256": "db4a711664895cf7082de37055a09b108eee94084b674db80ef0e6cfc4baa051",
+     "blob": "f9a8512868de87e354e5415bb405d4eae7a5924b",
+     "bytes": 22867
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/QA_HANDOFF.md",
+     "change": "M",
+     "sha256": "1e2aa303c0ee0c09beb0e006cb9ab7dce4110c638c88a337850bfadbc93d1f7a",
+     "blob": "0a1202dfed27fd65c8b760b39ce0c0de9d754e25",
+     "bytes": 5079
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/REPAIR_F-Q2.md",
+     "change": "A",
+     "sha256": "0c616be7365a99e55c922c8ee0dd4f83cbb95c6926e966c3a1cd5ccee83a0d56",
+     "blob": "8bdcce001814804e017a9a47e60501d7c7efb1df",
+     "bytes": 17874
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/browser/1-first-arrival.png",
+     "change": "A",
+     "sha256": "d68a6ec3252e2e4c1aa7a7015484eef8e6c044800524e5582475ae7ffcf4d1a1",
+     "blob": "9a5a06239cfdc7e411cd793ed06b9ac244140458",
+     "bytes": 100768
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/browser/2-after-refresh.png",
+     "change": "A",
+     "sha256": "d68a6ec3252e2e4c1aa7a7015484eef8e6c044800524e5582475ae7ffcf4d1a1",
+     "blob": "9a5a06239cfdc7e411cd793ed06b9ac244140458",
+     "bytes": 100768
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/browser/3-after-pharmacy-edit.png",
+     "change": "A",
+     "sha256": "2a0c9c724cbb262d7e45cc13176b23d636d28a5d1ea693b908a12a85eebd8e27",
+     "blob": "b030b28bb8cf10cda4aae30d1436b78d6efb06b0",
+     "bytes": 101028
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/browser/4-after-edit-back-return.png",
+     "change": "A",
+     "sha256": "2a0c9c724cbb262d7e45cc13176b23d636d28a5d1ea693b908a12a85eebd8e27",
+     "blob": "b030b28bb8cf10cda4aae30d1436b78d6efb06b0",
+     "bytes": 101028
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/browser/walk.json",
+     "change": "A",
+     "sha256": "015f83a53b0751f3f5e3a7e4e1260cf76a98d190371104a007b710de1c0df43e",
+     "blob": "5ea8cb8193e3f6acb45ef5fc90a0dd8ac1feb422",
+     "bytes": 8356
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/build_proof_pp.log",
+     "change": "A",
+     "sha256": "f70d667f49b749c4fd2b0d78929a95a3750b829854e63a15f5c1a5542ab7d4a3",
+     "blob": "ba8e90e847798217674b9f90fc8afba645270a51",
+     "bytes": 1543
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/bundle_scan.json",
+     "change": "A",
+     "sha256": "ddb17d83a16dec1b34763c1bd9fa5042996a64a7a11ada25ed7c8cb0c8e789c6",
+     "blob": "4a4baa03c8136fcf297279b2c2e58a8a047d81e4",
+     "bytes": 310
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/focused_tests.json",
+     "change": "A",
+     "sha256": "d334c0fc54d65cd2aeb1226784a2ed4e6dc7d4a669b4fb8d96fe90dc02a17bdc",
+     "blob": "eb03dfe503f22c285c75cf6a9c2a8ef1fafdbac7",
+     "bytes": 12534
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/helpers/bundle-scan.mjs",
+     "change": "A",
+     "sha256": "259dddff4cd36c7fbdfa5599c0863cf93a86d019f03f1e6a99094fe4231edc3f",
+     "blob": "db9f11923e595f507a4d3b3d2d9ec4d98a8a15c1",
+     "bytes": 909
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/helpers/walk-registration.mjs",
+     "change": "A",
+     "sha256": "b021430e06880f80c9a7692174b1f31e1fc6badf480fcb17c5d4b40f545d2629",
+     "blob": "dad2b8e65bf756c1af929aa5b6a11d42fa53320d",
+     "bytes": 8970
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/helpers/with-env.mjs",
+     "change": "A",
+     "sha256": "3cdfb582137e4399bdc81fab55e67b278f474f97ebcce4590c64b7c022430ea7",
+     "blob": "1c4886b1a750e392b981c2f8e15b5c084097c0d6",
+     "bytes": 854
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/mutation_controls.txt",
+     "change": "A",
+     "sha256": "763c18cde75b461f24c25d9f7707b09daf2d980bcc900d0172e0471fb2dcbb0e",
+     "blob": "94b8439e539ac08cacf3b34ea69f671c64eeeb31",
+     "bytes": 4649
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/product.patch",
+     "change": "A",
+     "sha256": "7dd89a125981a8f5cc93ae455097572ab24332f353344b49bff5b2006aefdc00",
+     "blob": "3860552e0f1078402471d51002cef19d3bfc48e9",
+     "bytes": 26182
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/proof_harness.patch",
+     "change": "A",
+     "sha256": "5fc35f021bf47af319a6066c8f4eee4f3be5cee0cfd0bcb97d31929a067a2ff8",
+     "blob": "3842c260223428b98f322f1d5cc0a2344f80ddea",
+     "bytes": 607
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/proof_server_3101.log",
+     "change": "A",
+     "sha256": "f7fd6347f610a04403828b8b3e1ee74d69e3a4428965fcd4e4ac86d9f2a744d0",
+     "blob": "4a5b40b0a9adffba300dd80a8748d80120bb3336",
+     "bytes": 276
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/provenance.json",
+     "change": "A",
+     "sha256": "49a0f636c6e3b2bb85a0bbfc2fc5c6c869483654b7d99b7c51af83f640063aa9",
+     "blob": "f5b176fe0eddc4d109d127df212af16ec0134c95",
+     "bytes": 4375
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/qa_preservation.json",
+     "change": "A",
+     "sha256": "98e7ef1b1ae18a1092b4d304e876bd31862667f27ee1ee9c3474a2b57d8c9c59",
+     "blob": "bf93a622efb2f79c0bb3591b71897e3b961621bf",
+     "bytes": 1800
+    }
+   ]
+  },
+  "portal": {
+   "records_parent": "product",
+   "path": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-payment-portal-dev-v1",
+   "branch": "qa/apbm-007a",
+   "base": "9d938f62bff6172f9332ae6c67775e4b8feea379",
+   "product": [
+    {
+     "path": "src/__tests__/apbm007a-server.test.ts",
+     "change": "M",
+     "sha256": "dca8e91a6cc8c97568cb615a41344314358439d203686cebdb6658738db9ba03",
+     "blob": "2f0d629f13b86cb3c9304d07e5484edca2e9d406",
+     "bytes": 24337
+    },
+    {
+     "path": "src/__tests__/portal-owner.test.tsx",
+     "change": "M",
+     "sha256": "ff5905011b4932362784b8e2ed9901f488da123f3df75a98152c4d7331436dad",
+     "blob": "4ef2c097c335bc9a2699f44bf6d2e5a2d340662c",
+     "bytes": 11286
+    },
+    {
+     "path": "src/components/portal/register/PharmacyStepView.tsx",
+     "change": "M",
+     "sha256": "6a59849d8ecabaf891398e06eca9a86a51f5ff5fae6bab19e6d76e4c3331768e",
+     "blob": "8a5705646d4e7568b5ed95b0ab4567cb093b21e3",
+     "bytes": 7885
+    },
+    {
+     "path": "src/server/billing.ts",
+     "change": "M",
+     "sha256": "1e6eae2076daa203480cddb55f02e97798548093be69f37fb90bfaafc4eeaebf",
+     "blob": "f135c4d211acb00e3cee817583f2781c766fb15b",
+     "bytes": 8677
+    },
+    {
+     "path": "src/__tests__/portal-registration-journey.test.tsx",
+     "change": "A",
+     "sha256": "ced76353c3f7e57296f16e95dd6679fb2cd0c5fec6d677229fef9376b0dcd8a8",
+     "blob": "eab120eda4970a84dc473d11f7d391a6898d5707",
+     "bytes": 13005
+    }
+   ],
+   "records": [
+    {
+     "path": "RECOVERY.md",
+     "change": "M",
+     "sha256": "e3a9239db97e9bc97c4d3c0932bbf087ca3480914ca65ec2caf11cb1874c3ae5",
+     "blob": "03d51e960d788201cd1aabd1c2308353235ec57c",
+     "bytes": 21402
+    },
+    {
+     "path": "agent_docs/RESPONSES/response_2026-11-16_101138_q2-repair-handback.md",
+     "change": "A",
+     "sha256": "a84151a7788e5bc0173df17f579fd8871b09d6b6c1f65219222aa075049086aa",
+     "blob": "e1a5408b0abfa911268d77f63e1b2c1beaf19097",
+     "bytes": 5800
+    },
+    {
+     "path": "agent_docs/SESSIONS/session_2026-11-16.md",
+     "change": "A",
+     "sha256": "2eaf40c0eb2111effaebe94e082ff1adc3d9b2a7183e32fecc0a9ca1ed6d4976",
+     "blob": "e741f881dd600afc8a7cf6b72490ae8ea1834b0f",
+     "bytes": 2891
+    }
+   ]
+  }
+ },
+ "excluded_qa": {
+  "rule": "Every uncommitted QA path in OwedBook at packaging (5,011) is excluded and must never be staged by these commands. Pathspec lists name only engineering paths; verify_commit.py rejects any staged path outside this manifest.",
+  "total": 5011,
+  "listed_paths": [
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AC_EVIDENCE_MATRIX.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/auth-browser.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/billing-unit.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/browser-banner.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/confirm-switch.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/final-read.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/foreign-live.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/new-owner-retry.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/new-owner.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/npi-concurrency.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/npi-sql.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/pure-pricing.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/readiness.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/reminder-scratch.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/residual.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/signature-live.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/sql-independent.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/tenant-readonly.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/webhook-independent.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build_clean_retry.py",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build_retry.py",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/builds.py",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/network-guard.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/FINDINGS.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_APPLY_REVIEW_r01.zip",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_B1_REVIEW_a01.receipt.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_B1_REVIEW_a01.zip",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01.zip",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r2.zip",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r3.zip",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r4.zip",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r5.zip",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E1_REVIEW_a01_r6.zip",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E2_ENGINEERING_r01.zip",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E2_ENGINEERING_r02.zip",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q1_REVIEW_a01.receipt.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q1_REVIEW_a01.zip",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q1_REVIEW_a02.receipt.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q1_REVIEW_a02.zip",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q2_REVIEW_a01.receipt.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q2_REVIEW_a01.zip",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q2_STOP-001_REVIEW_a01.receipt.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q2_STOP-001_REVIEW_a01.zip",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q2_STOP-002_REVIEW_a01.receipt.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q2_STOP-002_REVIEW_a01.zip",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/REVIEW_START_HERE.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/LEAD_REVIEW_ITEMS.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_APPROVAL.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_CLEANUP_REPORT.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_EXECUTION_REPORT.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_RECON_REPORT.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_STATE.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_TEST_PLAN.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/B1/REPORT.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/B1/binding_result.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/B1/bootstrap_seed_inventory.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/B1/cast.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/B1/fixture_manifest.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/B1/listener_sources.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/B1/manifest.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/B1/runtime.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a01/contract_hashes.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a01/identity.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a01/packaging_controls.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a01/preserved_archives.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/AC_EVIDENCE_MATRIX.md.diff",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/QAM_RECON_REPORT.md.diff",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/QAM_STATE.md.diff",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/QAM_TEST_PLAN.md.diff",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/a01_AC_EVIDENCE_MATRIX.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/a01_QAM_RECON_REPORT.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/a01_QAM_STATE.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/a01_QAM_TEST_PLAN.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/browsers.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/browsers_recheck.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/build_clean_retry_results.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/build_results.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/build_retry_results.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/cast_schema.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/cast_status.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/contract_hashes.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/credential_schema.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/database.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/export_controls.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/guard-control-r2.jsonl",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/guard-control.jsonl",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/guard-controls-r2.txt",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/guard-controls.txt",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/isolation.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/listener.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/listener_repaired.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/network-guard-v1.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/owedbook-build-r2.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/owedbook-build-r3.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/owedbook-build.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/owedbook-install.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/owedbook-lint.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/owedbook-network.jsonl",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/owedbook-typecheck.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/owedbook-unit.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/plan_sha256.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/portal-build-r2.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/portal-build-r3.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/portal-build.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/portal-install.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/portal-lint.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/portal-network.jsonl",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/portal-typecheck.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/portal-unit.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/processes.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/readiness.cjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/repaired_identity.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/runtime_repaired.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/owedbook-build-r2.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/owedbook-build-r3.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/owedbook-build.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/owedbook-install.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/owedbook-lint.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/owedbook-typecheck.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/owedbook-unit.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/portal-build-r2.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/portal-build-r3.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/portal-build.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/portal-install.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/portal-lint.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/portal-typecheck.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/sanitized_logs/portal-unit.log",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q1/a02/working_plan_hash.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/STOP-001/REPORT.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/STOP-001/seed-reset.mjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/STOP-001/seed-run.mjs",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/STOP-001/timestamp.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/STOP-002/PharmacyStepView.tsx",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/STOP-002/REPORT.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/STOP-002/ReviewView.tsx",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/STOP-002/observed_at.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/STOP-002/useRegistrationDraft.ts",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/access-hook-unit.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/auth-browser.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/billing-independent.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/boundary-http.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/browser-banner.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/confirm-switch.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/effect-ledger.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/execution-coverage.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/export-payload.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/export-validation.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/final-dev-observation.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/final-identity.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/foreign-live.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/helper-corrections.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/identity-contract.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/independent-readonly.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/logout-residual.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/new-owner-alert.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/new-owner-attempt1.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/new-owner-db-observation.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/new-owner-runtime-observation.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/new-owner.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/npi-attempt1.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/npi-concurrency.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/npi-independent.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/operator-live.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/pre-final-AC_EVIDENCE_MATRIX.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/pre-final-FINDINGS.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/pre-final-QAM_EXECUTION_REPORT.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/pre-final-QAM_STATE.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/privacy-value-scan.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/privilege-scope-review.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/pure-pricing.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/reminder-scratch.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/sample-loader-gap.md",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/scratch-final-id-diff.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/scratch-prewrite-ids.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/signature-live.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/sql-independent.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/tenant-direct-select-attempt.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/tenant-readonly.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/webhook-independent-attempt1.json",
+   "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/Q2/a01/webhook-independent.json"
+  ],
+  "regenerable_trees": [
+   {
+    "root": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/.npm/",
+    "files": 1701,
+    "paths_sha256": "071242d6c3f6f279c0dcba3f340dc99bd7d147767807ffd9b2ed2f886fa5bbe7"
+   },
+   {
+    "root": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-owedbook/",
+    "files": 1521,
+    "paths_sha256": "ff2276eabafe2193f03da045b75787631710f28baeaa2d38f17626af299601e4"
+   },
+   {
+    "root": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/",
+    "files": 1609,
+    "paths_sha256": "695a2cb39bb4473f9322a2eb8222b543e73213775b06bd2c82b367a9ae4566ea"
+   }
+  ],
+  "full_checksums": "private backup ~/APBM007A_QA_BACKUPS/q2_r03_20261116_100605/SHA256SUMS.before"
+ },
+ "outside_repos_never_committed": [
+  ".env.local (both repos), portal .env.qa.local, private inbox and QA cast files",
+  "work lane ARCHIVE/APBM007A_E2_WORK/r03/ (disposable copies, proof build, helpers)",
+  "private QA backup ~/APBM007A_QA_BACKUPS/",
+  "the review ZIP and its receipt in QAM/HANDOFFS/ (derived archive, uncommitted like earlier review ZIPs)"
+ ]
+}

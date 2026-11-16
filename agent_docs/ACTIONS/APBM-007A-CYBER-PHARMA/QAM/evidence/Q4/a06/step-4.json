@@ -1,0 +1,39 @@
+{
+  "step": 4,
+  "observed_at": "2026-11-16T08:13:32.160Z",
+  "provider_reads_only": true,
+  "director_observation": "Stripe portal Delete disabled for only card; no card mutation made",
+  "limitations": "API readback proves current attached/default state, not disabled browser control or historical absence of every mutation.",
+  "results": [
+    {
+      "operation_id": "1e59cf3b-ca6b-4873-804f-8c087fd13489",
+      "subscription_id": "sub_1UcKMSGnEQDyu3RRx5DLB8cC",
+      "status": "active",
+      "attached_card_count": 1,
+      "more_cards": false,
+      "subscription_default_present": true,
+      "customer_default_present": false,
+      "default_is_attached_card": true
+    },
+    {
+      "operation_id": "25acbfb9-9969-44b1-8b45-928d71f99ad6",
+      "subscription_id": "sub_1UcJ5dGnEQDyu3RRIaYl4Byz",
+      "status": "active",
+      "attached_card_count": 1,
+      "more_cards": false,
+      "subscription_default_present": true,
+      "customer_default_present": false,
+      "default_is_attached_card": true
+    },
+    {
+      "operation_id": "d1c76239-cdfa-4c60-9304-aa397eade5cb",
+      "subscription_id": "sub_1UcJ74GnEQDyu3RR1jv0xTGw",
+      "status": "active",
+      "attached_card_count": 1,
+      "more_cards": false,
+      "subscription_default_present": true,
+      "customer_default_present": false,
+      "default_is_attached_card": true
+    }
+  ]
+}

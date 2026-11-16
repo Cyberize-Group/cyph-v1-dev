@@ -1,0 +1,40 @@
+{
+  "drafts": [
+    {
+      "id": "fc74cf41-9d7e-4909-8d7a-35190bec6ecf",
+      "status": "draft",
+      "npi": "1997131309",
+      "owner_saved": true,
+      "pharmacy_saved": true,
+      "quote_total_cents": null
+    },
+    {
+      "id": "7b0cd258-1d0e-4c35-ad21-418c5557eb57",
+      "status": "draft",
+      "npi": "1997131408",
+      "owner_saved": true,
+      "pharmacy_saved": true,
+      "quote_total_cents": null
+    }
+  ],
+  "events": [
+    {
+      "event_id": "evt_1UbBtoGnEQDyu3RRkNvmPQOh",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0
+    },
+    {
+      "event_id": "evt_1UbBysGnEQDyu3RRLFtpQcZB",
+      "status": "processed",
+      "error_code": null,
+      "attempts": 0
+    },
+    {
+      "event_id": "evt_QA007AIndependentSignature01",
+      "status": "ignored",
+      "error_code": "unsupported",
+      "attempts": 0
+    }
+  ]
+}

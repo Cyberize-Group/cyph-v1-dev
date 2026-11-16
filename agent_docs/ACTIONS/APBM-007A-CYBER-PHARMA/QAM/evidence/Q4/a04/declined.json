@@ -1,0 +1,12 @@
+{
+  "journey": "declined",
+  "npi": "1941161303",
+  "stage": "after_payment",
+  "checkout_submits": 1,
+  "payment_submits": 1,
+  "sandbox_account_match": true,
+  "standard_total": "$99.00",
+  "discounted_total": "$89.10",
+  "host": "checkout.stripe.com",
+  "path": "/c/pay/cs_test_a08HGAsIwvenZddskjaQn2GlAKjUIZFeD7IHyDVRwt01dhL0AhSe4ZkOZ9"
+}

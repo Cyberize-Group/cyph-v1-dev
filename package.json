@@ -23,7 +23,8 @@
     "seed:reset": "node scripts/seed/reset.mjs",
     "seed:verify": "node scripts/seed/verify.mjs",
     "seed:scan": "node scripts/seed/identity-scan.mjs",
-    "seed:mocks": "node scripts/seed/generate.mjs --write-mocks"
+    "seed:mocks": "node scripts/seed/generate.mjs --write-mocks",
+    "seed:sample-claims": "node scripts/seed/sample-claims.mjs"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",

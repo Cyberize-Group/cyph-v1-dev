@@ -1,0 +1,38 @@
+{
+  "schema_expected": "role-labeled EMAIL/PASSWORD fields; no values exported",
+  "roles": {
+    "OWNER1": {
+      "email_field_present": false,
+      "password_field_present": false
+    },
+    "OWNER3": {
+      "email_field_present": false,
+      "password_field_present": false
+    },
+    "ADMIN_B2": {
+      "email_field_present": false,
+      "password_field_present": false
+    },
+    "ADMIN_B3": {
+      "email_field_present": false,
+      "password_field_present": false
+    },
+    "MEMBER_B1": {
+      "email_field_present": false,
+      "password_field_present": false
+    },
+    "MEMBER_B2B3": {
+      "email_field_present": false,
+      "password_field_present": false
+    },
+    "UNRELATED": {
+      "email_field_present": false,
+      "password_field_present": false
+    },
+    "OWNER_2": {
+      "email_field_present": false,
+      "password_field_present": false
+    }
+  },
+  "limitation": "A nonmatching private schema requires a reviewed loader; no login performed"
+}

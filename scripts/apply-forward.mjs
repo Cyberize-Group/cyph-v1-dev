@@ -22,7 +22,7 @@ async function main(){
  try{await client.connect();await client.query("SET statement_timeout='120s'");await client.query("SET lock_timeout='5s'");
  const locked=(await client.query("select pg_try_advisory_lock(342003,1) as locked")).rows[0].locked;if(!locked)throw new Error('another APBM migration runner holds the lock');
  if(command==='scratch-reset'){
-  await client.query('BEGIN');await client.query('DROP EVENT TRIGGER IF EXISTS ensure_rls; DROP SCHEMA IF EXISTS apbm_migrations CASCADE; DROP SCHEMA public CASCADE; CREATE SCHEMA public;');
+  await client.query('BEGIN');await client.query('DROP EVENT TRIGGER IF EXISTS ensure_rls; DROP SCHEMA IF EXISTS apbm_migrations CASCADE; DROP SCHEMA IF EXISTS handoff CASCADE; DROP SCHEMA public CASCADE; CREATE SCHEMA public;');
   await client.query(`GRANT USAGE ON SCHEMA public TO postgres,anon,authenticated,service_role; ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO postgres,anon,authenticated,service_role; ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON FUNCTIONS TO postgres,anon,authenticated,service_role; ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO postgres,anon,authenticated,service_role;`);
   await client.query(readFileSync(join(repoRoot,'scripts/db-bootstrap-baseline.sql'),'utf8'));await client.query('COMMIT');
  }

@@ -1,0 +1,38 @@
+{
+ "environment": "SCRATCH (ihgcsrypblqkwommrkgj), single transaction, rolled back",
+ "source": "candidate checkout.ts 4cd96c8 swapped into the copy (control)",
+ "provider": "modelled Stripe (same semantics as the unit suite)",
+ "scenarios": [
+  {
+   "title": "lost session answer, then a retry with a different key: one customer, one session, one operation",
+   "status": "FAIL",
+   "error": "Expected values to be strictly equal:\n\n2 !== 1\n"
+  },
+  {
+   "title": "same-key retry after a lost session answer, seconds later: original session returned",
+   "status": "FAIL",
+   "error": "provider_unavailable"
+  },
+  {
+   "title": "lost session answer, draft edited, different key: earlier attempt settled with Stripe, same customer, one open operation",
+   "status": "FAIL",
+   "error": "The expression evaluated to a falsy value:\n\n  assert.ok(ops[0].stripe_checkout_session_id)\n"
+  },
+  {
+   "title": "no recorded session: proveUnpaidAndRelease keeps the operation and its reservation",
+   "status": "FAIL",
+   "error": "Expected values to be strictly equal:\n\n'released' !== 'kept'\n"
+  }
+ ],
+ "auth_reads": 0,
+ "auth_writes": 0,
+ "network_calls": 0,
+ "target": {
+  "database": "postgres",
+  "project_ref_in_url": true,
+  "checkout_operations_before": 14
+ },
+ "rolled_back": true,
+ "engineering_rows_after_rollback": 0,
+ "ran_at": "2026-11-16T05:47:14.159Z"
+}

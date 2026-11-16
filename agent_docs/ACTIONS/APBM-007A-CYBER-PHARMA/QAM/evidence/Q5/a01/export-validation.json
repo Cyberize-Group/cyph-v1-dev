@@ -1,0 +1,14 @@
+{
+  "credential_value_scan": "Completed BEFORE deletion;392retainedfiles/27archives/2755expandedmembers;1helperredacted,2immutablearchivesquarantined",
+  "credential_source_absent": true,
+  "fresh_post_deletion_full_value_scan_claimed": false,
+  "pattern_clean_poison_controls": "PASS",
+  "selected_expanded_archive_pattern_scan": "PASS after exportcopyredaction",
+  "index_hash_size_membership": "PASS",
+  "safe_unique_paths_symlinks": "PASS",
+  "ZIP_integrity": "PASS",
+  "no_nested_priorZIPs": true,
+  "certificate_verbatim": "PASS",
+  "r06_not_retested": true,
+  "generated_at": "2026-11-16T09:27:56.363631+00:00"
+}

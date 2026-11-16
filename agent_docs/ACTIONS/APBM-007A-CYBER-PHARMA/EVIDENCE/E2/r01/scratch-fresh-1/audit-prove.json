@@ -1,0 +1,11 @@
+{
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "status": "FAIL",
+  "results": [
+    {
+      "name": "fenced replay",
+      "exit": 1
+    }
+  ],
+  "credentialFile": "/tmp/apbm007a-e2-scratch-f1-1794480492.json"
+}

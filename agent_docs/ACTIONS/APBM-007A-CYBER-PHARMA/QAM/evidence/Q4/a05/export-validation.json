@@ -1,0 +1,19 @@
+{
+  "selected_privacy": "PASS",
+  "expanded_zip_privacy": "PASS",
+  "clean_actual_value_and_pattern_poison_controls": "PASS",
+  "client_files_scanned": 76,
+  "client_scan": "PASS (current served bundles, not repaired live attestation)",
+  "zip_integrity": "PASS",
+  "index_hash_size_membership": "PASS",
+  "safe_unique_paths": "PASS",
+  "no_nested_zips": true,
+  "redacted_copies": [],
+  "candidate_pair": [
+    "c976968b20ee724f7390d5e0e008215f50ab6f25",
+    "54a56b55ea7c72783d17d06ff45cd27b5426803f"
+  ],
+  "plan_sha256": "2ffbfd8b12b195b06b0e278f2fd487904d338bb0fda2de4c738fbdb2d6c39672",
+  "scope": "Q4 a05 provisioning retest; Lead adjudication/Director session pending",
+  "time_utc": "2026-11-16T07:33:30.346651+00:00"
+}

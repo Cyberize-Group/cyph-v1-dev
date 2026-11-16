@@ -1,0 +1,38 @@
+{
+  "files": [
+    {
+      "path": "scripts/db-bootstrap-baseline.sql",
+      "size": 4119,
+      "sha256": "52324e91e877079ef26861d6fb7b74df394a4baf1901dc45a37f312d608fd144"
+    },
+    {
+      "path": "scripts/seed/generate.mjs",
+      "size": 5662,
+      "sha256": "2bab62bfe072039a9349ce3ee12336ca1c4509de1fddd0eb01e9524fd1ea1955"
+    },
+    {
+      "path": "scripts/seed/run.mjs",
+      "size": 6043,
+      "sha256": "7937210a0bf6cf5d252588f0adb058d56e4623ee56b11da16b470fda0787e987"
+    },
+    {
+      "path": "scripts/seed/reset.mjs",
+      "size": 2345,
+      "sha256": "1d3c6c3a9a1fd4dcbd0a3b901236036dc8155408b8d2b8a8de0836c3b7fae337"
+    },
+    {
+      "path": "scripts/seed/verify.mjs",
+      "size": 5387,
+      "sha256": "f9edcc243f0b6ece844ebf0c5d94844c3f03abf59d09bf7a4793c38e1b60f895"
+    }
+  ],
+  "seed_contract": {
+    "users": 7,
+    "stores": 5,
+    "accounts": 3,
+    "subscriptions": 3,
+    "claims": 250,
+    "audited_inserts": 285
+  },
+  "limitation": "Source inventory and current SQL counts only; no seed/reset run. Full proposed per-cycle insertion/deletion bounds require Lead approval."
+}

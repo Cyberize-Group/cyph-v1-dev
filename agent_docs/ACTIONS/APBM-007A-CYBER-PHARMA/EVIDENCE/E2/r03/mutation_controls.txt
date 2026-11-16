@@ -1,0 +1,58 @@
+APBM007A r03 poison controls — 2026-11-16T03:42:06Z. Each change is made to the fixed file in the disposable copy, the named suites are run, and the fixed file is restored.
+
+## baseline (fixed)
+Tests:       69 passed, 69 total
+
+## M1 PharmacyStepView as in candidate 9d938f6
+  ● PharmacyStepView — one pharmacy, saved with the owner › saves owner and pharmacy in one request, then goes to review
+  ● registration journey — a first registration reaches review (F-Q2-001) › edit from review, change a detail and return: review shows the new saved value and a new quote
+  ● registration journey — a first registration reaches review (F-Q2-001) › owner, then pharmacy, lands on review with the server quote; nothing sends the browser back
+  ● registration journey — a first registration reaches review (F-Q2-001) › the saved details survive a refresh of the review page
+Tests:       4 failed, 17 passed, 21 total
+
+## M2 fix without the saved guard (server draft adopted only) — equivalent, no failure expected
+Tests:       21 passed, 21 total
+
+## M3 fix without adopting the server draft (guard only) — equivalent, no failure expected
+Tests:       21 passed, 21 total
+
+## M4 owner guard removed entirely (incomplete registration let through)
+  ● PharmacyStepView — one pharmacy, saved with the owner › without owner details it goes back to the owner step
+  ● registration journey — incomplete registrations still cannot reach review › the pharmacy step opened with no owner details goes to the owner step
+Tests:       2 failed, 19 passed, 21 total
+
+## M5 billing.ts as in candidate 9d938f6
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › a failure after the flag is cleared is reported, and a retry clears the remaining date with a new key
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › a failure on the first update changes nothing, and a retry clears both
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › both fields set and the provider keeps the date: clears the flag, re-reads, clears the date, re-reads
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › does not claim success when the date is still set after both updates
+Tests:       4 failed, 44 passed, 48 total
+
+## M6 both parameters sent in one update
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › a failure after the flag is cleared is reported, and a retry clears the remaining date with a new key
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › a failure on the first update changes nothing, and a retry clears both
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › both fields set and the provider clears the date with the flag: one update, no second one
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › both fields set and the provider keeps the date: clears the flag, re-reads, clears the date, re-reads
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › clears the flag when the flag is what is set
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › does not claim success when the date is still set after both updates
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › flag only: sends exactly the update that state needs and ends clear
+Tests:       7 failed, 41 passed, 48 total
+
+## M7 no re-read between the two updates
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › both fields set and the provider clears the date with the flag: one update, no second one
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › both fields set and the provider keeps the date: clears the flag, re-reads, clears the date, re-reads
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › flag only: sends exactly the update that state needs and ends clear
+Tests:       3 failed, 45 passed, 48 total
+
+## M8 idempotency key no longer unique per update
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › a failure after the flag is cleared is reported, and a retry clears the remaining date with a new key
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › a second undo of the same schedule uses a new idempotency key (a reused key would be replayed by Stripe and change nothing)
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › both fields set and the provider keeps the date: clears the flag, re-reads, clears the date, re-reads
+Tests:       3 failed, 45 passed, 48 total
+
+## M9 success claimed without the final check
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › does not claim success when the date is still set after both updates
+  ● owner billing (AC-027, RA-2, RA-4, RA-5) › does not report success while a schedule is still set after the update
+Tests:       2 failed, 46 passed, 48 total
+
+Both files restored byte for byte.

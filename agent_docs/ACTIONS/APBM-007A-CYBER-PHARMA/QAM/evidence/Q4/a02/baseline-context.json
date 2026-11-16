@@ -1,0 +1,7 @@
+{
+  "archive_source_product_commit": "4cd96c82da59a093d1330307f5a27836b17f1df5",
+  "recorded_execution_HEAD": "357c274284f48ed5ad3bf8407ca0a14d0d9b99e8",
+  "baseline": "install --ignore-scripts; typecheck; lint; 429 tests/21 suites; production build all exit0",
+  "guard": "placeholder qa.invalid settings, no real env files; transport/DNS guard loaded for checks; public registry permitted only for installation",
+  "note": "Maintained suites are baseline, not independent acceptance; same route manifest is insufficient to prove served repair."
+}

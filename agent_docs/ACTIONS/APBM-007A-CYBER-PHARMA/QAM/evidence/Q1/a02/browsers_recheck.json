@@ -1,0 +1,14 @@
+{
+  "chromium": {
+    "available": true,
+    "interaction": true
+  },
+  "firefox": {
+    "available": true,
+    "interaction": true
+  },
+  "webkit": {
+    "available": true,
+    "interaction": true
+  }
+}

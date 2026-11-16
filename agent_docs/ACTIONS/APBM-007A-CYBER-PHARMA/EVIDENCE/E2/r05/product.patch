@@ -1,0 +1,752 @@
+diff --git a/src/__tests__/apbm007a-checkout-recovery.test.ts b/src/__tests__/apbm007a-checkout-recovery.test.ts
+index 90b5f88..c5e1552 100644
+--- a/src/__tests__/apbm007a-checkout-recovery.test.ts
++++ b/src/__tests__/apbm007a-checkout-recovery.test.ts
+@@ -104,6 +104,7 @@ const live = (id: string) => {
+ };
+ const fakeStripe = {
+   accounts: { retrieveCurrent: async () => ({ id: 'acct_unit' }) },
++  promotionCodes: { list: async (p: Row) => ({ data: p.code === 'APA10UNIT' ? [{ id: 'promo_unit', code: 'APA10UNIT', expires_at: null, promotion: { coupon: { valid: true, percent_off: 10 } } }] : [] }) },
+   customers: {
+     create: (params: Row, o: { idempotencyKey: string }) => idem('customer', o.idempotencyKey, params, () => {
+       const c = { id: `cus_M${++P.n}`, object: 'customer', ...params };
+@@ -170,7 +171,7 @@ const releases = () => rpcCalls.filter((c) => c.fn === 'npi_release_unpaid');
+ const unsupportedUnpaid = () => ops().filter((o) => o.status === 'expired_unpaid' && !o.stripe_checkout_session_id);
+ 
+ beforeAll(() => {
+-  Object.assign(process.env, { STRIPE_SECRET_KEY: 'sk_test_unit', STRIPE_PRICE_STORES: 'price_unit', STRIPE_PORTAL_CONFIGURATION: 'bpc_unit', STRIPE_EXPECTED_ACCOUNT: 'acct_unit', STRIPE_WEBHOOK_SECRET: 'whsec_unit', NEXT_PUBLIC_SUPABASE_URL: 'https://unitproject.supabase.co' });
++  Object.assign(process.env, { APA_PROMOTION_CODES: 'APA10UNIT', STRIPE_SECRET_KEY: 'sk_test_unit', STRIPE_PRICE_STORES: 'price_unit', STRIPE_PORTAL_CONFIGURATION: 'bpc_unit', STRIPE_EXPECTED_ACCOUNT: 'acct_unit', STRIPE_WEBHOOK_SECRET: 'whsec_unit', NEXT_PUBLIC_SUPABASE_URL: 'https://unitproject.supabase.co' });
+   jest.spyOn(Date, 'now').mockImplementation(() => clock);
+ });
+ beforeEach(() => {
+@@ -343,6 +344,85 @@ describe('F-Q4-001 — existing protections kept', () => {
+   });
+ });
+ 
++describe('F-Q4-002 — a checkout begun for an earlier revision, quote or consent is never resumed', () => {
++  /** The buyer applies the APA code after the lost attempt: a new revision, quoted at 8910, consent not yet renewed. */
++  const editToDiscount = () => editDraft({ quote_total_cents: 8910, quote_discount_cents: 990, quote_promotion_code: 'APA10UNIT', consent_revision: null });
++  const lostFirstAttempt = async (key = KEY_1) => {
++    P.lose = { kind: 'session', when: 'after' };
++    expect(await codeOf(startCheckout(SECRET, { consents, operationKey: key }, null))).toBe('provider_unavailable');
++    return { ...ops()[0] };
++  };
++
++  it('same-key retry after an edit: the earlier attempt is settled with Stripe, the new one charges the current quote with renewed consent', async () => {
++    const first = await lostFirstAttempt();
++    advance(30);
++    editToDiscount();
++    const { url } = await startCheckout(SECRET, { consents, operationKey: KEY_1 }, null);
++    const [earlier, current] = ops();
++    expect(earlier).toMatchObject({ id: first.id, status: 'expired_unpaid', draft_revision: 1, expected_total_cents: 9900 });
++    expect(P.sessions.get(earlier.stripe_checkout_session_id as string)).toMatchObject({ status: 'expired', amount_total: 9900 });
++    expect(current).toMatchObject({ status: 'checkout_open', draft_revision: 2, expected_total_cents: 8910, promotion_code: 'APA10UNIT', stripe_customer_id: first.stripe_customer_id });
++    expect(String(current.idempotency_key).startsWith(`${KEY_1}_n`)).toBe(true);   // the browser's key still reaches the new attempt
++    const live = P.sessions.get(current.stripe_checkout_session_id as string)!;
++    expect(url).toBe(live.url);
++    expect(live.amount_total).toBe(8910);
++    expect(tables.registration_drafts[0]).toMatchObject({ consent_revision: 2, status: 'checkout_started' });
++    expect({ customers: P.customers.size, sessions: P.sessions.size, operations: ops().length }).toEqual({ customers: 1, sessions: 2, operations: 2 });
++    expect(unsupportedUnpaid()).toEqual([]);
++    // The same key again resumes the new attempt: nothing else is created.
++    expect((await startCheckout(SECRET, { consents, operationKey: KEY_1 }, null)).url).toBe(url);
++    expect({ sessions: P.sessions.size, operations: ops().length }).toEqual({ sessions: 2, operations: 2 });
++  });
++
++  it('different-key retry after an edit behaves the same, and the old Checkout is never returned', async () => {
++    const first = await lostFirstAttempt();
++    editToDiscount();
++    const { url } = await startCheckout(SECRET, { consents, operationKey: KEY_2 }, null);
++    const oldSession = [...P.sessions.values()].find((x) => x.client_reference_id === first.id)!;
++    expect(url).not.toBe(oldSession.url);
++    expect(oldSession.status).toBe('expired');
++    expect(ops()[1]).toMatchObject({ idempotency_key: KEY_2, expected_total_cents: 8910, status: 'checkout_open' });
++    expect(unsupportedUnpaid()).toEqual([]);
++  });
++
++  it('a re-quote without an edit (consent cleared, same revision) also settles the earlier attempt first', async () => {
++    const first = await lostFirstAttempt();
++    Object.assign(tables.registration_drafts[0], { quote_total_cents: 8910, quote_discount_cents: 990, quote_promotion_code: 'APA10UNIT', consent_revision: null });
++    await startCheckout(SECRET, { consents, operationKey: KEY_1 }, null);
++    expect(ops().map((o) => [o.id === first.id, o.status, o.expected_total_cents])).toEqual([[true, 'expired_unpaid', 9900], [false, 'checkout_open', 8910]]);
++  });
++
++  it('without renewed consent nothing happens: refused before any provider call, the earlier attempt untouched', async () => {
++    await lostFirstAttempt();
++    editToDiscount();
++    const calls = { ...P.createCalls };
++    expect(await codeOf(startCheckout(SECRET, { consents: { ...consents, recurringChargeAccepted: false }, operationKey: KEY_1 }, null))).toBe('invalid_input');
++    expect(P.createCalls).toEqual(calls);
++    expect(ops()).toHaveLength(1);
++    expect(ops()[0].status).toBe('created');
++    expect(releases()).toEqual([]);
++  });
++
++  it('a stale attempt whose session was already paid is never released or replaced: it goes on to provisioning', async () => {
++    await startCheckout(SECRET, { consents, operationKey: KEY_1 }, null);
++    const paid = [...P.sessions.values()][0];
++    Object.assign(paid, { status: 'complete', payment_status: 'paid' });
++    Object.assign(tables.registration_drafts[0], { revision: 2, quote_revision: 2, consent_revision: null, status: 'draft' });   // a state an older build could leave
++    expect(await codeOf(startCheckout(SECRET, { consents, operationKey: KEY_2 }, null))).toBe('operation_in_progress');
++    expect(ops()).toHaveLength(1);
++    expect(ops()[0].status).toBe('checkout_open');
++    expect(releases()).toEqual([]);
++  });
++
++  it('an unchanged checkout keeps F-Q4-001 recovery: one customer, one session, one operation', async () => {
++    const first = await lostFirstAttempt();
++    const { url } = await startCheckout(SECRET, { consents, operationKey: KEY_1 }, null);
++    expect(url).toBe([...P.sessions.values()][0].url);
++    expect(ops()).toEqual([expect.objectContaining({ id: first.id, idempotency_key: KEY_1, status: 'checkout_open' })]);
++    expect({ customers: P.customers.size, sessions: P.sessions.size }).toEqual({ customers: 1, sessions: 1 });
++  });
++});
++
+ describe('F-Q4-001 — release requires provider proof', () => {
+   it('an operation with no recorded session is never released as unpaid', async () => {
+     P.lose = { kind: 'session', when: 'after' };
+diff --git a/src/__tests__/apbm007a-mail-guard.test.ts b/src/__tests__/apbm007a-mail-guard.test.ts
+index b18fc9d..459e20e 100644
+--- a/src/__tests__/apbm007a-mail-guard.test.ts
++++ b/src/__tests__/apbm007a-mail-guard.test.ts
+@@ -21,7 +21,7 @@ function builder(table: string) {
+   const match = () => tables[table].filter((r) => filters.every(([k, v]) => r[k] === v));
+   const run = () => {
+     if (mode === 'insert') { const row = { id: 'n1', attempts: 0, updated_at: new Date(0).toISOString(), ...payload }; tables[table].push(row); return { data: row, error: null }; }
+-    if (mode === 'update') { match().forEach((r) => Object.assign(r, payload)); return { data: null, error: null }; }
++    if (mode === 'update') { const hit = match(); hit.forEach((r) => Object.assign(r, payload)); return { data: hit[0] ?? null, error: null }; }   // like the real client: the updated row
+     return { data: match()[0] ?? null, error: null };
+   };
+   const api: Record<string, unknown> = {
+diff --git a/src/server/accessEmail.ts b/src/server/accessEmail.ts
+index cede19a..e9ecd87 100644
+--- a/src/server/accessEmail.ts
++++ b/src/server/accessEmail.ts
+@@ -5,5 +5,9 @@ import { createClient } from '@supabase/supabase-js';
+ export async function sendSignInLink(email: string, redirectTo: string): Promise<{ ok: boolean; code?: string }> {
+   const anon = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!, { auth: { autoRefreshToken: false, persistSession: false } });
+   const sent = await anon.auth.signInWithOtp({ email, options: { shouldCreateUser: false, emailRedirectTo: redirectTo } });
+-  return sent.error ? { ok: false, code: String(sent.error.status ?? sent.error.code ?? 'error').slice(0, 40) } : { ok: true };
++  if (!sent.error) return { ok: true };
++  // Keep Auth's error code with the status (for example 429:over_email_send_rate_limit), so a failure can be traced to
++  // the limit that produced it. Codes are fixed identifiers, never an address or a token.
++  const code = (sent.error as { code?: string }).code;
++  return { ok: false, code: `${sent.error.status ?? 'error'}${code ? `:${code}` : ''}`.slice(0, 80) };
+ }
+diff --git a/src/server/checkout.ts b/src/server/checkout.ts
+index dd1b5b4..5590fd7 100644
+--- a/src/server/checkout.ts
++++ b/src/server/checkout.ts
+@@ -2,6 +2,7 @@
+ // The operation is claimed in the database before any Stripe call; customer and session creation use stable
+ // idempotency keys derived from it, with identical parameters on every retry; after a timeout or a lost answer the same
+ // operation is resumed, never duplicated, and never assumed unpaid.
++import { createHash } from 'node:crypto';
+ import type Stripe from 'stripe';
+ import { admin, rpc } from '@/server/db';
+ import { PortalError } from '@/server/errors';
+@@ -20,9 +21,10 @@ export interface OperationRow {
+   status: 'created' | 'checkout_open' | 'paid' | 'provisioning' | 'provisioned' | 'expired_unpaid' | 'attention';
+   stripe_customer_id: string | null; stripe_checkout_session_id: string | null; stripe_subscription_id: string | null;
+   stripe_invoice_id: string | null; checkout_expires_at: string | null; owner_user_id: string | null; owner_was_existing: boolean | null;
++  created_at?: string;
+   account_id: string | null; business_id: string | null; last_error_code: string | null;
+ }
+-export const OP_COLUMNS = 'id,idempotency_key,draft_id,draft_revision,npi,expected_total_cents,expected_price_id,promotion_code,status,stripe_customer_id,stripe_checkout_session_id,stripe_subscription_id,stripe_invoice_id,checkout_expires_at,owner_user_id,owner_was_existing,account_id,business_id,last_error_code';
++export const OP_COLUMNS = 'id,idempotency_key,draft_id,draft_revision,npi,expected_total_cents,expected_price_id,promotion_code,status,stripe_customer_id,stripe_checkout_session_id,stripe_subscription_id,stripe_invoice_id,checkout_expires_at,owner_user_id,owner_was_existing,account_id,business_id,last_error_code,created_at';
+ const OPEN = ['created', 'checkout_open', 'paid', 'provisioning', 'attention'];
+ 
+ export async function loadOperation(id: string): Promise<OperationRow | null> {
+@@ -42,6 +44,24 @@ export async function updateOperation(id: string, patch: Record<string, unknown>
+ 
+ export interface Consents { termsAccepted: boolean; recurringChargeAccepted: boolean; priceChangeAccepted: boolean }
+ 
++/**
++ * The open attempt still describes what the buyer sees now: the same draft revision, the same quoted price and code, and
++ * consent recorded for that revision. An edit (new revision) or a re-quote (consent cleared) makes it stale (F-Q4-002).
++ */
++const stillCurrent = (op: OperationRow, draft: DraftRow): boolean =>
++  op.draft_revision === draft.revision && draft.consent_revision === op.draft_revision && draft.quote_total_cents === op.expected_total_cents
++  && (draft.quote_promotion_code ?? null) === (op.promotion_code ?? null) && draft.quote_price_id === op.expected_price_id;
++
++/**
++ * After a stale attempt is settled, the browser keeps its key, but that key already names the settled operation. The
++ * next attempt is stored under a successor key derived from it, which the same browser key still reaches.
++ */
++const successorKey = (key: string, settled: OperationRow): string => {
++  const k = `${key}_n${settled.id.replace(/-/g, '').slice(0, 8)}`;
++  return k.length <= 128 ? k : createHash('sha256').update(k).digest('hex');
++};
++const sameKey = (op: OperationRow, key: string): boolean => op.idempotency_key === key || op.idempotency_key.startsWith(`${key}_n`);
++
+ /**
+  * Start (or resume) Checkout for the draft. `operationKey` is the browser's stable key for this attempt:
+  * the same key returns the same session; a different key cannot bypass an unresolved operation.
+@@ -60,18 +80,22 @@ export async function startCheckout(secret: string | undefined, input: { consent
+   // Resume: the draft already has an unresolved operation.
+   const current = await latestOperationForDraft(draft.id);
+   let carriedCustomer: string | null = null;
++  let operationKey = input.operationKey;
+   if (current && OPEN.includes(current.status)) {
+-    // With no session recorded, the earlier attempt's outcome at Stripe is unknown: its answer may have been lost after
+-    // Stripe created the customer and the session (F-Q4-001). A missing local reference proves nothing, so a retry with
+-    // any key resumes that same operation, whose idempotency keys return Stripe's original objects.
+-    const outcomeUnknown = current.status === 'created' && !current.stripe_checkout_session_id;
+-    if (current.idempotency_key !== input.operationKey && !outcomeUnknown) throw new PortalError('operation_in_progress', 'different key');
+     if (current.status !== 'created' && current.status !== 'checkout_open') throw new PortalError('operation_in_progress', current.status);
+-    if (current.idempotency_key === input.operationKey || current.draft_revision === draft.revision) {
++    if (!stillCurrent(current, draft)) {
++      // The draft, its quote or its consent changed after that attempt began (F-Q4-002). Its Checkout is not valid for
++      // what the buyer sees now, under any key: settle it with Stripe (released only on proof), then start a new one.
++      carriedCustomer = await settleEarlierAttempt(draft, current);
++      if (sameKey(current, operationKey)) operationKey = successorKey(operationKey, current);
++    } else {
++      // With no session recorded, the attempt's outcome at Stripe is unknown: its answer may have been lost after Stripe
++      // created the customer and the session (F-Q4-001). A missing local reference proves nothing, so a retry with any
++      // key resumes that same operation, whose idempotency keys return Stripe's original objects.
++      const outcomeUnknown = current.status === 'created' && !current.stripe_checkout_session_id;
++      if (!sameKey(current, operationKey) && !outcomeUnknown) throw new PortalError('operation_in_progress', 'different key');
+       return { url: await ensureSession(draft, current) };
+     }
+-    // The draft was edited after that attempt began. Settle it with Stripe first, then start one for this revision.
+-    carriedCustomer = await settleEarlierAttempt(draft, current);
+   }
+   if (draft.status !== 'draft') throw new PortalError('operation_in_progress', `draft is ${draft.status}`);
+   if (!quoteIsCurrent(draft) || draft.quote_price_id !== priceId) throw new PortalError('expired', 'quote');
+@@ -90,7 +114,7 @@ export async function startCheckout(secret: string | undefined, input: { consent
+   if (!consent.data) throw new PortalError('operation_in_progress', 'draft changed concurrently');
+ 
+   const ins = await admin().from('checkout_operations').insert({
+-    idempotency_key: input.operationKey, draft_id: draft.id, draft_revision: draft.revision, npi: draft.npi,
++    idempotency_key: operationKey, draft_id: draft.id, draft_revision: draft.revision, npi: draft.npi,
+     expected_total_cents: draft.quote_total_cents, expected_currency: 'usd', expected_price_id: priceId, promotion_code: draft.quote_promotion_code,
+     ...(carriedCustomer ? { stripe_customer_id: carriedCustomer } : {}),
+   }).select(OP_COLUMNS).maybeSingle();
+@@ -189,15 +213,18 @@ async function ensureSession(draft: DraftRow, op: OperationRow): Promise<string>
+ }
+ 
+ /**
+- * An attempt whose outcome is unknown, for a draft revision that has since changed. Its own idempotency keys return
+- * whatever Stripe created for it (or create it); an open session is expired through Stripe, and the operation is then
+- * released on that proof. Returns the customer, so the next attempt keeps the same one.
++ * An attempt that no longer matches the draft. Its recorded session is read, or, if its outcome is unknown, its own
++ * idempotency keys return whatever Stripe created for it (or create it). An open session is expired through Stripe and
++ * the operation is released only on that proof; a paid one is never released and goes on to provisioning. Returns the
++ * customer, so the next attempt keeps the same one.
+  */
+ async function settleEarlierAttempt(draft: DraftRow, op: OperationRow): Promise<string> {
+   const customerId = await customerFor(draft, op);
+-  const session = await sessionFor(op, customerId);
++  const session = op.stripe_checkout_session_id
++    ? await stripeCall('session read', () => stripe().checkout.sessions.retrieve(op.stripe_checkout_session_id!))
++    : await sessionFor(op, customerId);
+   if (session.status === 'open') await stripeCall('session expire', () => stripe().checkout.sessions.expire(session.id));
+-  await updateOperation(op.id, { stripe_checkout_session_id: session.id });
++  if (!op.stripe_checkout_session_id) await updateOperation(op.id, { stripe_checkout_session_id: session.id });
+   if ((await proveUnpaidAndRelease(op.id)) !== 'released') throw new PortalError('operation_in_progress', 'earlier attempt not provably unpaid');
+   return customerId;
+ }
+diff --git a/src/server/provisioning.ts b/src/server/provisioning.ts
+index 05b04ff..072b3d7 100644
+--- a/src/server/provisioning.ts
++++ b/src/server/provisioning.ts
+@@ -7,22 +7,46 @@ import { sendSignInLink } from '@/server/accessEmail';
+ import { admin, rpc } from '@/server/db';
+ import { logServer, PortalError } from '@/server/errors';
+ import { ownOrigin, peerOrigin } from '@/lib/appIdentity';
+-import { loadOperation, type OperationRow, proveUnpaidAndRelease, updateOperation } from '@/server/checkout';
++import { loadOperation, type OperationRow, proveUnpaidAndRelease } from '@/server/checkout';
+ import { idOf, mirrorPayload } from '@/server/stripeMirror';
+ import { stripe, stripeCall } from '@/server/stripeClient';
+ 
+-const WORKER = `pp-${randomUUID().slice(0, 8)}`;
++// One lease owner per call, never per process. A per-process owner let the webhook deliveries and the status poll that
++// one server process handles share a lease and run at once (F-Q4-003). A competing call waits a bounded time for the
++// holder to finish and then sees its outcome, so concurrent events and polls converge instead of failing as busy.
++const LEASE_SECONDS = 60;
++const LEASE_WAIT_MS = 8_000;
++const LEASE_POLL_MS = 250;
++class LeaseLost extends Error {}
+ export type AdvanceResult = 'provisioned' | 'pending' | 'expired_unpaid' | 'attention' | 'busy' | 'unknown';
+ 
+ interface DraftFacts { id: string; owner_email: string; owner_first_name: string; owner_last_name: string; signed_in_user_id: string | null }
++interface AuthUser { id: string; email?: string; created_at?: string; app_metadata?: Record<string, unknown> }
++
++async function acquireLease(operationId: string, worker: string, waitMs: number): Promise<boolean> {
++  const until = Date.now() + waitMs;
++  for (;;) {
++    if (await rpc<boolean>('operation_lease', { p_operation: operationId, p_owner: worker, p_seconds: LEASE_SECONDS })) return true;
++    if (Date.now() >= until) return false;
++    await new Promise((r) => setTimeout(r, LEASE_POLL_MS));
++  }
++}
++
++/** Write to the operation only while this call still holds its lease. A call that lost it stops and writes nothing. */
++async function leasedUpdate(id: string, worker: string, patch: Record<string, unknown>): Promise<void> {
++  const r = await admin().from('checkout_operations').update(patch).eq('id', id).eq('lease_owner', worker).select('id');
++  if (r.error) throw new PortalError('provider_unavailable', `operation update ${r.error.code}`);
++  if (!r.data || r.data.length === 0) throw new LeaseLost();
++}
++const renewLease = (id: string, worker: string) => leasedUpdate(id, worker, { lease_expires_at: new Date(Date.now() + LEASE_SECONDS * 1000).toISOString() });
+ 
+ /**
+  * Advance one operation as far as the facts allow. Safe to call from the webhook, from the status poll and from the
+  * operator command, concurrently: a bounded lease lets one caller work and the database step is exactly-once.
+  */
+-export async function advanceOperation(operationId: string): Promise<AdvanceResult> {
+-  const leased = await rpc<boolean>('operation_lease', { p_operation: operationId, p_owner: WORKER, p_seconds: 60 });
+-  if (!leased) return 'busy';
++export async function advanceOperation(operationId: string, opts: { waitMs?: number } = {}): Promise<AdvanceResult> {
++  const worker = `pp-${randomUUID()}`;
++  if (!(await acquireLease(operationId, worker, opts.waitMs ?? LEASE_WAIT_MS))) return 'busy';
+   try {
+     const op = await loadOperation(operationId);
+     if (!op) return 'unknown';
+@@ -34,12 +58,12 @@ export async function advanceOperation(operationId: string): Promise<AdvanceResu
+     const s = stripe();
+     const session = await stripeCall('session read', () => s.checkout.sessions.retrieve(op.stripe_checkout_session_id!));
+     if (session.livemode || session.mode !== 'subscription' || session.client_reference_id !== op.id || idOf(session.customer as string) !== op.stripe_customer_id) {
+-      return await attention(op, 'session_mismatch');
++      return await attention(op, worker, 'session_mismatch');
+     }
+     if (session.status === 'expired' && session.payment_status !== 'paid') { await proveUnpaidAndRelease(op.id); return 'expired_unpaid'; }
+     if (session.status !== 'complete' || session.payment_status !== 'paid') return 'pending';
+     const subscriptionId = idOf(session.subscription as string | { id: string } | null);
+-    if (!subscriptionId) return await attention(op, 'no_subscription');
++    if (!subscriptionId) return await attention(op, worker, 'no_subscription');
+     const readAt = new Date();
+     const sub = await stripeCall('subscription read', () => s.subscriptions.retrieve(subscriptionId, { expand: ['latest_invoice'] }));
+     const invoice = sub.latest_invoice as Stripe.Invoice | null;
+@@ -48,10 +72,10 @@ export async function advanceOperation(operationId: string): Promise<AdvanceResu
+     if (!settled) return 'pending';   // first invoice not settled: no provisioning, no paid access
+     if (sub.items.data.length !== 1 || item.price.id !== op.expected_price_id || item.quantity !== 1 || invoice.currency !== 'usd'
+         || invoice.amount_paid !== op.expected_total_cents || idOf(sub.customer as string) !== op.stripe_customer_id) {
+-      return await attention(op, 'payment_mismatch');
++      return await attention(op, worker, 'payment_mismatch');
+     }
+     if (op.status === 'created' || op.status === 'checkout_open' || op.status === 'attention') {
+-      await updateOperation(op.id, { status: 'paid', stripe_subscription_id: sub.id, stripe_invoice_id: invoice.id, last_error_code: null });
++      await leasedUpdate(op.id, worker, { status: 'paid', stripe_subscription_id: sub.id, stripe_invoice_id: invoice.id, last_error_code: null });
+       await admin().from('registration_drafts').update({ status: 'paid' }).eq('id', op.draft_id).in('status', ['checkout_started', 'draft']);
+     }
+ 
+@@ -59,41 +83,59 @@ export async function advanceOperation(operationId: string): Promise<AdvanceResu
+     const d = await admin().from('registration_drafts').select('id,owner_email,owner_first_name,owner_last_name,signed_in_user_id').eq('id', op.draft_id).single();
+     if (d.error) throw new PortalError('provider_unavailable', `draft read ${d.error.code}`);
+     const draft = d.data as DraftFacts;
+-    const owner = await resolveOwner(op, draft);
++    await renewLease(op.id, worker);
++    const owner = await resolveOwner(op, draft, worker);
+     if (!owner) { await ensureAccessNotification({ ...op, status: 'attention', last_error_code: 'owner_signin_required' }); return 'attention'; }
+ 
+     // 3. One Postgres transaction: account, store, designated admin, mapping, subscription mirror.
+-    await updateOperation(op.id, { status: 'provisioning', owner_user_id: owner.userId, owner_was_existing: owner.existing });
++    await leasedUpdate(op.id, worker, { status: 'provisioning', owner_user_id: owner.userId, owner_was_existing: owner.existing,
++      lease_expires_at: new Date(Date.now() + LEASE_SECONDS * 1000).toISOString() });
+     const result = await rpc<{ outcome: string }>('provision_paid_registration', {
+       p_operation: op.id, p_owner_user: owner.userId, p_sub: mirrorPayload(sub, readAt),
+     });
+-    if (result.outcome !== 'provisioned' && result.outcome !== 'already_provisioned') return await attention(op, result.outcome);
++    if (result.outcome !== 'provisioned' && result.outcome !== 'already_provisioned') return await attention(op, worker, result.outcome);
+ 
+     // 4. Paid and provisioned are recorded before any email is attempted.
+     const done = await loadOperation(op.id);
+     if (done) await ensureAccessNotification(done);
+     return 'provisioned';
+   } catch (e) {
++    if (e instanceof LeaseLost) return 'busy';   // another call took over; its outcome stands
+     logServer('advance', e);
+     throw e;
+   } finally {
+-    await admin().from('checkout_operations').update({ lease_owner: null, lease_expires_at: null }).eq('id', operationId).eq('lease_owner', WORKER);
++    await admin().from('checkout_operations').update({ lease_owner: null, lease_expires_at: null }).eq('id', operationId).eq('lease_owner', worker);
+   }
+ }
+ 
+-async function attention(op: OperationRow, code: string): Promise<'attention'> {
+-  await updateOperation(op.id, { status: 'attention', last_error_code: code });
++async function attention(op: OperationRow, worker: string, code: string): Promise<'attention'> {
++  await leasedUpdate(op.id, worker, { status: 'attention', last_error_code: code });
+   return 'attention';
+ }
+ 
+-/** Find an Auth user by exact address through the admin API. Returns the ID only. */
+-async function findUserIdByEmail(email: string): Promise<string | null> {
++/** Find an Auth user by exact address through the admin API: ID, creation time and server-set metadata only. */
++async function findUserByEmail(email: string): Promise<AuthUser | null> {
+   const url = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/v1/admin/users?per_page=50&filter=${encodeURIComponent(email)}`;
+   const key = process.env.SUPABASE_SECRET_KEY!;
+   const r = await fetch(url, { headers: { apikey: key, Authorization: `Bearer ${key}` }, signal: AbortSignal.timeout(10_000), cache: 'no-store' });
+   if (!r.ok) throw new PortalError('provider_unavailable', `auth lookup ${r.status}`);
+-  const body = (await r.json()) as { users?: { id: string; email?: string }[] };
+-  return body.users?.find((u) => (u.email || '').toLowerCase() === email)?.id ?? null;
++  const body = (await r.json()) as { users?: AuthUser[] };
++  const u = body.users?.find((x) => (x.email || '').toLowerCase() === email);
++  return u ? { id: u.id, created_at: u.created_at, app_metadata: u.app_metadata } : null;
++}
++const findUserIdByEmail = async (email: string): Promise<string | null> => (await findUserByEmail(email))?.id ?? null;
++
++/**
++ * Whether an identity found by address was created by this operation (F-Q4-003). New identities carry this operation's
++ * ID in server-set app_metadata from the moment they are created. An identity created before that marker existed counts
++ * only if it is the one this operation itself recorded, it was created after the operation began, and the purchaser
++ * was not signed in at checkout. Any other identity is someone's existing account and must prove control by signing in.
++ */
++function createdByOperation(op: OperationRow, user: AuthUser, draft: DraftFacts): boolean {
++  const marker = user.app_metadata?.apbm_operation;
++  if (marker !== undefined) return marker === op.id;
++  return op.owner_user_id === user.id && !draft.signed_in_user_id && !!user.created_at && !!op.created_at
++    && Date.parse(user.created_at) >= Date.parse(op.created_at);
+ }
+ 
+ /**
+@@ -101,26 +143,34 @@ async function findUserIdByEmail(email: string): Promise<string | null> {
+  * password. Existing address: usable only when the purchaser was signed in as that identity at checkout, or has
+  * since signed in (resumeForUser). Never resets a password or a role.
+  */
+-async function resolveOwner(op: OperationRow, draft: DraftFacts): Promise<{ userId: string; existing: boolean } | null> {
++async function resolveOwner(op: OperationRow, draft: DraftFacts, worker: string): Promise<{ userId: string; existing: boolean } | null> {
+   if (op.owner_user_id && op.owner_was_existing === false) return { userId: op.owner_user_id, existing: false };
+-  const existingId = await findUserIdByEmail(draft.owner_email);
+-  if (existingId) {
+-    if (draft.signed_in_user_id === existingId) return { userId: existingId, existing: true };
+-    await updateOperation(op.id, { status: 'attention', last_error_code: 'owner_signin_required', owner_was_existing: true });
++  const signInRequired = async () => {
++    await leasedUpdate(op.id, worker, { status: 'attention', last_error_code: 'owner_signin_required', owner_was_existing: true });
+     return null;
++  };
++  const ours = async (userId: string) => {
++    await leasedUpdate(op.id, worker, { owner_user_id: userId, owner_was_existing: false });
++    return { userId, existing: false };
++  };
++  const found = await findUserByEmail(draft.owner_email);
++  if (found) {
++    if (createdByOperation(op, found, draft)) return ours(found.id);
++    if (draft.signed_in_user_id === found.id) return { userId: found.id, existing: true };
++    return signInRequired();
+   }
+   const created = await admin().auth.admin.createUser({
+     email: draft.owner_email, email_confirm: true,
+     user_metadata: { full_name: `${draft.owner_first_name} ${draft.owner_last_name}`.trim() },
++    app_metadata: { apbm_operation: op.id },
+   });
+   if (created.error) {
+-    const raced = await findUserIdByEmail(draft.owner_email);   // a concurrent retry may have created it
++    // An identity appeared between the lookup and the create. Ours only if it carries this operation's marker.
++    const raced = await findUserByEmail(draft.owner_email);
+     if (!raced) throw new PortalError('provider_unavailable', `auth create ${created.error.status ?? ''}`);
+-    await updateOperation(op.id, { owner_user_id: raced, owner_was_existing: false });
+-    return { userId: raced, existing: false };
++    return createdByOperation(op, raced, draft) ? ours(raced.id) : signInRequired();
+   }
+-  await updateOperation(op.id, { owner_user_id: created.data.user.id, owner_was_existing: false });
+-  return { userId: created.data.user.id, existing: false };
++  return ours(created.data.user.id);
+ }
+ 
+ /**
+@@ -168,6 +218,13 @@ export async function ensureAccessNotification(op: OperationRow, opts: { resend?
+   if (row.status === 'sent' && !opts.resend) return 'sent';
+   // Resend is bounded: at most one request a minute, matching the provider's own interval (F-A3).
+   if (row.attempts > 0 && Date.now() - Date.parse(row.updated_at) < 60_000) return row.status as 'sent' | 'pending' | 'failed';
++  // Claim this attempt before asking the mailer. Only the caller whose claim lands sends, so two concurrent callers never
++  // request two links for one address; before, the second request was refused by Auth (429) and its failure replaced
++  // the first send's result (F-Q4-004).
++  const claim = await admin().from('notification_operations').update({ attempts: row.attempts + 1 })
++    .eq('id', row.id).eq('attempts', row.attempts).select('id').maybeSingle();
++  if (claim.error) throw new PortalError('provider_unavailable', `notification claim ${claim.error.code}`);
++  if (!claim.data) return row.status as 'sent' | 'pending' | 'failed';
+ 
+   // A new owner lands in OwedBook. An existing identity that still has to prove control lands here, in the portal,
+   // where signing in attaches the paid registration.
+@@ -175,9 +232,9 @@ export async function ensureAccessNotification(op: OperationRow, opts: { resend?
+   const sent = await sendSignInLink(d.data.owner_email, `${landing}/api/auth/confirm`);
+   const ok = sent.ok;
+   await admin().from('notification_operations').update({
+-    status: ok ? 'sent' : 'failed', attempts: row.attempts + 1, sent_at: ok ? new Date().toISOString() : null,
++    status: ok ? 'sent' : 'failed', sent_at: ok ? new Date().toISOString() : null,
+     last_error_code: ok ? null : sent.code ?? 'error',
+     kind: row.attempts > 0 ? 'access_link_resend' : 'access_link',
+-  }).eq('id', row.id);
++  }).eq('id', row.id).eq('attempts', row.attempts + 1);
+   return ok ? 'sent' : 'failed';
+ }
+--- /dev/null
++++ b/src/__tests__/apbm007a-provisioning-concurrency.test.ts
+@@ -0,0 +1,276 @@
++/** @jest-environment node */
++// APBM007A F-Q4-003 (AC-016/AC-017) and F-Q4-004 — concurrent advances of one paid operation, as the webhook deliveries
++// and the status poll of one server process produce them. The real provisioning module runs against an in-memory model
++// whose SQL functions follow 0057/0058 exactly where it matters: operation_lease grants the lease when it is free,
++// expired, or already held by the SAME owner; provision_paid_registration refuses any status other than paid or
++// provisioning ('not_paid') and creates the account, store, admin assignment, customer mapping and subscription once.
++// Auth is a controlled substitute (admin create + admin user listing); no real identity is created. The mailer follows
++// Supabase's per-address interval: a second link for the same address within 60 s is refused with 429.
++// eslint-disable-next-line @typescript-eslint/no-explicit-any -- an untyped in-memory model of database rows, read field by field
++type Row = Record<string, any>;
++const db: Record<string, Row[]> = {};
++const hooks: { afterCreateUser?: () => Promise<void>; beforeProvision?: () => Promise<void> } = {};
++const history: Row[] = [];
++function builder(table: string) {
++  const filters: ((r: Row) => boolean)[] = [];
++  let mode: 'select' | 'insert' | 'update' = 'select';
++  let payload: Row = {};
++  const rows = () => (db[table] ??= []);
++  const run = () => {
++    if (mode === 'insert') {
++      if (table === 'notification_operations' && rows().some((r) => r.dedupe_key === payload.dedupe_key)) return { data: null, error: { code: '23505' } };
++      const row = { id: `${table}-${rows().length + 1}`, attempts: 0, status: 'pending', updated_at: new Date().toISOString(), ...payload };
++      rows().push(row);
++      return { data: [{ ...row }], error: null };
++    }
++    const hit = rows().filter((r) => filters.every((f) => f(r)));
++    if (mode === 'update') {
++      hit.forEach((r) => {
++        Object.assign(r, payload, table === 'notification_operations' ? { updated_at: new Date().toISOString() } : {});
++        if (table === 'checkout_operations') history.push({ ...payload });
++      });
++    }
++    return { data: hit.map((r) => ({ ...r })), error: null };
++  };
++  const first = () => { const r = run(); return { data: r.data?.[0] ?? null, error: r.error }; };
++  const api: Row = {
++    select: () => api, insert: (p: Row) => { mode = 'insert'; payload = p; return api; }, update: (p: Row) => { mode = 'update'; payload = p; return api; },
++    eq: (k: string, v: unknown) => { filters.push((r) => r[k] === v); return api; },
++    in: (k: string, v: unknown[]) => { filters.push((r) => v.includes(r[k])); return api; },
++    order: () => api, limit: () => api, maybeSingle: async () => first(), single: async () => first(),
++    then: (ok: (v: unknown) => unknown, bad?: (e: unknown) => unknown) => Promise.resolve(run()).then(ok, bad),
++  };
++  return api;
++}
++const users: Row[] = [];
++let createCalls = 0;
++async function rpcImpl(fn: string, a: Row) {
++  const op = (db.checkout_operations ??= []).find((o) => o.id === a.p_operation)!;
++  if (fn === 'operation_lease') {
++    const free = op.lease_owner == null || op.lease_owner === a.p_owner || Date.parse(op.lease_expires_at) <= Date.now();
++    if (!free) return false;
++    Object.assign(op, { lease_owner: a.p_owner, lease_expires_at: new Date(Date.now() + a.p_seconds * 1000).toISOString(), attempts: (op.attempts ?? 0) + 1 });
++    return true;
++  }
++  if (fn === 'provision_paid_registration') {
++    await hooks.beforeProvision?.();
++    if (op.status === 'provisioned') return { outcome: 'already_provisioned' };
++    if (!['paid', 'provisioning'].includes(op.status)) return { outcome: 'not_paid' };
++    if (!users.some((u) => u.id === a.p_owner_user)) return { outcome: 'owner_missing' };
++    if ((db.accounts ??= []).some((x) => x.owner_user_id === a.p_owner_user)) return { outcome: 'owner_has_account' };
++    const account = { id: `acc-${db.accounts.length + 1}`, owner_user_id: a.p_owner_user };
++    db.accounts.push(account);
++    (db.businesses ??= []).push({ id: `biz-${db.businesses.length + 1}`, account_id: account.id, npi: op.npi });
++    (db.user_businesses ??= []).push({ user_id: a.p_owner_user, business_id: db.businesses.at(-1)!.id, role: 'admin' });
++    (db.billing_customers ??= []).push({ account_id: account.id, stripe_customer_id: a.p_sub.customer_id });
++    (db.subscriptions ??= []).push({ account_id: account.id, stripe_subscription_id: a.p_sub.subscription_id });
++    Object.assign(op, { status: 'provisioned', owner_user_id: a.p_owner_user, account_id: account.id, business_id: db.businesses.at(-1)!.id, lease_owner: null, lease_expires_at: null, last_error_code: null });
++    history.push({ status: 'provisioned' });
++    db.registration_drafts.find((d) => d.id === op.draft_id)!.status = 'provisioned';
++    return { outcome: 'provisioned' };
++  }
++  return null;
++}
++jest.mock('@/server/db', () => ({
++  admin: () => ({
++    from: (t: string) => builder(t),
++    auth: { admin: { createUser: async (p: Row) => {
++      createCalls++;
++      if (users.some((u) => u.email === p.email)) return { data: null, error: { status: 422, code: 'email_exists' } };
++      const u = { id: `user-${users.length + 1}`, email: p.email, created_at: new Date().toISOString(), app_metadata: p.app_metadata ?? {} };
++      users.push(u);
++      await hooks.afterCreateUser?.();
++      return { data: { user: { id: u.id } }, error: null };
++    } } },
++  }),
++  rpc: (fn: string, a: Row) => rpcImpl(fn, a),
++  bytea: (b: Buffer) => '\\x' + b.toString('hex'),
++}));
++const mailLog: { email: string; at: number; result: string }[] = [];
++jest.mock('@/server/accessEmail', () => ({
++  sendSignInLink: async (email: string) => {
++    await Promise.resolve();
++    const recent = mailLog.some((m) => m.email === email && m.result === 'ok' && Date.now() - m.at < 60_000);
++    mailLog.push({ email, at: Date.now(), result: recent ? '429' : 'ok' });
++    return recent ? { ok: false, code: '429:over_email_send_rate_limit' } : { ok: true };
++  },
++}));
++
++import { __setStripeForTests } from '@/server/stripeClient';
++import { advanceOperation, ensureAccessNotification } from '@/server/provisioning';
++import { reconcileOne } from '@/server/operator';
++
++const EMAIL = 'new.owner.r05@example.test';
++const sub = {
++  id: 'sub_1', customer: 'cus_1', status: 'active', cancel_at_period_end: false, cancel_at: null, metadata: {},
++  items: { data: [{ id: 'si_1', price: { id: 'price_unit' }, quantity: 1, current_period_start: 1794480000, current_period_end: 1797158400 }] },
++  latest_invoice: { id: 'in_1', status: 'paid', currency: 'usd', amount_paid: 8910 },
++};
++global.fetch = (async (url: string) => {
++  const email = decodeURIComponent(String(url).split('filter=')[1] ?? '');
++  return { ok: true, status: 200, json: async () => ({ users: users.filter((u) => u.email === email).map((u) => ({ ...u })) }) };
++}) as unknown as typeof fetch;
++
++function seed(over: Row = {}) {
++  db.registration_drafts = [{ id: 'draft-1', status: 'checkout_started', owner_email: EMAIL, owner_first_name: 'New', owner_last_name: 'Owner', signed_in_user_id: null }];
++  db.checkout_operations = [{
++    id: '25acbfb9-0000-4000-8000-000000000001', draft_id: 'draft-1', status: 'checkout_open', npi: '1234567893', expected_price_id: 'price_unit', expected_total_cents: 8910,
++    stripe_customer_id: 'cus_1', stripe_checkout_session_id: 'cs_1', stripe_subscription_id: null, stripe_invoice_id: null, owner_user_id: null, owner_was_existing: null,
++    account_id: null, business_id: null, last_error_code: null, lease_owner: null, lease_expires_at: null, attempts: 0, created_at: new Date(Date.now() - 60_000).toISOString(), ...over,
++  }];
++  for (const t of ['accounts', 'businesses', 'user_businesses', 'billing_customers', 'subscriptions', 'notification_operations']) db[t] = [];
++}
++const op = () => db.checkout_operations[0];
++const OP_ID = '25acbfb9-0000-4000-8000-000000000001';
++const counts = () => ({ users: users.length, accounts: db.accounts.length, stores: db.businesses.length, admins: db.user_businesses.length, mappings: db.billing_customers.length, subscriptions: db.subscriptions.length });
++const ONE = { users: 1, accounts: 1, stores: 1, admins: 1, mappings: 1, subscriptions: 1 };
++const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
++
++beforeAll(() => {
++  Object.assign(process.env, { STRIPE_SECRET_KEY: 'sk_test_unit', STRIPE_PRICE_STORES: 'price_unit', STRIPE_PORTAL_CONFIGURATION: 'bpc_unit', STRIPE_EXPECTED_ACCOUNT: 'acct_unit', STRIPE_WEBHOOK_SECRET: 'whsec_unit', NEXT_PUBLIC_SUPABASE_URL: 'https://unitproject.supabase.co', SUPABASE_SECRET_KEY: 'unit-server-key' });
++});
++beforeEach(() => {
++  users.length = 0; createCalls = 0; mailLog.length = 0; history.length = 0; delete hooks.afterCreateUser; delete hooks.beforeProvision;
++  seed();
++  __setStripeForTests({
++    checkout: { sessions: { retrieve: async () => ({ id: 'cs_1', livemode: false, mode: 'subscription', client_reference_id: op().id, customer: 'cus_1', status: 'complete', payment_status: 'paid', subscription: 'sub_1' }) } },
++    subscriptions: { retrieve: async () => JSON.parse(JSON.stringify(sub)) },
++  }, true);
++});
++
++describe('F-Q4-003 — concurrent events and polls converge on one provisioning outcome', () => {
++  it('three webhook events and a status poll at once: provisioned once, exactly one identity, account, store, admin, mapping and subscription', async () => {
++    const results = await Promise.all([advanceOperation(OP_ID), advanceOperation(OP_ID), advanceOperation(OP_ID), advanceOperation(OP_ID)]);
++    expect(results).toEqual(['provisioned', 'provisioned', 'provisioned', 'provisioned']);
++    expect(op()).toMatchObject({ status: 'provisioned', owner_user_id: 'user-1', owner_was_existing: false, last_error_code: null, lease_owner: null });
++    expect(counts()).toEqual(ONE);
++    expect(createCalls).toBe(1);
++    expect(users[0].app_metadata).toEqual({ apbm_operation: OP_ID });   // provenance is set at creation
++    expect(history.some((h) => h.last_error_code === 'owner_signin_required' || h.owner_was_existing === true)).toBe(false);
++  });
++
++  it('the interleaving behind DEV operation 25acbfb9: a second run starting after the identity was created cannot reclassify it or break provisioning', async () => {
++    let second: Promise<string> | null = null;
++    hooks.afterCreateUser = async () => { second ??= advanceOperation(OP_ID); };
++    hooks.beforeProvision = async () => { await Promise.race([second, sleep(400)]); };   // give the competing run every chance to interfere
++    const first = await advanceOperation(OP_ID);
++    expect([first, await second]).toEqual(['provisioned', 'provisioned']);
++    expect(op()).toMatchObject({ status: 'provisioned', owner_was_existing: false, owner_user_id: 'user-1' });
++    expect(counts()).toEqual(ONE);
++    expect(history.some((h) => h.status === 'attention')).toBe(false);
++  });
++
++  it('a run that lost its lease mid-way writes nothing; the run that took over stands', async () => {
++    let takeover: Promise<string> | null = null;
++    hooks.afterCreateUser = async () => {
++      if (takeover) return;
++      op().lease_expires_at = new Date(Date.now() - 1000).toISOString();   // the first run stalled past its lease
++      takeover = advanceOperation(OP_ID, { waitMs: 0 });
++      await takeover;
++    };
++    const stale = await advanceOperation(OP_ID);
++    expect([stale, await takeover]).toEqual(['busy', 'provisioned']);
++    expect(op()).toMatchObject({ status: 'provisioned', owner_user_id: 'user-1', owner_was_existing: false });
++    expect(counts()).toEqual(ONE);
++  });
++
++  it('a crash after the identity was created, before it was recorded: the next run recognises its own identity and provisions once', async () => {
++    hooks.afterCreateUser = async () => { delete hooks.afterCreateUser; throw new Error('process died'); };
++    await expect(advanceOperation(OP_ID)).rejects.toThrow('process died');
++    expect(op()).toMatchObject({ owner_user_id: null, lease_owner: null });
++    expect(await advanceOperation(OP_ID)).toBe('provisioned');
++    expect(op()).toMatchObject({ owner_user_id: 'user-1', owner_was_existing: false });
++    expect(counts()).toEqual(ONE);
++    expect(createCalls).toBe(1);
++  });
++
++  it('a genuinely pre-existing identity still has to sign in; after sign-in it is attached once', async () => {
++    users.push({ id: 'user-existing', email: EMAIL, created_at: new Date(Date.now() - 86_400_000).toISOString(), app_metadata: {} });
++    expect(await advanceOperation(OP_ID)).toBe('attention');
++    expect(op()).toMatchObject({ status: 'attention', last_error_code: 'owner_signin_required', owner_was_existing: true, account_id: null });
++    expect(db.accounts).toHaveLength(0);
++    db.registration_drafts[0].signed_in_user_id = 'user-existing';   // the owner proved control by signing in
++    expect(await advanceOperation(OP_ID)).toBe('provisioned');
++    expect(op()).toMatchObject({ owner_user_id: 'user-existing', owner_was_existing: true });
++    expect(counts()).toEqual(ONE);
++    expect(createCalls).toBe(0);
++  });
++
++  it('an identity created by another operation is not this operation\'s, even if it appeared after it began', async () => {
++    users.push({ id: 'user-other', email: EMAIL, created_at: new Date().toISOString(), app_metadata: { apbm_operation: 'another-operation' } });
++    expect(await advanceOperation(OP_ID)).toBe('attention');
++    expect(op()).toMatchObject({ last_error_code: 'owner_signin_required', owner_was_existing: true });
++  });
++
++  it('payment truth survives a recoverable failure: a later run re-reads Stripe and finishes', async () => {
++    hooks.beforeProvision = async () => { delete hooks.beforeProvision; throw new Error('database unavailable'); };
++    await expect(advanceOperation(OP_ID)).rejects.toThrow('database unavailable');
++    expect(op()).toMatchObject({ status: 'provisioning', stripe_subscription_id: 'sub_1', owner_user_id: 'user-1' });
++    expect(await advanceOperation(OP_ID)).toBe('provisioned');
++    expect(counts()).toEqual(ONE);
++  });
++});
++
++describe('F-Q4-003 — recovery of an operation left by the race (equivalent of DEV 25acbfb9)', () => {
++  const raced = () => {
++    seed({ status: 'attention', last_error_code: 'not_paid', owner_user_id: 'user-1', owner_was_existing: true, stripe_subscription_id: 'sub_1', stripe_invoice_id: 'in_1' });
++    users.push({ id: 'user-1', email: EMAIL, created_at: new Date(Date.now() - 30_000).toISOString(), app_metadata: {} });   // created by the old code: no marker
++    db.notification_operations.push({ id: 'n-1', dedupe_key: `access:${OP_ID}`, kind: 'access_link', status: 'sent', attempts: 1, operation_id: OP_ID, user_id: 'user-1', updated_at: new Date(Date.now() - 120_000).toISOString() });
++  };
++
++  it('operator reconcile provisions it once for its own identity; repeating changes nothing; no second identity or email', async () => {
++    raced();
++    const first = await reconcileOne(OP_ID);
++    expect(first).toMatchObject({ result: 'provisioned', before: 'attention', after: 'provisioned', lastErrorCode: null });
++    expect(op()).toMatchObject({ owner_user_id: 'user-1', owner_was_existing: false });
++    expect(counts()).toEqual(ONE);
++    const again = await reconcileOne(OP_ID);
++    expect(again).toMatchObject({ result: 'provisioned', before: 'provisioned', after: 'provisioned' });
++    expect(counts()).toEqual(ONE);
++    expect(createCalls).toBe(0);
++    expect(mailLog).toEqual([]);   // the access email was already sent; recovery does not send another
++  });
++
++  it('the same row is NOT recovered if its identity existed before the operation began (existing-owner protection)', async () => {
++    raced();
++    users[0].created_at = new Date(Date.now() - 86_400_000).toISOString();
++    expect((await reconcileOne(OP_ID)).result).toBe('attention');
++    expect(op()).toMatchObject({ last_error_code: 'owner_signin_required', account_id: null });
++    expect(db.accounts).toHaveLength(0);
++  });
++
++  it('nor if the purchaser was signed in as someone else at checkout', async () => {
++    raced();
++    db.registration_drafts[0].signed_in_user_id = 'user-someone-else';
++    expect((await reconcileOne(OP_ID)).result).toBe('attention');
++    expect(db.accounts).toHaveLength(0);
++  });
++});
++
++describe('F-Q4-004 — one access email per attempt, even under concurrency', () => {
++  it('concurrent advances send one link, and the result stays "sent"', async () => {
++    await Promise.all([advanceOperation(OP_ID), advanceOperation(OP_ID), advanceOperation(OP_ID)]);
++    expect(mailLog.map((m) => m.result)).toEqual(['ok']);
++    expect(db.notification_operations).toEqual([expect.objectContaining({ kind: 'access_link', status: 'sent', attempts: 1, last_error_code: null })]);
++  });
++
++  it('two direct calls at the same moment (poll and resend) claim one attempt: one send, no 429 overwrite', async () => {
++    await advanceOperation(OP_ID);
++    mailLog.length = 0;
++    const row = db.notification_operations[0];
++    Object.assign(row, { status: 'failed', last_error_code: '429', updated_at: new Date(Date.now() - 120_000).toISOString() });
++    const done = { ...op() } as never;
++    const results = await Promise.all([ensureAccessNotification(done, { resend: true }), ensureAccessNotification(done, { resend: true })]);
++    expect(mailLog.map((m) => m.result)).toEqual(['ok']);
++    expect(results.filter((r) => r === 'sent')).toHaveLength(1);
++    expect(row).toMatchObject({ status: 'sent', attempts: 2, last_error_code: null });
++  });
++
++  it('a genuine provider refusal is recorded with its code and is not retried within the interval', async () => {
++    mailLog.push({ email: EMAIL, at: Date.now(), result: 'ok' });   // a link for this address went out moments ago
++    await advanceOperation(OP_ID);
++    expect(db.notification_operations[0]).toMatchObject({ status: 'failed', attempts: 1, last_error_code: '429:over_email_send_rate_limit' });
++    expect(await ensureAccessNotification({ ...op() } as never)).toBe('failed');   // within 60 s: no new request
++    expect(mailLog.filter((m) => m.result === '429')).toHaveLength(1);
++  });
++});

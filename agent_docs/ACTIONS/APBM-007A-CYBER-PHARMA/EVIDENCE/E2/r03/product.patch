@@ -1,0 +1,470 @@
+--- a/src/server/billing.ts
++++ b/src/server/billing.ts
+@@ -109,28 +109,35 @@
+ export function __resetPortalCheckForTests(): void { portalChecked = false; }
+ 
+ /**
+- * Undo a scheduled cancellation on the SAME subscription. Clears whichever schedule is actually set — the flag,
+- * the cancel_at date the hosted portal uses, or both — then re-reads and requires both to be clear (RA-4).
++ * Undo a scheduled cancellation on the SAME subscription (RA-4). Either field can be set, or both: the flag, the
++ * cancel_at date the hosted portal uses. They are cleared one at a time, re-reading in between, because Stripe may
++ * clear the date itself when the flag is cleared and the two parameters are never sent together. Success is claimed
++ * only after a read that shows both clear. Every step is safe to repeat, so a failure part-way is finished by a retry.
+  */
+ export async function undoCancellation(userClient: SupabaseClient): Promise<{ cleared: boolean }> {
+   const link = await stripeLinkFor(userClient);
+   await assertStripeAccount();
+   const s = stripe();
+-  const before = await stripeCall('subscription read', () => s.subscriptions.retrieve(link.stripe_subscription_id));
+-  if (before.status === 'canceled') throw new PortalError('expired', 'subscription already ended');
+-  if (idOf(before.customer as string) !== link.stripe_customer_id) throw new PortalError('provider_unavailable', 'customer mismatch');
+-  const patch: Stripe.SubscriptionUpdateParams = {};
+-  if (before.cancel_at_period_end) patch.cancel_at_period_end = false;
+-  else if (before.cancel_at) patch.cancel_at = '';
+-  if (Object.keys(patch).length) {
+-    // A fresh key for every undo. Clearing a schedule is harmless to repeat, and a key derived from the schedule
+-    // (as before) is replayed by Stripe for 24 hours: a second cancel-and-undo with the same period end got the cached
+-    // answer of the first undo and nothing was changed (found in the integrated proof, 13 November).
+-    await stripeCall('subscription update', () => s.subscriptions.update(link.stripe_subscription_id, patch, { idempotencyKey: `undo:${link.stripe_subscription_id}:${randomUUID()}` }));
++  const id = link.stripe_subscription_id;
++  const read = () => stripeCall('subscription read', () => s.subscriptions.retrieve(id));
++  // A fresh key for every update. Clearing a schedule is harmless to repeat, and a key derived from the schedule
++  // (as before) is replayed by Stripe for 24 hours: a second cancel-and-undo with the same period end got the cached
++  // answer of the first undo and nothing was changed (found in the integrated proof, 13 November).
++  const update = (patch: Stripe.SubscriptionUpdateParams) =>
++    stripeCall('subscription update', () => s.subscriptions.update(id, patch, { idempotencyKey: `undo:${id}:${randomUUID()}` }));
++  let current = await read();
++  if (current.status === 'canceled') throw new PortalError('expired', 'subscription already ended');
++  if (idOf(current.customer as string) !== link.stripe_customer_id) throw new PortalError('provider_unavailable', 'customer mismatch');
++  if (current.cancel_at_period_end) {
++    await update({ cancel_at_period_end: false });
++    current = await read();
+   }
+-  const after = await stripeCall('subscription read', () => s.subscriptions.retrieve(link.stripe_subscription_id));
+-  const cleared = !after.cancel_at_period_end && !after.cancel_at;
+-  await mirror(link.stripe_subscription_id);
++  if (current.cancel_at) {
++    await update({ cancel_at: '' });
++    current = await read();
++  }
++  const cleared = !current.cancel_at_period_end && !current.cancel_at;
++  await mirror(id);
+   if (!cleared) throw new PortalError('provider_unavailable', 'schedule still set after update');
+   return { cleared };
+ }
+--- a/src/components/portal/register/PharmacyStepView.tsx
++++ b/src/components/portal/register/PharmacyStepView.tsx
+@@ -40,7 +40,7 @@
+ // server draft in one request.
+ export function PharmacyStepView() {
+   const router = useRouter();
+-  const { loading, draft } = useRegistrationDraft();
++  const { loading, draft, setDraft } = useRegistrationDraft();
+   const session = useRegistrationSession();
+   const [form, setForm] = useState<PharmacyForm | null>(null);
+   const [errors, setErrors] = useState<Record<string, string>>({});
+@@ -49,6 +49,9 @@
+   const summaryRef = useRef<HTMLDivElement>(null);
+   const noticeRef = useRef<HTMLDivElement>(null);
+   const [focus, setFocus] = useState<{ n: number; target: "summary" | "notice" } | null>(null);
++  // Set once the server has accepted this step. From then on the page is leaving for review, and the
++  // owner guard below must not act on the form input that has just been cleared.
++  const saved = useRef(false);
+ 
+   const ready = !loading && session.hydrated;
+   // The owner step comes first: unsaved input from this tab, otherwise the saved draft.
+@@ -56,7 +59,7 @@
+   const ownerOk = owner !== null && Object.keys(validateOwnerForm(owner)).length === 0;
+ 
+   useEffect(() => {
+-    if (!ready) return;
++    if (!ready || saved.current) return;
+     if (!ownerOk) {
+       router.replace("/register/owner");
+       return;
+@@ -87,7 +90,12 @@
+     registrationSession.keepPharmacy(values(form));
+     const result = await portalApi.saveDraft({ owner: toOwnerInput(owner), pharmacy: toPharmacyInput(values(form)) });
+     if (result.ok) {
+-      registrationSession.clearForms(); // the server has it now
++      // The server has it now. Take its answer as this page's draft before the unsaved input is
++      // cleared: on a first registration the draft loaded with the page is still empty, and the owner
++      // guard reading it sent the browser back to the owner step instead of on to review (F-Q2-001).
++      saved.current = true;
++      setDraft(result.value);
++      registrationSession.clearForms();
+       router.push("/register/review");
+       return;
+     }
+--- a/src/__tests__/apbm007a-server.test.ts
++++ b/src/__tests__/apbm007a-server.test.ts
+@@ -241,6 +241,83 @@
+     undoSetup({ cancel_at: 1797072000 }, { cancel_at: 1797072000 });
+     await expect(undoCancellation(stripeOwner)).rejects.toMatchObject({ code: 'provider_unavailable' });
+   });
++
++  // F-Q2-002 (RA-4 / AC-030). A mutable provider: an update changes the stored subscription and every call is
++  // recorded, so the tests see the state the provider is left in, not only the calls that were made.
++  const DATE = 1797072000;
++  const provider = (start: Row, opts: { flagClearsDate?: boolean; ignoreDate?: boolean; failOn?: (patch: Row, call: number) => boolean } = {}) => {
++    tables.subscriptions = [{ id: 's1', account_id: 'acc1', origin: 'stripe', stripe_customer_id: 'cus_1', stripe_subscription_id: 'sub_1' }];
++    const sub: Row = { id: 'sub_1', customer: 'cus_1', status: 'active', cancel_at_period_end: false, cancel_at: null, latest_invoice: null, items: { data: [] }, ...start };
++    const calls: { patch: Row; key: string }[] = [];
++    const retrieve = jest.fn(async () => ({ ...sub }));
++    const update = jest.fn(async (_id: string, patch: Row, o: { idempotencyKey: string }) => {
++      calls.push({ patch, key: o.idempotencyKey });
++      if ('cancel_at_period_end' in patch && 'cancel_at' in patch) throw Object.assign(new Error('conflicting parameters'), { type: 'StripeInvalidRequestError' });
++      if (opts.failOn?.(patch, calls.length)) throw new Error('connection lost');
++      if (patch.cancel_at_period_end === false) { sub.cancel_at_period_end = false; if (opts.flagClearsDate) sub.cancel_at = null; }
++      if (patch.cancel_at === '' && !opts.ignoreDate) sub.cancel_at = null;
++      return { ...sub };
++    });
++    __setStripeForTests({ subscriptions: { retrieve, update } }); rpcImpl = () => 'applied';
++    return { sub, calls, retrieve };
++  };
++  const mirrored = () => rpcCalls.filter((c) => c.fn === 'subscription_mirror_apply').length;
++
++  it('both fields set and the provider keeps the date: clears the flag, re-reads, clears the date, re-reads', async () => {
++    const p = provider({ cancel_at_period_end: true, cancel_at: DATE });
++    await expect(undoCancellation(stripeOwner)).resolves.toEqual({ cleared: true });
++    expect(p.calls.map((c) => c.patch)).toEqual([{ cancel_at_period_end: false }, { cancel_at: '' }]);   // never sent together
++    expect(p.sub).toMatchObject({ cancel_at_period_end: false, cancel_at: null });
++    expect(p.retrieve).toHaveBeenCalledTimes(4);   // before, after each update, and the mirror's own read
++    expect(new Set(p.calls.map((c) => c.key)).size).toBe(2);   // no key is reused
++    expect(mirrored()).toBe(1);
++  });
++  it('both fields set and the provider clears the date with the flag: one update, no second one', async () => {
++    const p = provider({ cancel_at_period_end: true, cancel_at: DATE }, { flagClearsDate: true });
++    await expect(undoCancellation(stripeOwner)).resolves.toEqual({ cleared: true });
++    expect(p.calls.map((c) => c.patch)).toEqual([{ cancel_at_period_end: false }]);
++    expect(p.sub).toMatchObject({ cancel_at_period_end: false, cancel_at: null });
++  });
++  it.each([
++    ['flag only', { cancel_at_period_end: true }, [{ cancel_at_period_end: false }]],
++    ['date only', { cancel_at: DATE }, [{ cancel_at: '' }]],
++    ['already clear', {}, []],
++  ] as [string, Row, Row[]][])('%s: sends exactly the update that state needs and ends clear', async (_name, start, patches) => {
++    const p = provider(start);
++    await expect(undoCancellation(stripeOwner)).resolves.toEqual({ cleared: true });
++    expect(p.calls.map((c) => c.patch)).toEqual(patches);
++    expect(p.sub).toMatchObject({ cancel_at_period_end: false, cancel_at: null });
++  });
++  it('a failure after the flag is cleared is reported, and a retry clears the remaining date with a new key', async () => {
++    const p = provider({ cancel_at_period_end: true, cancel_at: DATE }, { failOn: (_patch, call) => call === 2 });
++    await expect(undoCancellation(stripeOwner)).rejects.toMatchObject({ code: 'provider_unavailable' });
++    expect(p.sub).toMatchObject({ cancel_at_period_end: false, cancel_at: DATE });   // half done, and not called success
++    await expect(undoCancellation(stripeOwner)).resolves.toEqual({ cleared: true });
++    expect(p.calls.map((c) => c.patch)).toEqual([{ cancel_at_period_end: false }, { cancel_at: '' }, { cancel_at: '' }]);
++    expect(new Set(p.calls.map((c) => c.key)).size).toBe(3);
++    expect(p.sub).toMatchObject({ cancel_at_period_end: false, cancel_at: null });
++  });
++  it('a failure on the first update changes nothing, and a retry clears both', async () => {
++    const p = provider({ cancel_at_period_end: true, cancel_at: DATE }, { failOn: (_patch, call) => call === 1 });
++    await expect(undoCancellation(stripeOwner)).rejects.toMatchObject({ code: 'provider_unavailable' });
++    expect(p.sub).toMatchObject({ cancel_at_period_end: true, cancel_at: DATE });
++    await expect(undoCancellation(stripeOwner)).resolves.toEqual({ cleared: true });
++    expect(p.sub).toMatchObject({ cancel_at_period_end: false, cancel_at: null });
++  });
++  it('does not claim success when the date is still set after both updates', async () => {
++    const p = provider({ cancel_at_period_end: true, cancel_at: DATE }, { ignoreDate: true });
++    await expect(undoCancellation(stripeOwner)).rejects.toMatchObject({ code: 'provider_unavailable' });
++    expect(p.calls).toHaveLength(2);
++    expect(mirrored()).toBe(1);   // the mirror still records what the provider really holds
++  });
++  it('an ended subscription or another customer\'s subscription is refused before any update', async () => {
++    const ended = provider({ status: 'canceled', cancel_at: DATE });
++    await expect(undoCancellation(stripeOwner)).rejects.toMatchObject({ code: 'expired' });
++    const other = provider({ customer: 'cus_other', cancel_at_period_end: true });
++    await expect(undoCancellation(stripeOwner)).rejects.toMatchObject({ code: 'provider_unavailable' });
++    expect(ended.calls).toHaveLength(0);
++    expect(other.calls).toHaveLength(0);
++  });
+ });
+ 
+ describe('public error bodies', () => {
+--- a/src/__tests__/portal-owner.test.tsx
++++ b/src/__tests__/portal-owner.test.tsx
+@@ -183,6 +183,9 @@
+     expect(mockRouter.push).toHaveBeenCalledWith('/register/review');
+     // Saved on the server: nothing unsaved is left in this tab.
+     expect(registrationSessionStore.getState()).toMatchObject({ owner: null, pharmacy: null });
++    // F-Q2-001: clearing that input must not make the owner guard send the browser back.
++    await act(async () => { await new Promise((r) => setTimeout(r, 0)); });
++    expect(mockRouter.replace).not.toHaveBeenCalled();
+   });
+ 
+   it('an unavailable NPI shows the neutral server message on the field and keeps the input', async () => {
+--- /dev/null
++++ b/src/__tests__/portal-registration-journey.test.tsx
+@@ -0,0 +1,271 @@
++/**
++ * @jest-environment jsdom
++ */
++// APBM007A F-Q2-001 — the registration journey as a browser makes it. The real owner, pharmacy and review
++// pages are mounted behind a small working router that behaves like the App Router in the two ways that
++// matter here: a navigation is not instant (the page that asked for it stays mounted, and keeps rendering
++// and running effects, until the new page takes over), and when a second navigation is requested before the
++// first has landed, the later one wins. The server is a stateful fake of the draft and quote endpoints.
++// Each test asserts the page the journey ENDS on and what that page shows, not which router methods were
++// called along the way.
++import { useSyncExternalStore, type ReactNode } from 'react';
++import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
++import { OwnerView } from '@/components/portal/register/OwnerView';
++import { PharmacyStepView } from '@/components/portal/register/PharmacyStepView';
++import { ReviewView } from '@/components/portal/register/ReviewView';
++import { registrationSessionStore } from '@/services/portal/registrationSession';
++
++const mockNav = { path: '/register/owner', pending: null as string | null, trail: [] as string[], listeners: new Set<() => void>() };
++const mockGo = (kind: 'push' | 'replace') => (to: string) => {
++  mockNav.trail.push(`${kind} ${to}`);
++  const first = mockNav.pending === null;
++  mockNav.pending = to;   // a later request replaces an earlier one that has not landed yet
++  if (!first) return;
++  setTimeout(() => {
++    mockNav.path = mockNav.pending!;
++    mockNav.pending = null;
++    mockNav.listeners.forEach((l) => l());
++  }, 5);
++};
++const mockRouter = { push: mockGo('push'), replace: mockGo('replace'), refresh: () => undefined };
++jest.mock('next/navigation', () => ({ useRouter: () => mockRouter }));
++jest.mock('next/link', () => ({
++  __esModule: true,
++  default: ({ href, children, ...rest }: { href: string; children: ReactNode }) => (
++    <a href={href} {...rest} onClick={(e) => { e.preventDefault(); mockRouter.push(href); }}>{children}</a>
++  ),
++}));
++jest.mock('@/services/portal/navigate', () => ({ externalRedirect: jest.fn() }));
++
++const ROUTES: Record<string, () => ReactNode> = {
++  '/register/plan': () => <p>plan page</p>,
++  '/register/owner': () => <OwnerView />,
++  '/register/pharmacy': () => <PharmacyStepView />,
++  '/register/review': () => <ReviewView />,
++  '/register/activation': () => <p>status page</p>,
++};
++function App() {
++  const path = useSyncExternalStore(
++    (l) => { mockNav.listeners.add(l); return () => mockNav.listeners.delete(l); },
++    () => mockNav.path,
++  );
++  // A new key per route: leaving a page unmounts it, as a real navigation does.
++  return <div key={path} data-testid="page">{ROUTES[path]()}</div>;
++}
++
++// ── the server: one draft per browser, saved by POST, priced by the quote endpoint ──
++type Row = Record<string, unknown>;
++type Draft = Row & { revision: number };
++let server: { draft: Draft | null; saves: number; quotes: number; refuse: Row | null };
++function installServer() {
++  server = { draft: null, saves: 0, quotes: 0, refuse: null };
++  const reply = (status: number, body: unknown) => ({ ok: status < 300, status, json: async () => body });
++  global.fetch = jest.fn(async (url: string, init?: RequestInit) => {
++    const method = init?.method ?? 'GET';
++    const body = init?.body ? JSON.parse(String(init.body)) : undefined;
++    if (url === '/api/registration/draft' && method === 'GET') return reply(200, { draft: server.draft });
++    if (url === '/api/registration/draft' && method === 'POST') {
++      if (server.refuse) return reply(409, server.refuse);
++      server.saves += 1;
++      server.draft = {
++        revision: (server.draft?.revision ?? 0) + 1, status: 'draft', owner: body.owner,
++        pharmacy: { ncpdp: '', ...body.pharmacy }, quote: null, termsVersion: 'terms-2026-11',
++      };
++      return reply(200, { draft: server.draft });
++    }
++    if (url === '/api/registration/quote' && method === 'POST') {
++      if (!server.draft) return reply(404, { error: 'not_found', message: 'No draft.' });
++      server.quotes += 1;
++      server.draft = {
++        ...server.draft,
++        quote: { subtotalCents: 9900, discountCents: 0, totalCents: 9900, currency: 'USD', promotionCode: null, expiresAt: new Date(Date.now() + 20 * 60 * 1000).toISOString(), expired: false },
++      };
++      return reply(200, { draft: server.draft });
++    }
++    throw new Error(`unexpected request ${method} ${url}`);
++  }) as unknown as typeof fetch;
++}
++
++const set = (label: RegExp, value: string) => fireEvent.change(screen.getByLabelText(label), { target: { value } });
++const click = async (name: string | RegExp) => {
++  await act(async () => { fireEvent.click(screen.getByRole('button', { name })); });
++};
++const follow = async (name: RegExp) => {
++  await act(async () => { fireEvent.click(screen.getByRole('link', { name })); });
++};
++const open = (path: string) => {
++  mockNav.path = path;
++  mockNav.pending = null;
++  mockNav.trail = [];
++  return render(<App />);
++};
++const at = (path: string) => waitFor(() => expect(mockNav.path).toBe(path));
++async function fillOwnerAndContinue() {
++  await screen.findByLabelText(/First name/);
++  set(/First name/, 'Jordan');
++  set(/Last name/, 'Ellis');
++  set(/Work email/, 'jordan@example.test');
++  set(/Mobile phone/, '(555) 010-0144');
++  fireEvent.click(screen.getByRole('checkbox'));
++  await click('Continue');
++}
++async function fillPharmacyAndContinue() {
++  await screen.findByLabelText(/NCPDP number/);
++  set(/Pharmacy name/, 'Main Street Pharmacy');
++  set(/Street address/, '1 Main St');
++  set(/City/, 'Plano');
++  set(/^State/, 'TX');
++  set(/ZIP/, '75001');
++  set(/^NPI/, '1234567893');
++  set(/Store phone/, '(555) 010-0145');
++  set(/Pharmacy software/, 'Liberty');
++  await click('Continue to review');
++}
++/** The review page with the server's price on it: the end of the pre-payment journey. */
++async function onReviewWithQuote() {
++  await waitFor(() => expect(screen.getByTestId('due-today').textContent).toBe('$99.00'));
++  expect(mockNav.path).toBe('/register/review');
++  expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Review and pay');
++}
++/** Long enough for any navigation still in flight to land. */
++const settle = async () => {
++  const until = Date.now() + 40;
++  await waitFor(() => { if (Date.now() < until) throw new Error('settling'); });
++};
++
++// Pages load their data after a navigation lands, outside any single test step, exactly as in a browser.
++// Testing Library still wraps every render, click and wait; this only stops React reporting those loads.
++const env = globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean };
++beforeAll(() => { env.IS_REACT_ACT_ENVIRONMENT = false; });
++afterAll(() => { env.IS_REACT_ACT_ENVIRONMENT = true; });
++
++beforeEach(() => {
++  sessionStorage.clear();
++  registrationSessionStore.setState({ owner: null, pharmacy: null, operationKey: null });
++  installServer();
++});
++
++describe('registration journey — a first registration reaches review (F-Q2-001)', () => {
++  it('owner, then pharmacy, lands on review with the server quote; nothing sends the browser back', async () => {
++    open('/register/owner');
++    await fillOwnerAndContinue();
++    await at('/register/pharmacy');
++    await fillPharmacyAndContinue();
++    await settle();
++    expect(mockNav.path).toBe('/register/review');   // not back on the owner step
++    await onReviewWithQuote();
++    await settle();
++    expect(mockNav.path).toBe('/register/review');   // and it stays there
++    expect(mockNav.trail).toEqual(['push /register/pharmacy', 'push /register/review']);
++    expect(server).toMatchObject({ saves: 1, quotes: 1 });
++    expect(screen.getByTestId('review-pharmacy').textContent).toContain('Main Street Pharmacy');
++    expect(screen.getByTestId('review-pharmacy').textContent).toContain('1234567893');
++    expect(document.body.textContent).toContain('jordan@example.test');
++    // Saved on the server, so nothing unsaved is left in the tab and review shows no unsaved-changes notice.
++    expect(registrationSessionStore.getState()).toMatchObject({ owner: null, pharmacy: null });
++    expect(document.body.textContent).not.toContain("changes that aren't saved yet");
++    // Payment still needs the three confirmations: none is ticked for the buyer.
++    expect(Array.from(document.querySelectorAll<HTMLInputElement>('#c1, #c2, #c3')).map((c) => c.checked)).toEqual([false, false, false]);
++  });
++
++  it('the saved details survive a refresh of the review page', async () => {
++    const first = open('/register/owner');
++    await fillOwnerAndContinue();
++    await fillPharmacyAndContinue();
++    await onReviewWithQuote();
++    first.unmount();
++    open('/register/review');   // a reload: same URL, same tab storage, a fresh page
++    await onReviewWithQuote();
++    expect(mockNav.trail).toEqual([]);
++    expect(screen.getByTestId('review-pharmacy').textContent).toContain('Main Street Pharmacy');
++    expect(server).toMatchObject({ saves: 1, quotes: 1 });   // the current quote is reused, not re-requested
++  });
++
++  it('edit from review, change a detail and return: review shows the new saved value and a new quote', async () => {
++    open('/register/owner');
++    await fillOwnerAndContinue();
++    await fillPharmacyAndContinue();
++    await onReviewWithQuote();
++
++    await follow(/^Edit pharmacy$/);
++    await at('/register/pharmacy');
++    expect(((await screen.findByLabelText(/Pharmacy name/)) as HTMLInputElement).value).toBe('Main Street Pharmacy');
++    set(/Pharmacy name/, 'Main Street Pharmacy East');
++    await click('Continue to review');
++    await at('/register/review');
++    await onReviewWithQuote();
++    expect(screen.getByTestId('review-pharmacy').textContent).toContain('Main Street Pharmacy East');
++    expect(server).toMatchObject({ saves: 2, quotes: 2 });
++    expect(server.draft!.revision).toBe(2);
++
++    await follow(/^Edit billing owner$/);
++    await at('/register/owner');
++    expect(((await screen.findByLabelText(/First name/)) as HTMLInputElement).value).toBe('Jordan');
++    expect((screen.getByRole('checkbox') as HTMLInputElement).checked).toBe(true);
++    await click('Continue');
++    await at('/register/pharmacy');
++    await screen.findByLabelText(/NCPDP number/);
++    await click('Back');
++    await at('/register/owner');
++    await screen.findByLabelText(/First name/);
++    await click('Continue');
++    await at('/register/pharmacy');
++    await screen.findByLabelText(/NCPDP number/);
++    await click('Continue to review');
++    await at('/register/review');
++    await onReviewWithQuote();
++    expect(server.draft!.revision).toBe(3);
++  });
++});
++
++describe('registration journey — incomplete registrations still cannot reach review', () => {
++  it('review opened with no saved draft goes to the owner step', async () => {
++    open('/register/review');
++    await at('/register/owner');
++    await screen.findByLabelText(/First name/);
++    expect(server.quotes).toBe(0);
++  });
++
++  it('the pharmacy step opened with no owner details goes to the owner step', async () => {
++    open('/register/pharmacy');
++    await at('/register/owner');
++    await screen.findByLabelText(/First name/);
++  });
++
++  it('owner details typed but never saved do not open review', async () => {
++    open('/register/owner');
++    await fillOwnerAndContinue();
++    await at('/register/pharmacy');
++    await screen.findByLabelText(/NCPDP number/);
++    act(() => mockRouter.push('/register/review'));   // typing the address by hand
++    await at('/register/review');
++    await at('/register/owner');
++    await screen.findByLabelText(/First name/);
++    expect(server).toMatchObject({ saves: 0, quotes: 0 });
++  });
++
++  it('a save the server refuses stays on the pharmacy step and keeps what was typed', async () => {
++    open('/register/owner');
++    await fillOwnerAndContinue();
++    server.refuse = { error: 'npi_unavailable', message: "This NPI can't be registered right now." };
++    await fillPharmacyAndContinue();
++    await settle();
++    expect(mockNav.path).toBe('/register/pharmacy');
++    expect(document.getElementById('ph-npi-err')!.textContent).toBe("This NPI can't be registered right now.");
++    expect((screen.getByLabelText(/Pharmacy name/) as HTMLInputElement).value).toBe('Main Street Pharmacy');
++    expect(registrationSessionStore.getState().owner).not.toBeNull();
++    expect(server).toMatchObject({ draft: null, quotes: 0 });
++  });
++
++  it('a saved draft without a pharmacy does not open review', async () => {
++    server.draft = {
++      revision: 1, status: 'draft', termsVersion: 'terms-2026-11', quote: null,
++      owner: { firstName: 'Jordan', lastName: 'Ellis', email: 'jordan@example.test', mobile: '(555) 010-0144', ownerDeclarationAccepted: true },
++      pharmacy: { name: '', street: '', city: '', state: '', zip: '', phone: '', npi: '', ncpdp: '', software: '' },
++    };
++    open('/register/review');
++    await at('/register/owner');
++    await screen.findByLabelText(/First name/);
++    expect(server.quotes).toBe(0);
++  });
++});

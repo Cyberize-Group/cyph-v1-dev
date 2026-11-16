@@ -1,0 +1,215 @@
+{
+ "candidate": {
+  "owedbook_head": "c976968b20ee724f7390d5e0e008215f50ab6f25",
+  "payment_portal_head": "54a56b55ea7c72783d17d06ff45cd27b5426803f",
+  "branch": "qa/apbm-007a",
+  "reported_short_ids": {
+   "owedbook": "c976968",
+   "portal": "54a56b5"
+  }
+ },
+ "apps": {
+  "ob": {
+   "repo": "cyph-v1-dev",
+   "files": [
+    {
+     "path": "src/app/profile/ProfileForm.tsx",
+     "change": "M",
+     "candidate_blob": "daffbc9166053588a1ff53c909b7ec05ea3e2270",
+     "checkout_sha256": "3be42e4855abffa935d2f8d10a81dc5c1ca64d646356206b48dfda4b6170a1c6",
+     "tested_copy_sha256": "3be42e4855abffa935d2f8d10a81dc5c1ca64d646356206b48dfda4b6170a1c6",
+     "build_copy_sha256": "3be42e4855abffa935d2f8d10a81dc5c1ca64d646356206b48dfda4b6170a1c6",
+     "proof_copy_sha256": "3be42e4855abffa935d2f8d10a81dc5c1ca64d646356206b48dfda4b6170a1c6",
+     "checkout_git_blob": "c68e2afbfb664c7032f9797e887add3fcb31acbd"
+    },
+    {
+     "path": "src/components/admin-portal/BillingRow.tsx",
+     "change": "M",
+     "candidate_blob": "9c9f28f15c502c307cbdfa997e5d3e9a12a6c393",
+     "checkout_sha256": "16d771cf0295094708bf25dda660306a02585860451e09b7d5acf96aef1b18e5",
+     "tested_copy_sha256": "16d771cf0295094708bf25dda660306a02585860451e09b7d5acf96aef1b18e5",
+     "build_copy_sha256": "16d771cf0295094708bf25dda660306a02585860451e09b7d5acf96aef1b18e5",
+     "proof_copy_sha256": "16d771cf0295094708bf25dda660306a02585860451e09b7d5acf96aef1b18e5",
+     "checkout_git_blob": "33c4cd54f9e611d0f5531a31c29bfc59f6a6b482"
+    },
+    {
+     "path": "src/components/auth/LoginForm.tsx",
+     "change": "M",
+     "candidate_blob": "7848fd1888e31ae78ab60ce43a80e0c28f080d0b",
+     "checkout_sha256": "df332bab7b9680a9994651fd3ef76543295abbd6fb6925082ca1bc0065197f81",
+     "tested_copy_sha256": "df332bab7b9680a9994651fd3ef76543295abbd6fb6925082ca1bc0065197f81",
+     "build_copy_sha256": "df332bab7b9680a9994651fd3ef76543295abbd6fb6925082ca1bc0065197f81",
+     "proof_copy_sha256": "df332bab7b9680a9994651fd3ef76543295abbd6fb6925082ca1bc0065197f81",
+     "checkout_git_blob": "77371d9a39a49a26b387e3519df6756bd7e0bce1"
+    },
+    {
+     "path": "src/components/layout/AdminSidebar.tsx",
+     "change": "M",
+     "candidate_blob": "ab3fa5647567d3a82b39d02faea28c663bb783af",
+     "checkout_sha256": "f32e429a9ded05417916157304dd28cbdc08f0aa1847d13fa77c68c3e7f38279",
+     "tested_copy_sha256": "f32e429a9ded05417916157304dd28cbdc08f0aa1847d13fa77c68c3e7f38279",
+     "build_copy_sha256": "f32e429a9ded05417916157304dd28cbdc08f0aa1847d13fa77c68c3e7f38279",
+     "proof_copy_sha256": "f32e429a9ded05417916157304dd28cbdc08f0aa1847d13fa77c68c3e7f38279",
+     "checkout_git_blob": "90651907c86d8950a8f00008830ea185879137ca"
+    },
+    {
+     "path": "src/components/ui/password-input.tsx",
+     "change": "A",
+     "candidate_blob": null,
+     "checkout_sha256": "624fd3d394316b9c040b861d22116ccd1b5308638aa6f4a5f43dd19fd56045a1",
+     "tested_copy_sha256": "624fd3d394316b9c040b861d22116ccd1b5308638aa6f4a5f43dd19fd56045a1",
+     "build_copy_sha256": "624fd3d394316b9c040b861d22116ccd1b5308638aa6f4a5f43dd19fd56045a1",
+     "proof_copy_sha256": "624fd3d394316b9c040b861d22116ccd1b5308638aa6f4a5f43dd19fd56045a1",
+     "checkout_git_blob": "fdc6830bcedc02199b00e178be54d43d682cdb4a"
+    },
+    {
+     "path": "src/services/adminDemo.ts",
+     "change": "M",
+     "candidate_blob": "cf8c6d4118d989af8f527c0198f630a441aa40ee",
+     "checkout_sha256": "094e848f9cc484caa0cc9409c0b2244adf5f0d5c91b0904144a367eae351d301",
+     "tested_copy_sha256": "094e848f9cc484caa0cc9409c0b2244adf5f0d5c91b0904144a367eae351d301",
+     "build_copy_sha256": "094e848f9cc484caa0cc9409c0b2244adf5f0d5c91b0904144a367eae351d301",
+     "proof_copy_sha256": "094e848f9cc484caa0cc9409c0b2244adf5f0d5c91b0904144a367eae351d301",
+     "checkout_git_blob": "0adb7c8763d0ab3f7f9dd04344cfd0c3058ccf62"
+    },
+    {
+     "path": "src/__tests__/admin-portal/BillingDetails.test.tsx",
+     "change": "A",
+     "candidate_blob": null,
+     "checkout_sha256": "3664846781fd03fc1008e24a97f9e30e0b09cb5ddb15ffddfbaacc0183171675",
+     "tested_copy_sha256": "3664846781fd03fc1008e24a97f9e30e0b09cb5ddb15ffddfbaacc0183171675",
+     "build_copy_sha256": "3664846781fd03fc1008e24a97f9e30e0b09cb5ddb15ffddfbaacc0183171675",
+     "proof_copy_sha256": "3664846781fd03fc1008e24a97f9e30e0b09cb5ddb15ffddfbaacc0183171675",
+     "checkout_git_blob": "b9275bfc63050fc7531d163eb415fb7dd496ea17"
+    },
+    {
+     "path": "src/__tests__/apbm007a-access.test.tsx",
+     "change": "M",
+     "candidate_blob": "28b05444c45399141d3cc4b6db8c294b73c093d1",
+     "checkout_sha256": "60a359ea4ec585fb3f92bcb63fba122eaafdcf489c0cf91b30e73fb5468e1094",
+     "tested_copy_sha256": "60a359ea4ec585fb3f92bcb63fba122eaafdcf489c0cf91b30e73fb5468e1094",
+     "build_copy_sha256": "60a359ea4ec585fb3f92bcb63fba122eaafdcf489c0cf91b30e73fb5468e1094",
+     "proof_copy_sha256": "60a359ea4ec585fb3f92bcb63fba122eaafdcf489c0cf91b30e73fb5468e1094",
+     "checkout_git_blob": "227efbbff2abc110dee4bba8ac990e944767c269"
+    },
+    {
+     "path": "src/__tests__/auth/AuthPage.test.tsx",
+     "change": "M",
+     "candidate_blob": "113e82caf971cb565368d51f217d48cd648739f2",
+     "checkout_sha256": "71452e05975c04483d34c0fa6cf9f568dc700242fe84850f519c8f706b3d9938",
+     "tested_copy_sha256": "71452e05975c04483d34c0fa6cf9f568dc700242fe84850f519c8f706b3d9938",
+     "build_copy_sha256": "71452e05975c04483d34c0fa6cf9f568dc700242fe84850f519c8f706b3d9938",
+     "proof_copy_sha256": "71452e05975c04483d34c0fa6cf9f568dc700242fe84850f519c8f706b3d9938",
+     "checkout_git_blob": "e5cd66aa28a4d524243ff391b6e9bf2b969fa9eb"
+    },
+    {
+     "path": "src/__tests__/auth/PasswordToggle.test.tsx",
+     "change": "A",
+     "candidate_blob": null,
+     "checkout_sha256": "27c372c9860abd1b6abd53a401a9e41e44163b923d388c3e8a69cde382665605",
+     "tested_copy_sha256": "27c372c9860abd1b6abd53a401a9e41e44163b923d388c3e8a69cde382665605",
+     "build_copy_sha256": "27c372c9860abd1b6abd53a401a9e41e44163b923d388c3e8a69cde382665605",
+     "proof_copy_sha256": "27c372c9860abd1b6abd53a401a9e41e44163b923d388c3e8a69cde382665605",
+     "checkout_git_blob": "5ff3c00bc1a20a1f316805f878263f798cff0112"
+    },
+    {
+     "path": "src/__tests__/layout/AdminSidebar.test.tsx",
+     "change": "M",
+     "candidate_blob": "8c6318fdb0c202f7312c2a69de9689e31f0cc460",
+     "checkout_sha256": "3f3608994d03b3510567cda1b7d350903a48bf84e34ae51b7c5c415dc91b86ec",
+     "tested_copy_sha256": "3f3608994d03b3510567cda1b7d350903a48bf84e34ae51b7c5c415dc91b86ec",
+     "build_copy_sha256": "3f3608994d03b3510567cda1b7d350903a48bf84e34ae51b7c5c415dc91b86ec",
+     "proof_copy_sha256": "3f3608994d03b3510567cda1b7d350903a48bf84e34ae51b7c5c415dc91b86ec",
+     "checkout_git_blob": "e77439394479f2753fb5d9653951a8af84ce2a0e"
+    },
+    {
+     "path": "src/types/adminDemo.ts",
+     "change": "M",
+     "candidate_blob": "4d0d81f864084b46577a978b46736b9dbab9efa9",
+     "checkout_sha256": "089225e2ea0444c884954a86f2575756a01f8150aaff5b453243ce4822218dcb",
+     "tested_copy_sha256": "089225e2ea0444c884954a86f2575756a01f8150aaff5b453243ce4822218dcb",
+     "build_copy_sha256": "089225e2ea0444c884954a86f2575756a01f8150aaff5b453243ce4822218dcb",
+     "proof_copy_sha256": "089225e2ea0444c884954a86f2575756a01f8150aaff5b453243ce4822218dcb",
+     "checkout_git_blob": "c47c0e1fa263f979037ae8ed1ccb0d6281760c63"
+    }
+   ],
+   "build": {
+    "build_id": "9OByFhSkF29JnwD1RgOU_",
+    "env": "placeholder Supabase URL and publishable key; canary server secrets; NODE_ENV=production",
+    "log": "build_ob.log",
+    "bundle_scan": "bundle_scan_ob.txt"
+   },
+   "proof_build": {
+    "build_id": "emasQGZ_Dd0jeVmF5zQYK",
+    "port": 3100,
+    "only_difference_from_tested_copy": "src/lib/appIdentity.ts (proof_harness_ob.patch: local origins 3100/3101 because QA holds 3000/3001); not part of any commit",
+    "env": "NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54399 (helpers/supabase-fixture.mjs), sb_publishable_fixture; no real credential",
+    "log": "build_proof_ob.log",
+    "note": "The proof build predates a test-only change (an email literal in src/__tests__/auth/PasswordToggle.test.tsx); test files are not compiled into the served app, so the walk applies to the delivered product bytes."
+   }
+  },
+  "pp": {
+   "repo": "cyph-payment-portal-dev-v1",
+   "files": [
+    {
+     "path": "src/app/login/LoginPageContent.tsx",
+     "change": "M",
+     "candidate_blob": "333c5882fcd0410de8d7add1411ff830a1d37536",
+     "checkout_sha256": "d2b6a7c66a39b90a5ed616d58480a2e52c0d9b3c2061b17f0253454f4eec6a60",
+     "tested_copy_sha256": "d2b6a7c66a39b90a5ed616d58480a2e52c0d9b3c2061b17f0253454f4eec6a60",
+     "build_copy_sha256": "d2b6a7c66a39b90a5ed616d58480a2e52c0d9b3c2061b17f0253454f4eec6a60",
+     "proof_copy_sha256": "d2b6a7c66a39b90a5ed616d58480a2e52c0d9b3c2061b17f0253454f4eec6a60",
+     "checkout_git_blob": "e94f15defd38f7c9381cdd416c1286c2b8347cde"
+    },
+    {
+     "path": "src/components/portal/FormField.tsx",
+     "change": "M",
+     "candidate_blob": "5c1f1201bf4952953753e8334e982dd25399fee7",
+     "checkout_sha256": "a4e0c7677d9847034f06c026c407fdb0e5fd31b222b3ecf4950b2c6c36a5ca5b",
+     "tested_copy_sha256": "a4e0c7677d9847034f06c026c407fdb0e5fd31b222b3ecf4950b2c6c36a5ca5b",
+     "build_copy_sha256": "a4e0c7677d9847034f06c026c407fdb0e5fd31b222b3ecf4950b2c6c36a5ca5b",
+     "proof_copy_sha256": "a4e0c7677d9847034f06c026c407fdb0e5fd31b222b3ecf4950b2c6c36a5ca5b",
+     "checkout_git_blob": "1646a2a1f27f45c33aaa6a1c6ae66615c7a320e0"
+    },
+    {
+     "path": "src/__tests__/password-field.test.tsx",
+     "change": "A",
+     "candidate_blob": null,
+     "checkout_sha256": "7a05a570b9197ffcd138265d2a8270bfd670d3f0964c651f0144b558ec462f1b",
+     "tested_copy_sha256": "7a05a570b9197ffcd138265d2a8270bfd670d3f0964c651f0144b558ec462f1b",
+     "build_copy_sha256": "7a05a570b9197ffcd138265d2a8270bfd670d3f0964c651f0144b558ec462f1b",
+     "proof_copy_sha256": "7a05a570b9197ffcd138265d2a8270bfd670d3f0964c651f0144b558ec462f1b",
+     "checkout_git_blob": "d167e5c551364cd469b1fed6f665b635161999bf"
+    }
+   ],
+   "build": {
+    "build_id": "d-YT0KCkhsNaM21RNzIbb",
+    "env": "placeholder Supabase URL and publishable key; canary server secrets; NODE_ENV=production",
+    "log": "build_pp.log",
+    "bundle_scan": "bundle_scan_pp.txt"
+   },
+   "proof_build": {
+    "build_id": "phm4blmg4b9DiUdZAWxyY",
+    "port": 3101,
+    "only_difference_from_tested_copy": "src/lib/appIdentity.ts (proof_harness_pp.patch: local origins 3100/3101 because QA holds 3000/3001); not part of any commit",
+    "env": "NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54399 (helpers/supabase-fixture.mjs), sb_publishable_fixture; no real credential",
+    "log": "build_proof_pp.log"
+   }
+  }
+ },
+ "equivalence": "Every changed file is byte-identical in the QA checkout, the tested disposable copy, the build copy and the proof-build copy. Every other source file of each tested copy equals its candidate; each proof copy differs from its tested copy only in src/lib/appIdentity.ts.",
+ "checks": {
+  "ob_full_tested_copy": "309/309 (45 suites)",
+  "ob_full_checkout": "309/309",
+  "ob_focused_checkout": "55/55",
+  "pp_full_tested_copy": "468/468 (24 suites), two consecutive runs",
+  "pp_full_checkout": "468/468",
+  "pp_focused_checkout": "13/13",
+  "typecheck": "clean in both",
+  "lint": "0 errors; OwedBook 33 and Portal 24 warnings, equal to the candidates",
+  "production_builds": "both pass",
+  "bundle_scans": "both clean (0 of 9 patterns)",
+  "browser_walk": "73/73 on the proof builds (FIXTURE PROOF)",
+  "password_tests_repeated": "12 consecutive runs each after the caret race fix, 0 failures"
+ }
+}

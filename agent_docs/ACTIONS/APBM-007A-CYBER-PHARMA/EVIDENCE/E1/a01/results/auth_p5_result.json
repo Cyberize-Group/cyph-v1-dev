@@ -1,0 +1,9 @@
+{
+ "role": "OWNER_1",
+ "accepted": true,
+ "err": null,
+ "ms": 3424,
+ "at": "2026-11-12T06:43:08.561Z",
+ "redirect": "http://localhost:3000/api/auth/confirm",
+ "shouldCreateUser": false
+}

@@ -1,0 +1,956 @@
+{
+ "started_at": "2026-11-16T09:02:07.869Z",
+ "kind": "FIXTURE PROOF (production builds against a local Supabase stand-in); not live proof",
+ "checks": [
+  {
+   "name": "[light-1440] dark class matches theme",
+   "ok": true
+  },
+  {
+   "name": "[light-1440] on Audit log only Audit log is selected (coral fill, white text)",
+   "ok": true,
+   "st": [
+    {
+     "label": "My Stores",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(36, 41, 50)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Billing",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(36, 41, 50)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Settings",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(36, 41, 50)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Audit log",
+     "current": "page",
+     "bg": "rgb(249, 112, 78)",
+     "color": "rgb(255, 255, 255)",
+     "border": "rgb(249, 112, 78)",
+     "boxShadow": "none"
+    }
+   ]
+  },
+  {
+   "name": "[light-1440] hovering Billing: coral outline, no fill; Audit log stays the only selection",
+   "ok": true,
+   "billing": {
+    "label": "Billing",
+    "current": null,
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(36, 41, 50)",
+    "border": "rgb(249, 112, 78)",
+    "boxShadow": "none"
+   }
+  },
+  {
+   "name": "[light-1440] keyboard focus on a nav link shows a visible ring",
+   "ok": true,
+   "focused": {
+    "label": "My Stores",
+    "boxShadow": "rgb(237, 239, 243) 0px 0px 0px 2px, rgb(249, 112, 78) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+    "focusVisible": true
+   }
+  },
+  {
+   "name": "[light-1440] after Audit log → Billing only Billing is selected; Audit log keeps no highlight",
+   "ok": true,
+   "st": [
+    {
+     "label": "My Stores",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(36, 41, 50)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Billing",
+     "current": "page",
+     "bg": "rgb(249, 112, 78)",
+     "color": "rgb(255, 255, 255)",
+     "border": "rgb(249, 112, 78)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Settings",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(36, 41, 50)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Audit log",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(36, 41, 50)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    }
+   ]
+  },
+  {
+   "name": "[light-1440] billing row shows plan, pharmacies, price pointer and next payment",
+   "ok": true,
+   "text": "OwedBook · 1 pharmacy · Price shown in the billing portal · Next payment Dec 16, 2026"
+  },
+  {
+   "name": "[light-1440] no unavailable text for the paid subscription",
+   "ok": true
+  },
+  {
+   "name": "[light-1440] real mode: per-store payment actions hidden; one Manage billing link",
+   "ok": true
+  },
+  {
+   "name": "[light-1440] Billing → Audit log moves the selection back",
+   "ok": true
+  },
+  {
+   "name": "[light-375] dark class matches theme",
+   "ok": true
+  },
+  {
+   "name": "[light-375] on Audit log only Audit log is selected (coral fill, white text)",
+   "ok": true,
+   "st": [
+    {
+     "label": "My Stores",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(36, 41, 50)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Billing",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(36, 41, 50)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Settings",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(36, 41, 50)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Audit log",
+     "current": "page",
+     "bg": "rgb(249, 112, 78)",
+     "color": "rgb(255, 255, 255)",
+     "border": "rgb(249, 112, 78)",
+     "boxShadow": "none"
+    }
+   ]
+  },
+  {
+   "name": "[light-375] after Audit log → Billing only Billing is selected; Audit log keeps no highlight",
+   "ok": true,
+   "st": [
+    {
+     "label": "My Stores",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(36, 41, 50)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Billing",
+     "current": "page",
+     "bg": "rgb(249, 112, 78)",
+     "color": "rgb(255, 255, 255)",
+     "border": "rgb(249, 112, 78)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Settings",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(36, 41, 50)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Audit log",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(36, 41, 50)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    }
+   ]
+  },
+  {
+   "name": "[light-375] billing row shows plan, pharmacies, price pointer and next payment",
+   "ok": true,
+   "text": "OwedBook · 1 pharmacy · Price shown in the billing portal · Next payment Dec 16, 2026"
+  },
+  {
+   "name": "[light-375] no unavailable text for the paid subscription",
+   "ok": true
+  },
+  {
+   "name": "[light-375] real mode: per-store payment actions hidden; one Manage billing link",
+   "ok": true
+  },
+  {
+   "name": "[light-375] Billing → Audit log moves the selection back",
+   "ok": true
+  },
+  {
+   "name": "[dark-1440] dark class matches theme",
+   "ok": true
+  },
+  {
+   "name": "[dark-1440] on Audit log only Audit log is selected (coral fill, white text)",
+   "ok": true,
+   "st": [
+    {
+     "label": "My Stores",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(233, 235, 242)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Billing",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(233, 235, 242)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Settings",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(233, 235, 242)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Audit log",
+     "current": "page",
+     "bg": "rgb(249, 112, 78)",
+     "color": "rgb(255, 255, 255)",
+     "border": "rgb(249, 112, 78)",
+     "boxShadow": "none"
+    }
+   ]
+  },
+  {
+   "name": "[dark-1440] hovering Billing: coral outline, no fill; Audit log stays the only selection",
+   "ok": true,
+   "billing": {
+    "label": "Billing",
+    "current": null,
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(233, 235, 242)",
+    "border": "rgb(249, 112, 78)",
+    "boxShadow": "none"
+   }
+  },
+  {
+   "name": "[dark-1440] keyboard focus on a nav link shows a visible ring",
+   "ok": true,
+   "focused": {
+    "label": "My Stores",
+    "boxShadow": "rgb(58, 65, 80) 0px 0px 0px 2px, rgb(249, 112, 78) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+    "focusVisible": true
+   }
+  },
+  {
+   "name": "[dark-1440] after Audit log → Billing only Billing is selected; Audit log keeps no highlight",
+   "ok": true,
+   "st": [
+    {
+     "label": "My Stores",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(233, 235, 242)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Billing",
+     "current": "page",
+     "bg": "rgb(249, 112, 78)",
+     "color": "rgb(255, 255, 255)",
+     "border": "rgb(249, 112, 78)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Settings",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(233, 235, 242)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Audit log",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(233, 235, 242)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    }
+   ]
+  },
+  {
+   "name": "[dark-1440] billing row shows plan, pharmacies, price pointer and next payment",
+   "ok": true,
+   "text": "OwedBook · 1 pharmacy · Price shown in the billing portal · Next payment Dec 16, 2026"
+  },
+  {
+   "name": "[dark-1440] no unavailable text for the paid subscription",
+   "ok": true
+  },
+  {
+   "name": "[dark-1440] real mode: per-store payment actions hidden; one Manage billing link",
+   "ok": true
+  },
+  {
+   "name": "[dark-1440] Billing → Audit log moves the selection back",
+   "ok": true
+  },
+  {
+   "name": "[dark-375] dark class matches theme",
+   "ok": true
+  },
+  {
+   "name": "[dark-375] on Audit log only Audit log is selected (coral fill, white text)",
+   "ok": true,
+   "st": [
+    {
+     "label": "My Stores",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(233, 235, 242)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Billing",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(233, 235, 242)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Settings",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(233, 235, 242)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Audit log",
+     "current": "page",
+     "bg": "rgb(249, 112, 78)",
+     "color": "rgb(255, 255, 255)",
+     "border": "rgb(249, 112, 78)",
+     "boxShadow": "none"
+    }
+   ]
+  },
+  {
+   "name": "[dark-375] after Audit log → Billing only Billing is selected; Audit log keeps no highlight",
+   "ok": true,
+   "st": [
+    {
+     "label": "My Stores",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(233, 235, 242)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Billing",
+     "current": "page",
+     "bg": "rgb(249, 112, 78)",
+     "color": "rgb(255, 255, 255)",
+     "border": "rgb(249, 112, 78)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Settings",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(233, 235, 242)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Audit log",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(233, 235, 242)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    }
+   ]
+  },
+  {
+   "name": "[dark-375] billing row shows plan, pharmacies, price pointer and next payment",
+   "ok": true,
+   "text": "OwedBook · 1 pharmacy · Price shown in the billing portal · Next payment Dec 16, 2026"
+  },
+  {
+   "name": "[dark-375] no unavailable text for the paid subscription",
+   "ok": true
+  },
+  {
+   "name": "[dark-375] real mode: per-store payment actions hidden; one Manage billing link",
+   "ok": true
+  },
+  {
+   "name": "[dark-375] Billing → Audit log moves the selection back",
+   "ok": true
+  },
+  {
+   "name": "[synthetic] synthetic subscription is labelled and shows no price or dates",
+   "ok": true,
+   "text": "Synthetic test subscription · Not billed · No billing dates"
+  },
+  {
+   "name": "[non-owner admin] billing shows the owner-only statement and no billing details",
+   "ok": true
+  },
+  {
+   "name": "[non-owner admin] nav still selects only Billing",
+   "ok": true
+  },
+  {
+   "name": "[OwedBook sign-in light-1440] starts hidden; toggle is type=button, aria-pressed=false",
+   "ok": true
+  },
+  {
+   "name": "[OwedBook sign-in light-1440] click shows it: type=text, value kept, label Hide password, aria-pressed=true, focus stays in the field",
+   "ok": true
+  },
+  {
+   "name": "[OwedBook sign-in light-1440] typing continues after the toggle",
+   "ok": true
+  },
+  {
+   "name": "[OwedBook sign-in light-1440] Tab from the field reaches the toggle with a visible focus ring",
+   "ok": true,
+   "focused": {
+    "label": "Hide password",
+    "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 0px, rgb(249, 112, 78) 0px 0px 0px 2px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+    "fv": true
+   }
+  },
+  {
+   "name": "[OwedBook sign-in light-1440] Space hides it again; value kept",
+   "ok": true
+  },
+  {
+   "name": "[OwedBook sign-in light-1440] Enter on the toggle shows it and submits nothing",
+   "ok": true
+  },
+  {
+   "name": "[OwedBook sign-in light-1440] no submission request while toggling",
+   "ok": true,
+   "after": []
+  },
+  {
+   "name": "[Portal sign-in light-1440] starts hidden; toggle is type=button, aria-pressed=false",
+   "ok": true
+  },
+  {
+   "name": "[Portal sign-in light-1440] click shows it: type=text, value kept, label Hide password, aria-pressed=true, focus stays in the field",
+   "ok": true
+  },
+  {
+   "name": "[Portal sign-in light-1440] typing continues after the toggle",
+   "ok": true
+  },
+  {
+   "name": "[Portal sign-in light-1440] Tab from the field reaches the toggle with a visible focus ring",
+   "ok": true,
+   "focused": {
+    "label": "Hide password",
+    "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 0px, rgb(202, 58, 22) 0px 0px 0px 2px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+    "fv": true
+   }
+  },
+  {
+   "name": "[Portal sign-in light-1440] Space hides it again; value kept",
+   "ok": true
+  },
+  {
+   "name": "[Portal sign-in light-1440] Enter on the toggle shows it and submits nothing",
+   "ok": true
+  },
+  {
+   "name": "[Portal sign-in light-1440] no submission request while toggling",
+   "ok": true,
+   "after": []
+  },
+  {
+   "name": "[OwedBook sign-in dark-375] starts hidden; toggle is type=button, aria-pressed=false",
+   "ok": true
+  },
+  {
+   "name": "[OwedBook sign-in dark-375] click shows it: type=text, value kept, label Hide password, aria-pressed=true, focus stays in the field",
+   "ok": true
+  },
+  {
+   "name": "[OwedBook sign-in dark-375] typing continues after the toggle",
+   "ok": true
+  },
+  {
+   "name": "[OwedBook sign-in dark-375] Tab from the field reaches the toggle with a visible focus ring",
+   "ok": true,
+   "focused": {
+    "label": "Hide password",
+    "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 0px, rgb(249, 112, 78) 0px 0px 0px 2px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+    "fv": true
+   }
+  },
+  {
+   "name": "[OwedBook sign-in dark-375] Space hides it again; value kept",
+   "ok": true
+  },
+  {
+   "name": "[OwedBook sign-in dark-375] Enter on the toggle shows it and submits nothing",
+   "ok": true
+  },
+  {
+   "name": "[OwedBook sign-in dark-375] no submission request while toggling",
+   "ok": true,
+   "after": []
+  },
+  {
+   "name": "[Portal sign-in dark-375] starts hidden; toggle is type=button, aria-pressed=false",
+   "ok": true
+  },
+  {
+   "name": "[Portal sign-in dark-375] click shows it: type=text, value kept, label Hide password, aria-pressed=true, focus stays in the field",
+   "ok": true
+  },
+  {
+   "name": "[Portal sign-in dark-375] typing continues after the toggle",
+   "ok": true
+  },
+  {
+   "name": "[Portal sign-in dark-375] Tab from the field reaches the toggle with a visible focus ring",
+   "ok": true,
+   "focused": {
+    "label": "Hide password",
+    "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 0px, rgb(249, 112, 78) 0px 0px 0px 2px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+    "fv": true
+   }
+  },
+  {
+   "name": "[Portal sign-in dark-375] Space hides it again; value kept",
+   "ok": true
+  },
+  {
+   "name": "[Portal sign-in dark-375] Enter on the toggle shows it and submits nothing",
+   "ok": true
+  },
+  {
+   "name": "[Portal sign-in dark-375] no submission request while toggling",
+   "ok": true,
+   "after": []
+  },
+  {
+   "name": "[OwedBook profile] two password fields, each with its own toggle",
+   "ok": true
+  },
+  {
+   "name": "[OwedBook profile new password] starts hidden; toggle is type=button, aria-pressed=false",
+   "ok": true
+  },
+  {
+   "name": "[OwedBook profile new password] click shows it: type=text, value kept, label Hide password, aria-pressed=true, focus stays in the field",
+   "ok": true
+  },
+  {
+   "name": "[OwedBook profile new password] typing continues after the toggle",
+   "ok": true
+  },
+  {
+   "name": "[OwedBook profile new password] Tab from the field reaches the toggle with a visible focus ring",
+   "ok": true,
+   "focused": {
+    "label": "Hide password",
+    "boxShadow": "rgb(255, 255, 255) 0px 0px 0px 0px, rgb(249, 112, 78) 0px 0px 0px 2px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+    "fv": true
+   }
+  },
+  {
+   "name": "[OwedBook profile new password] Space hides it again; value kept",
+   "ok": true
+  },
+  {
+   "name": "[OwedBook profile new password] Enter on the toggle shows it and submits nothing",
+   "ok": true
+  },
+  {
+   "name": "[OwedBook profile new password] no submission request while toggling",
+   "ok": true,
+   "after": []
+  },
+  {
+   "name": "[OwedBook profile] the confirm field stayed hidden while the first was shown",
+   "ok": true
+  },
+  {
+   "name": "[OwedBook profile] no password update was sent",
+   "ok": true
+  }
+ ],
+ "screenshots": [
+  "u1-light-1440-audit.png",
+  "u1-light-1440-hover-billing.png",
+  "u1-light-1440-keyboard-focus.png",
+  "u2-light-1440-billing-paid.png",
+  "u1-light-375-audit.png",
+  "u2-light-375-billing-paid.png",
+  "u1-dark-1440-audit.png",
+  "u1-dark-1440-hover-billing.png",
+  "u1-dark-1440-keyboard-focus.png",
+  "u2-dark-1440-billing-paid.png",
+  "u1-dark-375-audit.png",
+  "u2-dark-375-billing-paid.png",
+  "u2-synthetic.png",
+  "u2-nonowner.png",
+  "u3-OwedBook sign-in light-1440-shown.png",
+  "u3-OwedBook sign-in light-1440-keyboard.png",
+  "u3-Portal sign-in light-1440-shown.png",
+  "u3-Portal sign-in light-1440-keyboard.png",
+  "u3-OwedBook sign-in dark-375-shown.png",
+  "u3-OwedBook sign-in dark-375-keyboard.png",
+  "u3-Portal sign-in dark-375-shown.png",
+  "u3-Portal sign-in dark-375-keyboard.png",
+  "u3-OwedBook profile new password-shown.png",
+  "u3-OwedBook profile new password-keyboard.png"
+ ],
+ "requests": [
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/admin_audit"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/admin_stores"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/owner_billing_overview"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/admin_audit"
+  },
+  {
+   "theme": "light",
+   "width": 375,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "light",
+   "width": 375,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "light",
+   "width": 375,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/admin_audit"
+  },
+  {
+   "theme": "light",
+   "width": 375,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "light",
+   "width": 375,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/admin_stores"
+  },
+  {
+   "theme": "light",
+   "width": 375,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/owner_billing_overview"
+  },
+  {
+   "theme": "light",
+   "width": 375,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "light",
+   "width": 375,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/admin_audit"
+  },
+  {
+   "theme": "dark",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "dark",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "dark",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/admin_audit"
+  },
+  {
+   "theme": "dark",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "dark",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/admin_stores"
+  },
+  {
+   "theme": "dark",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/owner_billing_overview"
+  },
+  {
+   "theme": "dark",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "dark",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/admin_audit"
+  },
+  {
+   "theme": "dark",
+   "width": 375,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "dark",
+   "width": 375,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "dark",
+   "width": 375,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/admin_audit"
+  },
+  {
+   "theme": "dark",
+   "width": 375,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "dark",
+   "width": 375,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/admin_stores"
+  },
+  {
+   "theme": "dark",
+   "width": 375,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/owner_billing_overview"
+  },
+  {
+   "theme": "dark",
+   "width": 375,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "dark",
+   "width": 375,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/admin_audit"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/admin_stores"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/owner_billing_overview"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  }
+ ],
+ "tokens": {
+  "light-1440": {
+   "primary": "rgb(249, 112, 78)",
+   "primaryForeground": "rgb(255, 255, 255)"
+  },
+  "light-375": {
+   "primary": "rgb(249, 112, 78)",
+   "primaryForeground": "rgb(255, 255, 255)"
+  },
+  "dark-1440": {
+   "primary": "rgb(249, 112, 78)",
+   "primaryForeground": "rgb(255, 255, 255)"
+  },
+  "dark-375": {
+   "primary": "rgb(249, 112, 78)",
+   "primaryForeground": "rgb(255, 255, 255)"
+  }
+ },
+ "finished_at": "2026-11-16T09:02:23.932Z",
+ "summary": {
+  "checks": 73,
+  "passed": 73,
+  "failed": []
+ }
+}

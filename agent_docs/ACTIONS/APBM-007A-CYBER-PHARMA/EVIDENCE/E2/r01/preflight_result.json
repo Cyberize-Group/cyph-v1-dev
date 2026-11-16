@@ -1,0 +1,75 @@
+{
+ "at": "2026-11-12T10:36:13.789Z",
+ "blockers": [],
+ "source": {
+  "ob": {
+   "branch": "apbm-007a",
+   "headIsExpected": true,
+   "productDirty": 0,
+   "envIgnored": true,
+   "envTracked": false
+  },
+  "pp": {
+   "branch": "apbm-007a",
+   "headIsExpected": true,
+   "productDirty": 0,
+   "envIgnored": true,
+   "envTracked": false
+  }
+ },
+ "config": {
+  "APBM_DEV_block": "complete; repo tooling guard accepts it",
+  "APBM_SCRATCH_block": "complete; repo tooling guard accepts it",
+  "obAppIsDev": true,
+  "ppAppIsDev": true,
+  "devBlockEqualsObApp": true,
+  "bothAppsSameKeys": true,
+  "scratchDbPort": "5432",
+  "devDbPort": "5432",
+  "ppStripe": {
+   "STRIPE_SECRET_KEY": "sk_test_",
+   "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY": "pk_test_",
+   "STRIPE_WEBHOOK_SECRET": "whsec_",
+   "STRIPE_PRICE_STORES": "ABSENT",
+   "STRIPE_PORTAL_CONFIGURATION": "ABSENT",
+   "STRIPE_EXPECTED_ACCOUNT": "ABSENT"
+  },
+  "obHasStripeSecret": [
+   "STRIPE_SECRET_KEY:sk_test_",
+   "STRIPE_PRICE_STARTER:price_",
+   "STRIPE_PRICE_PRO:price_",
+   "STRIPE_PRICE_ENTERPRISE:price_",
+   "STRIPE_WEBHOOK_SECRET:whsec_"
+  ],
+  "siteUrls": {
+   "ob": "http://localhost:3000",
+   "pp": "http://localhost:3000"
+  }
+ },
+ "inboxFile": {
+  "mode": "600",
+  "keys": [
+   "MEMBER",
+   "OWNER_1",
+   "OWNER_2",
+   "STORE_ADMIN"
+  ],
+  "distinct": true
+ },
+ "castLogins": {
+  "path": "/home/moose/Documents/APBM-003_Tony_Manual_Test_Login_Sheet_2026-11-09.md",
+  "exists": true,
+  "mode": "664",
+  "insideAGitRepo": false,
+  "roles": {
+   "owner1": "address + credential field present",
+   "owner3": "address + credential field present",
+   "admin_b2": "address + credential field present",
+   "admin_b3": "address + credential field present",
+   "member_b1": "address + credential field present",
+   "member_b2b3": "address + credential field present",
+   "unrelated": "address + credential field present"
+  },
+  "swapFilePresent": true
+ }
+}

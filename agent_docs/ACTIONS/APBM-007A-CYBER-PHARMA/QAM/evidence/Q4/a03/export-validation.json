@@ -1,0 +1,19 @@
+{
+  "selected_privacy": "PASS",
+  "expanded_zip_privacy": "PASS",
+  "clean_actual_value_and_pattern_poison_controls": "PASS",
+  "client_files_scanned": 76,
+  "client_scan": "PASS (current served bundles, not repaired live attestation)",
+  "zip_integrity": "PASS",
+  "index_hash_size_membership": "PASS",
+  "safe_unique_paths": "PASS",
+  "no_nested_zips": true,
+  "redacted_copies": [],
+  "candidate_pair": [
+    "f637ba4086c1e906e008b8892c880ec6489bba9a",
+    "357c274284f48ed5ad3bf8407ca0a14d0d9b99e8"
+  ],
+  "plan_sha256": "2ffbfd8b12b195b06b0e278f2fd487904d338bb0fda2de4c738fbdb2d6c39672",
+  "scope": "Q4 a03 partialrelease; preflightOK, purchasehold remains",
+  "time_utc": "2026-11-16T05:15:29.905087+00:00"
+}

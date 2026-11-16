@@ -1,0 +1,209 @@
+{
+ "label": "candidate-control",
+ "environment": "SCRATCH (ihgcsrypblqkwommrkgj), single transaction, rolled back",
+ "source": "ARCHIVE/APBM007A_E2_WORK/r05/candidate",
+ "scenarios": [
+  {
+   "title": "F-Q4-003: three webhook events and a status poll at once",
+   "status": "FAIL",
+   "error": "Expected values to be strictly deep-equal: + actual - expected [ 'provisioned', + 'attention', + 'attention', + 'attention' - 'provisioned', - 'provisioned', - 'provisioned' ] ",
+   "observed": {
+    "results": [
+     "provisioned",
+     "attention",
+     "attention",
+     "attention"
+    ],
+    "operation": {
+     "status": "provisioned",
+     "last_error_code": null,
+     "owner_is_synthetic_identity": true,
+     "owner_was_existing": false
+    },
+    "counts": {
+     "accounts": 1,
+     "stores": 1,
+     "admins": 1,
+     "mappings": 1,
+     "subscriptions": 1
+    },
+    "notifications": [
+     {
+      "kind": "access_link",
+      "status": "sent",
+      "attempts": 1,
+      "last_error_code": null
+     }
+    ],
+    "create_calls": 1,
+    "mail": [
+     "ok"
+    ]
+   }
+  },
+  {
+   "title": "F-Q4-003: the reconstructed DEV interleaving (second run starts after the identity is created)",
+   "status": "FAIL",
+   "error": "Expected values to be strictly deep-equal: + actual - expected [ 'provisioned', + 'attention' - 'provisioned' ] ",
+   "observed": {
+    "results": [
+     "provisioned",
+     "attention"
+    ],
+    "operation": {
+     "status": "provisioned",
+     "last_error_code": null,
+     "owner_is_synthetic_identity": true,
+     "owner_was_existing": false
+    },
+    "counts": {
+     "accounts": 1,
+     "stores": 1,
+     "admins": 1,
+     "mappings": 1,
+     "subscriptions": 1
+    },
+    "notifications": [
+     {
+      "kind": "access_link",
+      "status": "sent",
+      "attempts": 1,
+      "last_error_code": null
+     }
+    ]
+   }
+  },
+  {
+   "title": "AC-038: recovery of a row left by the race (DEV 25acbfb9 equivalent), twice",
+   "status": "FAIL",
+   "error": "Expected values to be strictly equal: + actual - expected + 'attention' - 'provisioned' ",
+   "observed": {
+    "first": {
+     "result": "attention",
+     "before": "attention",
+     "after": "attention",
+     "lastErrorCode": "owner_signin_required",
+     "accountId": null,
+     "businessId": null
+    },
+    "again": {
+     "result": "attention",
+     "before": "attention",
+     "after": "attention",
+     "lastErrorCode": "owner_signin_required",
+     "accountId": null,
+     "businessId": null
+    },
+    "operation": {
+     "status": "attention",
+     "last_error_code": "owner_signin_required",
+     "owner_is_synthetic_identity": true,
+     "owner_was_existing": true
+    },
+    "counts": {
+     "accounts": 0,
+     "stores": 0,
+     "admins": 0,
+     "mappings": 0,
+     "subscriptions": 0
+    },
+    "notifications": [
+     {
+      "kind": "access_link",
+      "status": "sent",
+      "attempts": 1,
+      "last_error_code": null
+     }
+    ],
+    "create_calls": 0,
+    "mail": 0
+   }
+  },
+  {
+   "title": "AC-038 protection: the same row whose identity existed before the operation is not recovered",
+   "result": "attention",
+   "operation": {
+    "status": "attention",
+    "last_error_code": "owner_signin_required",
+    "owner_is_synthetic_identity": true,
+    "owner_was_existing": true
+   },
+   "counts": {
+    "accounts": 0,
+    "stores": 0,
+    "admins": 0,
+    "mappings": 0,
+    "subscriptions": 0
+   },
+   "notifications": [
+    {
+     "kind": "access_link",
+     "status": "sent",
+     "attempts": 1,
+     "last_error_code": null
+    }
+   ],
+   "status": "PASS"
+  },
+  {
+   "title": "F-Q4-004: a poll and a resend at the same moment send one link; the result stays sent",
+   "status": "FAIL",
+   "error": "Expected values to be strictly deep-equal: + actual - expected [ 'ok', + '429' ] ",
+   "observed": {
+    "results": [
+     "sent",
+     "failed"
+    ],
+    "mail": [
+     "ok",
+     "429"
+    ],
+    "notifications": [
+     {
+      "kind": "access_link_resend",
+      "status": "failed",
+      "attempts": 2,
+      "last_error_code": "429"
+     }
+    ]
+   }
+  },
+  {
+   "title": "F-Q4-002: same-key retry after the draft is edited and re-quoted with the APA code",
+   "status": "FAIL",
+   "error": "Expected values to be strictly equal: 1 !== 2 ",
+   "observed": {
+    "operations": [
+     {
+      "status": "checkout_open",
+      "revision": 1,
+      "total": 9900,
+      "successor_key": false,
+      "session_amount": 9900,
+      "session_status": "open"
+     }
+    ],
+    "draft": {
+     "revision": 2,
+     "consent_revision": null,
+     "quote_total_cents": 8910,
+     "status": "checkout_started"
+    },
+    "returned_url_is_current_session": false,
+    "reservations": [
+     [
+      "checkout_bound",
+      true
+     ]
+    ],
+    "customers": 1
+   }
+  }
+ ],
+ "auth_writes": 0,
+ "network_calls": 0,
+ "synthetic_identity": "existing SCRATCH synthetic identity without an account (ID only; no Auth write)",
+ "rolled_back": true,
+ "engineering_rows_after_rollback": 0,
+ "ran_at": "2026-11-16T06:42:15.110Z"
+}

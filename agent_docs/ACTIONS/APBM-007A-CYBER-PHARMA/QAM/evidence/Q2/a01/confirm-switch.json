@@ -1,0 +1,238 @@
+{
+  "password_sessions_requested": 6,
+  "switch_attempts": 3,
+  "emails": 0,
+  "checks": [
+    {
+      "engine": "chromium",
+      "port": 3000,
+      "test": "GET confirm synthetic context",
+      "actual": 303,
+      "expected": 303,
+      "location_is_clean": true,
+      "auth_cookie_present": false
+    },
+    {
+      "engine": "chromium",
+      "port": 3000,
+      "test": "HEAD confirm synthetic context",
+      "actual": 303,
+      "expected": 303,
+      "location_is_clean": true,
+      "auth_cookie_present": false
+    },
+    {
+      "engine": "chromium",
+      "port": 3000,
+      "test": "confirmation has explicit POST form",
+      "actual": 1,
+      "expected": 1
+    },
+    {
+      "engine": "chromium",
+      "port": 3000,
+      "test": "wrong CSRF denied before verification",
+      "actual": 403,
+      "expected": 403
+    },
+    {
+      "engine": "chromium",
+      "port": 3001,
+      "test": "GET confirm synthetic context",
+      "actual": 303,
+      "expected": 303,
+      "location_is_clean": true,
+      "auth_cookie_present": false
+    },
+    {
+      "engine": "chromium",
+      "port": 3001,
+      "test": "HEAD confirm synthetic context",
+      "actual": 303,
+      "expected": 303,
+      "location_is_clean": true,
+      "auth_cookie_present": false
+    },
+    {
+      "engine": "chromium",
+      "port": 3001,
+      "test": "confirmation has explicit POST form",
+      "actual": 1,
+      "expected": 1
+    },
+    {
+      "engine": "chromium",
+      "port": 3001,
+      "test": "wrong CSRF denied before verification",
+      "actual": 403,
+      "expected": 403
+    },
+    {
+      "engine": "chromium",
+      "test": "different-user GET does not replace identity",
+      "path": "/auth/switch",
+      "expected_path": "/auth/switch",
+      "same_account": true
+    },
+    {
+      "engine": "chromium",
+      "test": "deliberate switch POST changes selected identity",
+      "different_account": true,
+      "path": "/billing"
+    },
+    {
+      "engine": "firefox",
+      "port": 3000,
+      "test": "GET confirm synthetic context",
+      "actual": 303,
+      "expected": 303,
+      "location_is_clean": true,
+      "auth_cookie_present": false
+    },
+    {
+      "engine": "firefox",
+      "port": 3000,
+      "test": "HEAD confirm synthetic context",
+      "actual": 303,
+      "expected": 303,
+      "location_is_clean": true,
+      "auth_cookie_present": false
+    },
+    {
+      "engine": "firefox",
+      "port": 3000,
+      "test": "confirmation has explicit POST form",
+      "actual": 1,
+      "expected": 1
+    },
+    {
+      "engine": "firefox",
+      "port": 3000,
+      "test": "wrong CSRF denied before verification",
+      "actual": 403,
+      "expected": 403
+    },
+    {
+      "engine": "firefox",
+      "port": 3001,
+      "test": "GET confirm synthetic context",
+      "actual": 303,
+      "expected": 303,
+      "location_is_clean": true,
+      "auth_cookie_present": false
+    },
+    {
+      "engine": "firefox",
+      "port": 3001,
+      "test": "HEAD confirm synthetic context",
+      "actual": 303,
+      "expected": 303,
+      "location_is_clean": true,
+      "auth_cookie_present": false
+    },
+    {
+      "engine": "firefox",
+      "port": 3001,
+      "test": "confirmation has explicit POST form",
+      "actual": 1,
+      "expected": 1
+    },
+    {
+      "engine": "firefox",
+      "port": 3001,
+      "test": "wrong CSRF denied before verification",
+      "actual": 403,
+      "expected": 403
+    },
+    {
+      "engine": "firefox",
+      "test": "different-user GET does not replace identity",
+      "path": "/auth/switch",
+      "expected_path": "/auth/switch",
+      "same_account": true
+    },
+    {
+      "engine": "firefox",
+      "test": "deliberate switch POST changes selected identity",
+      "different_account": true,
+      "path": "/billing"
+    },
+    {
+      "engine": "webkit",
+      "port": 3000,
+      "test": "GET confirm synthetic context",
+      "actual": 303,
+      "expected": 303,
+      "location_is_clean": true,
+      "auth_cookie_present": false
+    },
+    {
+      "engine": "webkit",
+      "port": 3000,
+      "test": "HEAD confirm synthetic context",
+      "actual": 303,
+      "expected": 303,
+      "location_is_clean": true,
+      "auth_cookie_present": false
+    },
+    {
+      "engine": "webkit",
+      "port": 3000,
+      "test": "confirmation has explicit POST form",
+      "actual": 1,
+      "expected": 1
+    },
+    {
+      "engine": "webkit",
+      "port": 3000,
+      "test": "wrong CSRF denied before verification",
+      "actual": 403,
+      "expected": 403
+    },
+    {
+      "engine": "webkit",
+      "port": 3001,
+      "test": "GET confirm synthetic context",
+      "actual": 303,
+      "expected": 303,
+      "location_is_clean": true,
+      "auth_cookie_present": false
+    },
+    {
+      "engine": "webkit",
+      "port": 3001,
+      "test": "HEAD confirm synthetic context",
+      "actual": 303,
+      "expected": 303,
+      "location_is_clean": true,
+      "auth_cookie_present": false
+    },
+    {
+      "engine": "webkit",
+      "port": 3001,
+      "test": "confirmation has explicit POST form",
+      "actual": 1,
+      "expected": 1
+    },
+    {
+      "engine": "webkit",
+      "port": 3001,
+      "test": "wrong CSRF denied before verification",
+      "actual": 403,
+      "expected": 403
+    },
+    {
+      "engine": "webkit",
+      "test": "different-user GET does not replace identity",
+      "path": "/auth/switch",
+      "expected_path": "/auth/switch",
+      "same_account": true
+    },
+    {
+      "engine": "webkit",
+      "test": "deliberate switch POST changes selected identity",
+      "different_account": true,
+      "path": "/billing"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "layer": "actual candidate webhook+provisioning+checkout modules; real SCRATCH transaction/RPC; provider and Auth lookups mocked; no Auth writes, rollback",
+  "checks": [],
+  "fault_controls": [],
+  "emails": 1,
+  "auth_writes": 0,
+  "fixture": {
+    "draft_id": "d969c9b6-de89-4cf2-b248-214ba13c291e",
+    "operation_id": "34a8af33-a049-4d18-8b5c-c7d333dabd7b",
+    "owner_id": "04f42fcb-62da-4626-8cfd-aed844348412"
+  },
+  "poison_old_owner_reentrant": true,
+  "results": [
+    {
+      "status": 200,
+      "body": {
+        "result": "provisioned"
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "result": "provisioned"
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "result": "provisioned"
+      }
+    },
+    "provisioned"
+  ],
+  "counts": {
+    "accounts": 1,
+    "stores": 1,
+    "admins": 1,
+    "mapping": 1,
+    "email_claim": 1
+  },
+  "operation": {
+    "status": "provisioned",
+    "last_error_code": null,
+    "account_id": "931d4700-0149-430b-8873-f99253f77a8f",
+    "business_id": "56e0b27f-d861-4a46-a4e2-4dd2a2cfea9b"
+  },
+  "pass": true,
+  "retained": true
+}

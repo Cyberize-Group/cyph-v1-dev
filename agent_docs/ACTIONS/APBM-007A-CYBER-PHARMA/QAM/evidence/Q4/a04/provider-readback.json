@@ -1,0 +1,39 @@
+[
+  {
+    "operation_id": "25acbfb9-9969-44b1-8b45-928d71f99ad6",
+    "session_id": "cs_test_a0q4YzOPztpUSmztvQVbEEW2hkIMamGPRwa9DUC0v1KsdfothjKYT8wiSm",
+    "livemode": false,
+    "status": "complete",
+    "payment_status": "paid",
+    "amount_total": 8910,
+    "subscription": {
+      "id": "sub_1UcJ5dGnEQDyu3RRIaYl4Byz",
+      "status": "active",
+      "invoice_status": "paid",
+      "amount_paid": 8910
+    }
+  },
+  {
+    "operation_id": "885b2ed5-0aca-4558-be19-7822cd1bb180",
+    "session_id": "cs_test_a08HGAsIwvenZddskjaQn2GlAKjUIZFeD7IHyDVRwt01dhL0AhSe4ZkOZ9",
+    "livemode": false,
+    "status": "open",
+    "payment_status": "unpaid",
+    "amount_total": 8910,
+    "subscription": null
+  },
+  {
+    "operation_id": "d1c76239-cdfa-4c60-9304-aa397eade5cb",
+    "session_id": "cs_test_a0EZVa5a3OM65ZjHXEIj8aft9DlxrlcBH4lqejwnLTLEXfSIz6Ji7fEqJx",
+    "livemode": false,
+    "status": "complete",
+    "payment_status": "paid",
+    "amount_total": 8910,
+    "subscription": {
+      "id": "sub_1UcJ74GnEQDyu3RR1jv0xTGw",
+      "status": "active",
+      "invoice_status": "paid",
+      "amount_paid": 8910
+    }
+  }
+]

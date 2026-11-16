@@ -1,0 +1,88 @@
+{
+  "objects_by_evidence": [
+    {
+      "source": "evidence/Q2/a01/foreign-live.json",
+      "purpose": "Foreign sandbox classification; customer and expired unpaid Checkout retained",
+      "ids": [
+        "cus_VcXIPryJq6gOp7",
+        "cs_test_a0MNdhYXarjQZC3BuxFUr1ttgWMtmx139du5OQRQBPJXMmbU9HgwZcxc7l",
+        "evt_1UbIDoGnEQDyu3RRRL0kOfXS",
+        "evt_1UbIDoGnEQDyu3RRRL0kOfXS",
+        "evt_1UbIDoGnEQDyu3RRRL0kOfXS"
+      ]
+    },
+    {
+      "source": "evidence/Q4/a04/live-results.json",
+      "purpose": "New-owner paid, declined-card and existing OWNER_2 journeys",
+      "ids": [
+        "cus_VdaCVaqeLJj3qh",
+        "cs_test_a0q4YzOPztpUSmztvQVbEEW2hkIMamGPRwa9DUC0v1KsdfothjKYT8wiSm",
+        "sub_1UcJ5dGnEQDyu3RRIaYl4Byz",
+        "in_1UcJ5cGnEQDyu3RRGO1XEirt",
+        "cus_VdaGp0FnoRfc4m",
+        "cs_test_a08HGAsIwvenZddskjaQn2GlAKjUIZFeD7IHyDVRwt01dhL0AhSe4ZkOZ9",
+        "cus_VdaHbF51TssnqU",
+        "cs_test_a0EZVa5a3OM65ZjHXEIj8aft9DlxrlcBH4lqejwnLTLEXfSIz6Ji7fEqJx",
+        "sub_1UcJ74GnEQDyu3RR1jv0xTGw",
+        "in_1UcJ72GnEQDyu3RRv8FL3c3w",
+        "evt_1UbBtoGnEQDyu3RRkNvmPQOh",
+        "evt_1UbBysGnEQDyu3RRLFtpQcZB",
+        "evt_QA007AIndependentSignature01",
+        "evt_1UbIDoGnEQDyu3RRRL0kOfXS",
+        "evt_1UcJ5fGnEQDyu3RRoWYqYk1E",
+        "evt_1UcJ5fGnEQDyu3RR3PGuN1yX",
+        "evt_1UcJ5fGnEQDyu3RRCf4C7Udu",
+        "evt_1UcJ76GnEQDyu3RRK8meeTQC",
+        "evt_1UcJ76GnEQDyu3RRlAutnc9I",
+        "evt_1UcJ76GnEQDyu3RRh4nYg9EL"
+      ]
+    },
+    {
+      "source": "evidence/Q4/a04/provider-readback.json",
+      "purpose": "Authoritative sandbox settlement and active subscriptions",
+      "ids": [
+        "cs_test_a0q4YzOPztpUSmztvQVbEEW2hkIMamGPRwa9DUC0v1KsdfothjKYT8wiSm",
+        "sub_1UcJ5dGnEQDyu3RRIaYl4Byz",
+        "cs_test_a08HGAsIwvenZddskjaQn2GlAKjUIZFeD7IHyDVRwt01dhL0AhSe4ZkOZ9",
+        "cs_test_a0EZVa5a3OM65ZjHXEIj8aft9DlxrlcBH4lqejwnLTLEXfSIz6Ji7fEqJx",
+        "sub_1UcJ74GnEQDyu3RR1jv0xTGw"
+      ]
+    },
+    {
+      "source": "evidence/Q4/a05/readback.json",
+      "purpose": "Recovered owner A and final new-owner purchase",
+      "ids": [
+        "cus_VdbZZ4cNy7cy82",
+        "cs_test_a04J8PFjGHleALb8OCAAgnXdbIUDn52yfDBHEK15mAmRtKGVp9KtQCQ5sH",
+        "sub_1UcKMSGnEQDyu3RRx5DLB8cC",
+        "cus_VdaCVaqeLJj3qh",
+        "cs_test_a0q4YzOPztpUSmztvQVbEEW2hkIMamGPRwa9DUC0v1KsdfothjKYT8wiSm",
+        "sub_1UcJ5dGnEQDyu3RRIaYl4Byz",
+        "evt_1UbBtoGnEQDyu3RRkNvmPQOh",
+        "evt_1UbBysGnEQDyu3RRLFtpQcZB",
+        "evt_QA007AIndependentSignature01",
+        "evt_1UbIDoGnEQDyu3RRRL0kOfXS",
+        "evt_1UcJ5fGnEQDyu3RRoWYqYk1E",
+        "evt_1UcJ5fGnEQDyu3RR3PGuN1yX",
+        "evt_1UcJ5fGnEQDyu3RRCf4C7Udu",
+        "evt_1UcJ76GnEQDyu3RRK8meeTQC",
+        "evt_1UcJ76GnEQDyu3RRlAutnc9I",
+        "evt_1UcJ76GnEQDyu3RRh4nYg9EL",
+        "evt_1UcJaKGnEQDyu3RRTJeNvSMS",
+        "evt_1UcKMTGnEQDyu3RRk9TpRCJd",
+        "evt_1UcKMTGnEQDyu3RRGFysL8Oh",
+        "evt_1UcKMTGnEQDyu3RRqlldNnMt"
+      ]
+    }
+  ],
+  "no_deletion": true,
+  "additional_objects": "Invoices/items/paymentmethods may be provider-created children. Captured IDs enumerated in fixture-object-provenance; no full Stripe-account inventory claimed.",
+  "known_QA_customers": [
+    "cus_VcXIPryJq6gOp7",
+    "cus_VdaCVaqeLJj3qh",
+    "cus_VdaGp0FnoRfc4m",
+    "cus_VdaHbF51TssnqU",
+    "cus_VdbZZ4cNy7cy82"
+  ],
+  "purpose": "Foreign expiry, ownerA purchase/recovery, decline, OWNER2 purchase/sign-in, finalnewowner purchase; retain all."
+}

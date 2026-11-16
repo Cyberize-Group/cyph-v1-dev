@@ -1,0 +1,57 @@
+{
+  "layer": "actual candidate registration/checkout against real SCRATCH SQL; independent idempotent fake provider with after-create timeout; rollback",
+  "checks": [
+    {
+      "name": "guessed ID and unrelated secret do not read draft",
+      "status": "PASS"
+    },
+    {
+      "name": "missing consent rejects before provider",
+      "status": "PASS"
+    },
+    {
+      "name": "timeout after real fake object creation surfaced",
+      "status": "PASS"
+    },
+    {
+      "name": "new-key retry after unknown response cannot create second provider objects",
+      "status": "PASS"
+    }
+  ],
+  "fault_controls": [],
+  "emails": 0,
+  "auth_writes": 0,
+  "draft_id": "f67a1fec-6147-4727-a938-941f20849e4d",
+  "timeout_after_created": true,
+  "provider_counts": {
+    "customers": 1,
+    "sessions": 2,
+    "create_calls": 3
+  },
+  "current_draft": {
+    "revision": 2,
+    "consent_revision": 2,
+    "quote_total_cents": 9900,
+    "status": "checkout_started"
+  },
+  "operations": [
+    {
+      "id": "7314cfa0-215a-402d-ae24-21ddbc12b48a",
+      "status": "checkout_open",
+      "draft_revision": 2,
+      "expected_total_cents": 9900,
+      "stripe_customer_id": "cus_Q4C1",
+      "stripe_checkout_session_id": "cs_Q4S2"
+    },
+    {
+      "id": "b440c853-cb31-41ae-b7c1-88d65c586d07",
+      "status": "expired_unpaid",
+      "draft_revision": 1,
+      "expected_total_cents": 9900,
+      "stripe_customer_id": "cus_Q4C1",
+      "stripe_checkout_session_id": "cs_Q4S1"
+    }
+  ],
+  "current_revision_matches_reachable_checkout": true,
+  "rolled_back": true
+}

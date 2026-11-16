@@ -1,0 +1,931 @@
+{
+  "package": "APBM-007A-CYBER-PHARMA_PACK_v1_0",
+  "status": "TECHNICAL_FREEZE_E2_NOT_RELEASED",
+  "files": [
+    {
+      "path": "REVIEW_START_HERE.md",
+      "size": 222,
+      "sha256": "1528831249bac890a99a98e49eab5eca72d19bcc01076a8e5ca0ab856306fb01"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/AGENTS.md",
+      "size": 897,
+      "sha256": "9c89c7fafba21f936d1893ebd9e839c4de71d8f3bfb4d548085b816e37e5a79c"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/AMENDMENT_LEDGER.md",
+      "size": 1519,
+      "sha256": "d28d83ad90e2de3ccd39e8837b5cdcb117a007992501f05617b8f1c4c887a305"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_ACCEPTANCE_SPEC.md",
+      "size": 12598,
+      "sha256": "baa9c8d90099331381593bc97f385cd07bfb5dc588ab5809bbef81745a0e9bf6"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_BRIEF.md",
+      "size": 3941,
+      "sha256": "6b5a2b4837064e1f265d77767635360c3730c45a37a709ee32aaf87c91db70e8"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_ENTRY.md",
+      "size": 1360,
+      "sha256": "73e4a0afdfe2df68284598959f0a2d0c60db5507624606062808420614c3e56f"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_EXECUTION_PLAN.md",
+      "size": 1904,
+      "sha256": "20f45e8dc408fb3a7b91026b0fa4ae42901cd81d0a1c97108f614fc608f65cec"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_JOURNAL.md",
+      "size": 1948,
+      "sha256": "03c52a7fa9a228a252630f11f855dd4d07e644668471473785764c8d55d4a758"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_RULINGS.md",
+      "size": 7091,
+      "sha256": "98f0b82b6e31fd7492063e0b19a7120bfa3818dfe8a103588ce1e9f82e5e89d1"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_SKILLS_MANIFEST.md",
+      "size": 832,
+      "sha256": "3fc122cdbb0485bc92246609da241ba23f70e13998e879e5ecc2a0b8a95a2812"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_STATE.md",
+      "size": 10561,
+      "sha256": "c8ba3f976a98716261d3b67e1f15a571ad4a60af84addf2b4c578d33384974ad"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APPLY_CHECKPOINT.md",
+      "size": 1882,
+      "sha256": "35428c56d211e8aed33ebcf86701cab393c177c0e84ac84e75dc07f13e7f1a53"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CLAUDE.md",
+      "size": 897,
+      "sha256": "9c89c7fafba21f936d1893ebd9e839c4de71d8f3bfb4d548085b816e37e5a79c"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CLOSEOUT_INSTRUCTIONS.md",
+      "size": 2225,
+      "sha256": "e32f64841d6045c3f637bbe7c8d07e57810cc9c331b0d18531c31e573bd6a5e4"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CONTRACTS/AUTH_HANDOFF_CONTRACT.md",
+      "size": 22441,
+      "sha256": "db0c321e34b323c682f711010b812930777980a8c2f1d65b7d4fe39854a96f42"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CONTRACTS/BILLING_AND_PAYMENTS_CONTRACT.md",
+      "size": 10630,
+      "sha256": "59eb44f416692d5dd796568b0f6c0d6637981e08f4f74b9dbe4c90edc511a0f3"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CONTRACTS/DATA_AND_PROVISIONING_CONTRACT.md",
+      "size": 8608,
+      "sha256": "701f96eefa3d55f9a7401af221321744955fcdb9b4994bb56a1f1dd955c96865"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CONTRACTS/DEV_SAMPLE_CLAIMS.md",
+      "size": 1704,
+      "sha256": "4d86a70451a4061fa6f24283c01d56a7da475b2f2376eac1e53efe9de7c45023"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CONTRACTS/ENVIRONMENT_AND_EFFECTS.md",
+      "size": 2407,
+      "sha256": "0719c1eaec705fea5193fa0b3e9d7657b00728a96a56df2fac6f54b63cf66843"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CONTRACTS/IMPLEMENTATION_REQUIREMENTS.md",
+      "size": 13009,
+      "sha256": "48b895f3a5286b3dedf8b3856fb0e4ed7a82027b4c565288672f97f6ec50558b"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/DIRECTOR_PREP.md",
+      "size": 675,
+      "sha256": "e0cf34d9fcde681f1ed042bccc7ea623b87c40bb275a32c26cf4d0e15a6968e7"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/DIRECTOR_RULINGS_2026-11-11.md",
+      "size": 3100,
+      "sha256": "dbb31213581cb250e62725c33e988c5ec30a8d6cfd4d3b8358df43a24c9fd178"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/E1_DIRECTOR_RELEASE.md",
+      "size": 390,
+      "sha256": "ac7a909c9f9c36bc567421995e282b21202ae885ebc297bb63419af259e09c17"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/E1_RECON_MISSION.md",
+      "size": 7391,
+      "sha256": "737f3251fb6c8818d20ec419d68ae44b048d23feca0aeba9aa22e50228d934d5"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/E1_RELEASE_REQUEST.md",
+      "size": 10165,
+      "sha256": "6bb338055a80045f4aabd1ee5c9c234369ec03c9eaf0b0dafcfb7f93da8180ff"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/E2_EXECUTION_INSTRUCTIONS.md",
+      "size": 5364,
+      "sha256": "bc3b1064cc54fdf3a078dc5d019fbfefe40efff25aa5c0cf77571cb52e8603b9"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/E2_RELEASE_REQUEST.md",
+      "size": 6058,
+      "sha256": "a89e06758c8b3867a5acde168c50d2cbd0595d174d799f6f78d24c2be9513958"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/ACTION_LIST.md",
+      "size": 2755,
+      "sha256": "11715d9756a2a28ceb121b7b1642e785a760c917008b17cbc39b29011eadabad"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/AUTH_EMAIL_TEMPLATE_PROPOSAL.md",
+      "size": 4420,
+      "sha256": "3ee6cc3c202a7ef9388d83668f606360482db972f5c7b7c90551f898bee822dd"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/BASELINE_RESULTS.md",
+      "size": 4136,
+      "sha256": "2d3569c3a9876423aab4b43e3ec8b7a643069337190a4d8b1c22d93bb2eed73d"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/CAPABILITY_PROBE_PLAN.md",
+      "size": 6164,
+      "sha256": "00f7dc1f025f1d7bb2530a5afb67f5ffeab365bc97f1b6f419652fd21cf9d9c9"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/CAPABILITY_RESULTS.md",
+      "size": 13545,
+      "sha256": "72f09a7502bb3175597b196d4b4136a1d098a168dae79e2acfd6bfa7f81db8b1"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/CONTRACT_DELTA.md",
+      "size": 12003,
+      "sha256": "d9df11de775891da8f4f52f2c96cb914eda8283a94a17862b40644705b659ebb"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/DB_CHECK_ATTEMPT_2026-11-12.md",
+      "size": 3480,
+      "sha256": "4986dd2149be74fc25b2235077033de9ad53be8f9198151f2e778117bcb594bf"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/DB_CHECK_RESULTS.md",
+      "size": 7562,
+      "sha256": "3a0595db28ba4ca6d5344c06f126fe163b0468bd1d725699a7338406c9e004a6"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/E1_REPORT.md",
+      "size": 13726,
+      "sha256": "3f6e0a3bd7fff0c3a00d3cb74d4b37d2a808737b7bada6c12f0a1078616a52f8"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/EFFECT_CAPSULE.md",
+      "size": 5230,
+      "sha256": "2aa1e0a1614e87072349c4f265692cc0f4f0075e1f1a74b096f8cf864901fab9"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/EMAIL_OBSERVATIONS.md",
+      "size": 16017,
+      "sha256": "1efaa21b506e3975c0e864bbf06649ed6f38cc355e8bbfb9e12f292707b69093"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/ENVIRONMENT_IDENTITY.md",
+      "size": 5844,
+      "sha256": "688e94d286ef231066b696d0f401c48ac2fa1e8770bc0459dbcc2cb937c9ad18"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/EXTERNAL_IMAGE_EVIDENCE.md",
+      "size": 415,
+      "sha256": "02e9f20929c5a571b24666dd295d8a8e849e7ddfa9f603b6504ae1e3035c5c0f"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/HANDOFF_CONTRACT_PROPOSAL.md",
+      "size": 19875,
+      "sha256": "8a74ae36e9746d04b9debad75b019bea24a367ddcacbace4b714f9ad4dd77551"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/MIGRATION_PLAN.md",
+      "size": 5785,
+      "sha256": "cd8d9993419cc36e05c56fc01ab2d9b9d2f985e7b043b357a1299a776954b8fc"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/PREFLIGHT_LEDGER.md",
+      "size": 2691,
+      "sha256": "2d8459d8c6bddae4a8ba33b6cecef0b57b72ab54145a0c0b7124ad1fd7e212a4"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/R6_FILE_INDEX.json",
+      "size": 18186,
+      "sha256": "c746c9bd129ef0d47d488fe7bf4ceb871c1a90fa1e7be71e13ffdc31a0195449"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/REVIEW_AMENDMENTS.md",
+      "size": 12832,
+      "sha256": "0cd47dfc152f7d989780e350c5acec94876390e01cf692c82fdac6a1f2760b2e"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/REVIEW_START_HERE.md",
+      "size": 1697,
+      "sha256": "9508e711f78b2c2bd8c2228508dd30a14373f1701c39d92d4103502e819036ef"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/SCRATCH_IDENTITY.md",
+      "size": 4183,
+      "sha256": "d059d9df1a6b9eca5ba63551171b3999559aab9ea828d7bdb7807cc2c9933f22"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/auth_p2.mjs",
+      "size": 7116,
+      "sha256": "5122297d15ce77960d25beb375471c1854ebc227e94eaccdea94c16c15a4f77e"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/auth_p3.mjs",
+      "size": 5871,
+      "sha256": "9a6c27ca13ee73b49e907cdbc3345539abb50048cb968335c494c54d17b7b89e"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/auth_p4.mjs",
+      "size": 1472,
+      "sha256": "7fabe5046bd9339d12ed48c56dddd0f7499eafdc60f40de3a0eac6aeea3ec390"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/auth_p5.mjs",
+      "size": 876,
+      "sha256": "51f24038cb5138529f6261d3cf4bbd1f23a33a4e6cd367e36e3016f6b9c6eade"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/auth_p6.mjs",
+      "size": 1060,
+      "sha256": "8e1d00b1a7bec4c8983a017a58a04800baefb7e0ccd796d31e1a8441cd71c2a4"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/auth_p7.mjs",
+      "size": 3722,
+      "sha256": "a6f8a0adf0f616e0f6d17b307d531479be1299cb4a04dbf5e2770a1e8da28de3"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/authsettings.mjs",
+      "size": 294,
+      "sha256": "a4a6866b768f95ce1030ac8ba560e9856788d34b252aad7023f4480decc5319a"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/baseline.sh",
+      "size": 1086,
+      "sha256": "39363e7d645ebd39dd46cbef71cbc566a8fb11355ed3ed8c42af6ed61178b1fa"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/baseline_head.sh",
+      "size": 673,
+      "sha256": "745e695a755f80711b70b15df9ef4604f0035910d6f40c58afaccead64b424eb"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/cast.mjs",
+      "size": 1588,
+      "sha256": "9b0e32ae3a7c26cec6feab676950fa59da22cb900a11a8ffaf90e2f831b2c377"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/cleanup_resume.mjs",
+      "size": 2117,
+      "sha256": "5b5b473294418dabb6cadbc9611b50c1c5c0d13993f06f0f36c964d4179678eb"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/db_diag.mjs",
+      "size": 1540,
+      "sha256": "00341259159dcca92bfed43f59cff9f4282ad5a4ad4f587a77f92d00f7d93080"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/db_links.mjs",
+      "size": 2480,
+      "sha256": "48890b6f5c9af7bdb6d4802dcb09ca9df1c9dbb33115a908d9c79d39222cbdce"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/db_links2.mjs",
+      "size": 2466,
+      "sha256": "6988cc1784633244ac0989fc67d361bc6750776ecc74f6142519244519998569"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/db_links3.mjs",
+      "size": 2763,
+      "sha256": "de0816a738589c41a5999bee272a7d29a8a698e1151d121097f1a70d26d8ce41"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/db_links4.mjs",
+      "size": 1097,
+      "sha256": "9f5c9dd20040caa7843c8732c5e982605af2074a648433998bb37729619c9240"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/db_readonly.mjs",
+      "size": 8484,
+      "sha256": "ec98a50dfa64eb1ea4cf6684af9edb509cfdd5e037e89966fa58f55fb0486c24"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/dbnames.mjs",
+      "size": 754,
+      "sha256": "cac8a5c1937c98e7dc93a32833b3fdc1e07b20c53f23b9bbb2759e0ae3b3bad0"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/ffm_equiv.py",
+      "size": 1512,
+      "sha256": "317591ee52cc22449ef611dbdef11b1eb154be8a84f59c17e1b7fff36e60cd79"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/identity.mjs",
+      "size": 1939,
+      "sha256": "8995e657ce1e676b1da070114a08435c85f15f8417eeaabb5f93ef36dda6296a"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/lib.mjs",
+      "size": 4001,
+      "sha256": "ebaee92040ca92ba9a1648f2fd44f9f5498bfb8dd34ec953d87ecb0e063273f7"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/p0.mjs",
+      "size": 1157,
+      "sha256": "5133c3a505b8c41d4f6a365135a8f2dac7b7b36d1a7c9ea0d263fa4eb931c014"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/portal_b1.mjs",
+      "size": 544,
+      "sha256": "4edc8b325c7022734306f8c8ec6e3f5d5cf810841394e9d81c8b0b8d1da08eac"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/portal_b2.mjs",
+      "size": 2492,
+      "sha256": "47f18173d2d121a1a07d6482108396f15994a0ffa912ca2600c1b07e4ced8348"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/portal_b3_cleanup.mjs",
+      "size": 2897,
+      "sha256": "190a05a25f9787a7abdec09cad9a5e0f2dab6b546791bfb2679f6a9905758f6b"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/portal_lib.mjs",
+      "size": 2633,
+      "sha256": "f4b65c33cde7c57fb2be0ce1283d169c71b812117f222d52f8fabf9212a23df9"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/sb_lib.mjs",
+      "size": 1787,
+      "sha256": "f21ab90265306b126f469d17017464c4fde34eb68e11e3d8c582f4a6113e546b"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/sb_readonly.mjs",
+      "size": 3117,
+      "sha256": "fb3b72394f175726dd9e97d1c6578136c959d9a142487346584fae9bc865fd04"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/scratch_identity.mjs",
+      "size": 3951,
+      "sha256": "8b02949d005a98b2fe64cc1d379b77416b01b98c951eb0675f6f4930206858f5"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/scratch_keys.mjs",
+      "size": 919,
+      "sha256": "8795ce4c344aaf1f51dae6f3210345af695ab9e9d81d36d3f0ce2e0d0350b0d4"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/scratch_ledger.mjs",
+      "size": 2927,
+      "sha256": "d24f971b328b5b3943db1516eb25df7afb33157d066a5e4dc616a0acf80bad62"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/stripe_coupon_n3.mjs",
+      "size": 630,
+      "sha256": "058a018fbbf6555222ed6b2940b6dbb316354a69cf6e043658dbbc5b3bd3b111"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/stripe_identity.mjs",
+      "size": 2734,
+      "sha256": "fb974a96caf8b662642cedf1eae459adf810f8393ac6e4c50c05f77ed358a3cc"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/stripe_lib.mjs",
+      "size": 979,
+      "sha256": "2e7517d2c31141eb926b66a514f745e73842bdbb48b5cebc363f16f9638a3d3c"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/stripe_p1.mjs",
+      "size": 3926,
+      "sha256": "cf53354d71dbdff7a2f48558ee977f40e18adbb7cc6f996a53fcfd54952ae2b3"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/helpers_snapshot/stripe_p1b.mjs",
+      "size": 3987,
+      "sha256": "e265533bbeda90563b04ae25a0dad6bcd2870c4332c548187287cc649496ef43"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/results/auth_p2_result.json",
+      "size": 4511,
+      "sha256": "f3d876c3a67db9b6f6634f007b52edf20e7f9485a09dbd24c7365dba302868fc"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/results/auth_p3_result.json",
+      "size": 1486,
+      "sha256": "cb0560ea9f7a813aa0c0350f82445a7a4b6504295618071b44748aed31690548"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/results/auth_p4_result.json",
+      "size": 323,
+      "sha256": "c0b04d262a974e3c679af0d45674569ad4a125f936449c672f4d7c2eee94e608"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/results/auth_p5_result.json",
+      "size": 186,
+      "sha256": "3de1afbece8bcc981e27d44045663955a8da19c801244c1d149408acb3fb92be"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/results/auth_p6_result.json",
+      "size": 222,
+      "sha256": "2d286a6a635d378318f91ad6017ce5e322b10ebbbf571131b7f374f0a04a2fb7"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/results/auth_p7_result.json",
+      "size": 1869,
+      "sha256": "42aad0db4a13ebfd8f02bcbdc35dced051546178530a5fa921d6756b4d78d572"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/results/cleanup_receipts.json",
+      "size": 1240,
+      "sha256": "ee89fc83c1ee4d6f1009cf279756e2ce3b855b5dd7e7716fd665aad3fca334ba"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/results/counters.json",
+      "size": 171,
+      "sha256": "af05dac8ac7a2485f42d5190509bfc8688994c0030780069b4da2a9eaa2bfccd"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/results/db_links2_result.json",
+      "size": 366,
+      "sha256": "0c29c0fc5df5f766ac46bd0e3f23d265b1d1fb21407a694f654a87dfb4700a8b"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/results/db_links3_result.json",
+      "size": 697,
+      "sha256": "eac160471da6d261a818a7f1de4892f6f19513643c74ee162783247b3725be44"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/results/db_links_result.json",
+      "size": 644,
+      "sha256": "3dccd96852662c43d99e2b8af6913c50d786ea3a3362d3329735a1f883cd7897"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/results/db_readonly_result.json",
+      "size": 16506,
+      "sha256": "4b1e7f4c7e50ac6ac980f358c900d4d6ec5a335b6506945089bfd2991fd1a6a7"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/results/portal_b2_result.json",
+      "size": 2514,
+      "sha256": "c26881e65783c9471eeab19a8116d7809f815f1fe77ac6432f7f07cbb4b7f064"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/results/scratch_identity_result.json",
+      "size": 1244,
+      "sha256": "9f77894f10e0f6858f09c04f08627518a98ff51bb326388532766809cffab657"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/results/scratch_ledger_result.json",
+      "size": 751,
+      "sha256": "019d253499f0c9a189cd0c8718a7a4d9632ba55470d9cab230f4e2c0e99be642"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/results/stripe_owned_objects.json",
+      "size": 1964,
+      "sha256": "a39ee7230b57072c548687ff33a6cfea272174d4c0cd554579a719465a56b30c"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E1/a01/results/stripe_p1b_result.json",
+      "size": 8654,
+      "sha256": "d5c646f39e4f852ff3bf6afa007b7e2027a153b0c3c87fa03f463c383b8f6486"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/README.md",
+      "size": 413,
+      "sha256": "c9009435981f813037b1be1f903fa87485e1991984cbde3a9aa9fa4c282d2f1f"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/APBM007_DECISIONS_2026-11-11.md",
+      "size": 14687,
+      "sha256": "1ee18ed47bda10f945c9a16b84bd971b665d4d7186503966d25139a3abd84101"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/APBM_PLAYBOOK_v1_0.md",
+      "size": 25765,
+      "sha256": "c12ff3f9bc4355e9bd8e1c276a3917bd443f864715ab1ffb6b84edf49beb4f93"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/APPENDIX_PAYMENT_PORTAL_DETAIL.md",
+      "size": 65907,
+      "sha256": "fe12d1dd447014d855c4b0b382b4842a391573a78474521df804458162eae770"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/ARCHITECT_PLAYBOOK.md",
+      "size": 26479,
+      "sha256": "7e2ceb6f882e1eafaa60759b163c541eaafa932fb28e0fcab08345f985c18d45"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/CAMPAIGN_JOURNAL_APBM003_CLOSEOUT_2026-11-09.md",
+      "size": 9202,
+      "sha256": "713edf5f1c02f6bc9928aa0c63bc53020f220f58e580fb95a5cc2b2664ce41a4"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/CAMPAIGN_JOURNAL_E1_CHECKPOINT_HISTORICAL.md",
+      "size": 19904,
+      "sha256": "6d8705b3cf495f39f4a6d5fc620d3206d915fdba44cf1e9e1e733e103cbec412"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/CYBER_PHARMA_8_PHASE_PLAN_v3_0.md",
+      "size": 66961,
+      "sha256": "bde41648b1d0eb5b4724b12c467918d4df2940392951028369ca5eacc9e77a83"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/CYPH_SUBSCRIPTION_PORTAL_REPLAN_BRIEF_2026-11-05.txt",
+      "size": 23888,
+      "sha256": "d553c267e49b9421dfeb8699955c10bb8da86db2c000238308a2c27b8204b5dc"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/DOCSET_DOCTRINE_JOURNAL_APBM003_2026-11-09.md",
+      "size": 12182,
+      "sha256": "7d3672ca00eba4ed13bb45fb508ed543ea73bad1787e8fe5cf06c794c395960f"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/ENGINEER_PLAYBOOK.md",
+      "size": 51667,
+      "sha256": "dcf2c4fa69c9b173c64e4b6c4113cfbe10e0c02e3dba44da2198ea0310714b64"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/FRIDAY_REVIEW_3_FINAL_E1.md",
+      "size": 1757,
+      "sha256": "41e27c9e620a99441eac5e764a5153e0d37863f032bd77ca1c15b35e8679e16e"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/FRIDAY_REVIEW_V0_1.md",
+      "size": 5377,
+      "sha256": "09d86ec3f2a9da7934014ce64fa0dc133a6fabf8a35cdf73721e9c18a06c73d0"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HANDOFF_PACKAGE_PLAYBOOK.md",
+      "size": 22291,
+      "sha256": "20fa7ca7125510570a3508c0e74b21966e41f717fe65f5070a883e1d97def08f"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/AGENTS.md",
+      "size": 842,
+      "sha256": "314f0cbd8b29c6a8ba664d77134446067b3173b56db9b59b484770692ca1789e"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/AMENDMENT_LEDGER.md",
+      "size": 3234,
+      "sha256": "438baa3ec77ced9df0ee78b9000122094d1b701a261f700857811bf4e153b61e"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/APBM_ACCEPTANCE_SPEC.md",
+      "size": 10243,
+      "sha256": "cfcde2f94e91a3a86d1dc7e33549ca25a00376e53e26cfe461d7f2d533793160"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/APBM_BRIEF.md",
+      "size": 3941,
+      "sha256": "6b5a2b4837064e1f265d77767635360c3730c45a37a709ee32aaf87c91db70e8"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/APBM_ENTRY.md",
+      "size": 2493,
+      "sha256": "d06582fdf063b25d22148187760b81abd56e7ffa707e2ef3130a8b49711c3d79"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/APBM_EXECUTION_PLAN.md",
+      "size": 1891,
+      "sha256": "9980bc952eca5c280f947e81d4b0280bde4b2d548e94475716b57b366d3683b9"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/APBM_JOURNAL.md",
+      "size": 1143,
+      "sha256": "3154dd18c415bc97256560f5f7ebbe64bc43cad7567b438d8d941bec008a166d"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/APBM_RULINGS.md",
+      "size": 4891,
+      "sha256": "4a7232b6d0cb63192f3ffb1a66574b6b0103f7fbf43a02db169b2d2f3ab95319"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/APBM_SKILLS_MANIFEST.md",
+      "size": 832,
+      "sha256": "3fc122cdbb0485bc92246609da241ba23f70e13998e879e5ecc2a0b8a95a2812"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/APBM_STATE.md",
+      "size": 1729,
+      "sha256": "4cc19c3e887d55975a3a175f3d2f2b3aab66d6c19e48533c1d76c039f14fb917"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/APPLY_CHECKPOINT.md",
+      "size": 1882,
+      "sha256": "35428c56d211e8aed33ebcf86701cab393c177c0e84ac84e75dc07f13e7f1a53"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/CLAUDE.md",
+      "size": 842,
+      "sha256": "314f0cbd8b29c6a8ba664d77134446067b3173b56db9b59b484770692ca1789e"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/CLOSEOUT_INSTRUCTIONS.md",
+      "size": 2225,
+      "sha256": "e32f64841d6045c3f637bbe7c8d07e57810cc9c331b0d18531c31e573bd6a5e4"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/CONTRACTS/AUTH_HANDOFF_CONTRACT.md",
+      "size": 8793,
+      "sha256": "f8c7558ae37b348a0c4a1643c7bdb7cedaa46b3798984880b268038b31cfae02"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/CONTRACTS/BILLING_AND_PAYMENTS_CONTRACT.md",
+      "size": 9511,
+      "sha256": "b093c466eec65259a63351425027dc045dbaa32886cc71ca837873a4c6d5915e"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/CONTRACTS/DATA_AND_PROVISIONING_CONTRACT.md",
+      "size": 7008,
+      "sha256": "7b2a620f86c61ff20f37b93e1092a19c3ee2380f70978073c3b2ed2b0b3cd781"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/CONTRACTS/DEV_SAMPLE_CLAIMS.md",
+      "size": 1704,
+      "sha256": "4d86a70451a4061fa6f24283c01d56a7da475b2f2376eac1e53efe9de7c45023"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/CONTRACTS/ENVIRONMENT_AND_EFFECTS.md",
+      "size": 6598,
+      "sha256": "4f455537f6fc0f87f8c4df60854f7f56e7a7fc6640a0d8a68695af57704a67bc"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/DIRECTOR_PREP.md",
+      "size": 2423,
+      "sha256": "d32accf6784c0df9e9c4b8d7a7d5ca4e77ae62e6628a20fa6a7a265f36920327"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/DIRECTOR_RULINGS_2026-11-11.md",
+      "size": 3100,
+      "sha256": "dbb31213581cb250e62725c33e988c5ec30a8d6cfd4d3b8358df43a24c9fd178"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/E1_RECON_MISSION.md",
+      "size": 7189,
+      "sha256": "9789438c1941be5d3243deb41ae8a3f59e42038f24c2aaf154186b7608241e39"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/E1_RELEASE_REQUEST.md",
+      "size": 9963,
+      "sha256": "97818c5d842edb44f77a345b0542699689c526f328250a44bc43ed328b9acd0b"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/E2_EXECUTION_INSTRUCTIONS.md",
+      "size": 4572,
+      "sha256": "4f865088f4f73ba85b73c45d51f37734997c97234797a91e4cdab753b2adc5a8"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/LAUNCH_PROMPTS.md",
+      "size": 1750,
+      "sha256": "731cddbb37b62c7651d57f3f25cb1af93badf73a5c08496c6e08f640f22b9392"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/MISSING_INPUTS.md",
+      "size": 1760,
+      "sha256": "d2a8fd60362edd8883d1becf02dfe9b4b0c026bb2c66107918fe08b1e19c54a7"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/OPERATOR_INPUTS.md",
+      "size": 2231,
+      "sha256": "f462154c64ba7c7f86c15227261575596b822fbe4b36ad339a131480c2f74819"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/PREFLIGHT_LEDGER.md",
+      "size": 4562,
+      "sha256": "4942c32764f2be2d2cd53bf32ef848782ef89599e72f4ddc3e2799348c7ef9a7"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/README.md",
+      "size": 2132,
+      "sha256": "4640f8798781fc4ecb730c7ff4a2451088c6db6361a234a48ed8d194104ef7aa"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/RETROSPECTIVE.md",
+      "size": 411,
+      "sha256": "19038beedfd0ab9cbaa55a2ef545288303380df155237b29140613b22a9a69fe"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/REVIEW_START_HERE.md",
+      "size": 1757,
+      "sha256": "12323376bb0710cd2b3e11547ddf17c9ab853b54fdd23b3ab467e6a6ef72f8c2"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/HISTORY/v0_2_R1/STAGING_RELEASE.md",
+      "size": 2235,
+      "sha256": "a2a1d159e264e4b10fdbcd5b9ec63eaa8372f7421c7be0fe4bcf85e6f9cfdce3"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/PRE_APBM007_RECON_2026-11-10.md",
+      "size": 81905,
+      "sha256": "d0bb4ada4ed057282dc1362a74ce5cbfcef6ae4addde0da94002c4ee4ac79d17"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/PRE_APBM007_RECON_DELTA_2026-11-10.md",
+      "size": 45090,
+      "sha256": "8fc103dca17d94350eb392c9e51d8283f3610d8102ebec953bd90a205e3d197e"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/PROVENANCE.md",
+      "size": 4456,
+      "sha256": "bf5ac6a25d83a775bfd0419f31d0deeada7e4cc2686e681730c5f3519387c063"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/QAM_PLAYBOOK.md",
+      "size": 33355,
+      "sha256": "456246341096459742400af061b6605fcf1d56e9de1a09b27621a6680489c9f6"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/QA_PLAYBOOK.md",
+      "size": 42559,
+      "sha256": "4c460b040b09782497069b69409381523fbf3bea56897febecb6c51f9458d458"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/STRIPE_SUBSCRIPTIONS_PLAYBOOK.md",
+      "size": 32905,
+      "sha256": "01633da70da2d4cb863a2c883c1c2e7194abd602cf422fbb1bb52ae2b2ac43ab"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/GOVERNING/TECHNICAL_REFERENCES.md",
+      "size": 2675,
+      "sha256": "c41207d131bc1495f2779f6ce4b0fd5d01c62c9d98324fa05b18cbd982e7a92a"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/INSTALL_V1.md",
+      "size": 1819,
+      "sha256": "842d28e56e17f774a5f3da0adcb90d2934db00126d699cbfbcfba3741fa71319"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/LAUNCH_PROMPTS.md",
+      "size": 522,
+      "sha256": "e9e7ff8a9df6590cbff331114ce826276a25388e0511f702a27dcbb9e4928245"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/MIGRATION_PLAN.md",
+      "size": 5769,
+      "sha256": "0ee8e7ac9fb2f158ed62875e1f3f7f76261eb56008a61f347ebec30bded0392c"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/MISSING_INPUTS.md",
+      "size": 675,
+      "sha256": "e0cf34d9fcde681f1ed042bccc7ea623b87c40bb275a32c26cf4d0e15a6968e7"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/OPERATOR_INPUTS.md",
+      "size": 2231,
+      "sha256": "f462154c64ba7c7f86c15227261575596b822fbe4b36ad339a131480c2f74819"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/PREFLIGHT_LEDGER.md",
+      "size": 489,
+      "sha256": "19f04be4eb03e8df29e1b2f43acd4ab3e19cff1fb575358e9b478bf9901a02ca"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AC_EVIDENCE_MATRIX.md",
+      "size": 1762,
+      "sha256": "c689c8c6227bd7d1e9226879808abdbcab8b6e07d433f769c569b672a4f09a8d"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AGENTS.md",
+      "size": 474,
+      "sha256": "0a2be31ffcede7c9530ab94156d3acf55aa04da0f6906ee16cd962824d047ff1"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/README.md",
+      "size": 331,
+      "sha256": "48c6350f3735a9d537c5e7811a153e954cbb23512f4474afecdee9ccc3c971bd"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/CLAUDE.md",
+      "size": 474,
+      "sha256": "0a2be31ffcede7c9530ab94156d3acf55aa04da0f6906ee16cd962824d047ff1"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/FINDINGS.md",
+      "size": 480,
+      "sha256": "0498a939380e4541ca73325041d5424638dd69f36f4059ddd935b5e38cdd041f"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/GOVERNING/README.md",
+      "size": 429,
+      "sha256": "f254a1f6a8d7adc8ee150c093096f4697a42e2474bee1ebbb8d07e65f10ab75f"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/ENGINEERING_HANDOFF.md",
+      "size": 542,
+      "sha256": "9b43392f981682c600c287ec1f24cdf6f769c403a229501fd6fa1db364bfba62"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/QA_HANDOFF.md",
+      "size": 432,
+      "sha256": "a04d2761a2893c8b40f82f1172bfb2c0c1ed963a822cb4fa4981fba182a5f004"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/README.md",
+      "size": 277,
+      "sha256": "b4e32ea5eeb20be2c830102303e85a6739ce411b2022f1e1cf7e71559bde025b"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/REVIEW_START_HERE.md",
+      "size": 305,
+      "sha256": "9a2e981417df651758eecd1125b0060daea2f33478865f1fbb05d212730cf250"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_APPROVAL.md",
+      "size": 420,
+      "sha256": "b81c33f96a5e424f78e4ab4e47db17d2357b5bc0d593610ea2e82c1a25aceb14"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_CERTIFICATION.md",
+      "size": 431,
+      "sha256": "1a811c05ac2215ceb60b4dd73def2fcfbd3141c1cc2c8220470c0e0cb64db39f"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_CLEANUP_REPORT.md",
+      "size": 497,
+      "sha256": "5df7d4170485f4f760b2769866db5c34bf8074dd52f79f26166f375b0d92bf59"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_ENTRY.md",
+      "size": 2079,
+      "sha256": "7e97aad9e90b885507a21d8a10d119f33b1bf7adbdc97104d023e32634595fef"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_EXECUTION_REPORT.md",
+      "size": 408,
+      "sha256": "664b66bcaab06615d3f07495c01d49dbfc59254ce9c4a8d16e490a198ffd581d"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_MANIFEST.md",
+      "size": 766,
+      "sha256": "d85071a1fbc6c07627d2af3072ca43c14dde3aa84f53ba30b69f59ced51de6dc"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_PACKAGING.md",
+      "size": 921,
+      "sha256": "2000098f00a980283b7b85b69d60f73d808462b5a8021c50a782b143ca6399e2"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_PREFLIGHT.md",
+      "size": 2495,
+      "sha256": "099f740c23ce41ecb52754428eb9a47ec358c39d15b1062784ccbe8da7439b31"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_RECON_REPORT.md",
+      "size": 340,
+      "sha256": "33abe77ad287bc51564aa54b73092429deec778dc95a82b0e216e47ed28ed19e"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_RISK_REQUIREMENTS.md",
+      "size": 3495,
+      "sha256": "348a692d5dde6449be5f01e349d05e4347064d5b2f06ada656901230669e59e4"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_STATE.md",
+      "size": 466,
+      "sha256": "effd48feeca19fb530ff68fe0ec80979c3042482222578f0b30755f80d63e3ab"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_TEST_PLAN.md",
+      "size": 510,
+      "sha256": "75cd8f1799b8eec84bfbdbe5cf75e9d31cd729389b0c59a5b2d8e031d2842e53"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence/README.md",
+      "size": 296,
+      "sha256": "7ca652e0bed667dae866aad255b7a95024520d05ee82cdc00fa43de95ea7663d"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/README.md",
+      "size": 855,
+      "sha256": "c4a5d897e8072bc1be22ebf7decc75eff4d30e895e5438a3b0d1c20d6a5444ff"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/RETROSPECTIVE.md",
+      "size": 411,
+      "sha256": "19038beedfd0ab9cbaa55a2ef545288303380df155237b29140613b22a9a69fe"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/REVIEW_START_HERE.md",
+      "size": 536,
+      "sha256": "2cf6605f3c0d28923d921ed9b417ef86fea7cab921c3f95ffeb845486193bf26"
+    },
+    {
+      "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/STAGING_RELEASE.md",
+      "size": 3039,
+      "sha256": "756beec71ee492d24e7b393c7b0bb7e19e86b21a879acfe8b46d1054edfad0a5"
+    }
+  ]
+}

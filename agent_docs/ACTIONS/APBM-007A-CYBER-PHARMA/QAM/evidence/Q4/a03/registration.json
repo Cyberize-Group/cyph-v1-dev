@@ -1,0 +1,228 @@
+{
+  "drafts_attempted": 3,
+  "checkout_requests": 0,
+  "checks": [
+    {
+      "engine": "chromium",
+      "test": "empty deep-link returns owner",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "test": "incomplete owner does not advance",
+      "pass": true,
+      "focus_tag": "DIV"
+    },
+    {
+      "engine": "chromium",
+      "test": "incomplete pharmacy stays",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "test": "saved pharmacy reaches review quote",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "test": "refresh retains server quote",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "test": "edit and return shows saved name",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "light",
+      "test": "consent gating does not leave review",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "light",
+      "test": "review quote/keyboard/no overflow",
+      "pass": true,
+      "focus_present": true,
+      "quote": "$99.00"
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "dark",
+      "test": "consent gating does not leave review",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "dark",
+      "test": "review quote/keyboard/no overflow",
+      "pass": true,
+      "focus_present": true,
+      "quote": "$99.00"
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "theme": "light",
+      "test": "consent gating does not leave review",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "theme": "light",
+      "test": "review quote/keyboard/no overflow",
+      "pass": true,
+      "focus_present": true,
+      "quote": "$99.00"
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "theme": "dark",
+      "test": "consent gating does not leave review",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "width": 1440,
+      "theme": "dark",
+      "test": "review quote/keyboard/no overflow",
+      "pass": true,
+      "focus_present": true,
+      "quote": "$99.00"
+    },
+    {
+      "engine": "chromium",
+      "test": "email/guessed ID cannot read another draft",
+      "pass": true
+    },
+    {
+      "engine": "chromium",
+      "test": "quote without registration context denied",
+      "http": 404,
+      "pass": true
+    },
+    {
+      "engine": "firefox",
+      "test": "empty deep-link returns owner",
+      "pass": true
+    },
+    {
+      "engine": "firefox",
+      "test": "incomplete owner does not advance",
+      "pass": true,
+      "focus_tag": "DIV"
+    },
+    {
+      "engine": "firefox",
+      "test": "incomplete pharmacy stays",
+      "pass": true
+    },
+    {
+      "engine": "firefox",
+      "test": "saved pharmacy reaches review quote",
+      "pass": true
+    },
+    {
+      "engine": "firefox",
+      "test": "refresh retains server quote",
+      "pass": true
+    },
+    {
+      "engine": "firefox",
+      "test": "edit and return shows saved name",
+      "pass": true
+    },
+    {
+      "engine": "firefox",
+      "width": 1440,
+      "theme": "light",
+      "test": "consent gating does not leave review",
+      "pass": true
+    },
+    {
+      "engine": "firefox",
+      "width": 1440,
+      "theme": "light",
+      "test": "review quote/keyboard/no overflow",
+      "pass": true,
+      "focus_present": true,
+      "quote": "$99.00"
+    },
+    {
+      "engine": "firefox",
+      "test": "email/guessed ID cannot read another draft",
+      "pass": true
+    },
+    {
+      "engine": "firefox",
+      "test": "quote without registration context denied",
+      "http": 404,
+      "pass": true
+    },
+    {
+      "engine": "webkit",
+      "test": "empty deep-link returns owner",
+      "pass": true
+    },
+    {
+      "engine": "webkit",
+      "test": "incomplete owner does not advance",
+      "pass": true,
+      "focus_tag": "DIV"
+    },
+    {
+      "engine": "webkit",
+      "test": "incomplete pharmacy stays",
+      "pass": true
+    },
+    {
+      "engine": "webkit",
+      "test": "saved pharmacy reaches review quote",
+      "pass": true
+    },
+    {
+      "engine": "webkit",
+      "test": "refresh retains server quote",
+      "pass": true
+    },
+    {
+      "engine": "webkit",
+      "test": "edit and return shows saved name",
+      "pass": true
+    },
+    {
+      "engine": "webkit",
+      "width": 1440,
+      "theme": "light",
+      "test": "consent gating does not leave review",
+      "pass": true
+    },
+    {
+      "engine": "webkit",
+      "width": 1440,
+      "theme": "light",
+      "test": "review quote/keyboard/no overflow",
+      "pass": true,
+      "focus_present": true,
+      "quote": "$99.00"
+    },
+    {
+      "engine": "webkit",
+      "test": "email/guessed ID cannot read another draft",
+      "pass": true
+    },
+    {
+      "engine": "webkit",
+      "test": "quote without registration context denied",
+      "http": 404,
+      "pass": true
+    }
+  ]
+}

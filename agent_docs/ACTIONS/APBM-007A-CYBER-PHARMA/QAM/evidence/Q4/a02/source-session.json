@@ -1,0 +1,21 @@
+{
+  "layer": "isolated exact candidate private function exposed only in compiled QA wrapper; no provider or session writes",
+  "checks": [
+    {
+      "name": "same token validated",
+      "pass": true
+    },
+    {
+      "name": "subject mismatch",
+      "pass": true
+    },
+    {
+      "name": "missing session",
+      "pass": true
+    },
+    {
+      "name": "provider rejects",
+      "pass": true
+    }
+  ]
+}

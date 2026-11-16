@@ -1,0 +1,34 @@
+{
+  "retained_files": 392,
+  "archives": 27,
+  "archive_members": 2755,
+  "file_matches": [
+    {
+      "path": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q2-a01/npi-concurrency.cjs",
+      "matched_value_count": 1
+    }
+  ],
+  "archive_matches": [
+    {
+      "archive": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E2_ENGINEERING_r01.zip",
+      "member": "source/portal-new/src/integration/apbm007a-scratch.itest.ts",
+      "matched_value_count": 1
+    },
+    {
+      "archive": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_E2_ENGINEERING_r02.zip",
+      "member": "source/portal-new/src/integration/apbm007a-scratch.itest.ts",
+      "matched_value_count": 1
+    }
+  ],
+  "debris": [
+    "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q4-a02/.npm",
+    "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q4-a02/build-portal",
+    "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q4-a04/.npm",
+    "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q4-a04/build-portal",
+    "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q4-a05/.npm",
+    "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/Q4-a05/build-portal"
+  ],
+  "clean_control": true,
+  "poison_control": true,
+  "sequence": "Value scan while source exists, prior to deletion"
+}

@@ -1,0 +1,72 @@
+{
+ "run": "Payment Portal focused suites in the QA checkout (U-3 and existing sign-in)",
+ "passed": 13,
+ "total": 13,
+ "tests": [
+  {
+   "suite": "__tests__/login-form.test.tsx",
+   "title": "role \"member\" goes to /dashboard and is never signed out again",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/login-form.test.tsx",
+   "title": "role \"admin\" goes to /dashboard and is never signed out again",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/login-form.test.tsx",
+   "title": "role \"superadmin\" goes to /dashboard and is never signed out again",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/login-form.test.tsx",
+   "title": "role null goes to /dashboard and is never signed out again",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/login-form.test.tsx",
+   "title": "with next=continue it resumes the pending handoff instead of going to the dashboard",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/login-form.test.tsx",
+   "title": "invalid credentials show the designed message (network mocked; no real auth call)",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/login-form.test.tsx",
+   "title": "session-expired banner renders only when asked",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/login-form.test.tsx",
+   "title": "offers the email sign-in link under the password form, and no demo notice",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/password-field.test.tsx",
+   "title": "PasswordField (U-3) \u203a starts hidden; toggles while keeping value, focus and typing; never submits",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/password-field.test.tsx",
+   "title": "PasswordField (U-3) \u203a puts the caret back where it was: browsers move it to the start when the type changes",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/password-field.test.tsx",
+   "title": "PasswordField (U-3) \u203a the deferred caret restore runs on the next frame, but never after the person has started typing",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/password-field.test.tsx",
+   "title": "PasswordField (U-3) \u203a is reachable by keyboard, shows a focus ring, and toggles with Space and Enter without submitting",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/password-field.test.tsx",
+   "title": "Portal password sign-in (U-3) \u203a the toggle sends nothing; Sign in then submits exactly the typed password",
+   "status": "passed"
+  }
+ ]
+}

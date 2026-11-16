@@ -1,0 +1,32 @@
+{
+ "now": "2026-11-12T08:39:05.966Z",
+ "role": "OWNER_1",
+ "userId": "72521a97…",
+ "auth": {
+  "emailIsOwner1": true,
+  "recoverySentAt": "2026-11-12T08:27:23.958Z",
+  "tokenStillPending": false,
+  "lastSignInAt": "2026-11-12T08:35:46.860Z",
+  "sessionsTotal": 6,
+  "sessionsAfterSend": [
+   "2026-11-12T08:35:46.860Z"
+  ],
+  "methodAfterSend": [
+   {
+    "created_at": "2026-11-12T08:35:46.860Z",
+    "m": "otp"
+   }
+  ]
+ },
+ "membership": {
+  "accounts.owner_user_id": 0,
+  "audit_logs.actor_user_id": 0,
+  "pending_registrations.verified_by_user_id": 0,
+  "report_files.generated_by_user_id": 0,
+  "user_businesses.user_id": 0,
+  "user_roles.user_id": 1
+ },
+ "platformRole": [
+  "member"
+ ]
+}

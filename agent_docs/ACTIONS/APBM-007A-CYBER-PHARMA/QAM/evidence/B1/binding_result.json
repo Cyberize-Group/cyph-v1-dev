@@ -1,0 +1,48 @@
+{
+  "keys": {
+    "QA_NEW_OWNER_EMAIL": "FILLED",
+    "QA_OWNER_2_EMAIL": "FILLED",
+    "QA_OWNER_2_PASSWORD": "EMPTY",
+    "QA_OWNER1_EMAIL": "FILLED",
+    "QA_OWNER1_PASSWORD": "FILLED",
+    "QA_OWNER3_EMAIL": "FILLED",
+    "QA_OWNER3_PASSWORD": "FILLED",
+    "QA_ADMIN_B2_EMAIL": "FILLED",
+    "QA_ADMIN_B2_PASSWORD": "FILLED",
+    "QA_ADMIN_B3_EMAIL": "FILLED",
+    "QA_ADMIN_B3_PASSWORD": "FILLED",
+    "QA_MEMBER_B1_EMAIL": "FILLED",
+    "QA_MEMBER_B1_PASSWORD": "FILLED",
+    "QA_MEMBER_B2B3_EMAIL": "FILLED",
+    "QA_MEMBER_B2B3_PASSWORD": "FILLED",
+    "QA_UNRELATED_EMAIL": "FILLED",
+    "QA_UNRELATED_PASSWORD": "FILLED"
+  },
+  "password_exception": "Director explicitly authorized OWNER_2 link-only; seeded identities cover password login",
+  "mode": "600",
+  "listener": "EQUAL",
+  "new_owner": {
+    "auth_count": 0,
+    "user_ids": []
+  },
+  "owner_2": {
+    "auth_count": 1,
+    "user_ids": [
+      "f679249a-d83d-4353-87be-363090f59d73"
+    ],
+    "owned_accounts": 0,
+    "memberships": 0,
+    "billing_mappings": 0
+  },
+  "past_due_fixture": {
+    "exists": true,
+    "seeded_owner_roles": [
+      "UNRELATED"
+    ],
+    "status": "past_due",
+    "origin": "synthetic_seed",
+    "owner_user_id": "c322c8da-85af-44fa-8b98-375c22385f9d"
+  },
+  "read_only": true,
+  "gate": "CONFIRMED under Lead conditional decision"
+}

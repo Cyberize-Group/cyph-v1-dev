@@ -1,0 +1,46 @@
+{
+  "layer": "actual candidate registration/checkout against real SCRATCH SQL; independent idempotent fake provider with after-create timeout; rollback",
+  "checks": [
+    {
+      "name": "guessed ID and unrelated secret do not read draft",
+      "status": "PASS"
+    },
+    {
+      "name": "missing consent rejects before provider",
+      "status": "PASS"
+    },
+    {
+      "name": "timeout after real fake object creation surfaced",
+      "status": "PASS"
+    },
+    {
+      "name": "new-key retry after unknown response cannot create second provider objects",
+      "status": "PASS"
+    }
+  ],
+  "fault_controls": [],
+  "emails": 0,
+  "auth_writes": 0,
+  "draft_id": "34feaf93-e1a7-4d85-89f6-a6ffa7f54ce6",
+  "timeout_after_created": true,
+  "provider_counts": {
+    "customers": 1,
+    "sessions": 1,
+    "create_calls": 2
+  },
+  "current_draft": {
+    "revision": 1,
+    "consent_revision": 1,
+    "quote_total_cents": 9900,
+    "status": "checkout_started"
+  },
+  "operations": [
+    {
+      "id": "7b1d25a5-d2ec-44cb-976a-2a18ac91b6dc",
+      "status": "checkout_open",
+      "stripe_customer_id": "cus_Q4C1",
+      "stripe_checkout_session_id": "cs_Q4S1"
+    }
+  ],
+  "rolled_back": true
+}

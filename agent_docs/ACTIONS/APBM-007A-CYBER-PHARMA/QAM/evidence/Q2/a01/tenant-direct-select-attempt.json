@@ -1,0 +1,5 @@
+{
+  "layer": "SCRATCH SQL authenticated role/claims, no login; expected tenant sets derived from accounts+memberships independently of RLS helpers",
+  "checks": [],
+  "error": "42501"
+}

@@ -1,0 +1,8 @@
+{
+  "layer": "actual candidate webhook+provisioning+checkout modules; real SCRATCH transaction/RPC; provider and Auth lookups mocked; no Auth writes, rollback",
+  "checks": [],
+  "fault_controls": [],
+  "emails": 0,
+  "auth_writes": 0,
+  "stop": "NPI_FIXTURE"
+}

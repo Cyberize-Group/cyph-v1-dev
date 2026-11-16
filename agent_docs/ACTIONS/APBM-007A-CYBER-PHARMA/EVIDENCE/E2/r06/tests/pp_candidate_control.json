@@ -1,0 +1,22 @@
+{
+ "run": "Payment Portal U-3 tests against the candidate product files (control)",
+ "passed": 0,
+ "total": 3,
+ "tests": [
+  {
+   "suite": "__tests__/password-field.test.tsx",
+   "title": "PasswordField (U-3) \u203a starts hidden; toggles while keeping value, focus and typing; never submits",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/password-field.test.tsx",
+   "title": "PasswordField (U-3) \u203a is reachable by keyboard, shows a focus ring, and toggles with Space and Enter without submitting",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/password-field.test.tsx",
+   "title": "Portal password sign-in (U-3) \u203a the toggle sends nothing; Sign in then submits exactly the typed password",
+   "status": "failed"
+  }
+ ]
+}

@@ -1,4 +1,7 @@
-// Service-role Supabase client factory — BLESSED INFRA, currently UNCONSUMED.
+// Service-role Supabase client factory — BLESSED INFRA.
+// APBM007A (Director ruling D-01 / FA-3, 11 November 2026): ONE app consumer is now approved — src/server/db.ts,
+// used only by the guarded login handoff and logout (src/server/handoff.ts). The paragraph below records the
+// earlier state; every other route, page, component and Server Action is still forbidden from importing this file.
 // Ledger E-04 (agent_docs/RRM_FINDINGS_DISPOSITION_LEDGER.md, 2026-09-20): this is the
 // single service-role factory in the repo. The duplicate copy that lived beside the
 // operator user-management portal was deleted with that portal in RRM-001 (2026-09-20).

@@ -1,0 +1,72 @@
+{
+  "owedbook": {
+    "head": "f637ba4086c1e906e008b8892c880ec6489bba9a",
+    "branch": "qa/apbm-007a",
+    "parent": "37f6c0dd63f7a087ec44dd9d3ef79b74bb203f40",
+    "changed": [
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/AMENDMENT_LEDGER.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_JOURNAL.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_RULINGS.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_STATE.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/REPAIR_F-Q2.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/browser/1-first-arrival.png",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/browser/2-after-refresh.png",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/browser/3-after-pharmacy-edit.png",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/browser/4-after-edit-back-return.png",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/browser/walk.json",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/build_proof_pp.log",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/bundle_scan.json",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/commit/COMMIT_HANDOFF.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/commit/COMMIT_MANIFEST.json",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/commit/REHEARSAL.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/commit/owedbook-product-add.txt",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/commit/owedbook-records-add.txt",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/commit/portal-product-add.txt",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/commit/portal-records-add.txt",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/commit/verify_commit.py",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/focused_tests.json",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/helpers/bundle-scan.mjs",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/helpers/walk-registration.mjs",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/helpers/with-env.mjs",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/mutation_controls.txt",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/product.patch",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/proof_harness.patch",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/proof_server_3101.log",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/provenance.json",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/qa_preservation.json",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/QA_HANDOFF.md"
+    ],
+    "outside_manifest": [
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/commit/COMMIT_HANDOFF.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/commit/COMMIT_MANIFEST.json",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/commit/REHEARSAL.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/commit/owedbook-product-add.txt",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/commit/owedbook-records-add.txt",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/commit/portal-product-add.txt",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/commit/portal-records-add.txt",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r03/commit/verify_commit.py"
+    ],
+    "missing": [],
+    "manifest_hashes_match": true
+  },
+  "portal": {
+    "head": "357c274284f48ed5ad3bf8407ca0a14d0d9b99e8",
+    "branch": "qa/apbm-007a",
+    "parent": "9d938f62bff6172f9332ae6c67775e4b8feea379",
+    "changed": [
+      "src/__tests__/apbm007a-server.test.ts",
+      "src/__tests__/portal-owner.test.tsx",
+      "src/__tests__/portal-registration-journey.test.tsx",
+      "src/components/portal/register/PharmacyStepView.tsx",
+      "src/server/billing.ts"
+    ],
+    "outside_manifest": [],
+    "missing": [],
+    "records_delta": [
+      "RECOVERY.md",
+      "agent_docs/RESPONSES/response_2026-11-16_101138_q2-repair-handback.md",
+      "agent_docs/SESSIONS/session_2026-11-16.md"
+    ],
+    "manifest_hashes_match": true
+  }
+}

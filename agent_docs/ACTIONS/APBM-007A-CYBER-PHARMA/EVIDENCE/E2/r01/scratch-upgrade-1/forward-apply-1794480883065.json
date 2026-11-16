@@ -1,0 +1,18 @@
+{
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "command": "apply",
+  "startedAt": "2026-11-12T10:54:34.323Z",
+  "committed": [
+    "0053_privilege_hardening.sql",
+    "0054_store_identifiers.sql",
+    "0055_billing_mirror.sql",
+    "0056_registration.sql",
+    "0057_operations_events.sql",
+    "0058_provisioning.sql",
+    "0059_handoff_codes.sql",
+    "0060_billing_reads.sql"
+  ],
+  "status": "PASS",
+  "lastCommitted": "0060_billing_reads.sql",
+  "finishedAt": "2026-11-12T10:54:43.065Z"
+}

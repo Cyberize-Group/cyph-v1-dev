@@ -1,0 +1,9 @@
+{
+  "journey": "new_owner_r05",
+  "npi": "1881161305",
+  "stage": "preflight",
+  "checkout_submits": 0,
+  "payment_submits": 0,
+  "sandbox_account_match": true,
+  "error": "JOURNEY_SETUP_FAILED"
+}

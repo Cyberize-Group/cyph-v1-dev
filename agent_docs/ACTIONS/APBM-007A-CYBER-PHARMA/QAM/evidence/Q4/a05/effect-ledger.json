@@ -1,0 +1,37 @@
+{
+  "a05_DEV": {
+    "exact_operation_recovery_invocations": 2,
+    "recovery_accounts_stores_admins_mappings_each": 1,
+    "recovery_new_identity": 0,
+    "recovery_extra_email": 0,
+    "new_purchase_drafts": 1,
+    "new_purchase_reservations": 1,
+    "new_customers": 1,
+    "new_Checkout_sessions": 1,
+    "new_subscriptions": 1,
+    "new_first_payments": 1,
+    "new_Auth_identities": 1,
+    "access_mail_accepted": 1,
+    "access_mail_attempts": 1,
+    "OWNER_2_actions": 0
+  },
+  "cumulative_limits_reached": {
+    "new_DEV_identities": 2,
+    "customers": 5,
+    "Checkout_sessions": 5,
+    "subscriptions": 3,
+    "first_payments": 3
+  },
+  "SCRATCH": {
+    "persistent_concurrency_fixture": "concurrent-provisioning.json IDs; one draft/operation/reservation/account/store/admin/subscription/mapping/notification and3events",
+    "intercepted_mail_calls": 1,
+    "Auth_writes": 0,
+    "provider_writes": 0,
+    "stale_retry_runs_rolled_back": 2,
+    "reset_seed": 0
+  },
+  "extra_mail": 0,
+  "cleanup": 0,
+  "deploy": 0,
+  "provider_request_level_mutation_count": "carried incomplete audit; no further provider action performed"
+}

@@ -1,0 +1,115 @@
+{
+ "at": "2026-11-12T14:57:47.070Z",
+ "results": [
+  {
+   "name": "D1 seeded store admin (not an owner) gets the portal \"billing is managed by the owner\" view",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "name": "D2 store admin: billing overview, portal session and undo all refused (403 not_owner)",
+   "status": "PASS",
+   "detail": "403 403 403"
+  },
+  {
+   "name": "D3 the same store admin in OwedBook (reached by handoff): billing screen says owner-only, no owner data",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "name": "D4 store admin cannot read the access state of OWNER_1's new store (IDOR)",
+   "status": "PASS",
+   "detail": "403"
+  },
+  {
+   "name": "D5 an unrelated owner sees only their own (synthetic) account, never OWNER_1's",
+   "status": "PASS",
+   "detail": "origin synthetic_seed"
+  },
+  {
+   "name": "D6 synthetic fixture account shows \"test account — no billing\" and offers no portal",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "name": "D7 portal session refused for a synthetic subscription (409 not_billable), Stripe never called",
+   "status": "PASS",
+   "detail": "409"
+  },
+  {
+   "name": "D8 unrelated owner cannot read the new store's access state",
+   "status": "PASS",
+   "detail": "401 (no OwedBook session in this browser counts as refused)"
+  },
+  {
+   "name": "D9 member: billing overview refused (403)",
+   "status": "PASS",
+   "detail": "403"
+  },
+  {
+   "name": "D10 cross-origin state-changing requests refused",
+   "status": "PASS",
+   "detail": "400 400"
+  },
+  {
+   "name": "D11 anonymous: overview 401, billing page goes to sign-in",
+   "status": "PASS",
+   "detail": "401 http://localhost:3001/login"
+  },
+  {
+   "name": "D12 handoff authorize with a protocol-relative return path is refused (400)",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "name": "E1 OwedBook already signed in as another user: switch page shown, nothing replaced (OwedBook still cannot read OWNER_1's store)",
+   "status": "PASS",
+   "detail": "http://localhost:3000/auth/switch?t=… access 403"
+  },
+  {
+   "name": "E2 the deliberate \"continue as the other account\" signs out OwedBook locally and hands over as OWNER_1",
+   "status": "PASS",
+   "detail": "access 200"
+  },
+  {
+   "name": "F1 owner reaches the Stripe billing portal for the app configuration: cancel offered, no plan/quantity change",
+   "status": "PASS",
+   "detail": "Cyber Pharma Sandbox Cyber Pharma — OwedBook billing Return to Cyber Pharma Powered by Terms Privacy CURRENT SUBSCRIPTION OwedBook — pharmacy stores $99.00 per "
+  },
+  {
+   "name": "F2 only-card removal observed: does the portal offer deleting the only card?",
+   "status": "PASS",
+   "detail": "not offered on the overview page"
+  },
+  {
+   "name": "F3 hosted-portal cancellation sets cancel_at on the same subscription (F-S1)",
+   "status": "PASS",
+   "detail": "{\"cancel_at\":1797086946,\"flag\":false}"
+  },
+  {
+   "name": "F4 undo through the app clears the portal-set schedule on the same subscription (RA-4, U4 from E1)",
+   "status": "PASS",
+   "detail": "200 cancel_at null"
+  },
+  {
+   "name": "F5 the mirror agrees after undo (both fields clear)",
+   "status": "PASS",
+   "detail": "{\"cancel_at\":null,\"cancel_at_period_end\":false,\"status\":\"active\"}"
+  },
+  {
+   "name": "F6 no new subscription was created by cancel or undo",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "name": "G1 logout in the portal is provider-wide: OwedBook in the same browser no longer has a session; the portal refuses",
+   "status": "PASS",
+   "detail": "200 → OwedBook http://localhost:3000/auth · portal 401 · OWNER_1 sessions 0"
+  },
+  {
+   "name": "G2 no open handoff code remains for the user after logout",
+   "status": "PASS",
+   "detail": ""
+  }
+ ]
+}

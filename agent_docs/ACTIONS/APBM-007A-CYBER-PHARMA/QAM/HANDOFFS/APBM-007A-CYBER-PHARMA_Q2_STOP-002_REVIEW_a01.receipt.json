@@ -1,0 +1,10 @@
+{
+  "path": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q2_STOP-002_REVIEW_a01.zip",
+  "member_count": 37,
+  "sha256": "b27fbd2adb995edcec54ad33e3e62e57489248adbce5ea187137edbe4e73905a",
+  "validation": "index/hash/membership/integrity and selected+expanded pattern scan passed; clean/poison control passed",
+  "archived_path": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q2_STOP-002_REVIEW_a01.zip",
+  "archive_sha256": "b27fbd2adb995edcec54ad33e3e62e57489248adbce5ea187137edbe4e73905a",
+  "in_repo_zip_removed": true,
+  "private_quarantine": false
+}

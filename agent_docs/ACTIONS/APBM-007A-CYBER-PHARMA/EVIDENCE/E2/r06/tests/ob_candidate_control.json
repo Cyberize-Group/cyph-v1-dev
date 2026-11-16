@@ -1,0 +1,272 @@
+{
+ "run": "OwedBook new/changed tests against the candidate product files (control)",
+ "passed": 24,
+ "total": 53,
+ "tests": [
+  {
+   "suite": "__tests__/admin-portal/BillingDetails.test.tsx",
+   "title": "U-2 \u2014 owner billing details from the owner's subscription \u203a a paid Stripe subscription shows its plan, the pharmacies covered and the next payment date",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/admin-portal/BillingDetails.test.tsx",
+   "title": "U-2 \u2014 owner billing details from the owner's subscription \u203a the row no longer reads 'Plan unavailable \u00b7 Price unavailable \u00b7 Billing dates unavailable' for a paid subscription",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/admin-portal/BillingDetails.test.tsx",
+   "title": "U-2 \u2014 owner billing details from the owner's subscription \u203a a cancellation set for the period end shows the date it is paid through, as the Portal does",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/admin-portal/BillingDetails.test.tsx",
+   "title": "U-2 \u2014 owner billing details from the owner's subscription \u203a a cancellation set for a date shows the date it is paid through, as the Portal does",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/admin-portal/BillingDetails.test.tsx",
+   "title": "U-2 \u2014 owner billing details from the owner's subscription \u203a an ended subscription shows the date it is paid through, as the Portal does",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/admin-portal/BillingDetails.test.tsx",
+   "title": "U-2 \u2014 owner billing details from the owner's subscription \u203a pharmacies are counted from the subscription quantity",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/admin-portal/BillingDetails.test.tsx",
+   "title": "U-2 \u2014 owner billing details from the owner's subscription \u203a dates the row does not hold stay honestly unavailable; nothing is filled in",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/admin-portal/BillingDetails.test.tsx",
+   "title": "U-2 \u2014 owner billing details from the owner's subscription \u203a no subscription: plan, price and dates are all unavailable",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/admin-portal/BillingDetails.test.tsx",
+   "title": "U-2 \u2014 owner billing details from the owner's subscription \u203a a synthetic seed subscription is labelled as such and shows no price or dates",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/admin-portal/BillingDetails.test.tsx",
+   "title": "U-2 \u2014 owner billing details from the owner's subscription \u203a a store of another account never shows this account's subscription",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/admin-portal/BillingDetails.test.tsx",
+   "title": "U-2 \u2014 owner billing details from the owner's subscription \u203a a store admin who is not the owner still gets the plain statement and no billing read",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/admin-portal/BillingDetails.test.tsx",
+   "title": "U-2 \u2014 owner billing details from the owner's subscription \u203a billing actions stay unavailable in real mode (read-only)",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/apbm007a-access.test.tsx",
+   "title": "store access state \u203a passes the database state through and asks only for the requested store",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-access.test.tsx",
+   "title": "store access state \u203a a synthetic fixture grants nothing unless the environment flag is on (RA-2)",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-access.test.tsx",
+   "title": "store access state \u203a a non-member is refused, and an unknown answer is never treated as active",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-access.test.tsx",
+   "title": "read-only enforcement hook (contract test; no 007A customer write exists) \u203a allows a write while the state is active",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-access.test.tsx",
+   "title": "read-only enforcement hook (contract test; no 007A customer write exists) \u203a allows a write while the state is grace",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-access.test.tsx",
+   "title": "read-only enforcement hook (contract test; no 007A customer write exists) \u203a allows a write while the state is past_due_reminder",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-access.test.tsx",
+   "title": "read-only enforcement hook (contract test; no 007A customer write exists) \u203a denies a write when the state is read_only",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-access.test.tsx",
+   "title": "read-only enforcement hook (contract test; no 007A customer write exists) \u203a denies a write when the state is ended",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-access.test.tsx",
+   "title": "read-only enforcement hook (contract test; no 007A customer write exists) \u203a denies a write when the state is none",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-access.test.tsx",
+   "title": "read-only enforcement hook (contract test; no 007A customer write exists) \u203a denies when the state cannot be read: failure never opens a write",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-access.test.tsx",
+   "title": "owner-only billing read (RA-3) \u203a a store admin who is not the owner gets a plain statement and no billing call",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-access.test.tsx",
+   "title": "owner-only billing read (RA-3) \u203a the owner's billing lines are read for owned stores only",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/apbm007a-access.test.tsx",
+   "title": "owner-only billing read (RA-3) \u203a a store row without a billing field (non-owner redaction) maps to unavailable, not to a guess",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-access.test.tsx",
+   "title": "access banner \u203a shows nothing while access is active",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-access.test.tsx",
+   "title": "access banner \u203a tells the owner about a failed renewal and links to billing without a token",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-access.test.tsx",
+   "title": "access banner \u203a tells a non-owner who manages billing and offers no billing link",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/apbm007a-access.test.tsx",
+   "title": "access banner \u203a shows no banner when the check fails",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/auth/AuthPage.test.tsx",
+   "title": "/auth page (login-only) \u203a renders the login form: email, password, submit",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/auth/AuthPage.test.tsx",
+   "title": "/auth page (login-only) \u203a offers no removed affordance: no tabs, no link, button or text for it",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/layout/AdminSidebar.test.tsx",
+   "title": "AdminSidebar surface-awareness \u203a on /owedbook renders the filter rail, not nav items",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/layout/AdminSidebar.test.tsx",
+   "title": "AdminSidebar surface-awareness \u203a on /admin-portal renders the owner-scoped nav items, not the filter rail",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/layout/AdminSidebar.test.tsx",
+   "title": "AdminSidebar surface-awareness \u203a marks My Stores active on a /stores/* drill-down, not Billing",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/layout/AdminSidebar.test.tsx",
+   "title": "AdminSidebar route-driven selection (U-1) \u203a /admin-portal selects /admin-portal",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/layout/AdminSidebar.test.tsx",
+   "title": "AdminSidebar route-driven selection (U-1) \u203a /admin-portal/ selects /admin-portal",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/layout/AdminSidebar.test.tsx",
+   "title": "AdminSidebar route-driven selection (U-1) \u203a /admin-portal/stores/abc selects /admin-portal",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/layout/AdminSidebar.test.tsx",
+   "title": "AdminSidebar route-driven selection (U-1) \u203a /admin-portal/stores/abc/invite selects /admin-portal",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/layout/AdminSidebar.test.tsx",
+   "title": "AdminSidebar route-driven selection (U-1) \u203a /admin-portal/billing selects /admin-portal/billing",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/layout/AdminSidebar.test.tsx",
+   "title": "AdminSidebar route-driven selection (U-1) \u203a /admin-portal/billing/ selects /admin-portal/billing",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/layout/AdminSidebar.test.tsx",
+   "title": "AdminSidebar route-driven selection (U-1) \u203a /admin-portal/settings selects /admin-portal/settings",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/layout/AdminSidebar.test.tsx",
+   "title": "AdminSidebar route-driven selection (U-1) \u203a /admin-portal/audit selects /admin-portal/audit",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/layout/AdminSidebar.test.tsx",
+   "title": "AdminSidebar route-driven selection (U-1) \u203a /admin-portal/billingx selects null",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/layout/AdminSidebar.test.tsx",
+   "title": "AdminSidebar route-driven selection (U-1) \u203a /admin-portal/unknown selects null",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/layout/AdminSidebar.test.tsx",
+   "title": "AdminSidebar route-driven selection (U-1) \u203a /owedbook selects null",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/layout/AdminSidebar.test.tsx",
+   "title": "AdminSidebar route-driven selection (U-1) \u203a exactly one item is selected on each admin route, and it is the route's own",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/layout/AdminSidebar.test.tsx",
+   "title": "AdminSidebar route-driven selection (U-1) \u203a moving from Audit log to Billing moves the selection; nothing stays highlighted from the click",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/layout/AdminSidebar.test.tsx",
+   "title": "AdminSidebar route-driven selection (U-1) \u203a the items are plain links in a labelled navigation, reachable by keyboard",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/auth/PasswordToggle.test.tsx",
+   "title": "PasswordInput (U-3) \u203a starts hidden; the button shows and hides while the value, focus and typing carry on",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/auth/PasswordToggle.test.tsx",
+   "title": "PasswordInput (U-3) \u203a is reachable by keyboard and toggles with Space and Enter without submitting",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/auth/PasswordToggle.test.tsx",
+   "title": "PasswordInput (U-3) \u203a keeps a caller's padding but reserves room for the button",
+   "status": "passed"
+  },
+  {
+   "suite": "__tests__/auth/PasswordToggle.test.tsx",
+   "title": "OwedBook sign-in password (U-3) \u203a has the toggle, keeps the typed password, and submits exactly what was typed",
+   "status": "failed"
+  },
+  {
+   "suite": "__tests__/auth/PasswordToggle.test.tsx",
+   "title": "OwedBook profile password fields (U-3) \u203a both new-password fields have their own toggle and keep their values; validation is unchanged",
+   "status": "failed"
+  }
+ ]
+}

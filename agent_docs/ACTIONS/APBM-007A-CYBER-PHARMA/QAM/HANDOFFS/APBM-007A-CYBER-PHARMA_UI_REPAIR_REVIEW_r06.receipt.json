@@ -1,0 +1,22 @@
+{
+  "package": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_UI_REPAIR_REVIEW_r06.zip",
+  "sha256": "30902cf12c54242cd1605a32ef00aeadbaa2bdfdd34b8b8730e5831b3f6a069e",
+  "bytes": 1178288,
+  "members": 86,
+  "members_excluding_index": 85,
+  "created_at": "2026-11-16T09:09:49.809229+00:00",
+  "checks": {
+    "zip_integrity": "testzip OK",
+    "index_membership": "exact",
+    "member_hashes_and_sizes": "all match",
+    "paths": "relative, unique, no traversal, no symlink sources",
+    "privacy_scan": "clean over all 86 extracted members; controls: Stripe-key, private-inbox, env-value and LAN-address poisons caught, synthetic example.test address passed; env-value check covers every env value of 12+ characters except STRIPE_EXPECTED_ACCOUNT and APA_PROMOTION_CODES (non-secret identifiers already committed at the bases)",
+    "excluded": "env/credential files, cast/inbox files, auth state, browser profiles, private backup, dependencies, builds, Git internals, disposable copies, prior ZIPs"
+  },
+  "downloads_copy": "/home/moose/Downloads/APBM-007A-CYBER-PHARMA_UI_REPAIR_REVIEW_r06.zip",
+  "decision_requested": "Tony: four guarded commits per engineering/r06/commit/COMMIT_HANDOFF.md, then rebuild both apps; then Friday binds the pair and Cody performs the focused U-1 to U-3 retest",
+  "archived_path": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_UI_REPAIR_REVIEW_r06.zip",
+  "archive_sha256": "30902cf12c54242cd1605a32ef00aeadbaa2bdfdd34b8b8730e5831b3f6a069e",
+  "in_repo_zip_removed": true,
+  "private_quarantine": false
+}

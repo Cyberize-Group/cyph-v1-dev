@@ -1,0 +1,100 @@
+{
+ "logout": {
+  "tokenLifetimeSec": 3600,
+  "distinctSessions": true,
+  "before": {
+   "s2_getUser": {
+    "ok": true
+   },
+   "s2_data": {
+    "status": 200,
+    "rows": 1
+   },
+   "control_getUser": {
+    "ok": true
+   }
+  },
+  "signOut": {
+   "err": null,
+   "ms": 322
+  },
+  "after": {
+   "s1_getUser": {
+    "ok": false,
+    "err": {
+     "status": 400,
+     "msg": "Auth session missing!"
+    }
+   },
+   "s2_getUser": {
+    "ok": false,
+    "err": {
+     "status": 400,
+     "msg": "Auth session missing!"
+    }
+   },
+   "s2_data": {
+    "status": 200,
+    "rows": 1
+   },
+   "s2_refresh": {
+    "status": 400,
+    "code": "refresh_token_not_found",
+    "gotSession": false
+   },
+   "control_getUser": {
+    "ok": true
+   },
+   "control_data": {
+    "status": 200,
+    "rows": 1
+   },
+   "s2_secondsOfTokenLeft": 3601
+  },
+  "polls": [
+   [
+    5,
+    200,
+    1
+   ],
+   [
+    7,
+    200,
+    1
+   ],
+   [
+    9,
+    200,
+    1
+   ],
+   [
+    12,
+    200,
+    1
+   ],
+   [
+    14,
+    200,
+    1
+   ]
+  ]
+ },
+ "race": {
+  "olderTokenAfterNewerIssueAndLogout": "otp_expired",
+  "tokenIssuedBeforeLogoutRedeemedAfter": "MINTED_NEW_SESSION",
+  "pending2SupersededByLaterIssue": true,
+  "controlUnaffected": true
+ },
+ "email": {
+  "OWNER_1": {
+   "accepted": false,
+   "err": {
+    "status": 429,
+    "code": "over_email_send_rate_limit",
+    "msg": "For security purposes, you can only request this after 6 seconds."
+   },
+   "ms": 499,
+   "at": "2026-11-12T03:26:25.341Z"
+  }
+ }
+}

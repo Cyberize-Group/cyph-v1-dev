@@ -1,0 +1,27 @@
+{
+  "event_id": "evt_QA007AIndependentSignature01",
+  "synthetically_signed": true,
+  "no_Stripe_provider_call": true,
+  "checks": [
+    {
+      "name": "wrong signature",
+      "status": 400,
+      "expected": 400
+    },
+    {
+      "name": "tampered body",
+      "status": 400,
+      "expected": 400
+    },
+    {
+      "name": "valid signed synthetic unsupported control",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "name": "same ID duplicate",
+      "status": 200,
+      "expected": 200
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+ "now": "2026-11-12T05:45:29.661Z",
+ "OWNER_1": {
+  "recoverySentAt": "2026-11-12T03:28:10.814Z",
+  "tokenStillPending": false,
+  "lastSignInAt": "2026-11-12T03:28:11.155Z",
+  "sessions": 4,
+  "sessionsCreatedAfterEmail": [
+   "2026-11-12T03:28:11.155Z"
+  ],
+  "auditAfterEmail": [],
+  "oneTimeTokens": []
+ },
+ "STORE_ADMIN": {
+  "recoverySentAt": "2026-11-12T03:28:10.156Z",
+  "tokenStillPending": true,
+  "lastSignInAt": "2026-11-12T03:26:27.508Z",
+  "sessions": 3,
+  "sessionsCreatedAfterEmail": [],
+  "auditAfterEmail": [],
+  "oneTimeTokens": [
+   [
+    "recovery_token",
+    "2026-11-11T21:28:10.259Z"
+   ]
+  ]
+ },
+ "auditTotalRows": 0
+}

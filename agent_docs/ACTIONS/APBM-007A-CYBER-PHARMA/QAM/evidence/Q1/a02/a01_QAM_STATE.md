@@ -1,0 +1,7 @@
+# QA state — updated 2026-11-13
+Phase: Q1_RETURNED_AWAITING_LEAD; attempt a01. Q2 NOT RELEASED/NOT RUN.
+OwedBook qa/apbm-007a e30e216607f6d286452192d715ae154d2c181aaf; Portal qa/apbm-007a 2bb13b9471bd19a1dc5e711dbd6ec0bf19bf2b34; independently verified HEADs, unchanged product candidates.
+Contract: frozen v1.0, canonical acceptance including expansions and CONTRACTS/IMPLEMENTATION_REQUIREMENTS; hashes evidence/Q1/a01/contract_hashes.json. Supersedes stale packed v0.2 draft state.
+Engineer factual handoff/release: ../EVIDENCE/E2/r01/ENGINEERING_HANDOFF.md §8. Director Q1 invocation and corrected pins in current conversation. Independent recon: QAM_RECON_REPORT.md. Proposed plan: QAM_TEST_PLAN.md; mapping: AC_EVIDENCE_MATRIX.md. Not approved; no results prefilled.
+Package: HANDOFFS/APBM-007A-CYBER-PHARMA_Q1_REVIEW_a01.zip; external receipt same stem .receipt.json.
+Open: new DEV identity, test-clock seam, live environment/private cast binding, exact full effects; details G1–G8 in recon. Next owner QA Lead via Tony: review and amend/hold plan; Director rules identity and renewal scope. No Q2 until specific approval and Director release. Cleanup/certification/Gate Q/Gate D not issued.

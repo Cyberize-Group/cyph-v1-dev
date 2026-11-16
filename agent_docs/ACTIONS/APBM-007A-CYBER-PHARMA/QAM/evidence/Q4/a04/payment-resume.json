@@ -1,0 +1,9 @@
+{
+  "same_checkout_reopened": true,
+  "no_second_session_created": true,
+  "test_card_submit_count": 1,
+  "return_host": "localhost",
+  "return_path": "/register/activation",
+  "instrument_correction": "Select collapsedCard beforefill; originalhelperfailedbeforepayment. Browserfieldinspection emittednamesonly.",
+  "authoritative_settlement": "provider-readback.json"
+}

@@ -1,0 +1,12 @@
+src/__tests__/apbm007a-access.test.tsx
+src/__tests__/auth/AuthPage.test.tsx
+src/__tests__/layout/AdminSidebar.test.tsx
+src/app/profile/ProfileForm.tsx
+src/components/admin-portal/BillingRow.tsx
+src/components/auth/LoginForm.tsx
+src/components/layout/AdminSidebar.tsx
+src/services/adminDemo.ts
+src/types/adminDemo.ts
+src/__tests__/admin-portal/BillingDetails.test.tsx
+src/__tests__/auth/PasswordToggle.test.tsx
+src/components/ui/password-input.tsx

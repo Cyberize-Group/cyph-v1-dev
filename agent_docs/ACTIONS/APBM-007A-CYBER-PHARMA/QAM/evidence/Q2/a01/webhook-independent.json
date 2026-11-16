@@ -1,0 +1,37 @@
+{
+  "layer": "independent unit; in-memory DB/provider adapters, actual signature library; no live effects",
+  "checks": [
+    {
+      "name": "instrument poison: a wrong expected HTTP result is rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "signature tamper rejected without ledger receipt",
+      "status": "PASS"
+    },
+    {
+      "name": "owned late mapping retry and duplicate before/after recovery",
+      "status": "PASS"
+    },
+    {
+      "name": "foreign object ignored without provisioning",
+      "status": "PASS"
+    },
+    {
+      "name": "busy remains retryable then completes once",
+      "status": "PASS"
+    },
+    {
+      "name": "receipt failure nonacknowledged and clean retry works",
+      "status": "PASS"
+    },
+    {
+      "name": "historical ignored/unmapped recovery preserves audit and provisions once",
+      "status": "PASS"
+    },
+    {
+      "name": "historical processed subscription recovery is audited",
+      "status": "PASS"
+    }
+  ]
+}

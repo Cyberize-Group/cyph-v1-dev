@@ -1,0 +1,11 @@
+{
+  "journey": "new_owner_A",
+  "npi": "1951161300",
+  "stage": "sandbox_checkout",
+  "checkout_submits": 1,
+  "payment_submits": 0,
+  "sandbox_account_match": true,
+  "standard_total": "$99.00",
+  "discounted_total": "$89.10",
+  "error": "JOURNEY_SETUP_FAILED"
+}

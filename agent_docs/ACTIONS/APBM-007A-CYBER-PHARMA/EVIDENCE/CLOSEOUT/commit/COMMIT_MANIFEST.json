@@ -1,0 +1,106 @@
+{
+ "purpose": "APBM-007A closeout records commit, one per repository, then Director --no-ff merge of qa/apbm-007a into main and normal push",
+ "status": "closeout prepared; Director merge/push pending",
+ "repos": {
+  "owedbook": {
+   "dir_name": "cyph-v1-dev",
+   "branch": "qa/apbm-007a",
+   "base": "af1b4af04592f04689de2e4de59f28db65437f8b",
+   "main_before": "bc4e4336f80d2e8cdbb628d4de29d08f8fc95694",
+   "certified": [
+    "c976968b20ee724f7390d5e0e008215f50ab6f25"
+   ],
+   "paths": [
+    {
+     "path": "CHANGELOG.md",
+     "change": "M",
+     "blob": "e36523a3980c4a14b7f267bc3720f9529c52e1b3",
+     "sha256": "95fbf683ea20da36e12861034ec92d0712363ca9c92dff616f7599df284c9012"
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CLOSEOUT_REPORT.md",
+     "change": "A",
+     "blob": "51c88ff3bd5aba8a8775d64a7cca67226cb38cb4",
+     "sha256": "2d6566c661ccde8b0291456bb262fc29eb731886668c070591bc4a70dbaf3b9e"
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_STATE.md",
+     "change": "M",
+     "blob": "580ebbaf235d08c7caba2be3a64b390cc4e60660",
+     "sha256": "520236c0413f2ddec790f70609ab908040250e8fbdbed9d738109f4b93681aaa"
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_JOURNAL.md",
+     "change": "M",
+     "blob": "e353bdd2646a05d56103ab885b9e474a1f5d9130",
+     "sha256": "f6e90d143fc6b7c6466b04e6abc8267403b960fc501f00afd4397fbb39ea5b98"
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CARRY_FORWARD_007B.md",
+     "change": "M",
+     "blob": "a54d8348320b7b86df71ada0a9a3d99bee471930",
+     "sha256": "77be6dbd452eee4cd839a165307370566c6a1423aacfcd5773696e0724f97d6f"
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/README.md",
+     "change": "M",
+     "blob": "ddc02961dfdef9e575ed8194f7467d02fc86b166",
+     "sha256": "35e02b136ef0a9d211af7733825bced52c73a3109f7317e42c8d625db397d907"
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/REVIEW_START_HERE.md",
+     "change": "M",
+     "blob": "c6185d3ae298d27a9d111ff3acfc143c5434207f",
+     "sha256": "b218cc5af9c66017ef18f50d25406fe1715d9f102c8b72bba197efecde09a42e"
+    }
+   ],
+   "self_paths": [
+    "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/CLOSEOUT/commit/COMMIT_MANIFEST.json",
+    "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/CLOSEOUT/commit/COMMIT_HANDOFF.md",
+    "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/CLOSEOUT/commit/REHEARSAL.md",
+    "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/CLOSEOUT/commit/verify_closeout.py",
+    "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/CLOSEOUT/commit/owedbook-closeout-add.txt",
+    "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/CLOSEOUT/commit/portal-closeout-add.txt"
+   ]
+  },
+  "portal": {
+   "dir_name": "cyph-payment-portal-dev-v1",
+   "branch": "qa/apbm-007a",
+   "base": "1a3913262ed0f8e8303823d92d2551fd9cc725b3",
+   "main_before": "c89572a45210e7d6f098c2878cfabe9a1c5326f1",
+   "certified": [
+    "54a56b55ea7c72783d17d06ff45cd27b5426803f",
+    "6ed09ffc05685a163833cb68fcae4383c67ae349"
+   ],
+   "paths": [
+    {
+     "path": "RECOVERY.md",
+     "change": "M",
+     "blob": "bd6af08ff789423c4d5a440e3e9cb391834361b4",
+     "sha256": "0a2b55bfe4ab043fd68399e4f0ee6e9f936dc217e36df0855bf27d6959743380"
+    },
+    {
+     "path": "agent_docs/SESSIONS/session_2026-11-16.md",
+     "change": "M",
+     "blob": "d2364de714ef2d31436a0b3c2b69b17288ac2b8d",
+     "sha256": "b37d38e4f70513edd8622b0b84aa1026764111b7a5ae310a8177a5752dbd783e"
+    },
+    {
+     "path": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA_POINTER.md",
+     "change": "M",
+     "blob": "2abaad169cc7461ee5b640629bcd95b3823e89bf",
+     "sha256": "cb3b84bf76a40be3a06ebe94628fb3460698ba0831b4e55b0869974e00466df1"
+    },
+    {
+     "path": "CHANGELOG.md",
+     "change": "M",
+     "blob": "3b0287e3981882db44336f9d137b7887466c37be",
+     "sha256": "aa6df0e60dbb3c51f149eea74f4388b1f369eef0c451b21764d351c0c85efad0"
+    }
+   ],
+   "self_paths": [
+    "agent_docs/RESPONSES/response_2026-11-16_155500_apbm007a-closeout.md"
+   ]
+  }
+ }
+}

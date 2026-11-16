@@ -1,0 +1,12 @@
+{
+  "observed_at_utc": "2026-11-13T10:04:56.240047+00:00",
+  "effects": {
+    "db_writes": 0,
+    "provider_calls": 0,
+    "auth_identities_created": 0,
+    "auth_identities_deleted": 0,
+    "emails": 0,
+    "checkouts": 0,
+    "payments": 0
+  }
+}

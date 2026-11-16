@@ -1,0 +1,13 @@
+import { say } from './lib.mjs'; import { client, rd, assertAccount, SDK_VERSION } from './stripe_lib.mjs';
+const s = client(); const a = await assertAccount(s);
+const out = { sdk: SDK_VERSION, sdkPinnedApiVersion: s.getApiField?.('version'), account: { id: a.id, country: a.country, default_currency: a.default_currency, charges_enabled: a.charges_enabled, display: a.settings?.dashboard?.display_name, type: a.type } };
+const prods = await rd('products.list', () => s.products.list({ limit: 100 }));
+const prices = await rd('prices.list', () => s.prices.list({ limit: 100, expand: ['data.tiers'] }));
+out.products = prods.data.map(p => ({ id: p.id, name: p.name, active: p.active, livemode: p.livemode, metadata: p.metadata, created: new Date(p.created * 1000).toISOString().slice(0, 10) })); out.productsHasMore = prods.has_more;
+out.prices = prices.data.map(p => ({ id: p.id, product: p.product, active: p.active, cur: p.currency, unit_amount: p.unit_amount, interval: p.recurring?.interval, usage: p.recurring?.usage_type, scheme: p.billing_scheme, tiers_mode: p.tiers_mode, tiers: p.tiers?.map(t => [t.up_to, t.unit_amount, t.flat_amount]), lookup_key: p.lookup_key, livemode: p.livemode })); out.pricesHasMore = prices.has_more;
+const pc = await rd('portal.configurations.list', () => s.billingPortal.configurations.list({ limit: 20 }));
+out.portalConfigs = pc.data.map(c => ({ id: c.id, is_default: c.is_default, active: c.active, features: { customer_update: c.features.customer_update?.enabled, invoice_history: c.features.invoice_history?.enabled, payment_method_update: c.features.payment_method_update?.enabled, cancel: c.features.subscription_cancel && { enabled: c.features.subscription_cancel.enabled, mode: c.features.subscription_cancel.mode, proration: c.features.subscription_cancel.proration_behavior }, update: c.features.subscription_update && { enabled: c.features.subscription_update.enabled, allowed: c.features.subscription_update.default_allowed_updates, products: c.features.subscription_update.products?.length ?? 0 } }, metadata: c.metadata }));
+const cps = await rd('coupons.list', () => s.coupons.list({ limit: 50 })); out.coupons = cps.data.map(c => ({ id: c.id, name: c.name, pct: c.percent_off, amt: c.amount_off, duration: c.duration, valid: c.valid, metadata: c.metadata }));
+const pcs = await rd('promotionCodes.list', () => s.promotionCodes.list({ limit: 50 })); out.promotionCodes = pcs.data.map(c => ({ id: c.id, code: c.code, active: c.active }));
+const wh = await rd('webhookEndpoints.list', () => s.webhookEndpoints.list({ limit: 20 })); out.webhookEndpoints = wh.data.map(w => ({ id: w.id, url: w.url, status: w.status, api_version: w.api_version, events: w.enabled_events }));
+say(out);

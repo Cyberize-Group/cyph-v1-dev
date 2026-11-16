@@ -1,0 +1,12 @@
+{
+  "owedbook": {
+    "head": "f637ba4086c1e906e008b8892c880ec6489bba9a",
+    "branch": "qa/apbm-007a"
+  },
+  "portal": {
+    "head": "357c274284f48ed5ad3bf8407ca0a14d0d9b99e8",
+    "branch": "qa/apbm-007a"
+  },
+  "served_old_undo": true,
+  "listeners": []
+}

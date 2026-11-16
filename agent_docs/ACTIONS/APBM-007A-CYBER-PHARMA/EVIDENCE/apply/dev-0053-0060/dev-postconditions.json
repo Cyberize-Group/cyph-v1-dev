@@ -1,0 +1,95 @@
+{
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "at": "2026-11-12T12:53:39.215Z",
+  "ledger": {
+    "rows": 60,
+    "last": "0060_billing_reads.sql",
+    "equalsManifestByNameAndChecksum": true,
+    "first52AppliedBefore": true,
+    "new8AppliedAt": [
+      "2026-11-12T12:52:30.260Z",
+      "2026-11-12T12:52:39.579Z"
+    ]
+  },
+  "policies": {
+    "businessUpdateAdminGone": true,
+    "subscriptions": [
+      "subscription_select_owner"
+    ],
+    "total": 14
+  },
+  "grants": {
+    "authenticatedWriteBusinesses": [
+      false,
+      false,
+      false
+    ],
+    "authenticatedSelectBusinesses": true,
+    "residualTruncateRefTrigger": 0,
+    "anonOnTenantTables": 0,
+    "customersOnNewTables": 0,
+    "handoffCodesReachable": [
+      {
+        "a": false,
+        "b": false,
+        "c": false
+      }
+    ]
+  },
+  "functions": {
+    "serviceOnlyExecutableByCustomers": [],
+    "serviceOnlyMissingForServiceRole": [],
+    "total": 36,
+    "customerReads": {
+      "store_access_state": [
+        true,
+        false
+      ],
+      "owner_billing_overview": [
+        true,
+        false
+      ]
+    },
+    "triggerFunctionsCallableByCustomers": [
+      false,
+      false,
+      false
+    ]
+  },
+  "signupTrigger": {
+    "bodyEquals0049": true,
+    "triggerEnabled": true,
+    "executableByCustomers": false
+  },
+  "rls": {
+    "publicTables": 23,
+    "withoutRls": 0
+  },
+  "auditTriggers": 17,
+  "subscriptions": {
+    "total": 3,
+    "synthetic": 3,
+    "stripe": 0
+  },
+  "newTablesRows": {
+    "billing_customers": 0,
+    "registration_drafts": 0,
+    "npi_reservations": 0,
+    "checkout_operations": 0,
+    "stripe_events": 0,
+    "notification_operations": 0
+  },
+  "handoffCodes": 0,
+  "businesses": {
+    "stores": 5,
+    "ncpdp_null": 0,
+    "ncpdp_nullable": "YES",
+    "npi_unique_index": 1
+  },
+  "selfChecks": {
+    "valid_ok": true,
+    "bad_digit": false,
+    "fixture_a_state": "active",
+    "fixture_c_state": "past_due_reminder"
+  }
+}

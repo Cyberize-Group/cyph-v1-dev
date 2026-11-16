@@ -1,0 +1,47 @@
+{
+  "owedbook": {
+    "head": "0249109f9b688e89c6a3c2bc64ab87167e89d9c9",
+    "paths": [
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_JOURNAL.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_STATE.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/REPAIR_F-Q4-001.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/build_pp.log",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/bundle_scan.txt",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/candidate_control_tests.json",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/commit/COMMIT_HANDOFF.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/commit/COMMIT_MANIFEST.json",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/commit/REHEARSAL.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/commit/owedbook-product-add.txt",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/commit/owedbook-records-add.txt",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/commit/portal-product-add.txt",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/commit/portal-records-add.txt",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/commit/verify_commit.py",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/focused_tests.json",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/helpers/scratch-checkout-candidate-control.cjs",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/helpers/scratch-checkout-recovery.cjs",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/mutation_controls.txt",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/product.patch",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/provenance.json",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/qa_preservation.json",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/scratch_checkout_candidate_control.json",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/scratch_checkout_recovery.json",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/QA_HANDOFF.md"
+    ],
+    "manifest_product_exact": true,
+    "hashes_match": true
+  },
+  "portal": {
+    "head": "93add6f32be53da34ac6fb6fff7fa85076f97a1c",
+    "paths": [
+      "src/__tests__/apbm007a-checkout-recovery.test.ts",
+      "src/server/checkout.ts"
+    ],
+    "manifest_product_exact": true,
+    "hashes_match": true,
+    "records_successor": [
+      "RECOVERY.md",
+      "agent_docs/RESPONSES/response_2026-11-16_115000_f-q4-001-repair-handback.md",
+      "agent_docs/SESSIONS/session_2026-11-16.md"
+    ]
+  }
+}

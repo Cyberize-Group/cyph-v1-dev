@@ -1,0 +1,16 @@
+{
+  "added": {
+    "public.audit_logs": [
+      "682"
+    ],
+    "public.npi_reservations": [
+      "67e31848-37e4-44e0-8d85-58199faa834f"
+    ],
+    "public.registration_drafts": [
+      "31e2aa86-289d-4558-8aa7-cf26aebf7b28",
+      "0eaf51d6-f67d-45f9-b112-355e5fa68f42"
+    ]
+  },
+  "missing": {},
+  "uncompared": []
+}

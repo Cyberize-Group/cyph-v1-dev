@@ -1,0 +1,18 @@
+{
+  "3000": {
+    "pid": 1847043,
+    "uid": 1000,
+    "cwd": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev",
+    "checkout_head": "37f6c0dd63f7a087ec44dd9d3ef79b74bb203f40",
+    "process_start": "Fri Nov 13 07:17:34 2026",
+    "served_commit": "UNPROVEN; same process PID as pre-repair inspection. No restart attestation; stop this item for Director restart."
+  },
+  "3001": {
+    "pid": 1909434,
+    "uid": 1000,
+    "cwd": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-payment-portal-dev-v1",
+    "checkout_head": "9d938f62bff6172f9332ae6c67775e4b8feea379",
+    "process_start": "Fri Nov 13 10:13:40 2026",
+    "served_commit": "UNPROVEN; same process PID as pre-repair inspection. No restart attestation; stop this item for Director restart."
+  }
+}

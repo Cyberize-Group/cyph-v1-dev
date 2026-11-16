@@ -1,0 +1,32 @@
+{
+  "scenario": "genuinely foreign sandbox object",
+  "provider_mutations": 3,
+  "customer_id": "cus_VcXIPryJq6gOp7",
+  "session_id": "cs_test_a0MNdhYXarjQZC3BuxFUr1ttgWMtmx139du5OQRQBPJXMmbU9HgwZcxc7l",
+  "event_id": "evt_1UbIDoGnEQDyu3RRRL0kOfXS",
+  "before_redelivery": [
+    {
+      "event_id": "evt_1UbIDoGnEQDyu3RRRL0kOfXS",
+      "status": "received",
+      "error_code": null,
+      "attempts": 0
+    }
+  ],
+  "qa_redelivery_http": 200,
+  "qa_redelivery_body": {
+    "result": "ignored"
+  },
+  "after": [
+    {
+      "event_id": "evt_1UbIDoGnEQDyu3RRRL0kOfXS",
+      "status": "ignored",
+      "error_code": "foreign",
+      "attempts": 0
+    }
+  ],
+  "tenant_mapping_count": 0,
+  "operation_count": 0,
+  "no_subscription_created": true,
+  "result": "PASS",
+  "retained": "Customer and expired unpaid Checkout retained; expiry was planned supported-event stimulus, not cleanup. No deletion, subscription, payment or email."
+}

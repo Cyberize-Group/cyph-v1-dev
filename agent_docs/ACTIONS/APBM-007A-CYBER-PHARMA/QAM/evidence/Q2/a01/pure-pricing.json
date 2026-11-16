@@ -1,0 +1,54 @@
+{
+  "layer": "isolated actual modules; independent contract expectations; no live provider",
+  "checks": [
+    {
+      "name": "contract recurring cents 1",
+      "status": "PASS"
+    },
+    {
+      "name": "contract recurring cents 2",
+      "status": "PASS"
+    },
+    {
+      "name": "contract recurring cents 3",
+      "status": "PASS"
+    },
+    {
+      "name": "quote first invoice standard and 10 percent once fixture",
+      "status": "PASS"
+    },
+    {
+      "name": "outside allowlist never queries provider",
+      "status": "PASS"
+    },
+    {
+      "name": "allowlisted code accepted with active fixture",
+      "status": "PASS"
+    },
+    {
+      "name": "expired provider promotion denied",
+      "status": "PASS"
+    },
+    {
+      "name": "NPI normalization 1997131309",
+      "status": "PASS"
+    },
+    {
+      "name": "NPI normalization 199-713 1309",
+      "status": "PASS"
+    },
+    {
+      "name": "NPI normalization 1997131300",
+      "status": "PASS"
+    },
+    {
+      "name": "NPI normalization x1997131309",
+      "status": "PASS"
+    },
+    {
+      "name": "NPI normalization 199713130",
+      "status": "PASS"
+    }
+  ],
+  "limitations": "Discount duration and multi-unit Stripe invoice agreement not proved by arithmetic unit checks."
+}

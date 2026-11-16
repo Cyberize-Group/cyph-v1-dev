@@ -1,0 +1,12 @@
+{
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "command": "apply",
+  "startedAt": "2026-11-12T10:49:08.505Z",
+  "committed": [
+    "0059_handoff_codes.sql",
+    "0060_billing_reads.sql"
+  ],
+  "status": "PASS",
+  "lastCommitted": "0060_billing_reads.sql",
+  "finishedAt": "2026-11-12T10:49:09.866Z"
+}

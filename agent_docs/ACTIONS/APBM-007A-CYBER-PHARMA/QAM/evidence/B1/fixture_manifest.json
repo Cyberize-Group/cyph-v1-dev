@@ -1,0 +1,335 @@
+{
+  "SCRATCH": {
+    "project": "ihgcsrypblqkwommrkgj",
+    "read_only": true,
+    "tables": [
+      {
+        "schemaname": "apbm_migrations",
+        "tablename": "ledger",
+        "rows": "60"
+      },
+      {
+        "schemaname": "handoff",
+        "tablename": "codes",
+        "rows": "13"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "aac_reference",
+        "rows": "2"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "accounts",
+        "rows": "10"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "apa_memberships",
+        "rows": "0"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "audit_logs",
+        "rows": "652"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "billing_customers",
+        "rows": "7"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "businesses",
+        "rows": "12"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "checkout_operations",
+        "rows": "14"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "ful_reference",
+        "rows": "1"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "notification_operations",
+        "rows": "6"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "npi_reservations",
+        "rows": "16"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "pbm_info",
+        "rows": "3"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "pending_registrations",
+        "rows": "0"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "profiles",
+        "rows": "17"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "reference_dataset_versions",
+        "rows": "4"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "registration_drafts",
+        "rows": "22"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "report_files",
+        "rows": "0"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "stripe_events",
+        "rows": "12"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "subscriptions",
+        "rows": "10"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "system_config",
+        "rows": "2"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "user_businesses",
+        "rows": "15"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "user_data",
+        "rows": "300"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "user_roles",
+        "rows": "17"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "wac_reference",
+        "rows": "4"
+      }
+    ]
+  },
+  "DEV": {
+    "project": "yrsuwikjnbmvpznrgydb",
+    "read_only": true,
+    "tables": [
+      {
+        "schemaname": "apbm_migrations",
+        "tablename": "ledger",
+        "rows": "60"
+      },
+      {
+        "schemaname": "handoff",
+        "tablename": "codes",
+        "rows": "5"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "aac_reference",
+        "rows": "2"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "accounts",
+        "rows": "4"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "apa_memberships",
+        "rows": "0"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "audit_logs",
+        "rows": "1587"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "billing_customers",
+        "rows": "1"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "businesses",
+        "rows": "6"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "checkout_operations",
+        "rows": "6"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "ful_reference",
+        "rows": "1"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "notification_operations",
+        "rows": "1"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "npi_reservations",
+        "rows": "7"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "pbm_info",
+        "rows": "3"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "pending_registrations",
+        "rows": "0"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "profiles",
+        "rows": "16"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "reference_dataset_versions",
+        "rows": "4"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "registration_drafts",
+        "rows": "6"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "report_files",
+        "rows": "0"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "stripe_events",
+        "rows": "2"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "subscriptions",
+        "rows": "4"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "system_config",
+        "rows": "2"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "user_businesses",
+        "rows": "9"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "user_data",
+        "rows": "250"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "user_roles",
+        "rows": "16"
+      },
+      {
+        "schemaname": "public",
+        "tablename": "wac_reference",
+        "rows": "4"
+      }
+    ],
+    "accounts": [
+      {
+        "id": "6d6c91c3-93fc-4d61-a2b7-234944ffd51a",
+        "owner_user_id": "c322c8da-85af-44fa-8b98-375c22385f9d"
+      },
+      {
+        "id": "8f82a493-b93f-4384-a326-0f0d9fe2f661",
+        "owner_user_id": "72521a97-6fda-47f7-80fc-220770c3de38"
+      },
+      {
+        "id": "a6d4b0a2-62fe-4dc0-ab57-5a2255d6b129",
+        "owner_user_id": "eadf5edc-3f00-4151-a3e5-823990ea0300"
+      },
+      {
+        "id": "fcb3c889-26ae-4e5e-a003-4b5186aab94b",
+        "owner_user_id": "1d512afb-abc7-4083-8b49-06e6a41a3401"
+      }
+    ],
+    "businesses": [
+      {
+        "id": "523270bd-6a01-4079-aa27-75baf96adb64",
+        "account_id": "fcb3c889-26ae-4e5e-a003-4b5186aab94b"
+      },
+      {
+        "id": "70f9f908-b30d-4f08-a982-55b5a48b4f95",
+        "account_id": "fcb3c889-26ae-4e5e-a003-4b5186aab94b"
+      },
+      {
+        "id": "8598cb0e-ab61-4d9f-a85e-2ee418480d19",
+        "account_id": "a6d4b0a2-62fe-4dc0-ab57-5a2255d6b129"
+      },
+      {
+        "id": "d1b77727-be10-4c25-a997-4341843da276",
+        "account_id": "6d6c91c3-93fc-4d61-a2b7-234944ffd51a"
+      },
+      {
+        "id": "dc85076e-6c67-4a2f-ae1d-09e305cd8cde",
+        "account_id": "fcb3c889-26ae-4e5e-a003-4b5186aab94b"
+      },
+      {
+        "id": "fb400b6a-3665-4a23-b36d-76081b92ba50",
+        "account_id": "8f82a493-b93f-4384-a326-0f0d9fe2f661"
+      }
+    ],
+    "subscriptions": [
+      {
+        "id": "04dd7b83-ef17-48ba-b78b-8ad84094a9a2",
+        "account_id": "8f82a493-b93f-4384-a326-0f0d9fe2f661",
+        "status": "active",
+        "origin": "stripe"
+      },
+      {
+        "id": "324794d8-c96d-4cbb-a146-e2d83c371492",
+        "account_id": "fcb3c889-26ae-4e5e-a003-4b5186aab94b",
+        "status": "trialing",
+        "origin": "synthetic_seed"
+      },
+      {
+        "id": "7252e65c-4616-4ece-ad1b-90883aba0cb0",
+        "account_id": "6d6c91c3-93fc-4d61-a2b7-234944ffd51a",
+        "status": "past_due",
+        "origin": "synthetic_seed"
+      },
+      {
+        "id": "f273325d-14b7-4921-aa99-9b4dda4eed1f",
+        "account_id": "a6d4b0a2-62fe-4dc0-ab57-5a2255d6b129",
+        "status": "active",
+        "origin": "synthetic_seed"
+      }
+    ],
+    "role_binding": "NEW_OWNER and OWNER_2 cannot be bound: private cast values missing; do not infer from existing accounts"
+  }
+}

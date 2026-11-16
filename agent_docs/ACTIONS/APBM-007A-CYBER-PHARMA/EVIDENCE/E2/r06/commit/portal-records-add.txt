@@ -1,0 +1,3 @@
+RECOVERY.md
+agent_docs/SESSIONS/session_2026-11-16.md
+agent_docs/RESPONSES/response_2026-11-16_150628_u123-ui-repair-handback.md

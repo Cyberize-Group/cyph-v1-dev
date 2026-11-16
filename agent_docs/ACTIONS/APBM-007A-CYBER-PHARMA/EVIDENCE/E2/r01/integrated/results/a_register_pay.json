@@ -1,0 +1,65 @@
+{
+ "at": "2026-11-12T14:49:26.514Z",
+ "results": [
+  {
+   "name": "A1 link GET lands on the clean confirm page (no token in the address)",
+   "status": "PASS",
+   "detail": "http://localhost:3001/auth/confirm"
+  },
+  {
+   "name": "A2 no session exists before the button is pressed",
+   "status": "PASS",
+   "detail": "overview 401"
+  },
+  {
+   "name": "A3 the button POST signs in to the portal only (cookie cyph-pp-auth-local, no OwedBook cookie)",
+   "status": "PASS",
+   "detail": "cyph-pp-cf-local@localhost,cyph-pp-auth-local@localhost"
+  },
+  {
+   "name": "A4 signed in; not yet an owner (billing refused)",
+   "status": "PASS",
+   "detail": "overview 403"
+  },
+  {
+   "name": "A5 the same link pressed again elsewhere is refused (link-expired)",
+   "status": "PASS",
+   "detail": "http://localhost:3001/auth/link-expired"
+  },
+  {
+   "name": "A6 server quote for one store is $99.00",
+   "status": "PASS",
+   "detail": "$99.00"
+  },
+  {
+   "name": "A7 a code outside the allowlist is refused with one generic message",
+   "status": "PASS",
+   "detail": "That code can't be applied."
+  },
+  {
+   "name": "A8 the APA sandbox fixture takes 10% off the first invoice: $89.10",
+   "status": "PASS",
+   "detail": "$89.10"
+  },
+  {
+   "name": "A9 checkout is refused until all three consents are given",
+   "status": "PASS",
+   "detail": ""
+  },
+  {
+   "name": "A10 Stripe returns to the portal status page",
+   "status": "PASS",
+   "detail": "http://localhost:3001/register/activation"
+  },
+  {
+   "name": "A11 the operation is provisioned",
+   "status": "PASS",
+   "detail": "{\"status\":\"provisioned\",\"err\":null,\"existing\":true,\"total\":8910}"
+  },
+  {
+   "name": "A12 the status page shows the signed-in completion (no sign-in email needed)",
+   "status": "PASS",
+   "detail": ""
+  }
+ ]
+}

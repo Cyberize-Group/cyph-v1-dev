@@ -1,0 +1,96 @@
+{
+ "candidate": {
+  "payment_portal_head": "93add6f32be53da34ac6fb6fff7fa85076f97a1c",
+  "payment_portal_product": "c638f79b8e40b8fbddc269634c96cd2c05ef7807",
+  "owedbook_head": "0249109f9b688e89c6a3c2bc64ab87167e89d9c9",
+  "branch": "qa/apbm-007a"
+ },
+ "repair_files": [
+  {
+   "path": "src/server/provisioning.ts",
+   "change": "M",
+   "candidate_blob": "05b04ff670f985941b8b0c9452c2323de0ef85f7",
+   "checkout_sha256": "f7a1d68df46ec607ceca7f21796186c2af2976392426ee5716b6ab9e9aa8e9ab",
+   "tested_copy_sha256": "f7a1d68df46ec607ceca7f21796186c2af2976392426ee5716b6ab9e9aa8e9ab",
+   "build_copy_sha256": "f7a1d68df46ec607ceca7f21796186c2af2976392426ee5716b6ab9e9aa8e9ab",
+   "checkout_git_blob": "072b3d748526910b97af993e686b126b8493a6fa"
+  },
+  {
+   "path": "src/server/checkout.ts",
+   "change": "M",
+   "candidate_blob": "dd1b5b4202b7ece589fe3a0cd464ef4d29f54f8f",
+   "checkout_sha256": "7e049cf88b8f3bab60b6b15fce54dfc284a6164d4b463189422515e1cb097a76",
+   "tested_copy_sha256": "7e049cf88b8f3bab60b6b15fce54dfc284a6164d4b463189422515e1cb097a76",
+   "build_copy_sha256": "7e049cf88b8f3bab60b6b15fce54dfc284a6164d4b463189422515e1cb097a76",
+   "checkout_git_blob": "5590fd7358dae96eb26a877e141a3139a1a4cd56"
+  },
+  {
+   "path": "src/server/accessEmail.ts",
+   "change": "M",
+   "candidate_blob": "cede19adfe5734b68496dab75fbd66c1ab5d500c",
+   "checkout_sha256": "e2f0c69e3e35423aeafe9e21a6024b5a3f789dda54267cf5a7e078314a7598d0",
+   "tested_copy_sha256": "e2f0c69e3e35423aeafe9e21a6024b5a3f789dda54267cf5a7e078314a7598d0",
+   "build_copy_sha256": "e2f0c69e3e35423aeafe9e21a6024b5a3f789dda54267cf5a7e078314a7598d0",
+   "checkout_git_blob": "e9ecd879db63d89a0ee3c93b1741a38bf1fe852b"
+  },
+  {
+   "path": "src/__tests__/apbm007a-checkout-recovery.test.ts",
+   "change": "M",
+   "candidate_blob": "90b5f886fc639a670a3c0200bbee8910d71d4143",
+   "checkout_sha256": "e399cb0feb5b6abc1642675bddba6a28afa2f56d0c0e005f539daf1b0f6f5e59",
+   "tested_copy_sha256": "e399cb0feb5b6abc1642675bddba6a28afa2f56d0c0e005f539daf1b0f6f5e59",
+   "build_copy_sha256": "e399cb0feb5b6abc1642675bddba6a28afa2f56d0c0e005f539daf1b0f6f5e59",
+   "checkout_git_blob": "c5e1552a2a32ee6f32986c1edcc2b9b2aaf4a1f9"
+  },
+  {
+   "path": "src/__tests__/apbm007a-mail-guard.test.ts",
+   "change": "M",
+   "candidate_blob": "b18fc9d61756cabc9a2423020cf7e340537eda4e",
+   "checkout_sha256": "105e880e3abbb4123b9d5766ca0a5d196bf54b03d2cc63eb88d9e44463bd8c39",
+   "tested_copy_sha256": "105e880e3abbb4123b9d5766ca0a5d196bf54b03d2cc63eb88d9e44463bd8c39",
+   "build_copy_sha256": "105e880e3abbb4123b9d5766ca0a5d196bf54b03d2cc63eb88d9e44463bd8c39",
+   "checkout_git_blob": "459e20e60de397796fa02403c83ca91dd049063a"
+  },
+  {
+   "path": "src/__tests__/apbm007a-provisioning-concurrency.test.ts",
+   "change": "A",
+   "candidate_blob": null,
+   "checkout_sha256": "0010bb6376edd8d4870d2e9aa3ba95d1a0e479e559df205d53001d17b8995a39",
+   "tested_copy_sha256": "0010bb6376edd8d4870d2e9aa3ba95d1a0e479e559df205d53001d17b8995a39",
+   "build_copy_sha256": "0010bb6376edd8d4870d2e9aa3ba95d1a0e479e559df205d53001d17b8995a39",
+   "checkout_git_blob": "d2a000a33e29f9b4611d1024329443974c384bc6"
+  }
+ ],
+ "equivalence": "Each repair file is byte-identical in the QA checkout, the tested disposable copy (ARCHIVE/APBM007A_E2_WORK/r05/pp) and the build copy (r05/build-pp). Every other source file of the tested copy equals the candidate. No proof-only source difference.",
+ "build": {
+  "next": "16.4.3 (Turbopack)",
+  "build_id": "Nu5wOIUg-27fMxEJf_nyX",
+  "env": "placeholder Supabase URL and publishable key; canary server secrets only; NODE_ENV=production",
+  "client_bundle_scan": "bundle_scan.txt"
+ },
+ "scratch": {
+  "environment": "SCRATCH ihgcsrypblqkwommrkgj, one transaction per run, always rolled back; 0 engineering rows left; 0 network calls; no Auth write (Auth substitute maps the synthetic draft address to one existing synthetic identity, ID read only)",
+  "final_runs": [
+   "scratch/scratch_r05_repair.json (6/6 PASS, run on the final bytes)",
+   "scratch/scratch_r05_candidate_control.json (5/6 FAIL on the candidate)"
+  ],
+  "preserved_attempts": [
+   "scratch/scratch_r05_repair_attempt1_instrument_fault.json (adapter interleaved savepoints across runs; transaction aborted)",
+   "scratch/scratch_r05_repair_attempt2_instrument_fault.json (back-dated updated_at overwritten by the real trigger)",
+   "scratch/scratch_r05_candidate_control_attempt1_timing.json (interleaving left to timing; harmless order)",
+   "scratch/scratch_r05_candidate_control_attempt2_partial.json (reclassification reproduced, provisioning not yet broken)"
+  ]
+ },
+ "note_on_test_bytes": "The poison controls ran before a comment-only edit to apbm007a-provisioning-concurrency.test.ts (an eslint-disable line with its reason). Every other check, the candidate control and the final SCRATCH runs were rerun on the final bytes.",
+ "checks": {
+  "unit_full_tested_copy": "463/463 (23 suites)",
+  "unit_full_checkout": "463/463 (23 suites)",
+  "focused_checkout": "42/42",
+  "candidate_control": "9 of 34 fail on the candidate in the final run (10 in the first run; one concurrency test is timing-dependent on the candidate)",
+  "typecheck": "clean",
+  "lint": "0 errors, 24 warnings (equal to the candidate)",
+  "production_build": "pass",
+  "poison_controls": "mutation_controls.txt (10 of 10 caught)",
+  "scratch": "6/6 repaired; 5/6 fail on the candidate"
+ }
+}

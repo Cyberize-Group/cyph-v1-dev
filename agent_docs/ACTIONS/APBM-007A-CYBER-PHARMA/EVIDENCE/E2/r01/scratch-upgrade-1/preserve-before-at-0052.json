@@ -1,0 +1,132 @@
+{
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "label": "before-at-0052",
+  "at": "2026-11-12T10:54:28.387Z",
+  "tables": {
+    "accounts": {
+      "rows": 3,
+      "contentSHA256": "3039e13c1462213305e2f8eecb1581a480ca4adc671ca4148aec66b7016e60ff"
+    },
+    "businesses": {
+      "rows": 5,
+      "contentSHA256": "3b4ff0e961c2f16fbb826c7ead3476991422e8913a092e5195e1816d0b8732af"
+    },
+    "user_businesses": {
+      "rows": 8,
+      "contentSHA256": "b1d7b13c6b0e9de3af013f92f06aeaead98016dc121cd3a980fc8ace2363d2f9"
+    },
+    "user_roles": {
+      "rows": 7,
+      "contentSHA256": "5480e41edc9cdf6e878a23b74534d8f6145c494ed66d96f96c3bea558b26a4e1"
+    },
+    "profiles": {
+      "rows": 7,
+      "contentSHA256": "aed00ea39841dc2c7240d8540c6492214a79f2eed26c3d4693367ad0458423fd"
+    },
+    "user_data": {
+      "rows": 250,
+      "contentSHA256": "db86249a5a33d205fd141bc61f1e695c4936312a90fdc7eedeece91bf55ff45f"
+    },
+    "report_files": {
+      "rows": 0,
+      "contentSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "pbm_info": {
+      "rows": 3,
+      "contentSHA256": "32db6549884c81d1f939d1c4a50f49237e39199bede9a1bcf17adc619df8ae16"
+    },
+    "aac_reference": {
+      "rows": 2,
+      "contentSHA256": "9cedec1282b0d8a9e9b24c0bb043b17ad4fffa5636d417010369960f02f0e85e"
+    },
+    "wac_reference": {
+      "rows": 4,
+      "contentSHA256": "fd210f4dbaf85260c65d6bb0485aa9a44dca246cb47f4a679dcd626fd6e6682a"
+    },
+    "ful_reference": {
+      "rows": 1,
+      "contentSHA256": "1cc61c7fad97b9e5c9beb29ae25383ac106f01da4e2aeb7b7c3eef325e6b69a1"
+    },
+    "reference_dataset_versions": {
+      "rows": 4,
+      "contentSHA256": "6accc96f80a082d087ff3624ee01576387fb99b38e7b326cb15f624dd00997e6"
+    },
+    "system_config": {
+      "rows": 2,
+      "contentSHA256": "dfd98f40708211243a94cc01eb3620784737c29fff251bd2c3ff70e8a2ed8587"
+    },
+    "pending_registrations": {
+      "rows": 0,
+      "contentSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "apa_memberships": {
+      "rows": 0,
+      "contentSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "subscriptions_pre007a_columns": {
+      "rows": 3,
+      "contentSHA256": "a1591ea5fca9f83e2ff4561fd7f6dd79b440c40ccf3ab9bc9049b91f6a05f35b"
+    }
+  },
+  "auditLogs": {
+    "rows": 285,
+    "maxId": "285"
+  },
+  "authUsers": {
+    "count": 15,
+    "idSetSHA256": "dc5823057b4ba91ef553c165c69f4d2800b9e2cf2186020cb027c3736a60db29"
+  },
+  "indexes": {
+    "count": 43,
+    "definitionSHA256": "d3bc34339c23f097af3efd11c935624276f97e247de59e0b6f11dc0f15dee6f4"
+  },
+  "indexNames": [
+    "aac_reference_pkey",
+    "accounts_pkey",
+    "apa_memberships_license_number_key",
+    "apa_memberships_pkey",
+    "audit_logs_pkey",
+    "businesses_activation_key_key",
+    "businesses_pharmacy_slug_key",
+    "businesses_pkey",
+    "ful_reference_pkey",
+    "idx_audit_logs_business_occurred",
+    "idx_audit_logs_occurred_at",
+    "idx_audit_logs_table_row",
+    "idx_businesses_account_id",
+    "idx_pending_registrations_email",
+    "idx_pending_registrations_status",
+    "idx_report_files_business_id",
+    "idx_subscriptions_account_id",
+    "idx_user_businesses_business_id",
+    "idx_user_businesses_user_id",
+    "idx_user_data_business_id",
+    "pbm_info_pkey",
+    "pending_registrations_activation_token_key",
+    "pending_registrations_pkey",
+    "profiles_pkey",
+    "reference_dataset_versions_dataset_name_key",
+    "reference_dataset_versions_pkey",
+    "report_files_pkey",
+    "subscriptions_pkey",
+    "subscriptions_stripe_subscription_id_key",
+    "system_config_key_state_effective_date_key",
+    "system_config_pkey",
+    "uq_aac_reference_ndc_date",
+    "uq_businesses_ncpdp_npi",
+    "uq_ful_reference_ndc_year_month",
+    "uq_pending_reg_email_business",
+    "uq_user_business",
+    "uq_wac_reference_ndc_date",
+    "user_businesses_one_admin",
+    "user_businesses_pkey",
+    "user_data_pkey",
+    "user_roles_pkey",
+    "user_roles_user_id_key",
+    "wac_reference_pkey"
+  ],
+  "ledger": {
+    "n": 52,
+    "last": "0052_system_config.sql"
+  }
+}

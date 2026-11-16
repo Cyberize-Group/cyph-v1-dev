@@ -1,0 +1,36 @@
+{
+  "layer": "unit with independent mutable Stripe fake, no live effects",
+  "checks": [
+    {
+      "name": "undo flag only",
+      "status": "PASS"
+    },
+    {
+      "name": "undo date only",
+      "status": "PASS"
+    },
+    {
+      "name": "undo both schedule fields",
+      "status": "FAIL",
+      "error": "provider_unavailable",
+      "patches": [
+        {
+          "cancel_at_period_end": false
+        }
+      ]
+    },
+    {
+      "name": "missing portal configuration cannot call Stripe",
+      "status": "PASS"
+    },
+    {
+      "name": "explicit portal config passed unchanged",
+      "status": "PASS"
+    },
+    {
+      "name": "synthetic owner never invokes Stripe portal",
+      "status": "PASS"
+    }
+  ],
+  "limitation": "Does not prove whether live Stripe permits both fields simultaneously; contract explicitly requires both-field handling."
+}

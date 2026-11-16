@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Button } from "@/components/ui/button";
 import Spinner from "@/components/common/Spinner";
 import { useRouter } from "next/navigation";
@@ -24,6 +25,7 @@ import {
 } from "../ui/card";
 import { useState } from "react";
 import { useAuthStore } from "@/store/useAuthStore";
+import { LinkRequestForm } from "@/components/auth/LinkRequestForm";
 
 const formSchema = z.object({
   email: z
@@ -65,6 +67,13 @@ const LoginForm = () => {
     });
 
     if (!redirectPath) return;
+
+    // APBM007A: a sign-in that was asked for by the other app resumes that handoff (state is in an httpOnly cookie).
+    if (new URLSearchParams(window.location.search).get("next") === "continue" && redirectPath !== "/access-denied") {
+      // A full navigation, not router.push: the route handler answers with a redirect to the other app's origin.
+      window.location.assign(new URL("/api/handoff/authorize?resume=1", window.location.origin).toString());
+      return;
+    }
 
     router.refresh();
     router.push(redirectPath);
@@ -115,8 +124,7 @@ const LoginForm = () => {
                       Password
                     </FormLabel>
                     <FormControl>
-                      <Input
-                        type="password"
+                      <PasswordInput
                         className="p-6 bg-muted"
                         placeholder="Please Enter password"
                         {...field}
@@ -143,6 +151,10 @@ const LoginForm = () => {
           </Form>
         </CardContent>
       </Card>
+      {/* APBM007A: emailed sign-in link, alongside the password form (password login is preserved). */}
+      <div className="mt-4 p-6 border border-border rounded-lg bg-card">
+        <LinkRequestForm />
+      </div>
     </>
   );
 };

@@ -1,0 +1,8 @@
+{
+  "clean_control": "PASS",
+  "poison_controls_detected": 6,
+  "patterns": 6,
+  "payload_pattern_scan": "PASS",
+  "scope": "Explicit allowlisted text files; expanded ZIP members rescanned during verification. No raw trace, private file or prior ZIP included. No credential-value scan claimed; patterns cannot guarantee arbitrary personal-data detection.",
+  "candidate_tests_run": 0
+}

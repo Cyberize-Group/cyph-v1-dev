@@ -1,0 +1,17 @@
+{
+  "status": "STOP-IDENTITY for live Portal; STOP-ENV for natural listener",
+  "proof": {
+    "served_disk": {
+      "mutually_exclusive_old_clear_present": true,
+      "file": "src_server_billing_ts_0ulvq9zuqsr1y._.js"
+    },
+    "QA_repair_build": {
+      "mutually_exclusive_old_clear_present": false,
+      "file": "0hvj_QAM_AUTOMATION_Q4-a02_build-portal_src_server_billing_ts_0mou057bqpsht._.js"
+    }
+  },
+  "disk_build_id_unchanged_from_B1": true,
+  "listener_processes_found": 0,
+  "affected": "live registration/payment/billing/browser regression; no live effects attempted",
+  "unaffected": "fresh isolated baseline, candidate unit, real SCRATCH adapter/SQL"
+}

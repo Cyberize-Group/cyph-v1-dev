@@ -1,0 +1,84 @@
+{
+ "environment": "SCRATCH (ihgcsrypblqkwommrkgj), single transaction, rolled back",
+ "source": "ARCHIVE/APBM007A_E2_WORK/r04/pp (tested copy)",
+ "provider": "modelled Stripe (same semantics as the unit suite)",
+ "scenarios": [
+  {
+   "title": "lost session answer, then a retry with a different key: one customer, one session, one operation",
+   "after_loss": [
+    {
+     "status": "created",
+     "customer_recorded": true,
+     "session_recorded": false
+    }
+   ],
+   "provider_counts": {
+    "customers": 1,
+    "sessions": 1
+   },
+   "operations": [
+    {
+     "id": "cb4b5cb5-7672-4777-8c90-5182ebb3a21c",
+     "status": "checkout_open",
+     "session": "cs_test_E2"
+    }
+   ],
+   "reservations": [
+    "checkout_bound"
+   ],
+   "status": "PASS"
+  },
+  {
+   "title": "same-key retry after a lost session answer, seconds later: original session returned",
+   "provider_counts": {
+    "customers": 1,
+    "sessions": 1
+   },
+   "operations": [
+    "checkout_open"
+   ],
+   "status": "PASS"
+  },
+  {
+   "title": "lost session answer, draft edited, different key: earlier attempt settled with Stripe, same customer, one open operation",
+   "provider_counts": {
+    "customers": 1,
+    "sessions": 2
+   },
+   "operations": [
+    {
+     "status": "expired_unpaid",
+     "revision": 1,
+     "session_recorded": true
+    },
+    {
+     "status": "checkout_open",
+     "revision": 2,
+     "session_recorded": true
+    }
+   ],
+   "reservations": [
+    "checkout_bound"
+   ],
+   "status": "PASS"
+  },
+  {
+   "title": "no recorded session: proveUnpaidAndRelease keeps the operation and its reservation",
+   "operations": [
+    "created"
+   ],
+   "status": "PASS"
+  }
+ ],
+ "auth_reads": 0,
+ "auth_writes": 0,
+ "network_calls": 0,
+ "target": {
+  "database": "postgres",
+  "project_ref_in_url": true,
+  "checkout_operations_before": 14
+ },
+ "rolled_back": true,
+ "engineering_rows_after_rollback": 0,
+ "ran_at": "2026-11-16T05:47:01.988Z"
+}

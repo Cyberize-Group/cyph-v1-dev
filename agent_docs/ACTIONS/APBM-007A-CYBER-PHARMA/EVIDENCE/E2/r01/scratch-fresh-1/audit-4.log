@@ -1,0 +1,18 @@
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+14 !== 17
+
+    at file:///home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/scripts/rls-harness/audit-catalog.mjs:8:8
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 14,
+  expected: 17,
+  operator: 'strictEqual'
+}
+
+Node.js v22.17.0

@@ -1,0 +1,22 @@
+{
+  "package": "/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/APBM-007A-CYBER-PHARMA_Q2_REPAIR_REVIEW_r03.zip",
+  "sha256": "0e6d42dedc112d524e1352262536771b6b94dc826bd5ea307b9d5da4d44bda22",
+  "bytes": 526828,
+  "members": 51,
+  "members_excluding_index": 50,
+  "created_at": "2026-11-16T04:16:57.626752+00:00",
+  "checks": {
+    "zip_integrity": "testzip OK",
+    "index_membership": "exact",
+    "member_hashes_and_sizes": "all match",
+    "paths": "relative, unique, no traversal, no symlink sources",
+    "privacy_scan": "clean over 47 extracted text members; 4 screenshots checked for env values and private inbox bytes (screenshots show only synthetic details); controls: Stripe-key, private-inbox, env-value and LAN-address poisons caught, synthetic example.test address passed; env-value check covers every env value of 12+ characters except STRIPE_EXPECTED_ACCOUNT and APA_PROMOTION_CODES (non-secret identifiers already committed at the bases)",
+    "excluded": "env/credential files, cast/inbox files, auth state, browser profiles, private backup, dependencies, builds, Git internals, disposable copies, prior ZIPs"
+  },
+  "downloads_copy": "/home/moose/Downloads/APBM-007A-CYBER-PHARMA_Q2_REPAIR_REVIEW_r03.zip",
+  "decision_requested": "Tony: three guarded commits per engineering/r03/commit/COMMIT_HANDOFF.md; then Cody binds the pair and retests under Friday",
+  "archived_path": "/home/moose/APBM007A_QA_ARCHIVE/APBM-007A-CYBER-PHARMA_Q2_REPAIR_REVIEW_r03.zip",
+  "archive_sha256": "0e6d42dedc112d524e1352262536771b6b94dc826bd5ea307b9d5da4d44bda22",
+  "in_repo_zip_removed": true,
+  "private_quarantine": false
+}

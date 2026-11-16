@@ -1,0 +1,132 @@
+ M RECOVERY.md
+ M package-lock.json
+ M package.json
+ M src/__tests__/login-form.test.tsx
+ M src/__tests__/portal-access.test.tsx
+ M src/__tests__/portal-boundaries.test.ts
+ D src/__tests__/portal-checkout-hold.test.tsx
+ M src/__tests__/portal-dashboard.test.tsx
+ M src/__tests__/portal-owner.test.tsx
+ M src/__tests__/portal-stripe-route.test.tsx
+ M src/app/(account)/dashboard/page.tsx
+ D src/app/(account)/demo/references/owedbook/page.tsx
+ D src/app/(account)/demo/stores/add/page.tsx
+ D src/app/(account)/demo/stores/confirm/page.tsx
+ D src/app/(account)/demo/stores/result/page.tsx
+ M src/app/(account)/layout.tsx
+ M src/app/(account)/loading.tsx
+ D src/app/(handoff)/demo/stripe/page.tsx
+ D src/app/(handoff)/layout.tsx
+ D src/app/(public)/demo/access-link/page.tsx
+ D src/app/(public)/demo/activation/page.tsx
+ D src/app/(public)/demo/checkout-incomplete/page.tsx
+ D src/app/(public)/demo/references/email/page.tsx
+ D src/app/(public)/demo/register/owner/page.tsx
+ D src/app/(public)/demo/register/pharmacies/page.tsx
+ D src/app/(public)/demo/register/plan/page.tsx
+ D src/app/(public)/demo/register/review/page.tsx
+ M src/app/(public)/layout.tsx
+ M src/app/api/auth/confirm/route.ts
+ M src/app/api/auth/logout/route.ts
+ D src/app/demo/sign-in/page.tsx
+ M src/app/login/LoginPageContent.tsx
+ M src/app/login/page.tsx
+ M src/app/page.tsx
+ D src/components/portal/AccountStrip.tsx
+ M src/components/portal/HandoffShell.tsx
+ M src/components/portal/PharmacyFields.tsx
+ D src/components/portal/PublicDemoControls.tsx
+ M src/components/portal/PublicShell.tsx
+ M src/components/portal/RadioCard.tsx
+ M src/components/portal/Shell.tsx
+ M src/components/portal/account/AccountGate.tsx
+ M src/components/portal/account/AddStoreView.tsx
+ M src/components/portal/account/ConfirmStoreView.tsx
+ M src/components/portal/account/DashboardView.tsx
+ M src/components/portal/account/OwedBookReferenceView.tsx
+ M src/components/portal/account/StoreResultView.tsx
+ M src/components/portal/activation/AccessLinkView.tsx
+ M src/components/portal/activation/ActivationView.tsx
+ M src/components/portal/activation/CheckoutIncompleteView.tsx
+ M src/components/portal/brand.ts
+ D src/components/portal/handoff/CheckoutStandIn.tsx
+ D src/components/portal/handoff/PortalStandIn.tsx
+ M src/components/portal/references/EmailReferenceView.tsx
+ M src/components/portal/register/OwnerView.tsx
+ M src/components/portal/register/PharmacyStepView.tsx
+ M src/components/portal/register/PlanView.tsx
+ M src/components/portal/register/ReviewView.tsx
+ M src/services/auth/session.ts
+ M src/services/portal/catalog.ts
+ M src/services/portal/format.ts
+ M src/services/portal/index.ts
+ M src/types/auth.ts
+ M src/utils/supabase/client.ts
+ M src/utils/supabase/middleware.ts
+ M src/utils/supabase/server.ts
+?? eslint.config.mjs
+?? scripts/operator-reconcile.mjs
+?? scripts/stripe-catalogue.mjs
+?? src/__tests__/apbm007a-auth.test.ts
+?? src/__tests__/apbm007a-mail-guard.test.ts
+?? src/__tests__/apbm007a-server.test.ts
+?? src/__tests__/portal-activation.test.tsx
+?? src/__tests__/portal-api.test.ts
+?? src/__tests__/portal-review.test.tsx
+?? src/__tests__/portal-shell.test.tsx
+?? src/app/(account)/billing/page.tsx
+?? src/app/(public)/register/activation/page.tsx
+?? src/app/(public)/register/owner/page.tsx
+?? src/app/(public)/register/pharmacy/page.tsx
+?? src/app/(public)/register/plan/page.tsx
+?? src/app/(public)/register/review/page.tsx
+?? src/app/api/auth/link/route.ts
+?? src/app/api/billing/overview/route.ts
+?? src/app/api/billing/portal/route.ts
+?? src/app/api/billing/undo-cancel/route.ts
+?? src/app/api/handoff/authorize/route.ts
+?? src/app/api/handoff/callback/route.ts
+?? src/app/api/handoff/start/route.ts
+?? src/app/api/handoff/switch/route.ts
+?? src/app/api/operator/operations/route.ts
+?? src/app/api/registration/checkout/route.ts
+?? src/app/api/registration/draft/route.ts
+?? src/app/api/registration/quote/route.ts
+?? src/app/api/registration/status/route.ts
+?? src/app/api/webhooks/stripe/route.ts
+?? src/app/auth/confirm/page.tsx
+?? src/app/auth/handoff-recovery/page.tsx
+?? src/app/auth/link-expired/page.tsx
+?? src/app/auth/sign-in-to-continue/page.tsx
+?? src/app/auth/signed-out/page.tsx
+?? src/app/auth/switch/page.tsx
+?? src/components/auth/AuthPages.tsx
+?? src/components/auth/LinkRequestForm.tsx
+?? src/components/portal/register/useRegistrationDraft.ts
+?? src/integration/apbm007a-scratch.itest.ts
+?? src/lib/appIdentity.ts
+?? src/server/accessEmail.ts
+?? src/server/afterSignIn.ts
+?? src/server/billing.ts
+?? src/server/checkout.ts
+?? src/server/db.ts
+?? src/server/emailLink.ts
+?? src/server/errors.ts
+?? src/server/handoff.ts
+?? src/server/http.ts
+?? src/server/operator.ts
+?? src/server/pricing.ts
+?? src/server/provisioning.ts
+?? src/server/registration.ts
+?? src/server/registrationStatus.ts
+?? src/server/stripeClient.ts
+?? src/server/stripeMirror.ts
+?? src/server/webhook.ts
+?? src/services/portal/ffm.ts
+?? src/services/portal/navigate.ts
+?? src/services/portal/npi.ts
+?? src/services/portal/portalApi.ts
+?? src/services/portal/reference.ts
+?? src/services/portal/registrationForm.ts
+?? src/services/portal/registrationSession.ts
+?? src/types/portal/api.ts

@@ -1,0 +1,18 @@
+{
+ "now": "2026-11-12T07:36:29.171Z",
+ "OWNER_1": {
+  "recoverySentAt": "2026-11-12T06:43:08.139Z",
+  "tokenStillPending": true,
+  "lastSignInAt": "2026-11-12T03:28:11.155Z",
+  "sessions": 4,
+  "sessionsCreatedAfterEmail": [],
+  "auditAfterEmail": [],
+  "oneTimeTokens": [
+   [
+    "recovery_token",
+    "2026-11-12T00:43:08.387Z"
+   ]
+  ]
+ },
+ "auditTotalRows": 0
+}

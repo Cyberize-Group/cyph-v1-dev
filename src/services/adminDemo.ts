@@ -349,6 +349,11 @@ export const mockSettingsService: SettingsService = {
   },
 };
 
+/** Thrown by the real billing read for anyone who is not the account owner. The screen shows it as information. */
+export class BillingOwnerOnlyError extends Error {
+  constructor() { super("Billing is managed by the account owner."); this.name = "BillingOwnerOnlyError"; }
+}
+
 // Real admin reads are capability-scoped server RPCs. No client business mutation.
 export function createAdminServices(client?: RpcClient) {
   const unavailable = async (): Promise<ActionResult> => ({ ok: false, message: unavailableMessage });
@@ -385,14 +390,33 @@ export function createAdminServices(client?: RpcClient) {
     },
     listPendingInvites: denied, inviteMember: unavailable, resendInvite: unavailable, suspendMember: unavailable, unsuspendMember: unavailable, sendRecovery: unavailable,
   };
+  // The owner's current subscription as public.owner_billing_overview returns it (0060): the same owner-only, audited
+  // read the Payment Portal shows, so both apps present the same plan and dates. It carries no price amount.
+  type OverviewSubscription = { origin: string | null; status: string | null; quantity: number | null; current_period_end: string | null;
+    cancel_at: string | null; cancel_at_period_end: boolean | null; paid_through: string | null };
+  // U-2: every value shown comes from that row; anything the row does not hold stays an honest "unavailable".
+  const billingLine = (s: OwnedStore, sub: OverviewSubscription | null): BillingLine => {
+    const base = { storeId: s.storeId, storeName: s.name };
+    if (!sub) return { ...base, plan: "unavailable", subscriptionStatus: "unavailable", amountLabel: "Price unavailable" };
+    if (sub.origin === "synthetic_seed") return { ...base, plan: "synthetic", subscriptionStatus: subscription(sub.status), amountLabel: "Not billed" };
+    if (sub.origin !== "stripe") return { ...base, plan: "unavailable", subscriptionStatus: subscription(sub.status), amountLabel: "Price unavailable" };
+    // As the Portal does: once the subscription is ending or ended it is paid through a date, otherwise the period end is
+    // the next payment.
+    const ending = sub.status === "canceled" || sub.cancel_at != null || sub.cancel_at_period_end === true;
+    const dates = ending ? (sub.paid_through ? { paidThroughDate: sub.paid_through } : {}) : (sub.current_period_end ? { nextChargeDate: sub.current_period_end } : {});
+    return { ...base, plan: "owedbook", subscriptionStatus: subscription(sub.status), amountLabel: "Price shown in the billing portal",
+      ...(typeof sub.quantity === "number" && sub.quantity >= 1 ? { coveredStores: sub.quantity } : {}), ...dates };
+  };
   const billing: BillingService = {
     async listBilling() {
-      const permitted = await stores.listMyStores();
-      return Promise.all(permitted.map(async s => {
-        const b = await readRpc<{account_id:string;subscriptions:{status:string;current_period_end:string|null}[]}>("admin_billing_status", {p_business_id:s.storeId}, client);
-        const latest = b.subscriptions.at(-1);
-        return {storeId:s.storeId,storeName:s.name,plan:"unavailable" as const,subscriptionStatus:subscription(latest?.status ?? null),amountLabel:"Price unavailable"};
-      }));
+      // APBM007A (RA-3): billing is owner-only. A store admin who is not the account owner gets a plain statement,
+      // never the owner's billing data and never a raw permission error.
+      const ownedStores = (await listTenantStores(client)).filter(s => s.capability === "owner");
+      if (!ownedStores.length) throw new BillingOwnerOnlyError();
+      const accountOf = new Map(ownedStores.map(s => [s.id, s.account_id]));
+      const permitted = (await stores.listMyStores()).filter(s => accountOf.has(s.storeId));
+      const overview = await readRpc<{ account_id: string; subscription: OverviewSubscription | null }>("owner_billing_overview", {}, client);
+      return permitted.map(s => billingLine(s, accountOf.get(s.storeId) === overview.account_id ? overview.subscription : null));
     },
     managePayment: unavailable, cancelSubscription: unavailable,
   };

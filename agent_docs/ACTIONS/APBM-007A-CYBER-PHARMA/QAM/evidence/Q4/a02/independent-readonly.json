@@ -1,0 +1,1504 @@
+{
+  "DEV": {
+    "ledger_match": true,
+    "ledger_count": 60,
+    "grants": [
+      {
+        "grantee": "anon",
+        "table_name": "aac_reference",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "aac_reference",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "aac_reference",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "aac_reference",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "ful_reference",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "ful_reference",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "ful_reference",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "ful_reference",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "pbm_info",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "pbm_info",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "pbm_info",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "pbm_info",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "profiles",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "profiles",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "profiles",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "profiles",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "reference_dataset_versions",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "reference_dataset_versions",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "reference_dataset_versions",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "reference_dataset_versions",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "user_roles",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "user_roles",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "user_roles",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "user_roles",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "wac_reference",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "wac_reference",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "wac_reference",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "wac_reference",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "aac_reference",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "aac_reference",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "aac_reference",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "aac_reference",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "accounts",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "apa_memberships",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "audit_logs",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "businesses",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "ful_reference",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "ful_reference",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "ful_reference",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "ful_reference",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "pbm_info",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "pbm_info",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "pbm_info",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "pbm_info",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "pending_registrations",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "profiles",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "profiles",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "reference_dataset_versions",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "reference_dataset_versions",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "reference_dataset_versions",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "reference_dataset_versions",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "report_files",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "subscriptions",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "system_config",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "user_businesses",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "user_roles",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "wac_reference",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "wac_reference",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "wac_reference",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "wac_reference",
+        "privilege_type": "UPDATE"
+      }
+    ],
+    "default_acls": [
+      {
+        "nspname": "auth",
+        "owner": "supabase_auth_admin",
+        "defaclobjtype": "S",
+        "acl": "{postgres=rwU/supabase_auth_admin,dashboard_user=rwU/supabase_auth_admin}"
+      },
+      {
+        "nspname": "auth",
+        "owner": "supabase_auth_admin",
+        "defaclobjtype": "f",
+        "acl": "{postgres=X/supabase_auth_admin,dashboard_user=X/supabase_auth_admin}"
+      },
+      {
+        "nspname": "auth",
+        "owner": "supabase_auth_admin",
+        "defaclobjtype": "r",
+        "acl": "{postgres=arwdDxtm/supabase_auth_admin,dashboard_user=arwdDxtm/supabase_auth_admin}"
+      },
+      {
+        "nspname": "extensions",
+        "owner": "supabase_admin",
+        "defaclobjtype": "S",
+        "acl": "{postgres=r*w*U*/supabase_admin}"
+      },
+      {
+        "nspname": "extensions",
+        "owner": "supabase_admin",
+        "defaclobjtype": "f",
+        "acl": "{postgres=X*/supabase_admin}"
+      },
+      {
+        "nspname": "extensions",
+        "owner": "supabase_admin",
+        "defaclobjtype": "r",
+        "acl": "{postgres=a*r*w*d*D*x*t*m*/supabase_admin}"
+      },
+      {
+        "nspname": "graphql",
+        "owner": "supabase_admin",
+        "defaclobjtype": "S",
+        "acl": "{postgres=rwU/supabase_admin,anon=rwU/supabase_admin,authenticated=rwU/supabase_admin,service_role=rwU/supabase_admin}"
+      },
+      {
+        "nspname": "graphql",
+        "owner": "supabase_admin",
+        "defaclobjtype": "f",
+        "acl": "{postgres=X/supabase_admin,anon=X/supabase_admin,authenticated=X/supabase_admin,service_role=X/supabase_admin}"
+      },
+      {
+        "nspname": "graphql",
+        "owner": "supabase_admin",
+        "defaclobjtype": "r",
+        "acl": "{postgres=arwdDxtm/supabase_admin,anon=arwdDxtm/supabase_admin,authenticated=arwdDxtm/supabase_admin,service_role=arwdDxtm/supabase_admin}"
+      },
+      {
+        "nspname": "graphql_public",
+        "owner": "supabase_admin",
+        "defaclobjtype": "S",
+        "acl": "{postgres=rwU/supabase_admin,anon=rwU/supabase_admin,authenticated=rwU/supabase_admin,service_role=rwU/supabase_admin}"
+      },
+      {
+        "nspname": "graphql_public",
+        "owner": "supabase_admin",
+        "defaclobjtype": "f",
+        "acl": "{postgres=X/supabase_admin,anon=X/supabase_admin,authenticated=X/supabase_admin,service_role=X/supabase_admin}"
+      },
+      {
+        "nspname": "graphql_public",
+        "owner": "supabase_admin",
+        "defaclobjtype": "r",
+        "acl": "{postgres=arwdDxtm/supabase_admin,anon=arwdDxtm/supabase_admin,authenticated=arwdDxtm/supabase_admin,service_role=arwdDxtm/supabase_admin}"
+      },
+      {
+        "nspname": "public",
+        "owner": "postgres",
+        "defaclobjtype": "S",
+        "acl": "{postgres=rwU/postgres,anon=rwU/postgres,authenticated=rwU/postgres,service_role=rwU/postgres}"
+      },
+      {
+        "nspname": "public",
+        "owner": "postgres",
+        "defaclobjtype": "f",
+        "acl": "{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "nspname": "public",
+        "owner": "postgres",
+        "defaclobjtype": "r",
+        "acl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "nspname": "public",
+        "owner": "supabase_admin",
+        "defaclobjtype": "S",
+        "acl": "{postgres=rwU/supabase_admin,anon=rwU/supabase_admin,authenticated=rwU/supabase_admin,service_role=rwU/supabase_admin}"
+      },
+      {
+        "nspname": "public",
+        "owner": "supabase_admin",
+        "defaclobjtype": "f",
+        "acl": "{postgres=X/supabase_admin,anon=X/supabase_admin,authenticated=X/supabase_admin,service_role=X/supabase_admin}"
+      },
+      {
+        "nspname": "public",
+        "owner": "supabase_admin",
+        "defaclobjtype": "r",
+        "acl": "{postgres=arwdDxtm/supabase_admin,anon=arwdDxtm/supabase_admin,authenticated=arwdDxtm/supabase_admin,service_role=arwdDxtm/supabase_admin}"
+      },
+      {
+        "nspname": "realtime",
+        "owner": "supabase_admin",
+        "defaclobjtype": "S",
+        "acl": "{postgres=rwU/supabase_admin,dashboard_user=rwU/supabase_admin}"
+      },
+      {
+        "nspname": "realtime",
+        "owner": "supabase_admin",
+        "defaclobjtype": "f",
+        "acl": "{postgres=X/supabase_admin,dashboard_user=X/supabase_admin}"
+      },
+      {
+        "nspname": "realtime",
+        "owner": "supabase_admin",
+        "defaclobjtype": "r",
+        "acl": "{postgres=a*r*wdDxtm/supabase_admin,dashboard_user=arwdDxtm/supabase_admin}"
+      },
+      {
+        "nspname": "storage",
+        "owner": "postgres",
+        "defaclobjtype": "S",
+        "acl": "{postgres=rwU/postgres,anon=rwU/postgres,authenticated=rwU/postgres,service_role=rwU/postgres}"
+      },
+      {
+        "nspname": "storage",
+        "owner": "postgres",
+        "defaclobjtype": "f",
+        "acl": "{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "nspname": "storage",
+        "owner": "postgres",
+        "defaclobjtype": "r",
+        "acl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      }
+    ],
+    "definers": [
+      {
+        "proname": "account_access_state",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "admin_audit",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "admin_billing_status",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "admin_members",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "admin_stores",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "audit_write",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "handle_new_user",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "handoff_claim",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "handoff_complete",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "handoff_fail",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "handoff_invalidate_user",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "handoff_issue",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "is_account_member",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "is_admin_of",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "is_member_of",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "is_owner_of_account",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "my_business_ids",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "npi_bind",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "npi_release_unpaid",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "npi_reserve",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "operation_lease",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "owedbook_kpis",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "owedbook_pbm_options",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "owedbook_rows",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "owedbook_summary",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "owner_billing_overview",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "provision_paid_registration",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "store_access_state",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "subscription_grace_clear",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "subscription_grace_start",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "subscription_mirror_apply",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "tenant_stores",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      }
+    ],
+    "assertions": {
+      "anon_tenant_grants": true,
+      "no_authenticated_business_write": true,
+      "no_customer_dangerous_privileges": true
+    },
+    "event_baseline": [
+      {
+        "event_id": "evt_1UbBtoGnEQDyu3RRkNvmPQOh",
+        "status": "processed",
+        "error_code": null,
+        "attempts": 0
+      },
+      {
+        "event_id": "evt_1UbBysGnEQDyu3RRLFtpQcZB",
+        "status": "processed",
+        "error_code": null,
+        "attempts": 0
+      },
+      {
+        "event_id": "evt_1UbIDoGnEQDyu3RRRL0kOfXS",
+        "status": "ignored",
+        "error_code": "foreign",
+        "attempts": 0
+      },
+      {
+        "event_id": "evt_QA007AIndependentSignature01",
+        "status": "ignored",
+        "error_code": "unsupported",
+        "attempts": 0
+      }
+    ]
+  },
+  "SCRATCH": {
+    "ledger_match": true,
+    "ledger_count": 60,
+    "grants": [
+      {
+        "grantee": "anon",
+        "table_name": "aac_reference",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "aac_reference",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "aac_reference",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "aac_reference",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "ful_reference",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "ful_reference",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "ful_reference",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "ful_reference",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "pbm_info",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "pbm_info",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "pbm_info",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "pbm_info",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "profiles",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "profiles",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "profiles",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "profiles",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "reference_dataset_versions",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "reference_dataset_versions",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "reference_dataset_versions",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "reference_dataset_versions",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "user_roles",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "user_roles",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "user_roles",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "user_roles",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "wac_reference",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "wac_reference",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "wac_reference",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "table_name": "wac_reference",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "aac_reference",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "aac_reference",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "aac_reference",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "aac_reference",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "accounts",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "apa_memberships",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "audit_logs",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "businesses",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "ful_reference",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "ful_reference",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "ful_reference",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "ful_reference",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "pbm_info",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "pbm_info",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "pbm_info",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "pbm_info",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "pending_registrations",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "profiles",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "profiles",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "reference_dataset_versions",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "reference_dataset_versions",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "reference_dataset_versions",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "reference_dataset_versions",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "report_files",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "subscriptions",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "system_config",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "user_businesses",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "user_roles",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "wac_reference",
+        "privilege_type": "DELETE"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "wac_reference",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "wac_reference",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "authenticated",
+        "table_name": "wac_reference",
+        "privilege_type": "UPDATE"
+      }
+    ],
+    "default_acls": [
+      {
+        "nspname": "auth",
+        "owner": "supabase_auth_admin",
+        "defaclobjtype": "S",
+        "acl": "{postgres=rwU/supabase_auth_admin,dashboard_user=rwU/supabase_auth_admin}"
+      },
+      {
+        "nspname": "auth",
+        "owner": "supabase_auth_admin",
+        "defaclobjtype": "f",
+        "acl": "{postgres=X/supabase_auth_admin,dashboard_user=X/supabase_auth_admin}"
+      },
+      {
+        "nspname": "auth",
+        "owner": "supabase_auth_admin",
+        "defaclobjtype": "r",
+        "acl": "{postgres=arwdDxtm/supabase_auth_admin,dashboard_user=arwdDxtm/supabase_auth_admin}"
+      },
+      {
+        "nspname": "extensions",
+        "owner": "supabase_admin",
+        "defaclobjtype": "S",
+        "acl": "{postgres=r*w*U*/supabase_admin}"
+      },
+      {
+        "nspname": "extensions",
+        "owner": "supabase_admin",
+        "defaclobjtype": "f",
+        "acl": "{postgres=X*/supabase_admin}"
+      },
+      {
+        "nspname": "extensions",
+        "owner": "supabase_admin",
+        "defaclobjtype": "r",
+        "acl": "{postgres=a*r*w*d*D*x*t*m*/supabase_admin}"
+      },
+      {
+        "nspname": "graphql",
+        "owner": "supabase_admin",
+        "defaclobjtype": "S",
+        "acl": "{postgres=rwU/supabase_admin,anon=rwU/supabase_admin,authenticated=rwU/supabase_admin,service_role=rwU/supabase_admin}"
+      },
+      {
+        "nspname": "graphql",
+        "owner": "supabase_admin",
+        "defaclobjtype": "f",
+        "acl": "{postgres=X/supabase_admin,anon=X/supabase_admin,authenticated=X/supabase_admin,service_role=X/supabase_admin}"
+      },
+      {
+        "nspname": "graphql",
+        "owner": "supabase_admin",
+        "defaclobjtype": "r",
+        "acl": "{postgres=arwdDxtm/supabase_admin,anon=arwdDxtm/supabase_admin,authenticated=arwdDxtm/supabase_admin,service_role=arwdDxtm/supabase_admin}"
+      },
+      {
+        "nspname": "graphql_public",
+        "owner": "supabase_admin",
+        "defaclobjtype": "S",
+        "acl": "{postgres=rwU/supabase_admin,anon=rwU/supabase_admin,authenticated=rwU/supabase_admin,service_role=rwU/supabase_admin}"
+      },
+      {
+        "nspname": "graphql_public",
+        "owner": "supabase_admin",
+        "defaclobjtype": "f",
+        "acl": "{postgres=X/supabase_admin,anon=X/supabase_admin,authenticated=X/supabase_admin,service_role=X/supabase_admin}"
+      },
+      {
+        "nspname": "graphql_public",
+        "owner": "supabase_admin",
+        "defaclobjtype": "r",
+        "acl": "{postgres=arwdDxtm/supabase_admin,anon=arwdDxtm/supabase_admin,authenticated=arwdDxtm/supabase_admin,service_role=arwdDxtm/supabase_admin}"
+      },
+      {
+        "nspname": "public",
+        "owner": "postgres",
+        "defaclobjtype": "S",
+        "acl": "{postgres=rwU/postgres,anon=rwU/postgres,authenticated=rwU/postgres,service_role=rwU/postgres}"
+      },
+      {
+        "nspname": "public",
+        "owner": "postgres",
+        "defaclobjtype": "f",
+        "acl": "{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "nspname": "public",
+        "owner": "postgres",
+        "defaclobjtype": "r",
+        "acl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      },
+      {
+        "nspname": "realtime",
+        "owner": "supabase_admin",
+        "defaclobjtype": "S",
+        "acl": "{postgres=rwU/supabase_admin,dashboard_user=rwU/supabase_admin}"
+      },
+      {
+        "nspname": "realtime",
+        "owner": "supabase_admin",
+        "defaclobjtype": "f",
+        "acl": "{postgres=X/supabase_admin,dashboard_user=X/supabase_admin}"
+      },
+      {
+        "nspname": "realtime",
+        "owner": "supabase_admin",
+        "defaclobjtype": "r",
+        "acl": "{postgres=a*r*wdDxtm/supabase_admin,dashboard_user=arwdDxtm/supabase_admin}"
+      },
+      {
+        "nspname": "storage",
+        "owner": "postgres",
+        "defaclobjtype": "S",
+        "acl": "{postgres=rwU/postgres,anon=rwU/postgres,authenticated=rwU/postgres,service_role=rwU/postgres}"
+      },
+      {
+        "nspname": "storage",
+        "owner": "postgres",
+        "defaclobjtype": "f",
+        "acl": "{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+      },
+      {
+        "nspname": "storage",
+        "owner": "postgres",
+        "defaclobjtype": "r",
+        "acl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+      }
+    ],
+    "definers": [
+      {
+        "proname": "account_access_state",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "admin_audit",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "admin_billing_status",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "admin_members",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "admin_stores",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "audit_write",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "handle_new_user",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "handoff_claim",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "handoff_complete",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "handoff_fail",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "handoff_invalidate_user",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "handoff_issue",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "is_account_member",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "is_admin_of",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "is_member_of",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "is_owner_of_account",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "my_business_ids",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "npi_bind",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "npi_release_unpaid",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "npi_reserve",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "operation_lease",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "owedbook_kpis",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "owedbook_pbm_options",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "owedbook_rows",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "owedbook_summary",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "owner_billing_overview",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "provision_paid_registration",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "store_access_state",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      },
+      {
+        "proname": "subscription_grace_clear",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "subscription_grace_start",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "subscription_mirror_apply",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": false
+      },
+      {
+        "proname": "tenant_stores",
+        "proconfig": [
+          "search_path=\"\""
+        ],
+        "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "anon_execute": false,
+        "authenticated_execute": true
+      }
+    ],
+    "assertions": {
+      "anon_tenant_grants": true,
+      "no_authenticated_business_write": true,
+      "no_customer_dangerous_privileges": true
+    }
+  }
+}

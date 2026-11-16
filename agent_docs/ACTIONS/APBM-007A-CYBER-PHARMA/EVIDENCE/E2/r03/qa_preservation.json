@@ -1,0 +1,43 @@
+{
+ "checked_at": "2026-11-16 (Asia/Dhaka), after transfer and records, before packaging",
+ "backup": "~/APBM007A_QA_BACKUPS/q2_r03_20261116_100605/ (private, mode 700, outside both repositories)",
+ "manifest": {
+  "file": "SHA256SUMS.before",
+  "entries": 5012,
+  "sha256": "15ad0e3f813cc9b0cb4f95d1e41045368d64a6b7859aeae81df1b2e65ef46404"
+ },
+ "inventory": {
+  "owedbook_uncommitted_qa_paths": 5011,
+  "records_reports_evidence_helpers_zips": 180,
+  "disposable_build_mirrors": {
+   "roots": [
+    "QAM/AUTOMATION/a02/build-owedbook/",
+    "QAM/AUTOMATION/a02/build-portal/"
+   ],
+   "files": 3130
+  },
+  "npm_cache": {
+   "root": "QAM/AUTOMATION/a02/.npm/",
+   "files": 1701
+  },
+  "portal_ignored_qa_output": [
+   "test-results/transition-matrix.json"
+  ],
+  "portal_tracked_or_untracked_changes_before_work": 0
+ },
+ "backup_method": {
+  "byte_copy": "180 QA records plus the portal output (7.0 MB)",
+  "hard_link_snapshot": "4,831 regenerable mirror and cache files (604 MB); disk had about 345 MB free, so a byte copy did not fit. Hard links survive deletion or rename of the original, not an in-place edit",
+  "not_copied_or_hashed": "env files, QA cast/inbox files, auth state, browser profiles"
+ },
+ "verification": {
+  "backup_vs_manifest": "byte copy and hard-link snapshot both verified with sha256sum -c",
+  "after_work_vs_manifest": "0 mismatches across 5,012 entries",
+  "owedbook_status_excluding_engineering_records": "identical to the before-work status (5,011 QA lines)"
+ },
+ "qa_processes": {
+  "Q2-a01/new-owner.cjs": "PID 2035625, sleeping since 15 Nov 15:21, child of Codex app-server 1929801; no TCP socket in its process tree; not stopped",
+  "Q2-a01/new-owner-retry.cjs": "PID 2036628, same; not stopped",
+  "qa_servers": ":3000, :3001 (next start) and :3457 untouched"
+ }
+}

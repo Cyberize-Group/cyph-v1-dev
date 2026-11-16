@@ -1,0 +1,121 @@
+{
+  "mode": "read-only sandbox customer-scoped inventory",
+  "rows": [
+    {
+      "customer_id": "cus_VcXIPryJq6gOp7",
+      "purpose": "Foreign sandbox expiry",
+      "Checkout_ids": [
+        "cs_test_a0MNdhYXarjQZC3BuxFUr1ttgWMtmx139du5OQRQBPJXMmbU9HgwZcxc7l"
+      ],
+      "subscription_ids": [],
+      "subscription_item_ids": [],
+      "invoice_ids": [],
+      "payment_method_ids": [],
+      "charge_ids": [],
+      "payment_intent_ids": [],
+      "pagination_complete": true,
+      "retention": "No deletion; Director fixture ruling required"
+    },
+    {
+      "customer_id": "cus_VdaCVaqeLJj3qh",
+      "purpose": "Owner A paid/recovery",
+      "Checkout_ids": [
+        "cs_test_a0q4YzOPztpUSmztvQVbEEW2hkIMamGPRwa9DUC0v1KsdfothjKYT8wiSm"
+      ],
+      "subscription_ids": [
+        "sub_1UcJ5dGnEQDyu3RRIaYl4Byz"
+      ],
+      "subscription_item_ids": [
+        "si_VdaGz8RaZEkvhn"
+      ],
+      "invoice_ids": [
+        "in_1UcJ5cGnEQDyu3RRGO1XEirt"
+      ],
+      "payment_method_ids": [
+        "pm_1UcJ5bGnEQDyu3RRXvHLOK9l"
+      ],
+      "charge_ids": [
+        "ch_3UcJ5cGnEQDyu3RR0r7njozC"
+      ],
+      "payment_intent_ids": [
+        "pi_3UcJ5cGnEQDyu3RR09xmwgkb"
+      ],
+      "pagination_complete": true,
+      "retention": "No deletion; Director fixture ruling required"
+    },
+    {
+      "customer_id": "cus_VdaGp0FnoRfc4m",
+      "purpose": "Declined-card path",
+      "Checkout_ids": [
+        "cs_test_a08HGAsIwvenZddskjaQn2GlAKjUIZFeD7IHyDVRwt01dhL0AhSe4ZkOZ9"
+      ],
+      "subscription_ids": [],
+      "subscription_item_ids": [],
+      "invoice_ids": [],
+      "payment_method_ids": [],
+      "charge_ids": [
+        "ch_3UcJ6QGnEQDyu3RR0rHOBxtT"
+      ],
+      "payment_intent_ids": [
+        "pi_3UcJ6QGnEQDyu3RR0KtUvzwX"
+      ],
+      "pagination_complete": true,
+      "retention": "No deletion; Director fixture ruling required"
+    },
+    {
+      "customer_id": "cus_VdaHbF51TssnqU",
+      "purpose": "Existing OWNER_2 paid/sign-in",
+      "Checkout_ids": [
+        "cs_test_a0EZVa5a3OM65ZjHXEIj8aft9DlxrlcBH4lqejwnLTLEXfSIz6Ji7fEqJx"
+      ],
+      "subscription_ids": [
+        "sub_1UcJ74GnEQDyu3RR1jv0xTGw"
+      ],
+      "subscription_item_ids": [
+        "si_VdaHmVw0I8PgFJ"
+      ],
+      "invoice_ids": [
+        "in_1UcJ72GnEQDyu3RRv8FL3c3w"
+      ],
+      "payment_method_ids": [
+        "pm_1UcJ72GnEQDyu3RRBVcawhwu"
+      ],
+      "charge_ids": [
+        "ch_3UcJ73GnEQDyu3RR02ucMBv8"
+      ],
+      "payment_intent_ids": [
+        "pi_3UcJ73GnEQDyu3RR0M0ANfw2"
+      ],
+      "pagination_complete": true,
+      "retention": "No deletion; Director fixture ruling required"
+    },
+    {
+      "customer_id": "cus_VdbZZ4cNy7cy82",
+      "purpose": "r05 new-owner paid",
+      "Checkout_ids": [
+        "cs_test_a04J8PFjGHleALb8OCAAgnXdbIUDn52yfDBHEK15mAmRtKGVp9KtQCQ5sH"
+      ],
+      "subscription_ids": [
+        "sub_1UcKMSGnEQDyu3RRx5DLB8cC"
+      ],
+      "subscription_item_ids": [
+        "si_VdbZKKeTAplHE8"
+      ],
+      "invoice_ids": [
+        "in_1UcKMQGnEQDyu3RRDNwfhnDv"
+      ],
+      "payment_method_ids": [
+        "pm_1UcKMPGnEQDyu3RRHoeJ4AAH"
+      ],
+      "charge_ids": [
+        "ch_3UcKMRGnEQDyu3RR1MKQPXwD"
+      ],
+      "payment_intent_ids": [
+        "pi_3UcKMRGnEQDyu3RR1EAwEA4Y"
+      ],
+      "pagination_complete": true,
+      "retention": "No deletion; Director fixture ruling required"
+    }
+  ],
+  "other_retained_objects": "Event IDs and code fixtures in database-ID inventory/provenance; all remain retained"
+}

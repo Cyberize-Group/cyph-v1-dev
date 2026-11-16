@@ -1,0 +1,23 @@
+{
+  "path": "/home/moose/.config/cyph/apbm007a-qa-cast.env",
+  "permissions": "absent",
+  "keys": {
+    "QA_NEW_OWNER_EMAIL": "EMPTY",
+    "QA_OWNER_2_EMAIL": "EMPTY",
+    "QA_OWNER_2_PASSWORD": "EMPTY",
+    "QA_OWNER1_EMAIL": "EMPTY",
+    "QA_OWNER1_PASSWORD": "EMPTY",
+    "QA_OWNER3_EMAIL": "EMPTY",
+    "QA_OWNER3_PASSWORD": "EMPTY",
+    "QA_ADMIN_B2_EMAIL": "EMPTY",
+    "QA_ADMIN_B2_PASSWORD": "EMPTY",
+    "QA_ADMIN_B3_EMAIL": "EMPTY",
+    "QA_ADMIN_B3_PASSWORD": "EMPTY",
+    "QA_MEMBER_B1_EMAIL": "EMPTY",
+    "QA_MEMBER_B1_PASSWORD": "EMPTY",
+    "QA_MEMBER_B2B3_EMAIL": "EMPTY",
+    "QA_MEMBER_B2B3_PASSWORD": "EMPTY",
+    "QA_UNRELATED_EMAIL": "EMPTY",
+    "QA_UNRELATED_PASSWORD": "EMPTY"
+  }
+}

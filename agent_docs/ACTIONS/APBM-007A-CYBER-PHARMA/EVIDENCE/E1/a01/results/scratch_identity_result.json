@@ -1,0 +1,60 @@
+{
+ "at": "2026-11-12T08:54:06.371Z",
+ "recordedScratchRef": "ihgcsrypblqkwommrkgj",
+ "devRef": "yrsuwikjnbmvpznrgydb",
+ "present": {
+  "APBM_SCRATCH_DB_URL": true,
+  "APBM_SCRATCH_SUPABASE_URL": true,
+  "APBM_SCRATCH_PUBLISHABLE_KEY": true,
+  "APBM_SCRATCH_SECRET_KEY": true
+ },
+ "missing": [],
+ "url": {
+  "refEqualsRecorded": true,
+  "refDiffersFromDev": true,
+  "hostKind": "pooler",
+  "port": "6543",
+  "database": "/postgres",
+  "sameStringAsDevUrl": false
+ },
+ "apiUrlRefEqualsRecorded": true,
+ "publishableKeyClass": "sb_publishable_…",
+ "secretKeyClass": "sb_secret_…",
+ "scratch": {
+  "readOnly": "on",
+  "systemIdentifier": "7606130613603586966",
+  "version": "17.6",
+  "db": {
+   "d": "postgres",
+   "u": "postgres"
+  },
+  "authUsers": 13,
+  "publicTables": 17,
+  "ledger": {
+   "n": 52,
+   "last": "0052_system_config.sql"
+  },
+  "apbm003Cast": 12,
+  "e1Identities": 0
+ },
+ "dev": {
+  "readOnly": "on",
+  "systemIdentifier": "7634664568297872568",
+  "version": "17.6",
+  "db": {
+   "d": "postgres",
+   "u": "postgres"
+  },
+  "authUsers": 16,
+  "publicTables": 17,
+  "ledger": {
+   "n": 52,
+   "last": "0052_system_config.sql"
+  },
+  "apbm003Cast": 7,
+  "e1Identities": 4
+ },
+ "distinct": {
+  "systemIdentifierDiffers": true
+ }
+}

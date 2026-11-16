@@ -1,0 +1,12 @@
+{
+  "projectRef": "ihgcsrypblqkwommrkgj",
+  "command": "sample-claims",
+  "dataset": "apbm007a_sample_v1",
+  "storeId": "65f3e988-603c-4bbd-8ba9-7171481fe5e9",
+  "dryRun": true,
+  "status": "DRY_RUN",
+  "storeName": "apbm007a-proof-1794480993258 one",
+  "datasetRows": 50,
+  "alreadyPresent": 0,
+  "toInsert": 50
+}

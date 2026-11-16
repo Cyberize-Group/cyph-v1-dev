@@ -1,0 +1,75 @@
+{
+ "_note": "E2 run apbm007a_e2_r01 effect ledger, reconciled 12 November 2026 after the integrated proof against the proof's effects log and Stripe/DEV reads. Starts at zero at release; E1 ledger closed and separate.",
+ "scratch_reset_cycles": {
+  "used": 3,
+  "ceiling": 4,
+  "detail": "fresh-1 full replay; second replay stopped at 0059 and was resumed forward (recovery); upgrade-1 reset to 0052 then forward apply. The fourth cycle is unused; the restore rehearsal it was reserved for was cancelled by ruling"
+ },
+ "auth_identities_created": {
+  "used": 12,
+  "ceiling": 12,
+  "detail": "ALL ON SCRATCH: 4 by two database-proof runs, 8 by two integration-test runs. CEILING REACHED; Director ruling: these count, no extension approved, none to be deleted. None created on DEV"
+ },
+ "auth_session_attempts": {
+  "used": 67,
+  "ceiling": 100,
+  "detail": "SCRATCH about 42 (approximate, from test design); DEV 3 post-apply smoke; DEV integrated proof 19: 16 admin-generated one-time sign-in tokens (OWNER_1 x12 incl. 4 during the confirm-page diagnosis and 1 replay attempt that was refused, ADMIN_B2 x2, MEMBER_B1, UNRELATED) plus 3 sessions minted by the app during handoffs (two of them by the switch and store-admin flows). No identity created; 13 Nov B4 closure: 3 admin-generated OWNER_1 tokens"
+ },
+ "auth_signouts": {
+  "used": 23,
+  "ceiling": 30,
+  "detail": "SCRATCH 18; DEV 3 local (post-apply smoke); DEV integrated proof 2: one local sign-out by the deliberate account switch (E2), one provider-wide logout of OWNER_1 (G1)"
+ },
+ "stripe_reads": {
+  "used": 12,
+  "ceiling": 1000,
+  "detail": "catalogue script 12 counted exactly; the app's own reads during the proof (session/subscription/invoice retrievals, payment-method lookups, account and portal-configuration checks) and the proof's verification reads were not individually counted: estimated well under 150"
+ },
+ "stripe_mutations": {
+  "used": 26,
+  "ceiling": 250,
+  "detail": "catalogue 5; integrated proof 18 made by the app: 6 customers, 6 Checkout sessions, 5 session expiries (go-back-and-edit of orphaned attempts), 1 undo-cancellation update. The hosted-portal cancellation was a browser action on Stripe's page; 13 Nov B4 closure: 3 undo update calls by the app (two answered from Stripe's idempotency cache before the fix, one effective). The hosted-portal cancellation was a browser action"
+ },
+ "emails": {
+  "used": 6,
+  "ceiling": 24,
+  "detail": "unchanged: the six unintended SCRATCH requests. The integrated proof sent no email"
+ },
+ "stripe_objects": {
+  "catalogue_versions": "1 of 1",
+  "portal_configurations": "1 of 2",
+  "coupon_promotion_pairs": "1 of 1",
+  "customers": "6 of 12",
+  "subscriptions": "1 of 12",
+  "checkout_sessions": "6 of 12 (1 paid, 5 expired unpaid)",
+  "portal_sessions": "2 of 24",
+  "test_clocks": "0 of 2"
+ },
+ "dev": {
+  "writes": "ONE authorised write: the delegated forward apply of migrations 0053\u20130060 (8 files, receipt in EVIDENCE/apply/dev-0053-0060). Plus ordinary audit rows from audited reads during the smoke",
+  "identities_created": 0,
+  "emails": 0,
+  "detail": "Applied 12 November 2026 12:52 UTC under the Director's explicit delegation. Integrated proof wrote ordinary application rows only (one paid registration for OWNER_1, five abandoned drafts and their operations, handoff codes, notification record, audit rows)"
+ },
+ "restore": {
+  "status": "NOT PROVEN",
+  "detail": "No dump tool installed, no restore performed, no Auth data copied. Accepted by the Director for this apply checkpoint (option B)"
+ },
+ "email_stub_proof": {
+  "status": "accepted by the Director as engineering evidence; not to be repeated",
+  "where": "Payment Portal src/__tests__/apbm007a-mail-guard.test.ts (8 tests, no network)"
+ },
+ "stripe_checkout_sessions_completed": {
+  "used": 1,
+  "detail": "reconciled: the proof log shows +2 because an earlier attempt counted before the Stripe page refused an empty ZIP; only one session was paid"
+ },
+ "stripe_portal_sessions": {
+  "used": 2,
+  "ceiling": 24
+ },
+ "webhook_events_on_dev": {
+  "processed": 2,
+  "failed": 0,
+  "detail": "13 Nov B4 closure; none recorded before (secret mismatch)"
+ }
+}

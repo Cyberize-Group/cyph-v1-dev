@@ -1,0 +1,31 @@
+{
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "takenAt": "2026-11-12T11:38:20.703Z",
+  "kind": "logical-json-export",
+  "tables": {
+    "public.aac_reference": 2,
+    "public.accounts": 3,
+    "public.apa_memberships": 0,
+    "public.audit_logs": 1364,
+    "public.businesses": 5,
+    "public.ful_reference": 1,
+    "public.pbm_info": 3,
+    "public.pending_registrations": 0,
+    "public.profiles": 16,
+    "public.reference_dataset_versions": 4,
+    "public.report_files": 0,
+    "public.subscriptions": 3,
+    "public.system_config": 2,
+    "public.user_businesses": 8,
+    "public.user_data": 250,
+    "public.user_roles": 16,
+    "public.wac_reference": 4,
+    "apbm_migrations.ledger": 52
+  },
+  "authUserIds": 16,
+  "file": "/home/moose/.config/cyph/backups/apbm007a-dev-pre-0053-2026-11-12T1138Z.json.gz",
+  "bytes": 58632,
+  "mode": "600",
+  "sha256": "9e4667b50497e8779e46e513c7c1fe709ef757db12327039f741b46419190f62",
+  "note": "Private; never copied into a repository or a package. Not a pg_dump; restore not rehearsed."
+}

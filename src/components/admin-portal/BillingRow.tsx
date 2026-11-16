@@ -14,7 +14,21 @@ const PLAN_LABEL: Record<BillingPlan, string> = {
   unavailable: "Plan unavailable",
   standard: "Standard",
   concierge: "Concierge",
+  owedbook: "OwedBook",
+  synthetic: "Synthetic test subscription",
 };
+
+// Real mode (U-2): the plan with the pharmacies it covers, and the dates the subscription row holds. A value the row
+// does not hold is said to be unavailable; nothing is filled in.
+const planText = (line: BillingLine) =>
+  line.plan === "owedbook" && line.coveredStores
+    ? `${PLAN_LABEL.owedbook} · ${line.coveredStores} ${line.coveredStores === 1 ? "pharmacy" : "pharmacies"}`
+    : PLAN_LABEL[line.plan];
+const realDates = (line: BillingLine) =>
+  line.plan === "synthetic" ? "No billing dates"
+    : line.paidThroughDate ? `Paid through ${formatChargeDate(line.paidThroughDate)}`
+      : line.nextChargeDate ? `Next payment ${formatChargeDate(line.nextChargeDate)}`
+        : "Billing dates unavailable";
 
 // One billing line. Manage payment / Cancel are VISUAL ONLY — they toast a
 // "demo — no charge" message and change no state (the service never charges).
@@ -23,7 +37,7 @@ const BillingRow = ({ line }: { line: BillingLine }) => {
   const [busy, setBusy] = useState(false);
   const pill = subscriptionPill[line.subscriptionStatus];
 
-  const when = !isDemoMode() ? "Billing dates unavailable" : line.nextChargeDate
+  const when = !isDemoMode() ? realDates(line) : line.nextChargeDate
     ? `Next charge ${formatChargeDate(line.nextChargeDate)}`
     : line.retryDate
       ? `Retry ${formatChargeDate(line.retryDate)}`
@@ -44,13 +58,13 @@ const BillingRow = ({ line }: { line: BillingLine }) => {
       <div className="min-w-0">
         <p className="font-semibold">{line.storeName}</p>
         <p className="text-[13px] text-muted-foreground">
-          {PLAN_LABEL[line.plan]} · {line.amountLabel} · {when}
+          {planText(line)} · {line.amountLabel} · {when}
         </p>
       </div>
       <div className="flex items-center justify-between gap-3 md:justify-end">
         <StatusPill tone={pill.tone}>{pill.label}</StatusPill>
-        {!isDemoMode() && <p className="text-xs text-muted-foreground">Billing changes are not available in this release.</p>}
-        <div className="flex gap-2">
+        {/* APBM007A: in real mode billing actions live in the billing portal (one link on the screen), not per store. */}
+        <div className={isDemoMode() ? "flex gap-2" : "hidden"}>
           <Button
             variant="secondary"
             size="sm"

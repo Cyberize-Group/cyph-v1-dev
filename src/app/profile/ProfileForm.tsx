@@ -4,6 +4,7 @@ import { useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, User } from "lucide-react";
@@ -144,9 +145,8 @@ const ProfileForm = ({ user, role }: Props) => {
               <Label className="uppercase text-xs font-bold text-muted-foreground">
                 New Password
               </Label>
-              <Input
+              <PasswordInput
                 className="p-6 bg-muted mt-2"
-                type="password"
                 placeholder="Minimum 8 characters"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -156,9 +156,8 @@ const ProfileForm = ({ user, role }: Props) => {
               <Label className="uppercase text-xs font-bold text-muted-foreground">
                 Confirm New Password
               </Label>
-              <Input
+              <PasswordInput
                 className="p-6 bg-muted mt-2"
-                type="password"
                 placeholder="Re-enter new password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}

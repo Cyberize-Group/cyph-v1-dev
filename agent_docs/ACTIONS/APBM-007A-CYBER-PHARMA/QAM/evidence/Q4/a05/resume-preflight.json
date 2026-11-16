@@ -1,0 +1,16 @@
+{
+  "cast600": true,
+  "castFilled": true,
+  "cast_keys": 18,
+  "listener": true,
+  "secret": "EQUAL",
+  "DEV": {
+    "count": 60,
+    "hashes": true
+  },
+  "SCRATCH": {
+    "count": 60,
+    "hashes": true
+  },
+  "chromium": "LAUNCH_OK"
+}

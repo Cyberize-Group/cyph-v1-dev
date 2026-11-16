@@ -1,0 +1,44 @@
+{
+  "role": "UNRELATED",
+  "login_attempts": 1,
+  "checks": [
+    {
+      "width": 375,
+      "theme": "light",
+      "path": "/owedbook",
+      "banner": true,
+      "actual_theme": "saira_30d0f00a-module__F8AMRG__variable light",
+      "horizontal_overflow": false
+    },
+    {
+      "width": 375,
+      "theme": "dark",
+      "path": "/owedbook",
+      "banner": true,
+      "actual_theme": "saira_30d0f00a-module__F8AMRG__variable dark",
+      "horizontal_overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "path": "/owedbook",
+      "banner": true,
+      "actual_theme": "saira_30d0f00a-module__F8AMRG__variable light",
+      "horizontal_overflow": false
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "path": "/owedbook",
+      "banner": true,
+      "actual_theme": "saira_30d0f00a-module__F8AMRG__variable dark",
+      "horizontal_overflow": false
+    }
+  ],
+  "login_http": 200,
+  "sessions_minted": 1,
+  "cookie_names": [
+    "cyph-ob-auth-local"
+  ],
+  "auth_state_persisted": false
+}

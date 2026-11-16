@@ -1,0 +1,19 @@
+{
+  "url": "http://localhost:3000/login",
+  "source": "last QA navigation in a06 visible browser; Director reports page not found on port3000",
+  "independently_observed_404": false,
+  "limitation": "No later exact URL supplied; this is the last known URL, not proof that a subsequent email-link URL was identical.",
+  "QA_owned_browser_processes_closed": [
+    2467224,
+    2467275,
+    2467282,
+    2467283,
+    2467310,
+    2467313,
+    2467315,
+    2467354,
+    2467355
+  ],
+  "method": "Director manual browser guided by QA Lead; Executor read-only on check step N",
+  "effects_after_change": 0
+}

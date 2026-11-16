@@ -1,0 +1,58 @@
+ M package.json
+ M scripts/apply-forward.mjs
+ M scripts/db-verify.mjs
+ M scripts/dev-verify.mjs
+ M scripts/rls-harness/audit-catalog.mjs
+ M scripts/rls-harness/audit-session.mjs
+ M scripts/rls-harness/expectations.json
+ M scripts/rls-harness/lib/env.mjs
+ M scripts/rls-harness/seed.mjs
+ M scripts/seed/run.mjs
+ M src/__tests__/apbm-admin-readonly.test.tsx
+ M src/__tests__/auth/AuthPage.test.tsx
+ M src/__tests__/jest.setup.ts
+ M src/app/api/auth/confirm/route.ts
+ M src/app/api/auth/logout/route.ts
+ M src/components/admin-portal/BillingRow.tsx
+ M src/components/admin-portal/BillingScreen.tsx
+ M src/components/auth/LoginForm.tsx
+ M src/components/owedbook/OwedBookScreen.tsx
+ M src/services/adminDemo.ts
+ M src/utils/supabase/admin.ts
+ M src/utils/supabase/client.ts
+ M src/utils/supabase/middleware.ts
+ M src/utils/supabase/server.ts
+?? scripts/rls-harness/apbm007a-proof.mjs
+?? scripts/seed/sample-claims.mjs
+?? src/__tests__/apbm007a-access.test.tsx
+?? src/__tests__/apbm007a-auth.test.ts
+?? src/__tests__/apbm007a-boundaries.test.ts
+?? src/app/(auth)/auth/confirm/page.tsx
+?? src/app/(auth)/auth/handoff-recovery/page.tsx
+?? src/app/(auth)/auth/link-expired/page.tsx
+?? src/app/(auth)/auth/sign-in-to-continue/page.tsx
+?? src/app/(auth)/auth/signed-out/page.tsx
+?? src/app/(auth)/auth/switch/page.tsx
+?? src/app/api/access-state/route.ts
+?? src/app/api/auth/link/route.ts
+?? src/app/api/handoff/authorize/route.ts
+?? src/app/api/handoff/callback/route.ts
+?? src/app/api/handoff/start/route.ts
+?? src/app/api/handoff/switch/route.ts
+?? src/components/auth/AuthPages.tsx
+?? src/components/auth/LinkRequestForm.tsx
+?? src/components/owedbook/AccessBanner.tsx
+?? src/lib/appIdentity.ts
+?? src/server/accessState.ts
+?? src/server/afterSignIn.ts
+?? src/server/db.ts
+?? src/server/emailLink.ts
+?? src/server/handoff.ts
+?? supabase/migrations/0053_privilege_hardening.sql
+?? supabase/migrations/0054_store_identifiers.sql
+?? supabase/migrations/0055_billing_mirror.sql
+?? supabase/migrations/0056_registration.sql
+?? supabase/migrations/0057_operations_events.sql
+?? supabase/migrations/0058_provisioning.sql
+?? supabase/migrations/0059_handoff_codes.sql
+?? supabase/migrations/0060_billing_reads.sql

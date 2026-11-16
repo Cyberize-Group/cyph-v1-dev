@@ -1,0 +1,282 @@
+{
+  "AC-001": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "RAN \u2014 identity checks matched",
+    "prior_evidence": "Q1/a02/repaired_identity.json; B1/runtime.json; final-identity.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-002": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "RAN \u2014 baseline passed (Q1 reused)",
+    "prior_evidence": "Q1/a02/build_clean_retry_results.json; build_results.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-003": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL",
+    "prior_evidence": "independent-readonly.json; privilege-scope-review.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-004": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "REUSED + READ-ONLY; NOT RUN independent rehearsal",
+    "prior_evidence": "STOP-001/REPORT.md; independent-readonly.json; E2/r01 scratch evidence",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-005": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL \u2014 executed assertions passed",
+    "prior_evidence": "npi-independent.json; npi-concurrency.json; pure-pricing.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-006": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL",
+    "prior_evidence": "new-owner-db-observation.json; scratch-final-id-diff.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-007": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "FAILED journey \u2014 F-Q2-001",
+    "prior_evidence": "new-owner*.json; STOP-002/REPORT.md",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-008": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "NOT RUN \u2014 coverage gap",
+    "prior_evidence": "STOP-002/REPORT.md",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-009": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL; live BLOCKED F-Q2-001",
+    "prior_evidence": "pure-pricing.json; STOP-002/REPORT.md",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-010": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL; live BLOCKED F-Q2-001",
+    "prior_evidence": "pure-pricing.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-011": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "BLOCKED live F-Q2-001; NOT RUN fault proof",
+    "prior_evidence": "STOP-002/REPORT.md",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-012": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL \u2014 signature controls passed",
+    "prior_evidence": "signature-live.json; boundary-http.json; foreign-live.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-013": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "BLOCKED F-Q2-001",
+    "prior_evidence": "STOP-002/REPORT.md; foreign-live.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-014": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL \u2014 unit recovery passed; live foreign passed",
+    "prior_evidence": "webhook-independent.json; foreign-live.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-015": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL \u2014 unit recovery passed",
+    "prior_evidence": "webhook-independent.json; operator-live.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-016": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "BLOCKED F-Q2-001",
+    "prior_evidence": "new-owner-db-observation.json; final-dev-observation.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-017": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "BLOCKED \u2014 real-Auth crash gap",
+    "prior_evidence": "webhook-independent.json; STOP-001/REPORT.md",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-018": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "BLOCKED + DEFERRED-TO-DIRECTOR-WALK",
+    "prior_evidence": "sample-loader-gap.md; STOP-002/REPORT.md",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-019": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL + DEFERRED-TO-DIRECTOR-WALK",
+    "prior_evidence": "confirm-switch.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-020": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "DEFERRED-TO-DIRECTOR-WALK; fault path BLOCKED",
+    "prior_evidence": "STOP-002/REPORT.md",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-021": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL \u2014 browser isolation passed",
+    "prior_evidence": "auth-browser.json; identity-contract.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-022": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL \u2014 integrated handoffs passed",
+    "prior_evidence": "auth-browser.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-023": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "NOT RUN subcases; inbox collision DEFERRED-TO-DIRECTOR-WALK",
+    "prior_evidence": "auth-browser.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-024": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL \u2014 redirect/switch controls passed",
+    "prior_evidence": "confirm-switch.json; auth-browser.json; identity-contract.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-025": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL \u2014 logout and residual measured",
+    "prior_evidence": "auth-browser.json; logout-residual.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-026": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL; Mission Control NOT RUN",
+    "prior_evidence": "identity-contract.json; QAM_APPROVAL.md",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-027": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL \u2014 executed owner/role checks passed",
+    "prior_evidence": "sql-independent.json; auth-browser.json; tenant-readonly.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-028": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL \u2014 privilege/update negatives passed",
+    "prior_evidence": "privilege-scope-review.json; sql-independent.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-029": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL \u2014 isolated portal controls passed",
+    "prior_evidence": "billing-independent.json; auth-browser.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-030": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "FAILED unit \u2014 F-Q2-002; live BLOCKED",
+    "prior_evidence": "billing-independent.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-031": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL \u2014 required executed SQL/unit/banner checks passed",
+    "prior_evidence": "sql-independent.json; reminder-scratch.json; browser-banner.json; access-hook-unit.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-032": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL + UNPROVEN-BY-RULING live renewal",
+    "prior_evidence": "sql-independent.json; reminder-scratch.json; access-hook-unit.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-033": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL",
+    "prior_evidence": "final-dev-observation.json; scratch-final-id-diff.json; privacy-value-scan.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-034": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "FAILED registration flow F-Q2-001; other screens PARTIAL",
+    "prior_evidence": "boundary-http.json; STOP-002/REPORT.md",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-035": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL; full matrix BLOCKED F-Q2-001",
+    "prior_evidence": "browser-banner.json; auth-browser.json; confirm-switch.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-036": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL \u2014 tenant/RPC assertions passed",
+    "prior_evidence": "tenant-readonly.json; sql-independent.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-037": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL \u2014 export/client privacy scan passed",
+    "prior_evidence": "privacy-value-scan.json; export-validation.json; Q1/a02 guard evidence",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-038": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL \u2014 operator read/final-event controls passed",
+    "prior_evidence": "operator-live.json; webhook-independent.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-039": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "RAN \u2014 evidence/authority recorded",
+    "prior_evidence": "QAM_APPROVAL.md; final-identity.json; FILE_INDEX.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  },
+  "AC-040": {
+    "Q4": "BLOCKED STOP-IDENTITY; no execution",
+    "prior_pair_status": "PARTIAL \u2014 manifests verified; Gate Q pending",
+    "prior_evidence": "Q1/a02/repaired_identity.json; final-identity.json",
+    "owner": "Director identity resolution, then QA Executor",
+    "carry_forward": "Provisional only: verify committed diff and proof-layer applicability on resume; registration/billing proofs rerun."
+  }
+}

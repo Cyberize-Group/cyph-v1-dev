@@ -1,0 +1,135 @@
+
+> cyph-stripe-subscription-portal-v1@0.1.0 build
+> next build
+
+▲ Next.js 16.4.3 (Turbopack)
+⚠ Warning: Next.js ignored package-lock.json in /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev because it would include your home directory (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02).
+ To use this directory, set `turbopack.root` in your Next.js config.
+
+✓ Running next.config.js took 19ms
+⚠ No build cache found. Please configure build caching for faster rebuilds. Read more: https://nextjs.org/docs/messages/no-cache
+
+  Creating an optimized production build ...
+[1m[31mFATAL[39m[0m: An unexpected Turbopack error occurred:
+[project]/src/app/globals.scss.css [app-client] (css)
+
+Caused by:
+- creating new process
+- node process exited before we could connect to it with exit status: 1
+
+Debug info:
+- Execution of get_all_written_entrypoints_with_issues_operation failed
+- Execution of EntrypointsOperation::new failed
+- Execution of all_entrypoints_write_to_disk_operation failed
+- Execution of output_assets_operation failed
+- Execution of <MiddlewareEndpoint as Endpoint>::output failed
+- Execution of MiddlewareEndpoint::output_assets failed
+- Execution of MiddlewareEndpoint::node_chunk failed
+- Execution of *<NodeJsChunkingContext as ChunkingContext>::entry_chunk_group failed
+- Execution of Project::server_chunking_context failed
+- Execution of *get_server_chunking_context failed
+- Execution of Project::module_ids failed
+- Execution of whole_app_module_graph_operation failed
+- Execution of *Project::get_all_additional_entries failed
+- Execution of ModuleGraph::from_graphs failed
+- Execution of ModuleGraph::from_graphs_inner failed
+- Execution of SingleModuleGraph::new_with_entries failed
+- [project]/src/app/globals.scss.css [app-client] (css)
+- Execution of primary_chunkable_referenced_modules failed
+- Execution of <CssModule as Module>::references failed
+- Execution of parse_css failed
+- Execution of <PostCssTransformedAsset as Asset>::content failed
+- Execution of PostCssTransformedAsset::process failed
+- Execution of <WebpackLoadersProcessedAsset as Asset>::content failed
+- Execution of WebpackLoadersProcessedAsset::process failed
+- Execution of evaluate_webpack_loader failed
+- creating new process
+- node process exited before we could connect to it with exit status: 1
+  Process output:
+  
+  Process error output:
+  /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/.next/build/chunks/[turbopack]_runtime.js:1009
+          throw error;
+          ^
+  
+  Error: QA_NETWORK_BLOCKED
+      at Socket.deny [as connect] (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/network-guard.cjs:1:144)
+      at connect (node:net:245:17)
+      at createIpc (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/.next/build/chunks/[root-of-the-server]__1nvwxt65m8t91._.js:131:156)
+      at module evaluation (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/.next/build/chunks/[root-of-the-server]__1nvwxt65m8t91._.js:275:13)
+      at instantiateModule (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/.next/build/chunks/[turbopack]_runtime.js:1006:9)
+      at getOrInstantiateModuleFromParent (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/.next/build/chunks/[turbopack]_runtime.js:1030:12)
+      at Context.esmImport [as i] (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/.next/build/chunks/[turbopack]_runtime.js:452:20)
+      at module evaluation (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/.next/build/chunks/[root-of-the-server]__1nvwxt65m8t91._.js:10:163)
+      at instantiateModule (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/.next/build/chunks/[turbopack]_runtime.js:1006:9)
+      at getOrInstantiateModuleFromParent (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/.next/build/chunks/[turbopack]_runtime.js:1030:12)
+  
+  Node.js v22.17.0
+
+> Build error occurred
+Error [TurbopackInternalError]: [project]/src/app/globals.scss.css [app-client] (css)
+
+Caused by:
+- creating new process
+- node process exited before we could connect to it with exit status: 1
+
+Debug info:
+- Execution of get_all_written_entrypoints_with_issues_operation failed
+- Execution of EntrypointsOperation::new failed
+- Execution of all_entrypoints_write_to_disk_operation failed
+- Execution of output_assets_operation failed
+- Execution of <MiddlewareEndpoint as Endpoint>::output failed
+- Execution of MiddlewareEndpoint::output_assets failed
+- Execution of MiddlewareEndpoint::node_chunk failed
+- Execution of *<NodeJsChunkingContext as ChunkingContext>::entry_chunk_group failed
+- Execution of Project::server_chunking_context failed
+- Execution of *get_server_chunking_context failed
+- Execution of Project::module_ids failed
+- Execution of whole_app_module_graph_operation failed
+- Execution of *Project::get_all_additional_entries failed
+- Execution of ModuleGraph::from_graphs failed
+- Execution of ModuleGraph::from_graphs_inner failed
+- Execution of SingleModuleGraph::new_with_entries failed
+- [project]/src/app/globals.scss.css [app-client] (css)
+- Execution of primary_chunkable_referenced_modules failed
+- Execution of <CssModule as Module>::references failed
+- Execution of parse_css failed
+- Execution of <PostCssTransformedAsset as Asset>::content failed
+- Execution of PostCssTransformedAsset::process failed
+- Execution of <WebpackLoadersProcessedAsset as Asset>::content failed
+- Execution of WebpackLoadersProcessedAsset::process failed
+- Execution of evaluate_webpack_loader failed
+- creating new process
+- node process exited before we could connect to it with exit status: 1
+  Process output:
+  
+  Process error output:
+  /home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/.next/build/chunks/[turbopack]_runtime.js:1009
+          throw error;
+          ^
+  
+  Error: QA_NETWORK_BLOCKED
+      at Socket.deny [as connect] (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/network-guard.cjs:1:144)
+      at connect (node:net:245:17)
+      at createIpc (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/.next/build/chunks/[root-of-the-server]__1nvwxt65m8t91._.js:131:156)
+      at module evaluation (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/.next/build/chunks/[root-of-the-server]__1nvwxt65m8t91._.js:275:13)
+      at instantiateModule (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/.next/build/chunks/[turbopack]_runtime.js:1006:9)
+      at getOrInstantiateModuleFromParent (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/.next/build/chunks/[turbopack]_runtime.js:1030:12)
+      at Context.esmImport [as i] (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/.next/build/chunks/[turbopack]_runtime.js:452:20)
+      at module evaluation (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/.next/build/chunks/[root-of-the-server]__1nvwxt65m8t91._.js:10:163)
+      at instantiateModule (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/.next/build/chunks/[turbopack]_runtime.js:1006:9)
+      at getOrInstantiateModuleFromParent (/home/moose/NEXTJS/CYBER_PHARMA/cyph-v1-dev/agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AUTOMATION/a02/build-portal/.next/build/chunks/[turbopack]_runtime.js:1030:12)
+  
+  Node.js v22.17.0
+    at <unknown> (TurbopackInternalError: [project]/src/app/globals.scss.css [app-client] (css))
+    at Socket.deny [as connect] (../network-guard.cjs:1:144)
+    at createIpc (.next/build/chunks/[root-of-the-server]__1nvwxt65m8t91._.js:131:156)
+    at module evaluation (.next/build/chunks/[root-of-the-server]__1nvwxt65m8t91._.js:275:13)
+    at instantiateModule (.next/build/chunks/[turbopack]_runtime.js:1006:9)
+    at getOrInstantiateModuleFromParent (.next/build/chunks/[turbopack]_runtime.js:1030:12)
+    at Context.esmImport [as i] (.next/build/chunks/[turbopack]_runtime.js:452:20)
+    at module evaluation (.next/build/chunks/[root-of-the-server]__1nvwxt65m8t91._.js:10:163)
+    at instantiateModule (.next/build/chunks/[turbopack]_runtime.js:1006:9)
+    at getOrInstantiateModuleFromParent (.next/build/chunks/[turbopack]_runtime.js:1030:12) {
+  location: undefined
+}

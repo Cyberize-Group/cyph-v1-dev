@@ -1,0 +1,14 @@
+{
+  "found": true,
+  "path": "/register/owner",
+  "heading": [
+    "Tell us about you"
+  ],
+  "alert_count": 1,
+  "buttons": [
+    "",
+    "Back",
+    "Continue"
+  ],
+  "quote_present": 0
+}

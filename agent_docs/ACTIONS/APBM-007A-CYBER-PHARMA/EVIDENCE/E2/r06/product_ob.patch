@@ -1,0 +1,787 @@
+diff --git a/src/app/profile/ProfileForm.tsx b/src/app/profile/ProfileForm.tsx
+index daffbc9..c68e2af 100644
+--- a/src/app/profile/ProfileForm.tsx
++++ b/src/app/profile/ProfileForm.tsx
+@@ -4,6 +4,7 @@ import { useState } from "react";
+ import { createClient } from "@/utils/supabase/client";
+ import { Button } from "@/components/ui/button";
+ import { Input } from "@/components/ui/input";
++import { PasswordInput } from "@/components/ui/password-input";
+ import { Label } from "@/components/ui/label";
+ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+ import { Loader2, User } from "lucide-react";
+@@ -144,9 +145,8 @@ const ProfileForm = ({ user, role }: Props) => {
+               <Label className="uppercase text-xs font-bold text-muted-foreground">
+                 New Password
+               </Label>
+-              <Input
++              <PasswordInput
+                 className="p-6 bg-muted mt-2"
+-                type="password"
+                 placeholder="Minimum 8 characters"
+                 value={password}
+                 onChange={(e) => setPassword(e.target.value)}
+@@ -156,9 +156,8 @@ const ProfileForm = ({ user, role }: Props) => {
+               <Label className="uppercase text-xs font-bold text-muted-foreground">
+                 Confirm New Password
+               </Label>
+-              <Input
++              <PasswordInput
+                 className="p-6 bg-muted mt-2"
+-                type="password"
+                 placeholder="Re-enter new password"
+                 value={confirmPassword}
+                 onChange={(e) => setConfirmPassword(e.target.value)}
+diff --git a/src/components/admin-portal/BillingRow.tsx b/src/components/admin-portal/BillingRow.tsx
+index 9c9f28f..33c4cd5 100644
+--- a/src/components/admin-portal/BillingRow.tsx
++++ b/src/components/admin-portal/BillingRow.tsx
+@@ -14,8 +14,22 @@ const PLAN_LABEL: Record<BillingPlan, string> = {
+   unavailable: "Plan unavailable",
+   standard: "Standard",
+   concierge: "Concierge",
++  owedbook: "OwedBook",
++  synthetic: "Synthetic test subscription",
+ };
+ 
++// Real mode (U-2): the plan with the pharmacies it covers, and the dates the subscription row holds. A value the row
++// does not hold is said to be unavailable; nothing is filled in.
++const planText = (line: BillingLine) =>
++  line.plan === "owedbook" && line.coveredStores
++    ? `${PLAN_LABEL.owedbook} · ${line.coveredStores} ${line.coveredStores === 1 ? "pharmacy" : "pharmacies"}`
++    : PLAN_LABEL[line.plan];
++const realDates = (line: BillingLine) =>
++  line.plan === "synthetic" ? "No billing dates"
++    : line.paidThroughDate ? `Paid through ${formatChargeDate(line.paidThroughDate)}`
++      : line.nextChargeDate ? `Next payment ${formatChargeDate(line.nextChargeDate)}`
++        : "Billing dates unavailable";
++
+ // One billing line. Manage payment / Cancel are VISUAL ONLY — they toast a
+ // "demo — no charge" message and change no state (the service never charges).
+ const BillingRow = ({ line }: { line: BillingLine }) => {
+@@ -23,7 +37,7 @@ const BillingRow = ({ line }: { line: BillingLine }) => {
+   const [busy, setBusy] = useState(false);
+   const pill = subscriptionPill[line.subscriptionStatus];
+ 
+-  const when = !isDemoMode() ? "Billing dates unavailable" : line.nextChargeDate
++  const when = !isDemoMode() ? realDates(line) : line.nextChargeDate
+     ? `Next charge ${formatChargeDate(line.nextChargeDate)}`
+     : line.retryDate
+       ? `Retry ${formatChargeDate(line.retryDate)}`
+@@ -44,7 +58,7 @@ const BillingRow = ({ line }: { line: BillingLine }) => {
+       <div className="min-w-0">
+         <p className="font-semibold">{line.storeName}</p>
+         <p className="text-[13px] text-muted-foreground">
+-          {PLAN_LABEL[line.plan]} · {line.amountLabel} · {when}
++          {planText(line)} · {line.amountLabel} · {when}
+         </p>
+       </div>
+       <div className="flex items-center justify-between gap-3 md:justify-end">
+diff --git a/src/components/auth/LoginForm.tsx b/src/components/auth/LoginForm.tsx
+index 7848fd1..77371d9 100644
+--- a/src/components/auth/LoginForm.tsx
++++ b/src/components/auth/LoginForm.tsx
+@@ -12,6 +12,7 @@ import {
+   FormMessage,
+ } from "@/components/ui/form";
+ import { Input } from "@/components/ui/input";
++import { PasswordInput } from "@/components/ui/password-input";
+ import { Button } from "@/components/ui/button";
+ import Spinner from "@/components/common/Spinner";
+ import { useRouter } from "next/navigation";
+@@ -123,8 +124,7 @@ const LoginForm = () => {
+                       Password
+                     </FormLabel>
+                     <FormControl>
+-                      <Input
+-                        type="password"
++                      <PasswordInput
+                         className="p-6 bg-muted"
+                         placeholder="Please Enter password"
+                         {...field}
+diff --git a/src/components/layout/AdminSidebar.tsx b/src/components/layout/AdminSidebar.tsx
+index ab3fa56..9065190 100644
+--- a/src/components/layout/AdminSidebar.tsx
++++ b/src/components/layout/AdminSidebar.tsx
+@@ -2,15 +2,10 @@
+ 
+ import { type ReactNode } from "react";
+ import { usePathname } from "next/navigation";
+-import {
+-  Command,
+-  CommandEmpty,
+-  CommandGroup,
+-  CommandItem,
+-  CommandList,
+-} from "@/components/ui/command";
++import { Command } from "@/components/ui/command";
+ import { Store, CreditCard, Settings, ScrollText } from "lucide-react";
+ import Link from "next/link";
++import { cn } from "@/lib/utils";
+ import FilterRail from "@/components/owedbook/FilterRail";
+ import { useOwedBook } from "@/components/owedbook/OwedBookContext";
+ 
+@@ -18,67 +13,91 @@ interface NavItem {
+   icon: ReactNode;
+   label: string;
+   href: string;
+-  // Active-state predicate — a section can own more than its own href (My
+-  // Stores owns the store drill-down at /admin-portal/stores/*).
+-  isActive: (pathname: string) => boolean;
++  // The routes this item owns. A section can own more than its own href (My Stores owns the store drill-down at
++  // /admin-portal/stores/*). Matching is by whole path segment, so /admin-portal/billingx is not Billing.
++  owns: (pathname: string) => boolean;
+ }
+ 
+-// Surface-aware sidebar (UI_SPEC v1.4 §A.1/§C): ONE component, ONE container
+-// (same Command + command input). Only the CONTENT below the input differs —
+-// Admin Portal shows nav items; OwedBook shows the FilterRail.
+-// Owner-scoped nav (Phase 2.2 route takeover): My Stores · Billing · Settings ·
+-// Audit. The old user-CRUD at /admin-portal/users/* is removed.
++const under = (p: string, base: string) => p === base || p.startsWith(`${base}/`);
++
++// Surface-aware sidebar (UI_SPEC v1.4 §A.1/§C): ONE component, ONE container (the same Command panel). Only the
++// CONTENT differs: the Admin Portal shows nav items; OwedBook shows the FilterRail.
++// Owner-scoped nav (Phase 2.2 route takeover): My Stores · Billing · Settings · Audit.
+ const ADMIN_ITEMS: NavItem[] = [
+   {
+-    icon: <Store className="mr-2 h-4 w-4" />,
++    icon: <Store className="mr-2 h-4 w-4" aria-hidden="true" />,
+     label: "My Stores",
+     href: "/admin-portal",
+-    isActive: (p) => p === "/admin-portal" || p.startsWith("/admin-portal/stores"),
++    owns: (p) => p === "/admin-portal" || under(p, "/admin-portal/stores"),
+   },
+   {
+-    icon: <CreditCard className="mr-2 h-4 w-4" />,
++    icon: <CreditCard className="mr-2 h-4 w-4" aria-hidden="true" />,
+     label: "Billing",
+     href: "/admin-portal/billing",
+-    isActive: (p) => p.startsWith("/admin-portal/billing"),
++    owns: (p) => under(p, "/admin-portal/billing"),
+   },
+   {
+-    icon: <Settings className="mr-2 h-4 w-4" />,
++    icon: <Settings className="mr-2 h-4 w-4" aria-hidden="true" />,
+     label: "Settings",
+     href: "/admin-portal/settings",
+-    isActive: (p) => p.startsWith("/admin-portal/settings"),
++    owns: (p) => under(p, "/admin-portal/settings"),
+   },
+   {
+-    icon: <ScrollText className="mr-2 h-4 w-4" />,
++    icon: <ScrollText className="mr-2 h-4 w-4" aria-hidden="true" />,
+     label: "Audit log",
+     href: "/admin-portal/audit",
+-    isActive: (p) => p.startsWith("/admin-portal/audit"),
++    owns: (p) => under(p, "/admin-portal/audit"),
+   },
+ ];
+ 
++/**
++ * The one item the current route selects, or none. The route is the only source: the items are plain links, not
++ * command-palette options, so no pointer or keyboard selection can survive a navigation and leave a second item
++ * highlighted (U-1). The first owner wins, so a nested route can never select two items.
++ */
++export const selectedAdminHref = (pathname: string): string | null => {
++  const p = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
++  return ADMIN_ITEMS.find((item) => item.owns(p))?.href ?? null;
++};
++
+ const AdminSidebar = () => {
+   const pathname = usePathname() ?? "";
+   const onAdmin = pathname.startsWith("/admin-portal");
+   const { filters, pbmOptions, applyFilters, clearFilters } = useOwedBook();
++  const selected = selectedAdminHref(pathname);
+ 
+   return (
+     <Command className="bg-secondary">
+       {onAdmin ? (
+-        <CommandList className="px-8">
+-          <CommandEmpty>No results found.</CommandEmpty>
+-          <CommandGroup heading="Admin Portal">
++        <nav aria-label="Admin Portal" className="px-8 py-1">
++          <p className="px-2 py-1.5 text-xs font-medium text-muted-foreground">Admin Portal</p>
++          <ul className="space-y-1">
+             {ADMIN_ITEMS.map((item) => {
+-              const active = item.isActive(pathname);
++              const active = item.href === selected;
+               return (
+-                <CommandItem key={item.href} className={active ? "font-bold text-primary" : ""}>
+-                  {item.icon}
+-                  <Link href={item.href} aria-current={active ? "page" : undefined}>
++                <li key={item.href}>
++                  <Link
++                    href={item.href}
++                    aria-current={active ? "page" : undefined}
++                    data-selected={active ? "true" : undefined}
++                    className={cn(
++                      // Selected: solid coral fill, white text. Unselected hover: coral outline, no fill.
++                      // Keyboard focus: a visible ring, separate from the selection fill.
++                      "flex items-center rounded-sm border px-2 py-1.5 text-lg outline-none transition-colors",
++                      "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-secondary",
++                      active
++                        ? "border-primary bg-primary font-bold text-primary-foreground"
++                        : "border-transparent text-foreground hover:border-primary",
++                    )}
++                  >
++                    {item.icon}
+                     {item.label}
+                   </Link>
+-                </CommandItem>
++                </li>
+               );
+             })}
+-          </CommandGroup>
+-        </CommandList>
++          </ul>
++        </nav>
+       ) : (
+         <div className="px-4 py-3">
+           <FilterRail
+--- /dev/null
++++ b/src/components/ui/password-input.tsx
+@@ -0,0 +1,80 @@
++"use client";
++
++import * as React from "react";
++import { Eye, EyeOff } from "lucide-react";
++
++import { cn } from "@/lib/utils";
++import { Input, type InputProps } from "@/components/ui/input";
++
++/**
++ * A password field with a show/hide control (U-3). It is the existing Input with one button beside the text: the
++ * password starts hidden, the button never submits the form, its label and aria-pressed follow the state, and the
++ * field keeps its value, focus and caret while the visibility changes. Every other prop (value, onChange, ref,
++ * autocomplete, aria attributes from FormControl) passes straight to the input. Nothing is logged or stored.
++ */
++const PasswordInput = React.forwardRef<HTMLInputElement, Omit<InputProps, "type">>(({ className, ...props }, ref) => {
++  const [visible, setVisible] = React.useState(false);
++  // Browsers put the caret at the start when an input's type changes, and Chromium does it again just after the commit.
++  // Remember the selection before the toggle and put it back once the type has changed and again on the next frame, so
++  // typing continues where it was (found in the production-browser walk; jsdom keeps the caret).
++  const input = React.useRef<HTMLInputElement | null>(null);
++  const selection = React.useRef<[number | null, number | null] | null>(null);
++  const setRefs = React.useCallback((el: HTMLInputElement | null) => {
++    input.current = el;
++    if (typeof ref === "function") ref(el);
++    else if (ref) ref.current = el;
++  }, [ref]);
++  React.useLayoutEffect(() => {
++    const el = input.current, s = selection.current;
++    selection.current = null;
++    if (!el || !s) return;
++    const [start, end] = s;
++    if (start === null || end === null) return;
++    const restore = () => el.setSelectionRange(start, end);
++    restore();
++    // Chromium moves the caret once more after the commit. Put it back on the next frame, or at the first key if the
++    // person types sooner (before the character goes in); a click in the field picks a new position, so leave that.
++    let done = false;
++    let frame = 0;
++    const onKey = () => settle(true);
++    const onPointer = () => settle(false);
++    function settle(apply: boolean) {
++      if (done) return;
++      done = true;
++      if (apply) restore();
++      if (frame && typeof cancelAnimationFrame === "function") cancelAnimationFrame(frame);
++      el!.removeEventListener("keydown", onKey, true);
++      el!.removeEventListener("pointerdown", onPointer, true);
++    }
++    el.addEventListener("keydown", onKey, true);
++    el.addEventListener("pointerdown", onPointer, true);
++    if (typeof requestAnimationFrame === "function") frame = requestAnimationFrame(() => settle(true));
++    return () => settle(false);
++  }, [visible]);
++  const toggle = () => {
++    selection.current = input.current ? [input.current.selectionStart, input.current.selectionEnd] : null;
++    setVisible((v) => !v);
++  };
++  return (
++    <div className="relative">
++      {/* pr-12 comes last, so a caller's padding (e.g. p-6) cannot run the text under the button. */}
++      <Input ref={setRefs} type={visible ? "text" : "password"} className={cn(className, "pr-12")} {...props} />
++      <button
++        type="button"
++        onClick={toggle}
++        // Keep the caret in the field for pointer users, so typing continues after a toggle.
++        onMouseDown={(e) => e.preventDefault()}
++        aria-label={visible ? "Hide password" : "Show password"}
++        aria-pressed={visible}
++        aria-controls={props.id}
++        disabled={props.disabled}
++        className="absolute inset-y-0 right-2 my-auto flex h-8 w-8 items-center justify-center rounded-sm text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
++      >
++        {visible ? <EyeOff className="h-4 w-4" aria-hidden="true" /> : <Eye className="h-4 w-4" aria-hidden="true" />}
++      </button>
++    </div>
++  );
++});
++PasswordInput.displayName = "PasswordInput";
++
++export { PasswordInput };
+diff --git a/src/services/adminDemo.ts b/src/services/adminDemo.ts
+index cf8c6d4..0adb7c8 100644
+--- a/src/services/adminDemo.ts
++++ b/src/services/adminDemo.ts
+@@ -390,18 +390,33 @@ export function createAdminServices(client?: RpcClient) {
+     },
+     listPendingInvites: denied, inviteMember: unavailable, resendInvite: unavailable, suspendMember: unavailable, unsuspendMember: unavailable, sendRecovery: unavailable,
+   };
++  // The owner's current subscription as public.owner_billing_overview returns it (0060): the same owner-only, audited
++  // read the Payment Portal shows, so both apps present the same plan and dates. It carries no price amount.
++  type OverviewSubscription = { origin: string | null; status: string | null; quantity: number | null; current_period_end: string | null;
++    cancel_at: string | null; cancel_at_period_end: boolean | null; paid_through: string | null };
++  // U-2: every value shown comes from that row; anything the row does not hold stays an honest "unavailable".
++  const billingLine = (s: OwnedStore, sub: OverviewSubscription | null): BillingLine => {
++    const base = { storeId: s.storeId, storeName: s.name };
++    if (!sub) return { ...base, plan: "unavailable", subscriptionStatus: "unavailable", amountLabel: "Price unavailable" };
++    if (sub.origin === "synthetic_seed") return { ...base, plan: "synthetic", subscriptionStatus: subscription(sub.status), amountLabel: "Not billed" };
++    if (sub.origin !== "stripe") return { ...base, plan: "unavailable", subscriptionStatus: subscription(sub.status), amountLabel: "Price unavailable" };
++    // As the Portal does: once the subscription is ending or ended it is paid through a date, otherwise the period end is
++    // the next payment.
++    const ending = sub.status === "canceled" || sub.cancel_at != null || sub.cancel_at_period_end === true;
++    const dates = ending ? (sub.paid_through ? { paidThroughDate: sub.paid_through } : {}) : (sub.current_period_end ? { nextChargeDate: sub.current_period_end } : {});
++    return { ...base, plan: "owedbook", subscriptionStatus: subscription(sub.status), amountLabel: "Price shown in the billing portal",
++      ...(typeof sub.quantity === "number" && sub.quantity >= 1 ? { coveredStores: sub.quantity } : {}), ...dates };
++  };
+   const billing: BillingService = {
+     async listBilling() {
+       // APBM007A (RA-3): billing is owner-only. A store admin who is not the account owner gets a plain statement,
+       // never the owner's billing data and never a raw permission error.
+-      const owned = new Set((await listTenantStores(client)).filter(s => s.capability === "owner").map(s => s.id));
+-      if (!owned.size) throw new BillingOwnerOnlyError();
+-      const permitted = (await stores.listMyStores()).filter(s => owned.has(s.storeId));
+-      return Promise.all(permitted.map(async s => {
+-        const b = await readRpc<{account_id:string;subscriptions:{status:string;current_period_end:string|null}[]}>("admin_billing_status", {p_business_id:s.storeId}, client);
+-        const latest = b.subscriptions.at(-1);
+-        return {storeId:s.storeId,storeName:s.name,plan:"unavailable" as const,subscriptionStatus:subscription(latest?.status ?? null),amountLabel:"Price unavailable"};
+-      }));
++      const ownedStores = (await listTenantStores(client)).filter(s => s.capability === "owner");
++      if (!ownedStores.length) throw new BillingOwnerOnlyError();
++      const accountOf = new Map(ownedStores.map(s => [s.id, s.account_id]));
++      const permitted = (await stores.listMyStores()).filter(s => accountOf.has(s.storeId));
++      const overview = await readRpc<{ account_id: string; subscription: OverviewSubscription | null }>("owner_billing_overview", {}, client);
++      return permitted.map(s => billingLine(s, accountOf.get(s.storeId) === overview.account_id ? overview.subscription : null));
+     },
+     managePayment: unavailable, cancelSubscription: unavailable,
+   };
+--- /dev/null
++++ b/src/__tests__/admin-portal/BillingDetails.test.tsx
+@@ -0,0 +1,118 @@
++/** @jest-environment jsdom */
++// APBM007A U-2 — the owner's billing details in real mode. The read is public.owner_billing_overview (0060), the same
++// owner-only, audited RPC the Payment Portal shows; the fixture below has exactly the subscription fields that function
++// returns for a paid Stripe subscription (values synthetic). No network: the RPC client is a fake.
++import "@testing-library/jest-dom";
++import { render, screen } from "@testing-library/react";
++import { BillingOwnerOnlyError, createAdminServices } from "@/services/adminDemo";
++import BillingRow from "@/components/admin-portal/BillingRow";
++import type { BillingLine } from "@/types/adminDemo";
++
++const STORE = "11111111-1111-4111-8111-111111111111";
++const OTHER_STORE = "33333333-3333-4333-8333-333333333333";
++const ACCOUNT = "22222222-2222-4222-8222-222222222222";
++const OTHER_ACCOUNT = "44444444-4444-4444-8444-444444444444";
++
++// owner_billing_overview().subscription for a paid, active Stripe subscription (field set as in 0060).
++const PAID = {
++  id: "55555555-5555-4555-8555-555555555555", origin: "stripe", status: "active", raw_status: "active", quantity: 1,
++  current_period_start: "2026-11-16T05:47:00+00:00", current_period_end: "2026-12-16T05:47:00+00:00",
++  cancel_at: null, cancel_at_period_end: false, paid_through: "2026-12-16T05:47:00+00:00",
++  latest_invoice_status: "paid", grace_started_at: null, verified_at: "2026-11-16T05:47:05+00:00",
++};
++const overview = (subscription: unknown, account_id = ACCOUNT) => ({ account_id, access: { state: "active", read_only: false }, subscription, stores: [] });
++
++function client(sub: unknown, opts: { capability?: string; overviewAccount?: string } = {}) {
++  const answers: Record<string, unknown> = {
++    tenant_stores: [{ id: STORE, account_id: ACCOUNT, name: "Synthetic Main Street", capability: opts.capability ?? "owner" }],
++    admin_stores: [{ id: STORE, name: "Synthetic Main Street", ncpdp: null, npi: "1234567893", status: "active", subscription_status: "active", member_count: 1 }],
++    owner_billing_overview: overview(sub, opts.overviewAccount),
++  };
++  return { rpc: jest.fn(async (name: string) => ({ data: answers[name], error: null })) };
++}
++const previous = process.env.NEXT_PUBLIC_APBM_DATA_MODE;
++beforeEach(() => { process.env.NEXT_PUBLIC_APBM_DATA_MODE = "real"; });
++afterAll(() => { process.env.NEXT_PUBLIC_APBM_DATA_MODE = previous; });
++
++const lineFor = async (sub: unknown, opts?: Parameters<typeof client>[1]) => {
++  const c = client(sub, opts);
++  const lines = await createAdminServices(c).billingService.listBilling();
++  return { lines, c };
++};
++const rowText = (line: BillingLine) => {
++  const { container, unmount } = render(<BillingRow line={line} />);
++  const text = container.querySelector("p.text-\\[13px\\]")!.textContent;
++  unmount();
++  return text;
++};
++
++describe("U-2 — owner billing details from the owner's subscription", () => {
++  it("a paid Stripe subscription shows its plan, the pharmacies covered and the next payment date", async () => {
++    const { lines, c } = await lineFor(PAID);
++    expect(lines).toEqual([{ storeId: STORE, storeName: "Synthetic Main Street", plan: "owedbook", coveredStores: 1, subscriptionStatus: "active",
++      amountLabel: "Price shown in the billing portal", nextChargeDate: PAID.current_period_end }]);
++    expect(rowText(lines[0])).toBe("OwedBook · 1 pharmacy · Price shown in the billing portal · Next payment Dec 16, 2026");
++    expect(c.rpc.mock.calls.map(([n]) => n)).toEqual(["tenant_stores", "admin_stores", "owner_billing_overview"]);   // reads only
++  });
++
++  it("the row no longer reads 'Plan unavailable · Price unavailable · Billing dates unavailable' for a paid subscription", async () => {
++    const { lines } = await lineFor(PAID);
++    render(<BillingRow line={lines[0]} />);
++    expect(screen.queryByText(/Plan unavailable/)).toBeNull();
++    expect(screen.queryByText(/Billing dates unavailable/)).toBeNull();
++    expect(screen.getByText("Active")).toBeInTheDocument();
++  });
++
++  it.each([
++    ["a cancellation set for the period end", { cancel_at_period_end: true }, "Paid through Dec 16, 2026"],
++    ["a cancellation set for a date", { cancel_at: "2026-12-01T00:00:00+00:00", paid_through: "2026-12-01T00:00:00+00:00" }, "Paid through Dec 1, 2026"],
++    ["an ended subscription", { status: "canceled", raw_status: "canceled" }, "Paid through Dec 16, 2026"],
++  ])("%s shows the date it is paid through, as the Portal does", async (_name, change, dates) => {
++    const { lines } = await lineFor({ ...PAID, ...change });
++    expect(rowText(lines[0])).toBe(`OwedBook · 1 pharmacy · Price shown in the billing portal · ${dates}`);
++  });
++
++  it("pharmacies are counted from the subscription quantity", async () => {
++    const { lines } = await lineFor({ ...PAID, quantity: 3 });
++    expect(rowText(lines[0])).toMatch(/^OwedBook · 3 pharmacies · /);
++  });
++
++  it("dates the row does not hold stay honestly unavailable; nothing is filled in", async () => {
++    const { lines } = await lineFor({ ...PAID, current_period_end: null, paid_through: null, quantity: null });
++    expect(lines[0].nextChargeDate).toBeUndefined();
++    expect(lines[0].coveredStores).toBeUndefined();
++    expect(rowText(lines[0])).toBe("OwedBook · Price shown in the billing portal · Billing dates unavailable");
++  });
++
++  it("no subscription: plan, price and dates are all unavailable", async () => {
++    const { lines } = await lineFor(null);
++    expect(lines[0]).toMatchObject({ plan: "unavailable", amountLabel: "Price unavailable", subscriptionStatus: "unavailable" });
++    expect(rowText(lines[0])).toBe("Plan unavailable · Price unavailable · Billing dates unavailable");
++  });
++
++  it("a synthetic seed subscription is labelled as such and shows no price or dates", async () => {
++    const { lines } = await lineFor({ ...PAID, origin: "synthetic_seed", raw_status: null, quantity: null, latest_invoice_status: null });
++    expect(lines[0]).toMatchObject({ plan: "synthetic", amountLabel: "Not billed" });
++    expect(lines[0].nextChargeDate).toBeUndefined();
++    expect(rowText(lines[0])).toBe("Synthetic test subscription · Not billed · No billing dates");
++  });
++
++  it("a store of another account never shows this account's subscription", async () => {
++    const { lines } = await lineFor(PAID, { overviewAccount: OTHER_ACCOUNT });
++    expect(lines[0]).toMatchObject({ storeId: STORE, plan: "unavailable", amountLabel: "Price unavailable" });
++    expect(OTHER_STORE).not.toBe(STORE);
++  });
++
++  it("a store admin who is not the owner still gets the plain statement and no billing read", async () => {
++    const c = client(PAID, { capability: "admin" });
++    await expect(createAdminServices(c).billingService.listBilling()).rejects.toBeInstanceOf(BillingOwnerOnlyError);
++    expect(c.rpc.mock.calls.map(([n]) => n)).toEqual(["tenant_stores"]);
++  });
++
++  it("billing actions stay unavailable in real mode (read-only)", async () => {
++    const { lines } = await lineFor(PAID);
++    render(<BillingRow line={lines[0]} />);
++    expect(screen.getByRole("button", { name: "Manage payment", hidden: true })).toBeDisabled();
++    expect(screen.getByRole("button", { name: "Cancel", hidden: true })).toBeDisabled();
++  });
++});
+diff --git a/src/__tests__/apbm007a-access.test.tsx b/src/__tests__/apbm007a-access.test.tsx
+index 28b0544..227efbb 100644
+--- a/src/__tests__/apbm007a-access.test.tsx
++++ b/src/__tests__/apbm007a-access.test.tsx
+@@ -59,10 +59,12 @@ describe("owner-only billing read (RA-3)", () => {
+     const c = rpcBy({
+       tenant_stores: [{ id: A, account_id: ACCOUNT, name: "A", capability: "owner" }],
+       admin_stores: [{ id: A, name: "A", ncpdp: null, npi: "1234567893", status: "active", subscription_status: "active", member_count: 1 }],
+-      admin_billing_status: { account_id: ACCOUNT, subscriptions: [{ status: "active", current_period_end: null }] },
++      // U-2: the owner's current subscription comes from owner_billing_overview (0060), as in the Payment Portal.
++      owner_billing_overview: { account_id: ACCOUNT, subscription: { origin: "stripe", status: "active", quantity: 1, current_period_end: null, cancel_at: null, cancel_at_period_end: false, paid_through: null } },
+     });
+     const lines = await createAdminServices(c).billingService.listBilling();
+     expect(lines).toEqual([expect.objectContaining({ storeId: A, subscriptionStatus: "active" })]);
++    expect(c.rpc.mock.calls.map(([n]) => n)).toEqual(["tenant_stores", "admin_stores", "owner_billing_overview"]);
+   });
+   it("a store row without a billing field (non-owner redaction) maps to unavailable, not to a guess", async () => {
+     const c = rpcBy({ admin_stores: [{ id: A, name: "A", ncpdp: null, npi: "1234567893", status: "active", member_count: 1 }] });
+diff --git a/src/__tests__/auth/AuthPage.test.tsx b/src/__tests__/auth/AuthPage.test.tsx
+index 113e82c..e5cd66a 100644
+--- a/src/__tests__/auth/AuthPage.test.tsx
++++ b/src/__tests__/auth/AuthPage.test.tsx
+@@ -31,7 +31,8 @@ describe("/auth page (login-only)", () => {
+     expect(screen.queryAllByRole("link")).toHaveLength(0);
+     // APBM007A (intentional): the returning-user sign-in link request is a second button. It is not a sign-up:
+     // the request never creates a user (shouldCreateUser:false) and the removed-affordance pattern below still holds.
+-    expect(screen.getAllByRole("button").map((b) => b.textContent)).toEqual(["Login", "Email me a sign-in link"]);
++    // U-3: the password field's show/hide control is a third button (type="button"; it submits nothing).
++    expect(screen.getAllByRole("button").map((b) => b.getAttribute("aria-label") ?? b.textContent)).toEqual(["Show password", "Login", "Email me a sign-in link"]);
+     expect(container.textContent).not.toMatch(REMOVED_AFFORDANCE);
+     expect(container.innerHTML).not.toMatch(REMOVED_AFFORDANCE);
+   });
+--- /dev/null
++++ b/src/__tests__/auth/PasswordToggle.test.tsx
+@@ -0,0 +1,147 @@
++/** @jest-environment jsdom */
++// APBM007A U-3 — show/hide on every OwedBook password field: the sign-in form and both profile password fields.
++import "@testing-library/jest-dom";
++import { fireEvent, render, screen } from "@testing-library/react";
++import userEvent from "@testing-library/user-event";
++import { PasswordInput } from "@/components/ui/password-input";
++import AuthPage from "@/app/(auth)/auth/page";
++import ProfileForm from "@/app/profile/ProfileForm";
++import { AppRole } from "@/utils/app-role";
++
++const mockLogin = jest.fn();
++jest.mock("@/store/useAuthStore", () => ({
++  useAuthStore: jest.fn((selector: (state: { login: jest.Mock }) => unknown) => selector({ login: mockLogin })),
++}));
++const mockUpdateUser = jest.fn();
++jest.mock("@/utils/supabase/client", () => ({ createClient: jest.fn(() => ({ auth: { updateUser: mockUpdateUser } })) }));
++jest.mock("@/components/ui/use-toast", () => ({ useToast: () => ({ toast: jest.fn() }) }));
++
++const SECRET = "not-a-real-password-1";
++
++describe("PasswordInput (U-3)", () => {
++  it("starts hidden; the button shows and hides while the value, focus and typing carry on", async () => {
++    const user = userEvent.setup();
++    const onSubmit = jest.fn((e: React.FormEvent) => e.preventDefault());
++    render(<form onSubmit={onSubmit}><label htmlFor="pw">Password</label><PasswordInput id="pw" autoComplete="current-password" /></form>);
++    const input = screen.getByLabelText("Password") as HTMLInputElement;
++    const toggle = screen.getByRole("button", { name: "Show password" });
++    expect(input).toHaveAttribute("type", "password");
++    expect(input).toHaveAttribute("autocomplete", "current-password");
++    expect(toggle).toHaveAttribute("type", "button");
++    expect(toggle).toHaveAttribute("aria-pressed", "false");
++    expect(toggle).toHaveAttribute("aria-controls", "pw");
++
++    await user.type(input, "abc");
++    await user.click(toggle);
++    expect(input).toHaveAttribute("type", "text");
++    expect(input.value).toBe("abc");
++    expect(document.activeElement).toBe(input);   // the click did not take focus away from the field
++    expect(screen.getByRole("button", { name: "Hide password" })).toHaveAttribute("aria-pressed", "true");
++    await user.type(input, "def");                // typing continues where it was
++    expect(input.value).toBe("abcdef");
++
++    await user.click(screen.getByRole("button", { name: "Hide password" }));
++    expect(input).toHaveAttribute("type", "password");
++    expect(input.value).toBe("abcdef");
++    expect(onSubmit).not.toHaveBeenCalled();     // toggling never submits
++  });
++
++  it("is reachable by keyboard and toggles with Space and Enter without submitting", async () => {
++    const user = userEvent.setup();
++    const onSubmit = jest.fn((e: React.FormEvent) => e.preventDefault());
++    render(<form onSubmit={onSubmit}><label htmlFor="pw">Password</label><PasswordInput id="pw" /></form>);
++    await user.tab();
++    expect(document.activeElement).toBe(screen.getByLabelText("Password"));
++    await user.tab();
++    const toggle = screen.getByRole("button", { name: "Show password" });
++    expect(document.activeElement).toBe(toggle);
++    expect(toggle.className).toContain("focus-visible:ring-2");
++    await user.keyboard(" ");
++    expect(screen.getByLabelText("Password")).toHaveAttribute("type", "text");
++    await user.keyboard("{Enter}");
++    expect(screen.getByLabelText("Password")).toHaveAttribute("type", "password");
++    expect(onSubmit).not.toHaveBeenCalled();
++  });
++
++  it("puts the caret back where it was: browsers move it to the start when the type changes", async () => {
++    // The spy goes in before anything is typed: user-event wraps setSelectionRange on the element when it types, and
++    // that wrapper keeps whatever method existed at that moment.
++    const restore = jest.spyOn(HTMLInputElement.prototype, "setSelectionRange");
++    const user = userEvent.setup();
++    render(<><label htmlFor="pw">Password</label><PasswordInput id="pw" /></>);
++    const input = screen.getByLabelText("Password") as HTMLInputElement;
++    await user.type(input, "abcdef");
++    input.setSelectionRange(2, 4);
++    const before = restore.mock.calls.length;
++    await user.click(screen.getByRole("button", { name: "Show password" }));
++    expect(restore.mock.calls.slice(before)).toContainEqual([2, 4]);   // the component put the selection back
++    expect([input.selectionStart, input.selectionEnd]).toEqual([2, 4]);
++    restore.mockRestore();
++  });
++
++  it("the deferred caret restore runs on the next frame, but never after the person has started typing", async () => {
++    const frames: FrameRequestCallback[] = [];
++    const raf = jest.spyOn(window, "requestAnimationFrame").mockImplementation((cb) => { frames.push(cb); return frames.length; });
++    const user = userEvent.setup();
++    render(<><label htmlFor="pw">Password</label><PasswordInput id="pw" /></>);
++    const input = screen.getByLabelText("Password") as HTMLInputElement;
++    await user.type(input, "abc");
++    // 1) no typing before the frame: the frame puts the caret back (Chromium had moved it to the start)
++    await user.click(screen.getByRole("button", { name: "Show password" }));
++    input.setSelectionRange(0, 0);
++    frames.splice(0).forEach((cb) => cb(0));
++    expect([input.selectionStart, input.selectionEnd]).toEqual([3, 3]);
++    // 2) typing before the frame: the first key restores at once and the later frame changes nothing
++    await user.click(screen.getByRole("button", { name: "Hide password" }));
++    await user.type(input, "de", { skipClick: true });
++    frames.splice(0).forEach((cb) => cb(0));
++    expect(input.value).toBe("abcde");
++    expect([input.selectionStart, input.selectionEnd]).toEqual([5, 5]);
++    raf.mockRestore();
++  });
++
++  it("keeps a caller's padding but reserves room for the button", () => {
++    render(<PasswordInput aria-label="pw" className="p-6 bg-muted" />);
++    expect(screen.getByLabelText("pw")).toHaveClass("p-6", "pr-12", "bg-muted");
++  });
++});
++
++describe("OwedBook sign-in password (U-3)", () => {
++  it("has the toggle, keeps the typed password, and submits exactly what was typed", async () => {
++    const user = userEvent.setup();
++    mockLogin.mockResolvedValue(undefined);
++    render(<AuthPage />);
++    const pw = screen.getByLabelText("Password") as HTMLInputElement;
++    await user.type(screen.getByLabelText("Email"), "owner@example.test");
++    await user.type(pw, SECRET);
++    await user.click(screen.getByRole("button", { name: "Show password" }));
++    expect(pw).toHaveAttribute("type", "text");
++    expect(pw.value).toBe(SECRET);
++    expect(mockLogin).not.toHaveBeenCalled();   // the toggle did not submit
++    await user.click(screen.getByRole("button", { name: "Login" }));
++    expect(mockLogin).toHaveBeenCalledTimes(1);
++    expect(JSON.stringify(mockLogin.mock.calls[0])).toContain(SECRET);
++  });
++});
++
++describe("OwedBook profile password fields (U-3)", () => {
++  const user = { id: "u1", email: "member@example.test", user_metadata: { full_name: "Member", role: "member" } } as never;
++  it("both new-password fields have their own toggle and keep their values; validation is unchanged", async () => {
++    const ue = userEvent.setup();
++    render(<ProfileForm user={user} role={AppRole.MEMBER} />);
++    const fields = [screen.getByPlaceholderText("Minimum 8 characters"), screen.getByPlaceholderText("Re-enter new password")] as HTMLInputElement[];
++    const toggles = screen.getAllByRole("button", { name: "Show password" });
++    expect(toggles).toHaveLength(2);
++    for (const f of fields) expect(f).toHaveAttribute("type", "password");
++    await ue.type(fields[0], "abcdefgh");
++    await ue.type(fields[1], "abcdefgx");
++    await ue.click(toggles[0]);
++    expect(fields[0]).toHaveAttribute("type", "text");
++    expect(fields[1]).toHaveAttribute("type", "password");   // each toggle controls its own field
++    expect(fields[0].value).toBe("abcdefgh");
++    expect(mockUpdateUser).not.toHaveBeenCalled();
++    fireEvent.click(screen.getByRole("button", { name: "Update Password" }));
++    expect(await screen.findByText(/match/i)).toBeInTheDocument();   // the existing mismatch validation still runs
++    expect(mockUpdateUser).not.toHaveBeenCalled();
++  });
++});
+diff --git a/src/__tests__/layout/AdminSidebar.test.tsx b/src/__tests__/layout/AdminSidebar.test.tsx
+index 8c6318f..e774393 100644
+--- a/src/__tests__/layout/AdminSidebar.test.tsx
++++ b/src/__tests__/layout/AdminSidebar.test.tsx
+@@ -17,7 +17,8 @@ class ResizeObserverStub {
+ // cmdk also scrolls the active item into view; jsdom has no layout engine.
+ Element.prototype.scrollIntoView = () => {};
+ 
+-import AdminSidebar from "@/components/layout/AdminSidebar";
++import { fireEvent } from "@testing-library/react";
++import AdminSidebar, { selectedAdminHref } from "@/components/layout/AdminSidebar";
+ 
+ // next/navigation is globally mocked in jest.setup; override usePathname per test.
+ const mockUsePathname = usePathname as jest.Mock;
+@@ -53,7 +54,73 @@ describe("AdminSidebar surface-awareness", () => {
+   it("marks My Stores active on a /stores/* drill-down, not Billing", () => {
+     mockUsePathname.mockReturnValue("/admin-portal/stores/store-1");
+     render(<AdminSidebar />);
+-    expect(screen.getByText("My Stores").closest("[cmdk-item]")).toHaveClass("font-bold");
+-    expect(screen.getByText("Billing").closest("[cmdk-item]")).not.toHaveClass("font-bold");
++    expect(screen.getByRole("link", { name: "My Stores" })).toHaveAttribute("aria-current", "page");
++    expect(screen.getByRole("link", { name: "Billing" })).not.toHaveAttribute("aria-current");
++  });
++});
++
++// U-1: the route is the only source of the selected item.
++describe("AdminSidebar route-driven selection (U-1)", () => {
++  const links = () => screen.getAllByRole("link");
++  const selectedLinks = () => links().filter((l) => l.getAttribute("aria-current") === "page");
++  const expectOnlySelected = (label: string) => {
++    expect(selectedLinks().map((l) => l.textContent)).toEqual([label]);
++    for (const l of links()) {
++      const on = l.textContent === label;
++      // Selected: solid coral fill with white text. Every other item: no fill, a coral outline on hover only.
++      expect(l.className.includes("bg-primary")).toBe(on);
++      expect(l.className.includes("text-primary-foreground")).toBe(on);
++      expect(l.className.includes("hover:border-primary")).toBe(!on);
++      expect(l).toHaveClass("focus-visible:ring-2");   // a visible keyboard focus ring on every item
++    }
++  };
++
++  it.each([
++    ["/admin-portal", "/admin-portal"],
++    ["/admin-portal/", "/admin-portal"],
++    ["/admin-portal/stores/abc", "/admin-portal"],
++    ["/admin-portal/stores/abc/invite", "/admin-portal"],
++    ["/admin-portal/billing", "/admin-portal/billing"],
++    ["/admin-portal/billing/", "/admin-portal/billing"],
++    ["/admin-portal/settings", "/admin-portal/settings"],
++    ["/admin-portal/audit", "/admin-portal/audit"],
++    ["/admin-portal/billingx", null],
++    ["/admin-portal/unknown", null],
++    ["/owedbook", null],
++  ])("%s selects %s", (path, href) => {
++    expect(selectedAdminHref(path)).toBe(href);
++  });
++
++  it("exactly one item is selected on each admin route, and it is the route's own", () => {
++    for (const [path, label] of [["/admin-portal", "My Stores"], ["/admin-portal/billing", "Billing"], ["/admin-portal/settings", "Settings"], ["/admin-portal/audit", "Audit log"], ["/admin-portal/stores/s1/invite", "My Stores"]]) {
++      mockUsePathname.mockReturnValue(path);
++      const { unmount } = render(<AdminSidebar />);
++      expectOnlySelected(label);
++      unmount();
++    }
++  });
++
++  it("moving from Audit log to Billing moves the selection; nothing stays highlighted from the click", () => {
++    mockUsePathname.mockReturnValue("/admin-portal/audit");
++    const { rerender } = render(<AdminSidebar />);
++    expectOnlySelected("Audit log");
++    const billing = screen.getByRole("link", { name: "Billing" });
++    fireEvent.pointerMove(billing); fireEvent.mouseEnter(billing); fireEvent.focus(billing); fireEvent.click(billing);
++    expectOnlySelected("Audit log");   // pointer, focus and click do not select anything: only the route does
++    mockUsePathname.mockReturnValue("/admin-portal/billing");   // the navigation lands (the layout keeps the sidebar mounted)
++    rerender(<AdminSidebar />);
++    expectOnlySelected("Billing");
++    mockUsePathname.mockReturnValue("/admin-portal/audit");
++    rerender(<AdminSidebar />);
++    expectOnlySelected("Audit log");
++  });
++
++  it("the items are plain links in a labelled navigation, reachable by keyboard", () => {
++    mockUsePathname.mockReturnValue("/admin-portal/billing");
++    render(<AdminSidebar />);
++    expect(screen.getByRole("navigation", { name: "Admin Portal" })).toBeInTheDocument();
++    expect(links().map((l) => l.getAttribute("href"))).toEqual(["/admin-portal", "/admin-portal/billing", "/admin-portal/settings", "/admin-portal/audit"]);
++    for (const l of links()) { l.focus(); expect(document.activeElement).toBe(l); }
++    expect(document.querySelectorAll("[cmdk-item]")).toHaveLength(0);   // no command-palette selection state remains
+   });
+ });
+diff --git a/src/types/adminDemo.ts b/src/types/adminDemo.ts
+index 4d0d81f..c47c0e1 100644
+--- a/src/types/adminDemo.ts
++++ b/src/types/adminDemo.ts
+@@ -17,7 +17,9 @@ export type StoreStatus = "active" | "suspended" | "unavailable";
+ export type SubscriptionStatus = "active" | "past_due" | "canceled" | "trialing" | "unpaid" | "incomplete" | "incomplete_expired" | "paused" | "unavailable";
+ 
+ // Billing plan (demo values; Phase-7 maps to real Stripe price/plan_type)
+-export type BillingPlan = "standard" | "concierge" | "unavailable";
++// "owedbook" and "synthetic" are the real-mode plans read from the owner's subscription (U-2); "standard" and
++// "concierge" belong to the demo seed only.
++export type BillingPlan = "standard" | "concierge" | "owedbook" | "synthetic" | "unavailable";
+ 
+ // Audit action vocabulary (the owner's own actions)
+ export type AuditAction =
+@@ -74,6 +76,8 @@ export interface BillingLine {
+   plan: BillingPlan;
+   subscriptionStatus: SubscriptionStatus;
+   nextChargeDate?: string; // ISO; present when active
++  paidThroughDate?: string; // ISO; real mode, when the subscription ends or is set to end (no further charge)
++  coveredStores?: number; // real mode: pharmacies covered by the subscription (its quantity)
+   retryDate?: string; // ISO; present when past_due
+   amountLabel: string; // display only, e.g. "$49/mo" (demo; Phase-7 = real Stripe)
+   // Actions are VISUAL ONLY: managePayment, cancel — no checkout, no charge.

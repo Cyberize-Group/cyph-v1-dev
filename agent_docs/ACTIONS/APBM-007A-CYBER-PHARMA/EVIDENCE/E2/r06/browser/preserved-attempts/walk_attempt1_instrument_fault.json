@@ -1,0 +1,204 @@
+{
+ "started_at": "2026-11-16T08:45:10.271Z",
+ "kind": "FIXTURE PROOF (production builds against a local Supabase stand-in); not live proof",
+ "checks": [
+  {
+   "name": "[light-1440] dark class matches theme",
+   "ok": true
+  },
+  {
+   "name": "[light-1440] on Audit log only Audit log is selected (coral fill, white text)",
+   "ok": false,
+   "st": [
+    {
+     "label": "My Stores",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(36, 41, 50)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Billing",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(36, 41, 50)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Settings",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(36, 41, 50)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Audit log",
+     "current": "page",
+     "bg": "rgb(249, 112, 78)",
+     "color": "rgb(255, 255, 255)",
+     "border": "rgb(249, 112, 78)",
+     "boxShadow": "none"
+    }
+   ]
+  },
+  {
+   "name": "[light-1440] hovering Billing: coral outline, no fill; Audit log stays the only selection",
+   "ok": false,
+   "billing": {
+    "label": "Billing",
+    "current": null,
+    "bg": "rgba(0, 0, 0, 0)",
+    "color": "rgb(36, 41, 50)",
+    "border": "rgba(0, 0, 0, 0)",
+    "boxShadow": "none"
+   }
+  },
+  {
+   "name": "[light-1440] keyboard focus on a nav link shows a visible ring",
+   "ok": true,
+   "focused": {
+    "label": "My Stores",
+    "boxShadow": "rgb(237, 239, 243) 0px 0px 0px 2px, rgb(249, 112, 78) 0px 0px 0px 4px, rgba(0, 0, 0, 0) 0px 0px 0px 0px",
+    "focusVisible": true
+   }
+  },
+  {
+   "name": "[light-1440] after Audit log → Billing only Billing is selected; Audit log keeps no highlight",
+   "ok": false,
+   "st": [
+    {
+     "label": "My Stores",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(36, 41, 50)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Billing",
+     "current": "page",
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(36, 41, 50)",
+     "border": "rgba(249, 112, 78, 0.03)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Settings",
+     "current": null,
+     "bg": "rgba(0, 0, 0, 0)",
+     "color": "rgb(36, 41, 50)",
+     "border": "rgba(0, 0, 0, 0)",
+     "boxShadow": "none"
+    },
+    {
+     "label": "Audit log",
+     "current": null,
+     "bg": "rgb(249, 112, 78)",
+     "color": "rgb(255, 255, 255)",
+     "border": "rgb(249, 112, 78)",
+     "boxShadow": "none"
+    }
+   ]
+  },
+  {
+   "name": "[light-1440] billing row shows plan, pharmacies, price pointer and next payment",
+   "ok": true,
+   "text": "OwedBook · 1 pharmacy · Price shown in the billing portal · Next payment Dec 16, 2026"
+  },
+  {
+   "name": "[light-1440] no unavailable text for the paid subscription",
+   "ok": true
+  },
+  {
+   "name": "[light-1440] real mode: per-store payment actions hidden; one Manage billing link",
+   "ok": true
+  },
+  {
+   "name": "[light-1440] Billing → Audit log moves the selection back",
+   "ok": false
+  },
+  {
+   "name": "[light-375] dark class matches theme",
+   "ok": true
+  }
+ ],
+ "screenshots": [
+  "u1-light-1440-audit.png",
+  "u1-light-1440-hover-billing.png",
+  "u1-light-1440-keyboard-focus.png",
+  "u2-light-1440-billing-paid.png"
+ ],
+ "requests": [
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/admin_audit"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/admin_stores"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/owner_billing_overview"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/tenant_stores"
+  },
+  {
+   "theme": "light",
+   "width": 1440,
+   "method": "POST",
+   "host": "127.0.0.1:54399",
+   "path": "/rest/v1/rpc/admin_audit"
+  }
+ ],
+ "failure": "locator.click: Error: strict mode violation: getByRole('button', { name: /^Open / }) resolved to 2 elements:\n    1) <button type=\"button\" aria-expanded=\"false\" aria-label=\"Open menu\" class=\"lg:hidden shrink-0 p-2 text-navbar-foreground hover:opacity-80\">…</button> aka getByRole('button', { name: 'Open menu', exact: true })\n    2) <button type=\"button\" aria-expanded=\"false\" aria-label=\"Open Menu\" c",
+ "finished_at": "2026-11-16T08:45:12.642Z",
+ "summary": {
+  "checks": 10,
+  "passed": 6,
+  "failed": [
+   "[light-1440] on Audit log only Audit log is selected (coral fill, white text)",
+   "[light-1440] hovering Billing: coral outline, no fill; Audit log stays the only selection",
+   "[light-1440] after Audit log → Billing only Billing is selected; Audit log keeps no highlight",
+   "[light-1440] Billing → Audit log moves the selection back"
+  ]
+ }
+}

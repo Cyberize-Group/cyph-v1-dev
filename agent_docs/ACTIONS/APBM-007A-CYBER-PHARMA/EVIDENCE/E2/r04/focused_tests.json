@@ -1,0 +1,68 @@
+{
+ "run": "repaired checkout.ts, QA checkout after transfer",
+ "cwd": "Payment Portal checkout, qa/apbm-007a, base 357c274 + r04 working tree",
+ "passed": 15,
+ "total": 15,
+ "tests": [
+  {
+   "title": "F-Q4-001 \u2014 lost provider answer, then a retry with a different operation key \u203a resumes the original operation: one customer, one Checkout session, one operation, nothing marked unpaid",
+   "status": "passed"
+  },
+  {
+   "title": "F-Q4-001 \u2014 lost provider answer, then a retry with a different operation key \u203a also when the customer answer was the one lost: the retry gets the same customer back",
+   "status": "passed"
+  },
+  {
+   "title": "F-Q4-001 \u2014 lost provider answer, then a retry with a different operation key \u203a the same-key retry after a lost answer gets the original session even seconds later (identical parameters)",
+   "status": "passed"
+  },
+  {
+   "title": "F-Q4-001 \u2014 lost provider answer, then a retry with a different operation key \u203a two retries with different keys at the same moment still produce one customer, one session and one operation",
+   "status": "passed"
+  },
+  {
+   "title": "F-Q4-001 \u2014 lost provider answer, then a retry with a different operation key \u203a a request that never reached Stripe is resumed later with a fresh expiry, once (Stripe saved nothing under the key)",
+   "status": "passed"
+  },
+  {
+   "title": "F-Q4-001 \u2014 lost provider answer, then a retry with a different operation key \u203a a resumed attempt whose session already lapsed is released only on that provider proof; a later attempt starts cleanly",
+   "status": "passed"
+  },
+  {
+   "title": "F-Q4-001 \u2014 lost provider answer, then a retry with a different operation key \u203a after an edit, the earlier unknown attempt is settled with Stripe first and the new attempt keeps the same customer",
+   "status": "passed"
+  },
+  {
+   "title": "F-Q4-001 \u2014 lost provider answer, then a retry with a different operation key \u203a after an edit with the customer answer also lost and the email changed, nothing is duplicated or released (stays recoverable)",
+   "status": "passed"
+  },
+  {
+   "title": "F-Q4-001 \u2014 existing protections kept \u203a a new key cannot bypass an operation whose Checkout session is recorded",
+   "status": "passed"
+  },
+  {
+   "title": "F-Q4-001 \u2014 existing protections kept \u203a a double submit with one key creates one operation and one session",
+   "status": "passed"
+  },
+  {
+   "title": "F-Q4-001 \u2014 existing protections kept \u203a missing consent and a stale quote are refused before any provider call",
+   "status": "passed"
+  },
+  {
+   "title": "F-Q4-001 \u2014 existing protections kept \u203a a draft secret that is not this draft's reaches nothing",
+   "status": "passed"
+  },
+  {
+   "title": "F-Q4-001 \u2014 existing protections kept \u203a a lost reservation still expires the new session through Stripe and closes the attempt",
+   "status": "passed"
+  },
+  {
+   "title": "F-Q4-001 \u2014 release requires provider proof \u203a an operation with no recorded session is never released as unpaid",
+   "status": "passed"
+  },
+  {
+   "title": "F-Q4-001 \u2014 release requires provider proof \u203a an open recorded session is kept; an expired unpaid one is released",
+   "status": "passed"
+  }
+ ]
+}

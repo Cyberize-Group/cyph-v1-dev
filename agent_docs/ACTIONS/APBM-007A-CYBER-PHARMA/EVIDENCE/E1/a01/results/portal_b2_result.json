@@ -1,0 +1,104 @@
+{
+ "steps": [
+  {
+   "step": "cancel page",
+   "path": "/p/session/subscriptions/<id>/cancel",
+   "text": [
+    "Cancel",
+    "If you cancel this subscription, it will still be available until the end of your billing period on December 12, 2026.",
+    "Cancel subscription"
+   ],
+   "controls": [
+    "a:Return to Cyber Pharma",
+    "button:Billing",
+    "button:Cancel subscription",
+    "a:Go back"
+   ]
+  },
+  {
+   "step": "after confirm",
+   "path": "/p/session/subscriptions/<id>/cancel",
+   "text": [
+    "Cancel",
+    "If you cancel this subscription, it will still be available until the end of your billing period on December 12, 2026.",
+    "Canceling…"
+   ],
+   "controls": [
+    "a:Return to Cyber Pharma",
+    "button:Billing",
+    "button:Canceling…",
+    "a:Go back"
+   ],
+   "api": {
+    "status": "active",
+    "cancel_at_period_end": false,
+    "cancel_at": "2026-12-12",
+    "qty": [
+     1
+    ]
+   }
+  },
+  {
+   "step": "overview after cancel",
+   "path": "/p/session",
+   "text": [
+    "CURRENT SUBSCRIPTION",
+    "Cancels Dec 12",
+    "Don't cancel subscription"
+   ],
+   "controls": [
+    "a:Return to Cyber Pharma",
+    "a:Hide details",
+    "a:Don't cancel subscription",
+    "a:Delete",
+    "a:Add payment method",
+    "a:Search invoices",
+    "a:Nov 12, 2026\n$99.00\nPaid\n\nE1_ONLY OwedBook stores (cand B gr"
+   ]
+  },
+  {
+   "step": "renew page",
+   "path": "/p/session/subscriptions/<id>/reactivate",
+   "text": [
+    "Renew",
+    "Renew your subscription",
+    "CURRENT SUBSCRIPTION",
+    "This subscription will no longer be canceled. It will renew on December 12, 2026.",
+    "By renewing your subscription, you agree to Cyber Pharma's Terms of Service and Privacy Policy.",
+    "Renew subscription"
+   ],
+   "controls": [
+    "a:Return to Cyber Pharma",
+    "button:Billing",
+    "button:Renew subscription",
+    "a:Go back"
+   ]
+  },
+  {
+   "step": "after renew",
+   "path": "/p/session/subscriptions/<id>/reactivate",
+   "text": [
+    "Renew",
+    "Renew your subscription",
+    "CURRENT SUBSCRIPTION",
+    "This subscription will no longer be canceled. It will renew on December 12, 2026.",
+    "By renewing your subscription, you agree to Cyber Pharma's Terms of Service and Privacy Policy.",
+    "Renewing…"
+   ],
+   "controls": [
+    "a:Return to Cyber Pharma",
+    "button:Billing",
+    "button:Renewing…",
+    "a:Go back"
+   ],
+   "api": {
+    "status": "active",
+    "cancel_at_period_end": false,
+    "cancel_at": null,
+    "qty": [
+     1
+    ]
+   }
+  }
+ ]
+}

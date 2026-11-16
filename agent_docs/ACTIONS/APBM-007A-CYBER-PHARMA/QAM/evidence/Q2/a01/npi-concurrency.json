@@ -1,0 +1,25 @@
+{
+  "scenario": "real two-connection NPI reservation contention",
+  "draft_ids": [
+    "31e2aa86-289d-4558-8aa7-cf26aebf7b28",
+    "0eaf51d6-f67d-45f9-b112-355e5fa68f42"
+  ],
+  "npi": "1999131307",
+  "persistent": true,
+  "auth_writes": 0,
+  "user_id": "e9e1e312-9614-4674-adc9-de2e06907ac9",
+  "drafts_committed": 2,
+  "first": {
+    "outcome": "held",
+    "reservation_id": "67e31848-37e4-44e0-8d85-58199faa834f",
+    "blocking_operation_id": null
+  },
+  "second_waited_before_first_commit": true,
+  "second": {
+    "outcome": "unavailable",
+    "reservation_id": null,
+    "blocking_operation_id": null
+  },
+  "active_count": 1,
+  "pass": true
+}

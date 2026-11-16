@@ -1,0 +1,63 @@
+{
+  "owedbook": {
+    "head": "37f6c0dd63f7a087ec44dd9d3ef79b74bb203f40",
+    "branch": "qa/apbm-007a",
+    "still_at_pre_repair_parent": true,
+    "product": [],
+    "tracked_changes": [
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/AMENDMENT_LEDGER.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_JOURNAL.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_RULINGS.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_STATE.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/AC_EVIDENCE_MATRIX.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/FINDINGS.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/QA_HANDOFF.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/REVIEW_START_HERE.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_APPROVAL.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_CLEANUP_REPORT.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_EXECUTION_REPORT.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_RECON_REPORT.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_STATE.md",
+      "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/QAM_TEST_PLAN.md"
+    ]
+  },
+  "portal": {
+    "head": "9d938f62bff6172f9332ae6c67775e4b8feea379",
+    "branch": "qa/apbm-007a",
+    "still_at_pre_repair_parent": true,
+    "product": [
+      {
+        "path": "src/__tests__/apbm007a-server.test.ts",
+        "worktree_matches_manifest": true,
+        "tracked_at_head": true
+      },
+      {
+        "path": "src/__tests__/portal-owner.test.tsx",
+        "worktree_matches_manifest": true,
+        "tracked_at_head": true
+      },
+      {
+        "path": "src/components/portal/register/PharmacyStepView.tsx",
+        "worktree_matches_manifest": true,
+        "tracked_at_head": true
+      },
+      {
+        "path": "src/server/billing.ts",
+        "worktree_matches_manifest": true,
+        "tracked_at_head": true
+      },
+      {
+        "path": "src/__tests__/portal-registration-journey.test.tsx",
+        "worktree_matches_manifest": true,
+        "tracked_at_head": false
+      }
+    ],
+    "tracked_changes": [
+      "RECOVERY.md",
+      "src/__tests__/apbm007a-server.test.ts",
+      "src/__tests__/portal-owner.test.tsx",
+      "src/components/portal/register/PharmacyStepView.tsx",
+      "src/server/billing.ts"
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "at": "2026-11-12T12:52:04.785Z",
+  "readOnly": "on",
+  "ledger": {
+    "rows": 52,
+    "last": "0052_system_config.sql"
+  },
+  "npi": {
+    "duplicates": 0,
+    "nulls": 0,
+    "stores": 5
+  },
+  "policyBusinessUpdateAdmin": 1,
+  "customerStoreUpdatesInAudit": 0,
+  "subscriptions": {
+    "total": 3,
+    "stripe_linked": 0,
+    "exact_fixture_matches": 3,
+    "accounts_with_two_current": 0
+  },
+  "nameCollisions": [],
+  "schemaHandoffExists": 0,
+  "functionCollisions": [],
+  "triggerFunctionsPresent": 7,
+  "ownersWithMoreThanOneAccount": 0,
+  "authSessionsReadableByThisRole": true,
+  "currentUser": "postgres",
+  "serverVersion": "17.6"
+}
