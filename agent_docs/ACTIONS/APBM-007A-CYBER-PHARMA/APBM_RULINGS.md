@@ -107,3 +107,13 @@ Source: QA Lead (Friday) ruling B2 on F-Q1-02 and ruling B3 on F-Q1-03 (`QAM/QAM
 | Any A1 evidence that independent QA proves in SQL | (not stated) | Independent SQL and fixture proofs are SCRATCH-only; DEV receives only the application-mediated effects in the approved capsule |
 
 No requirement, deferral or result changes. A1-2 (G2, NOT RUN BY DIRECTOR RULING), A1-3's reminder-email deferral and CARRY_FORWARD_007B O-1/O-2 stand as approved.
+
+## Director rulings — 16 November 2026 (final UI repair; relayed by JARVIS, recorded by the engineering seat)
+
+Recorded as given:
+
+- Mission Control is outside 007A scope: not graded and not a module limitation.
+- Placeholder Terms, Privacy, support address and price-consent wording are accepted for 007A local use.
+- Those placeholders must be resolved before any external or staging exposure.
+
+Earlier records keep their wording (QAM B8/B9 and LR-06/LR-08 are QA-owned and are reconciled by QA and the QA Lead). The staging precondition is also recorded in STAGING_RELEASE.md and as CARRY_FORWARD_007B.md O-3.

@@ -1,0 +1,62 @@
+{
+ "kind": "FIXTURE PROOF: every request the two proof builds made to the Supabase stand-in during the final walk",
+ "total": 186,
+ "by_endpoint": [
+  {
+   "method": "GET",
+   "endpoint": "/auth/v1/user",
+   "answer": 200,
+   "from": "server",
+   "count": 116
+  },
+  {
+   "method": "GET",
+   "endpoint": "/rest/v1/user_roles",
+   "answer": 200,
+   "from": "server",
+   "count": 24
+  },
+  {
+   "method": "POST",
+   "endpoint": "rpc/tenant_stores",
+   "answer": 200,
+   "from": "browser",
+   "count": 21
+  },
+  {
+   "method": "POST",
+   "endpoint": "rpc/admin_audit",
+   "answer": 200,
+   "from": "browser",
+   "count": 8
+  },
+  {
+   "method": "POST",
+   "endpoint": "rpc/tenant_stores",
+   "answer": 200,
+   "from": "server",
+   "count": 7
+  },
+  {
+   "method": "POST",
+   "endpoint": "rpc/admin_stores",
+   "answer": 200,
+   "from": "browser",
+   "count": 5
+  },
+  {
+   "method": "POST",
+   "endpoint": "rpc/owner_billing_overview",
+   "answer": 200,
+   "from": "browser",
+   "count": 5
+  }
+ ],
+ "refused": [],
+ "writes": [],
+ "scenarios_used": [
+  "nonowner",
+  "paid",
+  "synthetic"
+ ]
+}

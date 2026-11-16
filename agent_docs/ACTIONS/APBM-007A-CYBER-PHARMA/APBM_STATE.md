@@ -212,3 +212,14 @@ Checks: portal 463/463 (tested copy and QA checkout), focused 42/42, 10 poison c
 DEV 25acbfb9 untouched; its operator recovery is described for QA (REPAIR §6).
 QA's 6,613 paths backed up privately and verified unchanged.
 Record: EVIDENCE/E2/r05/REPAIR_F-Q4-003_F-Q4-002_F-Q4-004.md; commit handoff EVIDENCE/E2/r05/commit/. Next owner: Tony (commits, rebuild and restart the portal); then Friday binds and retests. No deployment.
+
+## Final UI repair r06 — U-1, U-2, U-3, 16 November 2026 (engineering seat)
+
+Reported pair resolved: OwedBook `c976968b20ee724f7390d5e0e008215f50ab6f25`, Payment Portal `54a56b55ea7c72783d17d06ff45cd27b5426803f` (portal product `6ed09ff`). Both checkouts on `qa/apbm-007a`.
+- U-1: the admin sidebar's orange fill came from cmdk's own pointer and keyboard selection, not the route. The items are now plain links, and the route selects exactly one.
+- U-2: the real-mode billing read and row hard-coded "Plan unavailable · Price unavailable · Billing dates unavailable". Plan, pharmacies and dates now come from `owner_billing_overview` (the read the Portal uses). No authorized source holds a price amount, so OwedBook points to the billing portal (limitation L1).
+- U-3: show/hide on all four password fields in both apps. The production-browser walk found two caret defects (Chromium resets the caret on a type change; a deferred restore could race typing); both fixed and tested.
+Checks: OwedBook 309/309, Portal 468/468 (tested copies and QA checkouts); typecheck clean; lint 0 errors (warnings equal to the candidates); both production builds and bundle scans clean; production-build browser walk 73/73 (fixture proof).
+Director rulings on Mission Control and placeholders recorded (APBM_RULINGS.md; STAGING_RELEASE.md; CARRY_FORWARD_007B.md O-3).
+QA's 9,805 paths backed up privately and verified unchanged. No database, Stripe, Auth, email or payment effect.
+Record: EVIDENCE/E2/r06/REPAIR_U-1_U-2_U-3.md; commit handoff EVIDENCE/E2/r06/commit/. Next owner: Tony (commits, rebuild both apps); Friday binds; Cody's focused retest. No deployment.

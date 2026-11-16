@@ -16,3 +16,7 @@ Deploy only the frozen single graduated price/item B and its STRIPE_PRICE_STORES
 - Tony chooses DEV project's Site URL at joint staging release, accounting for any other project consumers; it is localhost today. Exact app redirects still govern intended destinations.
 - Tony decides whether to shorten access-token lifetime from 3600 to 900 seconds. No automatic change; existing issued tokens retain their expiry. Record the shared-project/Mission Control impact.
 - Confirm new origins, host-only staging cookies, correct webhook secret and exact app pair; no wildcard parent-domain session cookie.
+
+## Precondition — Director ruling 16 November 2026 (APBM_RULINGS.md)
+
+Placeholder Terms, Privacy, support address and price-consent wording are accepted for 007A local use only. They must be resolved before any external or staging exposure.

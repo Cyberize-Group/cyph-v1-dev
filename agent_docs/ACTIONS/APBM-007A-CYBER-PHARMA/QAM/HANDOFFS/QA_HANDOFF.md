@@ -83,3 +83,19 @@ Recorded by the engineering seat under JARVIS's consolidated repair for F-Q4-003
 | Runtime | Rebuild and restart the portal on the repaired candidate before Friday binds the pair |
 | Retest impact | REPAIR §10 |
 | Release | Engineering releases both checkouts to QA once the Director's r05 commits verify against `EVIDENCE/E2/r05/commit/COMMIT_MANIFEST.json` |
+
+## Engineering repair r06 record — 16 November 2026 (Asia/Dhaka)
+
+Recorded by the engineering seat under JARVIS's final bounded UI repair (U-1, U-2, U-3). The repair was made on `qa/apbm-007a` in the existing checkouts; no branch switch, worktree, stash or Git mutation. QA's uncommitted work (9,805 OwedBook paths, one ignored portal output) was backed up privately and verified unchanged; Engineering edited none of it. QA was in the Director-gated a06 wait throughout.
+
+| Field | Value |
+|---|---|
+| Record | `EVIDENCE/E2/r06/REPAIR_U-1_U-2_U-3.md` |
+| Product change | OwedBook: `AdminSidebar.tsx`, `BillingRow.tsx`, `services/adminDemo.ts`, `types/adminDemo.ts`, `LoginForm.tsx`, `ProfileForm.tsx`, new `ui/password-input.tsx`. Portal: `FormField.tsx`, `LoginPageContent.tsx`. Plus tests. No database change |
+| Bases | OwedBook `c976968`, Portal `54a56b5`; new commits pending the Director (`EVIDENCE/E2/r06/commit/`) |
+| QA backup | `~/APBM007A_QA_BACKUPS/u123_r06_20261116_150305/`, manifest `SHA256SUMS.before` (9,806 entries) |
+| Live check for QA | U-2 rendering of DEV's real paid subscription for the real owner (the engineering walk is fixture proof) |
+| Director rulings | Mission Control out of scope; placeholders accepted for local use, resolved before staging (APBM_RULINGS.md) |
+| Runtime | Rebuild **both** apps on the repaired pair before Friday binds |
+| Retest impact | REPAIR §10 |
+| Release | Engineering releases both checkouts to QA once the Director's r06 commits verify against `EVIDENCE/E2/r06/commit/COMMIT_MANIFEST.json` |

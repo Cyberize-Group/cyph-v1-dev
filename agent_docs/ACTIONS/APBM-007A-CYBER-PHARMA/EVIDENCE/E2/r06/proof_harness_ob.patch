@@ -1,0 +1,11 @@
+--- /home/moose/NEXTJS/CYBER_PHARMA/ARCHIVE/APBM007A_E2_WORK/r06/ob/src/lib/appIdentity.ts	2026-11-12 17:14:08.970046414 +0600
++++ /home/moose/NEXTJS/CYBER_PHARMA/ARCHIVE/APBM007A_E2_WORK/r06/ob-proof/src/lib/appIdentity.ts	2026-11-16 15:00:54.441081013 +0600
+@@ -8,7 +8,7 @@
+ export const PEER_ID: AppId = 'pp';
+ 
+ const ORIGINS: Record<AppEnv, Record<AppId, string>> = {
+-  local: { ob: 'http://localhost:3000', pp: 'http://localhost:3001' },
++  local: { ob: 'http://localhost:3100', pp: 'http://localhost:3101' },   // PROOF HARNESS ONLY (r06): QA holds 3000/3001
+   staging: { ob: 'https://owedbook.cyberizedev.com', pp: 'https://owedbook-payment.cyberizedev.com' },
+ };
+ 

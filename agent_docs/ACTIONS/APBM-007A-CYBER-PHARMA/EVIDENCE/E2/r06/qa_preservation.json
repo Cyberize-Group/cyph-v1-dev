@@ -1,0 +1,26 @@
+{
+ "checked_at": "2026-11-16 (Asia/Dhaka), after transfer and records, before packaging",
+ "backup": "~/APBM007A_QA_BACKUPS/u123_r06_20261116_150305/ (private, mode 700, outside both repositories)",
+ "manifest": {
+  "file": "SHA256SUMS.before",
+  "entries": 9806,
+  "sha256": "37fe18d8745236a8ab01a623cfcec7d14c277ebeb4cfd0b111b90724f533d5e3"
+ },
+ "inventory": {
+  "owedbook_uncommitted_qa_paths": 9805,
+  "all_under": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/",
+  "bytes": 728636412,
+  "portal_ignored_qa_output": [
+   "test-results/transition-matrix.json"
+  ],
+  "portal_changes_before_work": 0
+ },
+ "backup_method": "full byte copy of all 9,805 QA paths plus the portal output; env, cast, inbox, auth-state and browser-profile files not copied or hashed",
+ "qa_paused": "QAM_STATE.md: Q4 a06 waiting for Director check step N (Director-gated; QA writes only on request). Latest QA write 14:21:22, before the backup at 15:03 and unchanged through packaging. The only running QA helper (Q4-a04/resume-payment.cjs) was sleeping and untouched.",
+ "verification": {
+  "backup_vs_manifest": "verified with sha256sum -c",
+  "after_work_vs_manifest": "0 mismatches across 9,806 entries",
+  "owedbook_QAM_status_lines": "identical to the before-work status (QA_HANDOFF.md excepted: engineering-owned, appended)"
+ },
+ "qa_runtime": "servers :3000, :3001, :3457 and the Stripe listener untouched"
+}

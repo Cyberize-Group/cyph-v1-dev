@@ -1,0 +1,10 @@
+client files: 45
+  SERVERKEY_CANARY: 0
+  sk_test_CANARY: 0
+  whsec_CANARY: 0
+  SUPABASE_SECRET_KEY: 0
+  STRIPE_SECRET_KEY: 0
+  STRIPE_WEBHOOK_SECRET: 0
+  createAdminClient: 0
+  service_role: 0
+  api.stripe.com: 0

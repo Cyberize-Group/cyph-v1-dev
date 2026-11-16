@@ -1,0 +1,58 @@
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_JOURNAL.md
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_RULINGS.md
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_STATE.md
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CARRY_FORWARD_007B.md
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/QA_HANDOFF.md
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/STAGING_RELEASE.md
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/REPAIR_U-1_U-2_U-3.md
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/fixture_requests_summary.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/preserved-attempts/walk_attempt1_instrument_fault.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/preserved-attempts/walk_attempt2_instrument_fault.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/preserved-attempts/walk_attempt3_caret_defect_found.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/preserved-attempts/walk_attempt4_first_caret_fix_insufficient.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/preserved-attempts/walk_attempt5_passed_before_race_fix.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u1-dark-1440-audit.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u1-dark-1440-hover-billing.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u1-dark-1440-keyboard-focus.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u1-dark-375-audit.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u1-light-1440-audit.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u1-light-1440-hover-billing.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u1-light-1440-keyboard-focus.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u1-light-375-audit.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u2-dark-1440-billing-paid.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u2-dark-375-billing-paid.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u2-light-1440-billing-paid.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u2-light-375-billing-paid.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u2-nonowner.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u2-synthetic.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u3-OwedBook profile new password-keyboard.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u3-OwedBook profile new password-shown.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u3-OwedBook sign-in dark-375-keyboard.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u3-OwedBook sign-in dark-375-shown.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u3-OwedBook sign-in light-1440-keyboard.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u3-OwedBook sign-in light-1440-shown.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u3-Portal sign-in dark-375-keyboard.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u3-Portal sign-in dark-375-shown.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u3-Portal sign-in light-1440-keyboard.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/u3-Portal sign-in light-1440-shown.png
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/browser/walk.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/build_ob.log
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/build_pp.log
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/build_proof_ob.log
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/build_proof_pp.log
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/bundle_scan_ob.txt
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/bundle_scan_pp.txt
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/helpers/supabase-fixture.mjs
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/helpers/walk-u123.mjs
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/product_ob.patch
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/product_pp.patch
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/proof_harness_ob.patch
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/proof_harness_pp.patch
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/provenance.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/qa_preservation.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/tests/ob_candidate_control.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/tests/ob_checkout_full.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/tests/ob_focused.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/tests/pp_candidate_control.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/tests/pp_checkout_full.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r06/tests/pp_focused.json

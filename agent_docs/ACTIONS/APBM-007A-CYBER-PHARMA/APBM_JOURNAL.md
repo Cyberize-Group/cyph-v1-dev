@@ -69,3 +69,11 @@ Technical design frozen; E2 not released. Director readiness: Git T1, DEV toolin
 - F-Q4-003 confirmed from code, not assumed: `operation_lease` is re-entrant for the same owner, and the owner was one constant per server process. The DEV row admits only one path: an overlapping stale run reclassifying the new identity, with its write landing between the first run's `provisioning` write and the provisioning call.
 - F-Q4-004 is very likely the same mechanism seen through the mailer: concurrent sends to one address, a 429 from Auth's interval, last write wins. Kept as a probable cause with a stated evidence gap.
 - The SCRATCH harness needed three instrument corrections (savepoints interleaved across runs on one connection; the updated_at trigger defeating back-dating; interleaving left to timing). All attempts preserved. Lesson: concurrency proofs need a deterministic schedule, and one connection needs atomic statements.
+
+## 16 November 2026 — final UI repair r06 (engineering seat)
+
+- QA was in a Director-gated wait (Q4 a06) with no writes for 40 minutes; all work was done in disposable copies and transferred after a byte backup of QA's 9,805 paths.
+- U-1's "stuck" highlight was cmdk's internal selection painted coral, not route state; the fix removes the palette semantics from navigation.
+- U-2's "unavailable" text was hard-coded in real mode; the Portal and OwedBook now read the same row. A price was never available anywhere authorized; the honest outcome is a pointer and a recorded limitation.
+- The browser walk earned its keep: unit tests (jsdom) passed while Chromium reset the caret on every toggle, and the first fix then raced fast typing. Lesson: input-type changes need a real-browser check.
+- Instrument corrections in the walk (transition timing, rounding of a hard-coded colour, an ambiguous locator) are preserved as attempts.
