@@ -1,0 +1,54 @@
+{
+ "candidate": {
+  "payment_portal_head": "357c274284f48ed5ad3bf8407ca0a14d0d9b99e8",
+  "payment_portal_product": "4cd96c82da59a093d1330307f5a27836b17f1df5",
+  "owedbook_head": "f637ba4086c1e906e008b8892c880ec6489bba9a",
+  "branch": "qa/apbm-007a"
+ },
+ "repair_files": [
+  {
+   "path": "src/server/checkout.ts",
+   "change": "M",
+   "candidate_blob": "68937451aa02d1f0e935ac51a79eb96c7721c1ef",
+   "checkout_sha256": "f079df8d289dd24f289f3fdc558669848bfa06263506646defc1e5465b3e2a01",
+   "tested_copy_sha256": "f079df8d289dd24f289f3fdc558669848bfa06263506646defc1e5465b3e2a01",
+   "build_copy_sha256": "f079df8d289dd24f289f3fdc558669848bfa06263506646defc1e5465b3e2a01",
+   "checkout_git_blob": "dd1b5b4202b7ece589fe3a0cd464ef4d29f54f8f"
+  },
+  {
+   "path": "src/__tests__/apbm007a-checkout-recovery.test.ts",
+   "change": "A",
+   "candidate_blob": null,
+   "checkout_sha256": "f49b10352570978af2ab57f4ebe890bb6e1ba98eab953e9f68f61e08b5898e72",
+   "tested_copy_sha256": "f49b10352570978af2ab57f4ebe890bb6e1ba98eab953e9f68f61e08b5898e72",
+   "build_copy_sha256": "f49b10352570978af2ab57f4ebe890bb6e1ba98eab953e9f68f61e08b5898e72",
+   "checkout_git_blob": "90b5f886fc639a670a3c0200bbee8910d71d4143"
+  }
+ ],
+ "equivalence": "Each repair file is byte-identical in the QA checkout, the tested disposable copy (ARCHIVE/APBM007A_E2_WORK/r04/pp) and the build copy (r04/build-pp). Every other source file of the tested copy equals the candidate (diff -r excluding node_modules, .next, generated next-env.d.ts/tsbuildinfo, .git, agent_docs, env files, test-results). The build copy equals the tested copy. No proof-only source difference in this round.",
+ "build": {
+  "copy": "ARCHIVE/APBM007A_E2_WORK/r04/build-pp",
+  "next": "16.4.3 (Turbopack)",
+  "build_id": "IpvtWyXeUrtmKwYZLjxZq",
+  "env": "placeholder Supabase URL and publishable key; canary server secrets (not real credentials); NODE_ENV=production",
+  "client_bundle_scan": "bundle_scan.txt"
+ },
+ "scratch_proof": {
+  "environment": "SCRATCH ihgcsrypblqkwommrkgj, one transaction, rolled back, 0 engineering rows left, 0 network calls, no Auth access",
+  "source": "r04/pp (same bytes as the checkout)",
+  "evidence": [
+   "scratch_checkout_recovery.json",
+   "scratch_checkout_candidate_control.json"
+  ]
+ },
+ "checks": {
+  "unit_full_tested_copy": "444/444 (22 suites)",
+  "unit_full_checkout": "444/444 (22 suites)",
+  "focused_checkout": "15/15",
+  "candidate_control": "9 of 15 fail on the candidate (all F-Q4-001 tests); the 6 existing-protection tests pass on both",
+  "typecheck": "clean",
+  "lint": "0 errors, 24 warnings (equal to the candidate; none in changed files)",
+  "production_build": "pass",
+  "poison_controls": "mutation_controls.txt (9 of 9 caught)"
+ }
+}

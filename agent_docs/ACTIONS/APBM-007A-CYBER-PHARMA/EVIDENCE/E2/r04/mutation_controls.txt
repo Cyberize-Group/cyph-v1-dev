@@ -1,0 +1,60 @@
+APBM007A r04 poison controls — 2026-11-16T05:43:24Z. Each control restores the repaired checkout.ts, applies one mutation (refusing to run if the anchor is not unique or nothing changed), runs the recovery suite, and the repaired file is restored at the end.
+
+## baseline (repaired)
+Tests: 0 failed, 15 passed
+
+## M1 checkout.ts as in candidate 4cd96c8
+Tests: 9 failed, 6 passed
+  FAIL resumes the original operation: one customer, one Checkout session, one operation, nothing marked unpaid
+  FAIL also when the customer answer was the one lost: the retry gets the same customer back
+  FAIL the same-key retry after a lost answer gets the original session even seconds later (identical parameters)
+  FAIL two retries with different keys at the same moment still produce one customer, one session and one operation
+  FAIL a request that never reached Stripe is resumed later with a fresh expiry, once (Stripe saved nothing under the key)
+  FAIL a resumed attempt whose session already lapsed is released only on that provider proof; a later attempt starts cleanly
+  FAIL after an edit, the earlier unknown attempt is settled with Stripe first and the new attempt keeps the same customer
+  FAIL after an edit with the customer answer also lost and the email changed, nothing is duplicated or released (stays recoverable)
+  FAIL an operation with no recorded session is never released as unpaid
+
+## M2 unknown-outcome operation refused for a different key (no resume)
+Tests: 7 failed, 8 passed
+  FAIL resumes the original operation: one customer, one Checkout session, one operation, nothing marked unpaid
+  FAIL also when the customer answer was the one lost: the retry gets the same customer back
+  FAIL two retries with different keys at the same moment still produce one customer, one session and one operation
+  FAIL a request that never reached Stripe is resumed later with a fresh expiry, once (Stripe saved nothing under the key)
+  FAIL a resumed attempt whose session already lapsed is released only on that provider proof; a later attempt starts cleanly
+  FAIL after an edit, the earlier unknown attempt is settled with Stripe first and the new attempt keeps the same customer
+  FAIL after an edit with the customer answer also lost and the email changed, nothing is duplicated or released (stays recoverable)
+
+## M3 expiry recomputed on every attempt (planned expiry not reused)
+Tests: 5 failed, 10 passed
+  FAIL resumes the original operation: one customer, one Checkout session, one operation, nothing marked unpaid
+  FAIL the same-key retry after a lost answer gets the original session even seconds later (identical parameters)
+  FAIL two retries with different keys at the same moment still produce one customer, one session and one operation
+  FAIL a resumed attempt whose session already lapsed is released only on that provider proof; a later attempt starts cleanly
+  FAIL after an edit, the earlier unknown attempt is settled with Stripe first and the new attempt keeps the same customer
+
+## M4 missing session reference treated as unpaid again
+Tests: 1 failed, 14 passed
+  FAIL an operation with no recorded session is never released as unpaid
+
+## M5 replayed (stale) answer used without re-reading the session
+Tests: 1 failed, 14 passed
+  FAIL a resumed attempt whose session already lapsed is released only on that provider proof; a later attempt starts cleanly
+
+## M6 resume regardless of draft revision
+Tests: 1 failed, 14 passed
+  FAIL after an edit, the earlier unknown attempt is settled with Stripe first and the new attempt keeps the same customer
+
+## M7 earlier attempt not expired through Stripe before release
+Tests: 1 failed, 14 passed
+  FAIL after an edit, the earlier unknown attempt is settled with Stripe first and the new attempt keeps the same customer
+
+## M8 customer not carried to the new attempt
+Tests: 1 failed, 14 passed
+  FAIL after an edit, the earlier unknown attempt is settled with Stripe first and the new attempt keeps the same customer
+
+## M9 no fresh expiry after a validation rejection
+Tests: 1 failed, 14 passed
+  FAIL a request that never reached Stripe is resumed later with a fresh expiry, once (Stripe saved nothing under the key)
+
+Repaired file restored byte for byte.

@@ -49,3 +49,20 @@ Recorded by the engineering seat under JARVIS's Q2 repair instruction. The repai
 | Identity allowance | The one approved new DEV identity is untouched and still reserved for QA's new-owner journey |
 | Retest impact | REPAIR_F-Q2.md §11 |
 | Release | Engineering releases both checkouts to QA once the Director's r03 commits verify against `EVIDENCE/E2/r03/commit/COMMIT_MANIFEST.json` |
+
+## Engineering repair r04 record — 16 November 2026 (Asia/Dhaka)
+
+Recorded by the engineering seat under JARVIS's single bounded repair for F-Q4-001 / AC-011. The repair was made on `qa/apbm-007a` in the existing checkouts; no branch switch, worktree, stash or Git mutation. QA's uncommitted work (3,422 OwedBook paths, one ignored portal output) was backed up privately and verified unchanged; Engineering edited none of it.
+
+| Field | Value |
+|---|---|
+| Finding repaired | F-Q4-001 (AC-011). Record `EVIDENCE/E2/r04/REPAIR_F-Q4-001.md` |
+| Verdict | Friday's disposition stands. Engineering evidence closes no finding |
+| Product change | Payment Portal `src/server/checkout.ts` and one new test file. OwedBook product unchanged |
+| Bases | Payment Portal `357c274` (product `4cd96c8`), OwedBook `f637ba4`; new commits pending the Director (`EVIDENCE/E2/r04/commit/`) |
+| QA backup | `~/APBM007A_QA_BACKUPS/q4_r04_20261116_114741/`, manifest `SHA256SUMS.before` (3,423 entries) |
+| For QA's instruments | A provider adapter must compare parameters on a repeated idempotency key, as Stripe does, to measure the same-key path faithfully |
+| Effects | Two rolled-back SCRATCH transactions; no DEV, Stripe, Auth, email, checkout or payment effect |
+| Runtime | After the commits the portal must be rebuilt and restarted on the repaired candidate before Friday binds the pair |
+| Retest impact | REPAIR_F-Q4-001.md §8 |
+| Release | Engineering releases both checkouts to QA once the Director's r04 commits verify against `EVIDENCE/E2/r04/commit/COMMIT_MANIFEST.json` |

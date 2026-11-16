@@ -54,3 +54,11 @@ Technical design frozen; E2 not released. Director readiness: Git T1, DEV toolin
 - F-Q2-002: the undo cleared only one field. Now sequential with re-reads; never both parameters in one call.
 - Built and tested in a disposable copy, proved in a production browser on 3101 (origin harness patch outside the repair), then transferred byte for byte into the QA checkout.
 - Disk at 100% (about 345 MB free) limited the QA backup: QA records were byte-copied and the regenerable build mirrors and npm cache hard-linked, all checksummed.
+
+## 16 November 2026 — Q4 repair r04, F-Q4-001 (engineering seat)
+
+- Stayed on qa/apbm-007a; QA's Q4 a03 run had concluded and was waiting for direction. Backed up QA's 3,422 paths (byte copy) before writing.
+- Cause confirmed in `checkout.ts`: on a different-key retry, "no session recorded" was read as "never payable", which released the operation and duplicated the provider objects under new derived keys.
+- Found while modelling Stripe faithfully: the session expiry was recomputed on every attempt, and Stripe refuses a repeated idempotency key whose parameters changed. QA's same-key pass came from an adapter that does not compare parameters. Lesson: a provider model must compare parameters on a repeated key.
+- Repair resumes the operation under its own keys with a stored expiry; release always needs a recorded session judged by Stripe.
+- Proof at two layers: a unit model with Stripe-like idempotency, and a rolled-back SCRATCH run with real SQL. My first SCRATCH harness ordered operations by created_at, which is constant inside one transaction; corrected before the recorded runs.

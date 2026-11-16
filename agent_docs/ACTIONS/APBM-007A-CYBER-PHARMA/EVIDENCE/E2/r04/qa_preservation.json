@@ -1,0 +1,28 @@
+{
+ "checked_at": "2026-11-16 (Asia/Dhaka), after transfer and records, before packaging",
+ "backup": "~/APBM007A_QA_BACKUPS/q4_r04_20261116_114741/ (private, mode 700, outside both repositories)",
+ "manifest": {
+  "file": "SHA256SUMS.before",
+  "entries": 3423,
+  "sha256": "e019f6bd0bd9da7eca463a01b8b751cb7cb24e7dfeb2281ec6649fcdadde2562"
+ },
+ "inventory": {
+  "owedbook_uncommitted_qa_paths": 3422,
+  "all_under": "agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/",
+  "bytes": 247848184,
+  "portal_ignored_qa_output": [
+   "test-results/transition-matrix.json"
+  ],
+  "portal_changes_before_work": 0
+ },
+ "backup_method": "full byte copy of all 3,422 QA paths plus the portal output; env files, cast and inbox files, auth state and browser profiles not copied or hashed",
+ "qa_paused": "QAM_STATE.md: Q4 a03 concluded, no further effects until direction; no QA file modified in the 20 minutes before writing; no QA automation process running",
+ "verification": {
+  "backup_vs_manifest": "verified with sha256sum -c",
+  "after_work_vs_manifest": "0 mismatches across 3,423 entries",
+  "owedbook_status_excluding_engineering_records": "identical to the before-work status"
+ },
+ "qa_runtime": {
+  "servers": ":3000 (next start), :3001 (next start), :3457 and the Stripe listener untouched; started by the Director at 10:59-11:05 for QA"
+ }
+}

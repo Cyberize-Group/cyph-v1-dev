@@ -184,3 +184,13 @@ Checks: portal 429/429 (tested copy and QA checkout), focused 69/69, typecheck c
 Effects: DEV 1 synthetic draft (3 saves, 3 quotes) and 1 NPI hold; nothing else.
 QA's 5,011 uncommitted paths backed up privately and verified unchanged. Erratum E-A1-1 recorded.
 Record: EVIDENCE/E2/r03/REPAIR_F-Q2.md; commit handoff EVIDENCE/E2/r03/commit/. Next owner: Tony (portal product and records commits, OwedBook records commit, verified), then Cody binds the new pair and retests under Friday. No deployment before 007B.
+
+## Q4 repair r04 — F-Q4-001 / AC-011, 16 November 2026 (engineering seat)
+
+Recorded r03 commits (from Git): portal product `4cd96c82da59a093d1330307f5a27836b17f1df5`, portal records `357c274284f48ed5ad3bf8407ca0a14d0d9b99e8`, OwedBook records `f637ba4086c1e906e008b8892c880ec6489bba9a`. QA Q4 a03 ran on this pair. Friday: F-Q4-001 acceptance failure AC-011, MEDIUM, not an r03 regression.
+Cause: a retry with a different operation key treated a `created` operation with no recorded session as unpaid, released it and opened a new operation, so Stripe created a second customer and session. Every retry also recomputed the session expiry, which real Stripe refuses under a repeated key.
+Repair (`checkout.ts` only, on `qa/apbm-007a`): an unknown-outcome attempt is resumed under its own keys with the stored planned expiry; it is never released on a missing reference; an edited draft settles the earlier attempt with Stripe first and keeps the customer.
+Checks: portal 444/444 (tested copy and QA checkout), focused 15/15 (9 fail on the candidate), 9 poison controls caught, typecheck clean, lint 0 errors, production build and bundle scan clean; rolled-back SCRATCH proof PASS (candidate control FAIL).
+Effects: none outside two rolled-back SCRATCH transactions.
+QA's 3,422 paths backed up privately and verified unchanged.
+Record: EVIDENCE/E2/r04/REPAIR_F-Q4-001.md; commit handoff EVIDENCE/E2/r04/commit/. Next owner: Tony (commits, then rebuild and restart the portal on the repaired candidate); then Friday binds the pair and retests. No deployment before 007B.

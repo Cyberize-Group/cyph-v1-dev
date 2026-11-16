@@ -1,0 +1,16 @@
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_JOURNAL.md
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/APBM_STATE.md
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/HANDOFFS/QA_HANDOFF.md
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/REPAIR_F-Q4-001.md
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/build_pp.log
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/bundle_scan.txt
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/candidate_control_tests.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/focused_tests.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/helpers/scratch-checkout-candidate-control.cjs
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/helpers/scratch-checkout-recovery.cjs
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/mutation_controls.txt
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/product.patch
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/provenance.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/qa_preservation.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/scratch_checkout_candidate_control.json
+agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2/r04/scratch_checkout_recovery.json
