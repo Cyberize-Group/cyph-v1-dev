@@ -6,6 +6,8 @@ import ScreenHeader from "@/components/admin-portal/ScreenHeader";
 import InviteMemberForm from "@/components/admin-portal/InviteMemberForm";
 import MemberRow from "@/components/admin-portal/MemberRow";
 import { ownerStoresService, storeMemberService } from "@/services/adminDemo";
+import { isDemoMode } from "@/services/tenantScope";
+import LiveStaffPanel from "@/components/admin-portal/LiveStaffPanel";
 import type { OwnedStore, StoreMember } from "@/types/adminDemo";
 
 const InviteScreen = ({ storeId }: { storeId: string }) => {
@@ -19,7 +21,8 @@ const InviteScreen = ({ storeId }: { storeId: string }) => {
     setError(null);
     Promise.all([
       ownerStoresService.getStore(storeId),
-      storeMemberService.listPendingInvites(storeId),
+      // APBM-007B: live invitations are listed by LiveStaffPanel through the invitation API.
+      isDemoMode() ? storeMemberService.listPendingInvites(storeId) : Promise.resolve([] as StoreMember[]),
     ])
       .then(([s, p]) => {
         if (!cancelled) {
@@ -65,6 +68,12 @@ const InviteScreen = ({ storeId }: { storeId: string }) => {
         subtitle={`Send an invite to add someone to ${store?.name ?? "this store"}.`}
       />
 
+      {!isDemoMode() ? (
+        <div className="mt-6">
+          {/* Owner-only billing facts are present only for the account owner; the server enforces every role rule. */}
+          <LiveStaffPanel storeId={storeId} canAppointAdmin={!!store && store.subscriptionStatus !== "unavailable"} />
+        </div>
+      ) : (<>
       <div className="mt-6">
         <InviteMemberForm storeId={storeId} onInvited={reload} />
       </div>
@@ -85,6 +94,7 @@ const InviteScreen = ({ storeId }: { storeId: string }) => {
           </div>
         )}
       </div>
+      </>)}
     </div>
   );
 };

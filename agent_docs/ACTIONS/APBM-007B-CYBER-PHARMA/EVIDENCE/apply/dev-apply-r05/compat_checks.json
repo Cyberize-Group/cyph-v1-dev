@@ -1,0 +1,18 @@
+{
+ "members_checked": 11,
+ "scope_matches_memberships": 10,
+ "scope_mismatch": 1,
+ "owedbook_reads_ok": 0,
+ "owedbook_reads_denied": 14,
+ "owners_checked": 7,
+ "owner_billing_ok": 0,
+ "owner_billing_error": 7,
+ "access_states": {
+  "active": 6,
+  "past_due_reminder": 1
+ },
+ "non_live_businesses": 0,
+ "compat_trigger_businesses_assign_identity": 1,
+ "handoff_functions": 5,
+ "transaction_read_only": "on"
+}

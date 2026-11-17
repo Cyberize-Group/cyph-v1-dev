@@ -58,7 +58,16 @@ export async function confirmSubmit(request: NextRequest): Promise<NextResponse>
   const { data, error } = await supabase.auth.verifyOtp({ type: context.y, token_hash: context.h });
   if (error || !data.user) { log('confirm', `verification refused ${error?.code ?? ''}`.trim()); return clear(to('/auth/link-expired')); }
   await afterSignIn(data.user.id, data.user.email);
-  return clear(to(context.n));
+  // APBM-007B: links carry no return path, so a person with pending invitations (read as that person) lands on
+  // /invitations to accept or decline; viewing grants nothing. Any read failure keeps the normal destination.
+  let destination = context.n;
+  if (destination === DEFAULT_RETURN) {
+    try {
+      const mine = await supabase.rpc('my_invitations');
+      if (!mine.error && Array.isArray(mine.data) && mine.data.length > 0) destination = '/invitations';
+    } catch { /* keep the normal destination */ }
+  }
+  return clear(to(destination));
 }
 
 // Per-instance limiter for link requests: bounds one client against one server process.

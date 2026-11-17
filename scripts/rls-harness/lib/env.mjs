@@ -38,7 +38,7 @@ export function validateConfig(raw, { prefix, target, projectRef, sharedDevRef =
 export function evidenceRoot(requested = process.env.APBM_EVIDENCE_DIR) {
   if (!requested || !isAbsolute(requested)) fail('APBM_EVIDENCE_DIR must be an absolute path');
   const root = resolve(requested);
-  const allowed = ['agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/E2', 'agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence', 'agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply','agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2','agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence','agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/apply'].map(p => join(repoRoot, p));
+  const allowed = ['agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/E2', 'agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/QAM/evidence', 'agent_docs/ACTIONS/APBM-003-CYBER-PHARMA/EVIDENCE/apply','agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/E2','agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/QAM/evidence','agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/EVIDENCE/apply','agent_docs/ACTIONS/APBM-007B-CYBER-PHARMA/EVIDENCE/E2','agent_docs/ACTIONS/APBM-007B-CYBER-PHARMA/EVIDENCE/apply'].map(p => join(repoRoot, p)); // APBM-007B lane extension only
   if (!allowed.some(base => root === base || root.startsWith(base + sep))) fail('evidence must stay in the current APBM E2/APPLY/QA lane');
   let cursor = repoRoot;
   if (realpathSync(repoRoot) !== repoRoot) fail('repository symlink not permitted');

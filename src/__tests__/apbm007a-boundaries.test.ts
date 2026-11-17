@@ -15,8 +15,18 @@ describe('OwedBook service-key and server-module boundaries', () => {
   it('the service-role factory has exactly one importer: the guarded access point', () => {
     expect(all.filter((f) => /utils\/supabase\/admin['"]/.test(read(f))).map(rel)).toEqual(['src/server/db.ts']);
   });
-  it('the access point is used only by the handoff and logout server module', () => {
-    expect(all.filter((f) => /from ['"]@\/server\/db['"]/.test(read(f))).map(rel)).toEqual(['src/server/handoff.ts']);
+  // APBM-007B (Director ruling 5): narrowly extended to the invitation identity/mail module, and nothing else.
+  it('the access point is used only by the handoff/logout module and the invitation mail module', () => {
+    expect(all.filter((f) => /from ['"]@\/server\/db['"]/.test(read(f))).map(rel).sort()).toEqual(['src/server/handoff.ts', 'src/server/invitationMail.ts']);
+  });
+  it('every emailed sign-in link requests the EXACT confirm address with nothing appended (approved template rule)', () => {
+    for (const name of ['emailLink.ts', 'invitationMail.ts']) {
+      const redirects = [...read(join(SRC, 'server', name)).matchAll(/emailRedirectTo: (`[^`]*`|[^,}\s]+)/g)].map((m) => m[1].trim());
+      expect({ name, redirects }).toEqual({ name, redirects: ['`${ownOrigin()}/api/auth/confirm`'] });
+    }
+  });
+  it('the invitation mail module is imported only by the staff server module (after the SQL authority check)', () => {
+    expect(all.filter((f) => /from ['"]@\/server\/invitationMail['"]/.test(read(f))).map(rel)).toEqual(['src/server/staff.ts']);
   });
   it('no client component, client service or type module imports a server module', () => {
     const offenders = all.filter((f) => {
@@ -32,7 +42,7 @@ describe('OwedBook service-key and server-module boundaries', () => {
     expect(all.filter((f) => /from ['"]stripe['"]|@stripe\/|STRIPE_SECRET_KEY|STRIPE_WEBHOOK_SECRET/.test(read(f).replace(/\/\/.*$/gm, ''))).map(rel)).toEqual([]);
   });
   it('the handoff and emailed-link modules log only fixed text plus a provider error code or status', () => {
-    for (const name of ['handoff.ts', 'emailLink.ts']) {
+    for (const name of ['handoff.ts', 'emailLink.ts', 'invitationMail.ts']) {
       const lines = read(join(SRC, 'server', name)).split('\n');
       // every direct console use is the single `log` helper
       expect(lines.filter((l) => /console\./.test(l) && !/^const log = /.test(l))).toEqual([]);
