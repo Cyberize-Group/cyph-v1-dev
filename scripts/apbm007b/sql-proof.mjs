@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// APBM-007B database proof (0061–0067). cwd: OwedBook repository root.
+// APBM-007B database proof (0061–0070). cwd: OwedBook repository root.
 //
 //   node scripts/apbm007b/sql-proof.mjs --help
 //   node scripts/apbm007b/sql-proof.mjs --local <url>       # local rehearsal DB: rolled-back scenarios + committed concurrency
@@ -178,7 +178,8 @@ await scenario('add store saga', async (db) => {
   check('invoice mapping with wrong amount refused', (await db.svc(`select public.store_operation_map_invoice($1,'w1',$2,'in_proof1',$3,1) r`, [op, ep, p.c]))[0].r === 'binding_mismatch');
   check('invoice mapped', (await db.svc(`select public.store_operation_map_invoice($1,'w1',$2,'in_proof1',$3,$4) r`, [op, ep, p.c, q.quote.amount_cents]))[0].r === 'mapped');
   await db.svc(`select public.store_operation_transition($1,'w1',$2,'payment_pending',null,'in_proof1',null)`, [op, ep]);
-  await db.svc(`select public.store_operation_transition($1,'w1',$2,'paid_pending_activation',null,null,null)`, [op, ep]);
+  // 0070: a paid invoice is recorded with the provider paid time (on time here) instead of a direct transition.
+  await db.svc(`select public.store_operation_payment_observed($1,'w1',$2,'in_proof1',$3,'usd',now())`, [op, ep, q.quote.amount_cents]);
   check('activation refused on amount mismatch → attention', (await db.svc(`select public.store_add_activate($1,'in_proof1',1,'usd',3,$2,$3) r`, [op, p.s, p.e]))[0].r.code === 'payment_mismatch');
   await db.raw(`update public.store_operations set state = 'paid_pending_activation', last_error_code = null where id = $1`, [op]);
   check('activation refused on changed period → attention', (await db.svc(`select public.store_add_activate($1,'in_proof1',$2,'usd',3,$3,$4) r`, [op, q.quote.amount_cents, p.s, new Date(new Date(p.e).getTime() + 1000)]))[0].r.code === 'period_changed');
@@ -293,7 +294,7 @@ await scenario('transfer and seller history', async (db) => {
   const ep = (await db.svc(`select public.store_operation_lease($1,'w',30) e`, [op]))[0].e;
   await db.svc(`select public.store_operation_map_invoice($1,'w',$2,'in_proofT',$3,$4)`, [op, ep, pB.c, q.quote.amount_cents]);
   await db.svc(`select public.store_operation_transition($1,'w',$2,'payment_pending',null,'in_proofT',null)`, [op, ep]);
-  await db.svc(`select public.store_operation_transition($1,'w',$2,'paid_pending_activation',null,null,null)`, [op, ep]);
+  await db.svc(`select public.store_operation_payment_observed($1,'w',$2,'in_proofT',$3,'usd',now())`, [op, ep, q.quote.amount_cents]);
   const act = (await db.svc(`select public.store_add_activate($1,'in_proofT',$2,'usd',2,$3,$4) r`, [op, q.quote.amount_cents, q.quote.period_start, q.quote.period_end]))[0].r;
   check('buyer activation: new ownership row under the same canonical identity', act.outcome === 'activated'
     && (await db.raw('select pharmacy_id from public.businesses where id=$1', [act.business_id]))[0].pharmacy_id === w.s.A1, JSON.stringify(act));
@@ -319,7 +320,7 @@ await scenario('decision 9: same-owner paid re-add restores the original record'
   const ep = (await db.svc(`select public.store_operation_lease($1,'w',30) e`, [op]))[0].e;
   await db.svc(`select public.store_operation_map_invoice($1,'w',$2,'in_react',$3,$4)`, [op, ep, p.c, q.quote.amount_cents]);
   await db.svc(`select public.store_operation_transition($1,'w',$2,'payment_pending',null,'in_react',null)`, [op, ep]);
-  await db.svc(`select public.store_operation_transition($1,'w',$2,'paid_pending_activation',null,null,null)`, [op, ep]);
+  await db.svc(`select public.store_operation_payment_observed($1,'w',$2,'in_react',$3,'usd',now())`, [op, ep, q.quote.amount_cents]);
   const act = (await db.svc(`select public.store_add_activate($1,'in_react',$2,'usd',2,$3,$4) r`, [op, q.quote.amount_cents, p.s, p.e]))[0].r;
   check('after payment the ORIGINAL ownership record is restored (same business id)', act.outcome === 'activated' && act.business_id === w.s.A2 && act.reactivated === true, JSON.stringify(act));
   check('original history is back for the owner (claims RPC answers)', !(await db.as(w.u.ownerA, 'select public.owedbook_pbm_options($1)', [w.s.A2])).error && ids(await db.as(w.u.ownerA, 'select public.my_business_ids()')).includes(w.s.A2));
@@ -388,6 +389,121 @@ await scenario('operator commands', async (db) => {
     && (await db.raw(`select count(*)::int n from public.user_businesses ub join public.businesses b on b.id=ub.business_id where b.account_id=$1 and ub.role='admin'`, [w.acct.A]))[0].n === 2, JSON.stringify(r));
   check('operator audit is append-only', await (async () => { const id = (await db.svc(`select public.operator_action_record('quantity-check','actor name','reason x','TCK-1','dry_run','{}'::jsonb,null,null,'planned',null) id`))[0].id; try { await db.raw('savepoint z'); await db.raw('update public.operator_actions set reason = $2 where id = $1', [id, 'changed']); return false; } catch { await db.raw('rollback to savepoint z'); return true; } })());
   check('reactivation of a non-removed store refused', !!(await db.svc('select public.store_reactivation_authorize($1,$2) r', [w.s.B1, 'x']))[0].r.error);
+});
+
+// ---------------------------------------------------------------- 0070 consent deadline (F-Q2-001, F-Q2-004)
+// Six cases, each on REAL time (no test context: billing_now = now()) and on SIMULATED time (SCRATCH identity + enabled
+// test context frozen 5 days in the real past). "Processed at deadline+k" is reached by moving the simulated clock forward
+// (simulated) or by placing the stored deadline k seconds before now() (real; now() is fixed inside the transaction).
+// The provider paid time is given relative to the stored deadline. Quantity is the local mirror (SQL activation sets it).
+async function deadlineFixture(db, mode) {
+  const w = await world(db); const p = await period(db, w.acct.A); const clock = 'clock_proofdl';
+  if (mode === 'simulated') {
+    if ((await db.raw('select count(*)::int n from public.billing_deployment'))[0].n === 0) await db.svc('select public.billing_deployment_bind($1)', [SCRATCH_REF]);
+    await db.svc(`select public.billing_test_context_enable($1,'proof-deadline',$2, now() - interval '5 days')`, [w.acct.A, clock]);
+  }
+  const q = (await db.svc(`select public.store_quote_create($1,$2,'Deadline Store',$3,null,$4,$5,$6,'price_proof',4900,$7,$8,$9,'terms-v1') r`, [w.acct.A, w.u.ownerA, NPI[4], p.c, p.sub, p.it, p.q, p.s, p.e]))[0].r;
+  const op = (await db.svc(`select public.store_operation_claim($1,$2,$3,'terms-v1') r`, [q.quote.id, w.u.ownerA, 'intent_' + randomUUID().replace(/-/g, '')]))[0].r.operation.id;
+  const ep = (await db.svc(`select public.store_operation_lease($1,'w1',30) e`, [op]))[0].e;
+  await db.svc(`select public.store_operation_map_invoice($1,'w1',$2,'in_deadline',$3,$4)`, [op, ep, p.c, q.quote.amount_cents]);
+  await db.svc(`select public.store_operation_transition($1,'w1',$2,'payment_pending',null,'in_deadline',null)`, [op, ep]);
+  const deadline = async () => new Date((await db.raw('select payment_deadline d from public.store_operations where id = $1', [op]))[0].d);
+  const processAt = async (k) => {   // the billing clock now reads deadline + k seconds
+    if (mode === 'simulated') { const d = await deadline(); return db.svc('select public.billing_test_context_sync($1,$2,$3)', [w.acct.A, clock, new Date(d.getTime() + k * 1000).toISOString()]); }
+    return db.raw(`update public.store_operations set payment_deadline = now() - make_interval(secs => $2) where id = $1`, [op, k]);
+  };
+  const paidAt = async (k) => new Date((await deadline()).getTime() + k * 1000).toISOString();
+  const observe = async (owner, epoch, k) => (await db.svc(`select public.store_operation_payment_observed($1,$2,$3,'in_deadline',$4,'usd',$5) r`, [op, owner, epoch, q.quote.amount_cents, await paidAt(k)]))[0].r;
+  const activate = async () => (await db.svc(`select public.store_add_activate($1,'in_deadline',$2,'usd',3,$3,$4) r`, [op, q.quote.amount_cents, p.s, p.e]))[0].r;
+  const passed = async () => (await db.svc('select public.store_operation_deadline_passed($1) v', [op]))[0].v;
+  const due = async () => (await db.svc('select public.store_operations_due() id')).some((r) => r.id === op);
+  const facts = async () => (await db.raw(`select o.state, o.last_error_code code, (select count(*)::int from public.businesses where npi = $2) stores,
+      (select quantity from public.subscriptions where account_id = $3) qty, (select status from public.npi_reservations where store_operation_id = $1) hold
+     from public.store_operations o where o.id = $1`, [op, NPI[4], w.acct.A]))[0];
+  return { w, q, op, ep, processAt, observe, activate, passed, due, facts };
+}
+for (const mode of ['real', 'simulated']) {
+  const T = (s) => `0070 ${mode}: ${s}`;
+  await scenario(T('on time and prompt'), async (db) => {
+    const f = await deadlineFixture(db, mode); await f.processAt(-1500);
+    const notPassed = (await f.passed()) === false;
+    const o = await f.observe('w1', f.ep, -1560);
+    const a = await f.activate(); const s = await f.facts();
+    check(T('on time and prompt: activates once, quantity +1'), notPassed && o === 'paid_pending_activation' && a.outcome === 'activated' && s.state === 'activated' && s.stores === 1 && s.qty === 3 && s.hold === 'consumed', JSON.stringify({ notPassed, o, a, s }));
+  });
+  await scenario(T('on time and delayed within the deadline'), async (db) => {
+    const f = await deadlineFixture(db, mode); await f.processAt(-300);
+    const notPassed = (await f.passed()) === false;
+    const o = await f.observe('w1', f.ep, -1200);
+    const a = await f.activate(); const s = await f.facts();
+    check(T('on time, processed 15 min later but before the deadline: activates once'), notPassed && o === 'paid_pending_activation' && a.outcome === 'activated' && s.stores === 1 && s.qty === 3, JSON.stringify({ notPassed, o, a, s }));
+  });
+  await scenario(T('on time and processed after the deadline'), async (db) => {
+    const f = await deadlineFixture(db, mode); await f.processAt(3600);
+    const late = await f.passed();
+    const o = await f.observe('w1', f.ep, -60);
+    const a = await f.activate(); const again = await f.activate(); const s = await f.facts();
+    check(T('paid 1 min before the deadline, processed 1 h after it (outage/crash/redelivery): activates exactly once'),
+      late === true && o === 'paid_pending_activation' && a.outcome === 'activated' && again.outcome === 'already_activated' && s.stores === 1 && s.qty === 3, JSON.stringify({ late, o, a, again, s }));
+  });
+  await scenario(T('late and prompt'), async (db) => {
+    const f = await deadlineFixture(db, mode); await f.processAt(61);
+    const o = await f.observe('w1', f.ep, 60);
+    const a = await f.activate(); const s = await f.facts();
+    check(T('paid 1 min after the deadline, processed promptly: attention, no activation, no quantity change, hold kept'),
+      o === 'attention' && s.code === 'paid_after_deadline' && a.outcome === 'not_paid_pending' && s.stores === 0 && s.qty === 2 && s.hold === 'op_held', JSON.stringify({ o, a, s }));
+  });
+  await scenario(T('late after crash'), async (db) => {
+    const f = await deadlineFixture(db, mode); await f.processAt(600);
+    // The worker holding the lease dies before recording anything; its lease lapses; a restarted worker takes over.
+    await db.raw(`update public.store_operations set lease_until = now() - interval '1 second' where id = $1`, [f.op]);
+    const ep2 = (await db.svc(`select public.store_operation_lease($1,'w2',30) e`, [f.op]))[0].e;
+    const stale = await f.observe('w1', f.ep, 30);
+    const o = await f.observe('w2', ep2, 30);
+    const a = await f.activate(); const s = await f.facts();
+    check(T('late payment recovered after a crash/restart: stale worker fenced, attention, no activation, no quantity change'),
+      stale === 'lease_lost' && o === 'attention' && s.code === 'paid_after_deadline' && a.outcome === 'not_paid_pending' && s.stores === 0 && s.qty === 2, JSON.stringify({ stale, o, a, s }));
+    const r = (await db.svc(`select public.store_operation_resume($1,$2,'owner-reconfirmed-ref') r`, [f.op, f.q.quote.amount_cents]))[0].r;
+    const a2 = await f.activate(); const s2 = await f.facts();
+    check(T('operator path from attention still works: resume after recorded owner reconfirmation, then one activation'),
+      r.outcome === 'resumed' && a2.outcome === 'activated' && s2.stores === 1 && s2.qty === 3, JSON.stringify({ r, a2, s2 }));
+  });
+  await scenario(T('unpaid expiry by the minute job'), async (db) => {
+    const f = await deadlineFixture(db, mode); await f.processAt(-60);
+    const beforeWall = (await db.raw('select payment_deadline < now() v from public.store_operations where id = $1', [f.op]))[0].v;
+    const before = { passed: await f.passed(), due: await f.due() };
+    if (mode === 'simulated') check(T('before the simulated deadline: wall clock says passed, billing clock says not (the app now asks the database)'), beforeWall === true && before.passed === false && before.due === false, JSON.stringify({ beforeWall, before }));
+    else check(T('before the deadline: not due'), before.passed === false && before.due === false, JSON.stringify(before));
+    await f.processAt(60);
+    const after = { passed: await f.passed(), due: await f.due() };
+    const t = (await db.svc(`select public.store_operation_transition($1,'w1',$2,'expired_unpaid','deadline_passed',null,null) r`, [f.op, f.ep]))[0].r;
+    const s = await f.facts();
+    check(T('at the deadline the due queue and the application check agree; verified-unpaid close expires it and releases the hold'),
+      after.passed === true && after.due === true && t === 'expired_unpaid' && s.state === 'expired_unpaid' && s.hold === 'released' && s.stores === 0 && s.qty === 2, JSON.stringify({ after, t, s }));
+  });
+}
+await scenario('0070 guards', async (db) => {
+  const f = await deadlineFixture(db, 'real'); await f.processAt(-600);
+  check('0070: the direct payment_pending → paid_pending_activation transition is refused', (await db.svc(`select public.store_operation_transition($1,'w1',$2,'paid_pending_activation',null,null,null) r`, [f.op, f.ep]))[0].r === 'transition_refused');
+  check('0070: wrong amount → attention payment_mismatch', (await db.svc(`select public.store_operation_payment_observed($1,'w1',$2,'in_deadline',1,'usd',now()) r`, [f.op, f.ep]))[0].r === 'attention' && (await f.facts()).code === 'payment_mismatch');
+  await db.raw(`update public.store_operations set state = 'payment_pending', last_error_code = null where id = $1`, [f.op]);
+  check('0070: no provider paid time → attention paid_time_unverified', (await db.svc(`select public.store_operation_payment_observed($1,'w1',$2,'in_deadline',$3,'usd',null) r`, [f.op, f.ep, f.q.quote.amount_cents]))[0].r === 'attention' && (await f.facts()).code === 'paid_time_unverified');
+  await db.raw(`update public.store_operations set state = 'payment_pending', last_error_code = null where id = $1`, [f.op]);
+  check('0070: paid exactly at the deadline is on time', (await f.observe('w1', f.ep, 0)) === 'paid_pending_activation');
+  await db.raw(`update public.store_operations set provider_paid_at = null where id = $1`, [f.op]);
+  const legacy = await f.activate();
+  check('0070: activation backstop — paid_pending_activation without a recorded paid time cannot activate', legacy.outcome === 'attention' && legacy.code === 'paid_time_unverified' && (await f.facts()).stores === 0, JSON.stringify(legacy));
+  check('0070: customers cannot call the new functions', !!(await db.as(f.w.u.ownerA, 'select public.store_operation_deadline_passed($1)', [f.op])).error
+    && !!(await db.as(f.w.u.ownerA, `select public.store_operation_payment_observed($1,'w1',1,'in_deadline',1,'usd',now())`, [f.op])).error);
+});
+await scenario('0070 paid-versus-void race', async (db) => {
+  const f = await deadlineFixture(db, 'real'); await f.processAt(30);
+  // The job saw the invoice open after the deadline and voided; the void lost to a payment completed after the deadline.
+  const o = await f.observe('w1', f.ep, 20); const a = await f.activate(); const s = await f.facts();
+  check('0070: paid-versus-void race after the deadline → attention, no store, no quantity change', o === 'attention' && s.code === 'paid_after_deadline' && a.outcome === 'not_paid_pending' && s.stores === 0 && s.qty === 2, JSON.stringify({ o, a, s }));
+  await db.raw(`update public.store_operations set state = 'payment_pending', last_error_code = null, provider_paid_at = null where id = $1`, [f.op]);
+  check('0070: owner abandon then paid → attention paid_after_abandon', (await db.svc('select public.store_operation_cancel_request($1,$2) r', [f.op, f.w.u.ownerA]))[0].r === 'cancel_requested'
+    && (await f.observe('w1', f.ep, -1000)) === 'attention' && (await f.facts()).code === 'paid_after_abandon');
 });
 
 // ---------------------------------------------------------------- committed concurrency (local only)

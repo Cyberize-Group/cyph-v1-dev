@@ -23,7 +23,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useAuthStore } from "@/store/useAuthStore";
 import { LinkRequestForm } from "@/components/auth/LinkRequestForm";
 
@@ -41,6 +41,10 @@ const formSchema = z.object({
   }),
 });
 
+// false on the server and while hydrating, true once React owns the page (no effect, no extra render).
+const noSubscribe = () => () => {};
+const useHydrated = () => useSyncExternalStore(noSubscribe, () => true, () => false);
+
 const LoginForm = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,6 +57,17 @@ const LoginForm = () => {
       password: "",
     },
   });
+
+  // F-Q2-002: text typed while the page was still hydrating (seen in WebKit) never reached these controlled fields, and
+  // the next render wiped it ("Email is required"). Adopt whatever the fields already hold once React owns them.
+  const formRef = useRef<HTMLFormElement>(null);
+  const hydrated = useHydrated();
+  useEffect(() => {
+    for (const name of ["email", "password"] as const) {
+      const el = formRef.current?.elements.namedItem(name);
+      if (el instanceof HTMLInputElement && el.value && el.value !== form.getValues(name)) form.setValue(name, el.value);
+    }
+  }, [form]);
 
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
     setError(null);
@@ -91,6 +106,7 @@ const LoginForm = () => {
         <CardContent className="space-y-2">
           <Form {...form}>
             <form
+              ref={formRef}
               onSubmit={form.handleSubmit(handleSubmit)}
               className="space-y-8"
             >
@@ -141,8 +157,10 @@ const LoginForm = () => {
                 </div>
               )}
               {isLoading && <Spinner />}
+              {/* Disabled until hydrated, so a click can never fall through to a native form submission (which would put
+                  the typed credentials in the address bar). */}
               <Button
-                disabled={isLoading}
+                disabled={isLoading || !hydrated}
                 className="w-full disabled:opacity-70"
               >
                 Login
