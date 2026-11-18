@@ -16,9 +16,10 @@ const cookieClient = {
   session: null as null | { access_token: string },
   userFor: {} as Record<string, string>,
   verifyOtp: jest.fn(), setSession: jest.fn(async (..._a: unknown[]) => ({ error: null as unknown })), signOut: jest.fn(async (..._a: unknown[]) => ({ error: null as unknown })),
+  rpc: jest.fn(async (..._a: unknown[]) => ({ data: [] as unknown, error: null as unknown })),
 };
 jest.mock('@/utils/supabase/server', () => ({
-  createClient: async () => ({ auth: {
+  createClient: async () => ({ rpc: (fn: string, a?: unknown) => cookieClient.rpc(fn, a), auth: {
     getSession: async () => ({ data: { session: cookieClient.session } }),
     getUser: async (token?: string) => { const t = token ?? cookieClient.session?.access_token; const id = t ? cookieClient.userFor[t] : undefined; return id ? { data: { user: { id, email: `${id}@example.invalid` } }, error: null } : { data: { user: null }, error: { code: 'no_session' } }; },
     verifyOtp: (a: unknown) => cookieClient.verifyOtp(a), setSession: (a: unknown) => cookieClient.setSession(a), signOut: (a: unknown) => cookieClient.signOut(a),
@@ -57,7 +58,8 @@ beforeEach(() => {
 
 describe('frozen identity table — the same literals are pinned in both apps (AC-021)', () => {
   it('holds the agreed return-path allowlists and defaults for both apps', () => {
-    expect(RETURN_PATHS_BY_APP).toEqual({ ob: ['/', '/owedbook', '/admin-portal', '/admin-portal/billing'], pp: ['/', '/dashboard', '/billing', '/register/activation'] });
+    // APBM-007B (IDENTITY_AND_MEMBERSHIP.md, BP-09): /invitations and the Add Store path joined the exact allowlists.
+    expect(RETURN_PATHS_BY_APP).toEqual({ ob: ['/', '/owedbook', '/admin-portal', '/admin-portal/billing', '/invitations'], pp: ['/', '/dashboard', '/billing', '/register/activation', '/stores/add'] });
     expect(DEFAULT_RETURN_BY_APP).toEqual({ ob: '/owedbook', pp: '/dashboard' });
   });
   it('uses this app\'s own cookie names and the frozen local origins', () => {
@@ -124,6 +126,18 @@ describe('emailed sign-in link: GET never redeems, only the button POST does (FC
     expect(r.headers.get('location')).toBe(`${OWN}${DEFAULT_RETURN}`);
     expect(setCookie(r, confirmCookieName())).toMatch(/Max-Age=0/i);
     expect(afterSignIn).toHaveBeenCalledWith('u1', 'u1@example.invalid');
+  });
+  it('APBM-007B: a person with pending invitations lands on /invitations; a failed read keeps the default', async () => {
+    cookieClient.verifyOtp.mockResolvedValue({ data: { user: { id: 'u2', email: 'u2@example.invalid' } }, error: null });
+    cookieClient.rpc.mockResolvedValueOnce({ data: [{ id: 'i1', role: 'member' }], error: null });
+    let c = context();
+    let r = await confirmSubmit(req('/api/auth/confirm', { method: 'POST', cookies: { [confirmCookieName()]: c }, form: { csrf: JSON.parse(c).c } }));
+    expect(cookieClient.rpc).toHaveBeenCalledWith('my_invitations', undefined);
+    expect(r.headers.get('location')).toBe(`${OWN}/invitations`);
+    cookieClient.rpc.mockRejectedValueOnce(new Error('network'));
+    c = context();
+    r = await confirmSubmit(req('/api/auth/confirm', { method: 'POST', cookies: { [confirmCookieName()]: c }, form: { csrf: JSON.parse(c).c } }));
+    expect(r.headers.get('location')).toBe(`${OWN}${DEFAULT_RETURN}`);
   });
   it('an expired or used link goes to the recovery page and the context is cleared', async () => {
     cookieClient.verifyOtp.mockResolvedValue({ data: { user: null }, error: { code: 'otp_expired' } });
