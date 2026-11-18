@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,12 +18,26 @@ interface Props {
   role: AppRole;
 }
 
+// false on the server and while hydrating, true once React owns the page (no effect, no extra render).
+const noSubscribe = () => () => {};
+const useHydrated = () => useSyncExternalStore(noSubscribe, () => true, () => false);
+
 const ProfileForm = ({ user, role }: Props) => {
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [validationError, setValidationError] = useState<string | null>(null);
   const { toast } = useToast();
+  // F-Q4-001: a password typed before the page finished loading never reached this state, and the next re-render (e.g.
+  // Show password) wiped it. Adopt what the fields hold once React owns them; Update stays disabled until then, so an
+  // early click cannot become a native form submission.
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const confirmRef = useRef<HTMLInputElement>(null);
+  const hydrated = useHydrated();
+  useEffect(() => {
+    if (passwordRef.current?.value) setPassword(passwordRef.current.value);
+    if (confirmRef.current?.value) setConfirmPassword(confirmRef.current.value);
+  }, []);
 
   const displayName: string =
     user.user_metadata?.full_name ?? user.email?.split("@")[0] ?? "Member";
@@ -146,6 +160,7 @@ const ProfileForm = ({ user, role }: Props) => {
                 New Password
               </Label>
               <PasswordInput
+                ref={passwordRef}
                 className="p-6 bg-muted mt-2"
                 placeholder="Minimum 8 characters"
                 value={password}
@@ -157,6 +172,7 @@ const ProfileForm = ({ user, role }: Props) => {
                 Confirm New Password
               </Label>
               <PasswordInput
+                ref={confirmRef}
                 className="p-6 bg-muted mt-2"
                 placeholder="Re-enter new password"
                 value={confirmPassword}
@@ -166,7 +182,7 @@ const ProfileForm = ({ user, role }: Props) => {
                 <p className="text-sm text-destructive mt-1">{validationError}</p>
               )}
             </div>
-            <Button type="submit" disabled={loading} className="w-full">
+            <Button type="submit" disabled={loading || !hydrated} className="w-full">
               {loading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
