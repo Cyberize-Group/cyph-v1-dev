@@ -3,6 +3,10 @@
 > Documentation/playbook change log per CLAUDE.md Changelog Protocol.
 > `[CC]` = Claude Code · `[TS]` = Tony Stark manual edits.
 
+## 2026-11-19 05:20 UTC — [CC] Claude Code
+- **Updated:** `CLAUDE.eng.md` (factory declaration now at the top of the master), `CLAUDE.md` §2–§5 (option 2 offers to create or repair `CLAUDE.local.md` on an explicit yes, then reads it and continues in the same session; a fresh session is needed only to unload instructions), `agent_docs/FACTORY_SESSION_SETUP.md` (one process: no manual paste, no restart after setup or refresh).
+- **Reason:** Director: startup defect. The router required a declaration that the copied master did not contain. Guest workflow, credential isolation and Director-only merge unchanged.
+
 ## 2026-11-16 09:55 UTC — [CC] Claude Code
 - **Updated:** `agent_docs/ACTIONS/APBM-007A-CYBER-PHARMA/CLOSEOUT_REPORT.md` (new), `APBM_STATE.md`, `APBM_JOURNAL.md`, `CARRY_FORWARD_007B.md`, `README.md`, `REVIEW_START_HERE.md`, `EVIDENCE/CLOSEOUT/commit/` (new) — APBM-007A closeout records: Gate Q PASS WITH KNOWN RISK, Q5 cleanup, carried risks and obligations, Director merge/push commands.
 - **Reason:** JARVIS final closeout instruction; documentation only, no product change. Status: closeout prepared; Director merge/push pending.

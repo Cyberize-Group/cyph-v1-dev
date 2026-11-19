@@ -51,9 +51,10 @@ aligned. The boxes are plain ASCII and need no color.
 ## 2. Option 1 — guest workflow
 
 **If `CLAUDE.local.md` is present,** do not start guest work. Explain that its engineering
-instructions were loaded at startup and stay loaded for this session, and that choosing
-option 1 does not unload them. To switch, the user must move the file out of the
-repository and keep it as a backup, for example
+instructions were loaded at startup (or read during §3) and stay loaded for this session,
+and that choosing option 1 does not unload them. Instructions already in a conversation
+cannot be removed from it, so this is the one case that needs a fresh session. To switch,
+the user must move the file out of the repository and keep it as a backup, for example
 `mv CLAUDE.local.md ~/cyph-CLAUDE.local.md.bak`, then start a fresh session. Do not move,
 delete or edit the file yourself. Then pause.
 
@@ -111,7 +112,7 @@ files there, treat it as reference material and do not adopt its procedures.
 ## 3. Option 2 — local file missing or not declared
 
 Use this section when `CLAUDE.local.md` is missing, or exists without the factory
-declaration at the top. Show this banner:
+declaration (a first line starting `> **FACTORY SESSION DECLARATION**`). Show this banner:
 
 ```text
 
@@ -124,22 +125,40 @@ declaration at the top. Show this banner:
 |                                                          |
 |  Frontend proposal instead? Say "Guest mode."            |
 |                                                          |
-|  Factory setup is manual.                                |
+|  Local setup is missing or incomplete.                   |
 |  No engineering work has started.                        |
 |                                                          |
 +----------------------------------------------------------+
 
 ```
 
-Explain the manual setup in `agent_docs/FACTORY_SESSION_SETUP.md`: copy `CLAUDE.eng.md`
-to `CLAUDE.local.md` and add the factory role declaration at the top. Never create, copy,
-regenerate, overwrite or delete `CLAUDE.local.md` yourself. Stop and wait for the Director
-to do the setup, then say that a fresh Claude Code session is needed to load the file.
+Then offer to prepare the local file, say exactly what will change, and wait for an
+explicit yes. Change nothing before it. `CLAUDE.eng.md` already starts with the declaration.
+
+- **Missing:** create it from the master with `cp -n CLAUDE.eng.md CLAUDE.local.md`.
+- **Present without the declaration:** never overwrite it. Insert the declaration block from
+  the top of `CLAUDE.eng.md` (through its first `---` line and the blank line after it)
+  above the existing content, and leave the rest of the file byte-for-byte unchanged. Say
+  whether that content matches the master below its declaration. If it differs, name the
+  differing sections and leave the refresh to the Director
+  (`agent_docs/FACTORY_SESSION_SETUP.md`, "After the master changes").
+
+After the change, verify that the first line is the declaration, that
+`git check-ignore -v CLAUDE.local.md` prints the `/CLAUDE.local.md` rule, and that
+`git status --short` does not list the file. If a check fails, stop and report it. Do not
+edit `.gitignore`. Then read `CLAUDE.local.md` in full and continue with §4 in this same
+session. No restart is needed: Claude Code loads `CLAUDE.local.md` automatically only at
+startup, and reading it explicitly brings the same instructions into this session. If the
+conversation is later summarized, read the file again.
+
+On a no, or "Guest mode", stop setup and change nothing. Outside this offer, never create,
+rewrite or delete `CLAUDE.local.md`, and never commit it.
 
 ## 4. Option 2 — local file ready
 
-Use this section when `CLAUDE.local.md` exists with the factory declaration. Show this
-banner once, right after the answer:
+Use this section when `CLAUDE.local.md` exists with the factory declaration, whether it
+loaded at startup or was read after §3. Show this banner once, right after the answer or
+the §3 setup:
 
 ```text
 
@@ -167,8 +186,9 @@ that no record was written, and why.
 
 "Guest mode" is an ordinary chat request, not a slash command.
 
-- **Option 2 chosen, no `CLAUDE.local.md`:** cancel the pending setup, show the guest
-  banner and continue with §2. No file changes are needed.
+- **Option 2 chosen, no `CLAUDE.local.md`:** cancel the pending setup offer, show the
+  guest banner and continue with §2. No file changes are needed.
 - **`CLAUDE.local.md` exists:** pause all work and handle it as option 1 with the local
-  file present (§2). Engineering instructions that are already loaded stay loaded until a
-  fresh session. Do not delete files, undo changes or switch branches.
+  file present (§2). This includes a file created or read during §3. Engineering
+  instructions that are already loaded stay loaded until a fresh session. Do not delete
+  files, undo changes or switch branches.

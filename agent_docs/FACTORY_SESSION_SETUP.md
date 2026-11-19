@@ -3,39 +3,27 @@
 **For factory workstations only. Guests do not need this setup.**
 
 The engineering master is `CLAUDE.eng.md` at the repo root. It is tracked and travels
-with the repo. Claude Code does not load it automatically. A factory session loads it
-through a local, git-ignored copy named `CLAUDE.local.md` (the ignore rule is `/CLAUDE.local.md` in `.gitignore`).
+with the repo, and it already starts with the factory session declaration. Claude Code
+does not load it automatically. A factory session uses a local, git-ignored copy named
+`CLAUDE.local.md` (the ignore rule is `/CLAUDE.local.md` in `.gitignore`). The shared root
+`CLAUDE.md` recognises a factory clone by the declaration on that copy's first line,
+`> **FACTORY SESSION DECLARATION**`.
 
 ## Once per fresh factory clone
 
-From the repo root:
+Start a session, answer `2`, and accept the setup offer. The agent then:
 
-```bash
-cp CLAUDE.eng.md CLAUDE.local.md
-```
+- creates the file with `cp -n CLAUDE.eng.md CLAUDE.local.md` if it is missing, or
+- inserts the master's declaration block above existing content that lacks it, leaving
+  that content unchanged;
+- checks the declaration, `git check-ignore -v CLAUDE.local.md` and `git status --short`;
+- reads the file in full and continues in the same session.
 
-Then paste the declaration block below at the very top of `CLAUDE.local.md`. The shared
-root `CLAUDE.md` uses it to recognise a factory session.
+No restart is needed. Claude Code loads `CLAUDE.local.md` automatically only at startup,
+so the agent reads it explicitly instead. Nothing changes without your explicit yes.
 
-```markdown
-> **FACTORY SESSION DECLARATION** — local file, git-ignored, never committed.
-> This `CLAUDE.local.md` marks this clone as ready for factory engineering. It does not
-> select the workflow: every session first asks the workflow question in the shared root
-> `CLAUDE.md`. Follow the engineering instructions below only after the Director chooses
-> option 2. They describe which instructions to follow and grant no access or permissions.
-> Source: a copy of the tracked engineering master `CLAUDE.eng.md`. Where the text below says
-> "CLAUDE.md (this file)" or "protocols", it means that master. To refresh this file, see
-> `agent_docs/FACTORY_SESSION_SETUP.md`.
-
----
-```
-
-To check, run `git check-ignore -v CLAUDE.local.md`. It should print the `.gitignore` rule.
-
-The declaration is required. Without it, option 2 at startup shows SETUP REQUIRED instead
-of starting engineering. Setup is manual: Claude never creates or edits this file.
-
-Then start a **fresh** Claude Code session. The local file loads only at startup.
+To do it by hand instead, run `cp CLAUDE.eng.md CLAUDE.local.md` from the repo root. The
+copy is complete; there is nothing to paste.
 
 ## Between sessions
 
@@ -47,14 +35,16 @@ start engineering. The file alone never selects engineering.
 
 Refresh the local copy deliberately. Never overwrite it blindly:
 
-1. Review the change: `diff CLAUDE.eng.md CLAUDE.local.md`. The declaration block and
-   any intentional local additions show up as extra lines.
-2. Rebuild the local file as the declaration, then the new master, then your intentional
+1. Review the change: `diff CLAUDE.eng.md CLAUDE.local.md`. Intentional local additions
+   show up as extra lines.
+2. Rebuild the local file as the new master (declaration included), then your intentional
    local additions. Drop anything that the new master now covers.
-3. Start a new session. A running session keeps the instructions it loaded at startup.
+3. In a running session, ask the agent to read `CLAUDE.local.md` again. New sessions load
+   it automatically.
 
 ## Leaving factory mode on this clone
 
 To use this clone for the guest workflow, move `CLAUDE.local.md` out of the repo and keep
 it as a backup (for example `mv CLAUDE.local.md ~/cyph-CLAUDE.local.md.bak`). Then start
-a fresh session. To return to factory mode, move the file back and start a fresh session.
+a fresh session: instructions already loaded into a session cannot be removed from it.
+To return to factory mode, move the file back, or answer `2` and accept the setup offer.

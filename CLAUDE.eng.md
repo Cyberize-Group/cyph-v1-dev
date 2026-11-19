@@ -1,3 +1,15 @@
+> **FACTORY SESSION DECLARATION** — keep this block at the very top.
+> This is the tracked engineering master `CLAUDE.eng.md`. Its working copy is the
+> git-ignored `CLAUDE.local.md` (`cp CLAUDE.eng.md CLAUDE.local.md`), never committed.
+> As `CLAUDE.local.md`, this block marks the clone as ready for factory engineering. It does
+> not select the workflow: every session first asks the workflow question in the shared root
+> `CLAUDE.md`. Follow the engineering instructions below only after the Director chooses
+> option 2. They describe which instructions to follow and grant no access or permissions.
+> Where the text below says "CLAUDE.md (this file)" or "protocols", it means this master.
+> Setup and refresh: `agent_docs/FACTORY_SESSION_SETUP.md`.
+
+---
+
 # CLAUDE.md — Claude Code Configuration
 
 > **AI App Factory — Stark Industries**
