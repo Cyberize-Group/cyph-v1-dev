@@ -48,6 +48,35 @@ _Registry created: 2026-08-04. Format: mechanism · risk · triggers · verifica
 
 ---
 
+### KIP-3 — `zod` 3.x open advisory (zod 4 migration deferred for alpha)
+
+- **Files:** `package.json` (`zod ^3.23.8`, `@hookform/resolvers ^3.6.0`);
+  consumers `src/components/auth/LoginForm.tsx`,
+  `src/components/admin-portal/InviteMemberForm.tsx`,
+  `src/components/admin-portal/SettingsForm.tsx`.
+- **Origin:** OwedBook alpha deployment preparation, 2026-11-20 (dependency audit).
+- **Mechanism:** GHSA-mrhx-c7xc-m3w5 (high): zod can exhaust memory while
+  validating oversized constrained collections. Every version below 4.6.6 is
+  affected; no 3.x release is patched (3.25.76 is still affected). The only fix
+  is zod 4, a breaking major that also requires a compatible
+  `@hookform/resolvers`.
+- **Status:** **OPEN — NOT resolved.** Deferred for the alpha by the Director,
+  2026-11-20, on the evidence that zod is imported only by the three client form
+  components above and no server code validates request data with it.
+- **Risk:** LOW while usage stays client-only (a user can only load their own
+  browser); HIGH if a server route, Server Action or API handler starts
+  validating untrusted input with zod 3.
+- **Triggers:** before any production deployment · before zod is imported by any
+  server-side code (`src/server/`, `src/app/api/`, Server Actions, `src/proxy.ts`)
+  · when `@hookform/resolvers` or `react-hook-form` is next upgraded.
+- **Verification:** `npm audit --omit=dev` no longer lists `zod`; the three forms
+  validate as before (existing form tests plus a manual pass); typecheck and
+  build clean.
+- **Also open from the same audit (lower, not shipped in the runtime image):**
+  `postcss-selector-parser` 6.0.10 pinned by `@tailwindcss/typography`
+  (GHSA-rj75-hqrm-r3gf, moderate, build-time only); the jest 30 chain
+  (`glob`, `minimatch`, moderate, dev-only).
+
 ## Closed
 
 ### KIP-2 — `useAuthStore.role` stale-persist (remaining consumers) — CLOSED 2026-08-27
