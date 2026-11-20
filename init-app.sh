@@ -100,7 +100,9 @@ ACTAS_OK=""
 PROJECT_ROLES="$(gcloud projects get-iam-policy "$PROJECT_ID" --flatten='bindings[].members' --format='value(bindings.role)' --filter="bindings.members:serviceAccount:${BUILD_SA_EMAIL}")"
 for ROLE in $PROJECT_ROLES; do
   case "$ROLE" in roles/*) ;; *) continue ;; esac
-  if gcloud iam roles describe "$ROLE" --format='value(includedPermissions)' 2>/dev/null | tr ';' '\n' | grep -qx "iam.serviceAccounts.actAs"; then ACTAS_OK="project role $ROLE"; break; fi
+  # Read the whole list first: `grep -q` on a live pipe exits early and, under pipefail, turns a match into a failure.
+  ROLE_PERMS="$(gcloud iam roles describe "$ROLE" --format='value(includedPermissions)' 2>/dev/null | tr ';' '\n' || true)"
+  if grep -qx "iam.serviceAccounts.actAs" <<<"$ROLE_PERMS"; then ACTAS_OK="project role $ROLE"; break; fi
 done
 if [ -z "$ACTAS_OK" ] && gcloud iam service-accounts get-iam-policy "$RUNTIME_SA_EMAIL" --project "$PROJECT_ID" --flatten='bindings[].members' --format='value(bindings.role)' --filter="bindings.members:serviceAccount:${BUILD_SA_EMAIL}" 2>/dev/null | grep -qx "roles/iam.serviceAccountUser"; then
   ACTAS_OK="roles/iam.serviceAccountUser on the runtime SA"
