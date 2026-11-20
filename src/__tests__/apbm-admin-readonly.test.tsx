@@ -32,8 +32,12 @@ describe("APBM read-only admin adapter",()=>{
   const c=connection();c.rpc.mockResolvedValue({data:[{id:A,account_id:B,name:"A",capability:"member"}] as never,error:null});
   await expect(createAdminServices(c).auditService.listAudit()).rejects.toThrow("Audit access unavailable");expect(c.rpc).toHaveBeenCalledTimes(1);
  });
- it("renders disabled write controls and clear unavailable text",()=>{
-  const added=jest.fn();render(<AddStoreButton onAdded={added}/>);fireEvent.click(screen.getByRole("button",{name:"Add store"}));expect(added).not.toHaveBeenCalled();expect(screen.getByRole("button",{name:"Add store"})).toBeDisabled();
+ // Manual QA 19 Nov 2026 (R1): Add store is no longer disabled in real mode. It is a plain link into the Portal's secure
+ // handoff with return=/stores/add (no token in the link, no local write); the other demo-only write controls stay disabled.
+ it("Add store opens the Portal Add a pharmacy form through the handoff; other write controls stay disabled",()=>{
+  const added=jest.fn();render(<AddStoreButton onAdded={added}/>);const link=screen.getByRole("link",{name:/Add store/});
+  expect(link.getAttribute("href")).toBe("http://localhost:3001/api/handoff/start?return=%2Fstores%2Fadd");expect(screen.getByText(/You see the price and confirm before paying/)).toBeInTheDocument();
+  expect(screen.queryByText(/not available/i)).toBeNull();fireEvent.click(link);expect(added).not.toHaveBeenCalled();
   render(<InviteMemberForm storeId={A} onInvited={jest.fn()}/>);expect(screen.getByText(/Inviting members is not available/)).toBeInTheDocument();
   render(<BillingRow line={{storeId:A,storeName:"A",plan:"unavailable",subscriptionStatus:"unavailable",amountLabel:"Price unavailable"}}/>);expect(screen.getByRole("button",{name:"Manage payment"})).toBeDisabled();expect(screen.getByRole("button",{name:"Cancel"})).toBeDisabled();expect(screen.getByText(/Billing dates unavailable/)).toBeInTheDocument();
  });

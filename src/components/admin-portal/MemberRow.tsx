@@ -9,6 +9,8 @@ import StatusPill from "@/components/admin-portal/StatusPill";
 import { memberStatusPill } from "@/components/admin-portal/statusPresentation";
 import { storeMemberService } from "@/services/adminDemo";
 import type { ActionResult, StoreMember } from "@/types/adminDemo";
+import Link from "next/link";
+import { memberRoleLabel } from "@/components/admin-portal/roleLabel";
 
 interface MemberRowProps {
   member: StoreMember;
@@ -20,6 +22,7 @@ interface MemberRowProps {
 //   active → [Send recovery, Suspend] · invite_pending → [Resend invite]
 //   suspended → [Un-suspend]. Secondary line shows email · jobTitle (demo-only).
 const MemberRow = ({ member, onChanged }: MemberRowProps) => {
+  const storeId = member.storeId;
   const { toast } = useToast();
   const [busy, setBusy] = useState(false);
   const pill = memberStatusPill[member.accountStatus];
@@ -57,10 +60,17 @@ const MemberRow = ({ member, onChanged }: MemberRowProps) => {
           </p>
         </div>
       </div>
+      {/* Manual QA 19 Nov 2026 (R5): real mode shows the person's role (Owner is the account owner) and points to the
+          People page, where access is managed; the demo-only account actions are not shown. */}
+      {!isDemoMode() ? (
+        <div className="flex items-center justify-between gap-3 md:justify-end">
+          <StatusPill tone={member.isOwner ? "info" : "neutral"}>{memberRoleLabel(member)}</StatusPill>
+          {storeId && !member.isOwner ? <Link className="text-xs underline" href={`/admin-portal/stores/${storeId}/invite`}>Manage access</Link> : null}
+        </div>
+      ) : (
       <div className="flex items-center justify-between gap-3 md:justify-end">
         <StatusPill tone={pill.tone}>{pill.label}</StatusPill>
         <div className="flex gap-2">
-          {!isDemoMode() && <p className="text-xs text-muted-foreground">Member actions are not available in this release.</p>}
           {member.accountStatus === "active" && (
             <>
               <Button
@@ -103,6 +113,7 @@ const MemberRow = ({ member, onChanged }: MemberRowProps) => {
           )}
         </div>
       </div>
+      )}
     </div>
   );
 };

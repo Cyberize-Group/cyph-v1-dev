@@ -5,6 +5,7 @@ import Breadcrumb from "@/components/admin-portal/Breadcrumb";
 import ScreenHeader from "@/components/admin-portal/ScreenHeader";
 import InviteMemberForm from "@/components/admin-portal/InviteMemberForm";
 import MemberRow from "@/components/admin-portal/MemberRow";
+import AccessDenied, { isAccessDenied } from "@/components/admin-portal/AccessDenied";
 import { ownerStoresService, storeMemberService } from "@/services/adminDemo";
 import { isDemoMode } from "@/services/tenantScope";
 import LiveStaffPanel from "@/components/admin-portal/LiveStaffPanel";
@@ -14,11 +15,13 @@ const InviteScreen = ({ storeId }: { storeId: string }) => {
   const [store, setStore] = useState<OwnedStore | null>(null);
   const [pending, setPending] = useState<StoreMember[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [denied, setDenied] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
     setError(null);
+    setDenied(false);
     Promise.all([
       ownerStoresService.getStore(storeId),
       // APBM-007B: live invitations are listed by LiveStaffPanel through the invitation API.
@@ -32,7 +35,8 @@ const InviteScreen = ({ storeId }: { storeId: string }) => {
       })
       .catch((e) => {
         if (!cancelled) {
-          setError(e instanceof Error ? e.message : "Failed to load store");
+          if (isAccessDenied(e)) setDenied(true);
+          else setError(e instanceof Error ? e.message : "Failed to load store");
         }
       });
     return () => {
@@ -41,6 +45,8 @@ const InviteScreen = ({ storeId }: { storeId: string }) => {
   }, [storeId, reloadKey]);
 
   const reload = useCallback(() => setReloadKey((k) => k + 1), []);
+
+  if (denied) return <AccessDenied />;
 
   if (error) {
     return (
@@ -71,7 +77,7 @@ const InviteScreen = ({ storeId }: { storeId: string }) => {
       {!isDemoMode() ? (
         <div className="mt-6">
           {/* Owner-only billing facts are present only for the account owner; the server enforces every role rule. */}
-          <LiveStaffPanel storeId={storeId} canAppointAdmin={!!store && store.subscriptionStatus !== "unavailable"} />
+          <LiveStaffPanel storeId={storeId} storeName={store?.name} canAppointAdmin={!!store && store.subscriptionStatus !== "unavailable"} />
         </div>
       ) : (<>
       <div className="mt-6">

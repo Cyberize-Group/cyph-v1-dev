@@ -41,7 +41,8 @@ const tony = { email: "tony@stark.com" } as SupabaseUser;
 describe("Navbar mobile menu", () => {
   it("hamburger toggles a panel exposing the account actions", () => {
     render(<Navbar user={tony} role={AppRole.ADMIN} />);
-    screen.getAllByText("tony@stark.com"); // identity renders synchronously from props
+    // Manual QA 20 Nov 2026: the bar shows a name (here none is set → the honest generic label), not the email.
+    screen.getAllByText("Your account"); // identity renders synchronously from props
 
     // Closed by default — no logout control rendered.
     expect(screen.queryByRole("button", { name: "Log out" })).not.toBeInTheDocument();
@@ -53,6 +54,7 @@ describe("Navbar mobile menu", () => {
     expect(panel.getByRole("button", { name: "Log out" })).toBeInTheDocument();
     expect(panel.getByRole("link", { name: "Profile" })).toBeInTheDocument();
     expect(panel.getByRole("link", { name: "OwedBook" })).toBeInTheDocument();
+    expect(panel.getByText("tony@stark.com")).toBeInTheDocument(); // the full email stays in the account menu
   });
 
   // Intent: a mobile menu must dismiss on an outside tap — not trap the user until

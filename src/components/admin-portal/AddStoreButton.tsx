@@ -2,7 +2,7 @@
 import { isDemoMode } from "@/services/tenantScope";
 
 import { useState } from "react";
-import { Plus } from "lucide-react";
+import { Loader2, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -17,6 +17,27 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { ownerStoresService } from "@/services/adminDemo";
+import { peerOrigin } from "@/lib/appIdentity";
+
+// Manual QA 19 Nov 2026 (R1): in real mode the owner adds a paid pharmacy in Account & Billing. This opens the Portal's
+// Add a pharmacy form directly through the existing destination-verified handoff (same signed-in person, no token in
+// the link; the Portal accepts /stores/add as a return path and re-checks owner and subscription before any price).
+export function AddStoreHandoffLink() {
+  const [opening, setOpening] = useState(false);
+  return (
+    <div className="flex max-w-xs flex-col items-stretch gap-1 sm:items-end">
+      <Button asChild aria-busy={opening}>
+        <a href={`${peerOrigin()}/api/handoff/start?return=${encodeURIComponent("/stores/add")}`} onClick={() => setOpening(true)} data-testid="add-store-handoff">
+          {opening ? <><Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />Opening Account &amp; Billing…</> : <><Plus className="mr-2 h-4 w-4" aria-hidden="true" />Add store</>}
+        </a>
+      </Button>
+      <p className="text-xs text-muted-foreground sm:text-right">
+        Adds a paid pharmacy to your subscription in Account &amp; Billing. You see the price and confirm before paying. Needs an active subscription with no overdue payment or scheduled cancellation.
+      </p>
+      <span className="sr-only" aria-live="polite">{opening ? "Opening Account and Billing." : ""}</span>
+    </div>
+  );
+}
 
 // Mock "add a store" harvest form. The four fields (name / NCPDP / NPI / address)
 // are local-state ONLY — they exist to show the domain expert the intended new-store field set
@@ -54,7 +75,7 @@ const AddStoreButton = ({ onAdded }: { onAdded: () => void }) => {
     }
   };
 
-  if (!isDemoMode()) return <div><Button disabled>Add store</Button><p className="text-xs text-muted-foreground">Not available in this release.</p></div>;
+  if (!isDemoMode()) return <AddStoreHandoffLink />;
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

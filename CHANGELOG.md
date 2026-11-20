@@ -3,6 +3,20 @@
 > Documentation/playbook change log per CLAUDE.md Changelog Protocol.
 > `[CC]` = Claude Code · `[TS]` = Tony Stark manual edits.
 
+## 2026-11-20 03:40 UTC — [CC] Claude Code
+- **Updated:** `RECOVERY.md` (new top block), `agent_docs/SESSIONS/session_2026-11-20.md`; new `agent_docs/RESPONSES/response_2026-11-20_093957_dev-0071-apply-result.md` and evidence lane `agent_docs/ACTIONS/APBM-007B-CYBER-PHARMA/EVIDENCE/apply/dev-apply-0071/`.
+- **Reason:** Director release: DEV migration 0071 applied (receipt PASS); local `MAIL_RECIPIENT_POLICY=open` in both apps' `.env.local` (git-ignored).
+
+## 2026-11-20 02:22 UTC — [CC] Claude Code
+- **Updated:** `RECOVERY.md` (new top block), `agent_docs/SESSIONS/session_2026-11-19.md` and `session_2026-11-20.md`, new `agent_docs/RESPONSES/response_2026-11-20_*_manual-qa-repair-report.md`.
+- **Product (manual QA R1, R2, R4–R8, R10):**
+  - migration `0071_007b_owner_settings_audit.sql` (SCRATCH only);
+  - Add store handoff; staff panel (confirmation, Owner labels, delegation);
+  - Settings details; Profile role and guidance; readable audit log;
+  - DEV-only `MAIL_RECIPIENT_POLICY`; `sql-proof.mjs` 0071 scenarios; tests; `.env.example` names.
+- **Evidence:** `agent_docs/ACTIONS/APBM-007B-CYBER-PHARMA/EVIDENCE/apply/manual-qa-0071-scratch/`.
+- **Reason:** Director-led manual walkthrough of 19 Nov 2026; approval 20 Nov 2026. Campaign records live in the Portal module.
+
 ## 2026-11-19 05:20 UTC — [CC] Claude Code
 - **Updated:** `CLAUDE.eng.md` (factory declaration now at the top of the master), `CLAUDE.md` §2–§5 (option 2 offers to create or repair `CLAUDE.local.md` on an explicit yes, then reads it and continues in the same session; a fresh session is needed only to unload instructions), `agent_docs/FACTORY_SESSION_SETUP.md` (one process: no manual paste, no restart after setup or refresh).
 - **Reason:** Director: startup defect. The router required a declaration that the copied master did not contain. Guest workflow, credential isolation and Director-only merge unchanged.
@@ -415,3 +429,16 @@
 - **Created:** `agent_docs/KIP_REGISTRY.md` — numbered registry of parked Kit/Known Improvement Proposals; seeded KIP-1 (server.ts cookie modernization) + KIP-2 (useAuthStore.role stale-persist consumers)
 - **Updated:** `CLAUDE.md` — session-start step 5: check KIP_REGISTRY and surface any KIP whose triggers are met
 - **Reason:** Operator directive after the staging nav-bug fix — give parked improvements a durable home with explicit trigger conditions instead of scattered flags
+
+## 2026-11-20 07:03 UTC — [CC] Claude Code
+
+- **Updated:** APBM-007B manual QA records — final consolidated repair batch.
+  - Portal module: `REPAIR_LEDGER.md`, `APBM_JOURNAL.md`, `APBM_STATE.md`, `TESTER_PLAN.md` v2, `GATE_D_HANDOFF.md` §6; new `MANUAL_QA/2026-11-20/STAGING_INVENTORY.md`.
+  - OwedBook: session log, `RECOVERY.md`, response `response_2026-11-20_130324_final-qa-repair-batch.md`.
+- **Reason:** Director order of 20 Nov 2026 (repairs F1–F6, advisory investigation, read-only deployment preparation).
+
+## 2026-11-20 07:31 UTC — [CC] Claude Code
+
+- **Updated:** `agent_docs/SESSIONS/session_2026-11-20.md` — session closed: lessons learned, end-of-session state, files changed this session.
+- **Updated:** `RECOVERY.md` — session-closed note and first action for the next session.
+- **Reason:** Director closed the engineering session.

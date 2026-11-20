@@ -11,18 +11,24 @@ import { Loader2, User } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import type { User as SupabaseUser } from "@supabase/supabase-js";
 import { AppRole } from "@/utils/app-role";
+import { SUPPORT_EMAIL } from "@/lib/support";
 
 interface Props {
   user: SupabaseUser;
-  /** Canonical role from `user_roles` (fetched server-side in the page). */
+  /** Canonical platform role from `user_roles` (fetched server-side in the page). */
   role: AppRole;
+  /**
+   * Manual QA 19 Nov 2026 (R5/R7): the person's role on their pharmacies (tenant_stores capability): Owner if they own an
+   * account, else Store admin, else Member. The platform role says 'member' for every customer, so it never shows Owner.
+   */
+  accountRole?: "Owner" | "Store admin" | "Member" | null;
 }
 
 // false on the server and while hydrating, true once React owns the page (no effect, no extra render).
 const noSubscribe = () => () => {};
 const useHydrated = () => useSyncExternalStore(noSubscribe, () => true, () => false);
 
-const ProfileForm = ({ user, role }: Props) => {
+const ProfileForm = ({ user, role, accountRole = null }: Props) => {
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -50,9 +56,9 @@ const ProfileForm = ({ user, role }: Props) => {
     .slice(0, 2);
 
   // Role-aware badge + avatar accent (deterministic — no raw role string in UI).
-  const isPrivileged = role === AppRole.ADMIN || role === AppRole.SUPERADMIN;
+  const isPrivileged = role === AppRole.ADMIN || role === AppRole.SUPERADMIN || accountRole === "Owner" || accountRole === "Store admin";
   const roleLabel =
-    role === AppRole.SUPERADMIN ? "Superadmin" : role === AppRole.ADMIN ? "Admin" : "Member";
+    role === AppRole.SUPERADMIN ? "Superadmin" : accountRole ?? (role === AppRole.ADMIN ? "Admin" : "Member");
   const accent = isPrivileged
     ? { bg: "bg-destructive/10", text: "text-destructive", border: "border-destructive/30" }
     : { bg: "bg-success/10", text: "text-success", border: "border-success/30" };
@@ -142,7 +148,8 @@ const ProfileForm = ({ user, role }: Props) => {
               disabled
             />
             <p className="text-sm text-muted-foreground mt-1">
-              Contact an admin to change your email or name
+              Name and email changes aren&apos;t self-service yet. To change them, contact support at{" "}
+              <a className="underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
             </p>
           </div>
         </CardContent>

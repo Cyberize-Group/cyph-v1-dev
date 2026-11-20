@@ -69,7 +69,9 @@ describe("owner-only billing read (RA-3)", () => {
   it("a store row without a billing field (non-owner redaction) maps to unavailable, not to a guess", async () => {
     const c = rpcBy({ admin_stores: [{ id: A, name: "A", ncpdp: null, npi: "1234567893", status: "active", member_count: 1 }] });
     const [store] = await createAdminServices(c).ownerStoresService.listMyStores();
-    expect(store.subscriptionStatus).toBe("unavailable");
+    // Manual QA 20 Nov 2026: the server leaves the field out for non-owners, so this is "billing managed by the owner" — a
+    // neutral state that never counts as needing attention. A present but unknown value still maps to "unavailable".
+    expect(store.subscriptionStatus).toBe("owner_managed");
     expect(store.ncpdp).toBe("Unavailable");   // NCPDP is optional now (D-03)
   });
 });

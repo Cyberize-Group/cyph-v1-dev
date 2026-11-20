@@ -65,7 +65,7 @@ const SettingsForm = ({ settings }: { settings: PharmacySettings }) => {
     }
   };
 
-  if (!isDemoMode()) return <div><h2 className="font-semibold">{settings.pharmacyName}</h2><p role="status">Editing settings is not available in this release. Additional pharmacy details are unavailable.</p></div>;
+  if (!isDemoMode()) return <div><h2 className="font-semibold">{settings.pharmacyName}</h2><p role="status">Editing pharmacy details is pending approval.</p></div>;
 
   return (
     <Form {...form}>

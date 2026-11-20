@@ -1,12 +1,14 @@
 // Tenant scope is passed per surface/request; never stored in a global selector.
 export type TenantStore = { id: string; account_id: string; name: string; capability: "owner" | "admin" | "member" };
-export type RpcClient = { rpc(name: string, args?: Record<string, unknown>): PromiseLike<{ data: unknown; error: { message: string } | null }> };
+export type RpcClient = { rpc(name: string, args?: Record<string, unknown>): PromiseLike<{ data: unknown; error: { message: string; code?: string } | null }> };
+/** A failed read; `code` is the database error code when there is one (42501 = not permitted). */
+export class RpcError extends Error { constructor(message: string, readonly code?: string) { super(message); this.name = "RpcError"; } }
 export const isDemoMode = () => process.env.NEXT_PUBLIC_APBM_DATA_MODE === "mock";
 export const unavailableMessage = "Not available in this release.";
 export async function readRpc<T>(name: string, args: Record<string, unknown> = {}, client?: RpcClient): Promise<T> {
   const connection: RpcClient = client ?? (await import("@/utils/supabase/client")).createClient() as unknown as RpcClient;
   const { data, error } = await connection.rpc(name, args);
-  if (error) throw new Error(error.message);
+  if (error) throw new RpcError(error.message, error.code);
   if (data == null) throw new Error("Data unavailable. Please retry.");
   return data as T;
 }

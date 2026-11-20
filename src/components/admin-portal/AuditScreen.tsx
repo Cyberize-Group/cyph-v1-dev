@@ -8,6 +8,8 @@ import EmptyState from "@/components/common/EmptyState";
 import { auditActionLabel } from "@/components/admin-portal/statusPresentation";
 import { formatAuditTime } from "@/components/admin-portal/format";
 import { auditService } from "@/services/adminDemo";
+import { isDemoMode } from "@/services/tenantScope";
+import LiveAuditLog from "@/components/admin-portal/LiveAuditLog";
 
 // Pre-formatted display row (a type alias, so it satisfies DataTable's
 // Record<string, unknown> constraint). Result renders Done/Failed from the enum.
@@ -101,4 +103,6 @@ const AuditScreen = () => {
   );
 };
 
-export default AuditScreen;
+// Real mode: the readable, paged audit log (manual QA R8). Demo mode keeps the mock list below.
+const AuditScreenRouter = () => (isDemoMode() ? <AuditScreen /> : <LiveAuditLog />);
+export default AuditScreenRouter;

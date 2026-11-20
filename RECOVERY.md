@@ -4,7 +4,71 @@
 > Updated after every plan completion. If this file is stale, the session log in
 > `agent_docs/SESSIONS/` is the fallback source of truth.
 
-**Last updated:** 2026-10-22 11:17 — **Guest contribution kit update on `pilot/vik-guest-contribution`; PR for Director merge** · Stage 4 merged (PR #6, `764e396`) · External handoff ready **NO**
+**Session closed:** 2026-11-20 13:31 (Director closeout). Nothing is running (no apps, Stripe listener or scheduler); nothing is committed by Claudy. Both repos are on `repair/apbm-007b-manual-qa`, uncommitted (OwedBook 54 paths, Portal 41). The full end-of-session state, lessons and the changed-file list are in `agent_docs/SESSIONS/session_2026-11-20.md`.
+**First action next session:** Tony commits both repos (commands in the 13:03 response) → rebuild and start both apps → tester plan section F.
+
+**Last updated:** 2026-11-20 13:03 — **Final consolidated manual-QA repair batch IMPLEMENTED (F1–F6, both repos, uncommitted on `repair/apbm-007b-manual-qa`); targeted retest PENDING (Tony/JARVIS); campaign NOT certified** · DEV at 71 (unchanged) · External handoff ready **NO**
+**Result:**
+- **Repairs:**
+  - Portal `/stores/add` server owner guard, with an authorization test of every Add Store and removal operation (31 tests);
+  - owner-managed billing for store admins (no false warnings);
+  - access-denied state with Back to My Stores;
+  - audit wording (scheduled vs removed, owner-safe handover, system actor);
+  - navbar name and role badge in both apps;
+  - auth scope unchanged.
+- **Checks:** jest OwedBook 370/370 and Portal 568/568; typecheck clean; builds PASS (isolated copies).
+
+**Next step:** rebuild and restart both apps → Tony runs Portal `MANUAL_QA/TESTER_PLAN.md` section F → Tony commits both repos → deployment decisions (`MANUAL_QA/2026-11-20/STAGING_INVENTORY.md` §8).
+**Open inputs:**
+- Portal domain;
+- Next.js 16.4.5 upgrade approval (both versions have advisories);
+- Portal kit refresh and OwedBook recipe;
+- Terms URL, Privacy URL, support mailbox.
+**Record:** `agent_docs/RESPONSES/response_2026-11-20_130324_final-qa-repair-batch.md`.
+
+**Prior block (2026-11-20 09:40):** **Last updated:** 2026-11-20 09:40 — **DEV migration 0071 APPLIED (Director release); DEV ledger 71 = manifest; local `MAIL_RECIPIENT_POLICY=open` set in both apps** · both repos on `repair/apbm-007b-manual-qa` (uncommitted; OwedBook `64295a7`, Portal `0443fda`) · External handoff ready **NO**
+**Result:**
+- Receipt `agent_docs/ACTIONS/APBM-007B-CYBER-PHARMA/EVIDENCE/apply/dev-apply-0071/forward-apply-1795145858189.json` PASS.
+- Catalogue `849b7699…` (103 functions).
+- Guard post: every preservation check equal; DEV test clock refused 42501.
+- Compatibility (rolled back): no scope diffs.
+- Against SCRATCH: no differences except `defaultACLs`.
+
+**Next step:** start both apps, the Stripe listener and (time-based tests only) the scheduler → Tony/JARVIS retest per the Portal `MANUAL_QA/TESTER_PLAN.md` → Tony commits both repos.
+**Open inputs:** Terms URL, Privacy URL, support mailbox check, alpha-domain decision.
+**Record:** `agent_docs/RESPONSES/response_2026-11-20_093957_dev-0071-apply-result.md`.
+
+**Prior block (2026-11-20 08:25):** **Last updated:** 2026-11-20 08:25 — **Manual QA repair round R1–R10 IMPLEMENTED (both repos, uncommitted on `main`); 0071 on SCRATCH only; retest PENDING (Tony/JARVIS)** · OwedBook `main` `64295a7` · Portal `main` `0443fda` · External handoff ready **NO**
+**Result:**
+- **Tests:** jest OwedBook 355/355, Portal 533/533; typecheck clean in both; `next build` PASS for both (isolated copies; running servers untouched).
+- **SCRATCH:** 0071 apply PASS; `sql-proof --scratch` 180/180.
+- **DEV:** at 70. 0071 is NOT applied; that needs a separate release (`MANUAL_QA/2026-11-19/DEV_APPLY_0071_PREPARED.md` in the Portal module).
+- **R3 root cause:** the add-store charge ignored the card saved on the subscription. Fixed.
+
+**Uncommitted:**
+- **OwedBook:** product changes (17 modified, 12 new incl. `supabase/migrations/0071_007b_owner_settings_audit.sql`), evidence lane `EVIDENCE/apply/manual-qa-0071-scratch/`, plus all 19 Nov records.
+- **Portal:** product changes (17 modified, 4 new) and module records (`MANUAL_QA/`, journal, state, rulings, amendments, Gate D note, CHANGELOG).
+- **Branch:** Tony creates a repair branch (`git switch -c` carries everything).
+
+**Open inputs:** Terms URL, Privacy URL, support mailbox check, alpha-domain decision (`appIdentity.ts`), DEV 0071 release. The Next.js security advisory shown by the Portal build has not been acted on (no upgrade made).
+**Next step:** Tony branches and commits both repos → DEV 0071 release → restart both apps (optionally with `MAIL_RECIPIENT_POLICY=open`) → Tony/JARVIS retest per the Portal `MANUAL_QA/TESTER_PLAN.md`.
+**Record:** `agent_docs/RESPONSES/response_2026-11-20_082500_manual-qa-repair-report.md` · plan `response_2026-11-19_173752_manual-qa-repair-plan.md` · session `agent_docs/SESSIONS/session_2026-11-20.md`.
+
+**Prior block (2026-11-19 12:01):** **Last updated:** 2026-11-19 12:01 — **APBM-007B DEV migration 0070 APPLIED (Director release); DEV ledger 70 = manifest; DEV ready for the manual walkthrough** · `main` = `origin/main` = `64295a7` · External handoff ready **NO**
+**Result:** receipt `agent_docs/ACTIONS/APBM-007B-CYBER-PHARMA/EVIDENCE/apply/dev-apply-0070/forward-apply-1795067652247.json` PASS (0070 `de0b51c6…edce81` only). Sheet steps 1–7 PASS: preservation all equal, 007A compat identical to r05, DEV test clock refused 42501, SCRATCH reference differing sections none. OwedBook `main` `64295a7` and Portal `main` `0443fda` both carry 007B code. 007B records (state, closeout, release sheet) live in the Portal repo under `agent_docs/ACTIONS/APBM-007B-CYBER-PHARMA/`.
+**Uncommitted (records only):** `RECOVERY.md`, `agent_docs/SESSIONS/session_2026-11-19.md`, three `agent_docs/RESPONSES/response_2026-11-19_*` files, `EVIDENCE/apply/dev-preflight-0070/`, `EVIDENCE/apply/dev-apply-0070/`. `main` is protected → PR.
+**Open:** Portal 007B records still say "DEV at 69 / 0070 prepared, not applied" — update to reflect the apply. 007A `CLOSEOUT_REPORT.md` merge SHAs not recorded. `Known Good State` below is stale (BIM-003 era).
+**Next step:** Director manual walkthrough on DEV → Tony commits today's records via PR.
+**Record:** `agent_docs/RESPONSES/response_2026-11-19_115622_dev-0070-apply-result.md` (preflight: `response_2026-11-19_114015_dev-0070-preflight.md`).
+
+**Prior block (2026-11-19 11:36):** **Last updated:** 2026-11-19 11:36 — **`main` = `origin/main` = `64295a7` (PR #12, VIK startup-router fix merged and synced 2026-11-19)** · External handoff ready **NO**
+**Since 2026-10-22:** PR #7 guest contribution kit (`7de7b4d`) and PR #8 `guest/frank-2026-10-22` (`af2c7e5`) merged 2026-10-22 · APBM-003 OwedBook database integration (#9, `bc4e433`, 2026-11-10) · APBM-007A subscription access and billing (#10, `0b78552`, 2026-11-16; Gate Q PASS WITH KNOWN RISK; Payment Portal merge not verifiable from this clone) · APBM-007B store lifecycle and invitations (#11, `5a61cb6`, 2026-11-18; migrations 0061–0070 DEV-applied per commit messages) · VIK startup-router fix (#12, `64295a7`, 2026-11-19; commit `51dad71`; fresh-session Hi → 2 test passed).
+**Uncommitted:** `agent_docs/SESSIONS/session_2026-11-19.md`, `agent_docs/RESPONSES/response_2026-11-19_112946_recovery-refresh-plan.md`, `RECOVERY.md`.
+**Open:** 007A's `CLOSEOUT_REPORT.md` still says "Director merge/push pending" — merge SHAs not yet recorded. No 007B state or closeout record exists in this repo (only `EVIDENCE/`). `Known Good State` below is from the BIM-003 era and is stale.
+**Next step:** Tony commits the session records + this file; then pick the next task (candidates: 007A closeout SHAs, 007B records, board re-run for `Known Good State`).
+**Record:** `agent_docs/RESPONSES/response_2026-11-19_112946_recovery-refresh-plan.md` · session `agent_docs/SESSIONS/session_2026-11-19.md`.
+
+**Prior block (2026-10-22 11:17):** **Last updated:** 2026-10-22 11:17 — **Guest contribution kit update on `pilot/vik-guest-contribution`; PR for Director merge** · Stage 4 merged (PR #6, `764e396`) · External handoff ready **NO**
 **Record:** `agent_docs/RESPONSES/response_2026-10-22_111700_guest-contribution.md`. The guest's explicit request → `vibe_docs/vibe-gh.sh` sign-in inside the clone → repo-local identity and credentials → commit → push the guest branch → VPR PR. Merging is Director-only. Incident 2026-10-22: global gh token exposed in session output, revoked by Tony.
 **Next step:** Tony's manual test with a real guest GitHub account → Director merge → sync `main`. Still pending: preview/login, Windows/Cursor, `CLAUDE.local.md` refresh.
 

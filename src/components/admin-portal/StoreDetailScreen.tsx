@@ -8,6 +8,7 @@ import DemoMarker from "@/components/admin-portal/DemoMarker";
 import StatusPill from "@/components/admin-portal/StatusPill";
 import MemberRoster from "@/components/admin-portal/MemberRoster";
 import { subscriptionPill } from "@/components/admin-portal/statusPresentation";
+import AccessDenied, { isAccessDenied } from "@/components/admin-portal/AccessDenied";
 import { ownerStoresService, storeMemberService } from "@/services/adminDemo";
 import type { OwnedStore, StoreMember } from "@/types/adminDemo";
 
@@ -23,12 +24,14 @@ const StoreDetailScreen = ({ storeId }: { storeId: string }) => {
   const [members, setMembers] = useState<StoreMember[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [denied, setDenied] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
     setError(null);
+    setDenied(false);
     Promise.all([
       ownerStoresService.getStore(storeId),
       storeMemberService.listMembers(storeId),
@@ -42,7 +45,8 @@ const StoreDetailScreen = ({ storeId }: { storeId: string }) => {
       })
       .catch((e) => {
         if (!cancelled) {
-          setError(e instanceof Error ? e.message : "Failed to load store");
+          if (isAccessDenied(e)) setDenied(true);
+          else setError(e instanceof Error ? e.message : "Failed to load store");
           setLoading(false);
         }
       });
@@ -52,6 +56,8 @@ const StoreDetailScreen = ({ storeId }: { storeId: string }) => {
   }, [storeId, reloadKey]);
 
   const reload = useCallback(() => setReloadKey((k) => k + 1), []);
+
+  if (denied) return <AccessDenied />;
 
   if (error) {
     return (
@@ -89,7 +95,7 @@ const StoreDetailScreen = ({ storeId }: { storeId: string }) => {
       </div>
       <div className="mt-2 flex flex-wrap items-center gap-3">
         <h1 className="text-3xl font-bold tracking-tight">{store.name}</h1>
-        <StatusPill tone={sub.tone}>Subscription {sub.label}</StatusPill>
+        <StatusPill tone={sub.tone}>{store.subscriptionStatus === "owner_managed" ? "Billing managed by owner" : `Subscription ${sub.label}`}</StatusPill>
       </div>
       <p className="mt-1 text-[15px] text-muted-foreground">
         NCPDP {store.ncpdp} · NPI {store.npi}

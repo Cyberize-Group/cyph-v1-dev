@@ -24,6 +24,8 @@ export const memberStatusPill: Record<MemberAccountStatus, PillSpec> = {
 
 export const subscriptionPill: Record<SubscriptionStatus, PillSpec> = {
   unavailable: {tone:"neutral",label:"Unavailable"},
+  // Manual QA 20 Nov 2026: a store admin is not given billing (owner-only). Neutral wording, never a warning.
+  owner_managed: {tone:"neutral",label:"Managed by owner"},
   trialing: {tone:"info",label:"Trialing"},
   unpaid: {tone:"warning",label:"Unpaid"},
   incomplete: {tone:"warning",label:"Incomplete"},
@@ -35,9 +37,11 @@ export const subscriptionPill: Record<SubscriptionStatus, PillSpec> = {
 };
 
 // A store "needs attention" when it's suspended or its subscription isn't
-// active — drives the My Stores card pill + the glance count.
+// active — drives the My Stores card pill + the glance count. Billing the viewer
+// is not allowed to see (owner_managed) is never counted as a problem: only what
+// this person is authorised to receive decides the status (manual QA 20 Nov 2026).
 export const storeNeedsAttention = (s: OwnedStore): boolean =>
-  s.status === "suspended" || s.subscriptionStatus !== "active";
+  s.status === "suspended" || (s.subscriptionStatus !== "active" && s.subscriptionStatus !== "owner_managed");
 
 export const storeStatusPill = (s: OwnedStore): PillSpec =>
   s.status === "unavailable" ? {tone:"neutral",label:"Status unavailable"} : storeNeedsAttention(s)
