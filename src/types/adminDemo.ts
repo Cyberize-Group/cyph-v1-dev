@@ -14,7 +14,8 @@ export type MemberRole = "admin" | "member";
 export type StoreStatus = "active" | "suspended" | "unavailable";
 
 // Subscription mirror (drives SUB ACTIVE / PAST-DUE pills)
-export type SubscriptionStatus = "active" | "past_due" | "canceled" | "trialing" | "unpaid" | "incomplete" | "incomplete_expired" | "paused" | "unavailable";
+// "owner_managed": the server withholds billing from this role (store admins; 0060/0063) — not a subscription problem.
+export type SubscriptionStatus = "active" | "past_due" | "canceled" | "trialing" | "unpaid" | "incomplete" | "incomplete_expired" | "paused" | "unavailable" | "owner_managed";
 
 // Billing plan (demo values; Phase-7 maps to real Stripe price/plan_type)
 // "owedbook" and "synthetic" are the real-mode plans read from the owner's subscription (U-2); "standard" and
@@ -62,7 +63,9 @@ export interface StoreMember {
   // ⚠️ DEMO-ONLY display (pharmacist/technician). Unbacked in the domain expert's schema —
   // Phase-7 source-decision flag (DATA_CONTRACT §6). Do NOT pretend it's backed.
   jobTitle?: string;
-  role: MemberRole; // permission role
+  role: MemberRole; // permission role (the store membership row)
+  isOwner?: boolean; // real mode (0071): this person is the account owner — always shown as Owner, never removable
+  hasMembership?: boolean; // real mode (0071): false when the owner is listed without a membership row on this store
   accountStatus: MemberAccountStatus;
   invitedAt?: string; // ISO; present when accountStatus === 'invite_pending'
   // UI derives row actions from accountStatus:

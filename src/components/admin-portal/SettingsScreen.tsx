@@ -4,9 +4,11 @@ import { useCallback, useEffect, useState } from "react";
 import { Store } from "lucide-react";
 import ScreenHeader from "@/components/admin-portal/ScreenHeader";
 import SettingsForm from "@/components/admin-portal/SettingsForm";
+import PharmacyDetails from "@/components/admin-portal/PharmacyDetails";
+import { isDemoMode } from "@/services/tenantScope";
 import EmptyState from "@/components/common/EmptyState";
 import { ownerStoresService, settingsService } from "@/services/adminDemo";
-import type { PharmacySettings } from "@/types/adminDemo";
+import type { OwnedStore, PharmacySettings } from "@/types/adminDemo";
 
 const Skeleton = () => (
   <div className="w-full max-w-[560px] space-y-5" data-testid="settings-skeleton">
@@ -21,6 +23,7 @@ const Skeleton = () => (
 // settings reached from store detail.)
 const SettingsScreen = () => {
   const [settings, setSettings] = useState<PharmacySettings | null>(null);
+  const [stores, setStores] = useState<OwnedStore[]>([]);
   const [empty, setEmpty] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -33,6 +36,7 @@ const SettingsScreen = () => {
     (async () => {
       try {
         const stores = await ownerStoresService.listMyStores();
+        if (!cancelled) setStores(stores);
         if (stores.length === 0) {
           if (!cancelled) {
             setEmpty(true);
@@ -40,6 +44,8 @@ const SettingsScreen = () => {
           }
           return;
         }
+        // Real mode (manual QA R6): PharmacyDetails loads the selected store itself; demo mode keeps the first-store form.
+        if (!isDemoMode()) { if (!cancelled) setLoading(false); return; }
         const s = await settingsService.getSettings(stores[0].storeId);
         if (!cancelled) {
           setSettings(s);
@@ -63,7 +69,7 @@ const SettingsScreen = () => {
     <div className="mx-auto max-w-[560px]">
       <ScreenHeader
         title="Pharmacy settings"
-        subtitle="Update your pharmacy information."
+        subtitle={isDemoMode() ? "Update your pharmacy information." : "The details stored for your pharmacies."}
       />
       {error ? (
         <div className="mt-6 flex items-center gap-3 text-sm text-destructive">
@@ -86,7 +92,7 @@ const SettingsScreen = () => {
         </div>
       ) : (
         <div className="mt-6">
-          <SettingsForm key={settings!.storeId} settings={settings!} />
+          {isDemoMode() ? <SettingsForm key={settings!.storeId} settings={settings!} /> : <PharmacyDetails stores={stores} />}
         </div>
       )}
     </div>

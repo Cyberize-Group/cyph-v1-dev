@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// APBM-007B database proof (0061–0070). cwd: OwedBook repository root.
+// APBM-007B database proof (0061–0071). cwd: OwedBook repository root.
 //
 //   node scripts/apbm007b/sql-proof.mjs --help
 //   node scripts/apbm007b/sql-proof.mjs --local <url>       # local rehearsal DB: rolled-back scenarios + committed concurrency
@@ -506,6 +506,79 @@ await scenario('0070 paid-versus-void race', async (db) => {
     && (await f.observe('w1', f.ep, -1000)) === 'attention' && (await f.facts()).code === 'paid_after_abandon');
 });
 
+// ---------------------------------------------------------------- 0071 manual QA repair round (owner model, settings, audit)
+// Director rulings 20 Nov 2026: account ownership stays authoritative after delegation (the owner's row may become 'member');
+// the owner is never removed from a store; a delegated store admin gets no billing powers. Skipped (recorded) before 0071.
+await scenario('0071 owner model, store profile, readable audit', async (db) => {
+  if (!(await db.raw(`select to_regprocedure('public.store_profile(uuid)') is not null ok`))[0].ok) { checks.push({ name: '0071: not applied on this database', status: 'SKIPPED' }); return; }
+  const w = await world(db);
+  const email = async (uid) => (await db.raw('select email from auth.users where id=$1', [uid]))[0].email;
+  const r0 = (r) => r.rows?.[0]?.r;
+  const members = async (uid, b) => r0(await db.as(uid, 'select public.admin_members($1) r', [b]));
+  // admin_members marks the owner, also where the owner has no membership row (A2)
+  const mA1 = await members(w.u.ownerA, w.s.A1);
+  check('0071 admin_members: owner marked is_owner (own admin row)', mA1.some((m) => m.id === w.u.ownerA && m.is_owner === true && m.role === 'admin') && mA1.some((m) => m.id === w.u.memberA && m.is_owner === false), JSON.stringify(mA1));
+  const mA2 = await members(w.u.adminA2, w.s.A2);
+  check('0071 admin_members: owner listed (no membership row) and marked for the store admin', mA2.some((m) => m.id === w.u.ownerA && m.is_owner === true && m.has_membership === false) && mA2.some((m) => m.id === w.u.adminA2 && m.is_owner === false), JSON.stringify(mA2));
+  // owner protection at delegation
+  const inv = w.u.invitee; const invEmail = await email(inv); const ownerEmail = await email(w.u.ownerA);
+  const removeOwner = await db.as(w.u.ownerA, 'select public.invitation_create($1,$2,$3,$4) r', [w.s.A1, invEmail, 'admin', 'remove']);
+  check('0071 invitation_create: "remove" refused when the incumbent admin is the owner', removeOwner.error === '22023' && /account owner cannot be removed/.test(removeOwner.message ?? ''), JSON.stringify(removeOwner));
+  check('0071 invitation_create: inviting the owner as a member is refused', r0(await db.as(w.u.ownerA, 'select public.invitation_create($1,$2,$3,$4) r', [w.s.A1, ownerEmail, 'member', null]))?.error === 'owner_already_manages');
+  const created = r0(await db.as(w.u.ownerA, 'select public.invitation_create($1,$2,$3,$4) r', [w.s.A1, invEmail, 'admin', 'member']));
+  const accepted = r0(await db.as(inv, 'select public.invitation_accept($1) r', [created?.invitation?.id]));
+  const rows = await db.raw('select user_id, role from public.user_businesses where business_id=$1', [w.s.A1]);
+  check('0071 delegation: invitee becomes the one store admin; owner row kept as member (never deleted)', accepted?.status === 'accepted'
+    && rows.filter((x) => x.role === 'admin').length === 1 && rows.some((x) => x.user_id === inv && x.role === 'admin') && rows.some((x) => x.user_id === w.u.ownerA && x.role === 'member'), JSON.stringify({ accepted, rows }));
+  // owner authority after delegation, across every owned store
+  const cap = (await db.as(w.u.ownerA, 'select id, capability from public.tenant_stores()')).rows ?? [];
+  check('0071 after delegation: owner capability is "owner" on every owned store', [w.s.A1, w.s.A2].every((b) => cap.some((x) => x.id === b && x.capability === 'owner')), JSON.stringify(cap));
+  check('0071 after delegation: owner still reads admin, members, audit, billing', !(await db.as(w.u.ownerA, 'select public.admin_stores($1)', [w.s.A1])).error
+    && !(await db.as(w.u.ownerA, 'select public.admin_members($1)', [w.s.A1])).error && !(await db.as(w.u.ownerA, 'select public.admin_audit($1, 10)', [w.s.A1])).error
+    && !(await db.as(w.u.ownerA, 'select public.owner_billing_overview()')).error && !(await db.as(w.u.ownerA, 'select public.admin_billing_status($1)', [w.s.A1])).error);
+  const ownerInvites = r0(await db.as(w.u.ownerA, 'select public.invitation_create($1,$2,$3,$4) r', [w.s.A1, 'later-' + randomUUID().slice(0, 6) + '@proof.invalid', 'member', null]));
+  check('0071 after delegation: owner still invites members to the delegated store', !!ownerInvites?.invitation, JSON.stringify(ownerInvites));
+  const mAfter = await members(inv, w.s.A1);
+  check('0071 after delegation: members list still marks the owner (role member, is_owner true)', mAfter.some((m) => m.id === w.u.ownerA && m.is_owner === true && m.role === 'member'), JSON.stringify(mAfter));
+  // delegated admin: store management only, no billing or owner powers
+  const capInv = (await db.as(inv, 'select id, capability from public.tenant_stores()')).rows ?? [];
+  check('0071 delegated admin: capability "admin" on that store only', capInv.length === 1 && capInv[0].id === w.s.A1 && capInv[0].capability === 'admin', JSON.stringify(capInv));
+  check('0071 delegated admin: no billing (overview, billing status) and no subscription status in store list', !!(await db.as(inv, 'select public.owner_billing_overview()')).error
+    && !!(await db.as(inv, 'select public.admin_billing_status($1)', [w.s.A1])).error
+    && !('subscription_status' in ((r0(await db.as(inv, 'select public.admin_stores($1) r', [w.s.A1])) ?? [{}])[0] ?? {})));
+  check('0071 delegated admin: cannot appoint admins or touch other stores', !!(await db.as(inv, 'select public.invitation_create($1,$2,$3,$4)', [w.s.A1, 'x-' + randomUUID().slice(0, 6) + '@proof.invalid', 'admin', 'member'])).error
+    && !!(await db.as(inv, 'select public.admin_members($1)', [w.s.A2])).error);
+  const invRemovesOwner = await db.as(inv, 'select public.member_remove($1,$2) r', [w.s.A1, w.u.ownerA]);
+  check('0071 member_remove: delegated admin cannot remove the owner', /account owner cannot be removed/.test(invRemovesOwner.message ?? ''), JSON.stringify(invRemovesOwner));
+  const ownerRemovesSelf = await db.as(w.u.ownerA, 'select public.member_remove($1,$2) r', [w.s.A1, w.u.ownerA]);
+  check('0071 member_remove: the owner\'s own row cannot be removed either', /account owner cannot be removed/.test(ownerRemovesSelf.message ?? ''), JSON.stringify(ownerRemovesSelf));
+  check('0071 member_remove: delegated admin still removes an ordinary member', r0(await db.as(inv, 'select public.member_remove($1,$2) r', [w.s.A1, w.u.memberA]))?.removed === true);
+  const reclaim = r0(await db.as(w.u.ownerA, 'select public.invitation_create($1,$2,$3,$4) r', [w.s.A1, ownerEmail, 'admin', 'member']));
+  check('0071 owner may take the store admin role back by inviting themselves', !!reclaim?.invitation, JSON.stringify(reclaim));
+  // store_profile scoping
+  await db.raw(`update public.businesses set address='1 Proof St', city='Albany', zip='12207', phone='5185550100', pharmacy_software_system='Liberty' where id=$1`, [w.s.A1]);
+  const prof = r0(await db.as(w.u.ownerA, 'select public.store_profile($1) r', [w.s.A1]));
+  check('0071 store_profile: owner reads stored details', prof?.name === 'Proof A1' && prof?.address === '1 Proof St' && prof?.pharmacy_software_system === 'Liberty' && prof?.npi === NPI[0], JSON.stringify(prof));
+  check('0071 store_profile: store admin reads own store, owner reads a store with no membership row', !(await db.as(w.u.adminA2, 'select public.store_profile($1)', [w.s.A2])).error && !(await db.as(w.u.ownerA, 'select public.store_profile($1)', [w.s.A2])).error);
+  check('0071 store_profile: member, other-store admin, foreign owner and anonymous are refused', !!(await db.as(w.u.memberA, 'select public.store_profile($1)', [w.s.A2])).error
+    && !!(await db.as(w.u.adminA2, 'select public.store_profile($1)', [w.s.A1])).error && !!(await db.as(w.u.foreign, 'select public.store_profile($1)', [w.s.A1])).error
+    && (await db.raw(`select has_function_privilege('anon','public.store_profile(uuid)','EXECUTE') a`))[0].a === false);
+  // readable audit
+  const audit = async (uid, b, reads) => r0(await db.as(uid, 'select public.admin_audit($1, 100, null, $2) r', [b, reads]))?.rows ?? [];
+  const def = await audit(w.u.ownerA, w.s.A1, false); const all = await audit(w.u.ownerA, w.s.A1, true);
+  check('0071 admin_audit: view events hidden by default and shown on request', def.length > 0 && def.every((x) => x.action !== 'read_page') && all.some((x) => x.action === 'read_page'), JSON.stringify({ def: def.length, all: all.length }));
+  const invRow = def.find((x) => x.table_name === 'store_invitations' && x.action === 'insert');
+  check('0071 admin_audit: invitation row carries actor and whitelisted detail (email, role)', !!invRow && invRow.actor?.email === ownerEmail && invRow.actor_kind === 'person' && invRow.detail?.email && invRow.detail?.role && !('old_data' in invRow) && !('new_data' in invRow), JSON.stringify(invRow));
+  const delRow = def.find((x) => x.table_name === 'user_businesses' && x.action === 'delete');
+  check('0071 admin_audit: member removal names the person removed', !!delRow && delRow.detail?.person_email === (await email(w.u.memberA)) && delRow.detail?.role_from === 'member', JSON.stringify(delRow));
+  const roleRow = def.find((x) => x.table_name === 'user_businesses' && x.action === 'update' && x.detail?.role_to === 'member');
+  check('0071 admin_audit: delegation shows the owner row role change admin → member', !!roleRow && roleRow.detail?.role_from === 'admin' && roleRow.detail?.person_email === ownerEmail, JSON.stringify(roleRow));
+  check('0071 admin_audit: store admin sees only its own store', (await audit(w.u.adminA2, w.s.A2, true)).every((x) => x.business_id === w.s.A2) && !!(await db.as(w.u.adminA2, 'select public.admin_audit($1)', [w.s.A1])).error);
+  check('0071 admin_audit: member refused; limit still bounded; old 3-argument overload gone', !!(await db.as(w.u.memberA, 'select public.admin_audit($1)', [w.s.A2])).error
+    && !!(await db.as(w.u.ownerA, 'select public.admin_audit($1, 101)', [w.s.A1])).error && (await db.raw(`select to_regprocedure('public.admin_audit(uuid,integer,bigint)') is null g`))[0].g === true);
+  check('0071 audit_detail helper not executable by customers', !!(await db.as(w.u.ownerA, `select public.audit_detail('x','insert',null,null)`)).error);
+});
+
 // ---------------------------------------------------------------- committed concurrency (local only)
 if (target === 'local') {
   const setup = new pg.Client({ connectionString: url }); await setup.connect();
@@ -531,6 +604,6 @@ if (target === 'local') {
   await setup.end();
 }
 
-const failed = checks.filter((c) => c.status === 'FAIL');
-console.log(JSON.stringify({ target, total: checks.length, passed: checks.length - failed.length, failed: failed.length, checks }, null, 1));
+const failed = checks.filter((c) => c.status === 'FAIL'); const skipped = checks.filter((c) => c.status === 'SKIPPED');
+console.log(JSON.stringify({ target, total: checks.length, passed: checks.length - failed.length - skipped.length, failed: failed.length, skipped: skipped.length, checks }, null, 1));
 if (failed.length) process.exitCode = 1;

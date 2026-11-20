@@ -1,0 +1,11 @@
+{
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "command": "apply",
+  "startedAt": "2026-11-19T05:54:05.563Z",
+  "committed": [
+    "0070_007b_consent_deadline_paid_time.sql"
+  ],
+  "status": "PASS",
+  "lastCommitted": "0070_007b_consent_deadline_paid_time.sql",
+  "finishedAt": "2026-11-19T05:54:12.247Z"
+}

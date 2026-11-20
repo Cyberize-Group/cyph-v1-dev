@@ -1,0 +1,11 @@
+{
+  "projectRef": "yrsuwikjnbmvpznrgydb",
+  "command": "apply",
+  "startedAt": "2026-11-20T03:37:31.416Z",
+  "committed": [
+    "0071_007b_owner_settings_audit.sql"
+  ],
+  "status": "PASS",
+  "lastCommitted": "0071_007b_owner_settings_audit.sql",
+  "finishedAt": "2026-11-20T03:37:38.189Z"
+}

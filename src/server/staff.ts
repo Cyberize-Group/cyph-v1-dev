@@ -28,6 +28,9 @@ const MESSAGES: Record<string, [number, string]> = {
   store_unavailable: [410, 'This store is no longer available.'],
   admin_protected: [409, 'The store admin cannot be removed. Replace the admin first.'],
   no_admin: [409, 'This store has no admin. Contact support.'],
+  // Manual QA 19 Nov 2026 (R5, 0071): the account owner is never removed from a store; ownership changes use the transfer process.
+  owner_protected: [409, 'The account owner cannot be removed from a store. Ownership changes go through the ownership-transfer process.'],
+  owner_already_manages: [409, 'The account owner already manages this store.'],
 };
 export const fail = (code: string) => { const [s, m] = MESSAGES[code] ?? [409, 'This change could not be made.']; return err(s, code, m); };
 
@@ -39,6 +42,7 @@ export const validId = (v: string) => UUID.test(v);
 /** Map a PostgREST/SQL error to a safe code. */
 function sqlCode(e: { code?: string; message?: string } | null): string {
   if (!e) return 'invalid_input';
+  if (/account owner cannot be removed/.test(e.message ?? '')) return 'owner_protected';
   if (e.code === '42501') return /read-only/.test(e.message ?? '') ? 'account_read_only' : 'not_permitted';
   if (e.code === '42704') return 'not_found';
   if (e.code === '22023') return 'invalid_input';

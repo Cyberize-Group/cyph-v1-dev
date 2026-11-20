@@ -1,5 +1,7 @@
 "use client";
-import { canAdminister, isDemoMode, listTenantStores } from "@/services/tenantScope";
+import { canAdminister, isDemoMode, listTenantStores, type TenantStore } from "@/services/tenantScope";
+import { viewerRoleLabel, viewerRoleSummary } from "@/components/admin-portal/roleLabel";
+import { avatarLetter, displayNameOf, NO_DISPLAY_NAME } from "./identity";
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
@@ -33,14 +35,33 @@ interface NavbarProps {
 
 const Navbar = ({ user, role }: NavbarProps) => {
   const userId = user?.id;
-  const [tenantAccess, setTenantAccess] = useState<{userId:string;allowed:boolean}|null>(null);
+  const [tenantAccess, setTenantAccess] = useState<{userId:string;stores:TenantStore[]}|null>(null);
   useEffect(() => {
     if (isDemoMode() || !userId) return;
     let cancelled = false;
-    listTenantStores().then(stores => { if(!cancelled)setTenantAccess({userId,allowed:canAdminister(stores)}); }).catch(() => {if(!cancelled)setTenantAccess(null);});
+    listTenantStores().then(stores => { if(!cancelled)setTenantAccess({userId,stores}); }).catch(() => {if(!cancelled)setTenantAccess(null);});
     return () => {cancelled=true;};
   }, [userId]);
-  const hasAdminAccess = isDemoMode() ? role === AppRole.ADMIN : tenantAccess?.userId === user?.id && tenantAccess?.allowed === true;
+  const myStores = tenantAccess && tenantAccess.userId === user?.id ? tenantAccess.stores : null;
+  const hasAdminAccess = isDemoMode() ? role === AppRole.ADMIN : myStores !== null && canAdminister(myStores);
+
+  // Manual QA 20 Nov 2026: the navbar shows the person's name and their store role (Owner / Store admin / Member), never the
+  // email. The role is read from tenant_stores (ownership from the account, admin from the membership), never inferred from
+  // the email address; no badge is shown until it has loaded, or in demo mode. The title states the scope behind the badge.
+  const name = displayNameOf(user);
+  const shownName = name ?? NO_DISPLAY_NAME;
+  const roleBadge = myStores ? viewerRoleLabel(myStores) : null;
+  const roleScope = myStores ? viewerRoleSummary(myStores) : "";
+  const badge = roleBadge ? (
+    <span
+      className="shrink-0 border border-navbar-foreground/40 px-1.5 py-px text-[10px] font-semibold uppercase tracking-wide"
+      title={roleScope}
+      data-testid="nav-role-badge"
+    >
+      {roleBadge}
+      <span className="sr-only">{roleScope ? ` (${roleScope})` : ""}</span>
+    </span>
+  ) : null;
 
   const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
@@ -152,15 +173,21 @@ const Navbar = ({ user, role }: NavbarProps) => {
         {/* Desktop right cluster (≥ lg) */}
         <div className="hidden lg:flex items-center">
           <ThemeToggler />
-          <span className="mx-3 text-navbar-foreground">{user.email}</span>
+          <span className="mx-3 flex min-w-0 items-center gap-2 text-navbar-foreground" data-testid="nav-identity">
+            <span className="max-w-[14rem] truncate text-sm font-medium" title={shownName}>{shownName}</span>
+            {badge}
+          </span>
           <DropdownMenu>
-            <DropdownMenuTrigger className="cursor-pointer">
+            <DropdownMenuTrigger className="cursor-pointer" aria-label="Account menu">
               <Avatar>
-                <AvatarFallback>{user.email?.[0]?.toUpperCase() ?? "U"}</AvatarFallback>
+                <AvatarFallback>{avatarLetter(name, user.email)}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-popover">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuContent className="bg-popover max-w-[18rem]">
+              <DropdownMenuLabel className="font-normal">
+                <span className="block truncate text-sm font-semibold">{shownName}</span>
+                <span className="block truncate text-xs text-muted-foreground" data-testid="nav-menu-email">{user.email}</span>
+              </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <Link href="/profile">Profile</Link>
@@ -204,8 +231,14 @@ const Navbar = ({ user, role }: NavbarProps) => {
               </Link>
             ))}
 
-            <div className="flex items-center justify-between px-5 py-3 border-b border-navbar-foreground/20">
-              <span className="text-sm">{user.email}</span>
+            <div className="flex items-center justify-between gap-3 px-5 py-3 border-b border-navbar-foreground/20">
+              <span className="min-w-0">
+                <span className="flex min-w-0 items-center gap-2">
+                  <span className="truncate text-sm font-medium">{shownName}</span>
+                  {badge}
+                </span>
+                <span className="block truncate text-xs text-navbar-foreground/70">{user.email}</span>
+              </span>
               <ThemeToggler onSelect={closeMenu} />
             </div>
 

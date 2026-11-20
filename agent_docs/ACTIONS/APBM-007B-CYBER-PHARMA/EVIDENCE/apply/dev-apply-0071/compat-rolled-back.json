@@ -1,0 +1,21 @@
+{
+  "mode": "rolled-back",
+  "at": "2026-11-20T03:38:04.026Z",
+  "members": 13,
+  "scope_equal_expected": 13,
+  "scope_diffs": [],
+  "owedbook_rows": {
+    "ok": 17
+  },
+  "owedbook_summary": {
+    "ok": 17
+  },
+  "owner_billing_overview": {
+    "ok": 8
+  },
+  "access_states": {
+    "active": 7,
+    "past_due_reminder": 1
+  },
+  "transaction_read_only": "off"
+}

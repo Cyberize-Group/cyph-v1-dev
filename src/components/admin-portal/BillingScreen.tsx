@@ -56,7 +56,9 @@ const BillingScreen = () => {
       <ScreenHeader
         title="Billing & subscription"
         subtitle="Your stores and their billing status."
-        action={<AddStoreButton onAdded={reload} />}
+        // Real mode: only the account owner can add a paid pharmacy, so the entry point appears only once billing has
+        // loaded for the owner (a store admin sees the owner-only statement instead). Demo mode keeps its mock form.
+        action={isDemoMode() || (!loading && !ownerOnly && !error) ? <AddStoreButton onAdded={reload} /> : undefined}
       />
       {ownerOnly ? (
         <p className="mt-6 text-sm text-muted-foreground" role="status" data-testid="billing-owner-only">

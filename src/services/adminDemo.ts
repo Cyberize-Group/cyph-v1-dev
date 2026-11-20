@@ -358,10 +358,12 @@ export class BillingOwnerOnlyError extends Error {
 export function createAdminServices(client?: RpcClient) {
   const unavailable = async (): Promise<ActionResult> => ({ ok: false, message: unavailableMessage });
   const denied = async (): Promise<never> => { throw new Error(unavailableMessage); };
-  type StoreRecord = { id: string; name: string; ncpdp: string | null; npi: string | null; status: string; subscription_status: string | null; member_count: number };
+  type StoreRecord = { id: string; name: string; ncpdp: string | null; npi: string | null; status: string; subscription_status?: string | null; member_count: number };
   const subscription = (value: string | null): OwnedStore["subscriptionStatus"] =>
     ["active", "past_due", "canceled", "trialing", "unpaid", "incomplete", "incomplete_expired", "paused"].includes(value || "") ? value as OwnedStore["subscriptionStatus"] : "unavailable";
-  const mapStore = (s: StoreRecord): OwnedStore => ({ storeId: s.id, name: s.name, ncpdp: s.ncpdp ?? "Unavailable", npi: s.npi ?? "Unavailable", status: s.status === "active" || s.status === "suspended" ? s.status : "unavailable", subscriptionStatus: subscription(s.subscription_status), memberCount: Number(s.member_count) });
+  // admin_stores returns subscription_status only to the account owner (0060/0063). An absent key means billing is withheld
+  // from this role ("owner_managed"); a present but unknown value stays an honest "unavailable".
+  const mapStore = (s: StoreRecord): OwnedStore => ({ storeId: s.id, name: s.name, ncpdp: s.ncpdp ?? "Unavailable", npi: s.npi ?? "Unavailable", status: s.status === "active" || s.status === "suspended" ? s.status : "unavailable", subscriptionStatus: "subscription_status" in s ? subscription(s.subscription_status ?? null) : "owner_managed", memberCount: Number(s.member_count) });
   const stores: OwnerStoresService = {
     async getOwner() {
       const connection = (await import("@/utils/supabase/client")).createClient();
@@ -383,8 +385,9 @@ export function createAdminServices(client?: RpcClient) {
   };
   const members: StoreMemberService = {
     async listMembers(id, params) {
-      const rows = await readRpc<{id:string;business_id:string;name:string|null;email:string|null;role:MemberRole}[]>("admin_members", {p_business_id: requireStore(id)}, client);
-      const mapped = rows.map(m => ({memberId:m.id,storeId:m.business_id,name:m.name || "",email:m.email || "Unavailable",initials:initialsFrom(m.name || m.email || "?"),role:m.role,accountStatus:"unavailable" as const}));
+      const rows = await readRpc<{id:string;business_id:string;name:string|null;email:string|null;role:MemberRole;is_owner?:boolean;has_membership?:boolean}[]>("admin_members", {p_business_id: requireStore(id)}, client);
+      const mapped = rows.map(m => ({memberId:m.id,storeId:m.business_id,name:m.name || "",email:m.email || "Unavailable",initials:initialsFrom(m.name || m.email || "?"),role:m.role,
+        ...(typeof m.is_owner === "boolean" ? {isOwner:m.is_owner} : {}),...(typeof m.has_membership === "boolean" ? {hasMembership:m.has_membership} : {}),accountStatus:"unavailable" as const}));
       const q = params?.search?.trim().toLowerCase();
       return q ? mapped.filter(m => (m.name+" "+m.email).toLowerCase().includes(q)) : mapped;
     },
