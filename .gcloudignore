@@ -1,0 +1,36 @@
+# OwedBook Alpha — Cloud Build upload exclusions (skill UPLOAD_BOUNDARY.md baseline).
+# This file governs what `gcloud builds submit` uploads. .dockerignore does NOT.
+# Verified with: gcloud meta list-files-for-upload .
+.gcloudignore
+.git
+.git/**
+#!include:.gitignore
+node_modules/
+.next/
+**/.env*
+.env*
+**/*.pem
+**/*.p12
+**/*.key
+**/*service*account*.json
+**/*credentials*.json
+.auth/
+**/.auth/**
+test-results/
+playwright-report/
+blob-report/
+agent_docs/
+_SKILLS/
+# Not needed by `next build` (no source file imports from it).
+e2e/
+# Factory records that change around every deployment and are not build inputs. Keeping them
+# out of the upload also keeps them out of deploy.sh's dirty-source check.
+RECOVERY.md
+CHANGELOG.md
+DEPLOYMENT_CHECKLIST.md
+# Case variants of credential file names (canary test 2026-11-20: serviceAccount.json got through).
+**/*[sS][eE][rR][vV][iI][cC][eE]*[aA][cC][cC][oO][uU][nN][tT]*.[jJ][sS][oO][nN]
+**/*[cC][rR][eE][dD][eE][nN][tT][iI][aA][lL][sS]*.[jJ][sS][oO][nN]
+**/*.[pP][eE][mM]
+**/*.[pP]12
+**/*.[kK][eE][yY]

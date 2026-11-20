@@ -1,0 +1,81 @@
+# ==================================================================
+# STARK FACTORY — next-deploy-auto config
+# File name: stark-deploy.yaml   Location: project root (next to package.json)
+# App: OwedBook (cyph-v1-dev) — ALPHA deployment. Prepared 2026-11-20 on branch
+# deploy/owedbook-alpha-prep (cut from main 0b12191). STATUS: prepared, NOT deployed.
+# Reviewed by JARVIS 2026-11-20: prefix, service name and build-identity extension approved.
+#
+# RULES
+#  - Secret NAMES only. Never put a secret VALUE in this file. It is committed to git.
+#  - Public values (NEXT_PUBLIC_*) go here verbatim — they ship to the browser anyway.
+#  - After any edit: say "config ready"; the agent revalidates and regenerates the deploy files.
+# ==================================================================
+
+version: 1
+
+app:
+  name: "cyph-owedbook-alpha"   # Approved by JARVIS 2026-11-20. 19 characters = the schema maximum. The service name
+                                # "cyph-v1-owedbook-alpha" is 22 characters and cannot be the app name,
+                                # because the runtime service account ID (sa-{name}-runtime) is capped at 30.
+                                # Prefix for the secret and the runtime service account only.
+  display_name: "OwedBook Alpha"
+
+gcp:
+  project_id: "cyberize-nextjs-staging"          # Confirmed by the Director.
+  region: "us-east1"                             # Confirmed by the Director.
+  expected_account: "moose@cyberizegroup.com"    # Confirmed by the Director. Preflight fails on any other account.
+  service_name: "cyph-v1-owedbook-alpha"         # Confirmed by the Director. NEW service; nothing existing is reused.
+
+urls:
+  custom_domain: "cyph-v1-owedbook-alpha.cyberizedev.com"   # Confirmed. Known domain -> one deploy (Two-Deploy waived).
+                                # The CNAME exists (ghs.googlehosted.com). The Cloud Run domain mapping and
+                                # HTTPS certificate are NOT created or verified by this skill.
+  backend_url: ""               # Not used by OwedBook.
+
+access:
+  invoker: "public"             # Director's answer 2026-11-20. Public = anyone can load the site;
+                                # OwedBook's own sign-in still protects the data.
+
+secrets:
+  mode: "helper"                # YOU run upload-secrets.sh; it reads env_file in your terminal.
+  env_file: ".env.local"        # The agent never opens this file.
+  items:
+    - env: SUPABASE_SECRET_KEY  # Read at runtime only, by src/utils/supabase/admin.ts (via src/server/db.ts).
+      secret: ""                # Default name: cyph-owedbook-alpha-supabase-secret-key
+      scope: runtime            # Not read during `next build`.
+
+public_vars:
+  # Do NOT list NEXT_PUBLIC_APP_URL — it is derived from urls.custom_domain (the app does not read it).
+  - env: NEXT_PUBLIC_SITE_URL   # Must equal this app's own origin exactly, or sign-in handoff, email links
+    value: "https://cyph-v1-owedbook-alpha.cyberizedev.com"   # and staff actions fail closed (src/lib/appIdentity.ts).
+  - env: NEXT_PUBLIC_APP_ENV    # Selects the deployed origin row in src/lib/appIdentity.ts. "staging" is the only
+    value: "staging"            # non-local label the code and database (migration 0059) accept; alpha uses it.
+  - env: NEXT_PUBLIC_SUPABASE_URL
+    value: "https://yrsuwikjnbmvpznrgydb.supabase.co"         # Director's answer: DEV project (CyberPharma_Dev_v1).
+  - env: NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+    value: "sb_publishable_8FvPLZTmChxMrPwv7q9-rw_NgjoDk1S"   # Director supplied. Public browser key, not the secret key.
+
+  # OPTIONAL — not set. Add an entry only if you want to change the behaviour:
+  #  - NEXT_PUBLIC_SUPPORT_EMAIL   unset -> the code default support@pharmacybooks.com (src/lib/support.ts).
+  #  - NEXT_PUBLIC_APBM_DATA_MODE  unset -> live database mode. Only the value "mock" switches to demo data.
+
+# ------------------------------------------------------------------
+# EXTENSION (not in the skill schema v1.3) — plain server-side runtime settings.
+# Neither secrets nor NEXT_PUBLIC values. A non-empty value is set on the Cloud Run
+# service through --set-env-vars in cloudbuild.yaml; "" means the variable is not set.
+# ------------------------------------------------------------------
+runtime_env:
+  MAIL_RECIPIENT_POLICY: "open"      # JARVIS ruling 2026-11-20. Any valid address may receive app mail.
+                                     # The code honours "open" ONLY while NEXT_PUBLIC_SUPABASE_URL is the DEV
+                                     # project (src/server/mailGuard.ts); on any other project it is ignored
+                                     # and the exact allowlist applies. That enforcement is unchanged.
+  MAIL_ALLOWLIST: ""                 # Not set. Not needed while the open policy is active on DEV.
+  ALLOW_SYNTHETIC_SUBSCRIPTIONS: ""  # Not set (Director, 2026-11-20): alpha testers use Portal-purchased
+                                     # test stores. Seeded "synthetic_seed" stores show as unsubscribed.
+
+runtime:
+  memory: "1Gi"
+  max_instances: 1
+  min_instances: 0
+  dynamic_env_access: "auto"    # Resolved to TRUE: src/instrumentation.ts reads process.env[key] at server start,
+                                # so every public var also rides --set-env-vars.
