@@ -1,0 +1,110 @@
+# OwedBook Alpha — Cloud Build config (skill Template 2B base: no build-time secrets).
+#
+# Review round 2 (2026-11-20) changes to the template, each marked [R2]:
+#   - every build gets a UNIQUE image tag (_IMAGE_TAG, set by deploy.sh); no ":latest";
+#   - the pushed image's digest is resolved and Cloud Run deploys that exact digest;
+#   - the container port is stated explicitly (--port 3000 = Dockerfile PORT);
+#   - MAIL_RECIPIENT_POLICY=open is a runtime setting of the service.
+#
+# Secrets: SUPABASE_SECRET_KEY is RUNTIME-ONLY. It is mounted from Secret Manager by
+# --set-secrets. It is never a build argument, never in the image, never in this file.
+#
+# Dynamic env access: src/instrumentation.ts reads process.env[key] at server start and
+# refuses to boot when a required NEXT_PUBLIC value is missing. Dynamic reads are never
+# build-inlined, so every public var the app reads ALSO rides --set-env-vars.
+#
+# Deliberately NOT set (fail-closed defaults): MAIL_ALLOWLIST, ALLOW_SYNTHETIC_SUBSCRIPTIONS.
+#
+# In the bash steps below: ${_NAME} and $PROJECT_ID are Cloud Build substitutions;
+# $$NAME is a shell variable (Cloud Build turns $$ into $).
+
+substitutions:
+  _REGION: "us-east1"
+  _SERVICE_NAME: "cyph-v1-owedbook-alpha"
+  # Must-override defaults use INVALID:// so a deploy.sh substitution miss fails LOUDLY
+  # (an INVALID:// image tag is rejected by docker; an INVALID:// URL fails the app's origin guard).
+  # deploy.sh's string-builder overrides every substitution on every run.
+  _IMAGE_TAG: "INVALID://SET-IN-DEPLOY-SH"
+  _NEXT_PUBLIC_APP_URL: "INVALID://SET-IN-DEPLOY-SH"
+  _NEXT_PUBLIC_SITE_URL: "INVALID://SET-IN-DEPLOY-SH"
+  _NEXT_PUBLIC_APP_ENV: "INVALID://SET-IN-DEPLOY-SH"
+  _NEXT_PUBLIC_SUPABASE_URL: "INVALID://SET-IN-DEPLOY-SH"
+  _NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "INVALID://SET-IN-DEPLOY-SH"
+  # [EXTENSION] Non-secret build identity for /api/build-info (defaults match next.config.js).
+  _APBM_BUILD_REVISION: "unrecorded"
+  _APBM_BUILD_ARTIFACT_ID: "unlabelled-build"
+
+steps:
+  # 1. Build Docker Image (no secrets at build time)
+  - name: "gcr.io/cloud-builders/docker"
+    id: "Build Image"
+    args:
+      - "build"
+      - "--build-arg"
+      - "NEXT_PUBLIC_APP_URL=${_NEXT_PUBLIC_APP_URL}"
+      - "--build-arg"
+      - "NEXT_PUBLIC_SITE_URL=${_NEXT_PUBLIC_SITE_URL}"
+      - "--build-arg"
+      - "NEXT_PUBLIC_APP_ENV=${_NEXT_PUBLIC_APP_ENV}"
+      - "--build-arg"
+      - "NEXT_PUBLIC_SUPABASE_URL=${_NEXT_PUBLIC_SUPABASE_URL}"
+      - "--build-arg"
+      - "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=${_NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY}"
+      - "--build-arg"
+      - "APBM_BUILD_REVISION=${_APBM_BUILD_REVISION}"
+      - "--build-arg"
+      - "APBM_BUILD_ARTIFACT_ID=${_APBM_BUILD_ARTIFACT_ID}"
+      - "--label"
+      - "org.opencontainers.image.revision=${_APBM_BUILD_REVISION}"
+      - "--label"
+      - "org.opencontainers.image.version=${_IMAGE_TAG}"
+      - "-t"
+      - "${_REGION}-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/${_SERVICE_NAME}:${_IMAGE_TAG}"
+      - "."
+
+  # 2. Push to Artifact Registry and resolve the digest of what was pushed [R2]
+  - name: "gcr.io/cloud-builders/docker"
+    id: "Push Image"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        set -euo pipefail
+        IMAGE="${_REGION}-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/${_SERVICE_NAME}"
+        docker push "$${IMAGE}:${_IMAGE_TAG}"
+        IMAGE_REF="$$(docker inspect --format='{{index .RepoDigests 0}}' "$${IMAGE}:${_IMAGE_TAG}")"
+        case "$${IMAGE_REF}" in
+          "$${IMAGE}@sha256:"*) ;;
+          *) echo "ABORT: could not resolve the pushed image digest (got: $${IMAGE_REF})"; exit 1 ;;
+        esac
+        printf '%s' "$${IMAGE_REF}" > /workspace/image_ref.txt
+        echo "IMAGE_TAG=${_IMAGE_TAG}"
+        echo "IMAGE_REF=$${IMAGE_REF}"
+
+  # 3. Deploy to Cloud Run — the exact digest pushed above, never a moving tag [R2]
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    id: "Deploy to Cloud Run"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        set -euo pipefail
+        IMAGE_REF="$$(cat /workspace/image_ref.txt)"
+        echo "Deploying $${IMAGE_REF}"
+        gcloud run deploy "${_SERVICE_NAME}" \
+          --image "$${IMAGE_REF}" \
+          --region "${_REGION}" \
+          --platform managed \
+          --allow-unauthenticated \
+          --port 3000 \
+          --service-account "sa-cyph-owedbook-alpha-runtime@$PROJECT_ID.iam.gserviceaccount.com" \
+          --set-secrets "SUPABASE_SECRET_KEY=cyph-owedbook-alpha-supabase-secret-key:latest" \
+          --set-env-vars "NEXT_PUBLIC_SITE_URL=${_NEXT_PUBLIC_SITE_URL},NEXT_PUBLIC_APP_ENV=${_NEXT_PUBLIC_APP_ENV},NEXT_PUBLIC_SUPABASE_URL=${_NEXT_PUBLIC_SUPABASE_URL},NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=${_NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY},MAIL_RECIPIENT_POLICY=open" \
+          --labels "source-revision=${_APBM_BUILD_REVISION},image-tag=${_IMAGE_TAG}" \
+          --memory "1Gi" \
+          --max-instances "1" \
+          --min-instances "0"
+
+# Recorded in the build results (tag and digest): gcloud builds describe BUILD_ID --format='value(results.images)'
+images:
+  - "${_REGION}-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/${_SERVICE_NAME}:${_IMAGE_TAG}"

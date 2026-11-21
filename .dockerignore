@@ -15,3 +15,28 @@ init-app.sh
 agent_docs
 _SKILLS
 README.md
+# Added 2026-11-20 (next-deploy-auto v1.3 baseline merge; existing rules above kept as-is)
+upload-secrets.sh
+stark-deploy.yaml
+DEPLOYMENT_CHECKLIST.md
+.gcloudignore
+.auth/
+test-results/
+playwright-report/
+blob-report/
+e2e/
+# Added 2026-11-20 (review round 2): nested env and credential files, matching .gcloudignore.
+# `.env*` above covers the context root only; these cover every depth.
+**/.env*
+**/*.pem
+**/*.p12
+**/*.key
+**/*service*account*.json
+**/*credentials*.json
+**/.auth/
+# Case variants of credential file names (canary test 2026-11-20: serviceAccount.json got through).
+**/*[sS][eE][rR][vV][iI][cC][eE]*[aA][cC][cC][oO][uU][nN][tT]*.[jJ][sS][oO][nN]
+**/*[cC][rR][eE][dD][eE][nN][tT][iI][aA][lL][sS]*.[jJ][sS][oO][nN]
+**/*.[pP][eE][mM]
+**/*.[pP]12
+**/*.[kK][eE][yY]

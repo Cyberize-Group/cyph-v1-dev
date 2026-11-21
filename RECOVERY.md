@@ -4,7 +4,26 @@
 > Updated after every plan completion. If this file is stale, the session log in
 > `agent_docs/SESSIONS/` is the fallback source of truth.
 
-**Session closed:** 2026-11-20 13:31 (Director closeout). Nothing is running (no apps, Stripe listener or scheduler); nothing is committed by Claudy. Both repos are on `repair/apbm-007b-manual-qa`, uncommitted (OwedBook 54 paths, Portal 41). The full end-of-session state, lessons and the changed-file list are in `agent_docs/SESSIONS/session_2026-11-20.md`.
+**Last updated:** 2026-11-20 18:00 — **OwedBook alpha DEPLOYED; `https://cyph-v1-owedbook-alpha.cyberizedev.com` answers over HTTPS (certificate issued); sign-in NOT verified; manual acceptance PENDING** · External handoff ready **NO**
+**Result:** service `cyph-v1-owedbook-alpha` (`cyberize-nextjs-staging`, us-east1, public), revision `cyph-v1-owedbook-alpha-00001-qrp`, from commit `ef4cebc` on `deploy/owedbook-alpha-prep` (local only, not pushed). Build `5d840fee-51cc-4c9f-ab03-9b9f97c191e4`. Image digest `sha256:db2d37b4…8348`. run.app `https://cyph-v1-owedbook-alpha-hr465ynfuq-ue.a.run.app`: `/` 200, `/api/build-info` shows the commit. Mapping `cyph-v1-owedbook-alpha.cyberizedev.com` created; DNS matches.
+**Next step:** confirm the certificate and HTTPS on the alpha domain → Tony adds the alpha origin to Supabase Auth (DEV) → sign-in check → manual retest → Portal mirror origins and Portal alpha. Uncommitted: records since `ef4cebc` (`DEPLOYMENT_CHECKLIST.md`, `RECOVERY.md`, `CHANGELOG.md`, `agent_docs/`).
+**Record:** `agent_docs/RESPONSES/response_2026-11-20_173800_owedbook-alpha-deployed.md`.
+
+**Prior block (2026-11-20 16:00):** **Last updated:** 2026-11-20 16:00 — **OwedBook alpha: pre-commit review READY TO COMMIT on `deploy/owedbook-alpha-prep` (uncommitted, nothing staged); NOTHING deployed** · External handoff ready **NO**
+**Decisions (Director):** zod 4 deferred for alpha, advisory stays OPEN (`agent_docs/KIP_REGISTRY.md` KIP-3, required before production); `ALLOW_SYNTHETIC_SUBSCRIPTIONS` unset (Portal-purchased test stores).
+**Next step:** Tony runs the four commits in `agent_docs/RESPONSES/response_2026-11-20_160040_owedbook-alpha-precommit.md` → final manual retest (PENDING) → deployment approval → init (agent) → `upload-secrets.sh` (Tony) → deploy.
+
+**Prior block (2026-11-20 15:53):** **Last updated:** 2026-11-20 15:53 — **OwedBook alpha preparation ROUND 2 done (JARVIS items 1–10) on `deploy/owedbook-alpha-prep`, uncommitted; NOTHING deployed, no cloud change** · External handoff ready **NO**
+**Result:** alpha origins in `src/lib/appIdentity.ts` (+ `alpha-origins.test.ts`); `next`/`eslint-config-next` 16.4.5 (0 advisories, verified); deploy files revised (bind `0.0.0.0:3000`, unique image tag, deploy by digest, dirty-source abort, act-as check, `MAIL_RECIPIENT_POLICY=open`, nested and case-insensitive ignore rules). Checks: typecheck clean, jest 374/374, local Docker build and container smoke test PASS, canary ignore test clean.
+**Open:** JARVIS round-2 review → zod 4 decision → seeded-store decision → Tony commits → final manual retest → deployment approval → init (agent) → `upload-secrets.sh` (Tony) → deploy → domain mapping, Supabase allow-list → Portal mirror and Portal alpha.
+**Record:** `agent_docs/RESPONSES/response_2026-11-20_155313_owedbook-alpha-prep-round2.md`.
+
+**Prior block (2026-11-20 15:29):** **Last updated:** 2026-11-20 15:29 — **OwedBook alpha deployment PREPARED (files generated, uncommitted on `main` @ `0b12191`); NOTHING deployed, no cloud change** · External handoff ready **NO**
+**Result:** `stark-deploy.yaml`, `Dockerfile`, `cloudbuild.yaml`, `deploy.sh`, `init-app.sh`, `upload-secrets.sh`, `.gcloudignore`, `DEPLOYMENT_CHECKLIST.md` new; `.dockerignore` appended. Target: service `cyph-v1-owedbook-alpha`, project `cyberize-nextjs-staging`, us-east1, public. Checks: scripts parse, upload list clean (389 files). No Docker build run.
+**Pending before deploy:** Tony creates the branch → JARVIS review → alpha origins in `src/lib/appIdentity.ts` (and the Portal mirror) → Next.js advisory (proposed 16.4.5) → mail flag decision → final manual retest → deployment approval → init (agent) → `upload-secrets.sh` (Tony) → deploy → domain mapping.
+**Record:** `agent_docs/RESPONSES/response_2026-11-20_152916_owedbook-alpha-deploy-prep.md`.
+
+**Prior block (2026-11-20 13:31):** **Session closed:** 2026-11-20 13:31 (Director closeout). Nothing is running (no apps, Stripe listener or scheduler); nothing is committed by Claudy. Both repos are on `repair/apbm-007b-manual-qa`, uncommitted (OwedBook 54 paths, Portal 41). The full end-of-session state, lessons and the changed-file list are in `agent_docs/SESSIONS/session_2026-11-20.md`.
 **First action next session:** Tony commits both repos (commands in the 13:03 response) → rebuild and start both apps → tester plan section F.
 
 **Last updated:** 2026-11-20 13:03 — **Final consolidated manual-QA repair batch IMPLEMENTED (F1–F6, both repos, uncommitted on `repair/apbm-007b-manual-qa`); targeted retest PENDING (Tony/JARVIS); campaign NOT certified** · DEV at 71 (unchanged) · External handoff ready **NO**
