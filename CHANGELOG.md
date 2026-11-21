@@ -3,6 +3,10 @@
 > Documentation/playbook change log per CLAUDE.md Changelog Protocol.
 > `[CC]` = Claude Code · `[TS]` = Tony Stark manual edits.
 
+## 2026-11-20 11:38 UTC — [CC] Claude Code
+- **Updated:** `DEPLOYMENT_CHECKLIST.md` (Stage A ticked with build ID, revision, tag, digest), `RECOVERY.md`, `agent_docs/SESSIONS/session_2026-11-20.md`, `agent_docs/SKILL_ISSUES_LEDGER_next_deploy_auto.md`; new `agent_docs/RESPONSES/response_2026-11-20_170846_owedbook-alpha-auto-plan.md` and `response_2026-11-20_173800_owedbook-alpha-deployed.md`.
+- **Reason:** Director-approved deployment of the OwedBook alpha base service and its domain mapping. Manual acceptance pending.
+
 ## 2026-11-20 10:00 UTC — [CC] Claude Code
 - **Updated:** `agent_docs/KIP_REGISTRY.md` (new KIP-3: zod 3.x advisory open, zod 4 deferred for alpha), `DEPLOYMENT_CHECKLIST.md` and `stark-deploy.yaml` (Director decisions), `RECOVERY.md`, `agent_docs/SESSIONS/session_2026-11-20.md`; new `agent_docs/RESPONSES/response_2026-11-20_160040_owedbook-alpha-precommit.md`.
 - **Reason:** Director: commit preparation only; pre-commit whitespace, secret and debris review. Nothing committed or deployed.

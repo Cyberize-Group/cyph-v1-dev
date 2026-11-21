@@ -4,7 +4,12 @@
 > Updated after every plan completion. If this file is stale, the session log in
 > `agent_docs/SESSIONS/` is the fallback source of truth.
 
-**Last updated:** 2026-11-20 16:00 — **OwedBook alpha: pre-commit review READY TO COMMIT on `deploy/owedbook-alpha-prep` (uncommitted, nothing staged); NOTHING deployed** · External handoff ready **NO**
+**Last updated:** 2026-11-20 18:00 — **OwedBook alpha DEPLOYED; `https://cyph-v1-owedbook-alpha.cyberizedev.com` answers over HTTPS (certificate issued); sign-in NOT verified; manual acceptance PENDING** · External handoff ready **NO**
+**Result:** service `cyph-v1-owedbook-alpha` (`cyberize-nextjs-staging`, us-east1, public), revision `cyph-v1-owedbook-alpha-00001-qrp`, from commit `ef4cebc` on `deploy/owedbook-alpha-prep` (local only, not pushed). Build `5d840fee-51cc-4c9f-ab03-9b9f97c191e4`. Image digest `sha256:db2d37b4…8348`. run.app `https://cyph-v1-owedbook-alpha-hr465ynfuq-ue.a.run.app`: `/` 200, `/api/build-info` shows the commit. Mapping `cyph-v1-owedbook-alpha.cyberizedev.com` created; DNS matches.
+**Next step:** confirm the certificate and HTTPS on the alpha domain → Tony adds the alpha origin to Supabase Auth (DEV) → sign-in check → manual retest → Portal mirror origins and Portal alpha. Uncommitted: records since `ef4cebc` (`DEPLOYMENT_CHECKLIST.md`, `RECOVERY.md`, `CHANGELOG.md`, `agent_docs/`).
+**Record:** `agent_docs/RESPONSES/response_2026-11-20_173800_owedbook-alpha-deployed.md`.
+
+**Prior block (2026-11-20 16:00):** **Last updated:** 2026-11-20 16:00 — **OwedBook alpha: pre-commit review READY TO COMMIT on `deploy/owedbook-alpha-prep` (uncommitted, nothing staged); NOTHING deployed** · External handoff ready **NO**
 **Decisions (Director):** zod 4 deferred for alpha, advisory stays OPEN (`agent_docs/KIP_REGISTRY.md` KIP-3, required before production); `ALLOW_SYNTHETIC_SUBSCRIPTIONS` unset (Portal-purchased test stores).
 **Next step:** Tony runs the four commits in `agent_docs/RESPONSES/response_2026-11-20_160040_owedbook-alpha-precommit.md` → final manual retest (PENDING) → deployment approval → init (agent) → `upload-secrets.sh` (Tony) → deploy.
 
