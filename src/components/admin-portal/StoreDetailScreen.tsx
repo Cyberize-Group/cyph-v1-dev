@@ -14,8 +14,8 @@ import type { OwnedStore, StoreMember } from "@/types/adminDemo";
 
 const Skeleton = () => (
   <div className="space-y-3" data-testid="store-detail-skeleton">
-    <div className="h-8 w-1/3 bg-muted animate-pulse" />
-    <div className="h-24 bg-muted animate-pulse" />
+    <div className="h-8 w-1/3 rounded-md bg-disabled animate-pulse" />
+    <div className="h-24 rounded-md bg-disabled animate-pulse" />
   </div>
 );
 
@@ -61,9 +61,9 @@ const StoreDetailScreen = ({ storeId }: { storeId: string }) => {
 
   if (error) {
     return (
-      <div className="flex items-center gap-3 text-sm text-destructive">
+      <div className="pb-notice pb-tone-destructive flex flex-wrap items-center gap-3 text-sm">
         <span>{error}</span>
-        <button type="button" className="underline" onClick={reload}>
+        <button type="button" className="font-semibold underline underline-offset-2" onClick={reload}>
           Retry
         </button>
       </div>
@@ -89,12 +89,12 @@ const StoreDetailScreen = ({ storeId }: { storeId: string }) => {
           { label: store.name },
         ]}
       />
-      <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+      <div className="pb-eyebrow flex items-center gap-3 text-muted-foreground">
         <span>Store</span>
         <DemoMarker />
       </div>
       <div className="mt-2 flex flex-wrap items-center gap-3">
-        <h1 className="text-3xl font-bold tracking-tight">{store.name}</h1>
+        <h1 className="pb-page-title">{store.name}</h1>
         <StatusPill tone={sub.tone}>{store.subscriptionStatus === "owner_managed" ? "Billing managed by owner" : `Subscription ${sub.label}`}</StatusPill>
       </div>
       <p className="mt-1 text-[15px] text-muted-foreground">
@@ -102,7 +102,7 @@ const StoreDetailScreen = ({ storeId }: { storeId: string }) => {
       </p>
 
       <div className="mt-8 flex items-center justify-between gap-4">
-        <h2 className="text-lg font-semibold">Members · {members.length}</h2>
+        <h2 className="text-lg font-medium text-heading">Members · {members.length}</h2>
         <Button asChild>
           <Link href={`/admin-portal/stores/${storeId}/invite`}>
             Invite member

@@ -15,7 +15,7 @@ const CardSkeleton = () => (
     data-testid="stores-skeleton"
   >
     {Array.from({ length: 3 }).map((_, i) => (
-      <div key={i} className="h-[140px] bg-muted animate-pulse" />
+      <div key={i} className="h-[140px] rounded-md bg-disabled animate-pulse" />
     ))}
   </div>
 );
@@ -59,9 +59,9 @@ const MyStoresScreen = () => {
         subtitle="Manage your pharmacies, members, and billing."
       />
       {error ? (
-        <div className="mt-6 flex items-center gap-3 text-sm text-destructive">
+        <div className="pb-notice pb-tone-destructive mt-6 flex flex-wrap items-center gap-3 text-sm">
           <span>{error}</span>
-          <button type="button" className="underline" onClick={reload}>
+          <button type="button" className="font-semibold underline underline-offset-2" onClick={reload}>
             Retry
           </button>
         </div>

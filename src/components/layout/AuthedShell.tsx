@@ -105,16 +105,16 @@ const AuthedShell = ({ user, role, children }: AuthedShellProps) => {
       <Navbar user={user} role={role} />
 
       {/* Mobile sidebar trigger (< lg) */}
-      <div className={`${collapsedBelow} border-b border-border px-4 py-2`}>
+      <div className={`${collapsedBelow} px-4 pt-3`}>
         <button
           ref={triggerRef}
           type="button"
           onClick={() => setDrawerOpen(true)}
           aria-label={`Open ${triggerLabel}`}
           aria-expanded={drawerOpen}
-          className="inline-flex items-center gap-2 text-sm font-medium text-foreground"
+          className="inline-flex min-h-11 items-center gap-2 rounded-md border border-input bg-card px-3 py-2 text-[15px] text-heading hover:bg-accent"
         >
-          <Menu className="h-5 w-5" />
+          <Menu className="h-5 w-5" aria-hidden="true" />
           {triggerLabel}
         </button>
       </div>
@@ -123,7 +123,7 @@ const AuthedShell = ({ user, role, children }: AuthedShellProps) => {
         {/* Desktop fixed sidebar (lg+) — same box as before */}
         <div
           data-testid="desktop-sidebar"
-          className={`${sidebarVisible} h-auto flex-shrink-0 border-4 w-[25rem]`}
+          className={`${sidebarVisible} h-auto flex-shrink-0 w-[25rem] p-4 pr-0`}
         >
           <AdminSidebar />
         </div>
@@ -137,7 +137,7 @@ const AuthedShell = ({ user, role, children }: AuthedShellProps) => {
       {drawerOpen && (
         <div className={`${collapsedBelow} fixed inset-0 z-50`} role="dialog" aria-modal="true">
           <div
-            className="absolute inset-0 bg-black/50"
+            className="absolute inset-0 bg-shadow-tint/50"
             onClick={() => setDrawerOpen(false)}
             aria-hidden
           />
@@ -146,16 +146,16 @@ const AuthedShell = ({ user, role, children }: AuthedShellProps) => {
             ref={drawerRef}
             onKeyDown={onDrawerKeyDown}
             data-testid="sidebar-drawer"
-            className="absolute inset-y-0 left-0 w-3/4 md:w-1/2 bg-secondary shadow-xl overflow-y-auto"
+            className="absolute inset-y-0 left-0 w-3/4 md:w-1/2 bg-card shadow-menu overflow-y-auto"
           >
             <div className="flex justify-end p-2">
               <button
                 type="button"
                 onClick={() => setDrawerOpen(false)}
                 aria-label="Close"
-                className="p-2 text-foreground hover:opacity-80"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-md text-heading hover:bg-accent"
               >
-                <X className="h-5 w-5" />
+                <X className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
             <AdminSidebar />

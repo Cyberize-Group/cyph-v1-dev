@@ -6,7 +6,7 @@ import { isDemoMode } from "@/services/tenantScope";
 // (the navbar is fixed chrome). Mirrors the mockup's `.demo-pill`.
 const DemoMarker = () => {
   return (
-    <span className="inline-flex items-center border border-warning/40 bg-warning/10 px-2 py-0.5 text-[11px] font-semibold tracking-wide text-warning">
+    <span className="pb-pill pb-tone-warning">
       {isDemoMode() ? "Demo · mock data" : "Synthetic test data"}
     </span>
   );

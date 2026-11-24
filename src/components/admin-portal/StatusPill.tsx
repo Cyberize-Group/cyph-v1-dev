@@ -6,12 +6,13 @@ import type { ReactNode } from "react";
 // mockup `.pill` styling; built from existing semantic tokens (no new colors).
 export type PillTone = "success" | "warning" | "destructive" | "info" | "neutral";
 
+// ABM007_FINAL pill recipe (brand contract 3.4): charcoal text, status border, 10 percent tint; the word carries meaning.
 const TONE: Record<PillTone, string> = {
-  success: "bg-success/15 text-success",
-  warning: "bg-warning/15 text-warning",
-  destructive: "bg-destructive/15 text-destructive",
-  info: "bg-info/15 text-info",
-  neutral: "bg-muted text-muted-foreground",
+  success: "pb-tone-success",
+  warning: "pb-tone-warning",
+  destructive: "pb-tone-destructive",
+  info: "pb-tone-info",
+  neutral: "pb-tone-neutral",
 };
 
 interface StatusPillProps {
@@ -22,7 +23,7 @@ interface StatusPillProps {
 const StatusPill = ({ tone, children }: StatusPillProps) => {
   return (
     <span
-      className={`inline-flex items-center whitespace-nowrap px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide ${TONE[tone]}`}
+      className={`pb-pill ${TONE[tone]}`}
     >
       {children}
     </span>

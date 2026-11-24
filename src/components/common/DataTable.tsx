@@ -53,9 +53,9 @@ export function DataTable<TRow extends Record<string, unknown>>({
 
   return (
     <>
-      <div data-testid="datatable-desktop" className="hidden md:block overflow-auto">
+      <div data-testid="datatable-desktop" className="pb-card hidden md:block overflow-auto">
         <table className="w-full border-collapse">
-          <thead className="sticky top-0 bg-secondary text-secondary-foreground">
+          <thead className="sticky top-0 bg-muted text-muted-foreground">
             <tr>
               {columns.map((col) => {
                 const isSorted = sort?.key === col.key;
@@ -70,7 +70,7 @@ export function DataTable<TRow extends Record<string, unknown>>({
                   <th
                     key={col.key}
                     onClick={onSort ? () => onSort(col.key) : undefined}
-                    className={`px-3 py-2 text-xs uppercase font-bold tracking-wide ${
+                    className={`border-b border-border px-3 py-2.5 text-[13px] uppercase font-medium tracking-[0.04em] ${
                       col.align === "right" ? "text-right" : "text-left"
                     } ${onSort ? "cursor-pointer select-none" : ""}`}
                     aria-sort={
@@ -87,7 +87,7 @@ export function DataTable<TRow extends Record<string, unknown>>({
                     {onSort ? (
                       <button
                         type="button"
-                        className="inline-flex items-center uppercase font-bold tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        className="inline-flex min-h-8 items-center rounded-sm uppercase font-medium tracking-[0.04em]"
                       >
                         {col.label}
                         {sortIcon}
@@ -105,7 +105,7 @@ export function DataTable<TRow extends Record<string, unknown>>({
           </thead>
           <tbody>
             {rows.map((row, idx) => (
-              <tr key={getRowKey?.(row, idx) ?? idx} className="even:bg-card">
+              <tr key={getRowKey?.(row, idx) ?? idx} className="border-b border-border last:border-b-0">
                 {columns.map((col) => {
                   const value = row[col.key];
                   const color = col.semanticColor?.(row, value);
@@ -117,7 +117,7 @@ export function DataTable<TRow extends Record<string, unknown>>({
                   return (
                     <td
                       key={col.key}
-                      className={`px-3 py-2 text-sm ${
+                      className={`px-3 py-3 text-[15px] ${
                         col.align === "right" ? "text-right" : "text-left"
                       } ${col.numeric ? "tabular-nums" : ""} ${colorClass(color)}`}
                     >
@@ -143,7 +143,7 @@ export function DataTable<TRow extends Record<string, unknown>>({
           return (
             <div
               key={getRowKey?.(row, idx) ?? idx}
-              className="bg-card border border-border p-4 flex flex-col gap-3"
+              className="pb-card p-4 flex flex-col gap-3"
             >
               {heroColumn && (
                 <div
@@ -163,11 +163,13 @@ export function DataTable<TRow extends Record<string, unknown>>({
                       : String(value ?? "—");
                   return (
                     <div key={col.key} className="contents">
-                      <div className="text-xs uppercase tracking-wide text-muted-foreground">
+                      {/* ABM007_FINAL AC-L04: long unbroken values (addresses, identifiers) wrap inside the card
+                          instead of widening the page at 375 px (found by the signed-in audit check). */}
+                      <div className="min-w-0 text-[13px] text-muted-foreground [overflow-wrap:anywhere]">
                         {col.label}
                       </div>
                       <div
-                        className={`${col.numeric ? "tabular-nums" : ""} ${colorClass(color)}`}
+                        className={`min-w-0 [overflow-wrap:anywhere] ${col.numeric ? "tabular-nums" : ""} ${colorClass(color)}`}
                       >
                         {content}
                       </div>

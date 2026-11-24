@@ -82,7 +82,7 @@ const InviteMemberForm = ({ storeId, onInvited }: InviteMemberFormProps) => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-xs font-bold uppercase text-muted-foreground">
+              <FormLabel className="text-[13px] font-medium text-muted-foreground">
                 Email
               </FormLabel>
               <FormControl>
@@ -97,7 +97,7 @@ const InviteMemberForm = ({ storeId, onInvited }: InviteMemberFormProps) => {
           name="jobTitle"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-xs font-bold uppercase text-muted-foreground">
+              <FormLabel className="text-[13px] font-medium text-muted-foreground">
                 Job title
               </FormLabel>
               <Select onValueChange={field.onChange} value={field.value}>
@@ -118,7 +118,7 @@ const InviteMemberForm = ({ storeId, onInvited }: InviteMemberFormProps) => {
             </FormItem>
           )}
         />
-        <div className="flex gap-3 border border-info/40 bg-info/10 p-3 text-sm">
+        <div className="pb-notice pb-tone-info flex gap-3 text-sm">
           <Lock
             className="mt-0.5 h-4 w-4 shrink-0 text-info"
             aria-hidden="true"

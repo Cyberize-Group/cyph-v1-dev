@@ -76,13 +76,13 @@ const FilterRail = ({ filters, pbmOptions, onApply, onClear }: FilterRailProps) 
   };
 
   return (
-    <aside className="flex flex-col gap-4 p-4 bg-card border border-border">
+    <aside className="flex flex-col gap-4 p-1">
       <div className="flex flex-col gap-1">
         <button
           type="button"
           disabled={!demo}
           onClick={() => fileInputRef.current?.click()}
-          className="w-full bg-chart-5 text-white py-2 text-sm font-semibold"
+          className="w-full min-h-11 rounded-md bg-primary px-4 py-2 text-base font-normal text-primary-foreground hover:bg-primary-hover disabled:cursor-not-allowed disabled:bg-disabled disabled:text-disabled-foreground"
         >
           Upload Data
         </button>
@@ -103,27 +103,27 @@ const FilterRail = ({ filters, pbmOptions, onApply, onClear }: FilterRailProps) 
       </div>
 
       <label className="flex flex-col gap-1 text-sm">
-        <span className="text-xs uppercase tracking-wide text-muted-foreground">From</span>
+        <span className="text-[13px] font-medium text-muted-foreground">From</span>
         <input
           type="date"
           value={draft.from ?? ""}
           onChange={(e) => setDraft({ ...draft, from: e.target.value || undefined })}
-          className="border border-input bg-background px-2 py-1"
+          className="min-h-11 rounded-md border border-input bg-card px-2.5 py-2 text-[15px] text-foreground"
         />
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        <span className="text-xs uppercase tracking-wide text-muted-foreground">To</span>
+        <span className="text-[13px] font-medium text-muted-foreground">To</span>
         <input
           type="date"
           value={draft.to ?? ""}
           onChange={(e) => setDraft({ ...draft, to: e.target.value || undefined })}
-          className="border border-input bg-background px-2 py-1"
+          className="min-h-11 rounded-md border border-input bg-card px-2.5 py-2 text-[15px] text-foreground"
         />
       </label>
 
       <div className="flex flex-col gap-1 text-sm">
-        <span className="text-xs uppercase tracking-wide text-muted-foreground">Filter</span>
+        <span className="text-[13px] font-medium text-muted-foreground">Filter</span>
         <Select
           value={draft.filter ?? "all"}
           onValueChange={(v) => setDraft({ ...draft, filter: v === "all" ? undefined : v })}
@@ -142,7 +142,7 @@ const FilterRail = ({ filters, pbmOptions, onApply, onClear }: FilterRailProps) 
       </div>
 
       <div className="flex flex-col gap-1 text-sm">
-        <span className="text-xs uppercase tracking-wide text-muted-foreground">PBM</span>
+        <span className="text-[13px] font-medium text-muted-foreground">PBM</span>
         <MultiSelect
           options={pbmOptions}
           selected={draft.pbms}
@@ -159,14 +159,14 @@ const FilterRail = ({ filters, pbmOptions, onApply, onClear }: FilterRailProps) 
         <button
           type="button"
           onClick={handleClear}
-          className="flex-1 border border-border py-2 text-sm"
+          className="flex-1 min-h-11 rounded-md border border-input bg-card px-4 py-2 text-base font-normal text-heading hover:bg-accent disabled:cursor-not-allowed disabled:border-transparent disabled:bg-disabled disabled:text-disabled-foreground"
         >
           Clear
         </button>
         <button
           type="button"
           onClick={() => onApply(draft)}
-          className="flex-1 bg-chart-5 text-white py-2 text-sm font-semibold"
+          className="flex-1 min-h-11 rounded-md bg-primary px-4 py-2 text-base font-normal text-primary-foreground hover:bg-primary-hover disabled:cursor-not-allowed disabled:bg-disabled disabled:text-disabled-foreground"
         >
           Apply
         </button>
@@ -177,7 +177,7 @@ const FilterRail = ({ filters, pbmOptions, onApply, onClear }: FilterRailProps) 
           type="button"
           onClick={handleRefresh}
           disabled={refresh === "refreshing"}
-          className="w-full bg-secondary text-secondary-foreground py-2 text-sm font-semibold disabled:opacity-60"
+          className="w-full min-h-11 rounded-md border border-input bg-card px-4 py-2 text-base font-normal text-heading hover:bg-accent disabled:cursor-not-allowed disabled:border-transparent disabled:bg-disabled disabled:text-disabled-foreground"
         >
           Get Fresh Data
         </button>

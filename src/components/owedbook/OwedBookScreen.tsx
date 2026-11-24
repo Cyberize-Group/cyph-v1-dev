@@ -43,7 +43,7 @@ const columnsForTab = (tab: OwedTab) =>
 const SkeletonRows = () => (
   <div className="flex flex-col gap-2" data-testid="owedbook-skeleton">
     {Array.from({ length: 6 }).map((_, i) => (
-      <div key={i} className="h-10 bg-muted animate-pulse" />
+      <div key={i} className="h-10 rounded-md bg-muted animate-pulse" />
     ))}
   </div>
 );
@@ -169,11 +169,11 @@ const OwedBookScreen = () => {
   );
 
   return (
-    <div className="flex flex-col gap-6 min-w-0 p-6">
+    <div className="flex flex-col gap-6 min-w-0 p-4 sm:p-6">
       <AccessBanner />
       <header>
-        <p className="text-xs uppercase tracking-wide text-muted-foreground">Dashboard</p>
-        <h1 className="text-3xl font-bold mt-1">OwedBook</h1>
+        <p className="pb-eyebrow text-muted-foreground">Dashboard</p>
+        <h1 className="pb-page-title mt-1">OwedBook</h1>
         <p className="text-muted-foreground mt-1">
           Ledger-level clarity on every dollar you&apos;re owed.
         </p>
@@ -185,20 +185,20 @@ const OwedBookScreen = () => {
       {/* At-a-glance active-filter badge (UI_SPEC §5.4) — reflects the APPLIED set. */}
       {activeFilterCount > 0 && (
         <div className="flex items-center gap-3" data-testid="active-filters">
-          <span className="inline-flex items-center bg-chart-5 text-white px-2.5 py-1 text-xs font-semibold">
+          <span className="pb-pill pb-tone-info">
             {activeFilterCount} {activeFilterCount === 1 ? "filter" : "filters"} active
           </span>
           <button
             type="button"
             onClick={clearFilters}
-            className="text-primary text-xs underline-offset-2 hover:underline"
+            className="pb-link-on-page min-h-11 text-sm"
           >
             Clear filters
           </button>
         </div>
       )}
 
-      {!scopeReady && !scopeLoading ? <p role="status">Select a permitted store to view KPIs.</p> : kpiReady && kpis ? <KpiTiles kpis={kpis} /> : kpiReady && kpiError ? <div role="alert">{kpiError} <button onClick={refresh}>Retry KPIs</button></div> : <div aria-busy="true" aria-label="Loading KPIs" className="grid grid-cols-2 gap-4">{["Commercial Underpaid","Scripts","Updated Difference","Owed"].map(label=><div key={label}>{label}<p>—</p></div>)}</div>}
+      {!scopeReady && !scopeLoading ? <p role="status">Select a permitted store to view KPIs.</p> : kpiReady && kpis ? <KpiTiles kpis={kpis} /> : kpiReady && kpiError ? <div role="alert" className="pb-notice pb-tone-destructive text-sm"><p className="font-semibold">{kpiError}</p> <button onClick={refresh} className="pb-link mt-1 min-h-11">Retry KPIs</button></div> : <div aria-busy="true" aria-label="Loading KPIs" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">{["Commercial Underpaid","Scripts","Updated Difference","Owed"].map(label=><div key={label} className="pb-card px-4 py-3.5 text-[13px] text-muted-foreground">{label}<p className="text-2xl font-bold text-heading">—</p></div>)}</div>}
 
       <Tabs
         value={activeTab}
@@ -219,12 +219,12 @@ const OwedBookScreen = () => {
       {activeTab === "federal_dollars" && <p className="text-sm text-muted-foreground">Federal reimbursement data is unavailable in this release.</p>}
       <div>
         {!scopeReady && !scopeLoading ? <p role="status">No store data is available until a permitted store is selected.</p> : dataReady && error ? (
-          <div className="flex items-center gap-3 text-sm text-destructive">
-            <span>{error}</span>
+          <div role="alert" className="pb-notice pb-tone-destructive flex flex-wrap items-center gap-3 text-sm">
+            <span className="font-semibold">{error}</span>
             <button
               type="button"
               onClick={refresh}
-              className="underline"
+              className="pb-link min-h-11"
             >
               Retry
             </button>

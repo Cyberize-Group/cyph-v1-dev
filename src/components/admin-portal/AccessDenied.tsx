@@ -14,11 +14,11 @@ export function isAccessDenied(e: unknown): boolean {
 }
 
 const AccessDenied = () => (
-  <div className="mx-auto max-w-[560px] border border-border bg-card p-6" role="alert" data-testid="access-denied">
+  <div className="mx-auto max-w-[560px] pb-card p-6" role="alert" data-testid="access-denied">
     <div className="flex items-start gap-3">
       <ShieldAlert className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground" aria-hidden="true" />
       <div>
-        <h1 className="text-lg font-semibold">You don&apos;t have access to this store</h1>
+        <h1 className="text-lg font-medium text-heading">You don&apos;t have access to this store</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           This page is only available to the account owner and the store&apos;s admin. If you think you should have access, ask the account owner.
         </p>

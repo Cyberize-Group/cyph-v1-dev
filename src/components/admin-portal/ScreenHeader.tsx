@@ -21,13 +21,15 @@ const ScreenHeader = ({
 }: ScreenHeaderProps) => {
   return (
     <header className="mb-2">
-      <div className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+      <div className="pb-eyebrow flex items-center gap-3 text-muted-foreground">
         <span>{eyebrow}</span>
         <DemoMarker />
       </div>
-      <div className="mt-2 flex items-start justify-between gap-4">
+      {/* ABM007_FINAL AC-L04: wraps on narrow screens so a wide action (Add store) moves under the title instead of
+          pushing the page sideways (found by the 375 px signed-in check). */}
+      <div className="mt-2 flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">{title}</h1>
+          <h1 className="pb-page-title">{title}</h1>
           {subtitle && (
             <p className="mt-1 text-[15px] text-muted-foreground">{subtitle}</p>
           )}

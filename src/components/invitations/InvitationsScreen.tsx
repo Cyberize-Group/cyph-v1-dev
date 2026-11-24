@@ -34,15 +34,15 @@ export default function InvitationsScreen() {
 
   return (
     <section aria-labelledby="inv-title">
-      <h1 id="inv-title" className="text-2xl font-semibold text-foreground">Your invitations</h1>
-      {notice && <p role="status" className="mt-4 text-sm text-foreground">{notice}</p>}
+      <h1 id="inv-title" className="pb-page-title">Your invitations</h1>
+      {notice && <p role="status" className="pb-notice pb-tone-info mt-4 text-sm">{notice}</p>}
       {state.kind === "loading" && <p className="mt-6 text-sm text-muted-foreground">Loading…</p>}
       {state.kind === "signed_out" && (
-        <p className="mt-6 text-sm text-foreground">
-          Sign in with the email address the invitation was sent to. <Link className="underline" href="/auth">Sign in</Link>
+        <p className="pb-notice pb-tone-info mt-6 text-sm">
+          Sign in with the email address the invitation was sent to. <Link className="font-semibold underline underline-offset-2" href="/auth">Sign in</Link>
         </p>
       )}
-      {state.kind === "error" && <p role="alert" className="mt-6 text-sm text-destructive">{state.message}</p>}
+      {state.kind === "error" && <p role="alert" className="pb-notice pb-tone-destructive mt-6 text-sm font-semibold">{state.message}</p>}
       {state.kind === "ready" && state.items.length === 0 && (
         <p className="mt-6 text-sm text-muted-foreground">
           There are no pending invitations for the address you are signed in with. If the invitation was sent to a different
@@ -52,8 +52,8 @@ export default function InvitationsScreen() {
       {state.kind === "ready" && state.items.length > 0 && (
         <ul className="mt-6 space-y-4">
           {state.items.map((i) => (
-            <li key={i.id} className="rounded-md border border-border bg-card p-4">
-              <p className="font-medium text-foreground">{i.store_name}</p>
+            <li key={i.id} className="pb-card p-4">
+              <p className="font-medium text-heading">{i.store_name}</p>
               <p className="text-sm text-muted-foreground">
                 Role: {i.role === "admin" ? "Store admin" : "Member"} · Expires {new Date(i.expires_at).toLocaleString()}
               </p>

@@ -12,7 +12,7 @@ import type { BillingLine } from "@/types/adminDemo";
 const Skeleton = () => (
   <div className="space-y-3" data-testid="billing-skeleton">
     {Array.from({ length: 3 }).map((_, i) => (
-      <div key={i} className="h-20 bg-muted animate-pulse" />
+      <div key={i} className="h-20 rounded-md bg-disabled animate-pulse" />
     ))}
   </div>
 );
@@ -61,13 +61,13 @@ const BillingScreen = () => {
         action={isDemoMode() || (!loading && !ownerOnly && !error) ? <AddStoreButton onAdded={reload} /> : undefined}
       />
       {ownerOnly ? (
-        <p className="mt-6 text-sm text-muted-foreground" role="status" data-testid="billing-owner-only">
+        <p className="pb-notice pb-tone-info mt-6 text-sm" role="status" data-testid="billing-owner-only">
           Billing is managed by the account owner. You can see your stores and members, but not billing details.
         </p>
       ) : error ? (
-        <div className="mt-6 flex items-center gap-3 text-sm text-destructive">
+        <div className="pb-notice pb-tone-destructive mt-6 flex flex-wrap items-center gap-3 text-sm">
           <span>{error}</span>
-          <button type="button" className="underline" onClick={reload}>
+          <button type="button" className="font-semibold underline underline-offset-2" onClick={reload}>
             Retry
           </button>
         </div>
@@ -89,7 +89,7 @@ const BillingScreen = () => {
           </p>
           {!isDemoMode() ? (
             <a
-              className="mt-3 inline-flex h-10 items-center border border-input bg-background px-4 text-sm font-medium hover:bg-accent"
+              className="mt-3 inline-flex min-h-11 items-center rounded-md border border-input bg-card px-4 text-base font-normal text-heading hover:bg-accent"
               href={`${peerOrigin()}/api/handoff/start?return=${encodeURIComponent("/billing")}`}
               data-testid="open-billing-portal"
             >

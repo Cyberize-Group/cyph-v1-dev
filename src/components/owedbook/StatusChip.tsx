@@ -1,13 +1,13 @@
 import type { OwedStatus } from "@/types/OwedBook";
 
-// Status → semantic token (UI_SPEC v1.3 §5.5). Class strings are literals so
-// Tailwind's content scanner keeps them. null → "—".
+// Status → pill recipe (ABM007_FINAL brand contract 3.4): charcoal text, a status-colored border and a 10 percent
+// tint; the word carries the meaning. Class strings are literals so Tailwind keeps them. null → "—".
 const STATUS: Record<OwedStatus, { label: string; className: string }> = {
-  recovered: { label: "Recovered", className: "bg-success/10 text-success" },
-  emailed_pbm: { label: "Emailed PBM", className: "bg-info/10 text-info" },
-  pending: { label: "Pending", className: "bg-warning/10 text-warning" },
-  underpaid: { label: "Underpaid", className: "bg-destructive/10 text-destructive" },
-  new: { label: "New", className: "bg-muted text-muted-foreground" },
+  recovered: { label: "Recovered", className: "pb-tone-success" },
+  emailed_pbm: { label: "Emailed PBM", className: "pb-tone-info" },
+  pending: { label: "Pending", className: "pb-tone-warning" },
+  underpaid: { label: "Underpaid", className: "pb-tone-destructive" },
+  new: { label: "New", className: "pb-tone-neutral" },
 };
 
 interface StatusChipProps {
@@ -20,7 +20,7 @@ const StatusChip = ({ status }: StatusChipProps) => {
   const { label, className } = STATUS[status];
   return (
     <span
-      className={`inline-flex items-center px-2 py-0.5 text-xs font-medium ${className}`}
+      className={`pb-pill ${className}`}
     >
       {label}
     </span>

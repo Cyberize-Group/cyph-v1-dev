@@ -4,7 +4,6 @@ import { viewerRoleLabel, viewerRoleSummary } from "@/components/admin-portal/ro
 import { avatarLetter, displayNameOf, NO_DISPLAY_NAME } from "./identity";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
@@ -17,7 +16,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import ThemeToggler from "./ThemeToggler";
+import { BrandMark } from "./BrandMark";
+import { BRAND } from "./brand";
 import Logout from "../auth/Logout";
 import { User as SupabaseUser } from "@supabase/auth-js";
 import { createClient } from "@/utils/supabase/client";
@@ -54,7 +54,7 @@ const Navbar = ({ user, role }: NavbarProps) => {
   const roleScope = myStores ? viewerRoleSummary(myStores) : "";
   const badge = roleBadge ? (
     <span
-      className="shrink-0 border border-navbar-foreground/40 px-1.5 py-px text-[10px] font-semibold uppercase tracking-wide"
+      className="pb-role pb-role-on-dark shrink-0"
       title={roleScope}
       data-testid="nav-role-badge"
     >
@@ -69,8 +69,8 @@ const Navbar = ({ user, role }: NavbarProps) => {
   const router = useRouter();
 
   // Role-aware top-level nav (UI_SPEC §E/§F): ADMIN → OwedBook · Admin Portal ·
-  // Profile. MEMBER → OwedBook · Profile. Never empty. Active is route-derived
-  // via usePathname.
+  // Profile · Help. MEMBER → OwedBook · Profile · Help. Never empty. Active is
+  // route-derived via usePathname. Help (ABM007_FINAL, D-08) is for every role.
   const pathname = usePathname() ?? "";
   const isAdmin = hasAdminAccess;
 
@@ -78,6 +78,7 @@ const Navbar = ({ user, role }: NavbarProps) => {
     { label: "OwedBook", href: "/owedbook" },
     ...(isAdmin ? [{ label: "Admin Portal", href: "/admin-portal" }] : []),
     { label: "Profile", href: "/profile" },
+    { label: "Help", href: "/help" },
   ];
 
   // Slim auth listener: identity comes from the server, so the ONLY event that
@@ -137,27 +138,25 @@ const Navbar = ({ user, role }: NavbarProps) => {
 
   const navLinkClass = (href: string) => {
     const active = pathname.startsWith(href);
-    return `px-3 py-1 text-sm font-medium transition-colors ${
-      active
-        ? "text-navbar-foreground border-b-2 border-navbar-foreground font-semibold"
-        : "text-navbar-foreground/70 hover:text-navbar-foreground"
+    return `pb-nav-item inline-flex min-h-11 items-center px-3 py-2 text-[15px] transition-colors ${
+      active ? "pb-nav-item-active" : ""
     }`;
   };
 
   return (
-    <header ref={headerRef} className="bg-navbar text-navbar-foreground">
-      <div className="py-2 px-4 sm:px-5 flex justify-between items-center gap-2">
+    <header ref={headerRef} className="pb-on-dark relative bg-navbar text-navbar-foreground">
+      <div className="py-2 px-4 sm:px-6 flex items-center gap-4">
         <Link
           href="/"
-          aria-label="Cyber Pharma — Home"
+          aria-label={`${BRAND.name} — Home`}
           onClick={closeMenu}
-          className="shrink-0"
+          className="shrink-0 rounded-md"
         >
-          <Image src="/brand/logo-color.svg" alt="Cyber Pharma" width={36} height={36} />
+          <BrandMark />
         </Link>
 
         {/* Desktop nav (≥ lg, role-aware) */}
-        <nav aria-label="Primary" className="hidden lg:flex items-center gap-1">
+        <nav aria-label="Primary" className="hidden lg:flex items-center gap-1 ml-4">
           {navLinks.map((l) => (
             <Link
               key={l.href}
@@ -171,14 +170,13 @@ const Navbar = ({ user, role }: NavbarProps) => {
         </nav>
 
         {/* Desktop right cluster (≥ lg) */}
-        <div className="hidden lg:flex items-center">
-          <ThemeToggler />
+        <div className="hidden lg:flex items-center ml-auto">
           <span className="mx-3 flex min-w-0 items-center gap-2 text-navbar-foreground" data-testid="nav-identity">
             <span className="max-w-[14rem] truncate text-sm font-medium" title={shownName}>{shownName}</span>
             {badge}
           </span>
           <DropdownMenu>
-            <DropdownMenuTrigger className="cursor-pointer" aria-label="Account menu">
+            <DropdownMenuTrigger className="cursor-pointer rounded-full" aria-label="Account menu">
               <Avatar>
                 <AvatarFallback>{avatarLetter(name, user.email)}</AvatarFallback>
               </Avatar>
@@ -203,49 +201,55 @@ const Navbar = ({ user, role }: NavbarProps) => {
           onClick={() => setMenuOpen((s) => !s)}
           aria-label={menuOpen ? "Close menu" : "Open menu"}
           aria-expanded={menuOpen}
-          className="lg:hidden shrink-0 p-2 text-navbar-foreground hover:opacity-80"
+          className="lg:hidden ml-auto inline-flex min-h-11 shrink-0 items-center gap-2 rounded-md border border-navbar-foreground/70 px-3 py-2 text-[15px] text-navbar-foreground hover:bg-navbar-foreground/10"
         >
-          {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          {menuOpen ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
+          <span>{menuOpen ? "Close" : "Menu"}</span>
         </button>
       </div>
 
-      {/* Mobile panel (< lg) — same role-aware links + account actions */}
+      {/* Mobile panel (< lg) — same role-aware links + account actions. In the page flow, as at baseline, so keyboard
+          focus that moves past the last item is never hidden underneath the panel (focus not obscured). */}
       {menuOpen && (
         <div
-          className="lg:hidden border-t border-navbar-foreground/20"
+          className="pb-on-light lg:hidden border-b border-border bg-card px-4 py-3 text-card-foreground"
           role="dialog"
           aria-label="Menu"
         >
-          <nav className="flex flex-col">
+          <nav className="flex flex-col gap-1">
             {navLinks.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
                 onClick={closeMenu}
                 aria-current={pathname.startsWith(l.href) ? "page" : undefined}
-                className={`px-5 py-3 text-sm font-medium border-b border-navbar-foreground/20 ${
-                  pathname.startsWith(l.href) ? "font-semibold" : "text-navbar-foreground/80"
+                className={`flex min-h-11 items-center rounded-md px-3 py-2.5 text-[15px] ${
+                  pathname.startsWith(l.href) ? "pb-rail-active" : "text-foreground hover:bg-accent"
                 }`}
               >
                 {l.label}
               </Link>
             ))}
 
-            <div className="flex items-center justify-between gap-3 px-5 py-3 border-b border-navbar-foreground/20">
+            <div className="mt-1 flex items-center justify-between gap-3 border-t border-border px-3 pt-3 pb-2">
               <span className="min-w-0">
                 <span className="flex min-w-0 items-center gap-2">
                   <span className="truncate text-sm font-medium">{shownName}</span>
-                  {badge}
+                  {roleBadge ? (
+                    <span className="pb-role shrink-0" title={roleScope} data-testid="nav-role-badge">
+                      {roleBadge}
+                      <span className="sr-only">{roleScope ? ` (${roleScope})` : ""}</span>
+                    </span>
+                  ) : null}
                 </span>
-                <span className="block truncate text-xs text-navbar-foreground/70">{user.email}</span>
+                <span className="block truncate text-xs text-muted-foreground">{user.email}</span>
               </span>
-              <ThemeToggler onSelect={closeMenu} />
             </div>
 
             <button
               type="button"
               onClick={handleLogout}
-              className="px-5 py-3 text-sm text-left bg-secondary text-secondary-foreground"
+              className="flex min-h-11 items-center rounded-md px-3 py-2.5 text-left text-[15px] text-heading hover:bg-accent"
             >
               Log out
             </button>

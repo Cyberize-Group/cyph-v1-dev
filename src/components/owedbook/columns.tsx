@@ -14,7 +14,7 @@ const reportColumn: ColumnDef<OwedBookRow> = {
   label: "Report",
   render: (row) =>
     row.report_file ? (
-      <button type="button" className="text-primary text-sm underline-offset-2 hover:underline">
+      <button type="button" className="pb-link text-sm">
         Report
       </button>
     ) : (

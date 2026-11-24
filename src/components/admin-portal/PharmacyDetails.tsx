@@ -42,23 +42,23 @@ export default function PharmacyDetails({ stores }: { stores: OwnedStore[] }) {
       {stores.length > 1 ? (
         <div className="space-y-1">
           <Label htmlFor="pd-store">Pharmacy</Label>
-          <select id="pd-store" className="flex h-10 w-full border border-input bg-background px-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          <select id="pd-store" className="flex min-h-11 w-full rounded-md border border-input bg-card px-2.5 text-[15px] text-foreground"
             value={selected} onChange={(e) => setSelected(e.target.value)} data-testid="pd-store">
             {stores.map((s) => <option key={s.storeId} value={s.storeId}>{s.name}</option>)}
           </select>
         </div>
       ) : null}
       {error ? (
-        <div className="flex items-center gap-3 text-sm text-destructive" role="alert"><span>{error}</span><button type="button" className="underline" onClick={() => setRetry((r) => r + 1)}>Retry</button></div>
+        <div className="pb-notice pb-tone-destructive flex flex-wrap items-center gap-3 text-sm" role="alert"><span>{error}</span><button type="button" className="font-semibold underline underline-offset-2" onClick={() => setRetry((r) => r + 1)}>Retry</button></div>
       ) : loading || !p ? (
-        <div className="space-y-3" aria-busy="true" data-testid="pd-loading">{Array.from({ length: 6 }).map((_, i) => <div key={i} className="h-10 bg-muted animate-pulse" />)}</div>
+        <div className="space-y-3" aria-busy="true" data-testid="pd-loading">{Array.from({ length: 6 }).map((_, i) => <div key={i} className="h-10 rounded-md bg-disabled animate-pulse" />)}</div>
       ) : (
-        <section aria-labelledby="pd-title" className="border border-border bg-card p-4 sm:p-5">
-          <h2 id="pd-title" className="text-lg font-semibold text-foreground">{p.name}</h2>
+        <section aria-labelledby="pd-title" className="pb-card p-4 sm:p-5">
+          <h2 id="pd-title" className="text-lg font-medium text-heading">{p.name}</h2>
           <dl className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             {rows.map((r) => (
               <div key={r.label} className="min-w-0">
-                <dt className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">{r.label}</dt>
+                <dt className="text-[13px] font-medium text-muted-foreground">{r.label}</dt>
                 <dd className="break-words text-sm text-foreground" data-testid={r.testId}>{r.value}</dd>
                 {r.note ? <p className="text-xs text-muted-foreground">{r.note}</p> : null}
               </div>

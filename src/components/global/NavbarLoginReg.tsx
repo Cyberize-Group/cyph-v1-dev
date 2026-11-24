@@ -1,33 +1,16 @@
-import Image from "next/image";
 import Link from "next/link";
-import ThemeToggler from "./ThemeToggler";
+import { BrandMark } from "./BrandMark";
+import { BRAND } from "./brand";
 
+// ABM007_FINAL: the (auth) pages now use the literal layout (AuthShell) and no longer mount this header. Kept, with its
+// theme-toggle mount (D-01) and old logo reference (AC-N02) removed, pending the Director's leftovers decision.
 const NavbarLoginReg = () => {
   return (
-    <>
-      <div className="bg-secondary py-2 px-5 flex justify-between">
-        <Link href={"/"} aria-label="Cyber Pharma — Home">
-          <Image
-            src="/brand/logo-lockup.svg"
-            alt="Cyber Pharma"
-            width={180}
-            height={34}
-            priority
-          />
-        </Link>
-
-        <div className="flex items-center">
-          <ThemeToggler />
-        </div>
-      </div>
-      {/* <h1 className="text-center text-5xl mt-12">
-        Next.js 14, Shadcn, Tailwind, Supabase & Resend{" "}
-        <small>(Email Service)</small>
-      </h1>
-      <h3 className="text-center text-3xl mt-12 -mb-[8rem]">
-        Login/Logout, Registration, Middleware & Email Validation Setup
-      </h3> */}
-    </>
+    <div className="pb-on-dark bg-navbar py-2 px-5 flex justify-between">
+      <Link href={"/"} aria-label={`${BRAND.name} — Home`} className="rounded-md">
+        <BrandMark />
+      </Link>
+    </div>
   );
 };
 

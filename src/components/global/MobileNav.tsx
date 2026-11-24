@@ -9,12 +9,6 @@ import { User as SupabaseUser } from "@supabase/auth-js";
 import { useAuthStore } from "@/store/useAuthStore";
 import { AppRole } from "@/utils/app-role";
 
-const marketingLinks = [
-  { href: "#features", label: "Features" },
-  { href: "#how-it-works", label: "How it works" },
-  { href: "#pricing", label: "Pricing" },
-];
-
 // Identity is SERVER-RESOLVED and passed as props (Navbar Law — KIP-2 kill):
 // no client auth fetch, no persisted-store role read, no loading window. The
 // store appears below ONLY as the logout action, mirroring the cured Navbar.
@@ -59,42 +53,33 @@ const MobileNav = ({ user, role }: MobileNavProps) => {
         onClick={() => setOpen((s) => !s)}
         aria-label={open ? "Close menu" : "Open menu"}
         aria-expanded={open}
-        className="p-2 text-foreground hover:bg-accent/10 transition-colors"
+        className="inline-flex min-h-11 items-center gap-2 rounded-md border border-navbar-foreground/70 px-3 py-2 text-[15px] text-navbar-foreground hover:bg-navbar-foreground/10"
       >
-        {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        {open ? <X className="h-5 w-5" aria-hidden="true" /> : <Menu className="h-5 w-5" aria-hidden="true" />}
+        <span>{open ? "Close" : "Menu"}</span>
       </button>
 
       {open && (
         <div
-          className="absolute top-[84px] left-0 right-0 bg-card border-b-2 border-border shadow-lg z-50"
+          className="pb-on-light absolute top-full left-0 right-0 bg-card text-card-foreground border-b border-border shadow-menu z-50 px-4 py-3"
           role="dialog"
           aria-label="Mobile navigation"
         >
-          <nav className="flex flex-col">
-            {marketingLinks.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                onClick={close}
-                className="uppercase text-xs font-bold tracking-wide px-7 py-4 text-foreground hover:bg-accent/10 border-b border-border transition-colors"
-              >
-                {label}
-              </Link>
-            ))}
+          <nav className="flex flex-col gap-1">
 
             {user && (
               <>
                 <Link
                   href={portalHref}
                   onClick={close}
-                  className="uppercase text-xs font-bold tracking-wide px-7 py-4 text-foreground hover:bg-accent/10 border-b border-border transition-colors"
+                  className="flex min-h-11 items-center rounded-md px-3 py-2.5 text-[15px] text-foreground hover:bg-accent"
                 >
                   {portalLabel}
                 </Link>
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="uppercase text-xs font-bold tracking-wide px-7 py-5 bg-secondary text-secondary-foreground hover:bg-secondary/80 text-left transition-colors"
+                  className="flex min-h-11 items-center rounded-md px-3 py-2.5 text-left text-[15px] text-heading hover:bg-accent"
                 >
                   Log out
                 </button>
@@ -106,14 +91,14 @@ const MobileNav = ({ user, role }: MobileNavProps) => {
                 <Link
                   href="/auth"
                   onClick={close}
-                  className="uppercase text-xs font-bold tracking-wide px-7 py-4 text-foreground hover:bg-accent/10 border-b border-border transition-colors"
+                  className="flex min-h-11 items-center rounded-md px-3 py-2.5 text-[15px] text-foreground hover:bg-accent"
                 >
                   Log in
                 </Link>
                 <Link
                   href="/auth"
                   onClick={close}
-                  className="uppercase text-xs font-bold tracking-wide px-7 py-5 bg-primary text-primary-foreground text-center hover:bg-primary/90 transition-colors"
+                  className="mt-1 flex min-h-11 items-center justify-center rounded-md bg-primary px-3 py-2.5 text-[15px] text-primary-foreground hover:bg-primary-hover"
                 >
                   Start free trial
                 </Link>

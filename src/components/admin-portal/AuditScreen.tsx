@@ -35,7 +35,7 @@ const COLUMNS: ColumnDef<AuditRow>[] = [
 const Skeleton = () => (
   <div className="space-y-2" data-testid="audit-skeleton">
     {Array.from({ length: 6 }).map((_, i) => (
-      <div key={i} className="h-10 bg-muted animate-pulse" />
+      <div key={i} className="h-10 rounded-md bg-disabled animate-pulse" />
     ))}
   </div>
 );
@@ -81,7 +81,7 @@ const AuditScreen = () => {
       />
       <div className="mt-6">
         {error ? (
-          <div className="text-sm text-destructive" role="alert">{error} <button onClick={() => { setLoading(true); setRows(null); setError(null); setReload(r => r+1); }}>Retry audit</button></div>
+          <div className="pb-notice pb-tone-destructive text-sm" role="alert">{error} <button onClick={() => { setLoading(true); setRows(null); setError(null); setReload(r => r+1); }}>Retry audit</button></div>
         ) : loading ? (
           <Skeleton />
         ) : (

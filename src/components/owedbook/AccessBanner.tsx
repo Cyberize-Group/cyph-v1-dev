@@ -40,13 +40,13 @@ export function AccessBanner() {
       role={copy.tone === "destructive" ? "alert" : "status"}
       data-testid="access-banner"
       data-state={access.state}
-      className={`border-l-[3px] p-4 ${copy.tone === "destructive" ? "border-destructive bg-destructive/10" : "border-yellow-500 bg-yellow-500/10"}`}
+      className={`pb-notice ${copy.tone === "destructive" ? "pb-tone-destructive" : "pb-tone-warning"}`}
     >
       <p className="font-semibold">{copy.title}</p>
-      <p className="mt-0.5 text-sm text-muted-foreground">
+      <p className="mt-0.5 text-sm">
         {copy.body}{" "}
         {access.isOwner ? (
-          <a className="underline" href={`${peerOrigin()}/api/handoff/start?return=${encodeURIComponent("/billing")}`} data-testid="access-banner-billing">
+          <a className="pb-link" href={`${peerOrigin()}/api/handoff/start?return=${encodeURIComponent("/billing")}`} data-testid="access-banner-billing">
             Open billing
           </a>
         ) : (

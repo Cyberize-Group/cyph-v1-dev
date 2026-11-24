@@ -3,6 +3,22 @@
 > Documentation/playbook change log per CLAUDE.md Changelog Protocol.
 > `[CC]` = Claude Code · `[TS]` = Tony Stark manual edits.
 
+## 2026-11-24 09:55 UTC — [CC] Claude Code
+- **Updated:** `agent_docs/SESSIONS/session_2026-11-24.md` (final handoff preparation entry).
+- **Reason:** ABM007_FINAL final documentation-only handoff preparation; no OwedBook product change.
+
+## 2026-11-24 09:20 UTC — [CC] Claude Code
+- **Updated:** `agent_docs/SESSIONS/session_2026-11-24.md` (E2 completion entry).
+- **Reason:** ABM007_FINAL E2 completion; product changes and evidence are recorded in the Portal module folder.
+
+## 2026-11-24 07:58 UTC — [CC] Claude Code
+- **Updated:** `agent_docs/SESSIONS/session_2026-11-24.md` (E2 continuation entry); new `agent_docs/RESPONSES/response_2026-11-24_*_abm007-final-e2-interim-owedbook.md`.
+- **Reason:** ABM007_FINAL E2 continuation (Director instruction, 24 Nov). The product changes and evidence are recorded in the Portal module folder.
+
+## 2026-11-24 04:43 UTC — [CC] Claude Code
+- **Updated:** `agent_docs/SESSIONS/session_2026-11-24.md` (ABM007_FINAL E2 entries, time correction); new `agent_docs/RESPONSES/response_2026-11-24_*_abm007-final-e2-owedbook.md`.
+- **Reason:** ABM007_FINAL E2, run from a Portal-rooted session under ruling AM-08 (4). Product changes and evidence are recorded in the Portal repository's module folder (`agent_docs/ACTIONS/ABM007_FINAL/EVIDENCE/E2/`). `RECOVERY.md` not written (protected until closeout).
+
 ## 2026-11-24 01:51 UTC — [CC] Claude Code
 - **Updated:** new `agent_docs/SESSIONS/session_2026-11-24.md`; `agent_docs/SESSIONS/session_2026-11-23.md` (end-of-session block filled).
 - **Updated:** `RECOVERY.md` (01:52 UTC; new top block: session closed with no work, ABM007_FINAL engineering starts from the Portal repository).

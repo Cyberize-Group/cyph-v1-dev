@@ -59,9 +59,9 @@ const ProfileForm = ({ user, role, accountRole = null }: Props) => {
   const isPrivileged = role === AppRole.ADMIN || role === AppRole.SUPERADMIN || accountRole === "Owner" || accountRole === "Store admin";
   const roleLabel =
     role === AppRole.SUPERADMIN ? "Superadmin" : accountRole ?? (role === AppRole.ADMIN ? "Admin" : "Member");
-  const accent = isPrivileged
-    ? { bg: "bg-destructive/10", text: "text-destructive", border: "border-destructive/30" }
-    : { bg: "bg-success/10", text: "text-success", border: "border-success/30" };
+  // ABM007_FINAL P-04 / AC-B09: roles are neutral and told apart by the word; status colors never carry a role.
+  void isPrivileged;
+  const accent = { bg: "bg-accent", text: "text-heading", border: "border-heading" };
 
   const handlePasswordUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -110,10 +110,10 @@ const ProfileForm = ({ user, role, accountRole = null }: Props) => {
             </div>
 
             <div className="space-y-1">
-              <p className="text-xl font-bold">{displayName}</p>
+              <p className="text-xl font-bold text-heading">{displayName}</p>
               <p className="text-sm text-muted-foreground">{user.email}</p>
               <span
-                className={`inline-block text-xs font-bold px-2 py-0.5 rounded-full ${accent.bg} ${accent.text}`}
+                className="pb-role"
               >
                 {roleLabel}
               </span>
@@ -129,27 +129,27 @@ const ProfileForm = ({ user, role, accountRole = null }: Props) => {
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <Label className="uppercase text-xs font-bold text-muted-foreground">
+            <Label className="text-[13px] font-medium text-muted-foreground">
               Full Name
             </Label>
             <Input
-              className="p-6 bg-muted mt-2 opacity-60 cursor-not-allowed"
+              className="mt-2 cursor-not-allowed bg-disabled"
               value={displayName}
               disabled
             />
           </div>
           <div>
-            <Label className="uppercase text-xs font-bold text-muted-foreground">
+            <Label className="text-[13px] font-medium text-muted-foreground">
               Email
             </Label>
             <Input
-              className="p-6 bg-muted mt-2 opacity-60 cursor-not-allowed"
+              className="mt-2 cursor-not-allowed bg-disabled"
               value={user.email ?? "—"}
               disabled
             />
             <p className="text-sm text-muted-foreground mt-1">
               Name and email changes aren&apos;t self-service yet. To change them, contact support at{" "}
-              <a className="underline" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+              <a className="font-semibold underline underline-offset-2" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
             </p>
           </div>
         </CardContent>
@@ -163,30 +163,30 @@ const ProfileForm = ({ user, role, accountRole = null }: Props) => {
         <CardContent>
           <form onSubmit={handlePasswordUpdate} className="space-y-4">
             <div>
-              <Label className="uppercase text-xs font-bold text-muted-foreground">
+              <Label className="text-[13px] font-medium text-muted-foreground">
                 New Password
               </Label>
               <PasswordInput
                 ref={passwordRef}
-                className="p-6 bg-muted mt-2"
+                className="mt-2"
                 placeholder="Minimum 8 characters"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div>
-              <Label className="uppercase text-xs font-bold text-muted-foreground">
+              <Label className="text-[13px] font-medium text-muted-foreground">
                 Confirm New Password
               </Label>
               <PasswordInput
                 ref={confirmRef}
-                className="p-6 bg-muted mt-2"
+                className="mt-2"
                 placeholder="Re-enter new password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
               {validationError && (
-                <p className="text-sm text-destructive mt-1">{validationError}</p>
+                <p className="text-sm font-semibold text-destructive mt-1">{validationError}</p>
               )}
             </div>
             <Button type="submit" disabled={loading || !hydrated} className="w-full">
