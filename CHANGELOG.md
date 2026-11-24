@@ -3,6 +3,19 @@
 > Documentation/playbook change log per CLAUDE.md Changelog Protocol.
 > `[CC]` = Claude Code · `[TS]` = Tony Stark manual edits.
 
+## 2026-11-24 01:51 UTC — [CC] Claude Code
+- **Updated:** new `agent_docs/SESSIONS/session_2026-11-24.md`; `agent_docs/SESSIONS/session_2026-11-23.md` (end-of-session block filled).
+- **Updated:** `RECOVERY.md` (01:52 UTC; new top block: session closed with no work, ABM007_FINAL engineering starts from the Portal repository).
+- **Reason:** session start (Step 0) and Director closeout a minute later. Records only.
+
+## 2026-11-23 09:31 UTC — [CC] Claude Code
+- **Updated:** `RECOVERY.md` (new top block: ABM007_FINAL pre-ABM reconnaissance delivered; Portal alpha status corrected), `agent_docs/SESSIONS/session_2026-11-23.md` (recon entries, corrected entry times).
+- **Reason:** Director task: bounded read-only reconnaissance for ABM007_FINAL. The report is in `/home/moose/Downloads/ABM007_FINAL_PRE_RECON/`, outside the repository by instruction. No product file changed.
+
+## 2026-11-23 09:17 UTC — [CC] Claude Code
+- **Updated:** `RECOVERY.md` (new top block: PR #14 merged, `main` synced at `9597699`, session on `abm007-final`); new `agent_docs/SESSIONS/session_2026-11-23.md`.
+- **Reason:** Director request at session start: update the session and recovery files. Records only.
+
 ## 2026-11-20 11:38 UTC — [CC] Claude Code
 - **Updated:** `DEPLOYMENT_CHECKLIST.md` (Stage A ticked with build ID, revision, tag, digest), `RECOVERY.md`, `agent_docs/SESSIONS/session_2026-11-20.md`, `agent_docs/SKILL_ISSUES_LEDGER_next_deploy_auto.md`; new `agent_docs/RESPONSES/response_2026-11-20_170846_owedbook-alpha-auto-plan.md` and `response_2026-11-20_173800_owedbook-alpha-deployed.md`.
 - **Reason:** Director-approved deployment of the OwedBook alpha base service and its domain mapping. Manual acceptance pending.

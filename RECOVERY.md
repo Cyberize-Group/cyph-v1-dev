@@ -4,7 +4,26 @@
 > Updated after every plan completion. If this file is stale, the session log in
 > `agent_docs/SESSIONS/` is the fallback source of truth.
 
-**Last updated:** 2026-11-20 18:00 — **OwedBook alpha DEPLOYED; `https://cyph-v1-owedbook-alpha.cyberizedev.com` answers over HTTPS (certificate issued); sign-in NOT verified; manual acceptance PENDING** · External handoff ready **NO**
+**Last updated:** 2026-11-24 07:52 — **Session opened and closed here with no work done; ABM007_FINAL engineering starts from the Portal repository** · `abm007-final` @ `9597699` (OwedBook, no commits of its own), `cb4decd` (Portal) · External handoff ready **NO**
+**State:** nothing changed in the product. The canonical module pack is in the Portal at `cyph-payment-portal-dev-v1/agent_docs/ACTIONS/ABM007_FINAL/` (entry: `ABM_ENTRY.md`); this repository holds only the pointer `agent_docs/ACTIONS/ABM007_FINAL/README.md`. Work for this repository is listed in the pack's `CONTRACTS/NO_BREAK_AND_PATHS.md` section 2. The pack has not been read by Claudy yet.
+**Next step:** Tony opens a session in the Portal repository; the engineer reads `ABM_ENTRY.md` there. Nothing is pending approval. Uncommitted here: `RECOVERY.md`, `CHANGELOG.md`, `agent_docs/SESSIONS/session_2026-11-23.md`, `agent_docs/SESSIONS/session_2026-11-24.md`, and the untracked pointer `agent_docs/ACTIONS/ABM007_FINAL/README.md`.
+**Record:** session `agent_docs/SESSIONS/session_2026-11-24.md`.
+
+**Prior block (2026-11-23 15:31):** **Last updated:** 2026-11-23 15:31 — **ABM007_FINAL pre-ABM reconnaissance DELIVERED (read-only; no product change in either repo)** · `abm007-final` @ `9597699` (OwedBook), `cb4decd` (Portal) · External handoff ready **NO**
+**Result:** consolidated report, command-evidence appendix, index and ZIP in `/home/moose/Downloads/ABM007_FINAL_PRE_RECON/` (ZIP `ABM007_FINAL_PRE_RECON_2026-11-23.zip`, SHA-256 `2c90269888a1e1ba7b8789b1794af810933bb9785ef01ca2d0055d5099789524`). Jest baseline: OwedBook 374/374, Portal 572/572. Not run: typecheck, lint, builds, Playwright.
+**Key facts for the ABM:** both apps are token-driven; radius and shadow need per-component work (mostly Portal); Portal defaults to dark; no Help page exists; one Supabase Magic Link template serves all sign-in mail and its live body is not in the repos; Stripe sandbox branding is empty. Estimate 9 to 12.5 engineering days (proposal).
+**Correction to the 15:17 block below:** the Portal alpha is deployed (2026-11-21, per the Portal's records). Still open on alpha: Supabase Auth allow-list and templates, sign-in check, two-app flows.
+**Next step:** Friday authors the ABM from the report; JARVIS reviews; Director closes the gaps in report §11 (Supabase and Stripe dashboard reads). Nothing is pending approval. Uncommitted in OwedBook: `RECOVERY.md`, `CHANGELOG.md`, `agent_docs/SESSIONS/session_2026-11-23.md`.
+**Record:** session `agent_docs/SESSIONS/session_2026-11-23.md`; the report itself lives outside the repo by instruction.
+
+**Prior block (2026-11-23 15:17):** **Last updated:** 2026-11-23 15:17 — **Session opened on `abm007-final` @ `9597699` (clean, no commits of its own); PR #14 merged, `main` = `origin/main` = `9597699`; OwedBook alpha deployed 20 Nov, sign-in NOT verified, manual acceptance PENDING** · External handoff ready **NO**
+**Since 2026-11-20 18:00:** Tony committed the deployment records as `2fec846` and merged PR #14 (`deploy/owedbook-alpha-prep` → `main`) as `9597699b404afdbcd792a9b4da61c21abb10cdf8` on 2026-11-21. Local `main` and `origin/main` full SHAs match (remote refs as of the last fetch). New branch `abm007-final` tracks `origin/abm007-final` at the same commit; its task has not been stated yet.
+**Not re-verified today:** the alpha service and domain (last checked 2026-11-20 18:00, revision from `ef4cebc`; `main` is now two commits ahead of the deployed revision). Anything done outside the repo since then is unknown here.
+**Open:** Supabase Auth (DEV) allow-list for the alpha origin (Tony) → sign-in check → final manual retest on Next.js 16.4.5 → Portal mirror origins and Portal alpha (`DEPLOYMENT_CHECKLIST.md` Stages B and C). KIP-3 (zod) open, required before production.
+**Next step:** Tony states the task for `abm007-final`. Uncommitted: `RECOVERY.md`, `CHANGELOG.md`, `agent_docs/SESSIONS/session_2026-11-23.md`.
+**Record:** session `agent_docs/SESSIONS/session_2026-11-23.md`.
+
+**Prior block (2026-11-20 18:00):** **Last updated:** 2026-11-20 18:00 — **OwedBook alpha DEPLOYED; `https://cyph-v1-owedbook-alpha.cyberizedev.com` answers over HTTPS (certificate issued); sign-in NOT verified; manual acceptance PENDING** · External handoff ready **NO**
 **Result:** service `cyph-v1-owedbook-alpha` (`cyberize-nextjs-staging`, us-east1, public), revision `cyph-v1-owedbook-alpha-00001-qrp`, from commit `ef4cebc` on `deploy/owedbook-alpha-prep` (local only, not pushed). Build `5d840fee-51cc-4c9f-ab03-9b9f97c191e4`. Image digest `sha256:db2d37b4…8348`. run.app `https://cyph-v1-owedbook-alpha-hr465ynfuq-ue.a.run.app`: `/` 200, `/api/build-info` shows the commit. Mapping `cyph-v1-owedbook-alpha.cyberizedev.com` created; DNS matches.
 **Next step:** confirm the certificate and HTTPS on the alpha domain → Tony adds the alpha origin to Supabase Auth (DEV) → sign-in check → manual retest → Portal mirror origins and Portal alpha. Uncommitted: records since `ef4cebc` (`DEPLOYMENT_CHECKLIST.md`, `RECOVERY.md`, `CHANGELOG.md`, `agent_docs/`).
 **Record:** `agent_docs/RESPONSES/response_2026-11-20_173800_owedbook-alpha-deployed.md`.
