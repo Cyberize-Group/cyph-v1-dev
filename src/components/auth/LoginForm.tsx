@@ -149,9 +149,10 @@ const LoginForm = () => {
                   the typed credentials in the address bar). */}
               <Button
                 disabled={isLoading || !hydrated}
+                aria-busy={isLoading}
                 className="w-full"
               >
-                Login
+                {isLoading ? "Logging in…" : "Login"}
               </Button>
             </form>
           </Form>

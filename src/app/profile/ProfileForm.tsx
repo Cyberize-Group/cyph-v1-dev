@@ -149,7 +149,7 @@ const ProfileForm = ({ user, role, accountRole = null }: Props) => {
             />
             <p className="text-sm text-muted-foreground mt-1">
               Name and email changes aren&apos;t self-service yet. To change them, contact support at{" "}
-              <a className="font-semibold underline underline-offset-2" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
+              <a className="pb-link font-semibold" href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</a>.
             </p>
           </div>
         </CardContent>

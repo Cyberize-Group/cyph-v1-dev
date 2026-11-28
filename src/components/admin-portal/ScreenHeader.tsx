@@ -34,7 +34,8 @@ const ScreenHeader = ({
             <p className="mt-1 text-[15px] text-muted-foreground">{subtitle}</p>
           )}
         </div>
-        {action && <div className="shrink-0">{action}</div>}
+        {/* RWO-01 R-07: never wider than the row, so the Add control and its helper text stay on screen at 320 px. */}
+        {action && <div className="max-w-full shrink-0">{action}</div>}
       </div>
     </header>
   );

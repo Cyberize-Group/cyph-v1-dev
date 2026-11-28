@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react";
 import { User as SupabaseUser } from "@supabase/auth-js";
 import { useAuthStore } from "@/store/useAuthStore";
 import { AppRole } from "@/utils/app-role";
+import { peerOrigin } from "@/lib/appIdentity";
 
 // Identity is SERVER-RESOLVED and passed as props (Navbar Law — KIP-2 kill):
 // no client auth fetch, no persisted-store role read, no loading window. The
@@ -95,13 +96,14 @@ const MobileNav = ({ user, role }: MobileNavProps) => {
                 >
                   Log in
                 </Link>
-                <Link
-                  href="/auth"
+                {/* RWO-01 A1-1 (ruling AM-22): opens the Account & Billing home page at its configured address. */}
+                <a
+                  href={`${peerOrigin()}/`}
                   onClick={close}
                   className="mt-1 flex min-h-11 items-center justify-center rounded-md bg-primary px-3 py-2.5 text-[15px] text-primary-foreground hover:bg-primary-hover"
                 >
-                  Start free trial
-                </Link>
+                  Subscribe Now
+                </a>
               </>
             )}
           </nav>

@@ -23,6 +23,7 @@ describe("ABM007_FINAL Help page", () => {
   it("has thirteen sections, each reachable from the contents list by its anchor", () => {
     const { container } = render(<HelpPage />);
     const toc = screen.getByRole("navigation", { name: "On this page" });
+    // The contents list holds the thirteen section links and nothing else (RWO-01 A2-1: no "Go to the Top" in it).
     const links = within(toc).getAllByRole("link");
     expect(links).toHaveLength(13);
     for (const a of links) {
@@ -78,5 +79,63 @@ describe("ABM007_FINAL Help page", () => {
     expect(table.closest("[data-testid='help-roles-table']")!.className).toMatch(/\bhidden\b.*\bmd:block\b/);
     expect(list.className).toMatch(/\bmd:hidden\b/);
     expect(table.className).not.toMatch(/min-w-/);
+  });
+
+  // RWO-01 A2-1 (ruling AM-23, replacing AM-19 and AM-22 part 2): "Go to the Top" ends each of the thirteen articles,
+  // inside the article (a white card, so the dark green link), at every width.
+  it("ends every article with a Go to the Top link that follows the link rules", () => {
+    const { container } = render(<HelpPage />);
+    const sections = Array.from(container.querySelectorAll("section"));
+    expect(sections).toHaveLength(13);
+    for (const section of sections) {
+      const links = Array.from(section.querySelectorAll("a"));
+      const top = links[links.length - 1];
+      expect(top).toHaveTextContent("Go to the Top");
+      expect(top).toHaveAttribute("href", "#top");
+      expect(top).toHaveClass("pb-link", "min-h-11");
+      expect(section).toHaveClass("pb-card");
+      // Last thing in the article, and shown at every width (no breakpoint class hides it).
+      expect(section.lastElementChild).toBe(top.parentElement);
+      expect(top.parentElement!.className).not.toMatch(/hidden/);
+      expect(links.filter((a) => a.getAttribute("href") === "#top")).toHaveLength(1);
+    }
+  });
+
+  it("has no Go to the Top in the contents menu or after the last article", () => {
+    const { container } = render(<HelpPage />);
+    const tops = Array.from(container.querySelectorAll("a[href='#top']"));
+    expect(tops).toHaveLength(13);
+    for (const a of tops) expect(a.closest("section")).not.toBeNull();
+    expect(within(screen.getByRole("navigation", { name: "On this page" })).queryByText("Go to the Top")).toBeNull();
+    expect(screen.queryByTestId("help-go-to-top-end")).toBeNull();
+  });
+
+  // RWO-01 A3: "#top" is a real element, the Help heading, and it can take focus. With no element behind "#top" the
+  // link kept keyboard focus after activation and Firefox brought the page back down to it. The scroll margin of one
+  // window height makes the browser scroll to the very top. (jsdom does not scroll or move focus on a fragment
+  // navigation, so the movement itself is measured in the three browser engines, not here.)
+  it("gives every Go to the Top link one real, focusable target: the Help heading", () => {
+    const { container } = render(<HelpPage />);
+    const targets = container.querySelectorAll("#top");
+    expect(targets).toHaveLength(1);
+    const heading = screen.getByRole("heading", { level: 1, name: "Help" });
+    expect(targets[0]).toBe(heading);
+    expect(heading).toHaveAttribute("tabindex", "-1");
+    expect(heading).toHaveClass("scroll-mt-[100vh]");
+    // It precedes the contents menu and every article, so focus lands above all of them.
+    const toc = screen.getByRole("navigation", { name: "On this page" });
+    expect(heading.compareDocumentPosition(toc) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    // Focusable by script and by the browser, but not a Tab stop of its own.
+    heading.focus();
+    expect(document.activeElement).toBe(heading);
+    for (const a of Array.from(container.querySelectorAll("section a[href='#top']"))) expect(a.getAttribute("href")).toBe(`#${heading.id}`);
+  });
+
+  // RWO-01 A1-3, kept by A2-1: a contents menu taller than the window scrolls inside itself, so its last link can be reached.
+  it("lets the contents menu scroll inside itself from lg", () => {
+    render(<HelpPage />);
+    expect(screen.getByRole("navigation", { name: "On this page" })).toHaveClass("lg:sticky", "lg:max-h-[calc(100vh-2rem)]", "lg:overflow-y-auto");
+    // RWO-01 A2-2: room for the focus outline when the menu scrolls a keyboard-focused link into view.
+    expect(screen.getByRole("navigation", { name: "On this page" })).toHaveClass("lg:scroll-py-2");
   });
 });

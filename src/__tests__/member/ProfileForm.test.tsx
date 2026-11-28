@@ -201,4 +201,21 @@ describe('Member ProfileForm', () => {
     expect(screen.getByText('Admin')).toBeInTheDocument();
     expect(screen.queryByText('Member')).not.toBeInTheDocument();
   });
+
+  // RWO-01 R-04 (finding F18): read-only fields use the disabled tokens and are never half-faded.
+  it('shows name and email as inactive fields with readable text', () => {
+    render(<ProfileForm user={mockUser} role={AppRole.MEMBER} />);
+    const email = screen.getByDisplayValue('member@example.com');
+    expect(email).toBeDisabled();
+    expect(email).toHaveClass('disabled:bg-disabled', 'disabled:text-disabled-foreground', 'disabled:opacity-100', 'cursor-not-allowed');
+    expect(email.className).not.toMatch(/opacity-50/);
+  });
+
+  // RWO-01 R-05 (finding F21): the support link under the email field follows the link rule (dark green, underlined).
+  it('shows the support address as a link in the link style', () => {
+    render(<ProfileForm user={mockUser} role={AppRole.MEMBER} />);
+    const link = screen.getByRole('link', { name: 'support@pharmacybooks.com' });
+    expect(link).toHaveAttribute('href', 'mailto:support@pharmacybooks.com');
+    expect(link).toHaveClass('pb-link');
+  });
 });

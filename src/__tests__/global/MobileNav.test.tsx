@@ -15,6 +15,7 @@ jest.mock("@/store/useAuthStore", () => ({
 
 import MobileNav from "@/components/global/MobileNav";
 import { AppRole } from "@/utils/app-role";
+import { peerOrigin } from "@/lib/appIdentity";
 
 const tony = { email: "tony@stark.com" } as SupabaseUser;
 
@@ -25,11 +26,14 @@ describe("MobileNav (props-resolved identity)", () => {
   const openMenu = () =>
     fireEvent.click(screen.getByRole("button", { name: "Open menu" }));
 
-  it("logged-out visitor gets Log in / Start free trial, no account rows", () => {
+  it("logged-out visitor gets Log in / Subscribe Now, no account rows", () => {
     render(<MobileNav user={null} role={null} />);
     openMenu();
     expect(screen.getByText("Log in")).toBeInTheDocument();
-    expect(screen.getByText("Start free trial")).toBeInTheDocument();
+    // RWO-01 A1-1 (ruling AM-22): the green menu button opens the configured Account & Billing home page.
+    expect(screen.getByText("Subscribe Now")).toHaveAttribute("href", `${peerOrigin()}/`);
+    expect(screen.getByText("Subscribe Now")).toHaveClass("bg-primary", "hover:bg-primary-hover", "min-h-11");
+    expect(screen.queryByText(/free trial/i)).not.toBeInTheDocument();
     expect(screen.queryByText("Log out")).not.toBeInTheDocument();
     expect(screen.queryByText("Admin portal")).not.toBeInTheDocument();
   });

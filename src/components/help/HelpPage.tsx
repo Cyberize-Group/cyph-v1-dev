@@ -44,6 +44,12 @@ function Section({ id, n, children }: { id: SectionId; n: number; children: Reac
         {n}. {title}
       </h2>
       <div className="mt-3 space-y-3 text-[15px] leading-relaxed">{children}</div>
+      {/* RWO-01 A2-1 (ruling AM-23): every article ends with its own way back to the top, at every width. "#top" is the
+          Help heading (A3), so it works with mouse and keyboard and without script. The article is a white card, so
+          the link is the dark green underlined one. */}
+      <p className="mt-3 text-[13px]">
+        <a href="#top" className="pb-link inline-flex min-h-11 items-center" data-testid="help-go-to-top">Go to the Top</a>
+      </p>
     </section>
   );
 }
@@ -85,13 +91,19 @@ export default function HelpPage() {
         </p>
         <div className="mt-3.5 flex items-center gap-4">
           <LogoTile height={40} />
-          <h1 className="pb-headline text-[28px] sm:text-[36px]">Help</h1>
+          {/* RWO-01 A3: the real target of every "Go to the Top" link. With no element behind "#top" the browser scrolled
+              up but left keyboard focus on the link, and Firefox then brought the page back down to it. A focusable
+              target takes the focus, so the page stays at the top and the next Tab starts from here. The scroll margin
+              of one window height makes "scroll to this heading" mean "scroll to the very top", header in view. */}
+          <h1 id="top" tabIndex={-1} className="pb-headline scroll-mt-[100vh] text-[28px] sm:text-[36px]">Help</h1>
         </div>
         <p className="pb-masthead-text mt-2.5">Short answers for owners, store admins and members.</p>
       </header>
 
       <div className="mt-6 grid gap-6 lg:grid-cols-[260px_minmax(0,1fr)] lg:items-start">
-        <nav aria-label="On this page" className="pb-card p-4 lg:sticky lg:top-4">
+        {/* RWO-01 A1-3: when the menu is taller than the window it scrolls inside itself, so its last link can be reached.
+            A2-2: the scroll padding keeps a keyboard-focused link 8px clear of the box edge, so its outline is not cut. */}
+        <nav aria-label="On this page" className="pb-card p-4 lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:scroll-py-2 lg:overflow-y-auto">
           <h2 className="pb-eyebrow text-muted-foreground">On this page</h2>
           <ol className="mt-2 space-y-0.5 text-[15px]">
             {SECTIONS.map(([id, title], i) => (

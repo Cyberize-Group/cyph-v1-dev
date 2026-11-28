@@ -3,6 +3,22 @@
 > Documentation/playbook change log per CLAUDE.md Changelog Protocol.
 > `[CC]` = Claude Code · `[TS]` = Tony Stark manual edits.
 
+## 2026-11-27 07:18 UTC — [CC] Claude Code
+- **Updated:** `agent_docs/SESSIONS/session_2026-11-27.md` (RWO-01 add-on A3 entries).
+- **Reason:** RWO-01 add-on A3; the report and evidence are in the Portal module folder (`EVIDENCE/RWO01/`).
+
+## 2026-11-27 05:20 UTC — [CC] Claude Code
+- **New:** `agent_docs/SESSIONS/session_2026-11-27.md` (RWO-01 add-on A2 entry).
+- **Reason:** RWO-01 add-on A2; the report and evidence are in the Portal module folder (`EVIDENCE/RWO01/`).
+
+## 2026-11-26 07:42 UTC — [CC] Claude Code
+- **Updated:** `agent_docs/SESSIONS/session_2026-11-26.md` (RWO-01 add-on A1 entry).
+- **Reason:** RWO-01 add-on A1; the report and evidence are in the Portal module folder (`EVIDENCE/RWO01/`).
+
+## 2026-11-26 07:15 UTC — [CC] Claude Code
+- **New:** `agent_docs/SESSIONS/session_2026-11-26.md` (RWO-01 repair entry).
+- **Reason:** ABM007_FINAL repair work order RWO-01, items R-01 to R-07; the report and evidence are in the Portal module folder (`EVIDENCE/RWO01/`).
+
 ## 2026-11-24 09:55 UTC — [CC] Claude Code
 - **Updated:** `agent_docs/SESSIONS/session_2026-11-24.md` (final handoff preparation entry).
 - **Reason:** ABM007_FINAL final documentation-only handoff preparation; no OwedBook product change.
