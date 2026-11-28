@@ -150,7 +150,9 @@ const Navbar = ({ user, role }: NavbarProps) => {
           href="/"
           aria-label={`${BRAND.name} — Home`}
           onClick={closeMenu}
-          className="shrink-0 rounded-md"
+          // RWO-01 R-07: below lg the brand may shrink (its wordmark truncates, as in Account & Billing), so the Menu
+          // button stays on screen at 320 px. From lg up it keeps its full width, as before.
+          className="min-w-0 rounded-md lg:shrink-0"
         >
           <BrandMark />
         </Link>
@@ -177,7 +179,7 @@ const Navbar = ({ user, role }: NavbarProps) => {
           </span>
           <DropdownMenu>
             <DropdownMenuTrigger className="cursor-pointer rounded-full" aria-label="Account menu">
-              <Avatar>
+              <Avatar className="h-11 w-11">
                 <AvatarFallback>{avatarLetter(name, user.email)}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>

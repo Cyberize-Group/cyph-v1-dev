@@ -44,6 +44,8 @@ describe("OwedBookScreen", () => {
     expect(screen.getByRole("tab", { name: "Updated Payments" })).toBeInTheDocument();
     expect(screen.getByRole("tab", { name: "Federal Dollars" })).toBeInTheDocument();
     expect(screen.getByRole("tab", { name: "Summary" })).toBeInTheDocument();
+    // RWO-01 R-06 (b): each data-view tab is at least 44px high with the 8px corner; its text style is unchanged.
+    for (const tab of screen.getAllByRole("tab")) expect(tab).toHaveClass("min-h-11", "rounded-md", "text-sm", "font-medium");
 
     // After the async load resolves with zero rows, EmptyState shows.
     expect(await screen.findByText("No results")).toBeInTheDocument();

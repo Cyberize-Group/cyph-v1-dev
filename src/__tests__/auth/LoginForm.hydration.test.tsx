@@ -44,3 +44,23 @@ it("credentials typed while hydrating survive and are the ones submitted", async
   expect(screen.queryByText("Email is required")).toBeNull();
   act(() => root.unmount());
 });
+
+// RWO-01 R-03 (finding F04): while Login is in progress the button says so in words, carries aria-busy, keeps the
+// spinner and still blocks a second press.
+it("while signing in, Login shows progress words, is aria-busy, keeps the spinner and cannot be pressed again", async () => {
+  let finish: (v: string) => void = () => {};
+  mockLogin.mockImplementationOnce(() => new Promise<string>((r) => { finish = r; }));
+  const { container, root } = await serverRenderThenHydrate({ email: "owner@x.invalid", password: "typed-early" });
+  const resting = screen.getByRole("button", { name: "Login" });
+  expect(resting.getAttribute("aria-busy")).toBe("false");
+  await act(async () => { fireEvent.submit(container.querySelector("form") as HTMLFormElement); });
+  const busy = await screen.findByRole("button", { name: "Logging in…" }) as HTMLButtonElement;
+  expect(busy.getAttribute("aria-busy")).toBe("true");
+  expect(busy.disabled).toBe(true);
+  expect(container.querySelector("form [role=status]")).not.toBeNull();
+  // The guard is the disabled button (unchanged by R-03): a second press reaches nothing.
+  await act(async () => { fireEvent.click(busy); });
+  expect(mockLogin).toHaveBeenCalledTimes(1);
+  await act(async () => { finish("/admin-portal"); });
+  act(() => root.unmount());
+});

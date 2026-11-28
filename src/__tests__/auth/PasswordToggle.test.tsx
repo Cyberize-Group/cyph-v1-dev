@@ -100,6 +100,13 @@ describe("PasswordInput (U-3)", () => {
     raf.mockRestore();
   });
 
+  // RWO-01 R-06 (a): the show-or-hide button is a 44 by 44 target with the 8px corner, inside the room the field reserves.
+  it("the show-or-hide button is 44 by 44 with the button corner", () => {
+    render(<PasswordInput aria-label="pw" />);
+    expect(screen.getByRole("button", { name: "Show password" })).toHaveClass("h-11", "w-11", "rounded-md", "right-0");
+    expect(screen.getByLabelText("pw")).toHaveClass("pr-12");
+  });
+
   it("keeps a caller's padding but reserves room for the button", () => {
     render(<PasswordInput aria-label="pw" className="p-6 bg-muted" />);
     expect(screen.getByLabelText("pw")).toHaveClass("p-6", "pr-12", "bg-muted");

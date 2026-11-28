@@ -124,4 +124,21 @@ describe("Navbar mobile menu", () => {
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
   });
+
+  // RWO-01 R-06 (c): the round account button in the signed-in header is at least 44 by 44 and stays round.
+  it("the header account button is a 44px round target", () => {
+    render(<Navbar user={tony} role={AppRole.ADMIN} />);
+    const trigger = screen.getByRole("button", { name: "Account menu" });
+    expect(trigger).toHaveClass("rounded-full");
+    expect(trigger.firstElementChild).toHaveClass("h-11", "w-11", "rounded-full");
+  });
+
+  // RWO-01 R-07: below lg the brand can shrink so the Menu button stays on a 320px screen; from lg up it cannot.
+  it("the brand gives way before the Menu button on a narrow screen", () => {
+    render(<Navbar user={tony} role={AppRole.ADMIN} />);
+    const brand = screen.getAllByRole("link").find((a) => /Home$/.test(a.getAttribute("aria-label") ?? ""))!;
+    expect(brand).toHaveClass("min-w-0", "lg:shrink-0");
+    expect(brand).not.toHaveClass("shrink-0");
+    expect(screen.getByRole("button", { name: "Open menu" })).toHaveClass("shrink-0");
+  });
 });

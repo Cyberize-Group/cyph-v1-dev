@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Shield } from "lucide-react";
 import { BRAND } from "@/components/global/brand";
+import { peerOrigin } from "@/lib/appIdentity";
 
 const HomePageContent = () => {
   return (
@@ -30,16 +31,23 @@ const HomePageContent = () => {
           they&apos;re owed.
         </p>
 
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6 mb-12">
+        {/* CTAs (RWO-01 R-01, ruling AM-18). Two equal buttons: each takes half the row where both fit and the full
+            row where they do not, so they are the same size side by side or stacked. "Subscribe Now" keeps the green
+            look and opens the Account & Billing home page at its configured address (appIdentity, never typed in).
+            "Log in" is navy by the Director's exception for this one button only; navy is not a Button variant. */}
+        <div className="mb-12 flex max-w-[34rem] flex-wrap gap-4" data-testid="home-cta">
+          <Button asChild size="lg" className="flex-1 basis-64">
+            <a href={`${peerOrigin()}/`} data-testid="home-subscribe">
+              Subscribe Now
+              <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+            </a>
+          </Button>
           <Button
             asChild
             size="lg"
+            className="flex-1 basis-64 bg-brand-navy text-primary-foreground hover:bg-brand-navy-deep"
           >
-            <Link href="/auth">
-              Start free trial
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
+            <Link href="/auth" data-testid="home-log-in">Log in</Link>
           </Button>
         </div>
 

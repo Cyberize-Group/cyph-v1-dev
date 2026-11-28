@@ -15,6 +15,7 @@ import {
 import Logout from "../auth/Logout";
 import { User as SupabaseUser } from "@supabase/auth-js";
 import { AppRole } from "@/utils/app-role";
+import { peerOrigin } from "@/lib/appIdentity";
 
 // Identity is SERVER-RESOLVED and passed as props (Navbar Law — KIP-2 kill):
 // no client auth fetch, no persisted-store role read, no loading window.
@@ -42,7 +43,7 @@ const UserMenu = ({ user, role }: UserMenuProps) => {
       <div className="flex items-center px-3">
         <DropdownMenu>
           <DropdownMenuTrigger className="cursor-pointer rounded-full">
-            <Avatar>
+            <Avatar className="h-11 w-11">
               <AvatarFallback>{user.email?.[0]?.toUpperCase() ?? "U"}</AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
@@ -74,12 +75,14 @@ const UserMenu = ({ user, role }: UserMenuProps) => {
       >
         Log in
       </Link>
-      <Link
-        href="/auth"
+      {/* RWO-01 A1-1 (ruling AM-22): opens the Account & Billing home page at its configured address, like the
+          opening page's own Subscribe Now button. */}
+      <a
+        href={`${peerOrigin()}/`}
         className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 text-primary-foreground hover:bg-primary-hover"
       >
-        Start free trial
-      </Link>
+        Subscribe Now
+      </a>
     </>
   );
 };

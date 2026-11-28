@@ -209,7 +209,7 @@ const OwedBookScreen = () => {
       >
         <TabsList className="max-w-full justify-start overflow-x-auto">
           {TABS.map((t) => (
-            <TabsTrigger key={t.value} value={t.value} className="shrink-0">
+            <TabsTrigger key={t.value} value={t.value} className="min-h-11 shrink-0 rounded-md">
               {t.label}
             </TabsTrigger>
           ))}
