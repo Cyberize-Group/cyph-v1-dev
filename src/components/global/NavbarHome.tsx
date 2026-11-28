@@ -1,15 +1,18 @@
-import Image from "next/image";
 import Link from "next/link";
 import { User as SupabaseUser } from "@supabase/auth-js";
 import MobileNav from "./MobileNav";
 import NavAuthRefresh from "./NavAuthRefresh";
-import ThemeToggler from "./ThemeToggler";
 import UserMenu from "./UserMenu";
+import { BrandMark } from "./BrandMark";
+import { BRAND } from "./brand";
 import { AppRole } from "@/utils/app-role";
 
 // Identity arrives server-resolved from (public)/layout.tsx (Navbar Law: props,
 // never client-persisted state). Both may be null — logged-out visitors are a
 // first-class state on the public nav.
+// ABM007_FINAL (P-08): navy public header with the logo tile; the three links to
+// sections that do not exist (#features, #how-it-works, #pricing) and the theme
+// toggle (D-01) are removed.
 interface NavbarHomeProps {
   user: SupabaseUser | null;
   role: AppRole | null;
@@ -17,42 +20,16 @@ interface NavbarHomeProps {
 
 const NavbarHome = ({ user, role }: NavbarHomeProps) => {
   return (
-    <header className="relative flex items-center h-[84px] border-b-2 border-border px-7">
-      <Link href="/" className="flex items-center" aria-label="Cyber Pharma — Home">
-        <Image
-          src="/brand/logo-lockup.svg"
-          alt="Cyber Pharma"
-          width={180}
-          height={34}
-          priority
-        />
+    <header className="pb-on-dark relative flex items-center min-h-[72px] bg-navbar text-navbar-foreground px-4 sm:px-7">
+      <Link href="/" className="flex items-center rounded-md" aria-label={`${BRAND.name} — Home`}>
+        <BrandMark />
       </Link>
 
-      <nav className="ml-auto hidden lg:flex items-center h-full text-xs font-semibold tracking-wide">
-        <Link
-          href="#features"
-          className="uppercase px-5 h-full flex items-center text-muted-foreground hover:bg-accent/10 hover:text-foreground transition-colors"
-        >
-          Features
-        </Link>
-        <Link
-          href="#how-it-works"
-          className="uppercase px-5 h-full flex items-center text-muted-foreground hover:bg-accent/10 hover:text-foreground transition-colors"
-        >
-          How it works
-        </Link>
-        <Link
-          href="#pricing"
-          className="uppercase px-5 h-full flex items-center text-muted-foreground hover:bg-accent/10 hover:text-foreground transition-colors"
-        >
-          Pricing
-        </Link>
-        <ThemeToggler />
+      <nav aria-label="Account" className="ml-auto hidden lg:flex items-center gap-2 text-[15px]">
         <UserMenu user={user} role={role} />
       </nav>
 
       <div className="ml-auto flex items-center lg:hidden">
-        <ThemeToggler />
         <MobileNav user={user} role={role} />
       </div>
 

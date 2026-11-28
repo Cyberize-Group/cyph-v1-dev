@@ -19,7 +19,7 @@ export default function AuthError({ error, reset }: Props) {
     <main className="container mx-auto px-4 py-16 flex justify-center">
       <Card className="w-full max-w-xl">
         <CardHeader>
-          <CardTitle className="font-brand text-3xl font-light text-destructive">
+          <CardTitle className="font-brand text-3xl font-normal text-destructive">
             Something went wrong
           </CardTitle>
           <CardDescription className="text-muted-foreground">

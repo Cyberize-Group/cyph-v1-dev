@@ -15,10 +15,10 @@ const StoreCard = ({ store }: { store: OwnedStore }) => {
   return (
     <Link
       href={`/admin-portal/stores/${store.storeId}`}
-      className="block bg-card border border-border p-[18px] transition-colors hover:border-primary"
+      className="block pb-card p-[18px] transition-colors hover:border-heading"
     >
       <div className="flex items-start justify-between gap-2.5">
-        <h3 className="text-[17px] font-semibold tracking-tight">{store.name}</h3>
+        <h3 className="text-lg font-medium text-heading">{store.name}</h3>
         <StatusPill tone={top.tone}>{top.label}</StatusPill>
       </div>
       <p className="mt-[7px] text-[13px] text-muted-foreground">

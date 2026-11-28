@@ -25,8 +25,8 @@ export function LinkRequestForm() {
 
   return (
     <form onSubmit={onSubmit} noValidate className="space-y-3" data-testid="link-request-form">
-      <Label htmlFor="link-email" className="uppercase text-xs font-bold text-muted-foreground">Email me a sign-in link</Label>
-      <Input ref={emailRef} id="link-email" type="email" autoComplete="email" className="p-6 bg-muted" placeholder="Please Enter Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <Label htmlFor="link-email" className="pb-h2 block">Email me a sign-in link</Label>
+      <Input ref={emailRef} id="link-email" type="email" autoComplete="email" placeholder="Please Enter Email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <Button type="submit" variant="outline" className="w-full" disabled={state === "sending" || email.trim().length === 0}>
         {state === "sending" ? "Sending…" : "Email me a sign-in link"}
       </Button>

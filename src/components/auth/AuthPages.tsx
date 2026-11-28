@@ -1,25 +1,17 @@
 // APBM007A — pages for the sign-in confirmation button, link recovery, handoff recovery, account switch and the
 // signed-out state. Server-renderable; the two forms are plain HTML POSTs, so they work without script.
 import Link from "next/link";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { AuthShell } from "@/components/auth/AuthShell";
 import { LinkRequestForm } from "@/components/auth/LinkRequestForm";
 
-const primary = "inline-flex h-11 w-full items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
-const secondary = "inline-flex h-11 w-full items-center justify-center rounded-md border border-input bg-background px-5 text-sm font-medium hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+const primary = "inline-flex min-h-11 w-full items-center justify-center rounded-md bg-primary px-5 py-2.5 text-center text-base font-normal text-primary-foreground hover:bg-primary-hover";
+const secondary = "inline-flex min-h-11 w-full items-center justify-center rounded-md border border-input bg-card px-5 py-2.5 text-center text-base font-normal text-heading hover:bg-accent";
 
 function Frame({ title, description, children }: { title: string; description: string; children: React.ReactNode }) {
   return (
-    <div className="w-[400px] max-w-[calc(100vw-2rem)] mt-16">
-      <div className="p-4 border-t border-border bg-card">
-        <Card>
-          <CardHeader>
-            <CardTitle>{title}</CardTitle>
-            <CardDescription>{description}</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">{children}</CardContent>
-        </Card>
-      </div>
-    </div>
+    <AuthShell title={title} description={description}>
+      <div className="pb-card space-y-4 p-5">{children}</div>
+    </AuthShell>
   );
 }
 

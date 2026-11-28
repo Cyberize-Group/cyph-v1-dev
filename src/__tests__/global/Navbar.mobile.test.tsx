@@ -96,12 +96,18 @@ describe("Navbar mobile menu", () => {
       document.body.removeChild(popper);
     });
 
-    // Picking a theme is a deliberate menu action → it should close the menu
-    // (the guard above only prevents the ACCIDENTAL pointerdown close-through).
-    it("closes when a theme is selected from the menu", () => {
+    // ABM007_FINAL D-01: light only, so the menu carries no theme control. Choosing a link in the menu is a
+    // deliberate menu action and closes it (the guard above only prevents the ACCIDENTAL close-through).
+    it("renders no theme control (D-01)", () => {
       open();
       const panel = within(screen.getByRole("dialog"));
-      fireEvent.click(panel.getByTestId("theme-toggler"));
+      expect(panel.queryByTestId("theme-toggler")).not.toBeInTheDocument();
+    });
+
+    it("closes when a link in the menu is chosen", () => {
+      open();
+      const panel = within(screen.getByRole("dialog"));
+      fireEvent.click(panel.getByRole("link", { name: "Help" }));
       expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     });
 

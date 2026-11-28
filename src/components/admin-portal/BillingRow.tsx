@@ -54,9 +54,9 @@ const BillingRow = ({ line }: { line: BillingLine }) => {
   };
 
   return (
-    <div className="flex flex-col gap-3 bg-card border border-border p-4 md:flex-row md:items-center md:justify-between">
+    <div className="flex flex-col gap-3 pb-card p-4 md:flex-row md:items-center md:justify-between">
       <div className="min-w-0">
-        <p className="font-semibold">{line.storeName}</p>
+        <p className="font-semibold text-heading">{line.storeName}</p>
         <p className="text-[13px] text-muted-foreground">
           {planText(line)} · {line.amountLabel} · {when}
         </p>

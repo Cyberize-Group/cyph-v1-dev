@@ -14,7 +14,7 @@ interface MemberRosterProps {
 const MemberRoster = ({ members, onChanged }: MemberRosterProps) => {
   if (members.length === 0) {
     return (
-      <div className="bg-card border border-border">
+      <div className="pb-card">
         <EmptyState
           icon={<Users className="h-10 w-10" />}
           headline="No members yet"
@@ -25,7 +25,7 @@ const MemberRoster = ({ members, onChanged }: MemberRosterProps) => {
   }
 
   return (
-    <div className="bg-card border border-border px-4">
+    <div className="pb-card px-4">
       {members.map((m) => (
         <MemberRow key={m.memberId} member={m} onChanged={onChanged} />
       ))}

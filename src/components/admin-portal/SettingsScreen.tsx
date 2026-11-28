@@ -13,7 +13,7 @@ import type { OwnedStore, PharmacySettings } from "@/types/adminDemo";
 const Skeleton = () => (
   <div className="w-full max-w-[560px] space-y-5" data-testid="settings-skeleton">
     {Array.from({ length: 5 }).map((_, i) => (
-      <div key={i} className="h-12 bg-muted animate-pulse" />
+      <div key={i} className="h-12 rounded-md bg-disabled animate-pulse" />
     ))}
   </div>
 );
@@ -72,9 +72,9 @@ const SettingsScreen = () => {
         subtitle={isDemoMode() ? "Update your pharmacy information." : "The details stored for your pharmacies."}
       />
       {error ? (
-        <div className="mt-6 flex items-center gap-3 text-sm text-destructive">
+        <div className="pb-notice pb-tone-destructive mt-6 flex flex-wrap items-center gap-3 text-sm">
           <span>{error}</span>
-          <button type="button" className="underline" onClick={reload}>
+          <button type="button" className="font-semibold underline underline-offset-2" onClick={reload}>
             Retry
           </button>
         </div>

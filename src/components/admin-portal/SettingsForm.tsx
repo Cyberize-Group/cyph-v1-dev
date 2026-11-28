@@ -80,7 +80,7 @@ const SettingsForm = ({ settings }: { settings: PharmacySettings }) => {
             name={f.name}
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-xs font-bold uppercase text-muted-foreground">
+                <FormLabel className="text-[13px] font-medium text-muted-foreground">
                   {f.label}
                 </FormLabel>
                 <FormControl>

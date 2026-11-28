@@ -50,9 +50,9 @@ const InviteScreen = ({ storeId }: { storeId: string }) => {
 
   if (error) {
     return (
-      <div className="flex items-center gap-3 text-sm text-destructive">
+      <div className="pb-notice pb-tone-destructive flex flex-wrap items-center gap-3 text-sm">
         <span>{error}</span>
-        <button type="button" className="underline" onClick={reload}>
+        <button type="button" className="font-semibold underline underline-offset-2" onClick={reload}>
           Retry
         </button>
       </div>
@@ -85,7 +85,7 @@ const InviteScreen = ({ storeId }: { storeId: string }) => {
       </div>
 
       <div className="mt-10 w-full max-w-[560px]">
-        <h2 className="text-lg font-semibold">
+        <h2 className="text-lg font-medium text-heading">
           Pending invites · {pending.length}
         </h2>
         {pending.length === 0 ? (
@@ -93,7 +93,7 @@ const InviteScreen = ({ storeId }: { storeId: string }) => {
             No pending invites.
           </p>
         ) : (
-          <div className="mt-4 bg-card border border-border px-4">
+          <div className="mt-4 pb-card px-4">
             {pending.map((m) => (
               <MemberRow key={m.memberId} member={m} onChanged={reload} />
             ))}

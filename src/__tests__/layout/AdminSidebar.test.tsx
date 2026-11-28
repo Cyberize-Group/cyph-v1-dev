@@ -67,11 +67,14 @@ describe("AdminSidebar route-driven selection (U-1)", () => {
     expect(selectedLinks().map((l) => l.textContent)).toEqual([label]);
     for (const l of links()) {
       const on = l.textContent === label;
-      // Selected: solid coral fill with white text. Every other item: no fill, a coral outline on hover only.
-      expect(l.className.includes("bg-primary")).toBe(on);
-      expect(l.className.includes("text-primary-foreground")).toBe(on);
-      expect(l.className.includes("hover:border-primary")).toBe(!on);
-      expect(l).toHaveClass("focus-visible:ring-2");   // a visible keyboard focus ring on every item
+      // ABM007_FINAL brand contract 4.8: selected = ice fill, navy text, navy left rule (pb-rail-active). Every other
+      // item: no fill, an ice fill on hover only. The old solid fill is gone.
+      expect(l.className.includes("pb-rail-active")).toBe(on);
+      expect(l.className.includes("hover:bg-accent")).toBe(!on);
+      expect(l.className.includes("bg-primary")).toBe(false);
+      // A visible keyboard focus indicator on every item: the shared 2px :focus-visible outline from globals.css,
+      // which an item could only lose by suppressing the outline.
+      expect(l.className.includes("outline-none")).toBe(false);
     }
   };
 

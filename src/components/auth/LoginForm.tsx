@@ -16,13 +16,6 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { Button } from "@/components/ui/button";
 import Spinner from "@/components/common/Spinner";
 import { useRouter } from "next/navigation";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../ui/card";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useAuthStore } from "@/store/useAuthStore";
 import { LinkRequestForm } from "@/components/auth/LinkRequestForm";
@@ -96,32 +89,27 @@ const LoginForm = () => {
 
   return (
     <>
-      <Card>
-        <CardHeader>
-          <CardTitle>Login</CardTitle>
-          <CardDescription>
-            Log into your account with your credentials
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-2">
+      <section className="pb-card p-5" aria-labelledby="password-sign-in-heading">
+        <h2 id="password-sign-in-heading" className="pb-h2 mb-3">Sign in with your password</h2>
+        <div className="space-y-2">
           <Form {...form}>
             <form
               ref={formRef}
               onSubmit={form.handleSubmit(handleSubmit)}
-              className="space-y-8"
+              className="space-y-5"
             >
               <FormField
                 control={form.control}
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="uppercase text-xs font-bold text-muted-foreground">
+                    <FormLabel className="text-[13px] font-normal text-muted-foreground">
                       Email
                     </FormLabel>
                     <FormControl>
                       <Input
                         type="email"
-                        className="p-6 bg-muted"
+
                         placeholder="Please Enter Email"
                         {...field}
                       />
@@ -136,12 +124,12 @@ const LoginForm = () => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="uppercase text-xs font-bold text-muted-foreground">
+                    <FormLabel className="text-[13px] font-normal text-muted-foreground">
                       Password
                     </FormLabel>
                     <FormControl>
                       <PasswordInput
-                        className="p-6 bg-muted"
+
                         placeholder="Please Enter password"
                         {...field}
                       />
@@ -161,16 +149,16 @@ const LoginForm = () => {
                   the typed credentials in the address bar). */}
               <Button
                 disabled={isLoading || !hydrated}
-                className="w-full disabled:opacity-70"
+                className="w-full"
               >
                 Login
               </Button>
             </form>
           </Form>
-        </CardContent>
-      </Card>
+        </div>
+      </section>
       {/* APBM007A: emailed sign-in link, alongside the password form (password login is preserved). */}
-      <div className="mt-4 p-6 border border-border rounded-lg bg-card">
+      <div className="pb-card p-5">
         <LinkRequestForm />
       </div>
     </>

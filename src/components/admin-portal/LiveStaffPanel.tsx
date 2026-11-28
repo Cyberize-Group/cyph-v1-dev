@@ -80,7 +80,7 @@ export default function LiveStaffPanel({ storeId, storeName, canAppointAdmin }: 
       {message && <p role="status" className="text-sm text-foreground">{message}</p>}
       <p className="sr-only" aria-live="polite">{busyText}</p>
       <form
-        className="space-y-3 rounded-md border border-border bg-card p-4"
+        className="space-y-3 pb-card p-4"
         onSubmit={(e) => {
           e.preventDefault(); const email = emailRef.current?.value.trim() ?? ""; if (!email) return;
           // When the owner holds the store admin role, the only allowed disposition is to keep the owner (server-enforced).
@@ -88,15 +88,15 @@ export default function LiveStaffPanel({ storeId, storeName, canAppointAdmin }: 
           void run({ kind: "invite" }, () => post(`/api/stores/${storeId}/invitations`, body), (d) => deliveryText(d?.delivery));
         }}
       >
-        <h2 className="font-semibold text-foreground">Invite someone</h2>
+        <h2 className="pb-h2">Invite someone</h2>
         <div className="space-y-1">
           <Label htmlFor="invite-email">Email address</Label>
           <Input id="invite-email" ref={emailRef} type="email" required defaultValue="" autoComplete="off" />
         </div>
         <fieldset className="space-y-1">
           <legend className="text-sm font-medium text-foreground">Role</legend>
-          <label className="mr-4 text-sm text-foreground"><input type="radio" name="role" checked={role === "member"} onChange={() => setRole("member")} /> Member</label>
-          {canAppointAdmin && <label className="text-sm text-foreground"><input type="radio" name="role" checked={role === "admin"} onChange={() => setRole("admin")} /> Store admin</label>}
+          <label className="mr-4 inline-flex min-h-11 items-center gap-2 text-sm text-foreground"><input type="radio" name="role" checked={role === "member"} onChange={() => setRole("member")} /> Member</label>
+          {canAppointAdmin && <label className="inline-flex min-h-11 items-center gap-2 text-sm text-foreground"><input type="radio" name="role" checked={role === "admin"} onChange={() => setRole("admin")} /> Store admin</label>}
         </fieldset>
         {sendAdmin && (adminIsOwner ? (
           <p className="text-sm text-muted-foreground" data-testid="delegation-note">
@@ -118,8 +118,8 @@ export default function LiveStaffPanel({ storeId, storeName, canAppointAdmin }: 
         </Button>
       </form>
 
-      <section aria-labelledby="pending-title">
-        <h2 id="pending-title" className="font-semibold text-foreground">Invitations</h2>
+      <section aria-labelledby="pending-title" className="pb-card p-4">
+        <h2 id="pending-title" className="pb-h2">Invitations</h2>
         {invites.length === 0 ? <p className="text-sm text-muted-foreground">No invitations.</p> : (
           <ul className="mt-2 divide-y divide-border">
             {invites.map((i) => (
@@ -141,8 +141,8 @@ export default function LiveStaffPanel({ storeId, storeName, canAppointAdmin }: 
         )}
       </section>
 
-      <section aria-labelledby="members-title">
-        <h2 id="members-title" className="font-semibold text-foreground">People with access</h2>
+      <section aria-labelledby="members-title" className="pb-card p-4">
+        <h2 id="members-title" className="pb-h2">People with access</h2>
         <ul className="mt-2 divide-y divide-border">
           {members.map((m) => (
             <li key={m.memberId} className="flex flex-wrap items-center justify-between gap-2 py-2 text-sm">

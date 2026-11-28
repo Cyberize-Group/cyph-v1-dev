@@ -20,7 +20,7 @@ const Breadcrumb = ({ items }: { items: Crumb[] }) => {
                 <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               )}
               {c.href && !isLast ? (
-                <Link href={c.href} className="hover:text-foreground">
+                <Link href={c.href} className="pb-link-on-page">
                   {c.label}
                 </Link>
               ) : (

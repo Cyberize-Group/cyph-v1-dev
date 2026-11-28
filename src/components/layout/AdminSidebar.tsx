@@ -67,10 +67,10 @@ const AdminSidebar = () => {
   const selected = selectedAdminHref(pathname);
 
   return (
-    <Command className="bg-secondary">
+    <Command className="rounded-lg border border-border bg-card shadow-card">
       {onAdmin ? (
-        <nav aria-label="Admin Portal" className="px-8 py-1">
-          <p className="px-2 py-1.5 text-xs font-medium text-muted-foreground">Admin Portal</p>
+        <nav aria-label="Admin Portal" className="px-3 py-3">
+          <p className="pb-eyebrow px-3 py-1.5 text-muted-foreground">Admin Portal</p>
           <ul className="space-y-1">
             {ADMIN_ITEMS.map((item) => {
               const active = item.href === selected;
@@ -81,13 +81,12 @@ const AdminSidebar = () => {
                     aria-current={active ? "page" : undefined}
                     data-selected={active ? "true" : undefined}
                     className={cn(
-                      // Selected: solid coral fill, white text. Unselected hover: coral outline, no fill.
-                      // Keyboard focus: a visible ring, separate from the selection fill.
-                      "flex items-center rounded-sm border px-2 py-1.5 text-lg outline-none transition-colors",
-                      "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-secondary",
+                      // Selected (brand contract 4.8): ice fill, navy text, navy rule on the left edge.
+                      // Unselected hover: ice fill. Keyboard focus: the shared 2px outline.
+                      "flex min-h-11 items-center rounded-md px-3 py-2 text-[15px] transition-colors",
                       active
-                        ? "border-primary bg-primary font-bold text-primary-foreground"
-                        : "border-transparent text-foreground hover:border-primary",
+                        ? "pb-rail-active"
+                        : "text-foreground hover:bg-accent",
                     )}
                   >
                     {item.icon}

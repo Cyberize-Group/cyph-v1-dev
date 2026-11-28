@@ -48,12 +48,12 @@ const MemberRow = ({ member, onChanged }: MemberRowProps) => {
     <div className="flex flex-col gap-3 border-b border-border py-3.5 last:border-0 md:flex-row md:items-center md:justify-between">
       <div className="flex min-w-0 items-center gap-3">
         <Avatar className="h-10 w-10">
-          <AvatarFallback className="bg-info/15 text-info">
+          <AvatarFallback className="bg-accent text-heading">
             {member.initials}
           </AvatarFallback>
         </Avatar>
         <div className="min-w-0">
-          <p className="truncate font-semibold">{display}</p>
+          <p className="truncate font-semibold text-heading">{display}</p>
           <p className="truncate text-[13px] text-muted-foreground">
             {member.email}
             {member.jobTitle ? ` · ${member.jobTitle}` : ""}
@@ -64,8 +64,9 @@ const MemberRow = ({ member, onChanged }: MemberRowProps) => {
           People page, where access is managed; the demo-only account actions are not shown. */}
       {!isDemoMode() ? (
         <div className="flex items-center justify-between gap-3 md:justify-end">
-          <StatusPill tone={member.isOwner ? "info" : "neutral"}>{memberRoleLabel(member)}</StatusPill>
-          {storeId && !member.isOwner ? <Link className="text-xs underline" href={`/admin-portal/stores/${storeId}/invite`}>Manage access</Link> : null}
+          {/* ABM007_FINAL P-04: one neutral outlined role label, told apart by the word. */}
+          <span className="pb-role">{memberRoleLabel(member)}</span>
+          {storeId && !member.isOwner ? <Link className="pb-link text-sm" href={`/admin-portal/stores/${storeId}/invite`}>Manage access</Link> : null}
         </div>
       ) : (
       <div className="flex items-center justify-between gap-3 md:justify-end">

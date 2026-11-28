@@ -19,7 +19,7 @@ const EmptyState = ({ icon, headline, subcopy, action }: EmptyStateProps) => {
       <div className="text-muted-foreground" aria-hidden="true">
         {icon}
       </div>
-      <h3 className="text-lg font-semibold text-foreground">{headline}</h3>
+      <h3 className="text-lg font-medium text-heading">{headline}</h3>
       {subcopy && (
         <p className="text-sm text-muted-foreground max-w-md">{subcopy}</p>
       )}

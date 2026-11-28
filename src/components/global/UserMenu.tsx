@@ -41,7 +41,7 @@ const UserMenu = ({ user, role }: UserMenuProps) => {
     return (
       <div className="flex items-center px-3">
         <DropdownMenu>
-          <DropdownMenuTrigger className="cursor-pointer">
+          <DropdownMenuTrigger className="cursor-pointer rounded-full">
             <Avatar>
               <AvatarFallback>{user.email?.[0]?.toUpperCase() ?? "U"}</AvatarFallback>
             </Avatar>
@@ -70,13 +70,13 @@ const UserMenu = ({ user, role }: UserMenuProps) => {
     <>
       <Link
         href="/auth"
-        className="uppercase px-5 h-full flex items-center text-foreground hover:bg-accent/10 transition-colors"
+        className="pb-nav-item inline-flex min-h-11 items-center px-4"
       >
         Log in
       </Link>
       <Link
         href="/auth"
-        className="uppercase px-7 h-full flex items-center bg-primary text-primary-foreground font-bold hover:bg-primary/90 transition-colors"
+        className="inline-flex min-h-11 items-center rounded-md bg-primary px-5 text-primary-foreground hover:bg-primary-hover"
       >
         Start free trial
       </Link>

@@ -122,7 +122,7 @@ const MultiSelect = ({
           data-testid="multiselect-panel"
           role="listbox"
           aria-label={triggerLabel}
-          className="absolute z-50 mt-1 w-full bg-popover border border-border shadow-lg p-2 flex flex-col gap-2"
+          className="absolute z-50 mt-1 w-full rounded-md bg-popover border border-border shadow-menu p-2 flex flex-col gap-2"
         >
           <div className="flex items-center gap-2">
             <Search className="h-4 w-4 text-muted-foreground" />
@@ -140,7 +140,7 @@ const MultiSelect = ({
               type="button"
               onClick={() => onChange([])}
               data-testid="multiselect-clear"
-              className="text-left text-xs uppercase tracking-wide text-muted-foreground hover:text-foreground py-1 px-2 border-b border-border"
+              className="min-h-9 text-left text-[13px] font-medium text-heading hover:bg-accent py-1 px-2 border-b border-border"
             >
               Clear all
             </button>
@@ -154,7 +154,7 @@ const MultiSelect = ({
               filtered.map((opt) => (
                 <label
                   key={opt}
-                  className="flex items-center gap-2 px-2 py-1.5 hover:bg-accent/10 cursor-pointer text-sm"
+                  className="flex min-h-9 items-center gap-2 rounded-sm px-2 py-1.5 hover:bg-accent cursor-pointer text-sm"
                 >
                   <input
                     type="checkbox"

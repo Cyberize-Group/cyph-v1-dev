@@ -74,7 +74,7 @@ export default function LiveAuditLog() {
       <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-end">
         <div className="space-y-1">
           <Label htmlFor="audit-filter">Show</Label>
-          <select id="audit-filter" className="flex h-10 border border-input bg-background px-3 text-sm text-foreground" value={filter} onChange={(e) => setFilter(e.target.value as typeof filter)}>
+          <select id="audit-filter" className="flex min-h-11 rounded-md border border-input bg-card px-2.5 text-[15px] text-foreground" value={filter} onChange={(e) => setFilter(e.target.value as typeof filter)}>
             {FILTERS.map((f) => <option key={f.value} value={f.value}>{f.label}</option>)}
           </select>
         </div>
@@ -85,9 +85,9 @@ export default function LiveAuditLog() {
       {!detailed && <p className="mt-2 text-xs text-muted-foreground" role="note">Detailed descriptions need the latest database update; some events show generic wording.</p>}
       <div className="mt-4">
         {error ? (
-          <div className="text-sm text-destructive" role="alert">{error} <button className="underline" onClick={() => setReload((r) => r + 1)}>Retry audit</button></div>
+          <div className="pb-notice pb-tone-destructive text-sm" role="alert">{error} <button className="font-semibold underline underline-offset-2" onClick={() => setReload((r) => r + 1)}>Retry audit</button></div>
         ) : loading ? (
-          <div className="space-y-2" data-testid="audit-skeleton" aria-busy="true">{Array.from({ length: 6 }).map((_, i) => <div key={i} className="h-10 bg-muted animate-pulse" />)}</div>
+          <div className="space-y-2" data-testid="audit-skeleton" aria-busy="true">{Array.from({ length: 6 }).map((_, i) => <div key={i} className="h-10 rounded-md bg-disabled animate-pulse" />)}</div>
         ) : (<>
           <DataTable<Row> columns={COLUMNS} rows={rows} getRowKey={(r) => r.id}
             emptyState={<EmptyState icon={<ScrollText className="h-10 w-10" />} headline="No matching activity" subcopy={more ? "Load older events to look further back." : "Changes across your pharmacies will show up here."} />} />
